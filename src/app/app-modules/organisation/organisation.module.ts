@@ -6,6 +6,9 @@ import { UserComponent } from './user/user.component';
 import { CenterComponent } from './center/center.component';
 import { ClubComponent } from './club/club.component';
 import { OrganismComponent } from './organism/organism.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AreaComponent } from './area/area.component';
+import { MainOfficeComponent } from './main-office/main-office.component';
 
 
 @NgModule({
@@ -13,11 +16,15 @@ import { OrganismComponent } from './organism/organism.component';
     UserComponent,
     CenterComponent,
     ClubComponent,
-    OrganismComponent
+    OrganismComponent,
+    AreaComponent,
+    MainOfficeComponent
   ],
   imports: [
     CommonModule,
-    OrganisationRoutingModule
+    OrganisationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class OrganisationModule { }

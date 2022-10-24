@@ -944,5 +944,117 @@
             </ul>
         </nav>
     </div>
+</div>
 
+
+<!-- add new user -->
+<div id="addUser" class="modal h-modal" [ngClass]="openAddModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Nouveau Utilisateur</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUserModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
+                        <div class="field">
+                            <label>Nom(s) *</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addUserForm.get('firstName')?.errors?.['required'] && addUserForm.get('firstName')?.touched">
+                                <small class="text-police" translate>enter the user's first name</small>
+                             </div>
+                        </div>
+                        <div class="field">
+                            <label>Prénom(s) *</label>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addUserForm.get('lastName')?.errors?.['required'] && addUserForm.get('lastName')?.touched">
+                                <small class="text-police" translate>enter the user's last name</small>
+                             </div>
+                        </div>
+                        <div class="field">
+                            <label>Numéro de Tel. *</label>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Phone Number"
+                                    formControlName="phoneNumber">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addUserForm.get('phoneNumber')?.errors?.['required'] && addUserForm.get('phoneNumber')?.touched">
+                                <small class="text-police" translate>enter the user's phone number</small>
+                             </div>
+                        </div>
+                        <div class="field">
+                            <label>Email *</label>
+                            <div class="control">
+                                <input type="email" class="input" placeholder="Email Address" formControlName="userName">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addUserForm.get('userName')?.errors?.['required'] && addUserForm.get('userName')?.touched">
+                                <small class="text-police" translate>enter the user's email</small>
+                             </div>
+                        </div>
+    
+                        <div class="field">
+                            <label>Password *</label>
+                            <div class="control">
+                                <input type="password" class="input" placeholder="Password" formControlName="password">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addUserForm.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched">
+                                <small class="text-police" translate>enter the user's password</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Confirm Password *</label>
+                            <div class="control">
+                                <input type="password" class="input" placeholder="Confirm Password"
+                                    formControlName="confPassword">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addUserForm.get('confPassword')?.errors?.['required'] && addUserForm.get('confPassword')?.touched">
+                                <small class="text-police" translate>enter the user's confirm password</small>
+                            </div>
+                        </div>
+
+                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
+
+                        <div class="field">
+                            <label>User's Type *</label><br>
+                            <select formControlName="userType" class="form-select" aria-label="Default select example">
+                                <option>Select a Type</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="MEMBER">MEMBER</option>
+                                <option value="MUTUALIST">MUTUALIST</option>
+                                <option value="OPERATOR">OPERATOR</option>
+                            </select>
+                            <div class="text-danger"
+                            *ngIf="addUserForm.get('userType')?.errors?.['required'] && addUserForm.get('userType')?.touched">
+                            <small class="text-police" translate>select user's type</small>
+                        </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addUserForm.invalid" >Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUserModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
 </div>

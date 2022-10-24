@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span (click) = "onAddClub()">Add Club</span>
+            <span (click) = "onAddMainOffice()">Add Main office</span>
         </button>
     </div>
 </div>
@@ -949,12 +949,12 @@
 
 
 <!-- add new club -->
-<div class="modal h-modal" [ngClass]="openAddClub">
+<div class="modal h-modal" [ngClass]="openAddMainOffice">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajouter un club</h3>
+                <h3>Ajouter un bureau principale</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -966,19 +966,19 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitClub()">
+                    <form class="modal-form" [formGroup]="addMainOfficeForm" (ngSubmit)="onSubmitMainOffice()">
                         <div class="field">
                             <label>Appelation *</label><br>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Appelation" formControlName="name">
                             </div>
                             <div class="text-danger"
-                                *ngIf="addClubForm.get('name')?.errors?.['required'] && addClubForm.get('name')?.touched">
+                                *ngIf="addMainOfficeForm.get('name')?.errors?.['required'] && addMainOfficeForm.get('name')?.touched">
                                 <small class="text-police" translate>entrer l'appelation du centre</small>
                             </div>
                         </div><br>
                         <div class="control login">
-                            <button [disabled]="addClubForm.invalid"
+                            <button [disabled]="addMainOfficeForm.invalid"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
                         </div>
                     </form>

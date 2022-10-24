@@ -25,7 +25,7 @@
                     <div class="dropdown-block">
                         <div class="h-avatar is-small">
                             <span class="avatar is-fake is-h-green">
-                              <span>H</span>
+                              <span>M</span>
                             </span>
                         </div>
                         <div class="meta">
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <h3 class="no-mb">Layouts</h3>
+        <h3 class="no-mb">Management</h3>
         <div class="panel-close">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </div>
@@ -78,6 +78,16 @@
             <li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Club</a>
+                </div>
+            </li>
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Area</a>
+                </div>
+            </li>
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowMainOffice()">Main office</a>
                 </div>
             </li>
             <li class="has-children">
@@ -540,7 +550,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">List View</h1>
+                    <h1 class="title is-4">Organisation</h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -633,7 +643,8 @@
             <app-user *ngIf="isUser"></app-user>
             <app-center *ngIf="isCenter"></app-center>
             <app-club *ngIf="isClub"></app-club>
-           
+            <app-area *ngIf="isArea"></app-area>
+            <app-main-office *ngIf="isMainOffice"></app-main-office>
         </div>
     </div>
 

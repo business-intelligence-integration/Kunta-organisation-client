@@ -14,6 +14,8 @@ export class OrganismComponent implements OnInit {
   isUser: boolean = true;
   isCenter: boolean = false;
   isClub: boolean = false;
+  isArea: boolean = false;
+  isMainOffice: boolean = false;
 
   constructor() { }
 
@@ -36,19 +38,41 @@ export class OrganismComponent implements OnInit {
   onShowUser(){
     this.isCenter = false;
     this.isClub = false;
-    this.isUser = true
+    this.isArea = false;
+    this.isMainOffice = false;
+    this.isUser = true;
   }
 
   onShowCenter(){
     this.isUser = false
     this.isClub = false;
+    this.isArea = false;
+    this.isMainOffice = false;
     this.isCenter = true;
   }
 
   onShowClub(){
     this.isCenter = false;
     this.isUser = false
+    this.isArea = false;
+    this.isMainOffice = false;
     this.isClub = true; 
+  }
+
+  onShowArea(){
+    this.isCenter = false;
+    this.isUser = false
+    this.isClub = false; 
+    this.isMainOffice = false;
+    this.isArea = true;
+  }
+
+  onShowMainOffice(){
+    this.isCenter = false;
+    this.isUser = false
+    this.isClub = false; 
+    this.isArea = false;
+    this.isMainOffice = true;
   }
 
 }

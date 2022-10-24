@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrlApi: 'kunta-organisation-service.herokuapp.com/'
+  baseUrlApi: 'http://kunta-organisation-service.herokuapp.com/'
 };
 
 /*

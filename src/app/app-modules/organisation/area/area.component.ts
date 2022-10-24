@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-center',
-  templateUrl: './center.component.html',
-  styleUrls: ['./center.component.scss']
+  selector: 'app-area',
+  templateUrl: './area.component.html',
+  styleUrls: ['./area.component.scss']
 })
-export class CenterComponent implements OnInit {
+export class AreaComponent implements OnInit {
+  openAddArea: string = "";
+  addAreaForm!: FormGroup
 
-  openAddCenter: string = "";
-  addCenterForm!: FormGroup
   constructor(private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
@@ -17,20 +17,20 @@ export class CenterComponent implements OnInit {
   }
 
   formInit() {
-    this.addCenterForm = this.formBuilder.group({
+    this.addAreaForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
     })
   }
 
-  onAddCenter(){
-    this.openAddCenter = "is-active";
+  onAddArea(){
+    this.openAddArea = "is-active";
   }
 
   onCloseAddModal(){
-    this.openAddCenter = "";
+    this.openAddArea = "";
   }
 
-  onSubmitCenter(){
+  onSubmitArea(){
 
   }
 

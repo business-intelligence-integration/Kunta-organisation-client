@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignModule } from './sign/sign.module';
 import { UiModule } from './ui/ui.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UiModule } from './ui/ui.module';
     ReactiveFormsModule,
     DashboardModule,
     SignModule,
-    UiModule
+    UiModule,
+    HttpClientModule
     
   ],
   providers: [],

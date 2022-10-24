@@ -946,3 +946,46 @@
     </div>
 
 </div>
+
+<!-- add new center -->
+<div class="modal h-modal" [ngClass]="openAddCenter">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter un centre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addCenterForm" (ngSubmit)="onSubmitCenter()">
+                        <div class="field">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addCenterForm.get('name')?.errors?.['required'] && addCenterForm.get('name')?.touched">
+                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="addCenterForm.invalid"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseAddModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>

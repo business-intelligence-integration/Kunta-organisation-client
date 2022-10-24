@@ -40,25 +40,35 @@
                         <!--Form-->
                         <div class="form-card">
 
-                            <form>
+                            <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
                                 <div id="signin-form" class="login-form">
                                     <!-- Input -->
                                     <div class="field">
                                         <div class="control has-icon">
-                                            <input class="input" type="text" placeholder="Username">
+                                            <input class="input" type="text" placeholder="Adresse mail" formControlName="email">
                                             <span class="form-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                                 </span>
                                         </div>
+
+                                        <div class="text-danger"
+                                        *ngIf="signInForm.get('email')?.errors?.['required'] && signInForm.get('email')?.touched">
+                                          <small class="text-police">Veuillez entrer votre adresse mail</small>
+                                         </div>
                                     </div>
                                     <!-- Input -->
                                     <div class="field">
                                         <div class="control has-icon">
-                                            <input class="input" type="password" placeholder="Password">
+                                            <input class="input" type="password" placeholder="Password" formControlName="password">
                                             <span class="form-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                                 </span>
                                         </div>
+
+                                        <div class="text-danger"
+                                        *ngIf="signInForm.get('password')?.errors?.['required'] && signInForm.get('password')?.touched">
+                                          <small class="text-police">Veuillez entrer votre mot de passe</small>
+                                         </div>
                                     </div>
 
                                     <div class="setting-item">
@@ -73,7 +83,7 @@
 
                                     <!-- Submit -->
                                     <div class="control login">
-                                        <button (click) = "onLogin()" class="button h-button is-primary is-bold is-fullwidth is-raised">Sign In</button>
+                                        <button [disabled]="signInForm.invalid" class="button h-button is-primary is-bold is-fullwidth is-raised">Sign In</button>
                                     </div>
 
 
