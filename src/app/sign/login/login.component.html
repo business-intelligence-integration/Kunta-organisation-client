@@ -69,6 +69,10 @@
                                         *ngIf="signInForm.get('password')?.errors?.['required'] && signInForm.get('password')?.touched">
                                           <small class="text-police">Veuillez entrer votre mot de passe</small>
                                          </div>
+
+                                         <div class="text-danger"
+                                         *ngIf="isNotLogin">
+                                        <small class="text-police">le mot de passe ou l'email est incorrecte.</small>
                                     </div>
 
                                     <div class="setting-item">
@@ -80,11 +84,12 @@
                                             <span>Remember Me</span>
                                         </div>
                                     </div>
-
                                     <!-- Submit -->
                                     <div class="control login">
                                         <button [disabled]="signInForm.invalid" class="button h-button is-primary is-bold is-fullwidth is-raised">Sign In</button>
                                     </div>
+                                   
+                               </div>
 
 
                                 </div>

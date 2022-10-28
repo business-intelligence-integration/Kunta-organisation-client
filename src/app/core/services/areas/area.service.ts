@@ -1,9 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Organism } from '../../classes/organism';
+import { UtilityService } from '../utility/utility.service';
 
+const httpOptions ={
+  headers: new HttpHeaders({
+    'content-type':'application/json'
+  })
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -11,25 +17,27 @@ export class AreaService {
 
   private baseUrl = environment.baseUrlApi
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private utilityService: UtilityService) {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
+  }
   
-  findAllAreas():Observable<Organism[]>{
-    return this.httpClient.get<Organism[]>(this.baseUrl + 'areas');
+  findAllAreas():Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'areas', httpOptions);
   }
 
-  createArea(area: Organism):Observable<Organism>{
-    return this.httpClient.post<Organism>(this.baseUrl + 'areas', area);
+  createArea(area: Organism):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'areas', area, httpOptions);
   }
 
-  getAreaById(id: number):Observable<Organism>{
-    return this.httpClient.get<Organism>(this.baseUrl + 'areas/'+ id, {});
+  getAreaById(id: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'areas/'+ id, httpOptions);
   }
 
-  updateAreaById(area: Organism, id: number):Observable<Organism>{
-    return this.httpClient.put<Organism>(this.baseUrl + 'areas/'+ id, area);
+  updateAreaById(area: Organism, id: number):Observable<any>{
+    return this.httpClient.put<any>(this.baseUrl + 'areas/'+ id, area, httpOptions);
   }
 
-  deleteAreaById(id: number):Observable<Organism>{
-    return this.httpClient.delete<Organism>(this.baseUrl + 'areas/'+ id, {});
+  deleteAreaById(id: number):Observable<any>{
+    return this.httpClient.delete<any>(this.baseUrl + 'areas/'+ id, httpOptions);
   }
 }

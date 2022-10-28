@@ -1,9 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Organism } from '../../classes/organism';
+import { UtilityService } from '../utility/utility.service';
 
+const httpOptions ={
+  headers: new HttpHeaders({
+    'content-type':'application/json'
+  })
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -11,25 +17,27 @@ export class CenterService {
 
   private baseUrl = environment.baseUrlApi
 
-  constructor(private httpClient: HttpClient) {}
-
-  findAllCenters():Observable<Organism[]>{
-    return this.httpClient.get<Organism[]>(this.baseUrl + 'centers');
+  constructor(private httpClient: HttpClient, private utilityService: UtilityService) {
+    httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
 
-  createCenter(center: Organism):Observable<Organism>{
-    return this.httpClient.post<Organism>(this.baseUrl + 'centers', center);
+  findAllCenters():Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'centers', httpOptions);
   }
 
-  getCenterById(id: number):Observable<Organism>{
-    return this.httpClient.get<Organism>(this.baseUrl + 'centers/'+ id, {});
+  createCenter(center: Organism):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'centers', center, httpOptions);
   }
 
-  updateCenterById(center: Organism, id: number):Observable<Organism>{
-    return this.httpClient.put<Organism>(this.baseUrl + 'centers/'+ id, center);
+  getCenterById(id: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'centers/'+ id,httpOptions);
   }
 
-  deleteCenterById(id: number):Observable<Organism>{
-    return this.httpClient.delete<Organism>(this.baseUrl + 'centers/'+ id, {});
+  updateCenterById(center: Organism, id: number):Observable<any>{
+    return this.httpClient.put<any>(this.baseUrl + 'centers/'+ id, center, httpOptions);
+  }
+
+  deleteCenterById(id: number):Observable<any>{
+    return this.httpClient.delete<any>(this.baseUrl + 'centers/'+ id,httpOptions);
   }
 }

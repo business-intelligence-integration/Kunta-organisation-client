@@ -47,7 +47,10 @@ export class RegisterComponent implements OnInit {
       alert("les mots de passe sont differents !")
     }else{
       this.authentificationSerice.signup(this.user).subscribe((user)=>{
+        console.log(" this.user",  this.user);
+        
         this.user = user;
+        this.router.navigateByUrl('login');
       })
     }
   }
