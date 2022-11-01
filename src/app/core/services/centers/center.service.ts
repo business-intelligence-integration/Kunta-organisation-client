@@ -40,4 +40,8 @@ export class CenterService {
   deleteCenterById(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'centers/'+ id,httpOptions);
   }
+
+  addAreaToCenter(idCenter: number, idArea: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'centers/' + idCenter + '/add-area/' + idArea, httpOptions);
+  }
 }

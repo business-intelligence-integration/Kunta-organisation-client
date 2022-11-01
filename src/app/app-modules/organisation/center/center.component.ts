@@ -157,8 +157,6 @@ export class CenterComponent implements OnInit {
   }
 
   updateCenter(center: Organism, id: number){
-    console.log("id::", id);
-    
     this.centerService.updateCenterById(center, id).subscribe(()=>{
       this.getAllCenters();
       this.onCloseUpdateModale();

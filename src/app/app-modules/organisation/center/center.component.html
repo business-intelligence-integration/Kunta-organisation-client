@@ -59,8 +59,8 @@
                         <span class="light-text" data-filter-match="">{{ center.name }}</span>
                     </div>
 
-                
-                    <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
+                    <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-area']"
+                    [queryParams]="{id: center.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                     <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                        

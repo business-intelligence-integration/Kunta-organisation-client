@@ -23,7 +23,21 @@ export class ClubService {
     return this.httpClient.get<any>(this.baseUrl + 'clubs', httpOptions);
   }
 
+  // addMemberToClub(idClub: number, idMember: number):Observable<any>{
+  //   httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
+  //   console.log("httpOptions::", httpOptions);
+  //   return this.httpClient.patch<any>(this.baseUrl + 'clubs/'  + idClub + '/add-member/' + idMember, httpOptions);
+  // }
+
+  addMemberToClub(idClub: number, idMember: number):Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
+    console.log("httpOptions::", httpOptions);
+    return this.httpClient.post<any>(this.baseUrl + 'clubs/'  + idClub + '/add-member/' + idMember, httpOptions);
+  }
+
   createclub(club: Organism):Observable<any>{
+    httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
+    console.log("httpOptions::", httpOptions);
     return this.httpClient.post<any>(this.baseUrl + 'clubs', club, httpOptions);
   }
 
@@ -38,5 +52,7 @@ export class ClubService {
   deleteclubById(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'clubs/'+ id, httpOptions);
   }
+
+
   
 }

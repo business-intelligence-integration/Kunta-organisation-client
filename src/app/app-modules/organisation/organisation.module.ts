@@ -16,6 +16,7 @@ import { OperatorComponent } from './user/operator/operator.component';
 import { ViewMorePostComponent } from './main-office/view-more-post/view-more-post.component';
 import { ViewMoreComponent } from './club/view-more/view-more.component';
 import { ViewMoreAreClubComponent } from './area/view-more-are-club/view-more-are-club.component';
+import { ViewMoreAreaComponent } from './center/view-more-area/view-more-area.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ViewMoreAreClubComponent } from './area/view-more-are-club/view-more-ar
     OperatorComponent,
     ViewMorePostComponent,
     ViewMoreComponent,
-    ViewMoreAreClubComponent
+    ViewMoreAreClubComponent,
+    ViewMoreAreaComponent
   ],
   imports: [
     CommonModule,

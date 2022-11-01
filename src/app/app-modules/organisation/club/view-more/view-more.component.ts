@@ -5,6 +5,7 @@ import { Organism } from 'src/app/core/classes/organism';
 import { User } from 'src/app/core/classes/user';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UserService } from 'src/app/core/services/users/user.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-view-more',
@@ -18,12 +19,14 @@ export class ViewMoreComponent implements OnInit {
   homeSider: string = "";
   isPushed: string = "";
   activeListUser: string = "";
+  idClub: number = 0;
 
   openMemberModal: string = "";
 
   addMemberForm!: FormGroup;
   isPilote: boolean = false;
   isMember: boolean = true;
+  clubMembers: User[] = [];
   members: User[] = [];
   pilots: User[] = [];
   user: User;
@@ -32,22 +35,21 @@ export class ViewMoreComponent implements OnInit {
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private clubService: ClubService,
-    private userService: UserService) {
+    private userService: UserService,
+    private utilityService: UtilityService) {
       this.user = new User();
      }
 
   ngOnInit(): void {
     this.getClub();
     this.formInit();
+    this.getAllMembers();
   }
 
   
   formInit() {
     this.addMemberForm = this.formBuilder.group({
-      firstName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
-      userName: new FormControl(null, Validators.required),
+      id: new FormControl(null, Validators.required),
     })
 
   }
@@ -78,9 +80,10 @@ export class ViewMoreComponent implements OnInit {
   getClub(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.clubService.getclubById(params['id']).subscribe((res)=>{
-        this.members = res.data.members
+        this.clubMembers = res.data.members
         this.pilots = res.data.pilots
-        console.log("res: ", res.data);
+        this.idClub = res.data.id
+        console.log("clubs: ", res);
       });
     })
   }
@@ -105,12 +108,27 @@ export class ViewMoreComponent implements OnInit {
 
   onAddMember(){
     const formValue = this.addMemberForm.value;
-    this.user.firstName = formValue.firstName;
-    this.user.lastName = formValue.lastName;
-    this.user.email = formValue.userName;
-    this.user.phoneNumber = formValue.phoneNumber;
-    this.user.userName = formValue.userName;
+    this.addMemberToClub(this.idClub, formValue.id);
+  }
 
+  addMemberToClub(idClub: number, idMember: number){
+    this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
+      this.getClub();
+      this.closeMemeberModal();
+      this.utilityService.showMessage(
+        'success',
+        'Member successfully added',
+        '#06d6a0',
+        'white'
+      );
+    })
+  }
+
+  getAllMembers(){
+    //à remplacer avec member
+    this.userService.getAllUsers().subscribe((res)=>{
+      this.members= res.data;
+    })
   }
 
   // addMember(member: User){
