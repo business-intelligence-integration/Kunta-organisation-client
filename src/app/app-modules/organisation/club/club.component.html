@@ -17,9 +17,7 @@
 </div>
 
 <div class="page-content-inner">
-
     <div class="flex-list-wrapper flex-list-v1">
-
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
@@ -60,7 +58,8 @@
                     </div>
 
                 
-                    <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
+                    <a _ngcontent-nct-c62="" [routerLink]="['/view-more']"
+                    [queryParams]="{id: club.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     <a _ngcontent-nct-c62="" (click)="onUpdateClub(club.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                     <a _ngcontent-nct-c62="" (click)="onDeleteClub(club.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                        
@@ -139,7 +138,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajouter un club</h3>
+                <h3>Modifier le club</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseUpdateModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -153,7 +152,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updateClubForm" (ngSubmit)="onSubmitUpdateClub()">
                         <div class="control">
-                            <input type="text" class="input" [(ngModel)]="club.id" hidden formControlName="id">
+                            <input type="hidden" class="input" [(ngModel)]="club.id" hidden formControlName="id">
                         </div>
                         <div class="field">
                             <label>Appelation *</label><br>
@@ -167,7 +166,7 @@
                         </div><br>
                         <div class="control login">
                             <button [disabled]="updateClubForm.invalid"
-                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
                         </div>
                     </form>
                 </div>

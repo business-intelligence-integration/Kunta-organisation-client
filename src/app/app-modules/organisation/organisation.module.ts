@@ -9,6 +9,13 @@ import { OrganismComponent } from './organism/organism.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AreaComponent } from './area/area.component';
 import { MainOfficeComponent } from './main-office/main-office.component';
+import { AdminComponent } from './user/admin/admin.component';
+import { MemberComponent } from './user/member/member.component';
+import { MutulistComponent } from './user/mutulist/mutulist.component';
+import { OperatorComponent } from './user/operator/operator.component';
+import { ViewMorePostComponent } from './main-office/view-more-post/view-more-post.component';
+import { ViewMoreComponent } from './club/view-more/view-more.component';
+import { ViewMoreAreClubComponent } from './area/view-more-are-club/view-more-are-club.component';
 
 
 @NgModule({
@@ -18,7 +25,14 @@ import { MainOfficeComponent } from './main-office/main-office.component';
     ClubComponent,
     OrganismComponent,
     AreaComponent,
-    MainOfficeComponent
+    MainOfficeComponent,
+    AdminComponent,
+    MemberComponent,
+    MutulistComponent,
+    OperatorComponent,
+    ViewMorePostComponent,
+    ViewMoreComponent,
+    ViewMoreAreClubComponent
   ],
   imports: [
     CommonModule,

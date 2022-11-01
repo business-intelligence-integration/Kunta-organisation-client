@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MemberComponent } from 'src/app/app-modules/organisation/user/member/member.component';
 import { environment } from 'src/environments/environment';
 import { User } from '../../classes/user';
 
@@ -32,7 +33,7 @@ export class UserService {
     return this.httpClient.get<any>(this.baseUrl + 'users/'+ id, httpOptions);
   }
 
-  updateMemberById(member: any, id: number):Observable<any>{
+  updateMemberById(member: User, id: number):Observable<any>{
     return this.httpClient.put<any>(this.baseUrl + 'users/'+ id, member, httpOptions);
   }
 
@@ -57,6 +58,14 @@ export class UserService {
   }
   countAllUsers(): Observable<any[]>{
     return this.httpClient.get<any[]>(this.baseUrl + 'users/all', httpOptions);
+  }
+
+  addMemberToClub(idClub: MemberComponent, idMember: number): Observable<any[]>{
+    return this.httpClient.get<any[]>(this.baseUrl + 'clubs/' + idClub + '/add-member/' + idMember, httpOptions);
+  }
+
+  addPilotToClub(idClub: MemberComponent, idPilot: number): Observable<any[]>{
+    return this.httpClient.get<any[]>(this.baseUrl + 'clubs/' + idClub + '/add-pilot/' + idPilot, httpOptions);
   }
 
 }

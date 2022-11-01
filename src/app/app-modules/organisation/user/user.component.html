@@ -118,9 +118,9 @@
                     <form class="modal-form" [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
                         <div class="field">
                             <div class="mb-2">
-                                <label>User's Type *</label><br>
-                                <select class="form-select" formControlName="userType" aria-label="Default select example">
-                                    <option>Select a Type</option>
+                                <label>Types d'utilisateurs *</label><br>
+                                <select class="input_comp" formControlName="userType" aria-label="Default select example"  [(ngModel)]="ngSelect">
+                                    <option value="1" disabled>--Select a Type--</option>
                                     <option value="ADMIN">ADMIN</option>
                                     <option value="MEMBER">MEMBER</option>
                                     <option value="MUTUALIST">MUTUALIST</option>
@@ -219,7 +219,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Nouveau Utilisateur</h3>
+                <h3>Modifier l'utilisateur</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateUserModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -233,7 +233,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updateUserForm" (ngSubmit)="onSubmitUpdateUser()">
                         <div class="control">
-                            <input type="text" hidden class="input" [(ngModel)]="user.id" formControlName="id">
+                            <input type="hidden" hidden class="input" [(ngModel)]="user.id" formControlName="id">
                         </div>
                         <div class="field">
                             <label>Nom(s) *</label>
@@ -241,7 +241,7 @@
                                 <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
                             </div>
                             <div class="text-danger"
-                                *ngIf="addUserForm.get('firstName')?.errors?.['required'] && addUserForm.get('firstName')?.touched">
+                                *ngIf="updateUserForm.get('firstName')?.errors?.['required'] && updateUserForm.get('firstName')?.touched">
                                 <small class="text-police" translate>enter the user's first name</small>
                              </div>
                         </div>
@@ -251,7 +251,7 @@
                                 <input type="text" class="input" [(ngModel)]="user.lastName" placeholder="LastName" formControlName="lastName">
                             </div>
                             <div class="text-danger"
-                                *ngIf="addUserForm.get('lastName')?.errors?.['required'] && addUserForm.get('lastName')?.touched">
+                                *ngIf="updateUserForm.get('lastName')?.errors?.['required'] && updateUserForm.get('lastName')?.touched">
                                 <small class="text-police" translate>enter the user's last name</small>
                              </div>
                         </div>
@@ -262,7 +262,7 @@
                                     formControlName="phoneNumber">
                             </div>
                             <div class="text-danger"
-                                *ngIf="addUserForm.get('phoneNumber')?.errors?.['required'] && addUserForm.get('phoneNumber')?.touched">
+                                *ngIf="updateUserForm.get('phoneNumber')?.errors?.['required'] && updateUserForm.get('phoneNumber')?.touched">
                                 <small class="text-police" translate>enter the user's phone number</small>
                              </div>
                         </div>
@@ -272,7 +272,7 @@
                                 <input type="email" class="input" [(ngModel)]="user.userName" placeholder="Email Address" formControlName="userName">
                             </div>
                             <div class="text-danger"
-                                *ngIf="addUserForm.get('userName')?.errors?.['required'] && addUserForm.get('userName')?.touched">
+                                *ngIf="updateUserForm.get('userName')?.errors?.['required'] && updateUserForm.get('userName')?.touched">
                                 <small class="text-police" translate>enter the user's email</small>
                              </div>
                         </div>
@@ -280,7 +280,7 @@
 
                        
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addUserForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateUserForm.invalid" >Save</button>
                         </div>
                     </form>
                 </div>

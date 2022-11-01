@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  ngSelect: any = "1";
   openAddModal: string = "";
   openUpdateModal: string = "";
   addUserForm!: FormGroup;
@@ -82,7 +83,27 @@ export class UserComponent implements OnInit {
   }
 
   onSubmitUpdateUser(){
+    const formValue = this.updateUserForm.value;
+    this.user.firstName = formValue.firstName;
+    this.user.lastName = formValue.lastName;
+    this.user.email = formValue.userName;
+    this.user.phoneNumber = formValue.phoneNumber;
+    this.user.userName = formValue.userName
+    this.updateUser(this.user, formValue.id)
+  }
 
+  updateUser(user: User, id: number){
+    console.log("user:", user);
+    this.userService.updateMemberById(user, id).subscribe(()=>{
+      this.getAllUsers();
+      this.closeUpdateUserModal();
+      this.utilityService.showMessage(
+        'success',
+        'User successfully update',
+        '#06d6a0',
+        'white'
+      );
+    })
   }
 
   onDeleteUser(idUser: number){

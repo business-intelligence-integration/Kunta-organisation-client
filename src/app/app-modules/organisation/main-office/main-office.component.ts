@@ -13,14 +13,16 @@ import Swal from 'sweetalert2';
 export class MainOfficeComponent implements OnInit {
 
   openAddMainOffice: string = "";
-  addMainOfficeForm!: FormGroup
+  addMainOfficeForm!: FormGroup;
+  updateMainOfficeForm!: FormGroup;
   mainOffices: Organism[] = [];
   mainOffice: Organism;
+  openUpdateMainOffice: string =""
   constructor(private formBuilder: FormBuilder,  
     private mainofficeService: MainOfficeService,
     private utilityService: UtilityService) {
       this.mainOffice = new Organism();
-     }
+    }
 
   ngOnInit(): void {
     this.formInit();
@@ -29,6 +31,11 @@ export class MainOfficeComponent implements OnInit {
 
   formInit() {
     this.addMainOfficeForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required),
+    })
+
+    this.updateMainOfficeForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     })
   }
@@ -41,7 +48,7 @@ export class MainOfficeComponent implements OnInit {
     this.openAddMainOffice = "";
   }
 
-  onSubmitMainOffice(){
+ onSubmitMainOffice(){
     const formValue = this.addMainOfficeForm.value;
     this.mainOffice.name = formValue.name
     this.mainofficeService.createMainOffice(this.mainOffice).subscribe(()=>{
@@ -55,9 +62,9 @@ export class MainOfficeComponent implements OnInit {
         'white'
       );
     });
-  }
+ }
 
-  getAllMainOffice(){
+ getAllMainOffice(){
     this.mainofficeService.findAllOffices().subscribe((res)=>{
       this.mainOffices = res.data;
       console.log(this.mainOffices);
@@ -66,7 +73,29 @@ export class MainOfficeComponent implements OnInit {
   }
 
   onUpdateMainOffice(id: number){
+    this.mainofficeService.getById(id).subscribe((res)=>{
+      this.mainOffice = res.data;
+      this.openUpdateMainOffice = "is-active"
+    })
+  }
 
+  onSubmitUpdateMainOffice(){
+    const formValue = this.updateMainOfficeForm.value;
+    this.mainOffice.name = formValue.name;
+    this.updateMainOffice(this.mainOffice, formValue.id);
+  }
+
+  updateMainOffice(mainOffice: Organism, id: number){
+    this.mainofficeService.updateOffice(mainOffice, id).subscribe(()=>{
+      this.getAllMainOffice();
+      this.onCloseUpdateModal()
+      this.utilityService.showMessage(
+        'success',
+        'Main office successfully updated',
+        '#06d6a0',
+        'white'
+      );
+    })
   }
 
   onDeleteMainOffice(id: number){
@@ -123,5 +152,10 @@ export class MainOfficeComponent implements OnInit {
         }
       });
   }
+
+  onCloseUpdateModal(){
+    this.openUpdateMainOffice = "";
+  }
+
 
 }

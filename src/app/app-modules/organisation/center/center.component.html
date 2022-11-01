@@ -136,7 +136,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajouter un centre</h3>
+                <h3>Modifier le centre</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseUpdateModale()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -149,9 +149,7 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updateCenterForm" (ngSubmit)="onSubmitUpdateCenter()">
-                        <div class="control">
-                            <input type="number"  [(ngModel)]="center.id" class="input" hidden formControlName="id">
-                        </div>
+                        <input type="hidden"  [(ngModel)]="center.id" class="input" hidden formControlName="id">
                         <div class="field">
                             <label>Appelation *</label><br>
                             <div class="control">
@@ -164,7 +162,7 @@
                         </div><br>
                         <div class="control login">
                             <button [disabled]="updateCenterForm.invalid"
-                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
                         </div>
                     </form>
                 </div>

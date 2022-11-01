@@ -40,4 +40,8 @@ export class AreaService {
   deleteAreaById(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'areas/'+ id, httpOptions);
   }
+
+  addClubToArea(idArea: number, idClub: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'areas/' + idArea + '/add-club/' + idClub, httpOptions);
+  }
 }

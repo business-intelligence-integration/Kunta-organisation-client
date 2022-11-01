@@ -65,37 +65,7 @@
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
-            <li class="has-children" [ngClass]="activeListUser">
-                <div class="collapse-wrap">
-                    <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Users <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                </div>
-                <ul [style.display]="wrapdwonListUser">
-                    <li>
-                        <a (click)="clickOnAdmin()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Admin</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a (click)="clickOnMember()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Member</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a (click)="clickOnMutualist()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Mutualist</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a (click)="clickOnOperator()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Operator</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+          
             <!-- <li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowUser()">Users <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -123,7 +93,7 @@
                 </ul>
             </li> -->
 
-            <li>
+            <!-- <li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowCenter()">Centers</a>
                 </div>
@@ -133,16 +103,7 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Club</a>
                 </div>
             </li>
-            <li>
-                <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Area</a>
-                </div>
-            </li>
-            <li>
-                <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowMainOffice()">Main office</a>
-                </div>
-            </li>
+      -->
             <!-- <li class="has-children">
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link">Flex Lists <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -603,7 +564,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Organisation</h1>
+                    <h1 class="title is-4">Centers</h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -693,17 +654,72 @@
                 </div>
             </div>
 
-            <app-user *ngIf="isUser" ></app-user>
-            <app-center *ngIf="isCenter"></app-center>
-            <app-club *ngIf="isClub" ></app-club>
-            <app-area *ngIf="isArea"></app-area>
-            <app-main-office *ngIf="isMainOffice"></app-main-office>
-
-            <app-admin *ngIf="isAdmin"></app-admin>
-            <app-member *ngIf="isMember"></app-member>
-            <app-mutulist *ngIf=""></app-mutulist>
-            <app-operator *ngIf="isOperator"></app-operator>
+            
+<div class="list-flex-toolbar">
+    <div class="control has-icon">
+        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <div class="form-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
     </div>
 
+    <div class="buttons">
+        <button class="button h-button is-primary is-elevated">
+            <span class="icon">
+              <i aria-hidden="true" class="fas fa-plus"></i>
+          </span>
+            <span (click) = "onOpenAddCenter()">Ajouter un centre</span>
+        </button>
+    </div>
 </div>
+
+
+<div class="page-content-inner">
+
+    <div class="tile-grid tile-grid-v1">
+
+        <!--List Empty Search Placeholder -->
+        <div class="page-placeholder custom-text-filter-placeholder is-hidden">
+            <div class="placeholder-content">
+                <img class="light-image" src="assets/img/illustrations/placeholders/search-6.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-6-dark.svg" alt="">
+                <h3>We couldn't find any matching results.</h3>
+                <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
+                    search terms you've entered. Please try different search terms or criteria.</p>
+            </div>
+        </div>
+
+        <!--Tile Grid v1-->
+        <div class="columns is-multiline">
+
+            <!--Grid item-->
+            <div class="column is-4" *ngFor="let center of centers">
+                <div class="tile-grid-item">
+                    <div class="tile-grid-item-inner">
+                        <!-- <div class="h-avatar is-medium">
+                            <img class="avatar" src="assets/img/avatars/photos/29.jpg" data-demo-src="assets/img/avatars/photos/29.jpg" alt="" data-user-popover="25">
+                            <img class="badge" src="assets/img/icons/stacks/python.svg" data-demo-src="assets/img/icons/stacks/python.svg" alt="">
+                        </div> -->
+                        <div class="meta">
+                            <span class="dark-inverted">{{center.id}}</span>
+                            <span>{{center.name}}</span>
+                        </div>
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger">
+                            <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                    <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    </div>
+    </div>
+
+</div>
+
+
+

@@ -12,7 +12,9 @@ import Swal from 'sweetalert2';
 })
 export class AreaComponent implements OnInit {
   openAddArea: string = "";
+  openUpdateArea: string = "";
   addAreaForm!: FormGroup;
+  updateAreaForm!: FormGroup;
   areas: Organism[] = [];
   area: Organism;
 
@@ -29,6 +31,11 @@ export class AreaComponent implements OnInit {
 
   formInit() {
     this.addAreaForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required),
+    })
+
+    this.updateAreaForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     })
   }
@@ -68,7 +75,33 @@ export class AreaComponent implements OnInit {
   }
 
   onUpdateArea(id: number){
+    this.areaService.getAreaById(id).subscribe((res)=>{
+      this.area = res.data;
+      this.openUpdateArea = 'is-active';
+    })
+    
+  }
+  
 
+  updateAre(area: Organism, id: number){
+    this.areaService.updateAreaById(area, id).subscribe(()=>{
+      this.onCloseUpdateModal();
+      this.getAllAreas();
+      this.utilityService.showMessage(
+        'success',
+        'Area successfully updated',
+        '#06d6a0',
+        'white'
+      );
+    })
+  }
+
+  onSubmitUpdateArea(){
+    const formValue = this.updateAreaForm.value;
+    this.area.name = formValue.name;
+    console.log("this.area::", this.area);
+    
+    this.updateAre(this.area, formValue.id);
   }
 
   onDeleteArea(id: number){
@@ -124,5 +157,9 @@ export class AreaComponent implements OnInit {
           });
         }
       });
+  }
+
+  onCloseUpdateModal(){
+    this.openUpdateArea = '';
   }
 }

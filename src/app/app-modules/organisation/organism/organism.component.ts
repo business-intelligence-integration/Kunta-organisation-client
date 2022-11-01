@@ -32,6 +32,7 @@ export class OrganismComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.areNotUsers();
   }
 
   activeHomeSider() {
@@ -52,6 +53,7 @@ export class OrganismComponent implements OnInit {
   }
 
   onShowCenter(){
+    this.areNotUsers();
     this.isUser = false
     this.isClub = false;
     this.isArea = false;
@@ -60,6 +62,7 @@ export class OrganismComponent implements OnInit {
   }
 
   onShowClub(){
+    this.areNotUsers();
     this.isCenter = false;
     this.isUser = false
     this.isArea = false;
@@ -68,6 +71,7 @@ export class OrganismComponent implements OnInit {
   }
 
   onShowArea(){
+    this.areNotUsers();
     this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
@@ -76,6 +80,7 @@ export class OrganismComponent implements OnInit {
   }
 
   onShowMainOffice(){
+    this.areNotUsers();
     this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
@@ -84,6 +89,7 @@ export class OrganismComponent implements OnInit {
   }
 
   onDisplayUserList(){
+    this.areNotUsers();
     this.isCenter = false;
     this.isClub = false;
     this.isArea = false;
@@ -99,6 +105,8 @@ export class OrganismComponent implements OnInit {
   }
 
   clickOnAdmin(){
+    this.areNotOrganisations()
+    this.isUser = false;
     this.isMember = false;
     this.isOperator = false;
     this.isMutulist = false;
@@ -106,6 +114,8 @@ export class OrganismComponent implements OnInit {
   }
 
   clickOnMember(){
+    this.areNotOrganisations()
+    this.isUser = false;
     this.isOperator = false;
     this.isMutulist = false;
     this.isAdmin = false;
@@ -113,17 +123,37 @@ export class OrganismComponent implements OnInit {
   }
 
   clickOnMutualist(){
+    this.areNotOrganisations()
+    this.isUser = false;
     this.isOperator = false;
     this.isAdmin = false;
     this.isMember = false;
     this.isMutulist = true;
   }
 
+
   clickOnOperator(){
+    this.areNotOrganisations()
+    this.isUser = false;
     this.isAdmin = false;
     this.isMember = false;
     this.isMutulist = false;
     this.isOperator = true;
+  }
+
+  areNotOrganisations(){
+    this.isUser = false
+    this.isClub = false;
+    this.isArea = false;
+    this.isMainOffice = false;
+    this.isCenter = false;
+  }
+
+  areNotUsers(){
+    this.isAdmin = false;
+    this.isMember = false;
+    this.isMutulist = false;
+    this.isOperator = false;
   }
 
 }
