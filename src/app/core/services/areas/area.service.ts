@@ -42,6 +42,10 @@ export class AreaService {
   }
 
   addClubToArea(idArea: number, idClub: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'areas/' + idArea + '/add-club/' + idClub, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/add-club/${idClub}`, {}, httpOptions);
+  }
+
+  removeClubFromArea(idArea: number, idClub: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/remove-club/${idClub}`, {}, httpOptions);
   }
 }

@@ -102,7 +102,7 @@ export class ViewMoreComponent implements OnInit {
     this.openMemberModal = "is-active";
   }
 
-  closeMemeberModal(){
+  closeMemberModal(){
     this.openMemberModal = "";
   }
 
@@ -114,7 +114,7 @@ export class ViewMoreComponent implements OnInit {
   addMemberToClub(idClub: number, idMember: number){
     this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
       this.getClub();
-      this.closeMemeberModal();
+      this.closeMemberModal();
       this.utilityService.showMessage(
         'success',
         'Member successfully added',

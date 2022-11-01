@@ -1,4 +1,6 @@
+
 <div id="layouts-sidebar" class="sidebar-panel is-generic" [ngClass]="homeSider">
+   
     <div class="subpanel-header">
 
         <div class="dropdown project-dropdown dropdown-trigger is-spaced">
@@ -587,7 +589,7 @@
     data-mobile-item="#home-sidebar-menu-mobile">
     <div class="page-content-wrapper">
         <div class="page-content is-relative">
-
+            
             <div class="page-title has-text-centered">
                 <!-- Sidebar Trigger -->
                 <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
@@ -603,7 +605,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Organisation</h1>
+                    <h1 class="title is-4">List des clubs</h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -693,6 +695,7 @@
                 </div>
             </div>
 
+            <a routerLink="/organization" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
 
             <div class="list-flex-toolbar">
                 <div class="control has-icon">
@@ -729,106 +732,30 @@
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
-                            <span class="is-grow">User</span>
-                            <span>Location</span>
-                            <span>Industry</span>
-                            <span>Status</span>
-                            <span>Relations</span>
+                            <span class="is-grow">Id</span>
+                            <span>Name</span>
                             <span class="cell-end">Actions</span>
                         </div>
 
                         <div class="flex-list-inner">
                             <!--Table item-->
-                            <div class="flex-table-item">
+                            <div class="flex-table-item" *ngFor="let club of clubsOfArea">
                                 <div class="flex-table-cell is-media is-grow">
-                                    <div class="h-avatar is-medium">
-                                        <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="" data-user-popover="3">
-                                        <img class="badge" src="assets/img/icons/flags/united-states-of-america.svg" data-demo-src="assets/img/icons/flags/united-states-of-america.svg" alt="">
-                                    </div>
                                     <div>
-                                        <span class="item-name dark-inverted" data-filter-match="">Erik K.</span>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{ club.id }}</span>
                                         <span class="item-meta">
-                                          <span data-filter-match="">Product Manager</span>
+                                          <span data-filter-match="">{{ club.name }}</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell" data-th="Location">
-                                    <span class="light-text" data-filter-match="">New York, NY</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Industry">
-                                    <span class="light-text" data-filter-match="">Software</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Status">
-                                    <span class="tag is-success is-rounded" data-filter-match="">Online</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Relations">
-                                    <div class="avatar-stack is-pushed-mobile">
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/7.jpg" data-demo-src="assets/img/avatars/photos/7.jpg" alt="" data-user-popover="0">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-fake is-info" data-user-popover="34">
-                                              <span>JD</span>
-                                            </span>
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/27.jpg" data-demo-src="assets/img/avatars/photos/27.jpg" alt="" data-user-popover="10">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-more">
-                                              <span class="inner">
-                                                  <span>+2</span>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div>
+                                    <span class="light-text" data-filter-match="">{{ club.name }}</span>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <div class="is-trigger" aria-haspopup="true">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-eye"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>View</span>
-                                                        <span>View user details</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-briefcase"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Projects</span>
-                                                        <span>View user projects</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-calendar"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Schedule</span>
-                                                        <span>Schedule a meeting</span>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-trash-can-alt"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Remove</span>
-                                                        <span>Remove from list</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                    
+                                        <a _ngcontent-nct-c62="" (click)="onDeleteClub(club.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+
                                     </div>
                                 </div>
                             </div>
@@ -879,7 +806,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitclub()">
                         <label>clubs *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                        <select class="input_comp" aria-label="Default select example" formControlName="id">
                             <option>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
 

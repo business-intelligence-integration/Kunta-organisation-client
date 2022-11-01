@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./main-office.component.scss']
 })
 export class MainOfficeComponent implements OnInit {
-
+  bureau = "Bureau principale";
   openAddMainOffice: string = "";
   addMainOfficeForm!: FormGroup;
   updateMainOfficeForm!: FormGroup;

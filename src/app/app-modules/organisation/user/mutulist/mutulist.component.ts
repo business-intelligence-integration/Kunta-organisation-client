@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mutulist.component.scss']
 })
 export class MutulistComponent implements OnInit {
-
+  Mutulistes: string = "Mutulistes";
   constructor() { }
 
   ngOnInit(): void {

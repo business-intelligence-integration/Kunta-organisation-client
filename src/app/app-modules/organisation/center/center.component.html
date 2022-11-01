@@ -36,34 +36,34 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Appelation</span>
-                <!-- <span>Numéro tél</span>
-                <span>Email</span> -->
+                <span>Name</span>
                 <span class="cell-end">Actions</span>
             </div>
 
-            <div class="flex-list-inner" *ngFor="let center of centers">
+            <div class="flex-list-inner">
                 <!--Table item-->
-                <div class="flex-table-item">
+                <div class="flex-table-item" *ngFor="let center of centers">
                     <div class="flex-table-cell is-media is-grow">
-                      
                         <div>
                             <span class="item-name dark-inverted" data-filter-match="">{{ center.id }}</span>
-                            <!-- <span class="item-meta">
-                              <span data-filter-match="">{{ user.lastName }}</span>
-                            </span> -->
+                            <span class="item-meta">
+                              <span data-filter-match="">{{ center.name }}</span>
+                            </span>
                         </div>
                     </div>
-                    
-                    <div class="flex-table-cell" data-th="name">
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ center.name }}</span>
                     </div>
+                    <div class="flex-table-cell cell-end" data-th="Actions">
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                        
+                            <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-area']"
+                        [queryParams]="{id: center.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
 
-                    <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-area']"
-                    [queryParams]="{id: center.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                    <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                    <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                                       
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -693,7 +693,7 @@
                 </div>
             </div>
 
-
+            <a routerLink="/organization" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             <div class="list-flex-toolbar">
                 <div class="control has-icon">
                     <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
@@ -729,60 +729,26 @@
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
-                            <span class="is-grow">User</span>
-                            <span>Location</span>
-                            <span>Industry</span>
-                            <span>Status</span>
-                            <span>Relations</span>
+                            <span class="is-grow">Id</span>
+                            <span>name</span>
                             <span class="cell-end">Actions</span>
                         </div>
 
-                        <div class="flex-list-inner">
+                        <div class="flex-list-inner" *ngFor="let area of areasOfCenter">
                             <!--Table item-->
                             <div class="flex-table-item">
                                 <div class="flex-table-cell is-media is-grow">
-                                    <div class="h-avatar is-medium">
-                                        <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="" data-user-popover="3">
-                                        <img class="badge" src="assets/img/icons/flags/united-states-of-america.svg" data-demo-src="assets/img/icons/flags/united-states-of-america.svg" alt="">
-                                    </div>
                                     <div>
-                                        <span class="item-name dark-inverted" data-filter-match="">Erik K.</span>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{ area.id }}</span>
                                         <span class="item-meta">
-                                          <span data-filter-match="">Product Manager</span>
+                                          <span data-filter-match="">{{ area.name }}</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell" data-th="Location">
-                                    <span class="light-text" data-filter-match="">New York, NY</span>
+                                    <span class="light-text" data-filter-match="">{{ area.name }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Industry">
-                                    <span class="light-text" data-filter-match="">Software</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Status">
-                                    <span class="tag is-success is-rounded" data-filter-match="">Online</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Relations">
-                                    <div class="avatar-stack is-pushed-mobile">
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/7.jpg" data-demo-src="assets/img/avatars/photos/7.jpg" alt="" data-user-popover="0">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-fake is-info" data-user-popover="34">
-                                              <span>JD</span>
-                                            </span>
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/27.jpg" data-demo-src="assets/img/avatars/photos/27.jpg" alt="" data-user-popover="10">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-more">
-                                              <span class="inner">
-                                                  <span>+2</span>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                         <div class="is-trigger" aria-haspopup="true">
@@ -866,7 +832,7 @@
         <div class="modal-card">
             <header class="modal-card-head">
                 <h3>Ajout Zone</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeClubModal()">
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeAreaModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-x">
@@ -883,9 +849,9 @@
                             <option>--Selectionnez une zone--</option>
                             <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }} </span> </option>
 
-                              <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">
-                                <small class="text-police" translate>select the room </small>
-                           </div> -->
+                              <div class="text-danger" *ngIf="addAreaForm.get('id')?.errors?.['required'] && addAreaForm.get('id')?.touched">
+                                <small class="text-police" translate>Veuillez selectionner la zone </small>
+                           </div>
                         </select><br><br>
                
         
@@ -897,7 +863,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeClubModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeAreaModal()">Cancel</a>
             </div>
         </div>
     </div>

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./club.component.scss']
 })
 export class ClubComponent implements OnInit {
+  Clubs: string = "Clubs";
   openAddClub: string = "";
   openUpdateClub: string = "";
   addClubForm!: FormGroup;

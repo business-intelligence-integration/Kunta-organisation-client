@@ -36,40 +36,38 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Appelation</span>
-                <!-- <span>Numéro tél</span>
-                <span>Email</span> -->
+                <span>Name</span>
                 <span class="cell-end">Actions</span>
             </div>
 
-            <div class="flex-list-inner" *ngFor="let area of areas">
+            <div class="flex-list-inner">
                 <!--Table item-->
-                <div class="flex-table-item">
+                <div class="flex-table-item" *ngFor="let area of areas">
                     <div class="flex-table-cell is-media is-grow">
-                      
                         <div>
                             <span class="item-name dark-inverted" data-filter-match="">{{ area.id }}</span>
-                            <!-- <span class="item-meta">
-                              <span data-filter-match="">{{ user.lastName }}</span>
-                            </span> -->
+                            <span class="item-meta">
+                              <span data-filter-match="">{{ area.name }}</span>
+                            </span>
                         </div>
                     </div>
-                    
-                    <div class="flex-table-cell" data-th="name">
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area.name }}</span>
                     </div>
-
-                
-                    <a _ngcontent-nct-c62="" [routerLink]="['/view-more-club']"
+                    <div class="flex-table-cell cell-end" data-th="Actions">
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                            <a _ngcontent-nct-c62="" [routerLink]="['/view-more-club']"
                     [queryParams]="{id: area.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     <a _ngcontent-nct-c62="" (click)="onUpdateArea(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                     <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                                       
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
-
+        
         <!--Table Pagination-->
         <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
             <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>

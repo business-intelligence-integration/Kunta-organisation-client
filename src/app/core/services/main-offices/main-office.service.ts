@@ -40,4 +40,12 @@ export class MainOfficeService {
   deleteMainOffice(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'main-office/'+ id, httpOptions);
   }
+
+  addCenterToMainOffice(idMainOffice: number, idCenter: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-center/${idCenter}`, {}, httpOptions);
+  }
+  
+  removeCenterFromMainOffice(idMainOffice: number, idCenter: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-center/${idCenter}`, {}, httpOptions);
+  }
 }

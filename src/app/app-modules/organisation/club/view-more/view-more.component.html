@@ -223,7 +223,7 @@
                     </a>
                 </div>
             </div>
-
+            <a routerLink="/organization" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             <div class="list-flex-toolbar">
                 <div class="control has-icon">
                     <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
@@ -369,6 +369,7 @@
                         </div>
 
                     </div>
+                    
 
                     <!--Table Pagination-->
                     <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
@@ -545,7 +546,7 @@
         <div class="modal-card">
             <header class="modal-card-head">
                 <h3>Ajout Membre</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeMemeberModal()">
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeMemberModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-x">
@@ -576,7 +577,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeMemeberModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeMemberModal()">Cancel</a>
             </div>
         </div>
     </div>

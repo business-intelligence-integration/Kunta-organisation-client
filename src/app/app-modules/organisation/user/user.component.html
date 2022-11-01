@@ -1,9 +1,11 @@
 <div class="list-flex-toolbar">
+    
     <div class="control has-icon">
         <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
         <div class="form-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
+
     </div>
 
     <div class="buttons">
@@ -31,52 +33,54 @@
             </div>
         </div>
 
+        
         <div class="flex-table">
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <span class="is-grow">Nom</span>
+                <span class="is-grow">Id</span>
+                <span>Nom</span>
                 <span>Prenom</span>
                 <span>Numéro tél</span>
                 <span>Email</span>
                 <span class="cell-end">Actions</span>
             </div>
 
-            <div class="flex-list-inner" *ngFor="let user of users">
+            <div class="flex-list-inner">
                 <!--Table item-->
-                <div class="flex-table-item">
+                <div class="flex-table-item" *ngFor="let user of users">
                     <div class="flex-table-cell is-media is-grow">
-                        <!-- <div class="h-avatar is-medium">
-                            <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="" data-user-popover="3">
-                            <img class="badge" src="assets/img/icons/flags/united-states-of-america.svg" data-demo-src="assets/img/icons/flags/united-states-of-america.svg" alt="">
-                        </div> -->
                         <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ user.firstName }}</span>
+                            <span class="item-name dark-inverted" data-filter-match="">{{ user.id }}</span>
                             <span class="item-meta">
                               <span data-filter-match="">{{ user.lastName }}</span>
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ user.lastName }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ user.firstName }}</span>
                     </div>
-
-                    <div class="flex-table-cell" data-th="Numéro tél">
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
                     </div>
-
-                    <div class="flex-table-cell" data-th="Email">
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ user.email }}</span>
                     </div>
-                  
-                    <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
-                    <a _ngcontent-nct-c62="" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                    <a _ngcontent-nct-c62="" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                                       
+                    <div class="flex-table-cell cell-end" data-th="Actions">
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                            <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
+                        <a _ngcontent-nct-c62="" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
+
 
         <!--Table Pagination-->
         <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
@@ -280,7 +284,7 @@
 
                        
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateUserForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateUserForm.invalid" >Modifier</button>
                         </div>
                     </form>
                 </div>

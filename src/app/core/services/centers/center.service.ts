@@ -42,6 +42,6 @@ export class CenterService {
   }
 
   addAreaToCenter(idCenter: number, idArea: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'centers/' + idCenter + '/add-area/' + idArea, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-area/${idArea}`, {}, httpOptions);
   }
 }

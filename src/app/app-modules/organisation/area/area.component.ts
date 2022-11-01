@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./area.component.scss']
 })
 export class AreaComponent implements OnInit {
+  Zones: string = "Zones";
   openAddArea: string = "";
   openUpdateArea: string = "";
   addAreaForm!: FormGroup;

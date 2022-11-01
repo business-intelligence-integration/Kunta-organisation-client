@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
   updateUserForm!: FormGroup;
   users: User[];
   user: User;
+  Utilisateurs: string = "Utilisateurs"
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;

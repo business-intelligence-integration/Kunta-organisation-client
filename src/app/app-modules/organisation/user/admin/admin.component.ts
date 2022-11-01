@@ -7,7 +7,7 @@ import { UserService } from 'src/app/core/services/users/user.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
+  Admins: string = "Admins";
   constructor(private userService:UserService) { }
 
   ngOnInit(): void {

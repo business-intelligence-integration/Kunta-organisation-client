@@ -7,22 +7,19 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OrganismComponent implements OnInit {
 
-  // @Input() isAdmin!: boolean
-  // @Input() isMember!: boolean;
-  // @Input() isOperator!: boolean;
-  // @Input() isMutulist!: boolean; 
-
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
   activeListUser: string = "";
+  title: string = "";
   wrapdwonListUser: string ="display-block";
   isUser: boolean = true;
   isCenter: boolean = false;
   isClub: boolean = false;
   isArea: boolean = false;
   isMainOffice: boolean = false;
+  dynamicTitle: string = "Utilisateurs";
 
   isAdmin: boolean = true;
   isMember: boolean = false;
@@ -59,6 +56,7 @@ export class OrganismComponent implements OnInit {
     this.isArea = false;
     this.isMainOffice = false;
     this.isCenter = true;
+    this.dynamicTitle = "Centres";
   }
 
   onShowClub(){
@@ -68,6 +66,7 @@ export class OrganismComponent implements OnInit {
     this.isArea = false;
     this.isMainOffice = false;
     this.isClub = true; 
+    this.dynamicTitle = "Clubs";
   }
 
   onShowArea(){
@@ -77,6 +76,7 @@ export class OrganismComponent implements OnInit {
     this.isClub = false; 
     this.isMainOffice = false;
     this.isArea = true;
+    this.dynamicTitle = "Zones";
   }
 
   onShowMainOffice(){
@@ -86,6 +86,7 @@ export class OrganismComponent implements OnInit {
     this.isClub = false; 
     this.isArea = false;
     this.isMainOffice = true;
+    this.dynamicTitle = "Bureau principale";
   }
 
   onDisplayUserList(){
@@ -95,6 +96,7 @@ export class OrganismComponent implements OnInit {
     this.isArea = false;
     this.isMainOffice = false;
     this.isUser = true;
+    this.dynamicTitle = "Utilisateurs";
     if(this.activeListUser == ""){
       this.activeListUser = "active" 
       this.wrapdwonListUser ="block"
@@ -111,6 +113,7 @@ export class OrganismComponent implements OnInit {
     this.isOperator = false;
     this.isMutulist = false;
     this.isAdmin = true;
+    this.dynamicTitle = "Admins";
   }
 
   clickOnMember(){
@@ -120,6 +123,7 @@ export class OrganismComponent implements OnInit {
     this.isMutulist = false;
     this.isAdmin = false;
     this.isMember = true;
+    this.dynamicTitle = "Membres";
   }
 
   clickOnMutualist(){
@@ -129,6 +133,7 @@ export class OrganismComponent implements OnInit {
     this.isAdmin = false;
     this.isMember = false;
     this.isMutulist = true;
+    this.dynamicTitle = "Mutulistes";
   }
 
 
@@ -139,6 +144,7 @@ export class OrganismComponent implements OnInit {
     this.isMember = false;
     this.isMutulist = false;
     this.isOperator = true;
+    this.dynamicTitle = "Operateurs";
   }
 
   areNotOrganisations(){

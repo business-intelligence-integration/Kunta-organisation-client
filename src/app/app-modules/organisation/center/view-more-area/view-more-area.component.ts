@@ -43,10 +43,10 @@ export class ViewMoreAreaComponent implements OnInit {
 
   getCenter(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.areaService.getAreaById(params['id']).subscribe((res)=>{
-        this.areasOfCenter = res.data;
+      this.centerService.getCenterById(params['id']).subscribe((res)=>{
+        this.areasOfCenter = res.data.areas;
         this.idCenter = res.data.id
-        console.log("areas::", res);
+        console.log("center::", res);
         
       });
     })
@@ -69,7 +69,7 @@ export class ViewMoreAreaComponent implements OnInit {
     this.openAreaModal = "is-active"
   }
 
-  closeClubModal(){
+  closeAreaModal(){
     this.openAreaModal = ""
   }
 
@@ -80,6 +80,8 @@ export class ViewMoreAreaComponent implements OnInit {
 
   addArea(idCenter: number, idArea: number){
     this.centerService.addAreaToCenter(idCenter, idArea).subscribe(()=>{
+      this.getCenter();
+      this.closeAreaModal();
       this.utilityService.showMessage(
         'success',
         'Area successfully added to center',

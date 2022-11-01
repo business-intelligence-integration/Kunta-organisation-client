@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./center.component.scss']
 })
 export class CenterComponent implements OnInit {
-
+  Centres = "Centres";
   openAddCenter: string = "";
   openUpdateCenter: string = "";
   addCenterForm!: FormGroup

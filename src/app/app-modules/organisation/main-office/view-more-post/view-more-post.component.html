@@ -653,7 +653,7 @@
                     </a>
                 </div>
             </div>
-
+            <a routerLink="/organization" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -693,20 +693,16 @@
         <div class="columns is-multiline">
 
             <!--Grid item-->
-            <div class="column is-4" *ngFor="let center of centers">
+            <div class="column is-4" *ngFor="let center of centersOfMainOffice">
                 <div class="tile-grid-item">
                     <div class="tile-grid-item-inner">
-                        <!-- <div class="h-avatar is-medium">
-                            <img class="avatar" src="assets/img/avatars/photos/29.jpg" data-demo-src="assets/img/avatars/photos/29.jpg" alt="" data-user-popover="25">
-                            <img class="badge" src="assets/img/icons/stacks/python.svg" data-demo-src="assets/img/icons/stacks/python.svg" alt="">
-                        </div> -->
                         <div class="meta">
                             <span class="dark-inverted">{{center.id}}</span>
                             <span>{{center.name}}</span>
                         </div>
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger">
                             <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                    <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                            <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -720,6 +716,104 @@
     </div>
 
 </div>
+
+
+<!-- add new center -->
+<div class="modal h-modal" [ngClass]="openAddCenter">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter un centre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="inner-content">
+                        <form class="modal-form" [formGroup]="addCenterForm" (ngSubmit)="onSubmitCenter()">
+                            <label>centres *</label>
+                            <select class="input_comp" aria-label="Default select example" formControlName="id">
+                                <option>--Selectionnez un centre--</option>
+                                <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
+    
+                                  <div class="text-danger" *ngIf="addCenterForm.get('id')?.errors?.['required'] && addCenterForm.get('id')?.touched">
+                                    <small class="text-police" translate>Veuillez selectionner la zone </small>
+                               </div>
+                            </select><br><br>
+                   
+            
+                            <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
+                            <div class="control login">
+                                <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addCenterForm.invalid" >Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseAddModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- update center -->
+<div class="modal h-modal" [ngClass]="openUpdateCenter">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modifier un centre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseUpdateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="inner-content">
+                        <div class="modal-card-body">
+                            <div class="inner-content">
+                                <form class="modal-form" [formGroup]="updateCenterForm" (ngSubmit)="onSubmitUpdateCenter()">
+                                    <input type="hidden"  [(ngModel)]="center.id" class="input" hidden formControlName="id">
+                                    <div class="field">
+                                        <label>Appelation *</label><br>
+                                        <div class="control">
+                                            <input type="text" class="input" [(ngModel)]="center.name" placeholder="Appelation" formControlName="name">
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="updateCenterForm.get('name')?.errors?.['required'] && updateCenterForm.get('name')?.touched">
+                                            <small class="text-police">entrer l'appelation du centre</small>
+                                        </div>
+                                    </div><br>
+                                    <div class="control login">
+                                        <button [disabled]="updateCenterForm.invalid"
+                                            class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseUpdateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
