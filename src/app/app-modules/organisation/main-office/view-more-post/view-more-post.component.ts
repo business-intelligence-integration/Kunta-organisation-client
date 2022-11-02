@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-more-post.component.scss']
 })
 export class ViewMorePostComponent implements OnInit {
-
+  ngSelect = 0;
   mainOffice: Organism
   activeRightMenu: string = "";
   activeToggle: string = "";

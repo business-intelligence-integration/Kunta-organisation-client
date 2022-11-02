@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
   signInForm!: FormGroup
   login: Login;
   isNotLogin: boolean = false;
-
+  isProgressing: boolean = false;
+  
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private authentificationSerice: AuthentificationService,
@@ -37,18 +38,22 @@ export class LoginComponent implements OnInit {
     const formValue = this.signInForm.value;
     this.login.email = formValue.email;
     this.login.password = formValue.password;
+    this.isProgressing = true;
     this.authentificationSerice.signin(this.login).subscribe((result: any)=>{
       if(result.status == "OK"){
         this.utilityService.saveToken(result.data);
         this.router.navigateByUrl('dashboards');
         this.isNotLogin = false;
+        this.isProgressing = false
       }else{
         this.utilityService.deleteToken();
         this.isNotLogin = true;
+        this.isProgressing = false
       }
     }, ()=>{
       this.utilityService.deleteToken();
       this.isNotLogin = true;
+      this.isProgressing = false
     })
   }
 

@@ -52,6 +52,7 @@ export class CenterComponent implements OnInit {
     const formValue = this.addCenterForm.value;
     this.center.name = formValue.name;
     this.createCenter(this.center)
+    this.addCenterForm.reset();
   }
 
   createCenter(center: Organism){

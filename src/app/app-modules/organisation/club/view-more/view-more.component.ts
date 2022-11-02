@@ -13,7 +13,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
   styleUrls: ['./view-more.component.scss']
 })
 export class ViewMoreComponent implements OnInit {
-
+  ngSelect = 0;
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";

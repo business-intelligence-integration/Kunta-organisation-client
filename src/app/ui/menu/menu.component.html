@@ -53,14 +53,14 @@
                     </li> <!-- Profile -->
                     <li id="user-menu">
                         <div id="profile-menu" class="dropdown profile-dropdown dropdown-trigger is-spaced is-up"  [ngClass]="activeProfil" (click)="onActive()">
-                            <img src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
+                            <img src="{{ imageUrl }}" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
                             <span class="status-indicator"></span>
   
                             <div class="dropdown-menu" role="menu">
                                 <div class="dropdown-content">
                                     <div class="dropdown-head">
                                         <div class="h-avatar is-large">
-                                            <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
+                                            <img class="avatar" src="{{ imageUrl }}" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
                                         </div>
                                         <div class="meta">
                                             <span>Erik Kovalsky</span>

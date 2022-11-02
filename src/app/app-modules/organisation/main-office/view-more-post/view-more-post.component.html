@@ -739,8 +739,8 @@
                     <div class="inner-content">
                         <form class="modal-form" [formGroup]="addCenterForm" (ngSubmit)="onSubmitCenter()">
                             <label>centres *</label>
-                            <select class="input_comp" aria-label="Default select example" formControlName="id">
-                                <option>--Selectionnez un centre--</option>
+                            <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                                <option value="0" disabled>--Selectionnez un centre--</option>
                                 <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
     
                                   <div class="text-danger" *ngIf="addCenterForm.get('id')?.errors?.['required'] && addCenterForm.get('id')?.touched">

@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   signUpForm!: FormGroup
   user: User;
 
+
   constructor(private router: Router, 
     private formBuilder: FormBuilder,
     private authentificationSerice: AuthentificationService) {

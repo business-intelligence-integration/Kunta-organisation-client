@@ -806,8 +806,8 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitclub()">
                         <label>clubs *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id">
-                            <option>--Selectionnez un club--</option>
+                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                            <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
 
                               <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">

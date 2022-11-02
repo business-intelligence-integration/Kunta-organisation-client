@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-more-are-club.component.scss']
 })
 export class ViewMoreAreClubComponent implements OnInit {
-  ngSelect: any = "0"
+  ngSelect = 0;
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";

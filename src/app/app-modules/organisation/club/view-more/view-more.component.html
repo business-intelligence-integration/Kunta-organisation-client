@@ -134,7 +134,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Utilisateurs du club</h1>
+                    <h1 class="title is-4">Membres du club</h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -559,8 +559,8 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
                         <label>membres *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id">
-                            <option selected>--Selectionnez un membre--</option>
+                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                            <option value="0" disabled>--Selectionnez un membre--</option>
                             <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
 
                               <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">

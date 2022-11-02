@@ -23,6 +23,12 @@ saveToken(token: any): void {
     // this.roles = jwtHelper.decodeToken(token).roles;
 }
 
+getUserName() {
+  let token = localStorage.getItem('token') || '{}';
+  var jwtHelper = new JwtHelperService();
+  return jwtHelper.decodeToken(token).sub;
+}
+
 deleteToken(){
     localStorage.removeItem('token');
 }

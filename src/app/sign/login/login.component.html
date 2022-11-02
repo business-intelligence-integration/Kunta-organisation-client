@@ -74,7 +74,7 @@
                                          *ngIf="isNotLogin">
                                         <small class="text-police">le mot de passe ou l'email est incorrecte.</small>
                                     </div>
-
+                                    
                                     <div class="setting-item">
                                         <label class="form-switch is-primary">
                                             <input type="checkbox" class="is-switch" id="busy-mode-toggle">
@@ -86,7 +86,7 @@
                                     </div>
                                     <!-- Submit -->
                                     <div class="control login">
-                                        <button [disabled]="signInForm.invalid" class="button h-button is-primary is-bold is-fullwidth is-raised">Sign In</button>
+                                        <button [disabled]="signInForm.invalid || isProgressing" class="button h-button is-primary is-bold is-fullwidth is-raised">Sign In</button>
                                     </div>
                                    
                                </div>

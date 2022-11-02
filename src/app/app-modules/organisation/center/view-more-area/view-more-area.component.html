@@ -730,7 +730,7 @@
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
-                            <span>name</span>
+                            <span>Appelation</span>
                             <span class="cell-end">Actions</span>
                         </div>
 
@@ -845,8 +845,8 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addAreaForm" (ngSubmit)="onSubmitArea()">
                         <label>Zones *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id">
-                            <option>--Selectionnez une zone--</option>
+                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                            <option value="0" disabled>--Selectionnez une zone--</option>
                             <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }} </span> </option>
 
                               <div class="text-danger" *ngIf="addAreaForm.get('id')?.errors?.['required'] && addAreaForm.get('id')?.touched">

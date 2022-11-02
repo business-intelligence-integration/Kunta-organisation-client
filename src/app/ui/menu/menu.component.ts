@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core/classes/user';
+import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
@@ -10,10 +12,16 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 export class MenuComponent implements OnInit {
   activeProfil: string = "";
   isActive: string = "";
+  imageUrl: string = "assets/images/téléchargement.png";
+  user: User;
   constructor( private utilityService: UtilityService,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) {
+      this.user = new User();
+     }
 
   ngOnInit(): void {
+    // this.getConnectedUser();
   }
 
   onActive() {
@@ -28,5 +36,13 @@ export class MenuComponent implements OnInit {
     this.utilityService.deleteToken();
     this.router.navigateByUrl("login");
   }
+
+  // getConnectedUser() {
+  //   this.userService.getMemberById(this.utilityService.getUserName()).subscribe((res) => {
+  //     this.user = res.data;
+  //     console.log("user::", res);
+      
+  //   })
+  // }
 
 }

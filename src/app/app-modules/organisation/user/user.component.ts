@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
   users: User[];
   user: User;
   Utilisateurs: string = "Utilisateurs"
+  isProgressing: boolean = false;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -70,8 +71,7 @@ export class UserComponent implements OnInit {
    this.user.password = formValue.password;
    this.user.phoneNumber = formValue.phoneNumber;
    this.user.userName = formValue.userName;
-  console.log("this.user::", this.user);
-  
+
    if(formValue.userType == "ADMIN"){
     this.createAdmin(this.user)
    }else if(formValue.userType == "MEMBER"){
@@ -81,6 +81,8 @@ export class UserComponent implements OnInit {
    }else if(formValue.userType == "OPERATOR"){
     this.createOperator(this.user)
    }
+
+   this.addUserForm.reset();
   }
 
   onSubmitUpdateUser(){
