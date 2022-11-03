@@ -67,7 +67,7 @@ export class MainOfficeComponent implements OnInit {
  getAllMainOffice(){
     this.mainofficeService.findAllOffices().subscribe((res)=>{
       this.mainOffices = res.data;
-      console.log(this.mainOffices);
+      console.log("Main::", this.mainOffices);
       
     })
   }
