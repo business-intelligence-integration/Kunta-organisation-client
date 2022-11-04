@@ -44,4 +44,57 @@ export class CenterService {
   addAreaToCenter(idCenter: number, idArea: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-area/${idArea}`, {}, httpOptions);
   }
+
+  addAdminSys(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-admin-sys/${idMember}`, {}, httpOptions);
+  }
+  addToClubsGeneralAssembly(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-member-to-clubs-general-assembly/${idMember}`, {}, httpOptions);
+  }
+  addToDevelopmentCommittee(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-member-to-development-committee/${idMember}`, {}, httpOptions);
+  }
+  addToExecutiveBoard(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-member-to-executive-board/${idMember}`, {}, httpOptions);
+  }
+  addToGcc(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-member-to-gcc/${idMember}`, {}, httpOptions);
+  }
+  addAccountant(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-accountant/${idMember}`, {}, httpOptions);
+  }
+  addToMembersGeneralAssembly(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-member-to-members-general-assembly/${idMember}`, {}, httpOptions);
+  }
+  addProductionManager(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-production-manager/${idMember}`, {}, httpOptions);
+  }
+  removeAccountant(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-accountant/${idMember}`, {}, httpOptions);
+  }
+  removeAdminSys(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-admin-sys/${idMember}`, {}, httpOptions);
+  }
+  removeArea(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-area/${idMember}`, {}, httpOptions);
+  }
+  removeFromClubsGeneralAssembly(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-clubs-general-assembly/${idMember}`, {}, httpOptions);
+  }
+  removeFromDevelopmentCommittee(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-development-committee/${idMember}`, {}, httpOptions);
+  }
+  removeFromExecutiveBoard(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-executive-board/${idMember}`, {}, httpOptions);
+  }
+  removeFromGcc(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-gcc/${idMember}`, {}, httpOptions);
+  }
+  removeFromMembersGeneralAssembly(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-members-general-assembly/${idMember}`, {}, httpOptions);
+  }
+  removeProductionManager(idCenter: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-members-general-assembly/${idMember}`, {}, httpOptions);
+  }
 }
+

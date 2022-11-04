@@ -195,7 +195,7 @@ export class UserComponent implements OnInit {
     }, (error)=>{
       this.utilityService.showMessage(
         'warning',
-        error.message,
+        'An error has occurred',
         '#e62965',
         'white'
       );
@@ -228,7 +228,7 @@ export class UserComponent implements OnInit {
     }, (error)=>{
       this.utilityService.showMessage(
         'warning',
-        error.message,
+        'An error has occurred',
         '#e62965',
         'white'
       );

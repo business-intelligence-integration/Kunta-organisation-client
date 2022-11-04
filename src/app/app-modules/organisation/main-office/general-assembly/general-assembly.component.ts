@@ -127,7 +127,7 @@ export class GeneralAssemblyComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.mainOfficeService.removeFromCGA(this.idMainOffice, id).subscribe(
+          this.mainOfficeService.removeFromExecutiveBoard(this.idMainOffice, id).subscribe(
             () => {
               this.getAllMainOffice();
               swalWithBootstrapButtons.fire({

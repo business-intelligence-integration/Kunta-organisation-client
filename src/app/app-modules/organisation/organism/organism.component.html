@@ -67,7 +67,7 @@
         <ul>
             <li class="has-children" [ngClass]="activeListUser">
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Users <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                    <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Utilisateurs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
                 <ul [style.display]="wrapdwonListUser">
                     <li>
@@ -79,19 +79,19 @@
                     <li>
                         <a (click)="clickOnAdmin()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Admin</span>
+                            <span>Administrateurs</span>
                         </a>
                     </li>
                     <li>
                         <a (click)="clickOnMember()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Member</span>
+                            <span>Membres</span>
                         </a>
                     </li>
                     <li>
                         <a (click)="clickOnMutualist()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Mutualist</span>
+                            <span>Mutualistes</span>
                         </a>
                     </li>
                     <!-- <li>
@@ -109,31 +109,31 @@
             </li> -->
             <li>
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Club</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Clubs</a>
                 </div>
             </li>
             <li>
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Area</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Zones</a>
                 </div>
             </li>
-            <!-- <li>
+            <li>
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowMainOffice()">Main office</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onMainCenters()" >Centres</a>
                 </div>
-            </li> -->
+            </li>
             <li class="has-children" [ngClass]="activateMainOfficeDetails">
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Main office <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                    <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
                 <ul [style.display]="wrapdwonDetaiilsMainOffice">
                
-                    <li>
+                    <!-- <li>
                         <a (click)="onMainCenters()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Centres</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <!-- <div [ngClass]="marginBut" class="left-ma">
                         <li class="has-children" [ngClass]="activeListCenter">
