@@ -6,6 +6,7 @@ import { User } from 'src/app/core/classes/user';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-more',
@@ -126,7 +127,7 @@ export class ViewMoreComponent implements OnInit {
 
   getAllMembers(){
     //à remplacer avec member
-    this.userService.getAllUsers().subscribe((res)=>{
+    this.userService.getAllMambers().subscribe((res)=>{
       this.members= res.data;
     })
   }
@@ -134,4 +135,60 @@ export class ViewMoreComponent implements OnInit {
   // addMember(member: User){
   //   this.userService.crea
   // }
+
+  onDeleteMember(idMember: number){
+    this.deleteMessage(idMember);
+  }
+
+  deleteMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Are you sure ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.clubService.removeMemberFromClub(this.idClub, id).subscribe(
+            () => {
+              this.getClub();
+              swalWithBootstrapButtons.fire({
+                title: 'Deleted !',
+                text: 'Member has been removed.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Cancelled',
+                text: 'An error has occurred',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Cancelled',
+            text: 'you have cancelled the deletion',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
 }

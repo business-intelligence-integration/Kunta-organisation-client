@@ -48,4 +48,45 @@ export class MainOfficeService {
   removeCenterFromMainOffice(idMainOffice: number, idCenter: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-center/${idCenter}`, {}, httpOptions);
   }
+
+  addMemeberToCGA(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-centers-general-assembly/${idMember}`, {}, httpOptions);
+  }
+
+  addMemberToExecutiveBoard(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-executive-board/${idMember}`, {}, httpOptions);
+  }
+
+  addMemberToGcc(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-governance-and-compensation-committee/${idMember}`, {}, httpOptions);
+  }
+
+  addMemberToPmc(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-production-and-monitoring-committee/${idMember}`, {}, httpOptions);
+  }
+
+  addMemberToSdc(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-strategic-development-committee/${idMember}`, {}, httpOptions);
+  }
+
+  removeFromCGA(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-from-centers-general-assembly/${idMember}`, {}, httpOptions);
+  }
+
+  removeFromExecutiveBoard(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-from-executive-board/${idMember}`, {}, httpOptions);
+  }
+
+  removeFromGcc(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-from-governance-and-compensation-committee/${idMember}`, {}, httpOptions);
+  }
+
+  removeFromPmc(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-from-production-and-monitoring-committee/${idMember}`, {}, httpOptions);
+  }
+
+  removeFromSdc(idMainOffice: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-from-strategic-development-committee/${idMember}`, {}, httpOptions);
+  }
+
 }

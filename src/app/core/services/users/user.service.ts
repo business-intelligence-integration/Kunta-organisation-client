@@ -68,4 +68,17 @@ export class UserService {
     return this.httpClient.get<any[]>(this.baseUrl + 'clubs/' + idClub + '/add-pilot/' + idPilot, httpOptions);
   }
 
+  getAllMambers():Observable<any>{
+    return this.httpClient.get<any[]>(this.baseUrl + 'users/member', httpOptions);
+  }
+  getAllMutualists():Observable<any>{
+    return this.httpClient.get<any[]>(this.baseUrl + 'users/mutualist', httpOptions);
+  }
+  getAllAdmins():Observable<any>{
+    return this.httpClient.get<any[]>(this.baseUrl + 'users/admin', httpOptions);
+  }
+
+
+  
+
 }

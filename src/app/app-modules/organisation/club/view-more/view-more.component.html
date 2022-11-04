@@ -73,13 +73,13 @@
                     <li>
                         <a (click)="clickOnMemeber()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Admin</span>
+                            <span>Membres</span>
                         </a>
                     </li>
                     <li>
                         <a (click)="clickOnPilot()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Member</span>
+                            <span>Pilotes</span>
                         </a>
                     </li>
                 </ul>
@@ -268,108 +268,50 @@
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
-                            <span class="is-grow">Nom</span>
+                            <span class="is-grow">Id</span>
+                            <span>Nom</span>
                             <span>Prenom</span>
+                            <span>Numéro tél</span>
                             <span>Email</span>
-                            <span>numéro de tel</span>
-                         
                             <span class="cell-end">Actions</span>
                         </div>
-
-                        <div class="flex-list-inner" *ngFor="let member of clubMembers">
+            
+                        <div class="flex-list-inner">
                             <!--Table item-->
-                            <div class="flex-table-item">
+                            <div class="flex-table-item" *ngFor="let member of clubMembers">
                                 <div class="flex-table-cell is-media is-grow">
                                     <div>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{ member.id }}</span>
                                         <span class="item-meta">
-                                          <span data-filter-match="">{{ member.firstName }}</span>
+                                          <span data-filter-match="">{{ member.lastName }}</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell" data-th="Location">
                                     <span class="light-text" data-filter-match="">{{ member.lastName }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Industry">
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ member.firstName }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ member.phoneNumber }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
                                     <span class="light-text" data-filter-match="">{{ member.email }}</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Status">
-                                    <span class="tag is-success is-rounded" data-filter-match="">{{ member.phoneNumber }}</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Relations">
-                                    <div class="avatar-stack is-pushed-mobile">
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/7.jpg" data-demo-src="assets/img/avatars/photos/7.jpg" alt="" data-user-popover="0">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-fake is-info" data-user-popover="34">
-                                              <span>JD</span>
-                                            </span>
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/27.jpg" data-demo-src="assets/img/avatars/photos/27.jpg" alt="" data-user-popover="10">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-more">
-                                              <span class="inner">
-                                                  <span>+2</span>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <div class="is-trigger" aria-haspopup="true">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-eye"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>View</span>
-                                                        <span>View user details</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-briefcase"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Projects</span>
-                                                        <span>View user projects</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-calendar"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Schedule</span>
-                                                        <span>Schedule a meeting</span>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-trash-can-alt"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Remove</span>
-                                                        <span>Remove from list</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
+                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatemember(member.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                                    <a _ngcontent-nct-c62="" (click)="onDeleteMember(member.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+            
                     </div>
-                    
+
+ 
 
                     <!--Table Pagination-->
                     <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">

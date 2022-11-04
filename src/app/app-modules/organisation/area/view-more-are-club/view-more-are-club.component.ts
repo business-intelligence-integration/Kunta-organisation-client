@@ -59,6 +59,8 @@ export class ViewMoreAreClubComponent implements OnInit {
       this.areaService.getAreaById(params['id']).subscribe((res)=>{
         this.idArea = res.data.id
         this.clubsOfArea = res.data.clubs
+        console.log("res::", res);
+        
       });
     })
   }

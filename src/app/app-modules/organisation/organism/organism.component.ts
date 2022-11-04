@@ -12,14 +12,27 @@ export class OrganismComponent implements OnInit {
   homeSider: string = "";
   isPushed: string = "";
   activeListUser: string = "";
+  activeListCenter: string = "";
+  activateMainOfficeDetails: string = ""
   title: string = "";
   wrapdwonListUser: string ="display-block";
+  wrapdwonCenter: string ="display-block";
+  wrapdwonDetaiilsMainOffice: string ="display-block";
+  marginBut: string = "0px"
   isUser: boolean = true;
   isCenter: boolean = false;
   isClub: boolean = false;
   isArea: boolean = false;
   isMainOffice: boolean = false;
+  isMainCenters: boolean = false;
   dynamicTitle: string = "Utilisateurs";
+
+  isExecutiveBoard: boolean = false;
+  isGeneralAssembly: boolean = false;
+  isCompensationCommittee: boolean = false;
+  isMonitoringCommittee: boolean = false;
+  isDevelopmentCommittee: boolean = false;
+
 
   isAdmin: boolean = true;
   isMember: boolean = false;
@@ -51,6 +64,8 @@ export class OrganismComponent implements OnInit {
 
   onShowCenter(){
     this.areNotUsers();
+    this.areMainOffice();
+    // this.areAboutCenter()
     this.isUser = false
     this.isClub = false;
     this.isArea = false;
@@ -61,6 +76,8 @@ export class OrganismComponent implements OnInit {
 
   onShowClub(){
     this.areNotUsers();
+     this.areMainOffice();
+    //  this.areAboutCenter()
     this.isCenter = false;
     this.isUser = false
     this.isArea = false;
@@ -71,6 +88,9 @@ export class OrganismComponent implements OnInit {
 
   onShowArea(){
     this.areNotUsers();
+    this.areMainOffice();
+    //  this.areAboutCenter()
+    this.isMainCenters = false;
     this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
@@ -81,6 +101,8 @@ export class OrganismComponent implements OnInit {
 
   onShowMainOffice(){
     this.areNotUsers();
+     this.areMainOffice();
+    //  this.areAboutCenter()
     this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
@@ -89,13 +111,9 @@ export class OrganismComponent implements OnInit {
     this.dynamicTitle = "Bureau principale";
   }
 
+
+
   onDisplayUserList(){
-    this.areNotUsers();
-    this.isCenter = false;
-    this.isClub = false;
-    this.isArea = false;
-    this.isMainOffice = false;
-    this.isUser = true;
     this.dynamicTitle = "Utilisateurs";
     if(this.activeListUser == ""){
       this.activeListUser = "active" 
@@ -105,9 +123,54 @@ export class OrganismComponent implements OnInit {
       this.wrapdwonListUser ="none"
     }
   }
+  onShowListCenter(){
+    this.dynamicTitle = "Liste des Centres";
+    if(this.activeListCenter == ""){
+      this.activeListCenter = "active" 
+      this.wrapdwonCenter ="block"
+      this.marginBut = "margin-but-on"
+    }else{
+      this.marginBut = "margin-but-in"
+      this.activeListCenter =""
+      this.wrapdwonCenter ="none"
+    }
+  }
+
+  onShowAll(){
+    this.areNotUsers();
+    this.areMainOffice();
+    // this.areAboutCenter()
+    this.isCenter = false;
+    this.isClub = false;
+    this.isArea = false;
+    this.isMainOffice = false;
+    this.isUser = true;
+    this.dynamicTitle = "Utilisateurs";
+  }
+
+  onDisplayMainOffice(){
+    // this.areNotUsers();
+    // this.isCenter = false;
+    // this.isClub = false;
+    // this.isArea = false;
+    // this.isMainOffice = true;
+    // this.isUser = false;
+    // this.dynamicTitle = "Utilisateurs";
+    if(this.activateMainOfficeDetails == ""){
+      this.activateMainOfficeDetails = "active" 
+      this.activeListCenter =""
+      this.wrapdwonDetaiilsMainOffice ="block"
+    }else{
+      this.activateMainOfficeDetails =""
+      this.wrapdwonDetaiilsMainOffice ="none"
+    }
+  }
 
   clickOnAdmin(){
     this.areNotOrganisations()
+    this.areMainOffice();
+    // this.areAboutCenter()
+    this.isMainCenters = false;
     this.isUser = false;
     this.isMember = false;
     this.isOperator = false;
@@ -118,6 +181,9 @@ export class OrganismComponent implements OnInit {
 
   clickOnMember(){
     this.areNotOrganisations()
+    this.areMainOffice();
+    // this.areAboutCenter()
+    this.isMainCenters = false;
     this.isUser = false;
     this.isOperator = false;
     this.isMutulist = false;
@@ -128,6 +194,9 @@ export class OrganismComponent implements OnInit {
 
   clickOnMutualist(){
     this.areNotOrganisations()
+    this.areMainOffice();
+    // this.areAboutCenter()
+    this.isMainCenters = false;
     this.isUser = false;
     this.isOperator = false;
     this.isAdmin = false;
@@ -139,6 +208,9 @@ export class OrganismComponent implements OnInit {
 
   clickOnOperator(){
     this.areNotOrganisations()
+    this.areMainOffice();
+    // this.areAboutCenter()
+    this.isMainCenters = false;
     this.isUser = false;
     this.isAdmin = false;
     this.isMember = false;
@@ -146,6 +218,31 @@ export class OrganismComponent implements OnInit {
     this.isOperator = true;
     this.dynamicTitle = "Operateurs";
   }
+
+  onMainCenters(){
+    this.areNotOrganisations()
+    this.areMainOffice();
+    // this.areAboutCenter()
+    this.isUser = false;
+    this.isAdmin = false;
+    this.isMember = false;
+    this.isMutulist = false;
+    this.isOperator = false;
+    this.isMainCenters = true;
+    this.dynamicTitle = "Liste des centres";
+  }
+
+  // onListCenter(){
+  //   if(this.activeListCenter == ""){
+  //     this.activeListCenter = "active" 
+  //     this.marginBut = "margin-but-on"
+  //     this.wrapdwonCenter ="block"
+  //   }else{
+  //     this.activeListCenter =""
+  //     this.wrapdwonCenter ="none"
+  //     this.marginBut = "margin-but-in"
+  //   }
+  // }
 
   areNotOrganisations(){
     this.isUser = false
@@ -155,11 +252,84 @@ export class OrganismComponent implements OnInit {
     this.isCenter = false;
   }
 
+  areNotMainOffice(){
+    this.areNotOrganisations();
+    // this.areAboutCenter()
+    this.isMainCenters = false;
+    this.isOperator = false;
+    this.isAdmin = false;
+    this.isMember = false;
+    this.isMutulist = false;
+  }
+
+  areMainOffice(){
+    this.isGeneralAssembly = false;
+    this.isCompensationCommittee = false;
+    this.isMonitoringCommittee = false;
+    this.isDevelopmentCommittee = false;
+    this.isExecutiveBoard = false;
+  }
+
   areNotUsers(){
     this.isAdmin = false;
     this.isMember = false;
     this.isMutulist = false;
     this.isOperator = false;
   }
+
+  onExecutiveBoard(){
+    this.areNotMainOffice()
+    // this.areAboutCenter()
+    this.isGeneralAssembly = false;
+    this.isCompensationCommittee = false;
+    this.isMonitoringCommittee = false;
+    this.isDevelopmentCommittee = false;
+    this.isExecutiveBoard = true;
+    this.dynamicTitle = "Membres du comité exécutif";
+  }
+
+  onGeneralAssembly(){
+    this.areNotMainOffice()
+    // this.areAboutCenter()
+    this.isCompensationCommittee = false;
+    this.isMonitoringCommittee = false;
+    this.isDevelopmentCommittee = false;
+    this.isExecutiveBoard = false;
+    this.isGeneralAssembly = true;
+    this.dynamicTitle = "Membres de l'assemblée générale";
+  }
+
+  onCompensationCommittee(){
+    this.areNotMainOffice()
+    // this.areAboutCenter()
+    this.isMonitoringCommittee = false;
+    this.isDevelopmentCommittee = false;
+    this.isExecutiveBoard = false;
+    this.isGeneralAssembly = false;
+    this.isCompensationCommittee = true;
+    this.dynamicTitle = "Membres du comité de gouvernance et de rémunération";
+  }
+
+  onMonitoringCommittee(){
+    this.areNotMainOffice()
+    // this.areAboutCenter()
+    this.isDevelopmentCommittee = false;
+    this.isExecutiveBoard = false;
+    this.isGeneralAssembly = false;
+    this.isCompensationCommittee = false;
+    this.isMonitoringCommittee = true;
+    this.dynamicTitle = "Membres du comité de production et de surveillance";
+  }
+  onDevelopmentCommittee(){
+    this.areNotMainOffice()
+    // this.areAboutCenter()
+    this.isExecutiveBoard = false;
+    this.isGeneralAssembly = false;
+    this.isCompensationCommittee = false;
+    this.isMonitoringCommittee = false;
+    this.isDevelopmentCommittee = true;
+    this.dynamicTitle = "Membres du comité de développement stratégique";
+  }
+
 
 }

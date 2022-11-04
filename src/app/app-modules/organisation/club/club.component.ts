@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { User } from 'src/app/core/classes/user';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
+import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -11,15 +13,22 @@ import Swal from 'sweetalert2';
   styleUrls: ['./club.component.scss']
 })
 export class ClubComponent implements OnInit {
+  ngSelect = 0;
   Clubs: string = "Clubs";
   openAddClub: string = "";
   openUpdateClub: string = "";
+  openMemberModal: string = "";
   addClubForm!: FormGroup;
+  addMemberForm! : FormGroup;
   updateClubForm!: FormGroup;
+  members: User[] =[];
   clubs: Organism[] = [];
   club: Organism;
+  idMember: number = 0;
+  idClub: number = 0 ;
   constructor(private formBuilder: FormBuilder, 
     private clubService: ClubService,
+    private userService: UserService,
     private utilityService: UtilityService,) {
       this.club = new Organism();
      }
@@ -27,6 +36,7 @@ export class ClubComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.getAllClubs();
+    this.getAllMembers();
   }
 
   formInit() {
@@ -37,6 +47,10 @@ export class ClubComponent implements OnInit {
     this.updateClubForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+    })
+
+    this.addMemberForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
     })
   }
 
@@ -157,10 +171,39 @@ export class ClubComponent implements OnInit {
       );
     })
 
-
-
     
   }
 
+  onAddMember(idClub: number){
+    this.idClub = idClub;
+    this.openMemberModal = "is-active";
+  }
 
+  closeMemberModal(){
+    this.openMemberModal = "";
+  }
+
+  addMembr(idClub: number, idMember: number){
+    this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
+      this.getAllClubs();
+      this.closeMemberModal();
+      this.utilityService.showMessage(
+        'success',
+        'Area successfully added to center',
+        '#06d6a0',
+        'white'
+      );
+    })
+  }
+
+  getAllMembers(){
+    this.userService.getAllMambers().subscribe((res)=>{
+      this.members = res.data
+    })
+  }
+
+  onSubmitMember(){
+    const formValue  = this.addMemberForm.value;
+    this.addMembr(this.idClub, formValue.id)
+  }
 }

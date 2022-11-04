@@ -1,4 +1,4 @@
-<div class="list-flex-toolbar">
+<div *ngIf="isList" class="list-flex-toolbar">
     
     <div class="control has-icon">
         <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div class="page-content-inner">
+<div *ngIf="isList" class="page-content-inner">
 
     <div class="flex-list-wrapper flex-list-v1">
 
@@ -102,23 +102,134 @@
 
 
 <!-- add new user -->
-<div id="addUser" class="modal h-modal" [ngClass]="openAddModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Nouveau Utilisateur</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUserModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
+<!-- <div *ngIf="creatUser" class="modal-content">
+    <div>
+        <header>
+            <h3>Nouveau Utilisateur</h3>
+        </header>
+        <div>
+            <div class="inner-content">
+                <form class="modal-form" [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
+                    <div class="field">
+                        <div class="mb-2">
+                            <label>Types d'utilisateurs *</label><br>
+                            <select class="input_comp" formControlName="userType" aria-label="Default select example"  [(ngModel)]="ngSelect">
+                                <option value="1" disabled>--Select a Type--</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="MEMBER">MEMBER</option>
+                                <option value="MUTUALIST">MUTUALIST</option>
+                                <option value="OPERATOR">OPERATOR</option>
+                            </select>
+                            <div class="text-danger"
+                            *ngIf="addUserForm.get('userType')?.errors?.['required'] && addUserForm.get('userType')?.touched">
+                            <small class="text-police" translate>select user's type</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Nom(s) *</label>
+                        <div class="control">
+                            <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="addUserForm.get('firstName')?.errors?.['required'] && addUserForm.get('firstName')?.touched">
+                            <small class="text-police" translate>enter the user's first name</small>
+                         </div>
+                    </div>
+                    <div class="field">
+                        <label>Prénom(s) *</label>
+                        <div class="control">
+                            <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="addUserForm.get('lastName')?.errors?.['required'] && addUserForm.get('lastName')?.touched">
+                            <small class="text-police" translate>enter the user's last name</small>
+                         </div>
+                    </div>
+                    <div class="field">
+                        <label>Numéro de Tel. *</label>
+                        <div class="control">
+                            <input type="number" class="input" placeholder="Phone Number"
+                                formControlName="phoneNumber">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="addUserForm.get('phoneNumber')?.errors?.['required'] && addUserForm.get('phoneNumber')?.touched">
+                            <small class="text-police" translate>enter the user's phone number</small>
+                         </div>
+                    </div>
+                    <div class="field">
+                        <label>Email *</label>
+                        <div class="control">
+                            <input type="email" class="input" placeholder="Email Address" formControlName="userName">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="addUserForm.get('userName')?.errors?.['required'] && addUserForm.get('userName')?.touched">
+                            <small class="text-police" translate>enter the user's email</small>
+                         </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Password *</label>
+                        <div class="control">
+                            <input type="password" class="input" placeholder="Password" formControlName="password">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="addUserForm.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched">
+                            <small class="text-police" translate>enter the user's password</small>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Confirm Password *</label>
+                        <div class="control">
+                            <input type="password" class="input" placeholder="Confirm Password"
+                                formControlName="confPassword">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="addUserForm.get('confPassword')?.errors?.['required'] && addUserForm.get('confPassword')?.touched">
+                            <small class="text-police" translate>enter the user's confirm password</small>
+                        </div>
+                    </div>
+                   
+                    <div class="control login">
+                        <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addUserForm.invalid" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-card-foot is-end">
+            <a class="button h-button is-rounded h-modal-close" (click)="closeUserModal()">Cancel</a>
+        </div>
+    </div>
+</div> -->
+
+<div *ngIf="creatUser" class="page-content-inner">
+
+    <!--Form Layout 1-->
+    <div class="form-layout">
+        <div class="form-outer">
+            <div class="form-header stuck-header is-stuck">
+                <div class="form-header-inner">
+                    <div class="left">
+                        <h3>Nouveau Utilisateur</h3>
+                    </div>
+                    <div class="right">
+                        <div class="buttons">
+                            <span class="icon">
+                                <i class="lnir lnir-arrow-left rem-100"></i>
+                            </span>
+                            <button (click)="cancelCreatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Annuler</button>
+                            <button [disabled]="addUserForm.invalid" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised">Enregistrer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-body">
+                <!--Fieldset-->
+                <div class="form-fieldset">
+                    <div class="fieldset-heading">
+                        <h4>Informations personnelles</h4>
+                    </div>
+
                     <form class="modal-form" [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
                         <div class="field">
                             <div class="mb-2">
@@ -136,89 +247,104 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="field">
-                            <label>Nom(s) *</label>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                        <div class="columns is-multiline">
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Nom</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="addUserForm.get('lastName')?.errors?.['required'] && addUserForm.get('lastName')?.touched">
+                                            <small class="text-police">veuillez entrer le nom</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-danger"
-                                *ngIf="addUserForm.get('firstName')?.errors?.['required'] && addUserForm.get('firstName')?.touched">
-                                <small class="text-police" translate>enter the user's first name</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Prénom(s) *</label>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Prenom</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="addUserForm.get('firstName')?.errors?.['required'] && addUserForm.get('firstName')?.touched">
+                                            <small class="text-police">veuillez entrer le prénom</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-danger"
-                                *ngIf="addUserForm.get('lastName')?.errors?.['required'] && addUserForm.get('lastName')?.touched">
-                                <small class="text-police" translate>enter the user's last name</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Numéro de Tel. *</label>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="Phone Number"
-                                    formControlName="phoneNumber">
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Numéro de Tel. *</label>
+                                    <div class="control has-icon">
+                                        <input type="number" class="input" placeholder="Phone Number"
+                                        formControlName="phoneNumber">
+                                        <div class="text-danger"
+                                            *ngIf="addUserForm.get('phoneNumber')?.errors?.['required'] && addUserForm.get('phoneNumber')?.touched">
+                                            <small class="text-police" translate>Veuillez entrer le numéro de téléphone</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-danger"
-                                *ngIf="addUserForm.get('phoneNumber')?.errors?.['required'] && addUserForm.get('phoneNumber')?.touched">
-                                <small class="text-police" translate>enter the user's phone number</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Email *</label>
-                            <div class="control">
-                                <input type="email" class="input" placeholder="Email Address" formControlName="userName">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="addUserForm.get('userName')?.errors?.['required'] && addUserForm.get('userName')?.touched">
-                                <small class="text-police" translate>enter the user's email</small>
-                             </div>
-                        </div>
-    
-                        <div class="field">
-                            <label>Password *</label>
-                            <div class="control">
-                                <input type="password" class="input" placeholder="Password" formControlName="password">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="addUserForm.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched">
-                                <small class="text-police" translate>enter the user's password</small>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label>Confirm Password *</label>
-                            <div class="control">
-                                <input type="password" class="input" placeholder="Confirm Password"
-                                    formControlName="confPassword">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="addUserForm.get('confPassword')?.errors?.['required'] && addUserForm.get('confPassword')?.touched">
-                                <small class="text-police" translate>enter the user's confirm password</small>
-                            </div>
-                        </div>
 
-                       
-                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Adresse Mail</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" placeholder="Email Address" formControlName="userName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="addUserForm.get('userName')?.errors?.['required'] && addUserForm.get('userName')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer l'email</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Password *</label>
+                                    <div class="control">
+                                        <input type="password" class="input" placeholder="Password" formControlName="password">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="addUserForm.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched">
+                                        <small class="text-police" translate>enter the user's password</small>
+                                    </div>
+                                </div>
+                            </div>
 
-                       
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addUserForm.invalid" >Save</button>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Confirm Password *</label>
+                                    <div class="control">
+                                        <input type="password" class="input" placeholder="Confirm Password"
+                                            formControlName="confPassword">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="addUserForm.get('confPassword')?.errors?.['required'] && addUserForm.get('confPassword')?.touched">
+                                        <small class="text-police" translate>enter the user's confirm password</small>
+                                    </div>
+                                </div>            
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUserModal()">Cancel</a>
-            </div>
         </div>
     </div>
+
 </div>
 
+
 <!-- update user -->
-<div id="updateUser" class="modal h-modal" [ngClass]="openUpdateModal">
+<!-- <div id="updateUser" class="modal h-modal" [ngClass]="openUpdateModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -280,8 +406,6 @@
                                 <small class="text-police" translate>enter the user's email</small>
                              </div>
                         </div>
-                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
-
                        
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateUserForm.invalid" >Modifier</button>
@@ -294,4 +418,97 @@
             </div>
         </div>
     </div>
+</div> -->
+
+
+<div *ngIf="updatUser" class="page-content-inner">
+    <!--Form Layout 1-->
+    <div class="form-layout">
+        <div class="form-outer">
+            <div class="form-header stuck-header is-stuck">
+                <div class="form-header-inner">
+                    <div class="left">
+                        <h3>Modifier l'utilisateur</h3>
+                    </div>
+                    <div class="right">
+                        <div class="buttons">
+                            <span class="icon">
+                                <i class="lnir lnir-arrow-left rem-100"></i>
+                            </span>
+                            <button (click)="cancelUpdatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Annuler</button>
+                            <button [disabled]="updateUserForm.invalid" (click)="onUpdate()" id="save-button" class="button h-button is-primary is-raised">Modifier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-body">
+                <!--Fieldset-->
+                <div class="form-fieldset">
+                    <div class="fieldset-heading">
+                        <h4>Informations personnelles</h4>
+                    </div>
+
+                    <form class="modal-form" [formGroup]="updateUserForm" (ngSubmit)="onSubmitUpdateUser()">
+                        <div class="control">
+                            <input type="hidden" hidden class="input" [(ngModel)]="user.id" formControlName="id">
+                        </div>
+                        <div class="columns is-multiline">
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Nom(s) *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('firstName')?.errors?.['required'] && updateUserForm.get('firstName')?.touched">
+                                        <small class="text-police" translate>enter the user's first name</small>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Prénom(s) *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" [(ngModel)]="user.lastName" placeholder="LastName" formControlName="lastName">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('lastName')?.errors?.['required'] && updateUserForm.get('lastName')?.touched">
+                                        <small class="text-police" translate>enter the user's last name</small>
+                                     </div>
+                                </div>
+                            </div>
+                           
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Numéro de Tel. *</label>
+                                    <div class="control">
+                                        <input type="number" class="input" [(ngModel)]="user.phoneNumber" placeholder="Phone Number"
+                                            formControlName="phoneNumber">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('phoneNumber')?.errors?.['required'] && updateUserForm.get('phoneNumber')?.touched">
+                                        <small class="text-police" translate>enter the user's phone number</small>
+                                     </div>
+                                </div>
+                            </div>
+                        
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Email *</label>
+                                    <div class="control">
+                                        <input type="email" class="input" [(ngModel)]="user.userName" placeholder="Email Address" formControlName="userName">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('userName')?.errors?.['required'] && updateUserForm.get('userName')?.touched">
+                                        <small class="text-police" translate>enter the user's email</small>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

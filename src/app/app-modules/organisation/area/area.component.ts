@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
 import { AreaService } from 'src/app/core/services/areas/area.service';
+import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -11,23 +12,29 @@ import Swal from 'sweetalert2';
   styleUrls: ['./area.component.scss']
 })
 export class AreaComponent implements OnInit {
+  ngSelect = 0;
   Zones: string = "Zones";
   openAddArea: string = "";
   openUpdateArea: string = "";
   addAreaForm!: FormGroup;
   updateAreaForm!: FormGroup;
+  addClubForm!: FormGroup;
   areas: Organism[] = [];
+  clubs: Organism[] = [];
   area: Organism;
-
+  idArea:number = 0;
+  openClubModal: string = "";
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
-    private utilityService: UtilityService) { 
+    private utilityService: UtilityService,
+    private clubService: ClubService) { 
       this.area = new Organism();
     }
 
   ngOnInit(): void {
     this.formInit();
     this.getAllAreas();
+    this.getAllClubs()
   }
 
   formInit() {
@@ -38,6 +45,10 @@ export class AreaComponent implements OnInit {
     this.updateAreaForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+    })
+
+    this.addClubForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
     })
   }
 
@@ -72,6 +83,8 @@ export class AreaComponent implements OnInit {
   getAllAreas(){
     this.areaService.findAllAreas().subscribe((res)=>{
       this.areas = res.data;
+      console.log("this.areas::", this.areas);
+      
     })
   }
 
@@ -162,5 +175,38 @@ export class AreaComponent implements OnInit {
 
   onCloseUpdateModal(){
     this.openUpdateArea = '';
+  }
+
+  closeClubModal(){
+    this.openClubModal = "";
+  }
+
+  onAddClub(id: number){
+    this.idArea = id;
+    this.openClubModal = "is-active";
+  }
+
+  onSubmitclub(){
+    const formValue = this.addClubForm.value;
+    this.addClubToArea(this.idArea, formValue.id);
+  }
+
+  addClubToArea(idArea: number, idClub: number){
+    this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
+      this.getAllAreas();
+      this.closeClubModal();
+      this.utilityService.showMessage(
+        'success',
+        'Club successfully added to are',
+        '#06d6a0',
+        'white'
+      );
+    })
+  }
+
+  getAllClubs(){
+    this.clubService.findAllClubs().subscribe((res)=>{
+      this.clubs = res.data
+    })
   }
 }

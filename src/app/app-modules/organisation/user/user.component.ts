@@ -20,6 +20,9 @@ export class UserComponent implements OnInit {
   user: User;
   Utilisateurs: string = "Utilisateurs"
   isProgressing: boolean = false;
+  creatUser: boolean = false;
+  updatUser: boolean = false;
+  isList: boolean = true;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -60,7 +63,9 @@ export class UserComponent implements OnInit {
   }
 
   onOpenAddUser(){
-    this.openAddModal = "is-active"
+    this.creatUser = true;
+    this.updatUser = false;
+    this.isList = false;
    }
 
    onAddUser(){
@@ -106,6 +111,16 @@ export class UserComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+      this.isList = true
+      this.updatUser = false
+      this.creatUser = false
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
     })
   }
 
@@ -115,12 +130,21 @@ export class UserComponent implements OnInit {
 
   onUpdateUser(idUser: number){
     this.userService.getMemberById(idUser).subscribe((user)=>{
+      this.isList = false;
+      this.creatUser = false
+      this.updatUser = true;
       this.user = user.data;
-      console.log("this.user::", this.user);
-      this.openUpdateModal ="is-active";
     })
    
   }
+  // onUpdateUser(idUser: number){
+  //   this.userService.getMemberById(idUser).subscribe((user)=>{
+  //     this.user = user.data;
+  //     console.log("this.user::", this.user);
+  //     this.openUpdateModal ="is-active";
+  //   })
+   
+  // }
 
   closeUpdateUserModal(){
     this.openUpdateModal = ""
@@ -146,19 +170,33 @@ export class UserComponent implements OnInit {
         '#06d6a0',
         'white'
       );
-    }, (error)=>{
-      error
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
     })
   }
 
   createMember(user:User){
     this.userService.createMember(user).subscribe(()=>{
+      console.log("user::", user);
+      
       this.getAllUsers();
       this.closeUserModal();
       this.utilityService.showMessage(
         'success',
         'Member successfully created',
         '#06d6a0',
+        'white'
+      );
+    }, (error)=>{
+      this.utilityService.showMessage(
+        'warning',
+        error.message,
+        '#e62965',
         'white'
       );
     })
@@ -185,6 +223,13 @@ export class UserComponent implements OnInit {
         'success',
         'Operator successfully created',
         '#06d6a0',
+        'white'
+      );
+    }, (error)=>{
+      this.utilityService.showMessage(
+        'warning',
+        error.message,
+        '#e62965',
         'white'
       );
     })
@@ -251,5 +296,20 @@ export class UserComponent implements OnInit {
       });
   }
 
+  cancelCreatingUser(){
+    this.creatUser = false;
+    this.isList = true;
+  }
+
+  onCreate(){
+    this.onAddUser();
+  }
   
+  cancelUpdatingUser(){
+    this.updatUser = false;
+    this.isList = true
+  }
+  onUpdate(){
+    this.onSubmitUpdateUser();
+  }
 }
