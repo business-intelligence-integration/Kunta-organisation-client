@@ -180,7 +180,7 @@
     </div>
 </div>
 
-<div id="addClub" class="modal h-modal" [ngClass]="openClubModal">
+<!-- <div id="addClub" class="modal h-modal" [ngClass]="openClubModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -202,14 +202,7 @@
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
-
-                              <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">
-                                <small class="text-police" translate>select the room </small>
-                           </div> -->
                         </select><br><br>
-               
-        
-                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addClubForm.invalid" >Save</button>
                         </div>
@@ -222,6 +215,49 @@
         </div>
     </div>
 </div>
+ -->
 
+<!-- add new club -->
+<div class="modal h-modal" [ngClass]="openClubModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter un club</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeClubModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitClub()">
+                        <div class="field">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addClubForm.get('name')?.errors?.['required'] && addClubForm.get('name')?.touched">
+                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="addClubForm.invalid"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeClubModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 

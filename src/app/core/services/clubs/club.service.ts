@@ -42,8 +42,16 @@ export class ClubService {
   addMemberToClub(idClub: number, idMember: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `clubs/${idClub}/add-member/${idMember}`, {}, httpOptions);
   }
+ 
+  addPilotToClub(idClub: number, idPilot: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `clubs/${idClub}/add-pilot/${idPilot}`, {}, httpOptions);
+  }
   
   removeMemberFromClub(idClub: number, idMember: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `clubs/${idClub}/remove-member/${idMember}`, {}, httpOptions);
+  }
+
+  removePilot(idClub: number, idPilot: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `clubs/${idClub}/remove-pilot/${idPilot}`, {}, httpOptions);
   }
 }

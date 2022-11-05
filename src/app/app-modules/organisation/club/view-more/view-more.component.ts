@@ -21,8 +21,10 @@ export class ViewMoreComponent implements OnInit {
   isPushed: string = "";
   activeListUser: string = "";
   idClub: number = 0;
+  pilot: User;
 
   openMemberModal: string = "";
+  openPilotModal: string = "";
 
   addMemberForm!: FormGroup;
   isPilote: boolean = false;
@@ -39,6 +41,7 @@ export class ViewMoreComponent implements OnInit {
     private userService: UserService,
     private utilityService: UtilityService) {
       this.user = new User();
+      this.pilot = new User();
      }
 
   ngOnInit(): void {
@@ -81,9 +84,10 @@ export class ViewMoreComponent implements OnInit {
   getClub(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.clubService.getclubById(params['id']).subscribe((res)=>{
-        this.clubMembers = res.data.members
-        this.pilots = res.data.pilots
-        this.idClub = res.data.id
+        this.clubMembers = res.data.members;
+        this.pilots = res.data.pilots;
+        this.idClub = res.data.id;
+        this.pilot = res.data.pilot;
         console.log("clubs: ", res);
       });
     })
@@ -103,8 +107,15 @@ export class ViewMoreComponent implements OnInit {
     this.openMemberModal = "is-active";
   }
 
+  onOpenAddPilot(){
+    this.openPilotModal = "is-active";
+  }
+
   closeMemberModal(){
     this.openMemberModal = "";
+  }
+  closePilotModal(){
+    this.openPilotModal = "";
   }
 
   onAddMember(){
@@ -112,10 +123,30 @@ export class ViewMoreComponent implements OnInit {
     this.addMemberToClub(this.idClub, formValue.id);
   }
 
+  onAddPilot(){
+    const formValue = this.addMemberForm.value;
+    this.addPilotToClub(this.idClub, formValue.id);
+  }
+
   addMemberToClub(idClub: number, idMember: number){
     this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
       this.getClub();
       this.closeMemberModal();
+      this.addMemberForm.reset();
+      this.utilityService.showMessage(
+        'success',
+        'Member successfully added',
+        '#06d6a0',
+        'white'
+      );
+    })
+  }
+
+  addPilotToClub(idClub: number, idMember: number){
+    this.clubService.addPilotToClub(idClub, idMember).subscribe(()=>{
+      this.getClub();
+      this.closePilotModal();
+      this.addMemberForm.reset();
       this.utilityService.showMessage(
         'success',
         'Member successfully added',
@@ -190,5 +221,61 @@ export class ViewMoreComponent implements OnInit {
         }
       });
   }
+
+  onDeletePilot(idPilot: number){
+    this.deletePilotMessage(idPilot);
+  }
+
+  deletePilotMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Are you sure ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.clubService.removePilot(this.idClub, id).subscribe(
+            () => {
+              this.getClub();
+              swalWithBootstrapButtons.fire({
+                title: 'Deleted !',
+                text: 'Member has been removed.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Cancelled',
+                text: 'An error has occurred',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Cancelled',
+            text: 'you have cancelled the deletion',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
 
 }

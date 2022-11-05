@@ -23,12 +23,14 @@ export class CentersComponent implements OnInit {
   countCenter: number = 0;
   openAreaModal: string = "";
   areas: Organism[] = [];
+  area: Organism;
   idCenter: number = 0;
   constructor(private formBuilder: FormBuilder,
     private centerService: CenterService,
     private areaService: AreaService,
     private utilityService: UtilityService,) { 
       this.center = new Organism();
+      this.area = new Organism();
     }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class CentersComponent implements OnInit {
     })
 
     this.addAreaForm = this.formBuilder.group({
-      id: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
     })
   }  
   getAllCenters(){
@@ -199,21 +201,43 @@ export class CentersComponent implements OnInit {
     this.openAreaModal = "";
   }
 
+  // onSubmitArea(){
+  //   const formValue = this.addAreaForm.value;
+  //   this.addArea(this.idCenter, formValue.id)
+  // }
+
+  // addArea(idCenter: number, idArea: number){
+  //   this.centerService.addAreaToCenter(idCenter, idArea).subscribe(()=>{
+  //     this.getAllCenters();
+  //     this.closeAreaModal();
+  //     this.utilityService.showMessage(
+  //       'success',
+  //       'Area successfully added to center',
+  //       '#06d6a0',
+  //       'white'
+  //     );
+  //   })
+  // }
+
   onSubmitArea(){
     const formValue = this.addAreaForm.value;
-    this.addArea(this.idCenter, formValue.id)
-  }
-
-  addArea(idCenter: number, idArea: number){
-    this.centerService.addAreaToCenter(idCenter, idArea).subscribe(()=>{
-      this.getAllCenters();
-      this.closeAreaModal();
-      this.utilityService.showMessage(
-        'success',
-        'Area successfully added to center',
-        '#06d6a0',
-        'white'
-      );
+    this.area.name = formValue.name;
+    this.areaService.createArea(this.area).subscribe((res)=>{
+      this.centerService.addAreaToCenter(this.idCenter, res.data.id).subscribe(()=>{
+        this.getAllCenters();
+        this.closeAreaModal();
+        this.addAreaForm.reset();
+        this.utilityService.showMessage(
+          'success',
+          'Area successfully added to center',
+          '#06d6a0',
+          'white'
+        );
+      })
+    }, (error)=>{
+      console.log(error);
+      
     })
   }
+
 }

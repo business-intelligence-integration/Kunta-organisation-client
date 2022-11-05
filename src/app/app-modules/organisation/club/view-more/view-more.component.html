@@ -244,7 +244,7 @@
                         <span class="icon">
                           <i aria-hidden="true" class="fas fa-plus"></i>
                       </span>
-                        <span (click) = "onOpenAddUser()">Ajouter un pilote</span>
+                        <span (click) = "onOpenAddPilot()">Ajouter un pilote</span>
                     </button>
                 </div>
             </div>
@@ -347,115 +347,51 @@
                         </div>
                     </div>
 
-                    <div class="flex-table">
+                    <div class="flex-table" *ngIf="pilot != null">
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
-                            <span class="is-grow">User</span>
-                            <span>Location</span>
-                            <span>Industry</span>
-                            <span>Status</span>
-                            <span>Relations</span>
+                            <span class="is-grow">Id</span>
+                            <span>Nom</span>
+                            <span>Prenom</span>
+                            <span>Numéro tél</span>
+                            <span>Email</span>
                             <span class="cell-end">Actions</span>
                         </div>
-
+            
                         <div class="flex-list-inner">
                             <!--Table item-->
                             <div class="flex-table-item">
                                 <div class="flex-table-cell is-media is-grow">
-                                    <div class="h-avatar is-medium">
-                                        <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="" data-user-popover="3">
-                                        <img class="badge" src="assets/img/icons/flags/united-states-of-america.svg" data-demo-src="assets/img/icons/flags/united-states-of-america.svg" alt="">
-                                    </div>
                                     <div>
-                                        <span class="item-name dark-inverted" data-filter-match="">Erik K.</span>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{ pilot.id }}</span>
                                         <span class="item-meta">
-                                          <span data-filter-match="">Product Manager</span>
+                                          <span data-filter-match="">{{ pilot.lastName }}</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell" data-th="Location">
-                                    <span class="light-text" data-filter-match="">New York, NY</span>
+                                    <span class="light-text" data-filter-match="">{{ pilot.lastName }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Industry">
-                                    <span class="light-text" data-filter-match="">Software</span>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ pilot.firstName }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Status">
-                                    <span class="tag is-success is-rounded" data-filter-match="">Online</span>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ pilot.phoneNumber }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Relations">
-                                    <div class="avatar-stack is-pushed-mobile">
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/7.jpg" data-demo-src="assets/img/avatars/photos/7.jpg" alt="" data-user-popover="0">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-fake is-info" data-user-popover="34">
-                                              <span>JD</span>
-                                            </span>
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <img class="avatar" src="assets/img/avatars/photos/27.jpg" data-demo-src="assets/img/avatars/photos/27.jpg" alt="" data-user-popover="10">
-                                        </div>
-                                        <div class="h-avatar is-small">
-                                            <span class="avatar is-more">
-                                              <span class="inner">
-                                                  <span>+2</span>
-                                            </span>
-                                            </span>
-                                        </div>
-                                    </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ pilot.email }}</span>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <div class="is-trigger" aria-haspopup="true">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-eye"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>View</span>
-                                                        <span>View user details</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-briefcase"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Projects</span>
-                                                        <span>View user projects</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-calendar"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Schedule</span>
-                                                        <span>Schedule a meeting</span>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-trash-can-alt"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Remove</span>
-                                                        <span>Remove from list</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
+                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatepilot(pilot.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                                    <a _ngcontent-nct-c62="" (click)="onDeletePilot(pilot.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+            
                     </div>
 
                     <!--Table Pagination-->
@@ -520,6 +456,51 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeMemberModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- add pilot -->
+<div id="addMember" class="modal h-modal" [ngClass]="openPilotModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajout Membre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closePilotModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddPilot()">
+                        <label>membres *</label>
+                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                            <option value="0" disabled>--Selectionnez un membre--</option>
+                            <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
+
+                              <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">
+                                <small class="text-police" translate>select the room </small>
+                           </div> -->
+                        </select><br><br>
+               
+        
+                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closePilotModal()">Cancel</a>
             </div>
         </div>
     </div>

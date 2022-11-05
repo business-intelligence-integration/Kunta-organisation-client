@@ -23,12 +23,14 @@ export class AreaComponent implements OnInit {
   clubs: Organism[] = [];
   area: Organism;
   idArea:number = 0;
+  club: Organism;
   openClubModal: string = "";
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
     private utilityService: UtilityService,
     private clubService: ClubService) { 
       this.area = new Organism();
+      this.club = new Organism();
     }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class AreaComponent implements OnInit {
     })
 
     this.addClubForm = this.formBuilder.group({
-      id: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
     })
   }
 
@@ -186,27 +188,56 @@ export class AreaComponent implements OnInit {
     this.openClubModal = "is-active";
   }
 
-  onSubmitclub(){
-    const formValue = this.addClubForm.value;
-    this.addClubToArea(this.idArea, formValue.id);
-  }
+  // onSubmitclub(){
+  //   const formValue = this.addClubForm.value;
+  //   this.addClubToArea(this.idArea, formValue.id);
+  // }
 
-  addClubToArea(idArea: number, idClub: number){
-    this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
-      this.getAllAreas();
-      this.closeClubModal();
-      this.utilityService.showMessage(
-        'success',
-        'Club successfully added to are',
-        '#06d6a0',
-        'white'
-      );
-    })
-  }
+  // addClubToArea(idArea: number, idClub: number){
+  //   this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
+  //     this.getAllAreas();
+  //     this.closeClubModal();
+  //     this.utilityService.showMessage(
+  //       'success',
+  //       'Club successfully added to are',
+  //       '#06d6a0',
+  //       'white'
+  //     );
+  //   })
+  // }
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((res)=>{
       this.clubs = res.data
+    })
+  }
+
+  onSubmitClub(){
+    const formValue = this.addClubForm.value;
+    this.club.name = formValue.name
+    this.createClub(this.club);
+  }
+
+  createClub(club: Organism){
+    this.clubService.createclub(club).subscribe((clubFromDb)=>{
+      this.areaService.addClubToArea(this.idArea, clubFromDb.data.id).subscribe(()=>{
+        this.getAllAreas();
+        this.closeClubModal();
+        this.utilityService.showMessage(
+          'success',
+          'Club successfully added to are',
+          '#06d6a0',
+          'white'
+        );
+      })
+
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
     })
   }
 }

@@ -5,6 +5,7 @@ import { Organism } from 'src/app/core/classes/organism';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-view-more-area',
@@ -245,5 +246,59 @@ export class ViewMoreAreaComponent implements OnInit {
   }
 
 
+  onDeleteArea(id: number){
+    this.deleteMessage(id);
+  }
+
+  deleteMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Are you sure ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.centerService.removeArea(this.idCenter, id).subscribe(
+            () => {
+              this.getCenter();;
+              swalWithBootstrapButtons.fire({
+                title: 'Deleted !',
+                text: 'Area has been deleted.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Cancelled',
+                text: 'An error has occurred',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Cancelled',
+            text: 'you have cancelled the deletion',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
 
 }

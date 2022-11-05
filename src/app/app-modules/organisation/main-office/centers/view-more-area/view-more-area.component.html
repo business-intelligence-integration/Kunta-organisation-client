@@ -251,14 +251,14 @@
                     </div>
                 </div>
             
-                <div class="buttons">
+                <!-- <div class="buttons">
                     <button class="button h-button is-primary is-elevated">
                         <span class="icon">
                           <i aria-hidden="true" class="fas fa-plus"></i>
                       </span>
                         <span (click)="onAddArea()">Ajouter une zone</span>
                     </button>
-                </div>
+                </div> -->
             </div>
           
             <div  *ngIf="isListAreas" class="page-content-inner">
@@ -300,50 +300,7 @@
 
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <div class="is-trigger" aria-haspopup="true">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-eye"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>View</span>
-                                                        <span>View user details</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-briefcase"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Projects</span>
-                                                        <span>View user projects</span>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-calendar"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Schedule</span>
-                                                        <span>Schedule a meeting</span>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider">
-                                                <a href="#" class="dropdown-item is-media">
-                                                    <div class="icon">
-                                                        <i class="lnil lnil-trash-can-alt"></i>
-                                                    </div>
-                                                    <div class="meta">
-                                                        <span>Remove</span>
-                                                        <span>Remove from list</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
