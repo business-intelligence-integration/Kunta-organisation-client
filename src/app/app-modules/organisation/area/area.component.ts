@@ -85,7 +85,7 @@ export class AreaComponent implements OnInit {
   getAllAreas(){
     this.areaService.findAllAreas().subscribe((res)=>{
       this.areas = res.data;
-      console.log("this.areas::", this.areas);
+      console.log("this.areas::", res);
       
     })
   }

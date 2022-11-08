@@ -29,6 +29,7 @@ export class ViewMoreComponent implements OnInit {
   addMemberForm!: FormGroup;
   isPilote: boolean = false;
   isMember: boolean = true;
+  pilotIsNull: boolean = false;
   clubMembers: User[] = [];
   members: User[] = [];
   pilots: User[] = [];
@@ -88,7 +89,11 @@ export class ViewMoreComponent implements OnInit {
         this.pilots = res.data.pilots;
         this.idClub = res.data.id;
         this.pilot = res.data.pilot;
-        console.log("clubs: ", res);
+        if(this.pilot == null || this.pilot == undefined){
+          this.pilotIsNull = true
+        }else{
+          this.pilotIsNull = false
+        }
       });
     })
   }
@@ -108,7 +113,12 @@ export class ViewMoreComponent implements OnInit {
   }
 
   onOpenAddPilot(){
-    this.openPilotModal = "is-active";
+    if(this.pilotIsNull == false){
+      this.openPilotModal = "";
+    }else{
+      this.openPilotModal = "is-active";
+    }
+  
   }
 
   closeMemberModal(){
@@ -162,10 +172,6 @@ export class ViewMoreComponent implements OnInit {
       this.members= res.data;
     })
   }
-
-  // addMember(member: User){
-  //   this.userService.crea
-  // }
 
   onDeleteMember(idMember: number){
     this.deleteMessage(idMember);
@@ -250,14 +256,14 @@ export class ViewMoreComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.clubService.removePilot(this.idClub, id).subscribe(
+          this.clubService.removePilot(this.idClub).subscribe(
             () => {
-              this.getClub();
               swalWithBootstrapButtons.fire({
                 title: 'Deleted !',
                 text: 'Member has been removed.',
                 confirmButtonColor: '#198AE3',
               });
+              this.getClub();
             },
             () => {
               swalWithBootstrapButtons.fire({

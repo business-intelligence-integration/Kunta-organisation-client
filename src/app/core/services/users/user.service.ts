@@ -78,6 +78,10 @@ export class UserService {
     return this.httpClient.get<any[]>(this.baseUrl + 'users/admin', httpOptions);
   }
 
+  getUserByEmail(email: string):Observable<any>{
+    return this.httpClient.get<any[]>(this.baseUrl + 'users/by-email/'+ email, httpOptions);
+  }
+
 
   
 

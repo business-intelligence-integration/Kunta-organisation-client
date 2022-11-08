@@ -19,7 +19,7 @@ export class AdminSysComponent implements OnInit {
 
   ngSelect = 0;
   clubMembers: User[] = [];
-  admins: User[] = [];
+  members: User[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -27,6 +27,7 @@ export class AdminSysComponent implements OnInit {
   centers: Organism[] = [];
   users: User[] = [];
   center: Organism;
+  adminSystIsNull: boolean = true;
 
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -52,7 +53,11 @@ export class AdminSysComponent implements OnInit {
   }
 
   onOpenAddUser(){
-    this.openMemberModal = "is-active";
+    if(this.adminSystIsNull == true){
+      this.openMemberModal = "is-active";
+    }else{
+      this.openMemberModal = "";
+    }
   }
 
   getCenter(){
@@ -60,25 +65,15 @@ export class AdminSysComponent implements OnInit {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
         this.center = res;
         this.idCenter = res.data.id;
-        console.log("res::", res);
-        console.log("res::", res.data.adminSys);
         this.user = res.data.adminSys;
-        console.log("res::",  this.user);
+        if(this.user == null || this.user == undefined){
+          this.adminSystIsNull = true;
+        }else{
+          this.adminSystIsNull = false;
+        }
       });
     })
   }
-
-
-
-  // getAllMainOffice(){
-  //   this.mainOfficeService.findAllOffices().subscribe((res)=>{
-  //     this.mainOffices =  res.data;
-  //     this.idMainOffice = res.data[0].id;
-  //     this.users = res.data[0].centersGeneralAssembly;
-  //     console.log("Main::", res.data[0].centersGeneralAssembly);
-      
-  //   })
-  // }
 
   closeMemberModal(){
     this.openMemberModal = "";
@@ -110,9 +105,9 @@ export class AdminSysComponent implements OnInit {
   }
 
   getAllMembers(){
-    this.userService.getAllAdmins().subscribe((res)=>{
+    this.userService.getAllMambers().subscribe((res)=>{
       console.log("res::", res);
-      this.admins = res.data;
+      this.members = res.data;
     })
   }
 

@@ -59,7 +59,7 @@ export class ExecutiveBoardComponent implements OnInit {
       this.mainOffices =  res.data;
       this.idMainOffice = res.data[0].id;
       this.users = res.data[0].executiveBoard;
-      console.log("Main::", res.data[0].executiveBoard
+      console.log("MainT::", res
           );
       
     })
@@ -96,7 +96,7 @@ export class ExecutiveBoardComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      console.log("res::", res);
+      console.log("resMembre::", res);
       this.members = res.data;
     })
   }

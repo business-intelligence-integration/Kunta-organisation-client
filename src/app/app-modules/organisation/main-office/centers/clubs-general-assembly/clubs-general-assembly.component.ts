@@ -17,7 +17,7 @@ export class ClubsGeneralAssemblyComponent implements OnInit {
 
   ngSelect = 0;
   clubMembers: User[] = [];
-  admins: User[] = [];
+  members: User[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -108,9 +108,8 @@ export class ClubsGeneralAssemblyComponent implements OnInit {
   }
 
   getAllMembers(){
-    this.userService.getAllUsers().subscribe((res)=>{
-      console.log("res::", res);
-      this.admins = res.data;
+    this.userService.getAllMambers().subscribe((res)=>{
+      this.members = res.data;
     })
   }
 

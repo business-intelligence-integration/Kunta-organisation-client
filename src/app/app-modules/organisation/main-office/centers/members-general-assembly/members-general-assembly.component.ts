@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 export class MembersGeneralAssemblyComponent implements OnInit {
   ngSelect = 0;
   clubMembers: User[] = [];
-  admins: User[] = [];
+  members: User[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -65,18 +65,6 @@ export class MembersGeneralAssemblyComponent implements OnInit {
     })
   }
 
-
-
-  // getAllMainOffice(){
-  //   this.mainOfficeService.findAllOffices().subscribe((res)=>{
-  //     this.mainOffices =  res.data;
-  //     this.idMainOffice = res.data[0].id;
-  //     this.users = res.data[0].centersGeneralAssembly;
-  //     console.log("Main::", res.data[0].centersGeneralAssembly);
-      
-  //   })
-  // }
-
   closeMemberModal(){
     this.openMemberModal = "";
   }
@@ -107,9 +95,8 @@ export class MembersGeneralAssemblyComponent implements OnInit {
   }
 
   getAllMembers(){
-    this.userService.getAllUsers().subscribe((res)=>{
-      console.log("res::", res);
-      this.admins = res.data;
+    this.userService.getAllMambers().subscribe((res)=>{
+      this.members = res.data;
     })
   }
 

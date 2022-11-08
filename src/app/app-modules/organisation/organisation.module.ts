@@ -31,6 +31,8 @@ import { ExecutiveBoardComponentCenter } from './main-office/centers/executive-b
 import { ProductionManagerComponent } from './main-office/centers/production-manager/production-manager.component';
 import { ClubsGeneralAssemblyComponent } from './main-office/centers/clubs-general-assembly/clubs-general-assembly.component';
 import { MemberToGccComponent } from './main-office/centers/member-to-gcc/member-to-gcc.component';
+import { CommunicationAgentToAreaComponent } from './area/communication-agent-to-area/communication-agent-to-area.component';
+import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { MemberToGccComponent } from './main-office/centers/member-to-gcc/member
     ExecutiveBoardComponent,
     ProductionManagerComponent,
     ClubsGeneralAssemblyComponent,
-    MemberToGccComponent
+    MemberToGccComponent,
+    CommunicationAgentToAreaComponent,
+    DataEntryAgentToAreaComponent
   ],
   imports: [
     CommonModule,

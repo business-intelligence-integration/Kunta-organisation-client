@@ -21,7 +21,8 @@ export class MenuComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    // this.getConnectedUser();
+    this.getConnectedUser();
+    // this.getRole();
   }
 
   onActive() {
@@ -37,12 +38,19 @@ export class MenuComponent implements OnInit {
     this.router.navigateByUrl("login");
   }
 
-  // getConnectedUser() {
-  //   this.userService.getMemberById(this.utilityService.getUserName()).subscribe((res) => {
-  //     this.user = res.data;
-  //     console.log("user::", res);
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      console.log("user::", res);
       
-  //   })
+    })
+  }
+
+  // getRole(){
+  //   this.utilityService.getUserRole(this.utilityService.loadToken()).forEach((role :any)=>{
+  //     console.log("Role::", role);
+      
+  // })
   // }
 
 }

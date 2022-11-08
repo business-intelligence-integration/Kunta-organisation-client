@@ -20,11 +20,19 @@ import { GovernanceCompensationCommitteeComponent } from './organisation/main-of
 import { ProductionMonitoringCommitteeComponent } from './organisation/main-office/production-monitoring-committee/production-monitoring-committee.component';
 import { StrategicDevelopmentCommitteeComponent } from './organisation/main-office/strategic-development-committee/strategic-development-committee.component';
 import { ViewMorePostComponent } from './organisation/main-office/view-more-post/view-more-post.component';
+import { CommunicationAgentToAreaComponent } from './organisation/area/communication-agent-to-area/communication-agent-to-area.component';
+import { DataEntryAgentToAreaComponent } from './organisation/area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"data-entry-agent-to-area", component: DataEntryAgentToAreaComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"communication-agent-to-area", component: CommunicationAgentToAreaComponent, canActivate: [EntityGuard]
+      },
       {
         path:"production-manager", component: ProductionManagerComponent, canActivate: [EntityGuard]
       },

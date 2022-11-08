@@ -48,4 +48,12 @@ export class AreaService {
   removeClubFromArea(idArea: number, idClub: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/remove-club/${idClub}`, {}, httpOptions);
   }
+
+  addCommunicationAgentToArea(idArea: number, idAgent: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/add-communication-agent/${idAgent}`, {}, httpOptions);
+  }
+
+  addDataEntryAgentToArea(idArea: number, idAgent: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/add-data-entry-agent/${idAgent}`, {}, httpOptions);
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -20,9 +21,12 @@ export class CentersComponent implements OnInit {
   updateCenterForm!: FormGroup;
   addAreaForm!: FormGroup;
   centers: Organism[] = [];
+  newListcenters: Organism[] = [];
   countCenter: number = 0;
   openAreaModal: string = "";
   areas: Organism[] = [];
+  clubs: Organism[] = [];
+  members: User[] = [];
   area: Organism;
   idCenter: number = 0;
   constructor(private formBuilder: FormBuilder,
@@ -53,11 +57,39 @@ export class CentersComponent implements OnInit {
       name: new FormControl(null, Validators.required),
     })
   }  
+
   getAllCenters(){
-    this.centerService.findAllCenters().subscribe((result)=>{
-      console.log("results::", result);
-      this.centers = result.data
-    })
+    let tabCenter: Organism[]= [];
+    let areas:Organism[] = []
+    let area:Organism
+    this.centerService.findAllCenters()
+    .subscribe({
+      next: (result) => result.data.map((center: any) => {
+        let clubs:Organism[] = []
+        let members: User[] = [];
+        let uniqCenter: Organism;
+        let newareas: Organism[] = center.areas
+        if(newareas.length > 0){
+          newareas.forEach((area:any)=>{
+              let newclubs: Organism[] = area.clubs
+              if(newclubs.length >0){
+                newclubs.forEach((club:any)=>{
+                  let newmembers: User[] = club.members
+                  if(newmembers.length > 0){
+                    newmembers.forEach((member:any)=>{
+                      members.push(member)
+                    }) 
+                  }
+                  clubs.push(club)
+              })}  
+              areas.push(area)
+            })
+        }
+        uniqCenter = { ...center, clubs, members}
+        tabCenter.push(uniqCenter);
+      }),
+    });
+    this.newListcenters = tabCenter;
   }
 
   getAllArea(){
@@ -190,8 +222,6 @@ export class CentersComponent implements OnInit {
       this.getCenterById(id);
     })
   }
-
-
   onAddArea(idCenter: number){
     this.idCenter = idCenter;
     this.openAreaModal = "is-active";
@@ -200,24 +230,6 @@ export class CentersComponent implements OnInit {
   closeAreaModal(){
     this.openAreaModal = "";
   }
-
-  // onSubmitArea(){
-  //   const formValue = this.addAreaForm.value;
-  //   this.addArea(this.idCenter, formValue.id)
-  // }
-
-  // addArea(idCenter: number, idArea: number){
-  //   this.centerService.addAreaToCenter(idCenter, idArea).subscribe(()=>{
-  //     this.getAllCenters();
-  //     this.closeAreaModal();
-  //     this.utilityService.showMessage(
-  //       'success',
-  //       'Area successfully added to center',
-  //       '#06d6a0',
-  //       'white'
-  //     );
-  //   })
-  // }
 
   onSubmitArea(){
     const formValue = this.addAreaForm.value;

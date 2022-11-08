@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class UtilityService {
-
+  roles: any
   constructor() { }
 
 loadToken(){
@@ -20,7 +20,7 @@ isConnect() {
 saveToken(token: any): void {
     localStorage.setItem('token', token);
     var jwtHelper = new JwtHelperService();
-    // this.roles = jwtHelper.decodeToken(token).roles;
+    this.roles = jwtHelper.decodeToken(token).roles;
 }
 
 getUserName() {
@@ -33,6 +33,11 @@ deleteToken(){
     localStorage.removeItem('token');
 }
 
+getUserRole(token: string) {
+  localStorage.setItem('token', token);
+  var jwtHelper = new JwtHelperService();
+  return (this.roles = jwtHelper.decodeToken(token).roles);
+}
 showMessage(icon: any, title: any, background: any, color: any) {
   const Toast = Swal.mixin({
     toast: true,

@@ -239,13 +239,16 @@
                       </span>
                         <span (click) = "onOpenAddUser()">Ajouter un membre</span>
                     </button>
-
-                    <button *ngIf="isPilote" class="button h-button is-primary is-elevated">
-                        <span class="icon">
-                          <i aria-hidden="true" class="fas fa-plus"></i>
-                      </span>
-                        <span (click) = "onOpenAddPilot()">Ajouter un pilote</span>
-                    </button>
+                 
+                    <div *ngIf="isPilote">
+                        <button [disabled]="!pilotIsNull" class="button h-button is-primary is-elevated">
+                            <span class="icon">
+                              <i aria-hidden="true" class="fas fa-plus"></i>
+                          </span>
+                            <span (click) = "onOpenAddPilot()">Ajouter un pilote</span>
+                        </button>
+                    </div>
+                  
                 </div>
             </div>
             

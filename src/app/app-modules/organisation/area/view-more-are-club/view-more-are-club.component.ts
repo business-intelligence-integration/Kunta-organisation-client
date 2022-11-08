@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
+import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -23,11 +24,23 @@ export class ViewMoreAreClubComponent implements OnInit {
   idArea: number = 0;
   clubsOfArea: Organism [] = [];
   clubs: Organism [] = [];
+  clubName: string = "";
+  activeListClub: string = "";
+  wrapdwonArea: string ="display-block";
+  isListClubs: boolean = true;
+  isCummunicationAgentList: boolean = false;
+  isAgentEntryList: boolean = false;
+  dynamicTitle = "Liste des clubs";
+  communicationAgent: User;
+  dataEntryAgent: User;
   constructor(private areaService: AreaService, 
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private clubService: ClubService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService) {
+      this.communicationAgent = new User();
+      this.dataEntryAgent = new User();
+     }
 
   ngOnInit(): void {
     this.getArea();
@@ -57,8 +70,11 @@ export class ViewMoreAreClubComponent implements OnInit {
   getArea(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.areaService.getAreaById(params['id']).subscribe((res)=>{
-        this.idArea = res.data.id
-        this.clubsOfArea = res.data.clubs
+        this.idArea = res.data.id;
+        this.clubName = res.data.name;
+        this.clubsOfArea = res.data.clubs;
+        this.communicationAgent = res.data.communicationAgent;
+        this.dataEntryAgent = res.data.dataEntryAgent;
         console.log("res::", res);
         
       });
@@ -152,4 +168,43 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.deleteMessage(this.idArea, id)
   }
 
+  onListCenter(){
+    if(this.activeListClub == ""){
+      this.activeListClub = "active" 
+      this.wrapdwonArea ="block"
+    }else{
+      this.activeListClub =""
+      this.wrapdwonArea ="none"
+    }
+  }
+
+  onShowClubList(){
+    this.isCummunicationAgentList = false;
+    this.isAgentEntryList = false;
+    this.isListClubs = true;
+    this.dynamicTitle = "Liste des clubs";
+  }
+
+  onShowAgentCommunicationList(){
+    this.isAgentEntryList = false;
+    this.isListClubs = false;
+    this.isCummunicationAgentList = true;
+    this.dynamicTitle = "Agent de communication";
+  }
+
+  onShowDataEntryAgent(){
+    this.isListClubs = false;
+    this.isCummunicationAgentList = false;
+    this.isAgentEntryList = true;
+    this.dynamicTitle = "Agent de saisie de données";
+  }
+
+
+  onAddAgentComunication(){
+
+  }
+
+  onAddAgentEntry(){
+
+  }
 }

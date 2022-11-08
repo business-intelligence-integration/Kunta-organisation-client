@@ -78,6 +78,7 @@ export class OrganismComponent implements OnInit {
     this.areNotUsers();
      this.areMainOffice();
     //  this.areAboutCenter()
+    this.isMainCenters = false;
     this.isCenter = false;
     this.isUser = false
     this.isArea = false;
@@ -140,6 +141,7 @@ export class OrganismComponent implements OnInit {
     this.areNotUsers();
     this.areMainOffice();
     // this.areAboutCenter()
+    this.isMainCenters = false;
     this.isCenter = false;
     this.isClub = false;
     this.isArea = false;
@@ -232,17 +234,6 @@ export class OrganismComponent implements OnInit {
     this.dynamicTitle = "Liste des centres";
   }
 
-  // onListCenter(){
-  //   if(this.activeListCenter == ""){
-  //     this.activeListCenter = "active" 
-  //     this.marginBut = "margin-but-on"
-  //     this.wrapdwonCenter ="block"
-  //   }else{
-  //     this.activeListCenter =""
-  //     this.wrapdwonCenter ="none"
-  //     this.marginBut = "margin-but-in"
-  //   }
-  // }
 
   areNotOrganisations(){
     this.isUser = false

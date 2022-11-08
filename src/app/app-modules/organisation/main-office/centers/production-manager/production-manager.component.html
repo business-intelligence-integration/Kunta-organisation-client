@@ -7,11 +7,11 @@
     </div>
 
     <div class="buttons">
-        <button class="button h-button is-primary is-elevated">
+        <button [disabled]="!productManagerIsNull" class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span (click) = "onOpenAddUser()">Créer le comptable</span>
+            <span (click) = "onOpenAddUser()">Créer responsable de Production</span>
         </button>
     </div>
 </div>
@@ -46,7 +46,7 @@
                 </div>
 
                    
-                <div class="flex-table" *ngFor="let user of users">
+                <div class="flex-table" *ngIf="user != null">
 
                     <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
@@ -137,7 +137,7 @@
                         <label>membres *</label>
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un membre--</option>
-                            <option *ngFor="let admin of admins" [value]="admin.id"> <span> {{ admin.firstName }}-{{ admin.lastName }}  </span> </option>
+                            <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
                         </select><br><br>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>

@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
 import { User } from 'src/app/core/classes/user';
-import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -94,7 +93,6 @@ export class ProductionMonitoringCommitteeComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      console.log("res::", res);
       this.members = res.data;
     })
   }

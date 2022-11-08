@@ -70,10 +70,10 @@ export class CenterService {
     return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/add-production-manager/${idMember}`, {}, httpOptions);
   }
   removeAccountant(idCenter: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-accountant/${idMember}`, {}, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-accountant`, {}, httpOptions);
   }
   removeAdminSys(idCenter: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-admin-sys/${idMember}`, {}, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-admin-sys`, {}, httpOptions);
   }
   removeArea(idCenter: number, idMember: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-area/${idMember}`, {}, httpOptions);
@@ -93,8 +93,8 @@ export class CenterService {
   removeFromMembersGeneralAssembly(idCenter: number, idMember: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-members-general-assembly/${idMember}`, {}, httpOptions);
   }
-  removeProductionManager(idCenter: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-member-from-members-general-assembly/${idMember}`, {}, httpOptions);
+  removeProductionManager(idCenter: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-production-manager`, {}, httpOptions);
   }
 }
 

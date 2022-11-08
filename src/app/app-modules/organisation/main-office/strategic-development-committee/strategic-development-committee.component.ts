@@ -93,7 +93,6 @@ export class StrategicDevelopmentCommitteeComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      console.log("res::", res);
       this.members = res.data;
     })
   }

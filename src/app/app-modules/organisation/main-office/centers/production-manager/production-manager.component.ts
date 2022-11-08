@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 export class ProductionManagerComponent implements OnInit {
   ngSelect = 0;
   clubMembers: User[] = [];
-  admins: User[] = [];
+  members: User[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -24,7 +24,7 @@ export class ProductionManagerComponent implements OnInit {
   centers: Organism[] = [];
   users: User[] = [];
   center: Organism;
-
+  productManagerIsNull: boolean = true;
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private centerService: CenterService,
@@ -48,7 +48,11 @@ export class ProductionManagerComponent implements OnInit {
   }
 
   onOpenAddUser(){
-    this.openMemberModal = "is-active";
+    if(this.productManagerIsNull == true){
+      this.openMemberModal = "is-active";
+    }else{
+      this.openMemberModal = "";
+    }
   }
 
   getCenter(){
@@ -56,25 +60,17 @@ export class ProductionManagerComponent implements OnInit {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
         this.center = res;
         this.idCenter = res.data.id;
-        console.log("res::", res);
-        console.log("res::", res.data.productionManager);
-        this.users = res.data.productionManager;
-        console.log("res::",  this.user);
+        this.user = res.data.productionManager;
+        console.log("resP:", this.user);
+        
+        if(this.user == null || this.user == undefined){
+          this.productManagerIsNull = true;
+        }else{
+          this.productManagerIsNull = false;
+        }
       });
     })
   }
-
-
-
-  // getAllMainOffice(){
-  //   this.mainOfficeService.findAllOffices().subscribe((res)=>{
-  //     this.mainOffices =  res.data;
-  //     this.idMainOffice = res.data[0].id;
-  //     this.users = res.data[0].centersGeneralAssembly;
-  //     console.log("Main::", res.data[0].centersGeneralAssembly);
-      
-  //   })
-  // }
 
   closeMemberModal(){
     this.openMemberModal = "";
@@ -106,9 +102,8 @@ export class ProductionManagerComponent implements OnInit {
   }
 
   getAllMembers(){
-    this.userService.getAllUsers().subscribe((res)=>{
-      console.log("res::", res);
-      this.admins = res.data;
+    this.userService.getAllMambers().subscribe((res)=>{
+      this.members = res.data;
     })
   }
 
@@ -140,23 +135,23 @@ export class ProductionManagerComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          // this.centerService.removeFromMembersGeneralAssembly(this.idCenter, id).subscribe(
-          //   () => {
-          //     this.getCenter();
-          //     swalWithBootstrapButtons.fire({
-          //       title: 'Removed !',
-          //       text: 'Admin has been removed.',
-          //       confirmButtonColor: '#198AE3',
-          //     });
-          //   },
-          //   () => {
-          //     swalWithBootstrapButtons.fire({
-          //       title: 'Cancelled',
-          //       text: 'An error has occurred',
-          //       confirmButtonColor: '#d33',
-          //     });
-          //   }
-          // );
+          this.centerService.removeProductionManager(this.idCenter).subscribe(
+            () => {
+              this.getCenter();
+              swalWithBootstrapButtons.fire({
+                title: 'Removed !',
+                text: 'Admin has been removed.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Cancelled',
+                text: 'An error has occurred',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: 'Cancelled',

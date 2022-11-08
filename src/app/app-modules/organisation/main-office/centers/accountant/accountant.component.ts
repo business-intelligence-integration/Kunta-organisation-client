@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 export class AccountantComponent implements OnInit {
   ngSelect = 0;
   clubMembers: User[] = [];
-  admins: User[] = [];
+  members: User[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -24,7 +24,7 @@ export class AccountantComponent implements OnInit {
   centers: Organism[] = [];
   users: User[] = [];
   center: Organism;
-
+  accountantIsNull: boolean = true;
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private centerService: CenterService,
@@ -36,7 +36,6 @@ export class AccountantComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
-    // this.getAllMainOffice();
     this.getAllMembers();
     this.getCenter();
   }
@@ -49,7 +48,12 @@ export class AccountantComponent implements OnInit {
   }
 
   onOpenAddUser(){
-    this.openMemberModal = "is-active";
+    if(this.accountantIsNull == true){
+      this.openMemberModal = "is-active";
+    }else{
+      this.openMemberModal = "";
+    }
+   
   }
 
   getCenter(){
@@ -57,25 +61,15 @@ export class AccountantComponent implements OnInit {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
         this.center = res;
         this.idCenter = res.data.id;
-        console.log("res::", res);
-        console.log("res::", res.data.adminSys);
         this.user = res.data.accountant;
-        console.log("res::",  this.user);
+        if(this.user == null || this.user == undefined){
+          this.accountantIsNull = true;
+        }else{
+          this.accountantIsNull = false;
+        }
       });
     })
   }
-
-
-
-  // getAllMainOffice(){
-  //   this.mainOfficeService.findAllOffices().subscribe((res)=>{
-  //     this.mainOffices =  res.data;
-  //     this.idMainOffice = res.data[0].id;
-  //     this.users = res.data[0].centersGeneralAssembly;
-  //     console.log("Main::", res.data[0].centersGeneralAssembly);
-      
-  //   })
-  // }
 
   closeMemberModal(){
     this.openMemberModal = "";
@@ -107,9 +101,8 @@ export class AccountantComponent implements OnInit {
   }
 
   getAllMembers(){
-    this.userService.getAllUsers().subscribe((res)=>{
-      console.log("res::", res);
-      this.admins = res.data;
+    this.userService.getAllMambers().subscribe((res)=>{
+      this.members = res.data;
     })
   }
 
