@@ -33,6 +33,7 @@ import { ClubsGeneralAssemblyComponent } from './main-office/centers/clubs-gener
 import { MemberToGccComponent } from './main-office/centers/member-to-gcc/member-to-gcc.component';
 import { CommunicationAgentToAreaComponent } from './area/communication-agent-to-area/communication-agent-to-area.component';
 import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/data-entry-agent-to-area.component';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/d
     ClubsGeneralAssemblyComponent,
     MemberToGccComponent,
     CommunicationAgentToAreaComponent,
-    DataEntryAgentToAreaComponent
+    DataEntryAgentToAreaComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,

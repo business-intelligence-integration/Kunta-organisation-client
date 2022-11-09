@@ -48,6 +48,7 @@ export class UserComponent implements OnInit {
       lastName: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
       userType: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       confPassword: new FormControl(null, Validators.required),
@@ -58,6 +59,7 @@ export class UserComponent implements OnInit {
       lastName: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
       id: new FormControl(null, Validators.required),
     })
   }
@@ -76,6 +78,7 @@ export class UserComponent implements OnInit {
    this.user.password = formValue.password;
    this.user.phoneNumber = formValue.phoneNumber;
    this.user.userName = formValue.userName;
+   this.user.city = formValue.city;
 
    if(formValue.userType == "ADMIN"){
     this.createAdmin(this.user)
@@ -97,6 +100,7 @@ export class UserComponent implements OnInit {
     this.user.email = formValue.userName;
     this.user.phoneNumber = formValue.phoneNumber;
     this.user.userName = formValue.userName
+    this.user.city = formValue.city;
     this.updateUser(this.user, formValue.id)
   }
 
@@ -157,7 +161,7 @@ export class UserComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
-      console.log("result::", result);
+      console.log("users::", result);
       
     })
   }

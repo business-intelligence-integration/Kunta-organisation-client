@@ -25,6 +25,7 @@ export class OrganismComponent implements OnInit {
   isArea: boolean = false;
   isMainOffice: boolean = false;
   isMainCenters: boolean = false;
+  isAccount: boolean = false; 
   dynamicTitle: string = "Utilisateurs";
 
   isExecutiveBoard: boolean = false;
@@ -66,6 +67,7 @@ export class OrganismComponent implements OnInit {
     this.areNotUsers();
     this.areMainOffice();
     // this.areAboutCenter()
+    this.isAccount = false; 
     this.isUser = false
     this.isClub = false;
     this.isArea = false;
@@ -78,6 +80,7 @@ export class OrganismComponent implements OnInit {
     this.areNotUsers();
      this.areMainOffice();
     //  this.areAboutCenter()
+    this.isAccount = false; 
     this.isMainCenters = false;
     this.isCenter = false;
     this.isUser = false
@@ -91,6 +94,7 @@ export class OrganismComponent implements OnInit {
     this.areNotUsers();
     this.areMainOffice();
     //  this.areAboutCenter()
+    this.isAccount = false; 
     this.isMainCenters = false;
     this.isCenter = false;
     this.isUser = false
@@ -100,10 +104,26 @@ export class OrganismComponent implements OnInit {
     this.dynamicTitle = "Zones";
   }
 
+  onAccounts(){
+    this.areNotUsers();
+    this.areMainOffice();
+    //  this.areAboutCenter()
+    this.isMainCenters = false;
+    this.isCenter = false;
+    this.isUser = false
+    this.isClub = false; 
+    this.isMainOffice = false;
+    this.isArea = false;
+    this.isAccount = true; 
+    this.dynamicTitle = "Comptes";
+  }
+
+
   onShowMainOffice(){
     this.areNotUsers();
      this.areMainOffice();
     //  this.areAboutCenter()
+    this.isAccount = false; 
     this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
@@ -241,7 +261,8 @@ export class OrganismComponent implements OnInit {
     this.isArea = false;
     this.isMainOffice = false;
     this.isCenter = false;
-  }
+    this.isAccount = false;
+   }
 
   areNotMainOffice(){
     this.areNotOrganisations();

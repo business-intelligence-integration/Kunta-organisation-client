@@ -5,6 +5,7 @@ import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-data-entry-agent-to-area',
@@ -19,6 +20,7 @@ export class DataEntryAgentToAreaComponent implements OnInit {
   addAgentForm!: FormGroup;
   users: User[] = [];
   idArea: number = 0;
+  agentEntryIsNull: boolean = true;
   constructor( private activatedRoute: ActivatedRoute, 
     private areaService: AreaService,
     private formBuilder: FormBuilder,
@@ -45,7 +47,11 @@ export class DataEntryAgentToAreaComponent implements OnInit {
       this.areaService.getAreaById(params['id']).subscribe((res)=>{
         this.idArea = res.data.id;
         this.entryAgent = res.data.dataEntryAgent;
-        console.log("res::", res);
+        if(this.entryAgent == null || this.entryAgent == undefined){
+          this.agentEntryIsNull = false;
+        }else{
+          this.agentEntryIsNull = true;
+        }
         
       });
     })
@@ -83,16 +89,70 @@ export class DataEntryAgentToAreaComponent implements OnInit {
   }
 
   onAddAgentEntry(){
-    this.openAgentModal = "is-active"
-    
+    if(this.agentEntryIsNull == true){
+      this.openAgentModal = ""
+    }else{
+      this.openAgentModal = "is-active"
+    }
   }
 
   closeAgentModal(){
     this.openAgentModal = "";
   }
 
-  onDeleteEntryAgent(id: number){
+  onDeleteEntryAgent(){
+    this.deleteMessage()
+  }
 
+  deleteMessage() {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Are you sure ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.areaService.removeDataEntryAgentFromArea(this.idArea).subscribe(
+            () => {
+              this.getArea();
+              swalWithBootstrapButtons.fire({
+                title: 'Removed !',
+                text: 'Agent has been removed.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Cancelled',
+                text: 'An error has occurred',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Cancelled',
+            text: 'you have cancelled the deletion',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 
 }

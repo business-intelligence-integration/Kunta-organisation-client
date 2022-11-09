@@ -43,6 +43,7 @@
                 <span>Prenom</span>
                 <span>Numéro tél</span>
                 <span>Email</span>
+                <span>Ville</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -68,6 +69,9 @@
                     </div>
                     <div class="flex-table-cell" data-th="Email">
                         <span class="light-text" data-filter-match="">{{ user.email }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Email">
+                        <span class="light-text" data-filter-match="">{{ user.city }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -307,6 +311,22 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Ville</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" placeholder="Ville" formControlName="city">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="addUserForm.get('city')?.errors?.['required'] && addUserForm.get('city')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer l'email</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="column is-12">
                                 <div class="field">
                                     <label>Password *</label>
@@ -500,6 +520,19 @@
                                     </div>
                                     <div class="text-danger"
                                         *ngIf="updateUserForm.get('userName')?.errors?.['required'] && updateUserForm.get('userName')?.touched">
+                                        <small class="text-police" translate>enter the user's email</small>
+                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Ville *</label>
+                                    <div class="control">
+                                        <input type="email" class="input" [(ngModel)]="user.city" placeholder="Email Address" formControlName="userName">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('city')?.errors?.['required'] && updateUserForm.get('city')?.touched">
                                         <small class="text-police" translate>enter the user's email</small>
                                      </div>
                                 </div>

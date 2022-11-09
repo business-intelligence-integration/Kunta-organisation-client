@@ -6,4 +6,5 @@ export class User{
     password:	string = "";
     phoneNumber:	string = "";
     userName:	string = "";
+    city: string = "";
 }

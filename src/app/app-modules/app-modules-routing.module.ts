@@ -28,6 +28,9 @@ const routes: Routes = [
     path:"", component: AppContentComponent,
     children: [
       {
+        path:"account", component: AccountantComponent, canActivate: [EntityGuard]
+      },
+      {
         path:"data-entry-agent-to-area", component: DataEntryAgentToAreaComponent, canActivate: [EntityGuard]
       },
       {

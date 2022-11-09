@@ -56,4 +56,12 @@ export class AreaService {
   addDataEntryAgentToArea(idArea: number, idAgent: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/add-data-entry-agent/${idAgent}`, {}, httpOptions);
   }
+
+  removeCommunicationAgentFromArea(idArea: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/remove-communication-agent`, {}, httpOptions);
+  }
+
+  removeDataEntryAgentFromArea(idArea: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/remove-data-entry-agent`, {}, httpOptions);
+  }
 }

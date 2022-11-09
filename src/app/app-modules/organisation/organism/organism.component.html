@@ -127,86 +127,6 @@
                     <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
                 <ul [style.display]="wrapdwonDetaiilsMainOffice">
-               
-                    <!-- <li>
-                        <a (click)="onMainCenters()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Centres</span>
-                        </a>
-                    </li> -->
-
-                    <!-- <div [ngClass]="marginBut" class="left-ma">
-                        <li class="has-children" [ngClass]="activeListCenter">
-                            <div class="collapse-wrap">
-                                <a href="javascript:void(0);" (click)="onListCenter()" class="parent-link">Centres <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                            </div>
-                            <ul [style.display]="wrapdwonCenter">
-                                <li>
-                                    <a (click)="onMainCenters()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Tous les centres</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a (click)="onAccountant()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Comptable</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a (click)="onAdminSys()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Administrateur Système</span>
-                                    </a>
-                                </li>
-            
-                                <li style="margin-bottom: 10px;">
-                                    <a (click)="onMemberGeneralAssembly()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Assemblée générale des membres</span>
-                                    </a>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <a (click)="onDevelopmentCommitteeCenter()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Comité de Développement</span>
-                                    </a>
-                                </li>
-                               
-                                <li style="margin-bottom: 10px;">
-                                    <a (click)="onGeneralAssemblyCenter()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Assemblée représentative des Clubs</span>
-                                    </a>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <a (click)="onExecutiveBoardCenter()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Conseil d’Administration</span>
-                                    </a>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <a (click)="onMemberToGcc()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Comité de Gouvernance et des Rémunérations</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a (click)="onProductionmanager()" class="is-submenu">
-                                        <i class="lnil lnil-list-alt-1"></i>
-                                        <span>Responsable de Production</span>
-                                    </a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-                    </div> -->
-
-                  
-
-
-
-
                     <li>
                         <a (click)="onExecutiveBoard()" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
@@ -239,6 +159,12 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onAccounts()" >Comptes</a>
+                </div>
             </li>
         </ul>
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
@@ -359,6 +285,7 @@
             <app-club *ngIf="isClub"></app-club>
             <app-area *ngIf="isArea"></app-area>
             <app-main-office *ngIf="isMainOffice"></app-main-office>
+            <app-account  *ngIf="isAccount"></app-account>
 
             <app-admin *ngIf="isAdmin"></app-admin>
             <app-member *ngIf="isMember"></app-member>
