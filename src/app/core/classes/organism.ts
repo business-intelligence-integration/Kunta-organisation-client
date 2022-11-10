@@ -3,7 +3,7 @@ import { User } from "./user";
 export class Organism{
     id: number = 0;
     name: string = "";
-    creationDate: string = "";
+    creationDate: any;
     center: any
     areas: any;
     area: any;

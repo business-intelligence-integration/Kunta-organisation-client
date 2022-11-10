@@ -55,6 +55,7 @@
                         <span>Prenom</span>
                         <span>Numéro tél</span>
                         <span>Email</span>
+                        <span>Ville</span>
                         <span class="cell-end">Actions</span>
                     </div>
         
@@ -80,6 +81,9 @@
                             </div>
                             <div class="flex-table-cell" data-th="Location">
                                 <span class="light-text" data-filter-match="">{{ user.email }}</span>
+                            </div>
+                            <div class="flex-table-cell" data-th="Email">
+                                <span class="light-text" data-filter-match="">{{ user.city }}</span>
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

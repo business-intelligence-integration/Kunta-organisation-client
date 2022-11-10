@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/core/classes/user';
 import { UserService } from 'src/app/core/services/users/user.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,11 +11,13 @@ import Swal from 'sweetalert2';
 })
 export class AdminComponent implements OnInit {
   Admins: string = "Admins";
+  disabledUserAction: string="disabled";
   users: User[] = [];
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     this.getAllAmins();
+    this.getConnectedUser();
   }
 
   getAllAmins(){
@@ -25,6 +28,17 @@ export class AdminComponent implements OnInit {
     })
   }
 
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.disabledUserAction = ""
+          console.log("disabled::", this.disabledUserAction);
+          
+        }
+      })
+    })
+  }
   
   onDeleteUser(idUser: number){
     this.deleteMessage(idUser);

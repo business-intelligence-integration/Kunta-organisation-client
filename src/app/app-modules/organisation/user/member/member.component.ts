@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/core/classes/user';
 import { UserService } from 'src/app/core/services/users/user.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,12 +10,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./member.component.scss']
 })
 export class MemberComponent implements OnInit {
+  disabledUserAction: string="disabled";
   Members: string  = "Members";
   users: User[] = [];
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     this.getAllMambers();
+    this.getConnectedUser();
   }
 
   getAllMambers(){
@@ -23,6 +26,15 @@ export class MemberComponent implements OnInit {
     })
   }
 
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.disabledUserAction = ""
+        }
+      })
+    })
+  }
   
   onDeleteUser(idUser: number){
     this.deleteMessage(idUser);

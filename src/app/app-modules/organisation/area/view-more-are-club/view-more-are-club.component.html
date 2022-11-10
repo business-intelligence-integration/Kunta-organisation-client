@@ -254,6 +254,7 @@
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
                             <span>Name</span>
+                            <span>Date de création</span>
                             <span class="cell-end">Actions</span>
                         </div>
 
@@ -271,11 +272,12 @@
                                 <div class="flex-table-cell" data-th="Location">
                                     <span class="light-text" data-filter-match="">{{ club.name }}</span>
                                 </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
+                                </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    
                                         <a _ngcontent-nct-c62="" (click)="onDeleteClub(club.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-
                                     </div>
                                 </div>
                             </div>

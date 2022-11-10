@@ -47,3 +47,10 @@
     fill: var(--primary-color-base);
   }
   
+
+  .disabled{
+    cursor: default;
+    pointer-events: none;        
+    text-decoration: none;
+    opacity: 0.5;
+}

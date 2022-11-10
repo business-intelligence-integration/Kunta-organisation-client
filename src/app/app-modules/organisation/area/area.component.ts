@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
@@ -25,6 +26,7 @@ export class AreaComponent implements OnInit {
   idArea:number = 0;
   club: Organism;
   openClubModal: string = "";
+  createDate: string = "";
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
     private utilityService: UtilityService,
@@ -51,6 +53,7 @@ export class AreaComponent implements OnInit {
 
     this.addClubForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
+      creationDate: new FormControl(null, Validators.required),
     })
   }
 
@@ -188,24 +191,6 @@ export class AreaComponent implements OnInit {
     this.openClubModal = "is-active";
   }
 
-  // onSubmitclub(){
-  //   const formValue = this.addClubForm.value;
-  //   this.addClubToArea(this.idArea, formValue.id);
-  // }
-
-  // addClubToArea(idArea: number, idClub: number){
-  //   this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
-  //     this.getAllAreas();
-  //     this.closeClubModal();
-  //     this.utilityService.showMessage(
-  //       'success',
-  //       'Club successfully added to are',
-  //       '#06d6a0',
-  //       'white'
-  //     );
-  //   })
-  // }
-
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((res)=>{
       this.clubs = res.data
@@ -215,6 +200,11 @@ export class AreaComponent implements OnInit {
   onSubmitClub(){
     const formValue = this.addClubForm.value;
     this.club.name = formValue.name
+    let createDate = new Date(formValue.creationDate);
+    let moveDateFormated = new DatePipe('en-US').transform(createDate,'yyyy-MM-dd');
+    this.club.creationDate = moveDateFormated
+    console.log(this.club);
+    
     this.createClub(this.club);
   }
 
@@ -239,5 +229,10 @@ export class AreaComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  onSelectCreateDate(event: any){
+    console.log("event::", event);
+    
   }
 }

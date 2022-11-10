@@ -9,7 +9,7 @@
     </div>
 
     <div class="buttons">
-        <button class="button h-button is-primary is-elevated">
+        <button [disabled]="!adminIsConnected" class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
@@ -76,8 +76,8 @@
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                             <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
-                        <a _ngcontent-nct-c62="" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -529,7 +529,7 @@
                                 <div class="field">
                                     <label>Ville *</label>
                                     <div class="control">
-                                        <input type="email" class="input" [(ngModel)]="user.city" placeholder="Email Address" formControlName="userName">
+                                        <input type="text" class="input" [(ngModel)]="user.city" placeholder="Ville" formControlName="city">
                                     </div>
                                     <div class="text-danger"
                                         *ngIf="updateUserForm.get('city')?.errors?.['required'] && updateUserForm.get('city')?.touched">

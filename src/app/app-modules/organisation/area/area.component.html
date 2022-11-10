@@ -245,7 +245,19 @@
                                 *ngIf="addClubForm.get('name')?.errors?.['required'] && addClubForm.get('name')?.touched">
                                 <small class="text-police" translate>entrer l'appelation du centre</small>
                             </div>
-                        </div><br>
+                        </div>
+                        <div class="field">
+                            <label>Date de creation *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                </div>
+                           </div>
+                           <div class="text-danger" *ngIf="addClubForm.get('creationDate')?.errors?.['required'] && addClubForm.get('creationDate')?.touched">
+                             <small class="text-police" translate>selectionner la date de création</small>
+                           </div>
+                        </div>
+                        <br>
                         <div class="control login">
                             <button [disabled]="addClubForm.invalid"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>

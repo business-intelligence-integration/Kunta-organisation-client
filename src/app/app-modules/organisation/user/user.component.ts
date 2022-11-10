@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  disabledUserAction: string="disabled";
   ngSelect: any = "1";
   openAddModal: string = "";
   openUpdateModal: string = "";
@@ -23,6 +24,7 @@ export class UserComponent implements OnInit {
   creatUser: boolean = false;
   updatUser: boolean = false;
   isList: boolean = true;
+  adminIsConnected: boolean = false;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -40,6 +42,7 @@ export class UserComponent implements OnInit {
     this.formInit();
     this.getAllUsers();
     this.management();
+    this.getConnectedUser();
   }
 
   formInit() {
@@ -65,9 +68,14 @@ export class UserComponent implements OnInit {
   }
 
   onOpenAddUser(){
-    this.creatUser = true;
+    if(this.adminIsConnected == true){
+      this.creatUser = true;
+    }else{
+      this.creatUser = false;
+      this.isList = true;
+    }
     this.updatUser = false;
-    this.isList = false;
+
    }
 
    onAddUser(){
@@ -102,6 +110,17 @@ export class UserComponent implements OnInit {
     this.user.userName = formValue.userName
     this.user.city = formValue.city;
     this.updateUser(this.user, formValue.id)
+  }
+
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+          this.disabledUserAction = ""
+        }
+      })
+    })
   }
 
   updateUser(user: User, id: number){
@@ -141,14 +160,6 @@ export class UserComponent implements OnInit {
     })
    
   }
-  // onUpdateUser(idUser: number){
-  //   this.userService.getMemberById(idUser).subscribe((user)=>{
-  //     this.user = user.data;
-  //     console.log("this.user::", this.user);
-  //     this.openUpdateModal ="is-active";
-  //   })
-   
-  // }
 
   closeUpdateUserModal(){
     this.openUpdateModal = ""
