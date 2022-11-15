@@ -13,12 +13,17 @@ import Swal from 'sweetalert2';
 export class UserComponent implements OnInit {
   disabledUserAction: string="disabled";
   ngSelect: any = "1";
+  ngSelect2 = 0;
   openAddModal: string = "";
   openUpdateModal: string = "";
+  openSponsoreModal: string = "";
   addUserForm!: FormGroup;
   updateUserForm!: FormGroup;
+  addSponsoreForm!: FormGroup;
   users: User[];
+  members: User[] = [];
   user: User;
+  idUser: number = 0; 
   Utilisateurs: string = "Utilisateurs"
   isProgressing: boolean = false;
   creatUser: boolean = false;
@@ -43,6 +48,7 @@ export class UserComponent implements OnInit {
     this.getAllUsers();
     this.management();
     this.getConnectedUser();
+    this.getAllMembers();
   }
 
   formInit() {
@@ -65,11 +71,17 @@ export class UserComponent implements OnInit {
       city: new FormControl(null, Validators.required),
       id: new FormControl(null, Validators.required),
     })
+
+    this.addSponsoreForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
+    })
+
   }
 
   onOpenAddUser(){
     if(this.adminIsConnected == true){
       this.creatUser = true;
+      this.isList = false;
     }else{
       this.creatUser = false;
       this.isList = true;
@@ -109,6 +121,8 @@ export class UserComponent implements OnInit {
     this.user.phoneNumber = formValue.phoneNumber;
     this.user.userName = formValue.userName
     this.user.city = formValue.city;
+    console.log("update::", this.user);
+    
     this.updateUser(this.user, formValue.id)
   }
 
@@ -328,5 +342,46 @@ export class UserComponent implements OnInit {
   }
   onUpdate(){
     this.onSubmitUpdateUser();
+  }
+
+  onOpenAddSponsore(id: number){
+    this.openSponsoreModal = "is-active";
+    this.idUser = id;
+  }
+
+  getAllMembers(){
+    this.userService.getAllMambers().subscribe((res)=>{
+      console.log("resMembre::", res);
+      this.members = res.data;
+    })
+  }
+
+  closeSponsoreModal(){
+    this.openSponsoreModal = "";
+  }
+
+  onAddSponsore(){
+    const formValue = this.addSponsoreForm.value;
+    this.addSponsore(this.idUser, formValue.id);
+  }
+
+  addSponsore(idUser: number, idToAdd: number){
+    this.userService.addSponsoredMember(idUser, idToAdd).subscribe(()=>{
+      this.getAllUsers();
+      this.closeSponsoreModal();
+      this.utilityService.showMessage(
+        'success',
+        'Member successfully added',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
+    })
   }
 }

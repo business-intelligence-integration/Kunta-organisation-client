@@ -9,5 +9,6 @@ export class User{
     phoneNumber:	string = "";
     userName:	string = "";
     city: string = "";
+    sponsoredUsers: User[] = []
     roles: Role[] = [];
 }

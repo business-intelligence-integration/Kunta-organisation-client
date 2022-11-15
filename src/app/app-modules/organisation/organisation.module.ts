@@ -34,6 +34,7 @@ import { MemberToGccComponent } from './main-office/centers/member-to-gcc/member
 import { CommunicationAgentToAreaComponent } from './area/communication-agent-to-area/communication-agent-to-area.component';
 import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 import { AccountComponent } from './account/account.component';
+import { SponsoresComponent } from './user/sponsores/sponsores.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { AccountComponent } from './account/account.component';
     MemberToGccComponent,
     CommunicationAgentToAreaComponent,
     DataEntryAgentToAreaComponent,
-    AccountComponent
+    AccountComponent,
+    SponsoresComponent
   ],
   imports: [
     CommonModule,

@@ -44,6 +44,7 @@
                 <span>Numéro tél</span>
                 <span>Email</span>
                 <span>Ville</span>
+                <span>Filleuls</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -70,12 +71,22 @@
                     <div class="flex-table-cell" data-th="Email">
                         <span class="light-text" data-filter-match="">{{ user.email }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Email">
+                    <div class="flex-table-cell" data-th="Ville">
                         <span class="light-text" data-filter-match="">{{ user.city }}</span>
                     </div>
+                    <div class="flex-table-cell" data-th="Filleuls">
+                        <span class="light-text" data-filter-match="">{{ user.sponsoredUsers.length }}</span>
+                        <a (click)="onOpenAddSponsore(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                    </div>
+                    <!-- <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
+                        <a (click)="onAddClub(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                    </div> -->
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                             <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
+                            <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']"
+                            [queryParams]="{id: user.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
@@ -544,4 +555,42 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- add sponsore -->
+<div id="addMember" class="modal h-modal" [ngClass]="openSponsoreModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter au parrain</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSponsoreModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addSponsoreForm" (ngSubmit)="onAddSponsore()">
+                        <label>membres *</label>
+                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect2">
+                            <option value="0" disabled>--Selectionnez un membre--</option>
+                            <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
+                        </select><br><br>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addSponsoreForm.invalid" >Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeSponsoreModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
 </div>

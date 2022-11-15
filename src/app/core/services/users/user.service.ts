@@ -82,7 +82,9 @@ export class UserService {
     return this.httpClient.get<any[]>(this.baseUrl + 'users/by-email/'+ email, httpOptions);
   }
 
-
+  addSponsoredMember(idUser: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/add-sponsored-member/${idMember}`, {}, httpOptions);
+  }
   
 
 }

@@ -22,11 +22,15 @@ import { StrategicDevelopmentCommitteeComponent } from './organisation/main-offi
 import { ViewMorePostComponent } from './organisation/main-office/view-more-post/view-more-post.component';
 import { CommunicationAgentToAreaComponent } from './organisation/area/communication-agent-to-area/communication-agent-to-area.component';
 import { DataEntryAgentToAreaComponent } from './organisation/area/data-entry-agent-to-area/data-entry-agent-to-area.component';
+import { SponsoresComponent } from './organisation/user/sponsores/sponsores.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"view-more-sponsores", component: SponsoresComponent, canActivate: [EntityGuard]
+      },
       {
         path:"account", component: AccountantComponent, canActivate: [EntityGuard]
       },
