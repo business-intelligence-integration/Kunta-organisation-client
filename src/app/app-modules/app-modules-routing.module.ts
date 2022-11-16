@@ -98,6 +98,10 @@ const routes: Routes = [
         path:"view-posts", component: ViewMorePostComponent, canActivate: [EntityGuard]
       },
       {
+        path : 'operations',
+        loadChildren: () => import('./operation/operation.module').then(m => m.OperationModule)
+      },
+      {
         path : 'dashboards',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },

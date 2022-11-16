@@ -56,7 +56,6 @@ export class OrganismComponent implements OnInit {
       this.homeSider = "";
       this.isPushed = "";
     }
-
   }
 
   onShowUser(){
