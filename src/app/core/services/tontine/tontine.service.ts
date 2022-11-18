@@ -23,9 +23,9 @@ export class TontineService {
   findAllTontines():Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'tontines?token=' + this.utilityService.loadToken());
   }
-
-  createNewTontine(tontine: Tontine, idClub: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'tontines?token='+ this.utilityService.loadToken() + '&club=' + idClub, tontine);
+  
+  createNewTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'tontines/club/' + idClub + '/level/' + idLevel + '/contributionFrequency/' + idContributionFrequency + '/sessionFrequency/' + idSessionFrequency + '?token='+ this.utilityService.loadToken(), tontine);
   }
 
   findTontineById(id: number):Observable<any>{

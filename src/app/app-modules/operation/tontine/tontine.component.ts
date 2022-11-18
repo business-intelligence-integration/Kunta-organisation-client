@@ -9,6 +9,10 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { User } from 'src/app/core/classes/user';
+import { FrequencyService } from 'src/app/core/services/frequencies/frequency.service';
+import { Frequency } from 'src/app/core/classes/frequency';
+import { TransversalityLevelService } from 'src/app/core/services/transversality-level/transversality-level.service';
+import { Level } from 'src/app/core/classes/level';
 
 @Component({
   selector: 'app-tontine',
@@ -16,7 +20,10 @@ import { User } from 'src/app/core/classes/user';
   styleUrls: ['./tontine.component.scss']
 })
 export class TontineComponent implements OnInit {
-  ngSelect2 = 0;
+  ngSelect2 = 0; 
+  ngSelect3 = 0;
+  ngSelect4 = 0;
+  ngSelect5 = 0;
   ngSelect = 0;
   tontine: Tontine = new Tontine();
   tontines: Tontine[] = [];
@@ -30,11 +37,15 @@ export class TontineComponent implements OnInit {
   usersClub: User[] = [];
   usersArea: User[] = [];
   usersCenter: User[] = [];
+  frequencies: Frequency[] = [];
+  levels: Level[] = [];
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
     private utilityService: UtilityService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private frequencyService: FrequencyService,
+    private transversalityService: TransversalityLevelService) { }
 
   ngOnInit(): void {
     this.getAllTontine();
@@ -42,12 +53,18 @@ export class TontineComponent implements OnInit {
     this.getAllClubs();
     this.getAllMembers();
     this.getAllUserOfClub(1);
+    this.getAllFrequency();
+    this.getAllLevel();
   }
 
   formInit() {
     this.createTontineForm = this.formBuilder.group({
       peb: new FormControl(null, Validators.required),
-      id: new FormControl(null, Validators.required),
+      idClub: new FormControl(null, Validators.required),
+      idFrequenceCot: new FormControl(null, Validators.required),
+      idFrequenceSea: new FormControl(null, Validators.required),
+      idTransv: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
     })
 
     this.addMemberForm = this.formBuilder.group({
@@ -80,11 +97,12 @@ export class TontineComponent implements OnInit {
   onSubmitCreateTontine(){
     const formValue = this.createTontineForm.value;
     this.tontine.peb =formValue.peb;
-    this.createTontine(this.tontine, formValue.id)
+    this.tontine.name =formValue.name;
+    this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea)
   }
 
-  createTontine(tontine: Tontine, idClub: number){
-    this.tontineService.createNewTontine(tontine, idClub).subscribe(()=>{
+  createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number){
+    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency).subscribe(()=>{
       this.getAllTontine();
       this.closeCreateTontineModal();
       this.utilityService.showMessage(
@@ -194,4 +212,15 @@ export class TontineComponent implements OnInit {
     
   }
 
+  getAllFrequency(){
+    this.frequencyService.findAllFrequencies().subscribe((res)=>{
+      this.frequencies = res.data;
+    })
+  }
+
+  getAllLevel(){
+    this.transversalityService.findAllLevels().subscribe((res)=>{
+      this.levels = res.data;
+    })
+  }
 }

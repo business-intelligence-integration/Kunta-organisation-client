@@ -140,23 +140,51 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="createTontineForm" (ngSubmit)="onSubmitCreateTontine()">
                         <label>clubs *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect2">
+                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelect2">
                             <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }}  </span> </option>
                         </select>
                         <div class="text-danger"
                                 *ngIf="createTontineForm.get('id')?.errors?.['required'] && createTontineForm.get('id')?.touched">
                                 <small class="text-police" translate>veuillez selectionner un club</small>
-                        </div><br><br>
-
+                        </div>
+                        <br><br>
+                        <label>Fréquence de cotisation  *</label>
+                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
+                            <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
+                            <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
+                        </select>
+                        <br><br>
+                        <label>Fréquence des séances de tontine  *</label>
+                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceSea" [(ngModel)]="ngSelect4">
+                            <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
+                            <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
+                        </select>
+                        <br><br>
+                        <label>Niveau de transversalité *</label>
+                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idTransv" [(ngModel)]="ngSelect5">
+                            <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
+                            <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
+                        </select>
+                        <br><br>
                         <div class="field">
                             <label>Plan d’épargne de base*</label><br>
                             <div class="control">
-                                <input type="text" class="input" placeholder="plan d’épargne de base" formControlName="peb">
+                                <input type="number" class="input" placeholder="plan d’épargne de base" formControlName="peb">
                             </div>
                             <div class="text-danger"
                                 *ngIf="createTontineForm.get('peb')?.errors?.['required'] && createTontineForm.get('peb')?.touched">
                                 <small class="text-police" translate>veuillez entrer le plan d’épargne de base</small>
+                             </div>
+                        </div>
+                        <div class="field">
+                            <label>Nom*</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Nom de la tontine" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="createTontineForm.get('name')?.errors?.['required'] && createTontineForm.get('name')?.touched">
+                                <small class="text-police" translate>veuillez entrer le nom de la tontine</small>
                              </div>
                         </div><br>
                     
@@ -193,7 +221,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
                         <label>Participants *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                        <select class="input_comp color-border" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un participant--</option>
                             <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
                         </select><br><br>
