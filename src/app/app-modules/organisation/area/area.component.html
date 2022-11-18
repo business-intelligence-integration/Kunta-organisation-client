@@ -38,6 +38,7 @@
                 <span class="is-grow">Id</span>
                 <span>Appelation</span>
                 <span>Club(s)</span>
+                <span>member(s)</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -58,6 +59,9 @@
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
                         <a (click)="onAddClub(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area?.members?.length }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

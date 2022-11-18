@@ -9,7 +9,7 @@
     </div>
 
     <div class="buttons">
-        <button [disabled]="!adminIsConnected" class="button h-button is-primary is-elevated">
+        <button *ngIf="adminIsConnected" class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
@@ -43,7 +43,7 @@
                 <span>Prenom</span>
                 <span>Numéro tél</span>
                 <span>Email</span>
-                <span>Ville</span>
+                <!-- <span>Ville</span> -->
                 <span>Filleuls</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -71,9 +71,9 @@
                     <div class="flex-table-cell" data-th="Email">
                         <span class="light-text" data-filter-match="">{{ user.email }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Ville">
+                    <!-- <div class="flex-table-cell" data-th="Ville">
                         <span class="light-text" data-filter-match="">{{ user.city }}</span>
-                    </div>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ user.sponsoredUsers.length }}</span>
                         <a (click)="onOpenAddSponsore(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
@@ -87,8 +87,8 @@
                             <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
                             <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']"
                             [queryParams]="{id: user.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="adminIsConnected" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="adminIsConnected" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>

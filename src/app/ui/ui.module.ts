@@ -5,6 +5,7 @@ import { UiRoutingModule } from './ui-routing.module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MenuComponent } from './menu/menu.component';
   ],
   imports: [
     CommonModule,
-    UiRoutingModule
+    UiRoutingModule,
+    TooltipModule
   ],
   exports: [
     MenuComponent,

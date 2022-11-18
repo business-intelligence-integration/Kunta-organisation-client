@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -85,12 +86,67 @@ export class AreaComponent implements OnInit {
     })
   }
 
-  getAllAreas(){
-    this.areaService.findAllAreas().subscribe((res)=>{
-      this.areas = res.data;
-      console.log("this.areas::", res);
+  // getAllAreas(){
+  //   this.areaService.findAllAreas().subscribe((res)=>{
+  //     this.areas = res.data;
+  //     console.log("this.areas::", res);
       
+  //   })
+  // }
+
+  getAllAreas(){
+    let tabArea: Organism[]= [];
+    let areas:Organism[] = []
+    this.areaService.findAllAreas().subscribe({
+      next:res => res.data.map((area: any)=>{
+        let newclubs: Organism[] = area.clubs
+        let members: User[] = [];
+        let clubs:Organism[] = []
+        let uniqArea: Organism;
+        if(newclubs.length >0){
+          newclubs.forEach((club:any)=>{
+            let newmembers: User[] = club.members
+            if(newmembers.length > 0){
+              newmembers.forEach((member:any)=>{
+                members.push(member)
+              }) 
+            }
+            clubs.push(club)
+        })}  
+        uniqArea = { ...area, clubs, members}
+        tabArea.push(uniqArea);
+      })
     })
+    this.areas = tabArea;
+
+    // this.centerService.findAllCenters()
+    // .subscribe({
+    //   next: (result) => result.data.map((center: any) => {
+    //     let clubs:Organism[] = []
+    //     let members: User[] = [];
+    //     let uniqCenter: Organism;
+    //     let newareas: Organism[] = center.areas
+    //     if(newareas.length > 0){
+    //       newareas.forEach((area:any)=>{
+    //           let newclubs: Organism[] = area.clubs
+    //           if(newclubs.length >0){
+    //             newclubs.forEach((club:any)=>{
+    //               let newmembers: User[] = club.members
+    //               if(newmembers.length > 0){
+    //                 newmembers.forEach((member:any)=>{
+    //                   members.push(member)
+    //                 }) 
+    //               }
+    //               clubs.push(club)
+    //           })}  
+    //           areas.push(area)
+    //         })
+    //     }
+    //     uniqCenter = { ...center, clubs, members}
+    //     tabCenter.push(uniqCenter);
+    //   }),
+    // });
+    // this.newListcenters = tabCenter;
   }
 
   onUpdateArea(id: number){
@@ -235,4 +291,6 @@ export class AreaComponent implements OnInit {
     console.log("event::", event);
     
   }
+
+
 }
