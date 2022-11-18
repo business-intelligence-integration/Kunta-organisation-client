@@ -54,4 +54,8 @@ export class ClubService {
   removePilot(idClub: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `clubs/${idClub}/remove-pilot`, {}, httpOptions);
   }
+
+  getAllClubUsersId(idClub: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + `clubs/${idClub}/users`, httpOptions);
+  }
 }

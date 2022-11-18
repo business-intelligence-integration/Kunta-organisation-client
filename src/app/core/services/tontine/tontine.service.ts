@@ -15,7 +15,7 @@ const httpOptions ={
   providedIn: 'root'
 })
 export class TontineService {
-  private baseUrl = environment.baseUrlApi
+  private baseUrl = environment.baseUrlApiActivity
   constructor(private httpClient: HttpClient, private utilityService: UtilityService){
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }

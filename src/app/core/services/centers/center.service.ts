@@ -96,5 +96,9 @@ export class CenterService {
   removeProductionManager(idCenter: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/remove-production-manager`, {}, httpOptions);
   }
+
+  getAllCenterUsersId(idCenter: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + `centers/${idCenter}/users`, httpOptions);
+  }
 }
 

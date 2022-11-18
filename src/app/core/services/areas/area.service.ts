@@ -64,4 +64,8 @@ export class AreaService {
   removeDataEntryAgentFromArea(idArea: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/remove-data-entry-agent`, {}, httpOptions);
   }
+
+  getAllAreaUsersId(idArea: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + `areas/${idArea}/users`, httpOptions);
+  }
 }

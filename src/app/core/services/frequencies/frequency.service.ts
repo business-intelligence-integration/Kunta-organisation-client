@@ -16,12 +16,11 @@ const httpOptions ={
 })
 export class FrequencyService {
 
-  private baseUrl = environment.baseUrlApi
+  private baseUrl = environment.baseUrlApiActivity
   constructor(private httpClient: HttpClient, private utilityService: UtilityService){
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
 
-  
   findAllFrequencies():Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'frequencies', httpOptions);
   }

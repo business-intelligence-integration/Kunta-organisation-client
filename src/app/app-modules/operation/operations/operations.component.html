@@ -65,38 +65,38 @@
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
-            <li class="has-children">
+            <li class="has-children" [ngClass]="activeListTontine">
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);"class="parent-link">Utilisateurs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                    <a href="javascript:void(0);"class="parent-link" (click)="onDisplayTontineDetail()">Tontines <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
-                <ul>
+                <ul [style.display]="wrapdwonDetailTontine">
                     <li>
-                        <a class="is-submenu">
+                        <a class="is-submenu" (click)="onShowAllTontine()">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Tous les utilisateurs</span>
+                            <span>Tous les Tontines</span>
                         </a>
                     </li>
                     <li>
-                        <a class="is-submenu">
+                        <a class="is-submenu" (click)="onTransversality()">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Administrateurs</span>
+                            <span>niveaux de transversalité</span>
                         </a>
                     </li>
                     <li>
-                        <a class="is-submenu">
+                        <a class="is-submenu" (click)="onFrequency()">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Membres</span>
+                            <span>frequences</span>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Mutualistes</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul> 
             </li>
-             <li>
+             <!-- <li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link">Clubs</a>
                 </div>
@@ -110,8 +110,8 @@
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link">Centres</a>
                 </div>
-            </li> 
-             <li class="has-children">
+            </li>  -->
+             <!-- <li class="has-children">
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
@@ -148,13 +148,13 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-
-            <li>
+            </li> -->
+             
+            <!--<li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link" >Comptes</a>
                 </div>
-            </li>
+            </li> -->
         </ul>
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
 </div>
@@ -178,7 +178,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Operations</h1>
+                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -260,13 +260,15 @@
                             </div>
                         </div>
                     </div>
-
-
                     <a class="toolbar-link right-panel-trigger" data-panel="activity-panel">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     </a>
                 </div>
             </div>
+
+            <app-tontine *ngIf="isTontine"></app-tontine>
+            <app-transversality *ngIf="isTransversality"></app-transversality>
+            <app-frequency *ngIf="isFrequency"></app-frequency>
         </div>
     </div>
 
