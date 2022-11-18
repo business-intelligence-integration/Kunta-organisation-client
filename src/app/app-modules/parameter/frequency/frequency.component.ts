@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class FrequencyComponent implements OnInit {
 
+ 
   frequencies: Frequency[] = [];
   frequency: Frequency = new Frequency();
   openUpdateModal: string = "";
@@ -172,5 +173,4 @@ export class FrequencyComponent implements OnInit {
         }
       });
   }
-
 }

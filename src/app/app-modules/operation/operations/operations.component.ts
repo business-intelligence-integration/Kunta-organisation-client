@@ -45,8 +45,8 @@ export class OperationsComponent implements OnInit {
   }
 
   onShowAllTontine(){
-    this.isTransversality = false;
-    this.isFrequency = false;
+    // this.isTransversality = false;
+    // this.isFrequency = false;
     this.isTontine = true;
     this.dynamicTitle = "Liste des tontines"
   }

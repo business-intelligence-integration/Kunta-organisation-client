@@ -77,17 +77,18 @@
                         </a>
                     </li> -->
                     <li>
-                        <a class="is-submenu" (click)="onTransversality()">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>niveaux de transversalité</span>
-                        </a>
-                    </li>
-                    <li>
                         <a class="is-submenu" (click)="onFrequency()">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>frequences</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="is-submenu" (click)="onTransversality()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>niveaux de transversalité</span>
+                        </a>
+                    </li>
+                   
                     <!-- <li>
                         <a class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
@@ -266,9 +267,8 @@
                 </div>
             </div>
 
-            <!-- <app-tontine *ngIf="isTontine"></app-tontine>
             <app-transversality *ngIf="isTransversality"></app-transversality>
-            <app-frequency *ngIf="isFrequency"></app-frequency> -->
+            <app-frequency *ngIf="isFrequency"></app-frequency>
         </div>
     </div>
 

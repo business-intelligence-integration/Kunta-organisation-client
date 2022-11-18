@@ -65,7 +65,13 @@
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
-            <li class="has-children" [ngClass]="activeListTontine">
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowAllTontine()">Tontines</a>
+                </div>
+            </li>
+            <!-- <li class="has-children" [ngClass]="activeListTontine">
+                
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);"class="parent-link" (click)="onDisplayTontineDetail()">Tontines <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
@@ -88,14 +94,8 @@
                             <span>frequences</span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Mutualistes</span>
-                        </a>
-                    </li> -->
                 </ul> 
-            </li>
+            </li> -->
              <!-- <li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link">Clubs</a>
@@ -163,7 +163,6 @@
     data-mobile-item="#home-sidebar-menu-mobile">
     <div class="page-content-wrapper">
         <div class="page-content is-relative">
-
             <div class="page-title has-text-centered">
                 <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
                     <span class="menu-toggle has-chevron">
@@ -267,8 +266,8 @@
             </div>
 
             <app-tontine *ngIf="isTontine"></app-tontine>
-            <app-transversality *ngIf="isTransversality"></app-transversality>
-            <app-frequency *ngIf="isFrequency"></app-frequency>
+            <!-- <app-transversality *ngIf="isTransversality"></app-transversality>
+            <app-frequency *ngIf="isFrequency"></app-frequency> -->
         </div>
     </div>
 
