@@ -1,3 +1,5 @@
+import { Level } from "./level";
+
 export class Tontine{
   id: number = 0;
   accountBalance: number = 0;
@@ -9,4 +11,5 @@ export class Tontine{
   name: string =  "";
   peb: number = 0;
   registeredMembers: number = 0;
+  level: Level = new Level();
 }

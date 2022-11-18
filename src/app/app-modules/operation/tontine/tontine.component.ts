@@ -13,6 +13,8 @@ import { FrequencyService } from 'src/app/core/services/frequencies/frequency.se
 import { Frequency } from 'src/app/core/classes/frequency';
 import { TransversalityLevelService } from 'src/app/core/services/transversality-level/transversality-level.service';
 import { Level } from 'src/app/core/classes/level';
+import { AreaService } from 'src/app/core/services/areas/area.service';
+import { CenterService } from 'src/app/core/services/centers/center.service';
 
 @Component({
   selector: 'app-tontine',
@@ -34,27 +36,33 @@ export class TontineComponent implements OnInit {
   addMemberForm!: FormGroup;
   openMemberModal: string = "";
   members: User[] = [];
-  usersClub: User[] = [];
-  usersArea: User[] = [];
-  usersCenter: User[] = [];
+  users: User[] = [];
+  allUser: User[] = [];
   frequencies: Frequency[] = [];
   levels: Level[] = [];
+  areas: Organism []= [];
+  idTontine: number = 0;
+  operation: Operation = new Operation();
+  openDetailModal: string = "";
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
     private utilityService: UtilityService,
     private userService: UserService,
     private frequencyService: FrequencyService,
-    private transversalityService: TransversalityLevelService) { }
+    private transversalityService: TransversalityLevelService,
+    private areaService: AreaService,
+    private centerSeervice: CenterService) { }
 
   ngOnInit(): void {
     this.getAllTontine();
     this.formInit();
     this.getAllClubs();
     this.getAllMembers();
-    this.getAllUserOfClub(1);
     this.getAllFrequency();
     this.getAllLevel();
+    this.getAllArea();
+    this.getAllUsers();
   }
 
   formInit() {
@@ -181,12 +189,15 @@ export class TontineComponent implements OnInit {
     this.openMemberModal = "";
   }
 
-  onOpenAddMember(){
-    this.openMemberModal = "is-active";
-  }
-
-  onAddMember(){
-
+  onOpenAddMember(id: number, label: string, idTontine: number){
+    this.idTontine = idTontine;
+    if(label == 'CLUB'){
+      this.getAllUserOfClub(id);
+    }else if(label == 'ZONE'){
+      this.getAllUserOfZone(id);
+    }else if(label == 'CENTRE'){
+      this.getAllUserOfCenter(id);
+    }
   }
 
   getAllMembers(){
@@ -194,23 +205,98 @@ export class TontineComponent implements OnInit {
       this.members = res.data;
     })
   }
+  getAllArea(){
+    this.areaService.findAllAreas().subscribe((res)=>{
+      this.areas = res.data
+    })
+  }
+
+  // getAllUserOfClub(idClub: number){
+  //   let usersClub: User[] = [];
+  //   this.clubServices.getAllClubUsersId(idClub).subscribe({
+  //     next:(res) => res.data.map((memberId: any)=>{
+  //       this.members.forEach((member)=>{
+  //         if(memberId == member.id){
+  //           usersClub.push(member);
+  //         }
+  //       })
+  //     })
+  //   })
+
+  //   this.usersClub = usersClub;
+  //   console.log("usersClub::", this.usersClub);
+    
+  // }
+  getAllUsers(){
+    this.userService.getAllUsers().subscribe((res)=>{
+      this.allUser = res.data;
+    })
+  }
 
   getAllUserOfClub(idClub: number){
     let usersClub: User[] = [];
     this.clubServices.getAllClubUsersId(idClub).subscribe({
       next:(res) => res.data.map((memberId: any)=>{
-        this.members.forEach((member)=>{
+        this.allUser.forEach((member)=>{
           if(memberId == member.id){
             usersClub.push(member);
           }
         })
       })
     })
+    this.users = usersClub;
+    this.openMemberModal = "is-active";
+  }
 
-    this.usersClub = usersClub;
-    console.log("usersClub::", this.usersClub);
+  getAllUserOfZone(idClub: number){
+    let usersArea: User[] = [];
+    this.areas.forEach((area)=>{
+      area.clubs.forEach((club)=>{
+        if(idClub == club.id){
+          this.areaService.getAllAreaUsersId(area.id).subscribe((res)=>{
+          res.data.forEach((memberId: any)=>{
+            this.allUser.forEach((member)=>{
+              if(memberId == member.id){
+                usersArea.push(member);
+              }
+            })
+          })
+          })
+        }
+      })
+    })
+    this.users = usersArea;
+    this.openMemberModal = "is-active";
     
   }
+
+  getAllUserOfCenter(idClub: number){
+    let usersCenter: User[] = [];
+    this.centerSeervice.findAllCenters().subscribe((res)=>{
+      res.data.forEach((center: any)=>  {
+        center.areas.forEach((area: any)=>{
+          area.clubs.forEach((club: any)=>{
+            if(idClub == club.id){
+              this.areaService.getAllAreaUsersId(area.id).subscribe((res)=>{
+              res.data.forEach((memberId: any)=>{
+                this.allUser.forEach((member)=>{
+                  if(memberId == member.id){
+                    usersCenter.push(member);
+                  }
+                })
+              })
+              })
+            }
+          })
+        })
+      })
+    })
+
+    this.users = usersCenter;
+    this.openMemberModal = "is-active";
+  }
+
+
 
   getAllFrequency(){
     this.frequencyService.findAllFrequencies().subscribe((res)=>{
@@ -222,5 +308,39 @@ export class TontineComponent implements OnInit {
     this.transversalityService.findAllLevels().subscribe((res)=>{
       this.levels = res.data;
     })
+  }
+
+  onAddMember(){
+    const formValue = this.addMemberForm.value;
+    this.tontineService.addParticipant(this.idTontine, formValue.id).subscribe(()=>{
+      this.getAllTontine();
+      this.openMemberModal = "";
+      this.utilityService.showMessage(
+        'success',
+        'Member successfully added',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
+    })
+    // this.addMemberToExecutiveBoard(this.idMainOffice, formValue.id);
+  }
+  onOpenDetailModel(id: number){
+    this.tontineService.findTontineById(id).subscribe((res)=>{
+      this.operation = res.data
+      console.log("this.tontine::", this.operation);
+      
+      this.openDetailModal = "is-active";
+    })
+   
+  }
+  closeDetailModal(){
+    this.openDetailModal = "";
   }
 }
