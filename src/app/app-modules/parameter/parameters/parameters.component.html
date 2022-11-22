@@ -88,6 +88,13 @@
                             <span>niveaux de transversalité</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onGain()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Gain</span>
+                        </a>
+                    </li>
                    
                     <!-- <li>
                         <a class="is-submenu">
@@ -269,6 +276,7 @@
 
             <app-transversality *ngIf="isTransversality"></app-transversality>
             <app-frequency *ngIf="isFrequency"></app-frequency>
+            <app-gain *ngIf="isGain"></app-gain>
         </div>
     </div>
 

@@ -6,6 +6,7 @@ import { ParametersComponent } from './parameters/parameters.component';
 import { TransversalityComponent } from './transversality/transversality.component';
 import { FrequencyComponent } from './frequency/frequency.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GainComponent } from './gain/gain.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ParametersComponent,
     TransversalityComponent,
     FrequencyComponent,
+    GainComponent,
   ],
   imports: [
     CommonModule,

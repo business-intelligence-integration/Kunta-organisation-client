@@ -10,8 +10,9 @@ export class ParametersComponent implements OnInit {
   homeSider: string = "";
   isPushed: string = "";
   activeListTontine: string = "";
-  dynamicTitle: string = "Liste Fréquences"
+  dynamicTitle: string = "Liste de Fréquences"
   isFrequency: boolean = true;
+  isGain: boolean = false;
   isTransversality: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   constructor() { }
@@ -43,14 +44,23 @@ export class ParametersComponent implements OnInit {
 
 
   onTransversality(){
+    this.isGain = false;
     this.isFrequency = false;
     this.isTransversality = true;
     this.dynamicTitle = "Liste des niveaux de transversalité"
   }
 
   onFrequency(){
+    this.isGain = false;
     this.isTransversality = false;
     this.isFrequency = true;
-    this.dynamicTitle = "Liste Fréquences"
+    this.dynamicTitle = "Liste de Fréquences"
+  }
+
+  onGain(){
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isGain = true;
+    this.dynamicTitle = "Liste de Gains"
   }
 }
