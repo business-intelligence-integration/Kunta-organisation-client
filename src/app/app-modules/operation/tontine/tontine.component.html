@@ -88,7 +88,8 @@
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.registeredMembers }}</span>
                         <a class="pagination-previous has-chevron" (click)="onOpenAddMember(operation.owner.id, operation.tontine.level.label,  operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
-                        <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
+                        [queryParams]="{id: operation.tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Filleuls">
@@ -243,7 +244,7 @@
                                 <small class="text-police">veuillez entrer le nom de la tontine</small>
                              </div>
                         </div>
-                        <div class="field">
+                        <!-- <div class="field">
                             <label>Plan d’épargne de base*</label><br>
                             <div class="control">
                                 <input type="number" class="input" [(ngModel)]="tontine.peb" formControlName="peb">
@@ -252,7 +253,7 @@
                                 *ngIf="updateTontineForm.get('peb')?.errors?.['required'] && updateTontineForm.get('peb')?.touched">
                                 <small class="text-police">veuillez entrer le plan d’épargne de base</small>
                              </div>
-                        </div>
+                        </div> -->
 
                         <br>
                         <div class="control login">
@@ -291,9 +292,20 @@
                             <option value="0" disabled>--Selectionnez un participant--</option>
                             <option *ngFor="let member of users" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
                         </select><br><br>
+                        <div class="field">
+                            <label>Nombre de bras*</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Nombre de bras" formControlName="planValue">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addMemberForm.get('planValue')?.errors?.['required'] && addMemberForm.get('planValue')?.touched">
+                                <small class="text-police">veuillez entrer le nombre de bras du participant</small>
+                             </div>
+                        </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
-                        </div>
+                        </div><br>
+                       
                     </form>
                 </div>
             </div>

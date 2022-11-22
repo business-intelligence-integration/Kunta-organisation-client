@@ -23,11 +23,15 @@ import { ViewMorePostComponent } from './organisation/main-office/view-more-post
 import { CommunicationAgentToAreaComponent } from './organisation/area/communication-agent-to-area/communication-agent-to-area.component';
 import { DataEntryAgentToAreaComponent } from './organisation/area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 import { SponsoresComponent } from './organisation/user/sponsores/sponsores.component';
+import { ViewMoreParticipantComponent } from './operation/tontine/view-more-participant/view-more-participant.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"view-more-participant", component: ViewMoreParticipantComponent, canActivate: [EntityGuard]
+      },
       {
         path:"view-more-sponsores", component: SponsoresComponent, canActivate: [EntityGuard]
       },

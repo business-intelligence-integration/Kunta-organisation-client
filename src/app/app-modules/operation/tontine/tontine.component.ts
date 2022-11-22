@@ -86,12 +86,13 @@ export class TontineComponent implements OnInit {
 
     this.updateTontineForm = this.formBuilder.group({
       idTontine: new FormControl(null, Validators.required),
-      peb: new FormControl(null, Validators.required),
+      // peb: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     })
 
     this.addMemberForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
+      planValue: new FormControl(null, Validators.required),
     })
   }
 
@@ -328,7 +329,7 @@ export class TontineComponent implements OnInit {
 
   onAddMember(){
     const formValue = this.addMemberForm.value;
-    this.tontineService.addParticipant(this.idTontine, formValue.id).subscribe(()=>{
+    this.tontineService.addParticipant(this.idTontine, formValue.id, formValue.planValue).subscribe(()=>{
       this.getAllTontine();
       this.openMemberModal = "";
       this.utilityService.showMessage(
@@ -380,13 +381,10 @@ export class TontineComponent implements OnInit {
   onSubmitUpdateTontine(){
     const formValue = this.updateTontineForm.value;
     this.tontine.name = formValue.name;
-    this.tontine.peb = formValue.peb;
     this.updateTontine(this.tontine, formValue.idTontine);
   }
 
   updateTontine(tontine: Tontine, idTontine: number){
-    console.log("tontine::", tontine);
-    
     this.tontineService.updateTontine(tontine, idTontine).subscribe((res)=>{
       this.getAllTontine();
       this.closeUpdateTontineModal();

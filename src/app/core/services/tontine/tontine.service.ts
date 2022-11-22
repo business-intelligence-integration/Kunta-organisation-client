@@ -40,8 +40,8 @@ export class TontineService {
     return this.httpClient.delete<any>(this.baseUrl + 'tontines/'+ id + "?token=" + this.utilityService.loadToken());
   }
 
-  addParticipant(idTontine: number, idUser: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/add-participant/${idUser}` + "?token=" +this.utilityService.loadToken(), {});
+  addParticipant(idTontine: number, idUser: number, planValue: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/add-participant/${idUser}/plan/${planValue}` + "?token=" +this.utilityService.loadToken(), {});
   }
 
   removeParticipant(idTontine: number, idUser: number):Observable<any>{
@@ -54,5 +54,9 @@ export class TontineService {
 
   setLevel(idTontine: number, idLevel: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-transversality-level/${idLevel}` + "?token=" +this.utilityService.loadToken(), {});
+  }
+
+  getTontineUsers(idTontine: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/users' + '?token=' + this.utilityService.loadToken());
   }
 }
