@@ -15,6 +15,8 @@ import { TransversalityLevelService } from 'src/app/core/services/transversality
 import { Level } from 'src/app/core/classes/level';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { GainService } from 'src/app/core/services/gains/gain.service';
+import { Gain } from 'src/app/core/classes/gain';
 
 @Component({
   selector: 'app-tontine',
@@ -26,6 +28,7 @@ export class TontineComponent implements OnInit {
   ngSelect3 = 0;
   ngSelect4 = 0;
   ngSelect5 = 0;
+  ngSelect6 = 0;
   ngSelect = 0;
   tontine: Tontine = new Tontine();
   tontines: Tontine[] = [];
@@ -33,6 +36,7 @@ export class TontineComponent implements OnInit {
   clubs: Organism[] = [];
   openCreateModal: string = "";
   createTontineForm!: FormGroup;
+  updateTontineForm!: FormGroup;
   addMemberForm!: FormGroup;
   openMemberModal: string = "";
   members: User[] = [];
@@ -44,6 +48,8 @@ export class TontineComponent implements OnInit {
   idTontine: number = 0;
   operation: Operation = new Operation();
   openDetailModal: string = "";
+  gains: Gain[] = [];
+  openUpdateModal:  string = "";
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -52,7 +58,8 @@ export class TontineComponent implements OnInit {
     private frequencyService: FrequencyService,
     private transversalityService: TransversalityLevelService,
     private areaService: AreaService,
-    private centerSeervice: CenterService) { }
+    private centerSeervice: CenterService,
+    private gainService: GainService) { }
 
   ngOnInit(): void {
     this.getAllTontine();
@@ -63,6 +70,7 @@ export class TontineComponent implements OnInit {
     this.getAllLevel();
     this.getAllArea();
     this.getAllUsers();
+    this.getAllGains();
   }
 
   formInit() {
@@ -72,6 +80,13 @@ export class TontineComponent implements OnInit {
       idFrequenceCot: new FormControl(null, Validators.required),
       idFrequenceSea: new FormControl(null, Validators.required),
       idTransv: new FormControl(null, Validators.required),
+      idGain: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
+    })
+
+    this.updateTontineForm = this.formBuilder.group({
+      idTontine: new FormControl(null, Validators.required),
+      peb: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     })
 
@@ -82,7 +97,8 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      console.log("data::", res);
+      console.log("res::", res);
+      
       this.operations = res.data;
     })
   }
@@ -106,11 +122,11 @@ export class TontineComponent implements OnInit {
     const formValue = this.createTontineForm.value;
     this.tontine.peb =formValue.peb;
     this.tontine.name =formValue.name;
-    this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea)
+    this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea, formValue.idGain)
   }
 
-  createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number){
-    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency).subscribe(()=>{
+  createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number, idGain: number){
+    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe(()=>{
       this.getAllTontine();
       this.closeCreateTontineModal();
       this.utilityService.showMessage(
@@ -342,5 +358,51 @@ export class TontineComponent implements OnInit {
   }
   closeDetailModal(){
     this.openDetailModal = "";
+  }
+
+  getAllGains(){
+    this.gainService.findAllGainModes().subscribe((res)=>{
+      this.gains = res.data;
+    })
+  }
+
+  onUpdateTontine(id: number){
+    this.tontineService.findTontineById(id).subscribe((res)=>{
+      this.tontine = res.data.tontine;
+      this.openUpdateModal = "is-active"
+    })
+  }
+
+  closeUpdateTontineModal(){
+    this.openUpdateModal = ""
+  }
+
+  onSubmitUpdateTontine(){
+    const formValue = this.updateTontineForm.value;
+    this.tontine.name = formValue.name;
+    this.tontine.peb = formValue.peb;
+    this.updateTontine(this.tontine, formValue.idTontine);
+  }
+
+  updateTontine(tontine: Tontine, idTontine: number){
+    console.log("tontine::", tontine);
+    
+    this.tontineService.updateTontine(tontine, idTontine).subscribe((res)=>{
+      this.getAllTontine();
+      this.closeUpdateTontineModal();
+      this.utilityService.showMessage(
+        'success',
+        'Tontine successfully updated',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
+    })
   }
 }

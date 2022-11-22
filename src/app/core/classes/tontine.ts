@@ -1,3 +1,5 @@
+import { Frequency } from "./frequency";
+import { Gain } from "./gain";
 import { Level } from "./level";
 
 export class Tontine{
@@ -12,4 +14,7 @@ export class Tontine{
   peb: number = 0;
   registeredMembers: number = 0;
   level: Level = new Level();
+  contributionFrequency: Frequency = new Frequency();
+  tontineSessionFrequency: Frequency = new Frequency();
+  gainMode: Gain = new Gain();
 }

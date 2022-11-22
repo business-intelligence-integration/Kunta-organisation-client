@@ -174,8 +174,6 @@ export class AreaComponent implements OnInit {
   onSubmitUpdateArea(){
     const formValue = this.updateAreaForm.value;
     this.area.name = formValue.name;
-    console.log("this.area::", this.area);
-    
     this.updateAre(this.area, formValue.id);
   }
 
