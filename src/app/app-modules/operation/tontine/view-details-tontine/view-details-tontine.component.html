@@ -1,0 +1,117 @@
+<div class="page-content-inner">
+    <a routerLink="/operations" class="pagination-previous has-chevron return-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+    <!--Pronotion Page-->
+    <div class="promotion-page-wrapper">
+        
+        <div class="wrapper-outer">
+
+            <div class="wrapper-inner">
+                <div class="action-box">
+                    <div class="box-content">
+                        <img class="light-image is-larger" src="assets/img/illustrations/placeholders/promotion.svg" alt="">
+                        <img class="dark-image is-larger" src="assets/img/illustrations/placeholders/promotion-dark.svg" alt="">
+                        <div class="page-content-inner all-projects">
+
+                            <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ operation.tontine.lotsToBeAwarded }}</span>
+                                        <p>Lots à attribuer</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ operation.tontine.awardedLots }}</span>
+                                        <p>Lots attribués</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-pie-chart-alt"></i>
+                                        <span>{{ operation.tontine.awardedLots }}</span>
+                                        <p>Membres inscrits</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-leaf"></i>
+                                        <span>{{ operation.tontine.membersWithoutPenalties }}</span>
+                                        <p>Membres sans pénalités</p>
+                                    </div>
+                                </div>
+                            
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ operation.tontine.collectedPenalties }}</span>
+                                        <p>Pénalités collectées</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+  
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-wrapper">
+                <div class="side-inner">
+                    <div class="side-title">
+                        <h3 class="dark-inverted">Details de la tontine</h3>
+                    </div>
+
+                    <div class="action-list">
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Club propriétaire de la tontine:</span><br>
+                                <p>{{ operation.owner.name }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Niveau de transversalité:</span><br>
+                                <p>{{ operation.tontine.level.label }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Fréquence de contribution:</span><br>
+                                <p>{{ operation.tontine.contributionFrequency.label }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Séance de tontine:</span><br>
+                                <p>{{ operation.tontine.tontineSessionFrequency.label }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Mode de gain:</span><br>
+                                <p> {{ operation.tontine.gainMode.label }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

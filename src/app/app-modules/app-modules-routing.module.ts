@@ -24,11 +24,15 @@ import { CommunicationAgentToAreaComponent } from './organisation/area/communica
 import { DataEntryAgentToAreaComponent } from './organisation/area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 import { SponsoresComponent } from './organisation/user/sponsores/sponsores.component';
 import { ViewMoreParticipantComponent } from './operation/tontine/view-more-participant/view-more-participant.component';
+import { ViewDetailsTontineComponent } from './operation/tontine/view-details-tontine/view-details-tontine.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"view-details-tontine", component: ViewDetailsTontineComponent, canActivate: [EntityGuard]
+      },
       {
         path:"view-more-participant", component: ViewMoreParticipantComponent, canActivate: [EntityGuard]
       },

@@ -100,11 +100,13 @@
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                         <a _ngcontent-nct-c62=""  (click)="onUpdateTontine(operation.tontine.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onOpenDetailModel(operation.tontine.id)" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-details-tontine']"
+                        [queryParams]="{id: operation.tontine.id}"  class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                         <a _ngcontent-nct-c62="" (click)="onDelate(operation.tontine.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
+                <!-- (click)="onOpenDetailModel(operation.tontine.id)" -->
             </div>
 
         </div>
@@ -316,7 +318,7 @@
     </div>
 </div>
 
-<div id="demo-big-modal" class="modal h-modal is-big" [ngClass]="openDetailModal">
+<!-- <div id="demo-big-modal" class="modal h-modal is-big" [ngClass]="openDetailModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -469,5 +471,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 

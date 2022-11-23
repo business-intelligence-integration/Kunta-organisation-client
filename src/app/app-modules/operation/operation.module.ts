@@ -6,6 +6,7 @@ import { TontineComponent } from './tontine/tontine.component';
 import { OperationsComponent } from './operations/operations.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewMoreParticipantComponent } from './tontine/view-more-participant/view-more-participant.component';
+import { ViewDetailsTontineComponent } from './tontine/view-details-tontine/view-details-tontine.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { ViewMoreParticipantComponent } from './tontine/view-more-participant/vi
     TontineComponent,
     OperationsComponent,
     ViewMoreParticipantComponent,
+    ViewDetailsTontineComponent,
   ],
   imports: [
     CommonModule,
