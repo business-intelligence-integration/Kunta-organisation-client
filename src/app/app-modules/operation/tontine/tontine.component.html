@@ -158,7 +158,7 @@
                              </div>
                         </div>
                         <div class="field">
-                            <label>Plan d’épargne de base*</label><br>
+                            <label>Plan d’épargne de base(FCFA)*</label><br>
                             <div class="control">
                                 <input type="number" class="input" placeholder="plan d’épargne de base" formControlName="peb">
                             </div>
@@ -167,7 +167,7 @@
                                 <small class="text-police">veuillez entrer le plan d’épargne de base</small>
                              </div>
                         </div>
-                        <label>clubs *</label>
+                        <label>Club propriétaire de la tontine*</label>
                         <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelect2">
                             <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }}  </span> </option>
