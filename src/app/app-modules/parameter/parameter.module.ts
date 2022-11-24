@@ -7,6 +7,8 @@ import { TransversalityComponent } from './transversality/transversality.compone
 import { FrequencyComponent } from './frequency/frequency.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GainComponent } from './gain/gain.component';
+import { CycleComponent } from './cycle/cycle.component';
+import { SessionComponent } from './session/session.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { GainComponent } from './gain/gain.component';
     TransversalityComponent,
     FrequencyComponent,
     GainComponent,
+    CycleComponent,
+    SessionComponent,
   ],
   imports: [
     CommonModule,
