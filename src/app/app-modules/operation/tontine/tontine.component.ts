@@ -17,6 +17,10 @@ import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { GainService } from 'src/app/core/services/gains/gain.service';
 import { Gain } from 'src/app/core/classes/gain';
+import { Options } from 'select2';
+import { Cycle } from 'src/app/core/classes/cycle';
+import { DatePipe } from '@angular/common';
+import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 
 @Component({
   selector: 'app-tontine',
@@ -38,7 +42,9 @@ export class TontineComponent implements OnInit {
   createTontineForm!: FormGroup;
   updateTontineForm!: FormGroup;
   addMemberForm!: FormGroup;
+  createCycleForm!: FormGroup;
   openMemberModal: string = "";
+  openCycleModal: string = "";
   members: User[] = [];
   users: User[] = [];
   allUser: User[] = [];
@@ -50,6 +56,11 @@ export class TontineComponent implements OnInit {
   openDetailModal: string = "";
   gains: Gain[] = [];
   openUpdateModal:  string = "";
+  options!: Options;
+  clubArray: [] = [];
+  startDate: any;
+  cycle: Cycle = new Cycle();
+  userIsEmpty: any = "disabled";
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -59,7 +70,8 @@ export class TontineComponent implements OnInit {
     private transversalityService: TransversalityLevelService,
     private areaService: AreaService,
     private centerSeervice: CenterService,
-    private gainService: GainService) { }
+    private gainService: GainService,
+    private cycleService: CycleService,) { }
 
   ngOnInit(): void {
     this.getAllTontine();
@@ -71,6 +83,11 @@ export class TontineComponent implements OnInit {
     this.getAllArea();
     this.getAllUsers();
     this.getAllGains();
+    this.options = {
+      multiple: true,
+      closeOnSelect: false,
+      width: '300'
+    };
   }
 
   formInit() {
@@ -94,12 +111,17 @@ export class TontineComponent implements OnInit {
       id: new FormControl(null, Validators.required),
       planValue: new FormControl(null, Validators.required),
     })
+
+    this.createCycleForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required),
+      startDate: new FormControl(null, Validators.required),
+      durationInMonths: new FormControl(null, Validators.required),
+    })
   }
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
       console.log("res::", res);
-      
       this.operations = res.data;
     })
   }
@@ -313,8 +335,6 @@ export class TontineComponent implements OnInit {
     this.openMemberModal = "is-active";
   }
 
-
-
   getAllFrequency(){
     this.frequencyService.findAllFrequencies().subscribe((res)=>{
       this.frequencies = res.data;
@@ -394,6 +414,61 @@ export class TontineComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  onOpenCreateCycle(id: number){
+    this.idTontine = id;
+    this.openCycleModal = "is-active";
+  }
+
+  closeCycleModal(){
+    this.openCycleModal = "";
+  }
+
+  onSelectCreateDate(event: any){
+
+  }
+
+  onSubmitCreateCycle(){
+    const formValue = this.createCycleForm.value;
+    this.cycle.durationInMonths = formValue.durationInMonths;
+    this.cycle.name = formValue.name;
+      let startDate = new Date(formValue.startDate);
+      let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
+    this.cycle.startDate = startDateFormated;
+    this.createCycle(this.idTontine, this.cycle)
+  }
+
+  createCycle(idTontine: number, cycle: Cycle){
+    this.tontineService.createCycleForTontine(idTontine, cycle).subscribe((cycleDb)=>{
+      console.log("cycleDb::", cycleDb);
+      
+      this.closeCycleModal();
+      this.getAllTontine();
+      if(cycleDb.data == null){
+        this.utilityService.showMessage(
+          'warning',
+          'This tontine doesn\'t have any members !',
+          '#e62965',
+          'white'
+        );
+      }else{
+        this.utilityService.showMessage(
+          'success',
+          'Cycle successfully created',
+          '#06d6a0',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
