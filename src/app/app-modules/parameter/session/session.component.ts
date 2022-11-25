@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Session } from 'src/app/core/classes/session';
+import { SessionService } from 'src/app/core/services/session/session.service';
 
 @Component({
   selector: 'app-session',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SessionComponent implements OnInit {
 
-  constructor() { }
+  session: Session = new Session()
+  sessions: Session[]=[];
+
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit(): void {
+    this.getAllSession();
+  }
+
+  getAllSession(){
+    this.sessionService.findAllSessions().subscribe((res)=>{
+      console.log("resS::", res);
+      
+      this.sessions = res.data
+    })
   }
 
 }

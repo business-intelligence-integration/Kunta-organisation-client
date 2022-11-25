@@ -13,6 +13,8 @@ export class ParametersComponent implements OnInit {
   dynamicTitle: string = "Liste de Fréquences"
   isFrequency: boolean = true;
   isGain: boolean = false;
+  isSession: boolean = false;
+  isCycle: boolean = false;
   isTransversality: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   constructor() { }
@@ -44,6 +46,8 @@ export class ParametersComponent implements OnInit {
 
 
   onTransversality(){
+    this.isSession = false;
+    this.isCycle = false;
     this.isGain = false;
     this.isFrequency = false;
     this.isTransversality = true;
@@ -51,6 +55,8 @@ export class ParametersComponent implements OnInit {
   }
 
   onFrequency(){
+    this.isCycle = false;
+    this.isSession = false;
     this.isGain = false;
     this.isTransversality = false;
     this.isFrequency = true;
@@ -58,9 +64,29 @@ export class ParametersComponent implements OnInit {
   }
 
   onGain(){
+    this.isSession = false;
+    this.isCycle = false;
     this.isTransversality = false;
     this.isFrequency = false;
     this.isGain = true;
     this.dynamicTitle = "Liste de Gains"
+  }
+
+  onCycle(){
+    this.isSession = false;
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = true;
+    this.dynamicTitle = "Liste des cycles"
+  }
+
+  onSession(){
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = false;
+    this.isSession = true;
+    this.dynamicTitle = "Liste des séances"
   }
 }

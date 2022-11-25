@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Cycle } from 'src/app/core/classes/cycle';
 import { Session } from 'src/app/core/classes/session';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import Swal from 'sweetalert2';
@@ -16,11 +17,13 @@ export class DetailSessionOfTontineComponent implements OnInit {
   isPushed: string = "";
   sessions: Session[] = [];
   idCycle: number = 0;
+  cycle: Cycle = new Cycle();
 
   constructor(private cycleService: CycleService,  private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getAllSessionsOfCycle();
+    this.getCycle();
   }
 
   activeHomeSider() {
@@ -33,6 +36,14 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.homeSider = "";
       this.isPushed = "";
     }
+  }
+
+  getCycle(){
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.cycleService.findCycleById(params['id']).subscribe((res)=>{
+        this.cycle = res.data;
+      });
+    })
   }
 
     getAllSessionsOfCycle(){

@@ -564,7 +564,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Liste des sessions du cycle</h1>
+                    <h1 class="title is-4">Liste des séances de {{ cycle.name }} </h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -713,9 +713,9 @@
                         <span>Date limite de contribution</span>
                         <span>Date</span>
                         <span>hour</span>
-                        <!-- <span>minute</span>
-                        <span>second</span>
-                        <span>nano</span> -->
+                        <span>Total cotisé (FCFA)</span>
+                        <span>total à cotiser (FCFA)</span>
+                        <span>Total des pénalités (FCFA)</span>
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
@@ -738,15 +738,15 @@
                             <div class="flex-table-cell" data-th="Prenom">
                                 <span class="light-text" data-filter-match="">{{ session.hour }}</span>
                             </div>
-                            <!-- <div class="flex-table-cell" data-th="Prenom">
-                                <span class="light-text" data-filter-match="">{{ session.hour.minute }}</span>
+                            <div class="flex-table-cell" data-th="Prenom">
+                                <span class="light-text" data-filter-match="">{{ session.totalPaid }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Prenom">
-                                <span class="light-text" data-filter-match="">{{ session.hour.nano }}</span>
+                                <span class="light-text" data-filter-match="">{{ session.totalToBePaid }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Prenom">
-                                <span class="light-text" data-filter-match="">{{ session.hour.second }}</span>
-                            </div> -->
+                                <span class="light-text" data-filter-match="">{{ session.totalPenalties }}</span>
+                            </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                 <a _ngcontent-nct-c62="" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>

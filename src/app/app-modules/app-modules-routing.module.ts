@@ -25,11 +25,27 @@ import { DataEntryAgentToAreaComponent } from './organisation/area/data-entry-ag
 import { SponsoresComponent } from './organisation/user/sponsores/sponsores.component';
 import { ViewMoreParticipantComponent } from './operation/tontine/view-more-participant/view-more-participant.component';
 import { ViewDetailsTontineComponent } from './operation/tontine/view-details-tontine/view-details-tontine.component';
+import { CycleComponent } from './parameter/cycle/cycle.component';
+import { SessionComponent } from './parameter/session/session.component';
+import { DetailCycleComponent } from './operation/tontine/detail-cycle/detail-cycle.component';
+import { DetailSessionOfTontineComponent } from './operation/tontine/detail-session-of-tontine/detail-session-of-tontine.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"detail-session-of-tontine", component: DetailSessionOfTontineComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"detail-cycle", component: DetailCycleComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"session", component: SessionComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"cycle", component: CycleComponent, canActivate: [EntityGuard]
+      },
       {
         path:"view-details-tontine", component: ViewDetailsTontineComponent, canActivate: [EntityGuard]
       },

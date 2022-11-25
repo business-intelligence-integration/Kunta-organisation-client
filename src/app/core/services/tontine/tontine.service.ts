@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Cycle } from '../../classes/cycle';
 import { Tontine } from '../../classes/tontine';
 import { UtilityService } from '../utility/utility.service';
 
@@ -58,5 +59,9 @@ export class TontineService {
 
   getTontineUsers(idTontine: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/users' + '?token=' + this.utilityService.loadToken());
+  }
+
+  createCycleForTontine(idTontine: number, cycle: Cycle):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'tontines/' + idTontine + '/cycles', cycle, httpOptions);
   }
 }

@@ -95,6 +95,20 @@
                             <span>Gain</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onCycle()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Cycle</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onSession()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Séance</span>
+                        </a>
+                    </li>
                    
                     <!-- <li>
                         <a class="is-submenu">
@@ -277,6 +291,8 @@
             <app-transversality *ngIf="isTransversality"></app-transversality>
             <app-frequency *ngIf="isFrequency"></app-frequency>
             <app-gain *ngIf="isGain"></app-gain>
+            <app-session *ngIf="isSession"></app-session>
+            <app-cycle *ngIf="isCycle"></app-cycle>
         </div>
     </div>
 

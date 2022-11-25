@@ -7,6 +7,10 @@ import { OperationsComponent } from './operations/operations.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewMoreParticipantComponent } from './tontine/view-more-participant/view-more-participant.component';
 import { ViewDetailsTontineComponent } from './tontine/view-details-tontine/view-details-tontine.component';
+import { NgSelect2Module } from 'ng-select2';
+import { DetailCycleComponent } from './tontine/detail-cycle/detail-cycle.component';
+import { DetailSessionOfTontineComponent } from './tontine/detail-session-of-tontine/detail-session-of-tontine.component';
+
 
 
 @NgModule({
@@ -15,12 +19,15 @@ import { ViewDetailsTontineComponent } from './tontine/view-details-tontine/view
     OperationsComponent,
     ViewMoreParticipantComponent,
     ViewDetailsTontineComponent,
+    DetailCycleComponent,
+    DetailSessionOfTontineComponent,
   ],
   imports: [
     CommonModule,
     OperationRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelect2Module
   ]
 })
 export class OperationModule { }

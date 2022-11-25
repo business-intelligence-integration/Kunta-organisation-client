@@ -61,6 +61,7 @@ export class TontineComponent implements OnInit {
   startDate: any;
   cycle: Cycle = new Cycle();
   userIsEmpty: any = "disabled";
+  startDateMin: any
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -83,6 +84,7 @@ export class TontineComponent implements OnInit {
     this.getAllArea();
     this.getAllUsers();
     this.getAllGains();
+    this.initDatesPicker();
     this.options = {
       multiple: true,
       closeOnSelect: false,
@@ -101,6 +103,7 @@ export class TontineComponent implements OnInit {
       name: new FormControl(null, Validators.required),
     })
 
+
     this.updateTontineForm = this.formBuilder.group({
       idTontine: new FormControl(null, Validators.required),
       // peb: new FormControl(null, Validators.required),
@@ -117,6 +120,13 @@ export class TontineComponent implements OnInit {
       startDate: new FormControl(null, Validators.required),
       durationInMonths: new FormControl(null, Validators.required),
     })
+  }
+
+  initDatesPicker() {
+    this.startDateMin = new DatePipe('en-US').transform(
+      new Date(Date.now()),
+      'yyyy-MM-dd'
+    );
   }
 
   getAllTontine(){

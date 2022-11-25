@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Cycle } from 'src/app/core/classes/cycle';
+import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 
 @Component({
   selector: 'app-cycle',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CycleComponent implements OnInit {
 
-  constructor() { }
+  cycle: Cycle = new Cycle()
+  cycles: Cycle[]=[];
+
+  constructor(private cycleService: CycleService) { }
 
   ngOnInit(): void {
+    this.getAllCycles();
+  }
+
+  getAllCycles(){
+    this.cycleService.findAllCycles().subscribe((res)=>{
+      this.cycles = res.data;
+    })
   }
 
 }

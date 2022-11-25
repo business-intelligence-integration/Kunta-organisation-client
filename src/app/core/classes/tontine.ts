@@ -1,3 +1,4 @@
+import { Cycle } from "./cycle";
 import { Frequency } from "./frequency";
 import { Gain } from "./gain";
 import { Level } from "./level";
@@ -16,5 +17,6 @@ export class Tontine{
   level: Level = new Level();
   contributionFrequency: Frequency = new Frequency();
   tontineSessionFrequency: Frequency = new Frequency();
+  cycles: Cycle[] = [];
   gainMode: Gain = new Gain();
 }
