@@ -11,7 +11,8 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.0.0",
-    "@angular/common": "^14.0.0",
+    "@angular/cdk": "^14.2.7",
+    "@angular/common": "^14.2.7",
     "@angular/compiler": "^14.0.0",
     "@angular/core": "^14.0.0",
     "@angular/forms": "^14.0.0",
@@ -19,11 +20,8 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@auth0/angular-jwt": "^5.1.0",
-    "jquery": "^3.6.1",
-    "ng-select2": "^1.4.1",
-    "ng2-tooltip-directive": "^2.10.3",
+    "ng-select2-component": "^10.0.0",
     "rxjs": "~7.5.0",
-    "select2": "^4.1.0-rc.0",
     "sweetalert2": "^11.6.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

@@ -17,7 +17,6 @@ import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { GainService } from 'src/app/core/services/gains/gain.service';
 import { Gain } from 'src/app/core/classes/gain';
-import { Options } from 'select2';
 import { Cycle } from 'src/app/core/classes/cycle';
 import { DatePipe } from '@angular/common';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
@@ -38,6 +37,7 @@ export class TontineComponent implements OnInit {
   tontines: Tontine[] = [];
   operations: Operation[] = [];
   clubs: Organism[] = [];
+  clubsArray: any[] = [];
   openCreateModal: string = "";
   createTontineForm!: FormGroup;
   updateTontineForm!: FormGroup;
@@ -56,7 +56,6 @@ export class TontineComponent implements OnInit {
   openDetailModal: string = "";
   gains: Gain[] = [];
   openUpdateModal:  string = "";
-  options!: Options;
   clubArray: [] = [];
   startDate: any;
   cycle: Cycle = new Cycle();
@@ -85,11 +84,6 @@ export class TontineComponent implements OnInit {
     this.getAllUsers();
     this.getAllGains();
     this.initDatesPicker();
-    this.options = {
-      multiple: true,
-      closeOnSelect: false,
-      width: '300'
-    };
   }
 
   formInit() {
@@ -145,12 +139,16 @@ export class TontineComponent implements OnInit {
     this.openCreateModal = "";
   }
 
+  // getAllClubs(){
+  //   this.clubServices.findAllClubs().subscribe((res)=>{
+  //     this.clubs = res.data;
+  //   })
+  // }
   getAllClubs(){
     this.clubServices.findAllClubs().subscribe((res)=>{
-      this.clubs = res.data;
+      this.clubsArray = res.data.map((club:any)=>({value:club.id, label:club.name}));
     })
   }
-
   onSubmitCreateTontine(){
     const formValue = this.createTontineForm.value;
     this.tontine.peb =formValue.peb;

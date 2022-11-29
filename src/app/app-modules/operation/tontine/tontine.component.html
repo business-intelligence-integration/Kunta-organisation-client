@@ -172,24 +172,26 @@
                                 <small class="text-police">veuillez entrer le plan d’épargne de base</small>
                              </div>
                         </div>
-                        <label>Club propriétaire de la tontine*</label>
-                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelect2">
+                        <div class="field">
+                            <label>Club propriétaire de la tontine*</label>
+                        <!-- <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelect2">
                             <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }}  </span> </option>
-                        </select>
-                        <!-- <ng-select2 [data]="clubArray"
-                            [placeholder]="'Demo with options'"
-                            [options]="options"></ng-select2> -->
-                        <!-- <ng-select2
-                            [data]="clubArray"
-                            formControlName="idClub"
-                            placeholder="select club">
-                         </ng-select2> -->
-                        <div class="text-danger"
-                                *ngIf="createTontineForm.get('id')?.errors?.['required'] && createTontineForm.get('id')?.touched">
-                                <small class="text-police">veuillez selectionner un club</small>
+                        </select> -->
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="clubsArray"
+                                    id="club"
+                                    formControlName="idClub"
+                                    placeholder="--Selectionnez un club--">
+                            </select2>
+                            <div class="text-danger"
+                                    *ngIf="createTontineForm.get('id')?.errors?.['required'] && createTontineForm.get('id')?.touched">
+                                    <small class="text-police">veuillez selectionner un club</small>
+                            </div>
                         </div>
-                        <br><br>
+                        
+                       
                         <label>Fréquence de cotisation  *</label>
                         <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
                             <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
