@@ -191,31 +191,34 @@
                             </div>
                         </div>
                         
-                       
-                        <label>Fréquence de cotisation  *</label>
-                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
-                            <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
-                            <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
-                        </select>
-                        <br><br>
-                        <label>Fréquence des séances de tontine  *</label>
-                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceSea" [(ngModel)]="ngSelect4">
-                            <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
-                            <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
-                        </select>
-                        <br><br>
-                        <label>Niveau de transversalité *</label>
-                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idTransv" [(ngModel)]="ngSelect5">
-                            <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
-                            <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
-                        </select>
-                        <br><br>
-                        <label>Mode de gain *</label>
-                        <select class="input_comp color-border" aria-label="Default select example" formControlName="idGain" [(ngModel)]="ngSelect6">
-                            <option value="0" disabled>--Selectionnez le mode de gain--</option>
-                            <option *ngFor="let gain of gains" [value]="gain.id"> <span> {{ gain.label }} </span> </option>
-                        </select>
-                        <br><br>
+                        <div class="field">
+                            <label>Fréquence de cotisation  *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
+                                <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
+                                <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Fréquence des séances de tontine  *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceSea" [(ngModel)]="ngSelect4">
+                                <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
+                                <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Niveau de transversalité *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idTransv" [(ngModel)]="ngSelect5">
+                                <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
+                                <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Mode de gain *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idGain" [(ngModel)]="ngSelect6">
+                                <option value="0" disabled>--Selectionnez le mode de gain--</option>
+                                <option *ngFor="let gain of gains" [value]="gain.id"> <span> {{ gain.label }} </span> </option>
+                            </select>
+                        </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createTontineForm.invalid" >Créer</button>
                         </div>

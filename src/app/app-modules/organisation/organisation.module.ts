@@ -35,6 +35,7 @@ import { CommunicationAgentToAreaComponent } from './area/communication-agent-to
 import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 import { AccountComponent } from './account/account.component';
 import { SponsoresComponent } from './user/sponsores/sponsores.component';
+import { Select2Module } from 'ng-select2-component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { SponsoresComponent } from './user/sponsores/sponsores.component';
     OrganisationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    Select2Module
   ]
 })
 export class OrganisationModule { }

@@ -22,6 +22,7 @@ export class UserComponent implements OnInit {
   addSponsoreForm!: FormGroup;
   users: User[];
   members: User[] = [];
+  membersArray: any[] = [];
   user: User;
   idUser: number = 0; 
   Utilisateurs: string = "Utilisateurs"
@@ -349,10 +350,17 @@ export class UserComponent implements OnInit {
     this.idUser = id;
   }
 
+  // getAllMembers(){
+  //   this.userService.getAllMambers().subscribe((res)=>{
+  //     console.log("resMembre::", res);
+  //     this.members = res.data;
+  //   })
+  // }
+
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
       console.log("resMembre::", res);
-      this.members = res.data;
+      this.membersArray = res.data.map((member:any)=>({value:member.id, label:member.firstName}));
     })
   }
 
