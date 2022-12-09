@@ -64,4 +64,12 @@ export class TontineService {
   createCycleForTontine(idTontine: number, cycle: Cycle):Observable<any>{
     return this.httpClient.post<any>(this.baseUrl + 'tontines/' + idTontine + '/cycles', cycle, httpOptions);
   }
+
+  setStatus(idTontine: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/status/${idStatus}` + "?token=" +this.utilityService.loadToken(), {});
+  }
+
+  findAllCyclesOfTontine(idTontine: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/cycles', httpOptions);
+  }
 }

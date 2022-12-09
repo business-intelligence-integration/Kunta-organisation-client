@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GainComponent } from './gain/gain.component';
 import { CycleComponent } from './cycle/cycle.component';
 import { SessionComponent } from './session/session.component';
+import { StatusComponent } from './status/status.component';
+import { PenalityTypeComponent } from './penality-type/penality-type.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { SessionComponent } from './session/session.component';
     GainComponent,
     CycleComponent,
     SessionComponent,
+    StatusComponent,
+    PenalityTypeComponent,
   ],
   imports: [
     CommonModule,

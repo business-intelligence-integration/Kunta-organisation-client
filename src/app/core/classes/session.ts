@@ -1,3 +1,6 @@
+import { Payment } from "./payment";
+import { Penality } from "./penality";
+
 export class Session{
     contributionDeadline: any;
     date: any;
@@ -6,6 +9,8 @@ export class Session{
     totalPenalties: number = 0
     totalToBePaid: number = 0
     hour: Hour = new Hour();
+    payments: Payment[] = [];
+    penalties: Penality[] = [];
 }
 
 class Hour {

@@ -57,6 +57,7 @@ export class TontineComponent implements OnInit {
   gains: Gain[] = [];
   openUpdateModal:  string = "";
   clubArray: [] = [];
+  membersArray: any[] = [];
   startDate: any;
   cycle: Cycle = new Cycle();
   userIsEmpty: any = "disabled";
@@ -100,7 +101,6 @@ export class TontineComponent implements OnInit {
 
     this.updateTontineForm = this.formBuilder.group({
       idTontine: new FormControl(null, Validators.required),
-      // peb: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     })
 
@@ -125,8 +125,9 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      console.log("res::", res);
       this.operations = res.data;
+      console.log("this.operations::", res);
+      
     })
   }
 
@@ -149,14 +150,18 @@ export class TontineComponent implements OnInit {
       this.clubsArray = res.data.map((club:any)=>({value:club.id, label:club.name}));
     })
   }
+
   onSubmitCreateTontine(){
     const formValue = this.createTontineForm.value;
     this.tontine.peb =formValue.peb;
     this.tontine.name =formValue.name;
+   
+    
     this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea, formValue.idGain)
   }
 
   createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number, idGain: number){
+    console.log("this.tontine", tontine);
     this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe(()=>{
       this.getAllTontine();
       this.closeCreateTontineModal();
@@ -252,9 +257,16 @@ export class TontineComponent implements OnInit {
       this.members = res.data;
     })
   }
+  // getAllMembers(){
+  //   this.userService.getAllMambers().subscribe((res)=>{
+  //     this.membersArray = res.data.map((member:any)=>({value: member.id, label: member.firstName}));
+  //   })
+  // }
+
   getAllArea(){
     this.areaService.findAllAreas().subscribe((res)=>{
       this.areas = res.data
+      console.log("this.areasN::", this.areas);
     })
   }
 
@@ -297,6 +309,8 @@ export class TontineComponent implements OnInit {
 
   getAllUserOfZone(idClub: number){
     let usersArea: User[] = [];
+   
+    
     this.areas.forEach((area)=>{
       area.clubs.forEach((club)=>{
         if(idClub == club.id){
@@ -385,6 +399,7 @@ export class TontineComponent implements OnInit {
     })
    
   }
+  
   closeDetailModal(){
     this.openDetailModal = "";
   }
@@ -486,4 +501,65 @@ export class TontineComponent implements OnInit {
       );
     })
   }
+
+  onSetSatus(idStontine: number, idStatus: number, label: string){  
+    this.tontineService.findTontineById(idStontine).subscribe((res)=>{
+      if(label == "OUVERT"){
+        if(res.data.tontine.registeredMembers <= 0){
+          this.utilityService.showMessage(
+            'warning',
+            'This tontine cannot be closed because it has no participants.',
+            '#e62965',
+            'white'
+          );
+        }else{
+          if(idStatus == 1){
+            this.setStatus(idStontine, 2)
+          }else if(idStatus == 2){
+            this.setStatus(idStontine, 1)
+          }
+        }
+      }else if(label == "FERMÉ"){
+        if(res.data.tontine.cycles.length > 0){
+          this.utilityService.showMessage(
+            'warning',
+            'You can no longer open this tontine because a cycle has already been created.',
+            '#e62965',
+            'white'
+          );
+        }else{
+          if(idStatus == 1){
+            this.setStatus(idStontine, 2)
+          }else if(idStatus == 2){
+            this.setStatus(idStontine, 1)
+          }
+        }
+      }
+     
+    })
+  }
+
+  setStatus(idStontine: number, idStatus: number){
+    this.tontineService.setStatus(idStontine, idStatus).subscribe((res)=>{
+      this.getAllTontine();
+      if(res.data.tontine.status.label == "FERMÉ"){
+        this.utilityService.showMessage(
+          'success',
+          'Tontine successfully closed',
+          '#06d6a0',
+          'white'
+        );
+      }else if(res.data.tontine.status.label == "OUVERT"){
+        this.utilityService.showMessage(
+          'success',
+          'Tontine successfully opened',
+          '#06d6a0',
+          'white'
+        );
+      }
+      
+    })
+  }
+
+
 }

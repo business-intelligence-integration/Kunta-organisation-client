@@ -10,6 +10,7 @@ import { ViewDetailsTontineComponent } from './tontine/view-details-tontine/view
 import { DetailCycleComponent } from './tontine/detail-cycle/detail-cycle.component';
 import { DetailSessionOfTontineComponent } from './tontine/detail-session-of-tontine/detail-session-of-tontine.component';
 import { Select2Module } from 'ng-select2-component';
+import { AllPaymentOfSessionComponent } from './tontine/all-payment-of-session/all-payment-of-session.component';
 
 
 
@@ -21,6 +22,7 @@ import { Select2Module } from 'ng-select2-component';
     ViewDetailsTontineComponent,
     DetailCycleComponent,
     DetailSessionOfTontineComponent,
+    AllPaymentOfSessionComponent,
   ],
   imports: [
     CommonModule,

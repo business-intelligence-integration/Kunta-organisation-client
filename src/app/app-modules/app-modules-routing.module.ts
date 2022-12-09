@@ -29,11 +29,23 @@ import { CycleComponent } from './parameter/cycle/cycle.component';
 import { SessionComponent } from './parameter/session/session.component';
 import { DetailCycleComponent } from './operation/tontine/detail-cycle/detail-cycle.component';
 import { DetailSessionOfTontineComponent } from './operation/tontine/detail-session-of-tontine/detail-session-of-tontine.component';
+import { StatusComponent } from './parameter/status/status.component';
+import { AllPaymentOfSessionComponent } from './operation/tontine/all-payment-of-session/all-payment-of-session.component';
+import { PenalityTypeComponent } from './parameter/penality-type/penality-type.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"penality-type", component: PenalityTypeComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"all-payment-of-session", component: AllPaymentOfSessionComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"status", component: StatusComponent, canActivate: [EntityGuard]
+      },
       {
         path:"detail-session-of-tontine", component: DetailSessionOfTontineComponent, canActivate: [EntityGuard]
       },

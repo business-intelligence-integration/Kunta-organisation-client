@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrlApi: 'http://kunta-organisation-service.herokuapp.com/',
-  baseUrlApiActivity: 'http://kunta-activities-service.herokuapp.com/'
+  // baseUrlApi: 'http://kunta-organisation-service.herokuapp.com/',
+  baseUrlApi: 'http://185.98.139.14:8080/kt-organisation/',
+  // baseUrlApiActivity: 'http://kunta-activities-service.herokuapp.com/'
+  baseUrlApiActivity: 'http://185.98.139.14:8080/kt-activities/'
 };
 
 /*

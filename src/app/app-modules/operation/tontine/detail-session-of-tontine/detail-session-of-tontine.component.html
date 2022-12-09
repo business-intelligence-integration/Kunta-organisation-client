@@ -716,6 +716,8 @@
                         <span>Total cotisé (FCFA)</span>
                         <span>total à cotiser (FCFA)</span>
                         <span>Total des pénalités (FCFA)</span>
+                        <span style="color: black; font-weight: 650;">Cotiser</span>
+                        <span style="color: black; font-weight: 650;">Pénaliser</span>
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
@@ -747,6 +749,17 @@
                             <div class="flex-table-cell" data-th="Prenom">
                                 <span class="light-text" data-filter-match="">{{ session.totalPenalties }}</span>
                             </div>
+                            <div class="flex-table-cell" data-th="Filleuls">
+                                <span class="light-text" data-filter-match="">{{ session.payments.length }}</span>
+                                <a  class="pagination-previous has-chevron" (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
+                                <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                            </div>
+
+                            <div class="flex-table-cell" data-th="Filleuls">
+                                <span class="light-text" data-filter-match="">{{ session.penalties.length }}</span>
+                                <a  class="pagination-previous has-chevron" (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
+                                <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                            </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                 <a _ngcontent-nct-c62="" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
@@ -755,7 +768,6 @@
                             </div>
                         </div>
                     </div>
-        
                 </div>
 
                 <!--Table Pagination-->
@@ -784,4 +796,151 @@
     </div>
     </div>
 
+</div>
+
+
+<div id="addCycle" class="modal h-modal" [ngClass]="openPaymntModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Cotisation</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closePaymentModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="paymentForm" (ngSubmit)="onSubmitPayment()">
+                        <div class="field">
+                            <label>membres de la tontine*</label>
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="membersArray"
+                                    id="club"
+                                    formControlName="idMember"
+                                    placeholder="--Selectionnez un membre--">
+                            </select2>
+                                <div class="text-danger"
+                                    *ngIf="paymentForm.get('idMember')?.errors?.['required'] && paymentForm.get('idMember')?.touched">
+                                    <small class="text-police">veuillez entrer le montant cotisé</small>
+                                </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label>Montant cotisé*</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant" formControlName="amount">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="paymentForm.get('amount')?.errors?.['required'] && paymentForm.get('amount')?.touched">
+                                <small class="text-police">veuillez entrer le montant cotisé</small>
+                             </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label>Raison*</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Raison" formControlName="reason">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="paymentForm.get('reason')?.errors?.['required'] && paymentForm.get('reason')?.touched">
+                                <small class="text-police">veuillez entrer la raison de la cotisation</small>
+                             </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Date de cotisation *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="date" type="date" id="DOB" name="DOB" min="{{ startDateMin }}"  [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                           <div class="text-danger" *ngIf="paymentForm.get('date')?.errors?.['required'] && paymentForm.get('date')?.touched">
+                             <small class="text-police" translate>selectionner la date de paiement</small>
+                           </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="paymentForm.invalid" >Cotiser</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closePaymentModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addCycle" class="modal h-modal" [ngClass]="openPenalityModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Pénalisation</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closePenalityModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="penalityForm" (ngSubmit)="onSubmitPenality()">
+                        <div class="field">
+                            <label>membres de la tontine*</label>
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="membersArray"
+                                    id="club"
+                                    formControlName="idMember"
+                                    placeholder="--Selectionnez un membre--">
+                            </select2>
+                                <div class="text-danger"
+                                    *ngIf="penalityForm.get('idMember')?.errors?.['required'] && penalityForm.get('idMember')?.touched">
+                                    <small class="text-police">veuillez entrer le montant cotisé</small>
+                                </div>
+                        </div>
+                        
+                        <div class="field">
+                            <label>Pénalité à appliquer  *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idPenaltyType" [(ngModel)]="ngSelect3">
+                                <option value="0" disabled>--Selectionnez pénalité--</option>
+                                <option *ngFor="let penalityType of penalityTypes" [value]="penalityType.id"> <span> {{ penalityType.label }} - {{ penalityType.amount }} FCFA</span> </option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>Date de cotisation *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="date" type="date" id="DOB" name="DOB"  [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                           <div class="text-danger" *ngIf="penalityForm.get('date')?.errors?.['required'] && penalityForm.get('date')?.touched">
+                             <small class="text-police" translate>selectionner la date de paiement</small>
+                           </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="penalityForm.invalid" >Pénaliser</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closePenalityModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
 </div>

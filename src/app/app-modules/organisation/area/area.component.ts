@@ -96,7 +96,6 @@ export class AreaComponent implements OnInit {
 
   getAllAreas(){
     let tabArea: Organism[]= [];
-    let areas:Organism[] = []
     this.areaService.findAllAreas().subscribe({
       next:res => res.data.map((area: any)=>{
         let newclubs: Organism[] = area.clubs
@@ -118,7 +117,8 @@ export class AreaComponent implements OnInit {
       })
     })
     this.areas = tabArea;
-
+    console.log("this.areas::", this.areas);
+    
     // this.centerService.findAllCenters()
     // .subscribe({
     //   next: (result) => result.data.map((center: any) => {

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Payment } from '../../classes/payment';
+import { Penality } from '../../classes/penality';
 import { Session } from '../../classes/session';
 import { UtilityService } from '../utility/utility.service';
 
@@ -31,5 +33,17 @@ export class SessionService {
 
   updateSession(session: Session, id: number):Observable<any>{
     return this.httpClient.put<any>(this.baseUrl + 'sessions/'+ id, session, httpOptions);
+  }
+
+  createPaymentForSession(payment: Payment, idSession: number, idUser: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'sessions/' + idSession + '/payment/user/' + idUser + "?token=" + this.utilityService.loadToken(), payment);
+  } 
+
+  createPenaltyForSession(penalty: Penality, idSession: number, idPenaltyType: number, idUser: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'sessions/' + idSession + '/penalty/penalty-type/' + idPenaltyType + "/user/" + idUser + "?token=" + this.utilityService.loadToken(), penalty);
+  } 
+
+  findAllPaymentsOfASession(idSession: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-payments' + '?token=' + this.utilityService.loadToken());
   }
 }

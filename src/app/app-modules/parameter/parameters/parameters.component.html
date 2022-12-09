@@ -109,6 +109,19 @@
                             <span>Séance</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="is-submenu" (click)="onStatus()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Status</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onPenalyType()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Penalty Type</span>
+                        </a>
+                    </li>
                    
                     <!-- <li>
                         <a class="is-submenu">
@@ -293,6 +306,8 @@
             <app-gain *ngIf="isGain"></app-gain>
             <app-session *ngIf="isSession"></app-session>
             <app-cycle *ngIf="isCycle"></app-cycle>
+            <app-status *ngIf="isStatus"></app-status>
+            <app-penality-type *ngIf="isPenaltyType"></app-penality-type>
         </div>
     </div>
 

@@ -36,49 +36,25 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <!-- <span class="is-grow">Id</span> -->
                 <span>Solde du compte</span>
-                <!-- <span>Lots attribués</span> -->
                 <span>Montant collecté</span>
-                <!-- <span>Pénalités collectées</span>
-                <span>Lots à attribuer</span>
-                <span>Membres sans pénalités</span> -->
                 <span>Nom</span>
                 <span>Plan d’épargne de base</span>
                 <span>Membres inscrits</span>
                 <span>Cycle</span>
+                <span>Status</span>
                 <span class="cell-end">Actions</span>
             </div>
 
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let operation of operations">
-                    <!-- <div class="flex-table-cell is-media is-grow">
-                        <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ operation.tontine.id }}</span>
-                            <span class="item-meta">
-                              <span data-filter-match="">{{ operation.tontine.accountBalance }}</span>
-                            </span>
-                        </div>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.accountBalance }}</span>
                     </div>
-                    <!-- <div class="flex-table-cell" data-th="Prenom">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.awardedLots }}</span>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Numéro tél">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.collectedAmount }}</span>
                     </div>
-                    <!-- <div class="flex-table-cell" data-th="Email">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.collectedPenalties }}</span>
-                    </div>
-                    <div class="flex-table-cell" data-th="Ville">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.lotsToBeAwarded }}</span>
-                    </div>
-                    <div class="flex-table-cell" data-th="Filleuls">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.membersWithoutPenalties }}</span>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.name }}</span>
                     </div>
@@ -87,17 +63,20 @@
                     </div>
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.registeredMembers }}</span>
-                        <a class="pagination-previous has-chevron" (click)="onOpenAddMember(operation.owner.id, operation.tontine.level.label,  operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(operation.owner.id, operation.tontine.level.label,  operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
                         [queryParams]="{id: operation.tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.cycles.length }}</span>
-                        <!-- <a   class="pagination-previous has-chevron" [ngClass]="userIsEmpty" (click)="onOpenCreateCycle(operation.tontine.id)"><i class="lnir lnir-plus"></i></a> -->
-                        <a  class="pagination-previous has-chevron"  (click)="onOpenCreateCycle(operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
+                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""[routerLink]="['/detail-cycle']"
                         [queryParams]="{id: operation.tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    </div>
+
+                    <div class="flex-table-cell" data-th="Status">
+                        <span class="tag is-rounded is-cliquable" (click)="onSetSatus(operation.tontine.id, operation.tontine.status.id, operation.tontine.status.label)" data-filter-match="" [ngClass]="{'is-danger': operation.tontine.status.label === 'FERMÉ', 'is-success': operation.tontine.status.label === 'OUVERT'}">{{ operation.tontine.status.label }}</span>
                     </div>
 
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -186,7 +165,7 @@
                                     placeholder="--Selectionnez un club--">
                             </select2>
                             <div class="text-danger"
-                                    *ngIf="createTontineForm.get('id')?.errors?.['required'] && createTontineForm.get('id')?.touched">
+                                    *ngIf="createTontineForm.get('idClub')?.errors?.['required'] && createTontineForm.get('idClub')?.touched">
                                     <small class="text-police">veuillez selectionner un club</small>
                             </div>
                         </div>
@@ -305,11 +284,15 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
-                        <label>Participants *</label>
-                        <select class="input_comp color-border" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                            <option value="0" disabled>--Selectionnez un participant--</option>
-                            <option *ngFor="let member of users" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
-                        </select><br><br>
+                        <div class="field">
+                            <label>Participants *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                                <option value="0" disabled>--Selectionnez un participant--</option>
+                                <option *ngFor="let member of users" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
+                            </select><br><br>
+    
+                        </div>
+                       
                         <div class="field">
                             <label>Nombre de bras*</label><br>
                             <div class="control">

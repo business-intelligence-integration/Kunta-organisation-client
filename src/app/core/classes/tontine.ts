@@ -2,6 +2,7 @@ import { Cycle } from "./cycle";
 import { Frequency } from "./frequency";
 import { Gain } from "./gain";
 import { Level } from "./level";
+import { Status } from "./status";
 
 export class Tontine{
   id: number = 0;
@@ -14,6 +15,7 @@ export class Tontine{
   name: string =  "";
   peb: number = 0;
   registeredMembers: number = 0;
+  status: Status = new Status();
   level: Level = new Level();
   contributionFrequency: Frequency = new Frequency();
   tontineSessionFrequency: Frequency = new Frequency();

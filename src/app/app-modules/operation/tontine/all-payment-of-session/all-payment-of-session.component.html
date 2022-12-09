@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Liste des cycles de la tontine</h1>
+                    <h1 class="title is-4">Liste des paiements de la séance du <span>{{ session.date }}</span></h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -222,39 +222,49 @@
                     </div>
                 </div>
 
-                   
                 <div class="flex-table">
 
                     <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
-                        <span>Nom</span>
-                        <span>Date de début</span>
+                        <span>versé</span>
+                        <span>Raison</span>
+                        <span>À verser</span>
+                        <span>Reste à payer</span>
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
                         <!--Table item-->
-                        <div class="flex-table-item" *ngFor="let cycle of cycles">
+                        <div class="flex-table-item" *ngFor="let sessionOfPayment of sessionOfPayments">
                             <div class="flex-table-cell is-media is-grow">
                                 <div>
-                                    <span class="item-name dark-inverted" data-filter-match="">{{ cycle.id }}</span>
+                                    <span class="item-name dark-inverted" data-filter-match="">{{ sessionOfPayment.payment.id }}</span>
                                     <span class="item-meta">
-                                      <span data-filter-match="">{{ cycle.name }}</span>
+                                      <span data-filter-match="">{{ sessionOfPayment.payment.paid }}</span>
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Nom">
-                                <span class="light-text" data-filter-match="">{{ cycle.name }}</span>
+
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.paid }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Prenom">
-                                <span class="light-text" data-filter-match="">{{ cycle.startDate }}</span>
+
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.reason }}</span>
                             </div>
+
+                            <div class="flex-table-cell" data-th="À verser">
+                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.toBePaid }}</span>
+                            </div>
+
+                            <div class="flex-table-cell" data-th="Reste à payer">
+                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.remainingToPay }}</span>
+                            </div>
+                           
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62=""[routerLink]="['/detail-session-of-tontine']"
-                                    [queryParams]="{id: cycle.id, tontine: idTontine}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                <a _ngcontent-nct-c62="" (click)="onUpdateCycle(cycle.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                <!-- <a _ngcontent-nct-c62=""  class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
+                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -291,7 +301,7 @@
 </div>
 
 <!-- add cycle -->
-<div id="addCycle" class="modal h-modal" [ngClass]="openCycleModal">
+<!-- <div id="addCycle" class="modal h-modal" [ngClass]="openCycleModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -333,4 +343,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

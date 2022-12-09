@@ -26,6 +26,7 @@ export class DetailCycleComponent implements OnInit {
   cycle: Cycle = new Cycle();
   updateCycleForm!: FormGroup;
   startDate: any;
+  idTontine: number = 0;
   constructor(private cycleService: CycleService, 
     private activatedRoute: ActivatedRoute,
     private tontineService: TontineService,
@@ -33,8 +34,7 @@ export class DetailCycleComponent implements OnInit {
     private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    // this.getAllSessionsOfCycle();
-    this.getTontineById();
+    this.findAllCyclesOfTontine();
     this.formInit();
   }
 
@@ -42,8 +42,6 @@ export class DetailCycleComponent implements OnInit {
     this.updateCycleForm = this.formBuilder.group({
       idCycle: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
-      // startDate: new FormControl(null, Validators.required),
-      // durationInMonths: new FormControl(null, Validators.required),
     })
   }
   activeHomeSider() {
@@ -59,18 +57,17 @@ export class DetailCycleComponent implements OnInit {
 
   }
 
-
-  getTontineById(){
+  findAllCyclesOfTontine(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.tontineService.findTontineById(params['id']).subscribe((res)=>{
-        this.cycles = res.data.tontine.cycles;
-      });
+      this.tontineService.findAllCyclesOfTontine(params['id']).subscribe((res)=>{
+        this.idTontine = params['id']
+        this.cycles = res.data;
+      })
     })
     
   }
 
   onUpdateCycle(id: number){
-    console.log('id::', id);
     this.cycleService.findCycleById(id).subscribe((res)=>{
       this.cycle = res.data
       this.openCycleModal = "is-active";
@@ -97,7 +94,7 @@ export class DetailCycleComponent implements OnInit {
 
   updateCycle(id: number, cycle: Cycle){
     this.cycleService.updateCycle(id, cycle).subscribe(()=>{
-      this.getTontineById();
+      this.findAllCyclesOfTontine();
       this.closeCycleModal()
       this.utilityService.showMessage(
         'success',

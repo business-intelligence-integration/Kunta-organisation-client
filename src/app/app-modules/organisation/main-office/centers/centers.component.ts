@@ -90,6 +90,7 @@ export class CentersComponent implements OnInit {
       }),
     });
     this.newListcenters = tabCenter;
+  
   }
 
   getAllArea(){

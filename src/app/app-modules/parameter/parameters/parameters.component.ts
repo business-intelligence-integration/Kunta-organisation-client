@@ -15,7 +15,9 @@ export class ParametersComponent implements OnInit {
   isGain: boolean = false;
   isSession: boolean = false;
   isCycle: boolean = false;
+  isStatus: boolean = false;
   isTransversality: boolean = false;
+  isPenaltyType: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   constructor() { }
 
@@ -46,6 +48,8 @@ export class ParametersComponent implements OnInit {
 
 
   onTransversality(){
+    this.isPenaltyType = false
+    this.isStatus = false;
     this.isSession = false;
     this.isCycle = false;
     this.isGain = false;
@@ -55,6 +59,8 @@ export class ParametersComponent implements OnInit {
   }
 
   onFrequency(){
+    this.isPenaltyType = false
+    this.isStatus = false;
     this.isCycle = false;
     this.isSession = false;
     this.isGain = false;
@@ -64,6 +70,8 @@ export class ParametersComponent implements OnInit {
   }
 
   onGain(){
+    this.isPenaltyType = false
+    this.isStatus = false;
     this.isSession = false;
     this.isCycle = false;
     this.isTransversality = false;
@@ -73,6 +81,8 @@ export class ParametersComponent implements OnInit {
   }
 
   onCycle(){
+    this.isPenaltyType = false
+    this.isStatus = false;
     this.isSession = false;
     this.isGain = false;
     this.isTransversality = false;
@@ -82,11 +92,36 @@ export class ParametersComponent implements OnInit {
   }
 
   onSession(){
+    this.isPenaltyType = false
+    this.isStatus = false;
     this.isGain = false;
     this.isTransversality = false;
     this.isFrequency = false;
     this.isCycle = false;
     this.isSession = true;
     this.dynamicTitle = "Liste des séances"
+  }
+
+  onStatus(){
+    this.isPenaltyType = false
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = false;
+    this.isSession = false;
+    this.isStatus = true;
+    this.dynamicTitle = "Liste des status"
+  }
+
+  onPenalyType(){
+    this.isPenaltyType = false
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = false;
+    this.isSession = false;
+    this.isStatus = false;
+    this.isPenaltyType = true
+    this.dynamicTitle = "Liste des types de paiements"
   }
 }
