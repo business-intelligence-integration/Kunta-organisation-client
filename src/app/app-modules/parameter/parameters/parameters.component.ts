@@ -18,6 +18,7 @@ export class ParametersComponent implements OnInit {
   isStatus: boolean = false;
   isTransversality: boolean = false;
   isPenaltyType: boolean = false;
+  isPenalty: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   constructor() { }
 
@@ -48,6 +49,7 @@ export class ParametersComponent implements OnInit {
 
 
   onTransversality(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
     this.isSession = false;
@@ -59,6 +61,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onFrequency(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
     this.isCycle = false;
@@ -70,6 +73,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onGain(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
     this.isSession = false;
@@ -81,6 +85,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onCycle(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
     this.isSession = false;
@@ -92,6 +97,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onSession(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
     this.isGain = false;
@@ -103,6 +109,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onStatus(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isGain = false;
     this.isTransversality = false;
@@ -114,6 +121,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenalyType(){
+    this.isPenalty = false;
     this.isPenaltyType = false
     this.isGain = false;
     this.isTransversality = false;
@@ -122,6 +130,19 @@ export class ParametersComponent implements OnInit {
     this.isSession = false;
     this.isStatus = false;
     this.isPenaltyType = true
-    this.dynamicTitle = "Liste des types de paiements"
+    this.dynamicTitle = "Liste des types de penalité"
+  }
+
+  onPenaly(){
+    this.isPenaltyType = false
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = false;
+    this.isSession = false;
+    this.isStatus = false;
+    this.isPenaltyType = false;
+    this.isPenalty = true;
+    this.dynamicTitle = "Liste des pénalités"
   }
 }

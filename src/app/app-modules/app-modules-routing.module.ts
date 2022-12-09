@@ -32,11 +32,15 @@ import { DetailSessionOfTontineComponent } from './operation/tontine/detail-sess
 import { StatusComponent } from './parameter/status/status.component';
 import { AllPaymentOfSessionComponent } from './operation/tontine/all-payment-of-session/all-payment-of-session.component';
 import { PenalityTypeComponent } from './parameter/penality-type/penality-type.component';
+import { PenaltyComponent } from './parameter/penalty/penalty.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"penalty", component: PenaltyComponent, canActivate: [EntityGuard]
+      },
       {
         path:"penality-type", component: PenalityTypeComponent, canActivate: [EntityGuard]
       },

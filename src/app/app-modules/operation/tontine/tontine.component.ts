@@ -505,10 +505,10 @@ export class TontineComponent implements OnInit {
   onSetSatus(idStontine: number, idStatus: number, label: string){  
     this.tontineService.findTontineById(idStontine).subscribe((res)=>{
       if(label == "OUVERT"){
-        if(res.data.tontine.registeredMembers <= 0){
+        if(res.data.tontine.registeredMembers < 2){
           this.utilityService.showMessage(
             'warning',
-            'This tontine cannot be closed because it has no participants.',
+            'Cette tontine ne peut être fermée car elle doit contenir au moins 2 membres.',
             '#e62965',
             'white'
           );
@@ -523,7 +523,7 @@ export class TontineComponent implements OnInit {
         if(res.data.tontine.cycles.length > 0){
           this.utilityService.showMessage(
             'warning',
-            'You can no longer open this tontine because a cycle has already been created.',
+            'Vous ne pouvez plus ouvrir cette tontine car un cycle a déjà été créé..',
             '#e62965',
             'white'
           );

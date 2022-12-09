@@ -799,7 +799,7 @@
 </div>
 
 
-<div id="addCycle" class="modal h-modal" [ngClass]="openPaymntModal">
+<div id="addPayment" class="modal h-modal" [ngClass]="openPaymntModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -858,7 +858,7 @@
                             <label>Date de cotisation *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="date" type="date" id="DOB" name="DOB" min="{{ startDateMin }}"  [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                    <input formControlName="date" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="paymentForm.get('date')?.errors?.['required'] && paymentForm.get('date')?.touched">
@@ -879,7 +879,7 @@
     </div>
 </div>
 
-<div id="addCycle" class="modal h-modal" [ngClass]="openPenalityModal">
+<div id="addPenality" class="modal h-modal" [ngClass]="openPenalityModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">

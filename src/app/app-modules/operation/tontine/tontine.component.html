@@ -61,6 +61,7 @@
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.peb }}</span>
                     </div>
+
                     <div class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.registeredMembers }}</span>
                         <a class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(operation.owner.id, operation.tontine.level.label,  operation.tontine.id)"><i class="lnir lnir-plus"></i></a>

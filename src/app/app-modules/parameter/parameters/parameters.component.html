@@ -122,6 +122,13 @@
                             <span>Penalty Type</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onPenaly()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Penalty</span>
+                        </a>
+                    </li>
                    
                     <!-- <li>
                         <a class="is-submenu">
@@ -308,6 +315,7 @@
             <app-cycle *ngIf="isCycle"></app-cycle>
             <app-status *ngIf="isStatus"></app-status>
             <app-penality-type *ngIf="isPenaltyType"></app-penality-type>
+            <app-penalty *ngIf="isPenalty"></app-penalty>
         </div>
     </div>
 
