@@ -7,7 +7,6 @@ import { Payment } from 'src/app/core/classes/payment';
 import { Penality } from 'src/app/core/classes/penality';
 import { PenalityType } from 'src/app/core/classes/penalityType';
 import { Session } from 'src/app/core/classes/session';
-import { User } from 'src/app/core/classes/user';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
@@ -63,7 +62,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.paymentForm = this.formBuilder.group({
       amount: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
-      reason: new FormControl(null, Validators.required),
+      proof: new FormControl(null, Validators.required),
       idMember: new FormControl(null, Validators.required),
     })
 
@@ -116,7 +115,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
         this.sessions = res.data;
-        console.log("resSession::", this.sessions);
+        console.log("resSéances::", res);
         
       });
     })
@@ -199,25 +198,17 @@ export class DetailSessionOfTontineComponent implements OnInit {
   onSubmitPayment(){
     const formValue = this.paymentForm.value;
     this.payment.paid = formValue.amount;
-    this.payment.reason = formValue.reason;
+    this.payment.proof = formValue.proof;
     let date = new Date(formValue.date);
     let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');
     this.payment.date = dateFormated;
     this.createPaymentForSession(this.payment, this.idSession, formValue.idMember);
   }
 
-  onSubmitPenality(){
-    const formValue = this.penalityForm.value;
-    let date = new Date(formValue.date);
-    let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');
-    this.penality.date = dateFormated;
-    this.makePenality(this.penality, this.idSession, formValue.idPenaltyType, formValue.idMember);
-  }
-
   createPaymentForSession(payment: Payment, idSession: number, idMember: number){
     this.sessionService.createPaymentForSession(payment, idSession, idMember).subscribe(()=>{
       this.getAllSessionsOfCycle();
-      // this.closePaymentModal();
+      this.closePaymentModal();
       this.utilityService.showMessage(
         'success',
         'Payment made successffully !',
@@ -234,9 +225,18 @@ export class DetailSessionOfTontineComponent implements OnInit {
     })
   }
 
+  onSubmitPenality(){
+    const formValue = this.penalityForm.value;
+    let date = new Date(formValue.date);
+    let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');
+    this.penality.date = dateFormated;
+    this.makePenality(this.penality, this.idSession, formValue.idPenaltyType, formValue.idMember);
+  }
+
   makePenality(penalityType: Penality, idSession: number, idPenalityType: number, idUser: number ){
     this.sessionService.createPenaltyForSession(penalityType, idSession, idPenalityType, idUser).subscribe(()=>{
       this.getAllSessionsOfCycle();
+      this.closePenalityModal()
       this.utilityService.showMessage(
         'success',
         'Pénalité appliquée avec succès !',

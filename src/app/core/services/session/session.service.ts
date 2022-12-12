@@ -46,4 +46,20 @@ export class SessionService {
   findAllPaymentsOfASession(idSession: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-payments' + '?token=' + this.utilityService.loadToken());
   }
+
+  updateContributionDeadline(session: Session, idSession: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/contribution-deadline`+ '?token=' + this.utilityService.loadToken(), session);
+  }
+
+  createSecondTimePayment(idSession: number, idPayment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/re-payment/last-payment/${idPayment}`+ '?token=' + this.utilityService.loadToken(), {});
+  }
+
+  findUserPaymentStateByUserIdAndSession(idSession: number, idUser: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-state/user/' + idUser + '?token=' + this.utilityService.loadToken());
+  }
+
+  findAllUserPaymentStateBySession(idSession: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-states' + '?token=' + this.utilityService.loadToken());
+  }
 }

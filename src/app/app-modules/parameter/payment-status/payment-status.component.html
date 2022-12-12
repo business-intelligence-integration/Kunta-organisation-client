@@ -5,6 +5,15 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
     </div>
+
+    <div class="buttons">
+        <button  (click)="onOpenStatusModal()" class="button h-button is-primary is-elevated">
+            <span class="icon">
+              <i aria-hidden="true" class="fas fa-plus"></i>
+          </span>
+            <span>créer un status de paiement</span>
+        </button>
+    </div>
 </div>
 
 <div class="page-content-inner">
@@ -28,30 +37,27 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Amount</span>
-                <span>Label</span>
+                <span>Appellation</span>
                 <span>Action</span>
             </div>
             <div class="flex-list-inner">
-                <div class="flex-table-item" *ngFor="let penaltyType of penaltyTypes">
+                <div class="flex-table-item" *ngFor="let pStatus of paymentStatus">
                     <div class="flex-table-cell is-media is-grow">
                         <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ penaltyType.id }}</span>
+                            <span class="item-name dark-inverted" data-filter-match="">{{ pStatus.id }}</span>
                             <span class="item-meta">
-                              <span data-filter-match="">{{ penaltyType.amount }}</span>
+                              <span data-filter-match="">{{ pStatus.label }}</span>
                             </span>
                         </div>
                     </div>
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ penaltyType.amount }}</span>
-                    </div>
-                    <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ penaltyType.label }}</span>
+                        <span class="light-text" data-filter-match="">{{ pStatus.label }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" (click)="onUpdatePenaltyType(penaltyType.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        </div>
+                        <a _ngcontent-nct-c62="" (click)="onOpenUpdateStatus(pStatus.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onDelete(pStatus.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -73,16 +79,17 @@
             </ul>
         </nav>
     </div>
+
 </div>
 
-<!-- update penaltyType -->
-<div id="updatePenaltyType" class="modal h-modal" [ngClass]="openPenaltyTypeModal">
+<!-- create status payment -->
+<div id="createPaymentStatus" class="modal h-modal" [ngClass]="openStatusModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modification du type de pénalité</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closePenaltyTypeModal()">
+                <h3>Création d'un status de paiement</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closePaymentStatuspeModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-x">
@@ -93,37 +100,69 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="penaltyTypeForm" (ngSubmit)="onSubmitUpdatePenaltyType(penaltyType.id)">
-                        <div class="field">
-                            <label>Montant pénalité*</label><br>
-                            <div class="control">
-                                <input type="number" [(ngModel)]="penaltyType.amount" class="input" placeholder="Montant" formControlName="amount">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="penaltyTypeForm.get('amount')?.errors?.['required'] && penaltyTypeForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant du type de paiement</small>
-                             </div>
-                        </div>
-                        
+                    <form class="modal-form" [formGroup]="paymentStatusForm" (ngSubmit)="onSubmitPaymentStatus()">
                         <div class="field">
                             <label>Appellation*</label><br>
                             <div class="control">
-                                <input type="text" [(ngModel)]="penaltyType.label" class="input" placeholder="Appellation" formControlName="label">
+                                <input type="text" class="input" placeholder="Appellation" formControlName="label">
                             </div>
                             <div class="text-danger"
-                                *ngIf="penaltyTypeForm.get('label')?.errors?.['required'] && penaltyTypeForm.get('label')?.touched">
+                                *ngIf="paymentStatusForm.get('label')?.errors?.['required'] && paymentStatusForm.get('label')?.touched">
                                 <small class="text-police">veuillez entrer l'appellation du type de paiement</small>
                              </div>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="penaltyTypeForm.invalid" >Modifier</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="paymentStatusForm.invalid" >Créer</button>
                         </div><br>
                        
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closePenaltyTypeModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closePaymentStatuspeModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- update status payment -->
+<div id="updatePaymentStatus" class="modal h-modal" [ngClass]="openUpdateStatusModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modfification d'un status de paiement</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdatePaymentStatuspeModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="updatePaymentStatusForm" (ngSubmit)="onSubmitUpdatePaymentStatus(pStatus.id)">
+                        <div class="field">
+                            <label>Appellation*</label><br>
+                            <div class="control">
+                                <input type="text" [(ngModel)]="pStatus.label" class="input" placeholder="Appellation" formControlName="label">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updatePaymentStatusForm.get('label')?.errors?.['required'] && updatePaymentStatusForm.get('label')?.touched">
+                                <small class="text-police">veuillez entrer l'appellation du type de paiement</small>
+                             </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="updatePaymentStatusForm.invalid" >Modifier</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentStatuspeModal()">Cancel</a>
             </div>
         </div>
     </div>

@@ -19,6 +19,7 @@ export class ParametersComponent implements OnInit {
   isTransversality: boolean = false;
   isPenaltyType: boolean = false;
   isPenalty: boolean = false;
+  isPaymentStatus: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   constructor() { }
 
@@ -49,6 +50,7 @@ export class ParametersComponent implements OnInit {
 
 
   onTransversality(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
@@ -61,6 +63,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onFrequency(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
@@ -73,6 +76,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onGain(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
@@ -85,6 +89,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onCycle(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
@@ -97,6 +102,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onSession(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isStatus = false;
@@ -109,6 +115,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onStatus(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isGain = false;
@@ -121,6 +128,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenalyType(){
+    this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
     this.isGain = false;
@@ -134,6 +142,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenaly(){
+    this.isPaymentStatus = false;
     this.isPenaltyType = false
     this.isGain = false;
     this.isTransversality = false;
@@ -144,5 +153,19 @@ export class ParametersComponent implements OnInit {
     this.isPenaltyType = false;
     this.isPenalty = true;
     this.dynamicTitle = "Liste des pénalités"
+  }
+
+  onPaymentStatus(){
+    this.isPenaltyType = false
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = false;
+    this.isSession = false;
+    this.isStatus = false;
+    this.isPenaltyType = false;
+    this.isPenalty = false;
+    this.isPaymentStatus = true;
+    this.dynamicTitle = "Liste des status de paiement"
   }
 }

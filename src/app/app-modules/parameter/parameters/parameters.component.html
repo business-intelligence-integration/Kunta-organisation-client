@@ -129,6 +129,13 @@
                             <span>Penalty</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onPaymentStatus()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Payment Status</span>
+                        </a>
+                    </li>
                    
                     <!-- <li>
                         <a class="is-submenu">
@@ -316,6 +323,7 @@
             <app-status *ngIf="isStatus"></app-status>
             <app-penality-type *ngIf="isPenaltyType"></app-penality-type>
             <app-penalty *ngIf="isPenalty"></app-penalty>
+            <app-payment-status *ngIf="isPaymentStatus"></app-payment-status>
         </div>
     </div>
 

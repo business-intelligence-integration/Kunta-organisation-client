@@ -38,10 +38,12 @@ export class PaymentService {
   }
   
   checkPayment(idPayment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}check-payment` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/check-payment` + "?token=" +this.utilityService.loadToken(), {});
   }
 
   validatePayment(idPayment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}validate-payment` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/validate-payment` + "?token=" +this.utilityService.loadToken(), {});
   }
+
+
 }

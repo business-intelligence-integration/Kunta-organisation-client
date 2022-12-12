@@ -714,7 +714,7 @@
                         <span>Date</span>
                         <span>hour</span>
                         <span>Total cotisé (FCFA)</span>
-                        <span>total à cotiser (FCFA)</span>
+                        <span>Total à cotiser (FCFA)</span>
                         <span>Total des pénalités (FCFA)</span>
                         <span style="color: black; font-weight: 650;">Cotiser</span>
                         <span style="color: black; font-weight: 650;">Pénaliser</span>
@@ -731,31 +731,31 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Nom">
+                            <div class="flex-table-cell" data-th="Date limite de cotisation">
                                 <span class="light-text" data-filter-match="">{{ session.contributionDeadline }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Nom">
+                            <div class="flex-table-cell" data-th="Date">
                                 <span class="light-text" data-filter-match="">{{ session.date }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Prenom">
+                            <div class="flex-table-cell" data-th="hour">
                                 <span class="light-text" data-filter-match="">{{ session.hour }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Prenom">
+                            <div class="flex-table-cell" data-th="Total cotisé (FCFA)">
                                 <span class="light-text" data-filter-match="">{{ session.totalPaid }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Prenom">
+                            <div class="flex-table-cell" data-th="Total à cotiser (FCFA)">
                                 <span class="light-text" data-filter-match="">{{ session.totalToBePaid }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Prenom">
+                            <div class="flex-table-cell" data-th="Total des pénalités (FCFA)">
                                 <span class="light-text" data-filter-match="">{{ session.totalPenalties }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Filleuls">
+                            <div class="flex-table-cell" data-th="Cotiser">
                                 <span class="light-text" data-filter-match="">{{ session.payments.length }}</span>
                                 <a  class="pagination-previous has-chevron" (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
                                 <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Filleuls">
+                            <div class="flex-table-cell" data-th="Pénaliser">
                                 <span class="light-text" data-filter-match="">{{ session.penalties.length }}</span>
                                 <a  class="pagination-previous has-chevron" (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
                                 <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -844,13 +844,13 @@
                         </div>
                         
                         <div class="field">
-                            <label>Raison*</label><br>
+                            <label>Preuve*</label><br>
                             <div class="control">
-                                <input type="text" class="input" placeholder="Raison" formControlName="reason">
+                                <input type="text" class="input" placeholder="Preuve" formControlName="proof">
                             </div>
                             <div class="text-danger"
-                                *ngIf="paymentForm.get('reason')?.errors?.['required'] && paymentForm.get('reason')?.touched">
-                                <small class="text-police">veuillez entrer la raison de la cotisation</small>
+                                *ngIf="paymentForm.get('proof')?.errors?.['required'] && paymentForm.get('proof')?.touched">
+                                <small class="text-police">veuillez entrer la preuve de la cotisation</small>
                              </div>
                         </div>
 
