@@ -98,6 +98,8 @@ export class AllPaymentOfSessionComponent implements OnInit {
       this.openUpdatePaymntModal = "is-active"
     })
   }
+
+  
   closeUpdatePaymentModal(){
     this.openUpdatePaymntModal = "";
   }

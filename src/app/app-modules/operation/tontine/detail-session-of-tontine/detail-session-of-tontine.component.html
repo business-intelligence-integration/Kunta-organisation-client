@@ -762,7 +762,7 @@
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                <a _ngcontent-nct-c62="" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                                <a _ngcontent-nct-c62="" (click)="onUpdateContributionDeadline(session.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                 <a _ngcontent-nct-c62="" (click)="onDelate(session.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                 </div>
                             </div>
@@ -940,6 +940,84 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closePenalityModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="updateContributionDeadline" class="modal h-modal" [ngClass]="openupdateContributionDeadlineModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modification de la date limite de cotisation</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateContributionDeadlineModalModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="updateContributionDeadlineForm" (ngSubmit)="onSubmitPayment()">
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Date limite *</label>
+                                <div class="card-header-widget datepicker-style">
+                                    <div class="input-daterange input-group align-items-center">
+                                        <input formControlName="contributionDeadline" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                    </div>
+                               </div>
+                               <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('contributionDeadline')?.errors?.['required'] && updateContributionDeadlineForm.get('contributionDeadline')?.touched">
+                                 <small class="text-police">selectionner la date limite de cotisation</small>
+                               </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Date *</label>
+                                <div class="card-header-widget datepicker-style">
+                                    <div class="input-daterange input-group align-items-center">
+                                        <input formControlName="date" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                    </div>
+                               </div>
+                               <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('date')?.errors?.['required'] && updateContributionDeadlineForm.get('date')?.touched">
+                                 <small class="text-police">selectionner la date</small>
+                               </div>
+                            </div>
+                        </div> -->
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Date d'arrivée *</label>
+                                <div class="card-header-widget datepicker-style">
+                                    <div class="input-daterange input-group align-items-center">
+                                        <input type="date" id="DOB" name="DOB">
+                                    </div>
+                               </div>
+                               
+                            </div>
+                            <div class="col-md-6">
+                                <label>Date de départ *</label>
+                                <div class="card-header-widget datepicker-style">
+                                    <div class="input-daterange input-group align-items-center">
+                                        <input  type="date" id="DOB" name="DOB"  >
+                                    </div>
+                              </div>
+                              
+                            </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="updateContributionDeadlineForm.invalid" >Modifier</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateContributionDeadlineModalModal()">Cancel</a>
             </div>
         </div>
     </div>

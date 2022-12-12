@@ -34,8 +34,10 @@ export class DetailSessionOfTontineComponent implements OnInit {
   geUrl_penality: string = "assets/images/penalty-card.png";
   openPaymntModal: string = "";
   openPenalityModal: string = "";
+  openupdateContributionDeadlineModal: string = "";
   paymentForm!: FormGroup;
   penalityForm!: FormGroup;
+  updateContributionDeadlineForm!: FormGroup;
   startDateMin: any
   date: any;
   penalityTypes: PenalityType[] = [];
@@ -70,6 +72,11 @@ export class DetailSessionOfTontineComponent implements OnInit {
       date: new FormControl(null, Validators.required),
       idPenaltyType: new FormControl(null, Validators.required),
       idMember: new FormControl(null, Validators.required),
+    })
+
+    this.updateContributionDeadlineForm = this.formBuilder.group({
+      contributionDeadline: new FormControl(null, Validators.required),
+      date: new FormControl(null, Validators.required),
     })
   }
 
@@ -257,5 +264,13 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.penalityTypeService.findAllPenaltyTypes().subscribe((res)=>{
       this.penalityTypes = res.data;
     })
+  }
+  onUpdateContributionDeadline(id: number){
+    this.idSession = id;
+    this.openupdateContributionDeadlineModal = "is-active"
+  }
+
+  closeUpdateContributionDeadlineModalModal(){
+    this.openupdateContributionDeadlineModal = ""
   }
 }
