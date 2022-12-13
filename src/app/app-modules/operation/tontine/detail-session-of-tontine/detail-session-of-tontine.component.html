@@ -962,51 +962,31 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateContributionDeadlineForm" (ngSubmit)="onSubmitPayment()">
-                        <!-- <div class="row">
-                            <div class="col-md-6">
-                                <label>Date limite *</label>
-                                <div class="card-header-widget datepicker-style">
-                                    <div class="input-daterange input-group align-items-center">
-                                        <input formControlName="contributionDeadline" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
-                                    </div>
-                               </div>
-                               <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('contributionDeadline')?.errors?.['required'] && updateContributionDeadlineForm.get('contributionDeadline')?.touched">
-                                 <small class="text-police">selectionner la date limite de cotisation</small>
-                               </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Date *</label>
-                                <div class="card-header-widget datepicker-style">
-                                    <div class="input-daterange input-group align-items-center">
-                                        <input formControlName="date" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
-                                    </div>
-                               </div>
-                               <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('date')?.errors?.['required'] && updateContributionDeadlineForm.get('date')?.touched">
-                                 <small class="text-police">selectionner la date</small>
-                               </div>
-                            </div>
-                        </div> -->
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Date d'arrivée *</label>
-                                <div class="card-header-widget datepicker-style">
-                                    <div class="input-daterange input-group align-items-center">
-                                        <input type="date" id="DOB" name="DOB">
-                                    </div>
-                               </div>
-                               
-                            </div>
-                            <div class="col-md-6">
-                                <label>Date de départ *</label>
-                                <div class="card-header-widget datepicker-style">
-                                    <div class="input-daterange input-group align-items-center">
-                                        <input  type="date" id="DOB" name="DOB"  >
-                                    </div>
-                              </div>
-                              
+                    <form class="modal-form" [formGroup]="updateContributionDeadlineForm" (ngSubmit)="onSubmitContributionDeadline()">
+                        <div class="field">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Date limite *</label><br>
+                                    <div class="card-header-widget datepicker-style">
+                                        <div class="input-daterange input-group align-items-center">
+                                            <input class="champ" formControlName="contributionDeadline" type="datetime-local" id="DOB" name="DOB" [(ngModel)]="dateDeadline" (input)="onSelectDate($event.timeStamp)">
+                                        </div>
+                                   </div>
+                                   <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('contributionDeadline')?.errors?.['required'] && updateContributionDeadlineForm.get('contributionDeadline')?.touched">
+                                     <small class="text-police">selectionner la date limite de cotisation</small>
+                                   </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Date *</label><br>
+                                    <div class="card-header-widget datepicker-style">
+                                        <div class="input-daterange input-group align-items-center">
+                                            <input class="champ" formControlName="date" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                        </div>
+                                   </div>
+                                   <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('date')?.errors?.['required'] && updateContributionDeadlineForm.get('date')?.touched">
+                                     <small class="text-police">selectionner la date</small>
+                                   </div>
+                                </div>
                             </div>
                         </div>
                         <div class="control login">

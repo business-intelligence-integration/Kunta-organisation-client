@@ -39,6 +39,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   penalityForm!: FormGroup;
   updateContributionDeadlineForm!: FormGroup;
   startDateMin: any
+  dateDeadline: any;
   date: any;
   penalityTypes: PenalityType[] = [];
   penality: Penality = new Penality();
@@ -273,4 +274,14 @@ export class DetailSessionOfTontineComponent implements OnInit {
   closeUpdateContributionDeadlineModalModal(){
     this.openupdateContributionDeadlineModal = ""
   }
+
+  onSubmitContributionDeadline(){
+    const formValue = this.updateContributionDeadlineForm.value;
+    let contributionDeadline = new Date(formValue.contributionDeadline);
+    console.log("contributionDeadline::", contributionDeadline);
+    
+    // let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
+  }
+
+
 }

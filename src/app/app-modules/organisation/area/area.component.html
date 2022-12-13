@@ -254,7 +254,7 @@
                             <label>Date de creation *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                    <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addClubForm.get('creationDate')?.errors?.['required'] && addClubForm.get('creationDate')?.touched">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
 import { User } from 'src/app/core/classes/user';
+import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class ClubComponent implements OnInit {
   ngSelect = 0;
+  ngSelect5 = 0;
   Clubs: string = "Clubs";
   openAddClub: string = "";
   openUpdateClub: string = "";
@@ -23,13 +25,16 @@ export class ClubComponent implements OnInit {
   updateClubForm!: FormGroup;
   members: User[] =[];
   clubs: Organism[] = [];
+  areas: Organism[] = [];
+  createDate: string = "";
   club: Organism;
   idMember: number = 0;
   idClub: number = 0 ;
   constructor(private formBuilder: FormBuilder, 
     private clubService: ClubService,
     private userService: UserService,
-    private utilityService: UtilityService,) {
+    private utilityService: UtilityService,
+    private areaService: AreaService) {
       this.club = new Organism();
      }
 
@@ -37,11 +42,16 @@ export class ClubComponent implements OnInit {
     this.formInit();
     this.getAllClubs();
     this.getAllMembers();
+    this.getAllAreas();
   }
 
   formInit() {
     this.addClubForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
+      idArea: new FormControl(null, Validators.required),
+      creationDate:new FormControl(null, Validators.required),
+      reference:new FormControl(null, Validators.required),
+      observationnew: new FormControl(null)
     })
 
     this.updateClubForm = this.formBuilder.group({
@@ -65,11 +75,24 @@ export class ClubComponent implements OnInit {
   onSubmitClub(){
     const formValue = this.addClubForm.value;
     this.club.name = formValue.name
-    this.createClub(this.club);
+    this.createClub(this.club, formValue.idArea);
   }
 
-  createClub(club: Organism){
-    this.clubService.createclub(club).subscribe(()=>{
+  createClub(club: Organism, idArea: number){
+    this.clubService.createclub(club).subscribe((res)=>{
+      this.addClubToArea(idArea, res.data.id);
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  addClubToArea(idArea: number, idClub: number){
+    this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
       this.getAllClubs();
       this.onCloseAddModal();
       this.utilityService.showMessage(
@@ -78,12 +101,18 @@ export class ClubComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
     })
   }
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((result)=>{
-      console.log("clubs::", result);
       this.clubs = result.data
     })
   }
@@ -205,5 +234,15 @@ export class ClubComponent implements OnInit {
   onSubmitMember(){
     const formValue  = this.addMemberForm.value;
     this.addMembr(this.idClub, formValue.id)
+  }
+
+   getAllAreas(){
+    this.areaService.findAllAreas().subscribe((res)=>{
+      this.areas = res.data;
+    })
+  }
+
+  onSelectCreateDate(event: any){
+
   }
 }

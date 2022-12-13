@@ -362,7 +362,7 @@
                             <label>Date de debut *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="startDate" type="date" id="DOB" name="DOB" min="{{ startDateMin }}"  [(ngModel)]="startDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                    <input class="champ" formControlName="startDate" type="date" id="DOB" name="DOB" min="{{ startDateMin }}"  [(ngModel)]="startDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="createCycleForm.get('startDate')?.errors?.['required'] && createCycleForm.get('startDate')?.touched">
