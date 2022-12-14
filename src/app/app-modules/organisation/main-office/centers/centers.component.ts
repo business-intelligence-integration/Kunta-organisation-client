@@ -16,6 +16,7 @@ export class CentersComponent implements OnInit {
   ngSelect = 0;
   openUpdateCenter: string = "";
   openAddCenter: string = "";
+  createDate: string = "";
   center: Organism;
   addCenterForm!: FormGroup
   updateCenterForm!: FormGroup;
@@ -46,6 +47,9 @@ export class CentersComponent implements OnInit {
   formInit() {
     this.addCenterForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
+      reference: new FormControl(null, Validators.required),
+      creationDate: new FormControl(null, Validators.required),
+      observation: new FormControl(null, Validators.required),
     })
 
     this.updateCenterForm = this.formBuilder.group({
@@ -55,6 +59,9 @@ export class CentersComponent implements OnInit {
 
     this.addAreaForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
+      reference: new FormControl(null, Validators.required),
+      creationDate: new FormControl(null, Validators.required),
+      observation: new FormControl(null, Validators.required),
     })
   }  
 
@@ -251,6 +258,10 @@ export class CentersComponent implements OnInit {
       console.log(error);
       
     })
+  }
+
+  onSelectCreateDate(event: any){
+
   }
 
 }

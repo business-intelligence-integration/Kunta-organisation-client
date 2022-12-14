@@ -6,14 +6,14 @@
         </div>
     </div>
 
-    <!-- <div class="buttons">
+    <div class="buttons">
         <button class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span (click) = "onAddArea()">Add Area</span>
+            <span (click) = "onAddArea()">Créer une zone</span>
         </button>
-    </div> -->
+    </div>
 </div>
 
 <div class="page-content-inner">
@@ -103,7 +103,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajouter un area</h3>
+                <h3>Création de la zone</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -124,6 +124,35 @@
                             <div class="text-danger"
                                 *ngIf="addAreaForm.get('name')?.errors?.['required'] && addAreaForm.get('name')?.touched">
                                 <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Reférence *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addAreaForm.get('reference')?.errors?.['required'] && addAreaForm.get('reference')?.touched">
+                                <small class="text-police" translate>entrer la reférence du centre</small>
+                            </div>
+                        </div> 
+                        <div class="field">
+                            <label>Date de creation *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                </div>
+                           </div>
+                           <div class="text-danger" *ngIf="addAreaForm.get('creationDate')?.errors?.['required'] && addAreaForm.get('creationDate')?.touched">
+                             <small class="text-police" translate>selectionner la date de création</small>
+                           </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Observation</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="4"
+                                    formControlName="observation" placeholder="Observation..."></textarea>
                             </div>
                         </div><br>
                         <div class="control login">
@@ -227,7 +256,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajouter un club</h3>
+                <h3>Création d'un club</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeClubModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -250,6 +279,17 @@
                                 <small class="text-police" translate>entrer l'appelation du centre</small>
                             </div>
                         </div>
+
+                        <div class="field">
+                            <label>Reférence *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addClubForm.get('reference')?.errors?.['required'] && addClubForm.get('reference')?.touched">
+                                <small class="text-police" translate>entrer la reférence du centre</small>
+                            </div>
+                        </div> 
                         <div class="field">
                             <label>Date de creation *</label><br>
                             <div class="card-header-widget datepicker-style">
@@ -260,6 +300,14 @@
                            <div class="text-danger" *ngIf="addClubForm.get('creationDate')?.errors?.['required'] && addClubForm.get('creationDate')?.touched">
                              <small class="text-police" translate>selectionner la date de création</small>
                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Observation</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="4"
+                                    formControlName="observation" placeholder="Observation..."></textarea>
+                            </div>
                         </div>
                         <br>
                         <div class="control login">

@@ -13,8 +13,10 @@ export class Tontine{
   lotsToBeAwarded: number = 0;
   membersWithoutPenalties: number = 0;
   name: string =  "";
+  durationInMonths: number = 0;
   peb: number = 0;
   registeredMembers: number = 0;
+  sessionsNumber: number = 0;
   status: Status = new Status();
   level: Level = new Level();
   contributionFrequency: Frequency = new Frequency();

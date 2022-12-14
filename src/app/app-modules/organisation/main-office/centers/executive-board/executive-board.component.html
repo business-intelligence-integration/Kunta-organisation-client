@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span (click) = "onOpenAddUser()">Ajouter un membre</span>
+            <span (click) = "onOpenAddUser()">Créer un membre</span>
         </button>
     </div>
 </div>
@@ -138,11 +138,24 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
-                        <label>membres *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                            <option value="0" disabled>--Selectionnez un membre--</option>
-                            <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
-                        </select><br><br>
+                        <div class="field">
+                            <label>membres *</label>
+                            <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                                <option value="0" disabled>--Selectionnez un membre--</option>
+                                <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>fonction du membre *</label>
+                            <select class="input_comp" aria-label="Default select example" [(ngModel)]="ngSelect2">
+                                <option value="0" disabled>--Selectionnez la fonction du membre--</option>
+                                <option value=""> <span>COORDONNATEUR </span> </option>
+                                <option value=""> <span>COORDONNATEUR ADJOINT </span> </option>
+                                <option value=""> <span>COORDONNATEUR SUR PLAYANT </span> </option>
+                                <option value=""> <span>MEMBRE </span> </option>
+                                <option value=""> <span>RAPPORTEUR </span> </option>
+                            </select>
+                        </div><br>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
                         </div>

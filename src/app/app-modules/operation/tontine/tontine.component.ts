@@ -20,6 +20,7 @@ import { Gain } from 'src/app/core/classes/gain';
 import { Cycle } from 'src/app/core/classes/cycle';
 import { DatePipe } from '@angular/common';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
+import { CycleDto } from 'src/app/core/classes/cycleDto';
 
 @Component({
   selector: 'app-tontine',
@@ -60,8 +61,10 @@ export class TontineComponent implements OnInit {
   membersArray: any[] = [];
   startDate: any;
   cycle: Cycle = new Cycle();
+  cycleDto: CycleDto = new CycleDto();
   userIsEmpty: any = "disabled";
   startDateMin: any
+  isSaving: boolean = false;
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -93,6 +96,7 @@ export class TontineComponent implements OnInit {
       idClub: new FormControl(null, Validators.required),
       idFrequenceCot: new FormControl(null, Validators.required),
       idFrequenceSea: new FormControl(null, Validators.required),
+      durationInMonths: new FormControl(null, Validators.required),
       idTransv: new FormControl(null, Validators.required),
       idGain: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
@@ -112,7 +116,6 @@ export class TontineComponent implements OnInit {
     this.createCycleForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
       startDate: new FormControl(null, Validators.required),
-      durationInMonths: new FormControl(null, Validators.required),
     })
   }
 
@@ -152,17 +155,19 @@ export class TontineComponent implements OnInit {
   }
 
   onSubmitCreateTontine(){
+    this.isSaving = true;
     const formValue = this.createTontineForm.value;
     this.tontine.peb =formValue.peb;
     this.tontine.name =formValue.name;
+    this.tontine.durationInMonths = formValue.durationInMonths;
    
     
     this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea, formValue.idGain)
   }
 
   createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number, idGain: number){
-    console.log("this.tontine", tontine);
     this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe(()=>{
+      this.isSaving = false;
       this.getAllTontine();
       this.closeCreateTontineModal();
       this.utilityService.showMessage(
@@ -172,6 +177,7 @@ export class TontineComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -370,8 +376,10 @@ export class TontineComponent implements OnInit {
   }
 
   onAddMember(){
+    this.isSaving = true;
     const formValue = this.addMemberForm.value;
     this.tontineService.addParticipant(this.idTontine, formValue.id, formValue.planValue).subscribe(()=>{
+      this.isSaving = false;
       this.getAllTontine();
       this.openMemberModal = "";
       this.utilityService.showMessage(
@@ -381,6 +389,7 @@ export class TontineComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -407,6 +416,8 @@ export class TontineComponent implements OnInit {
   getAllGains(){
     this.gainService.findAllGainModes().subscribe((res)=>{
       this.gains = res.data;
+      console.log("resgains::", res);
+      
     })
   }
 
@@ -461,19 +472,20 @@ export class TontineComponent implements OnInit {
   }
 
   onSubmitCreateCycle(){
+    this.isSaving = true;
     const formValue = this.createCycleForm.value;
-    this.cycle.durationInMonths = formValue.durationInMonths;
-    this.cycle.name = formValue.name;
-      let startDate = new Date(formValue.startDate);
-      let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
-    this.cycle.startDate = startDateFormated;
-    this.createCycle(this.idTontine, this.cycle)
+    this.cycleDto.name = formValue.name;
+    let startDate = new Date(formValue.startDate);
+    let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
+    this.cycleDto.startDate = startDateFormated;
+    console.log("cycle::", this.cycleDto);
+    this.createCycle(this.idTontine,  this.cycleDto)
   }
 
-  createCycle(idTontine: number, cycle: Cycle){
+  createCycle(idTontine: number, cycle: CycleDto){
     this.tontineService.createCycleForTontine(idTontine, cycle).subscribe((cycleDb)=>{
-      console.log("cycleDb::", cycleDb);
-      
+      console.log("cycle2::", cycleDb);
+      this.isSaving = false;
       this.closeCycleModal();
       this.getAllTontine();
       if(cycleDb.data == null){
@@ -493,6 +505,7 @@ export class TontineComponent implements OnInit {
       }
       
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',

@@ -49,27 +49,27 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let operation of operations">
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Solde du compte">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.accountBalance }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Numéro tél">
+                    <div class="flex-table-cell" data-th="Montant collecté">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.collectedAmount }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Filleuls">
+                    <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Filleuls">
+                    <div class="flex-table-cell" data-th="Plan d’épargne de base">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.peb }}</span>
                     </div>
 
-                    <div class="flex-table-cell" data-th="Filleuls">
+                    <div class="flex-table-cell" data-th="Membres inscrits">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.registeredMembers }}</span>
                         <a class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(operation.owner.id, operation.tontine.level.label,  operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
                         [queryParams]="{id: operation.tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
-                    <div class="flex-table-cell" data-th="Filleuls">
+                    <div class="flex-table-cell" data-th="Cycle">
                         <span class="light-text" data-filter-match="">{{ operation.tontine.cycles.length }}</span>
                         <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""[routerLink]="['/detail-cycle']"
@@ -152,12 +152,19 @@
                                 <small class="text-police">veuillez entrer le plan d’épargne de base</small>
                              </div>
                         </div>
+
+                        <div class="field">
+                            <label>Durée des cycles en mois*</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="durée des cycles en mois" formControlName="durationInMonths">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="createTontineForm.get('durationInMonths')?.errors?.['required'] && createTontineForm.get('durationInMonths')?.touched">
+                                <small class="text-police">veuillez entrer la durée des cycles en mois</small>
+                             </div>
+                        </div>
                         <div class="field">
                             <label>Club propriétaire de la tontine*</label>
-                        <!-- <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelect2">
-                            <option value="0" disabled>--Selectionnez un club--</option>
-                            <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }}  </span> </option>
-                        </select> -->
                             <select2
                                     class="w-100 color-border"
                                     [data]="clubsArray"
@@ -200,7 +207,7 @@
                             </select>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createTontineForm.invalid" >Créer</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createTontineForm.invalid || isSaving" >Créer</button>
                         </div>
                     </form>
                 </div>
@@ -305,7 +312,7 @@
                              </div>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid || isSaving" >Save</button>
                         </div><br>
                        
                     </form>
@@ -346,17 +353,6 @@
                                 <small class="text-police">veuillez entrer le du cycle de la totine</small>
                              </div>
                         </div>
-                        
-                        <div class="field">
-                            <label>Durée en mois*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="durée en mois" formControlName="durationInMonths">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createCycleForm.get('durationInMonths')?.errors?.['required'] && createCycleForm.get('durationInMonths')?.touched">
-                                <small class="text-police">veuillez entrer la durée de la tontine en mois</small>
-                             </div>
-                        </div>
 
                         <div class="field">
                             <label>Date de debut *</label><br>
@@ -370,7 +366,7 @@
                            </div>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="createCycleForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="createCycleForm.invalid || isSaving" >Save</button>
                         </div><br>
                        
                     </form>

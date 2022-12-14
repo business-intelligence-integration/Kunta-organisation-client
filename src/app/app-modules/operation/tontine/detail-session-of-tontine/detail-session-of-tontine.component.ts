@@ -41,9 +41,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
   startDateMin: any
   dateDeadline: any;
   date: any;
+  isSaving: boolean = false
   penalityTypes: PenalityType[] = [];
   penality: Penality = new Penality();
-
   constructor(private cycleService: CycleService,  
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder, 
@@ -107,6 +107,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.cycleService.findCycleById(params['id']).subscribe((res)=>{
         this.cycle = res.data;
+        console.log("AllCycle::", res);
       });
     })
   }
@@ -114,6 +115,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   getTontine(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['tontine']).subscribe((res)=>{
+        console.log("AllTontine::", res);
         this.membersArray = res.data.registeredMembers.map((member:any)=>({value:member.id, label:member.firstName }))
       });
     })
@@ -204,6 +206,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   }
 
   onSubmitPayment(){
+    this.isSaving = true
     const formValue = this.paymentForm.value;
     this.payment.paid = formValue.amount;
     this.payment.proof = formValue.proof;
@@ -215,6 +218,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
 
   createPaymentForSession(payment: Payment, idSession: number, idMember: number){
     this.sessionService.createPaymentForSession(payment, idSession, idMember).subscribe(()=>{
+      this.isSaving = false;
       this.getAllSessionsOfCycle();
       this.closePaymentModal();
       this.utilityService.showMessage(
@@ -224,6 +228,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
         'white'
       );
     },()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -234,6 +239,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   }
 
   onSubmitPenality(){
+    this.isSaving = true;
     const formValue = this.penalityForm.value;
     let date = new Date(formValue.date);
     let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');
@@ -243,6 +249,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
 
   makePenality(penalityType: Penality, idSession: number, idPenalityType: number, idUser: number ){
     this.sessionService.createPenaltyForSession(penalityType, idSession, idPenalityType, idUser).subscribe(()=>{
+      this.isSaving = false;
       this.getAllSessionsOfCycle();
       this.closePenalityModal()
       this.utilityService.showMessage(
@@ -252,6 +259,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'une erreur s\'est produite',

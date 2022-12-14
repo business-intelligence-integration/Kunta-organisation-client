@@ -24,7 +24,7 @@ export class SessionService {
   }
 
   findAllSessions():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions', httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'sessions' + '?token=' + this.utilityService.loadToken());
   }
 
   findSessionById(id: number):Observable<any>{

@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class StrategicDevelopmentCommitteeComponent implements OnInit {
   ngSelect = 0;
+  ngSelect2 = 0;
   clubMembers: User[] = [];
   members: User[] = [];
   openMemberModal: string = "";

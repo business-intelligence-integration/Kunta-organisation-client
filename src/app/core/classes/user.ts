@@ -9,6 +9,9 @@ export class User{
     phoneNumber:	string = "";
     userName:	string = "";
     city: string = "";
+    remainingToPayByUser: number = 0;
+    toBePaidByUser: number = 0;
+    upToDate: boolean = false;
     sponsoredUsers: User[] = []
     roles: Role[] = [];
 }

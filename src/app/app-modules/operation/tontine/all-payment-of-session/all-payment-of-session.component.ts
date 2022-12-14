@@ -6,6 +6,7 @@ import { PaymentStatus } from 'src/app/core/classes/PaymentStatus';
 import { PenalityType } from 'src/app/core/classes/penalityType';
 import { Session } from 'src/app/core/classes/session';
 import { SessionOfPayment } from 'src/app/core/classes/sessionOfPayment';
+import { User } from 'src/app/core/classes/user';
 import { PaymentStatusService } from 'src/app/core/services/payment-status/payment-status.service';
 import { PaymentService } from 'src/app/core/services/payment/payment.service';
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
@@ -37,6 +38,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
   isCotisation: boolean = true;
   isMember: boolean = false;
   idPayment: number = 0;
+  users: User[] = [];
 
   constructor(private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
@@ -258,7 +260,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
   getAllUserPaymentStateBySession(){
     this.activatedRoute.queryParams.subscribe((params)=>{
       this.sessionService.findAllUserPaymentStateBySession(params['id']).subscribe((res)=>{
-        console.log("UserRes::", res);
+       this.users = res.data
         
       })
     })

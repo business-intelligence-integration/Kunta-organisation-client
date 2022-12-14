@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cycle } from '../../classes/cycle';
+import { CycleDto } from '../../classes/cycleDto';
 import { Tontine } from '../../classes/tontine';
 import { UtilityService } from '../utility/utility.service';
 
@@ -54,15 +55,15 @@ export class TontineService {
   }
 
   setLevel(idTontine: number, idLevel: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-transversality-level/${idLevel}` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-transversality-level/${idLevel}` + "?token=" + this.utilityService.loadToken(), {});
   }
 
   getTontineUsers(idTontine: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/users' + '?token=' + this.utilityService.loadToken());
   }
 
-  createCycleForTontine(idTontine: number, cycle: Cycle):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'tontines/' + idTontine + '/cycles', cycle, httpOptions);
+  createCycleForTontine(idTontine: number, cycle: CycleDto):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'tontines/' + idTontine + '/cycles?token=' + this.utilityService.loadToken(), cycle);
   }
 
   setStatus(idTontine: number, idStatus: number):Observable<any>{

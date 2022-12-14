@@ -45,6 +45,9 @@ export class AreaComponent implements OnInit {
   formInit() {
     this.addAreaForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
+      reference: new FormControl(null, Validators.required),
+      creationDate: new FormControl(null, Validators.required),
+      observation: new FormControl(null, Validators.required),
     })
 
     this.updateAreaForm = this.formBuilder.group({
@@ -55,6 +58,8 @@ export class AreaComponent implements OnInit {
     this.addClubForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
       creationDate: new FormControl(null, Validators.required),
+      reference: new FormControl(null, Validators.required),
+      observation: new FormControl(null),
     })
   }
 

@@ -357,61 +357,49 @@
                     <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
-                        <span>versé</span>
-                        <span>Preuve</span>
-                        <!-- <span>À verser</span> -->
-                        <span>Reste à payer</span>
-                        <span>Membre</span>
-                        <span>Date</span>
-                        <span>Statut</span>
+                        <span>Utilisateur</span>
+                        <span>Monatant à payer</span>
+                        <span>Restant à payer</span>
+                        <span>A jour</span>
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
                         <!--Table item-->
-                        <div class="flex-table-item" *ngFor="let sessionOfPayment of sessionOfPayments">
+                        <div class="flex-table-item" *ngFor="let user of users">
                             <div class="flex-table-cell is-media is-grow">
                                 <div>
-                                    <span class="item-name dark-inverted" data-filter-match="">{{ sessionOfPayment.payment.id }}</span>
+                                    <span class="item-name dark-inverted" data-filter-match="">{{ user.id }}</span>
                                     <span class="item-meta">
-                                      <span data-filter-match="">{{ sessionOfPayment.payment.paid }}</span>
+                                      <span data-filter-match="">{{ user.userName }}</span>
                                     </span>
                                 </div>
                             </div>
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ user.userName }}</span>
+                            </div>
+
 
                             <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.paid }}</span>
+                                <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
                             </div>
 
                             <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.proof }}</span>
+                                <span class="light-text" data-filter-match="">{{ user.toBePaidByUser }}</span>
                             </div>
 
                             <!-- <div class="flex-table-cell" data-th="À verser">
                                 <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.toBePaid }}</span>
                             </div> -->
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.remainingToPay }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.user.firstName }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.date }}</span>
-                            </div>
                             <div class="flex-table-cell" data-th="Status">
-                                <a _ngcontent-nct-c62="" (click)="onUpdatePaymentSatatus(sessionOfPayment.payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                <span class="tag is-rounded" data-filter-match="">{{ sessionOfPayment.payment.paymentStatus.label }}</span>
+                                <span class="light-text" data-filter-match="">{{ user.upToDate }}</span>
                             </div>
                             
         
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                    <a _ngcontent-nct-c62="" (click)="onUpdatePayment(sessionOfPayment.payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                    <a _ngcontent-nct-c62="" (click)="onDelate(sessionOfPayment.payment.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatePayment(sessionOfPayment.payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                 </div>
                             </div>
                         </div>
