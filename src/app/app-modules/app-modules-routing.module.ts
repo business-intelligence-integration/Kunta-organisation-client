@@ -34,11 +34,19 @@ import { AllPaymentOfSessionComponent } from './operation/tontine/all-payment-of
 import { PenalityTypeComponent } from './parameter/penality-type/penality-type.component';
 import { PenaltyComponent } from './parameter/penalty/penalty.component';
 import { PaymentStatus } from '../core/classes/PaymentStatus';
+import { ViewMoreDetailsSessionComponent } from './operation/tontine/view-more-details-session/view-more-details-session.component';
+import { PosteComponent } from './parameter/organisation/poste/poste.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"poste", component: PosteComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-more-details-session", component: ViewMoreDetailsSessionComponent, canActivate: [EntityGuard]
+      },
       {
         path:"payment-status", component: PaymentStatus, canActivate: [EntityGuard]
       },

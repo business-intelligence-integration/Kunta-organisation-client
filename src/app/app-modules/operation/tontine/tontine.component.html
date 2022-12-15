@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span>Ajouter une tontine</span>
+            <span>Créer une tontine</span>
         </button>
     </div>
 </div>
@@ -206,6 +206,14 @@
                                 <option *ngFor="let gain of gains" [value]="gain.id"> <span> {{ gain.label }} </span> </option>
                             </select>
                         </div>
+
+                        <div class="field">
+                            <label>Observation</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="4"
+                                    placeholder="Observation..."></textarea>
+                            </div>
+                        </div><br>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createTontineForm.invalid || isSaving" >Créer</button>
                         </div>

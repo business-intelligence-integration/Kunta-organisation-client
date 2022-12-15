@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span>Créer une frequence</span>
+            <span>Créer un poste</span>
         </button>
     </div>
 </div>
@@ -38,13 +38,13 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
                 <span>Label</span>
-                <span>Description</span>
+                <span>Organisation</span>
                 <span>Action</span>
             </div>
 
             <div class="flex-list-inner">
                 <!--Table item-->
-                <div class="flex-table-item" *ngFor="let frequency of frequencies">
+                <!-- <div class="flex-table-item" *ngFor="let frequency of frequencies">
                     <div class="flex-table-cell is-media is-grow">
                         <div>
                             <span class="item-name dark-inverted" data-filter-match="">{{ frequency.id }}</span>
@@ -65,7 +65,7 @@
                         <a _ngcontent-nct-c62="" (click)="onDelete(frequency.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -95,7 +95,7 @@
         <div class="modal-card">
             <header class="modal-card-head">
                 <h3>Création d'une fréquence</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeCreateFrequenceModal()">
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeCreateModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-x">
@@ -106,92 +106,43 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="createFrequenceForm" (ngSubmit)="onSubmitCreateFrequence()">
+                    <!-- <form class="modal-form" [formGroup]="createPosteForm" (ngSubmit)="onSubmitCreateFrequence()"> -->
+                        <form class="modal-form" [formGroup]="createPosteForm">
+
                         <div class="field">
-                            <label>Appelation*</label>
+                            <label>Niveau d'organisation *</label>
+                            <select class="input_comp" aria-label="Default select example" [(ngModel)]="ngSelect2">
+                                <option value="0" disabled>--Selectionnez le niveau où le poste sera créé--</option>
+                                <option value=""> <span>CLUB </span> </option>
+                                <option value=""> <span>ZONE </span> </option>
+                                <option value=""> <span>CENTRE </span> </option>
+                                <option value=""> <span>BUREAU PRINCIPALE </span> </option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>poste*</label>
                             <div class="control">
-                                <input type="text" class="input" placeholder="Appelation" formControlName="label">
+                                <input type="text" class="input" placeholder="poste">
                             </div>
-                            <div class="text-danger"
-                                *ngIf="createFrequenceForm.get('label')?.errors?.['required'] && createFrequenceForm.get('label')?.touched">
+                            <!-- <div class="text-danger"
+                                *ngIf="createPosteForm.get('label')?.errors?.['required'] && createPosteForm.get('label')?.touched">
                                 <small class="text-police" translate>veuillez entrer la fréquence </small>
-                             </div>
+                             </div> -->
                         </div>
-                        <div class="field">
-                            <label>Description *</label>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Description" formControlName="description">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createFrequenceForm.get('description')?.errors?.['required'] && createFrequenceForm.get('description')?.touched">
-                                <small class="text-police" translate>veuillez entrer la description de la fréquence</small>
-                             </div>
-                        </div>
+                       
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createFrequenceForm.invalid">Creer</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createPosteForm.invalid">Creer</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateFrequenceModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateModal()">Cancel</a>
             </div>
         </div>
     </div>
 </div>
 
-<!--update frequency-->
-<div id="updateFrequency" class="modal h-modal" [ngClass]="openUpdateModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Modifier la fréquence</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateFrequenceModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateFrequenceForm" (ngSubmit)="onSubmitUpdateFrequence()">
-                        <div class="control">
-                            <input type="hidden" hidden class="input" [(ngModel)]="frequency.id" formControlName="id">
-                        </div>
-                        <div class="field">
-                            <label>Appelation*</label>
-                            <div class="control">
-                                <input type="text" class="input" [(ngModel)]="frequency.label" placeholder="Appelation" formControlName="label">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateFrequenceForm.get('label')?.errors?.['required'] && updateFrequenceForm.get('label')?.touched">
-                                <small class="text-police" translate>veuillez entrer la fréquence </small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Description *</label>
-                            <div class="control">
-                                <input type="text" class="input" [(ngModel)]="frequency.description" placeholder="Description" formControlName="description">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateFrequenceForm.get('description')?.errors?.['required'] && updateFrequenceForm.get('description')?.touched">
-                                <small class="text-police" translate>veuillez entrer la description de la fréquence</small>
-                             </div>
-                        </div>
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateFrequenceForm.invalid" >Modifier</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateFrequenceModal()">Cancel</a>
-            </div>
-        </div>
-    </div>
-</div>
+
 

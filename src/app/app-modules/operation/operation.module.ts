@@ -11,6 +11,7 @@ import { DetailCycleComponent } from './tontine/detail-cycle/detail-cycle.compon
 import { DetailSessionOfTontineComponent } from './tontine/detail-session-of-tontine/detail-session-of-tontine.component';
 import { Select2Module } from 'ng-select2-component';
 import { AllPaymentOfSessionComponent } from './tontine/all-payment-of-session/all-payment-of-session.component';
+import { ViewMoreDetailsSessionComponent } from './tontine/view-more-details-session/view-more-details-session.component';
 
 
 
@@ -23,6 +24,7 @@ import { AllPaymentOfSessionComponent } from './tontine/all-payment-of-session/a
     DetailCycleComponent,
     DetailSessionOfTontineComponent,
     AllPaymentOfSessionComponent,
+    ViewMoreDetailsSessionComponent,
   ],
   imports: [
     CommonModule,

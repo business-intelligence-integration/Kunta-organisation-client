@@ -13,6 +13,7 @@ import { StatusComponent } from './status/status.component';
 import { PenalityTypeComponent } from './penality-type/penality-type.component';
 import { PenaltyComponent } from './penalty/penalty.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
+import { PosteComponent } from './organisation/poste/poste.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { PaymentStatusComponent } from './payment-status/payment-status.componen
     PenalityTypeComponent,
     PenaltyComponent,
     PaymentStatusComponent,
+    PosteComponent,
   ],
   imports: [
     CommonModule,

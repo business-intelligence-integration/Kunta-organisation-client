@@ -10,6 +10,7 @@ export class ParametersComponent implements OnInit {
   homeSider: string = "";
   isPushed: string = "";
   activeListTontine: string = "";
+  activeOganisation: string = "";
   dynamicTitle: string = "Liste de Fréquences"
   isFrequency: boolean = true;
   isGain: boolean = false;
@@ -20,7 +21,9 @@ export class ParametersComponent implements OnInit {
   isPenaltyType: boolean = false;
   isPenalty: boolean = false;
   isPaymentStatus: boolean = false;
+  isPoste: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
+  wrapdwonDetailOganisation: string ="display-block";
   constructor() { }
 
   ngOnInit(): void {
@@ -48,8 +51,19 @@ export class ParametersComponent implements OnInit {
     }
   }
 
+  onDisplayOrganisationDetail(){
+    if(this.activeOganisation == ""){
+      this.activeOganisation = "active" 
+      this.wrapdwonDetailOganisation ="block"
+    }else{
+      this.activeOganisation =""
+      this.wrapdwonDetailOganisation ="none"
+    }
+  }
+
 
   onTransversality(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -63,6 +77,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onFrequency(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -76,6 +91,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onGain(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -89,6 +105,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onCycle(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -102,6 +119,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onSession(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -115,6 +133,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onStatus(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -128,6 +147,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenalyType(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -142,6 +162,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenaly(){
+    this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenaltyType = false
     this.isGain = false;
@@ -156,6 +177,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPaymentStatus(){
+    this.isNotAboutOrganisation();
     this.isPenaltyType = false
     this.isGain = false;
     this.isTransversality = false;
@@ -167,5 +189,26 @@ export class ParametersComponent implements OnInit {
     this.isPenalty = false;
     this.isPaymentStatus = true;
     this.dynamicTitle = "Liste des status de paiement"
+  }
+  isNotAboutTontine(){
+    this.isPenaltyType = false
+    this.isGain = false;
+    this.isTransversality = false;
+    this.isFrequency = false;
+    this.isCycle = false;
+    this.isSession = false;
+    this.isStatus = false;
+    this.isPenaltyType = false;
+    this.isPenalty = false;
+    this.isPaymentStatus = false;
+  }
+  isNotAboutOrganisation(){
+    this.isPoste = false;
+  }
+
+  onPoste(){
+    this.isNotAboutTontine();
+    this.isPoste = true;
+    this.dynamicTitle = "Liste des postes de l'organisation"
   }
 }
