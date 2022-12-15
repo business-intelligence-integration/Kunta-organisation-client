@@ -241,7 +241,7 @@
                         <span>versé</span>
                         <span>Preuve</span>
                         <!-- <span>À verser</span> -->
-                        <span>Reste à payer</span>
+                        <!-- <span>Reste à payer</span> -->
                         <span>Membre</span>
                         <span>Date</span>
                         <span>Statut</span>
@@ -271,9 +271,9 @@
                                 <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.toBePaid }}</span>
                             </div> -->
 
-                            <div class="flex-table-cell" data-th="Reste à payer">
+                            <!-- <div class="flex-table-cell" data-th="Reste à payer">
                                 <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.remainingToPay }}</span>
-                            </div>
+                            </div> -->
 
                             <div class="flex-table-cell" data-th="Reste à payer">
                                 <span class="light-text" data-filter-match="">{{ sessionOfPayment.user.firstName }}</span>
@@ -358,8 +358,8 @@
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
                         <span>Utilisateur</span>
-                        <span>Monatant à payer</span>
-                        <span>Restant à payer</span>
+                        <span>Montant à payer</span>
+                        <span>Reste à payer</span>
                         <span>A jour</span>
                         <span>Action</span>
                     </div>
@@ -379,14 +379,15 @@
                             </div>
 
 
-                            <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
-                            </div>
+                           
 
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ user.toBePaidByUser }}</span>
                             </div>
 
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
+                            </div>
                             <!-- <div class="flex-table-cell" data-th="À verser">
                                 <span class="light-text" data-filter-match="">{{ sessionOfPayment.payment.toBePaid }}</span>
                             </div> -->

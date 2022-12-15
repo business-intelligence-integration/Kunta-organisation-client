@@ -261,6 +261,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params)=>{
       this.sessionService.findAllUserPaymentStateBySession(params['id']).subscribe((res)=>{
        this.users = res.data
+        console.log("users::",  this.users);
         
       })
     })
