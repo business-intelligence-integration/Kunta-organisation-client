@@ -1,5 +1,6 @@
 import { Payment } from "./payment";
 import { Penality } from "./penality";
+import { Status } from "./status";
 import { User } from "./user";
 
 export class Session{
@@ -13,6 +14,7 @@ export class Session{
     payments: Payment[] = [];
     penalties: Penality[] = [];
     userPaymentStates: User[] = [];
+    status: Status = new Status();
 }
 
 class Hour {

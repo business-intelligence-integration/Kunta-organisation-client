@@ -65,6 +65,8 @@ export class TontineComponent implements OnInit {
   userIsEmpty: any = "disabled";
   startDateMin: any
   isSaving: boolean = false;
+  creatTontine:boolean = false;
+  isList:boolean = true;
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -129,25 +131,24 @@ export class TontineComponent implements OnInit {
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
       this.operations = res.data;
-      console.log("this.operations::", res);
-      
     })
   }
 
   
   onOpenCreateTontine(){
-    this.openCreateModal = "is-active";
+    this.creatTontine = true;
+    this.isList = false;
   }
 
-  closeCreateTontineModal(){
-    this.openCreateModal = "";
+  cancelCreatingTontine(){
+    this.isList = true;
+    this.creatTontine = false;
   }
 
-  // getAllClubs(){
-  //   this.clubServices.findAllClubs().subscribe((res)=>{
-  //     this.clubs = res.data;
-  //   })
+  // closeCreateTontineModal(){
+  //   this.openCreateModal = "";
   // }
+
   getAllClubs(){
     this.clubServices.findAllClubs().subscribe((res)=>{
       this.clubsArray = res.data.map((club:any)=>({value:club.id, label:club.name}));
@@ -169,7 +170,7 @@ export class TontineComponent implements OnInit {
     this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe(()=>{
       this.isSaving = false;
       this.getAllTontine();
-      this.closeCreateTontineModal();
+      // this.closeCreateTontineModal();
       this.utilityService.showMessage(
         'success',
         'Tontine successfully created',
@@ -263,11 +264,6 @@ export class TontineComponent implements OnInit {
       this.members = res.data;
     })
   }
-  // getAllMembers(){
-  //   this.userService.getAllMambers().subscribe((res)=>{
-  //     this.membersArray = res.data.map((member:any)=>({value: member.id, label: member.firstName}));
-  //   })
-  // }
 
   getAllArea(){
     this.areaService.findAllAreas().subscribe((res)=>{
@@ -276,22 +272,6 @@ export class TontineComponent implements OnInit {
     })
   }
 
-  // getAllUserOfClub(idClub: number){
-  //   let usersClub: User[] = [];
-  //   this.clubServices.getAllClubUsersId(idClub).subscribe({
-  //     next:(res) => res.data.map((memberId: any)=>{
-  //       this.members.forEach((member)=>{
-  //         if(memberId == member.id){
-  //           usersClub.push(member);
-  //         }
-  //       })
-  //     })
-  //   })
-
-  //   this.usersClub = usersClub;
-  //   console.log("usersClub::", this.usersClub);
-    
-  // }
   getAllUsers(){
     this.userService.getAllUsers().subscribe((res)=>{
       this.allUser = res.data;
@@ -574,5 +554,13 @@ export class TontineComponent implements OnInit {
     })
   }
 
+  onCreate(){
+    this.onSubmitCreateTontine();
+  }
+
+  cancelCreatingUser(){
+    this.creatTontine = false;
+    this.isList = true;
+  }
 
 }

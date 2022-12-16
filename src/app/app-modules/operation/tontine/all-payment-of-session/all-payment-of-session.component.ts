@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { OperationSession } from 'src/app/core/classes/operationSession';
 import { Payment } from 'src/app/core/classes/payment';
 import { PaymentStatus } from 'src/app/core/classes/PaymentStatus';
 import { PenalityType } from 'src/app/core/classes/penalityType';
@@ -30,6 +31,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
   paymentStatus: PaymentStatus[] = [];
   payment: Payment = new Payment();
   session: Session = new Session();
+  operationSession: OperationSession = new OperationSession();
   sessionOfPayments: SessionOfPayment[] = [];
   sessionOfPayment: SessionOfPayment = new SessionOfPayment();
   paymentUpdateForm!: FormGroup;
@@ -89,7 +91,9 @@ export class AllPaymentOfSessionComponent implements OnInit {
       })
 
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
-        this.session = res.data;
+        this.operationSession = res.data;
+        console.log("newSession::", this.operationSession);
+        
       })
     })
   }

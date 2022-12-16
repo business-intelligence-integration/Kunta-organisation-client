@@ -8,12 +8,9 @@
             <div class="wrapper-inner">
                 <div class="action-box">
                     <div class="box-content">
-                        <img class="light-image is-larger" src="assets/img/illustrations/placeholders/promotion.svg" alt="">
-                        <img class="dark-image is-larger" src="assets/img/illustrations/placeholders/promotion-dark.svg" alt="">
                         <div class="page-content-inner all-projects">
-
                             <div class="all-projects-header">
-                                <div class="header-item">
+                                <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ operationSession.session.totalPaid }} FCFA</span>
@@ -21,34 +18,38 @@
                                     </div>
                                 </div>
                                
-                                <div class="header-item">
+                                <div class="header-item" >
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
                                         <span>{{ operationSession.session.totalToBePaid }} FCFA</span>
                                         <p>Total à payer</p>
                                     </div>
                                 </div>
-                                <div class="header-item">
-                                    <div class="item-inner">
-                                        <i class="lnil lnil-leaf"></i>
-                                        <span>{{ operationSession.session.payments.length }}</span>
-                                        <p>Cotisations</p>
-                                    </div>
-                                </div>
-                            
-                                <div class="header-item">
+                            </div>
+                            <div class="all-projects-header">
+                                <div class="header-item" style="margin-left: 35%;">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
                                         <span>{{ operationSession.session.totalPenalties }}</span>
                                         <p>Total pénalités</p>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="all-projects-header">
 
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-leaf"></i>
+                                        <span>{{ operationSession.session.payments.length }}</span>
+                                        <p>Paiements</p>
+                                    </div>
+                                </div>
+                            
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ operationSession.session.userPaymentStates.length }}</span>
-                                        <p>Nombre de contributeur</p>
+                                        <p>Cotisations</p>
                                     </div>
                                 </div>
                             </div>
