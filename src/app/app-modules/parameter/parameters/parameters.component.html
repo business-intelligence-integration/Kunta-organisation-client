@@ -157,6 +157,13 @@
                             <span>poste</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onPieceType()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Types de pièces</span>
+                        </a>
+                    </li>
                 </ul> 
             </li>
         </ul>
@@ -280,6 +287,7 @@
             <app-penalty *ngIf="isPenalty"></app-penalty>
             <app-payment-status *ngIf="isPaymentStatus"></app-payment-status>
             <app-poste *ngIf="isPoste"></app-poste>
+            <app-piece-type *ngIf="isPieceType"></app-piece-type>
         </div>
     </div>
 

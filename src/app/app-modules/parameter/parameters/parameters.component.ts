@@ -22,6 +22,7 @@ export class ParametersComponent implements OnInit {
   isPenalty: boolean = false;
   isPaymentStatus: boolean = false;
   isPoste: boolean = false;
+  isPieceType: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
   constructor() { }
@@ -210,5 +211,11 @@ export class ParametersComponent implements OnInit {
     this.isNotAboutTontine();
     this.isPoste = true;
     this.dynamicTitle = "Liste des postes de l'organisation"
+  }
+
+  onPieceType(){
+    this.isNotAboutTontine();
+    this.isPoste = false;
+    this.isPieceType = true;
   }
 }
