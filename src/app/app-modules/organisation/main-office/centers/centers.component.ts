@@ -183,6 +183,8 @@ export class CentersComponent implements OnInit {
   onSubmitCenter(){
     const formValue = this.addCenterForm.value;
     this.center.name = formValue.name;
+    this.center.reference = formValue.reference;
+    this.center.observation = formValue.observation;
     this.createCenter(this.center)
     this.addCenterForm.reset();
   }
@@ -242,18 +244,18 @@ export class CentersComponent implements OnInit {
   onSubmitArea(){
     const formValue = this.addAreaForm.value;
     this.area.name = formValue.name;
-    this.areaService.createArea(this.area).subscribe((res)=>{
-      this.centerService.addAreaToCenter(this.idCenter, res.data.id).subscribe(()=>{
-        this.getAllCenters();
-        this.closeAreaModal();
-        this.addAreaForm.reset();
-        this.utilityService.showMessage(
-          'success',
-          'Area successfully added to center',
-          '#06d6a0',
-          'white'
-        );
-      })
+    this.area.reference = formValue.reference;
+    this.area.observation = formValue.observation;
+    this.areaService.createArea(this.area, this.idCenter).subscribe(()=>{
+      this.getAllCenters();
+      this.closeAreaModal();
+      this.addAreaForm.reset();
+      this.utilityService.showMessage(
+        'success',
+        'Area successfully added to center',
+        '#06d6a0',
+        'white'
+      );
     }, (error)=>{
       console.log(error);
       

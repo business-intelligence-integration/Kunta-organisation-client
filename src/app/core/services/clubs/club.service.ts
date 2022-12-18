@@ -23,8 +23,8 @@ export class ClubService {
     return this.httpClient.get<any>(this.baseUrl + 'clubs', httpOptions);
   }
 
-  createclub(club: Organism):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'clubs', club, httpOptions);
+  createclub(club: Organism, idArea: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'clubs/area/' + idArea, club, httpOptions);
   }
 
   getclubById(id: number):Observable<any>{

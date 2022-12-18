@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Beneficiary } from 'src/app/core/classes/beneficiary';
+import { PieceType } from 'src/app/core/classes/pieceType';
 import { User } from 'src/app/core/classes/user';
+import { PieceTypeService } from 'src/app/core/services/piece-type/piece-type.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -13,13 +16,17 @@ import Swal from 'sweetalert2';
 export class UserComponent implements OnInit {
   disabledUserAction: string="disabled";
   ngSelect: any = "1";
+  ngSelectUser = 0;
   ngSelect2 = 0;
+  ngSelectTypePiece  = 0;
   openAddModal: string = "";
   openUpdateModal: string = "";
   openSponsoreModal: string = "";
   addUserForm!: FormGroup;
   updateUserForm!: FormGroup;
   addSponsoreForm!: FormGroup;
+  beneficiaryForm!: FormGroup;
+  pieceTypes: PieceType[] = [];
   users: User[];
   members: User[] = [];
   membersArray: any[] = [];
@@ -30,7 +37,11 @@ export class UserComponent implements OnInit {
   creatUser: boolean = false;
   updatUser: boolean = false;
   isList: boolean = true;
+  isAdminAndOperator: boolean = false;
+  isUser: boolean = false;
   adminIsConnected: boolean = false;
+  birthDate: any;
+  beneficiary: Beneficiary = new Beneficiary();
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -39,7 +50,8 @@ export class UserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
-    private utilityService: UtilityService) { 
+    private utilityService: UtilityService,
+    private pieceTypeService: PieceTypeService) { 
     this.users = [];
     this.user = new User();
   }
@@ -50,7 +62,10 @@ export class UserComponent implements OnInit {
     this.management();
     this.getConnectedUser();
     this.getAllMembers();
+    this.getAllPieceType();
   }
+
+  
 
   formInit() {
     this.addUserForm = this.formBuilder.group({
@@ -62,6 +77,7 @@ export class UserComponent implements OnInit {
       userType: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       confPassword: new FormControl(null, Validators.required),
+      idUser: new FormControl(null, Validators.required),
     })
 
     this.updateUserForm = this.formBuilder.group({
@@ -75,6 +91,20 @@ export class UserComponent implements OnInit {
 
     this.addSponsoreForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
+    })
+
+    this.beneficiaryForm = this.formBuilder.group({
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      phoneNumber: new FormControl(null, Validators.required),
+      whatsAppNumber: new FormControl(null, Validators.required),
+      email: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
+      country: new FormControl(null, Validators.required),
+      pieceId: new FormControl(null, Validators.required),
+      postalBox: new FormControl(null, Validators.required),
+      birthDate: new FormControl(null, Validators.required),
+      idPieceType: new FormControl(null, Validators.required),
     })
 
   }
@@ -106,7 +136,7 @@ export class UserComponent implements OnInit {
    }else if(formValue.userType == "MEMBER"){
     this.createMember(this.user)
    }else if(formValue.userType == "MUTUALIST"){
-    this.createMutualist(this.user)
+    this.createMutualist(this.user, formValue.idUser)
    }else if(formValue.userType == "OPERATOR"){
     this.createOperator(this.user)
    }
@@ -234,16 +264,21 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createMutualist(user: User){
-    this.userService.createMutualist(user).subscribe(()=>{
+  createMutualist(user: User, idUser: number){
+    this.userService.createMutualist(user, idUser).subscribe((res)=>{
       this.getAllUsers();
       this.closeUserModal();
-      this.utilityService.showMessage(
-        'success',
-        'Mutualist successfully created',
-        '#06d6a0',
-        'white'
-      );
+      // this.utilityService.showMessage(
+      //   'success',
+      //   'Mutualist successfully created',
+      //   '#06d6a0',
+      //   'white'
+      // );
+      console.log("resNewUser::", res);
+      console.log("resNewUser2::", res.data.id);
+      
+      this.idUser = res.data.id
+      this.onAddFiciary()
     })
   }
 
@@ -391,5 +426,68 @@ export class UserComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  onSelectCreateDate(event: any){
+
+  }
+
+  getAllPieceType(){
+    this.pieceTypeService.findAllPieceTypes().subscribe((res)=>{
+      this.pieceTypes = res.data
+    })
+  }
+
+  onAddFiciary(){
+    const formValue = this.beneficiaryForm.value;
+    this.beneficiary.firstName = formValue.firstName
+    this.beneficiary.lastName = formValue.lastName
+    this.beneficiary.phoneNumber = formValue.phoneNumber
+    this.beneficiary.whatsAppNumber = formValue.whatsAppNumber
+    this.beneficiary.email = formValue.email
+    this.beneficiary.city = formValue.city
+    this.beneficiary.country = formValue.country
+    this.beneficiary.pieceId = formValue.pieceId
+    this.beneficiary.postalBox = formValue.postalBox
+    this.beneficiary.birthDate = formValue.birthDate
+    this.createBeneficiary(this.idUser, formValue.idPieceType, this.beneficiary)
+  }
+
+  createBeneficiary(idUser: number, idPieceType: number, beneficiary: Beneficiary){
+    this.userService.addBeneficiary(idUser, idPieceType, beneficiary).subscribe(()=>{
+      this.utilityService.showMessage(
+        'success',
+        'mutualiste create successfully created',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'An error has occurred',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  onSelectUser(event: any){
+    console.log("select:User::", event);
+    if(event == "ADMIN" || event == "OPERATOR" || event == "1"){
+      this.isAdminAndOperator = true
+      this.isUser = false;
+    }
+    if(event == "USER"){
+      this.isAdminAndOperator = false
+      this.isUser = false;
+    }
+  }
+
+  onMutualiste(){
+    this.isUser = true;
+  }
+
+  onMembre(){
+    this.isUser = true;
   }
 }

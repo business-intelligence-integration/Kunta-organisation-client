@@ -51,7 +51,7 @@ export class ClubComponent implements OnInit {
       idArea: new FormControl(null, Validators.required),
       creationDate:new FormControl(null, Validators.required),
       reference:new FormControl(null, Validators.required),
-      observationnew: new FormControl(null)
+      observation: new FormControl(null)
     })
 
     this.updateClubForm = this.formBuilder.group({
@@ -75,26 +75,15 @@ export class ClubComponent implements OnInit {
   onSubmitClub(){
     const formValue = this.addClubForm.value;
     this.club.name = formValue.name
+    this.club.reference = formValue.reference;
+    this.club.observation = formValue.observation;
     this.createClub(this.club, formValue.idArea);
   }
 
   createClub(club: Organism, idArea: number){
-    this.clubService.createclub(club).subscribe((res)=>{
-      this.addClubToArea(idArea, res.data.id);
-    }, ()=>{
-      this.utilityService.showMessage(
-        'warning',
-        'An error has occurred',
-        '#e62965',
-        'white'
-      );
-    })
-  }
-
-  addClubToArea(idArea: number, idClub: number){
-    this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
-      this.getAllClubs();
-      this.onCloseAddModal();
+    this.clubService.createclub(club, idArea).subscribe((res)=>{
+      this.getAllClubs()
+      this.onCloseAddModal()
       this.utilityService.showMessage(
         'success',
         'Club successfully created',
@@ -110,6 +99,26 @@ export class ClubComponent implements OnInit {
       );
     })
   }
+
+  // addClubToArea(idArea: number, idClub: number){
+  //   this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
+  //     this.getAllClubs();
+  //     this.onCloseAddModal();
+  //     this.utilityService.showMessage(
+  //       'success',
+  //       'Club successfully created',
+  //       '#06d6a0',
+  //       'white'
+  //     );
+  //   }, ()=>{
+  //     this.utilityService.showMessage(
+  //       'warning',
+  //       'An error has occurred',
+  //       '#e62965',
+  //       'white'
+  //     );
+  //   })
+  // }
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((result)=>{

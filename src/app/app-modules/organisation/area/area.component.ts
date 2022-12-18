@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Organism } from 'src/app/core/classes/organism';
 import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
+import { CenterService } from 'src/app/core/services/centers/center.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class AreaComponent implements OnInit {
   ngSelect = 0;
+  ngSelectCenter = 0;
   Zones: string = "Zones";
   openAddArea: string = "";
   openUpdateArea: string = "";
@@ -28,10 +30,12 @@ export class AreaComponent implements OnInit {
   club: Organism;
   openClubModal: string = "";
   createDate: string = "";
+  centers: Organism[] =  [];
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
     private utilityService: UtilityService,
-    private clubService: ClubService) { 
+    private clubService: ClubService,
+    private centerService: CenterService) { 
       this.area = new Organism();
       this.club = new Organism();
     }
@@ -39,7 +43,8 @@ export class AreaComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
     this.getAllAreas();
-    this.getAllClubs()
+    this.getAllClubs();
+    this.getAllCenters();
   }
 
   formInit() {
@@ -48,6 +53,7 @@ export class AreaComponent implements OnInit {
       reference: new FormControl(null, Validators.required),
       creationDate: new FormControl(null, Validators.required),
       observation: new FormControl(null, Validators.required),
+      idCenter: new FormControl(null, Validators.required),
     })
 
     this.updateAreaForm = this.formBuilder.group({
@@ -63,7 +69,11 @@ export class AreaComponent implements OnInit {
     })
   }
 
-
+getAllCenters(){
+  this.centerService.findAllCenters().subscribe((res)=>{
+    this.centers = res.data;
+  })
+}
 
   onAddArea(){
     this.openAddArea = "is-active";
@@ -76,7 +86,9 @@ export class AreaComponent implements OnInit {
   onSubmitArea(){
     const formValue = this.addAreaForm.value;
     this.area.name = formValue.name;
-    this.areaService.createArea(this.area).subscribe((res)=>{
+    this.area.reference = formValue.reference;
+    this.area.observation = formValue.observation;
+    this.areaService.createArea(this.area, formValue.idCenter).subscribe(()=>{
       this.onCloseAddModal();
       this.getAllAreas();
       this.utilityService.showMessage(
@@ -259,6 +271,8 @@ export class AreaComponent implements OnInit {
   onSubmitClub(){
     const formValue = this.addClubForm.value;
     this.club.name = formValue.name
+        this.club.reference = formValue.reference;
+    this.club.observation = formValue.observation;
     let createDate = new Date(formValue.creationDate);
     let moveDateFormated = new DatePipe('en-US').transform(createDate,'yyyy-MM-dd');
     this.club.creationDate = moveDateFormated
@@ -268,18 +282,15 @@ export class AreaComponent implements OnInit {
   }
 
   createClub(club: Organism){
-    this.clubService.createclub(club).subscribe((clubFromDb)=>{
-      this.areaService.addClubToArea(this.idArea, clubFromDb.data.id).subscribe(()=>{
-        this.getAllAreas();
-        this.closeClubModal();
-        this.utilityService.showMessage(
-          'success',
-          'Club successfully added to are',
-          '#06d6a0',
-          'white'
-        );
-      })
-
+    this.clubService.createclub(club, this.idArea).subscribe(()=>{
+      this.getAllAreas();
+      this.closeClubModal();
+      this.utilityService.showMessage(
+        'success',
+        'Club successfully added to are',
+        '#06d6a0',
+        'white'
+      );
     }, ()=>{
       this.utilityService.showMessage(
         'warning',

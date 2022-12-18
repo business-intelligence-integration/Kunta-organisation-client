@@ -35,24 +35,26 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <span class="is-grow">Id</span>
+                <!-- <span class="is-grow">Id</span> -->
                 <span>Appelation</span>
+                <span>Reference</span>
                 <span>Club(s)</span>
                 <span>member(s)</span>
+                <span>Observation</span>
                 <span class="cell-end">Actions</span>
             </div>
 
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let area of areas">
-                    <div class="flex-table-cell is-media is-grow">
+                    <!-- <div class="flex-table-cell is-media is-grow">
                         <div>
                             <span class="item-name dark-inverted" data-filter-match="">{{ area.id }}</span>
                             <span class="item-meta">
                               <span data-filter-match="">{{ area.name }}</span>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area.name }}</span>
                     </div>
@@ -61,7 +63,13 @@
                         <a (click)="onAddClub(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area.reference }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area?.members?.length }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area?.observation }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -146,6 +154,18 @@
                            <div class="text-danger" *ngIf="addAreaForm.get('creationDate')?.errors?.['required'] && addAreaForm.get('creationDate')?.touched">
                              <small class="text-police" translate>selectionner la date de création</small>
                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>centre de la zone*</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelectCenter">
+                                <option value="0" disabled>--Selectionnez le centre de la zone--</option>
+                                <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }} </span> </option>
+                            </select>
+                            <div class="text-danger"
+                            *ngIf="addAreaForm.get('idCenter')?.errors?.['required'] && addAreaForm.get('idCenter')?.touched">
+                            <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
                         </div>
 
                         <div class="field">

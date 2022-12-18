@@ -8,6 +8,8 @@ export class Organism{
     areas: any;
     area: any;
     club: any;
+    observation: string = "";
+    reference: string = "";
     member: User = new User();
     members: User[] = [];
     clubs: Organism[] = [];;

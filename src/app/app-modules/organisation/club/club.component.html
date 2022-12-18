@@ -33,24 +33,26 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <span class="is-grow">Id</span>
+                <!-- <span class="is-grow">Id</span> -->
                 <span>Appelation</span>
+                <span>Reference</span>
                 <span>Membre(s)</span>
                 <span>Date de creation</span>
+                <span>Observation</span>
                 <span class="cell-end">Actions</span>
             </div>
 
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let club of clubs">
-                    <div class="flex-table-cell is-media is-grow">
+                    <!-- <div class="flex-table-cell is-media is-grow">
                         <div>
                             <span class="item-name dark-inverted" data-filter-match="">{{ club.id }}</span>
                             <span class="item-meta">
                               <span data-filter-match="">{{ club.name }}</span>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ club.name }}</span>
                     </div>
@@ -59,7 +61,13 @@
                         <a (click)="onAddMember(club.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ club.reference }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Observation">
+                        <span class="light-text" data-filter-match="">{{ club.observation }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -154,7 +162,7 @@
                             </select>
                             <div class="text-danger"
                             *ngIf="addClubForm.get('idArea')?.errors?.['required'] && addClubForm.get('idArea')?.touched">
-                            <small class="text-police" translate>entrer l'appelation du centre</small>
+                            <small class="text-police" translate>entrer l'appelation de la zone</small>
                             </div>
                         </div>
 
@@ -249,7 +257,7 @@
                             <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }} </span> </option>
 
                               <div class="text-danger" *ngIf="addMemberForm.get('id')?.errors?.['required'] && addMemberForm.get('id')?.touched">
-                                <small class="text-police" translate>Veuillez selectionner la zone </small>
+                                <small class="text-police" translate>Veuillez selectionnez un membre </small>
                            </div>
                         </select><br><br>
                

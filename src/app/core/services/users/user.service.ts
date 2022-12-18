@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MemberComponent } from 'src/app/app-modules/organisation/user/member/member.component';
 import { environment } from 'src/environments/environment';
+import { Beneficiary } from '../../classes/beneficiary';
 import { User } from '../../classes/user';
 
 import { UtilityService } from '../utility/utility.service';
@@ -48,9 +49,9 @@ export class UserService {
   createMember(member: User):Observable<any>{
     return this.httpClient.post<any>(this.baseUrl + 'users/member', member, httpOptions);
   }
-
-  createMutualist(mutualist: User):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist', mutualist, httpOptions);
+  
+  createMutualist(mutualist: User, idSponsor: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor , mutualist, httpOptions);
   }
 
   createOperator(operator: User):Observable<any>{
@@ -85,6 +86,8 @@ export class UserService {
   addSponsoredMember(idUser: number, idMember: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/add-sponsored-member/${idMember}`, {}, httpOptions);
   }
-  
+  addBeneficiary(idUser: number, idPieceType: number, beneficiary: Beneficiary):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/add-beneficiary/pieceType/${idPieceType}`, beneficiary, httpOptions);
+  }
 
 }

@@ -363,7 +363,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Date de debut *</label><br>
+                            <label>Date de debut *</label><br> 
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="startDate" type="date" id="DOB" name="DOB" min="{{ startDateMin }}"  [(ngModel)]="startDate" (input)="onSelectCreateDate($event.timeStamp)">
@@ -411,95 +411,98 @@
             </div>
             <div class="form-body">
                 <!--Fieldset-->
-                <div class="form-fieldset">
-                    <div class="fieldset-heading">
-                        <h4>Informations de la tontine</h4>
+                <div class="border-style">
+                    <div class="form-fieldset">
+                        <div class="fieldset-heading">
+                            <h4>Informations de la tontine</h4>
+                        </div>
+                        <form class="modal-form" [formGroup]="createTontineForm" (ngSubmit)="onSubmitCreateTontine()">
+                            <div class="field">
+                                <label>Nom*</label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="Nom de la tontine" formControlName="name">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createTontineForm.get('name')?.errors?.['required'] && createTontineForm.get('name')?.touched">
+                                    <small class="text-police">veuillez entrer le nom de la tontine</small>
+                                 </div>
+                            </div>
+                            <div class="field">
+                                <label>Plan d’épargne de base(FCFA)*</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="plan d’épargne de base" formControlName="peb">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createTontineForm.get('peb')?.errors?.['required'] && createTontineForm.get('peb')?.touched">
+                                    <small class="text-police">veuillez entrer le plan d’épargne de base</small>
+                                 </div>
+                            </div>
+    
+                            <div class="field">
+                                <label>Durée des cycles en mois*</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="durée des cycles en mois" formControlName="durationInMonths">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createTontineForm.get('durationInMonths')?.errors?.['required'] && createTontineForm.get('durationInMonths')?.touched">
+                                    <small class="text-police">veuillez entrer la durée des cycles en mois</small>
+                                 </div>
+                            </div>
+                            <div class="field">
+                                <label>Club propriétaire de la tontine*</label>
+                                <select2
+                                        class="w-100 color-border"
+                                        [data]="clubsArray"
+                                        id="club"
+                                        formControlName="idClub"
+                                        placeholder="--Selectionnez un club--">
+                                </select2>
+                                <div class="text-danger"
+                                        *ngIf="createTontineForm.get('idClub')?.errors?.['required'] && createTontineForm.get('idClub')?.touched">
+                                        <small class="text-police">veuillez selectionner un club</small>
+                                </div>
+                            </div>
+                            
+                            <div class="field">
+                                <label>Fréquence de cotisation  *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
+                                    <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
+                                    <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Fréquence des séances de tontine  *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceSea" [(ngModel)]="ngSelect4">
+                                    <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
+                                    <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Niveau de transversalité *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idTransv" [(ngModel)]="ngSelect5">
+                                    <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
+                                    <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Mode de gain *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idGain" [(ngModel)]="ngSelect6">
+                                    <option value="0" disabled>--Selectionnez le mode de gain--</option>
+                                    <option *ngFor="let gain of gains" [value]="gain.id"  [ngClass]="{'d-none': gain.label === 'ENCHÈRES'}"> <span> {{ gain.label }} </span> </option>
+                                </select>
+                            </div>
+    
+                            <div class="field">
+                                <label>Observation</label>
+                                <div class="control">
+                                    <textarea class="textarea" rows="4"
+                                        placeholder="Observation..."></textarea>
+                                </div>
+                            </div><br>
+                        </form>
                     </div>
-                    <form class="modal-form" [formGroup]="createTontineForm" (ngSubmit)="onSubmitCreateTontine()">
-                        <div class="field">
-                            <label>Nom*</label><br>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Nom de la tontine" formControlName="name">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createTontineForm.get('name')?.errors?.['required'] && createTontineForm.get('name')?.touched">
-                                <small class="text-police">veuillez entrer le nom de la tontine</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Plan d’épargne de base(FCFA)*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="plan d’épargne de base" formControlName="peb">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createTontineForm.get('peb')?.errors?.['required'] && createTontineForm.get('peb')?.touched">
-                                <small class="text-police">veuillez entrer le plan d’épargne de base</small>
-                             </div>
-                        </div>
-
-                        <div class="field">
-                            <label>Durée des cycles en mois*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="durée des cycles en mois" formControlName="durationInMonths">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createTontineForm.get('durationInMonths')?.errors?.['required'] && createTontineForm.get('durationInMonths')?.touched">
-                                <small class="text-police">veuillez entrer la durée des cycles en mois</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Club propriétaire de la tontine*</label>
-                            <select2
-                                    class="w-100 color-border"
-                                    [data]="clubsArray"
-                                    id="club"
-                                    formControlName="idClub"
-                                    placeholder="--Selectionnez un club--">
-                            </select2>
-                            <div class="text-danger"
-                                    *ngIf="createTontineForm.get('idClub')?.errors?.['required'] && createTontineForm.get('idClub')?.touched">
-                                    <small class="text-police">veuillez selectionner un club</small>
-                            </div>
-                        </div>
-                        
-                        <div class="field">
-                            <label>Fréquence de cotisation  *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
-                                <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
-                                <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Fréquence des séances de tontine  *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceSea" [(ngModel)]="ngSelect4">
-                                <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
-                                <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Niveau de transversalité *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idTransv" [(ngModel)]="ngSelect5">
-                                <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
-                                <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Mode de gain *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idGain" [(ngModel)]="ngSelect6">
-                                <option value="0" disabled>--Selectionnez le mode de gain--</option>
-                                <option *ngFor="let gain of gains" [value]="gain.id"  [ngClass]="{'d-none': gain.label === 'ENCHÈRES'}"> <span> {{ gain.label }} </span> </option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label>Observation</label>
-                            <div class="control">
-                                <textarea class="textarea" rows="4"
-                                    placeholder="Observation..."></textarea>
-                            </div>
-                        </div><br>
-                    </form>
                 </div>
+               
             </div>
         </div>
     </div>
