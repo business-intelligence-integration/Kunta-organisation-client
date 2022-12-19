@@ -42,20 +42,20 @@ export class UserService {
     return this.httpClient.delete<any>(this.baseUrl + 'users/'+ id, httpOptions);
   }
 
-  createAdmin(admin: User):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/admin', admin, httpOptions);
+  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/admin/sponsor/' + idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/situation/' + idFamilySituation, admin, httpOptions);
   }
 
-  createMember(member: User):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/member', member, httpOptions);
-  }
-  
-  createMutualist(mutualist: User, idSponsor: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor , mutualist, httpOptions);
+  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/member/sponsor/' + idSponsor + '/civility/' +idCivility + '/pieceType/'+ idPieceType + '/situation/' + idFamilySituation, member, httpOptions);
   }
 
-  createOperator(operator: User):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/operator', operator, httpOptions);
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/situation/' + idFamilySituation, mutualist, httpOptions);
+  }
+
+  createOperator(operator: User,  idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/operator/sponsor/' + idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + "/situation/" + idFamilySituation, operator, httpOptions);
   }
   countAllUsers(): Observable<any[]>{
     return this.httpClient.get<any[]>(this.baseUrl + 'users/all', httpOptions);
@@ -86,8 +86,13 @@ export class UserService {
   addSponsoredMember(idUser: number, idMember: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/add-sponsored-member/${idMember}`, {}, httpOptions);
   }
+
   addBeneficiary(idUser: number, idPieceType: number, beneficiary: Beneficiary):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/add-beneficiary/pieceType/${idPieceType}`, beneficiary, httpOptions);
+  }
+
+  changeUserStatus(idUser: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/status/${idStatus}`, httpOptions);
   }
 
 }
