@@ -1,9 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Beneficiary } from 'src/app/core/classes/beneficiary';
+import { Civility } from 'src/app/core/classes/civility';
+import { FamilySituation } from 'src/app/core/classes/familySituation';
 import { PieceType } from 'src/app/core/classes/pieceType';
+import { Status } from 'src/app/core/classes/status';
 import { User } from 'src/app/core/classes/user';
+import { CivilityService } from 'src/app/core/services/civility/civility.service';
+import { FamilySituationService } from 'src/app/core/services/family-situation/family-situation.service';
+import { StatusService } from 'src/app/core/services/organisation/status/status.service';
 import { PieceTypeService } from 'src/app/core/services/piece-type/piece-type.service';
+
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -18,7 +25,11 @@ export class UserComponent implements OnInit {
   ngSelect: any = "1";
   ngSelectUser = 0;
   ngSelect2 = 0;
-  ngSelectTypePiece  = 0;
+  ngSelectCivility = 0;
+  ngSelectFamilySituation = 0;
+  ngSelectTypePiece1 = 0;
+  ngSelectTypePiece2 = 0;
+  ngSelectStatus = 0;
   openAddModal: string = "";
   openUpdateModal: string = "";
   openSponsoreModal: string = "";
@@ -26,6 +37,7 @@ export class UserComponent implements OnInit {
   updateUserForm!: FormGroup;
   addSponsoreForm!: FormGroup;
   beneficiaryForm!: FormGroup;
+  changeStatusForm!: FormGroup;
   pieceTypes: PieceType[] = [];
   users: User[];
   members: User[] = [];
@@ -39,9 +51,17 @@ export class UserComponent implements OnInit {
   isList: boolean = true;
   isAdminAndOperator: boolean = false;
   isUser: boolean = false;
+  isSelectMutualist: boolean = false;
+  isSelectMember: boolean = false;
   adminIsConnected: boolean = false;
   birthDate: any;
+  dateOfValidity: any;
+  dateOfIssue: any;
   beneficiary: Beneficiary = new Beneficiary();
+  cyvilities: Civility[] = [];
+  familySitautions: FamilySituation[] = [];
+  status: Status[] = [];
+  openStatusModal: string = "";
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -51,7 +71,10 @@ export class UserComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
     private utilityService: UtilityService,
-    private pieceTypeService: PieceTypeService) { 
+    private pieceTypeService: PieceTypeService,
+    private civilityService: CivilityService,
+    private familySituationService: FamilySituationService,
+    private statusService: StatusService) { 
     this.users = [];
     this.user = new User();
   }
@@ -63,6 +86,9 @@ export class UserComponent implements OnInit {
     this.getConnectedUser();
     this.getAllMembers();
     this.getAllPieceType();
+    this.getAllcivilities();
+    this.getAllFamilySituation();
+    this.getAllStatus();
   }
 
   
@@ -77,7 +103,23 @@ export class UserComponent implements OnInit {
       userType: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       confPassword: new FormControl(null, Validators.required),
-      idUser: new FormControl(null, Validators.required),
+      idSponsor: new FormControl(null, Validators.required),
+      dateOfIssue: new FormControl(null, Validators.required),
+      dateOfValidity: new FormControl(null, Validators.required),
+      mainAddress: new FormControl(null, Validators.required),
+      nationalIDNumber: new FormControl(null, Validators.required),
+      nationality: new FormControl(null, Validators.required),
+      numberOfChildren: new FormControl(null, Validators.required),
+      pieceId: new FormControl(null, Validators.required),
+      placeOfIssue: new FormControl(null, Validators.required),
+      postalBox: new FormControl(null, Validators.required),
+      secondPhoneNumber: new FormControl(null, Validators.required),
+      secondaryAddress: new FormControl(null, Validators.required),
+      secondaryEmail: new FormControl(null, Validators.required),
+      whatsappPhoneNumber:new FormControl(null, Validators.required),
+      idCivility: new FormControl(null, Validators.required),
+      idFamilySituation: new FormControl(null, Validators.required),
+      idPieceType: new FormControl(null, Validators.required),
     })
 
     this.updateUserForm = this.formBuilder.group({
@@ -107,6 +149,9 @@ export class UserComponent implements OnInit {
       idPieceType: new FormControl(null, Validators.required),
     })
 
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
+    })
   }
 
   onOpenAddUser(){
@@ -130,15 +175,31 @@ export class UserComponent implements OnInit {
    this.user.phoneNumber = formValue.phoneNumber;
    this.user.userName = formValue.userName;
    this.user.city = formValue.city;
+   this.user.dateOfIssue = formValue.dateOfIssue;
+   this.user.dateOfValidity = formValue.dateOfValidity;
+   this.user.mainAddress = formValue.mainAddress;
+   this.user.nationalIDNumber = formValue.nationalIDNumber;
+   this.user.nationality = formValue.nationality;
+   this.user.numberOfChildren = formValue.numberOfChildren;
+   this.user.pieceId = formValue.pieceId;
+   this.user.placeOfIssue = formValue.placeOfIssue;
+   this.user.postalBox = formValue.postalBox;
+   this.user.secondPhoneNumber = formValue.secondPhoneNumber;
+   this.user.secondaryAddress = formValue.secondaryAddress;
+   this.user.secondaryEmail = formValue.secondaryEmail;
+   this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
 
-   if(formValue.userType == "ADMIN"){
-    this.createAdmin(this.user)
-   }else if(formValue.userType == "MEMBER"){
-    this.createMember(this.user)
-   }else if(formValue.userType == "MUTUALIST"){
-    this.createMutualist(this.user, formValue.idUser)
+   if(formValue.userType == "USER"){
+    if(this.isSelectMember){
+      this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+    }else{
+      this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+    }
+    if(formValue.userType == "ADMIN"){
+      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+    }
    }else if(formValue.userType == "OPERATOR"){
-    this.createOperator(this.user)
+    this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
    }
 
    this.addUserForm.reset();
@@ -222,8 +283,8 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createAdmin(user: User){
-    this.userService.createAdmin(user).subscribe(()=>{
+  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
+    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe(()=>{
       this.getAllUsers();
       this.closeUserModal();
       this.utilityService.showMessage(
@@ -242,9 +303,9 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createMember(user:User){
-    this.userService.createMember(user).subscribe(()=>{
-      console.log("user::", user);
+  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
+    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe(()=>{
+      console.log("user::", member);
       
       this.getAllUsers();
       this.closeUserModal();
@@ -264,8 +325,8 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createMutualist(user: User, idUser: number){
-    this.userService.createMutualist(user, idUser).subscribe((res)=>{
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
+    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe((res)=>{
       this.getAllUsers();
       this.closeUserModal();
       // this.utilityService.showMessage(
@@ -282,8 +343,8 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createOperator(user: User){
-    this.userService.createOperator(user).subscribe(()=>{
+  createOperator(operator: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
+    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe(()=>{
       this.getAllUsers();
       this.closeUserModal();
       this.utilityService.showMessage(
@@ -485,9 +546,64 @@ export class UserComponent implements OnInit {
 
   onMutualiste(){
     this.isUser = true;
+    this.isSelectMutualist = true;
+    this.isSelectMember = false;
   }
 
   onMembre(){
     this.isUser = true;
+    this.isSelectMember = true;
+    this.isSelectMutualist = false
+  }
+
+  getAllcivilities(){
+    this.civilityService.findAllCivilities().subscribe((res)=>{
+      this.cyvilities = res.data;
+    })
+  }
+
+  getAllFamilySituation(){
+    this.familySituationService.findAllFamilySituations().subscribe((res)=>{
+      this.familySitautions = res.data;
+    })
+  }
+
+  getAllStatus(){
+    this.statusService.findAllStatus().subscribe((res)=>{
+      this.status = res.data
+    })
+  }
+
+  onUpdateUserStatus(idUser: number){
+   this.openStatusModal = "is-active";
+   this.idUser = idUser;
+  }
+
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusUser(this.idUser, formValue.idStatus)
+  }
+
+  updateStatusUser(idUser: number, idStatus: number){
+    this.userService.changeUserStatus(idUser, idStatus).subscribe(()=>{
+      this.closeStatusModal();
+      this.utilityService.showMessage(
+        'success',
+        'Le status de l\'utilisateur a été modifié avec succès !',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produites !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  closeStatusModal(){
+    this.openStatusModal = "";
   }
 }

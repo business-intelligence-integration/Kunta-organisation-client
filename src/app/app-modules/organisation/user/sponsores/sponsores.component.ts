@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Beneficiary } from 'src/app/core/classes/beneficiary';
 import { User } from 'src/app/core/classes/user';
 import { UserService } from 'src/app/core/services/users/user.service';
 
@@ -15,6 +16,7 @@ export class SponsoresComponent implements OnInit {
   isPushed: string = "";
   user: User = new User();
   sponsores: User[] = [];
+  beneficiary: Beneficiary = new Beneficiary();
 
   constructor(private activatedRoute: ActivatedRoute,
     private userService: UserService) { }
@@ -42,7 +44,8 @@ export class SponsoresComponent implements OnInit {
       this.userService.getMemberById(params['id']).subscribe((res)=>{
         this.user = res.data;
         this.sponsores = res.data.sponsoredUsers;
-        console.log("sponsores::", this.sponsores);
+        this.beneficiary = this.user.beneficiaries[0];
+        console.log("sponsore::", this.user);
       });
     })
   }
