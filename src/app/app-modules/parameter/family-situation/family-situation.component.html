@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span>Créer un poste</span>
+            <span>Créer une situation familiale</span>
         </button>
     </div>
 </div>
@@ -38,34 +38,30 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
                 <span>Label</span>
-                <span>Organisation</span>
                 <span>Action</span>
             </div>
 
             <div class="flex-list-inner">
                 <!--Table item-->
-                <!-- <div class="flex-table-item" *ngFor="let frequency of frequencies">
+                <div class="flex-table-item" *ngFor="let familySituation of familySituations">
                     <div class="flex-table-cell is-media is-grow">
                         <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ frequency.id }}</span>
+                            <span class="item-name dark-inverted" data-filter-match="">{{ familySituation.id }}</span>
                             <span class="item-meta">
-                              <span data-filter-match="">{{ frequency.label }}</span>
+                              <span data-filter-match="">{{ familySituation.label }}</span>
                             </span>
                         </div>
                     </div>
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ frequency.label }}</span>
-                    </div>
-                    <div class="flex-table-cell" data-th="Prenom">
-                        <span class="light-text" data-filter-match="">{{ frequency.description }}</span>
+                        <span class="light-text" data-filter-match="">{{ familySituation.label }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" (click)="onOpenUpdateModal(frequency.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelete(frequency.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onOpenUpdateModal(familySituation.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onDelete(familySituation.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
 
         </div>
@@ -88,13 +84,13 @@
 
 </div>
 
-<!--new frequency-->
-<div id="updateFrequency" class="modal h-modal" [ngClass]="openCreateModal">
+<!--new family situation-->
+ <div id="createFamilySituation" class="modal h-modal" [ngClass]="openCreateModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Création d'un poste</h3>
+                <h3>Création d'une situation familiale</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeCreateModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -106,33 +102,20 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <!-- <form class="modal-form" [formGroup]="createPosteForm" (ngSubmit)="onSubmitCreateFrequence()"> -->
-                        <form class="modal-form" [formGroup]="createPosteForm">
-
+                        <form class="modal-form" [formGroup]="createFamilySituationForm" (ngSubmit)="onSubmitFamilySituation()">
                         <div class="field">
-                            <label>Niveau d'organisation *</label>
-                            <select class="input_comp" aria-label="Default select example" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez le niveau où le poste sera créé--</option>
-                                <option value=""> <span>CLUB </span> </option>
-                                <option value=""> <span>ZONE </span> </option>
-                                <option value=""> <span>CENTRE </span> </option>
-                                <option value=""> <span>BUREAU PRINCIPALE </span> </option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label>poste*</label>
+                            <label>Situation familiale*</label>
                             <div class="control">
-                                <input type="text" class="input" placeholder="poste">
+                                <input type="text" class="input" formControlName="label" placeholder="Situation familiale">
                             </div>
-                            <!-- <div class="text-danger"
-                                *ngIf="createPosteForm.get('label')?.errors?.['required'] && createPosteForm.get('label')?.touched">
-                                <small class="text-police" translate>veuillez entrer la fréquence </small>
-                             </div> -->
+                        </div>
+                        <div class="text-danger"
+                        *ngIf="createFamilySituationForm.get('label')?.errors?.['required'] && createFamilySituationForm.get('label')?.touched">
+                        <small class="text-police" translate>veuillez entrer la situation familiale</small>
                         </div>
                        
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createPosteForm.invalid">Creer</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createFamilySituationForm.invalid">Creer</button>
                         </div>
                     </form>
                 </div>
@@ -143,6 +126,49 @@
         </div>
     </div>
 </div>
+
+<div id="updateFamilySituation" class="modal h-modal" [ngClass]="openUpdateModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modification d'une situation familiale</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                        <form class="modal-form" [formGroup]="updateFamilySituationForm" (ngSubmit)="onSubmitUpdateFamilySituation(familySituation.id)">
+                        <div class="field">
+                            <label>Situation familiale*</label>
+                            <div class="control">
+                                <input type="text" class="input" formControlName="label" [(ngModel)]="familySituation.label" placeholder="Situation familiale">
+                            </div>
+                        </div>
+
+                        <div class="text-danger" *ngIf="updateFamilySituationForm.get('label')?.errors?.['required'] && updateFamilySituationForm.get('label')?.touched">
+                            <small class="text-police" translate>veuillez entrer la situation familiale</small>
+                        </div>
+                       
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateFamilySituationForm.invalid || isSaving">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

@@ -15,6 +15,8 @@ import { PenaltyComponent } from './penalty/penalty.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
 import { PosteComponent } from './organisation/poste/poste.component';
 import { PieceTypeComponent } from './piece-type/piece-type.component';
+import { FamilySituationComponent } from './family-situation/family-situation.component';
+import { CivilityComponent } from './civility/civility.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { PieceTypeComponent } from './piece-type/piece-type.component';
     PaymentStatusComponent,
     PosteComponent,
     PieceTypeComponent,
+    FamilySituationComponent,
+    CivilityComponent,
   ],
   imports: [
     CommonModule,

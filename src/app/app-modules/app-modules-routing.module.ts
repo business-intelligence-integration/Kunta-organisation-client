@@ -37,11 +37,19 @@ import { PaymentStatus } from '../core/classes/PaymentStatus';
 import { ViewMoreDetailsSessionComponent } from './operation/tontine/view-more-details-session/view-more-details-session.component';
 import { PosteComponent } from './parameter/organisation/poste/poste.component';
 import { PieceTypeComponent } from './parameter/piece-type/piece-type.component';
+import { FamilySituationComponent } from './parameter/family-situation/family-situation.component';
+import { CivilityComponent } from './parameter/civility/civility.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"civility", component: CivilityComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"family-situation", component: FamilySituationComponent, canActivate: [EntityGuard]
+      },
       {
         path:"piece-type", component: PieceTypeComponent, canActivate: [EntityGuard]
       },

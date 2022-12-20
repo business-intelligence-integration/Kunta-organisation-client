@@ -23,6 +23,8 @@ export class ParametersComponent implements OnInit {
   isPaymentStatus: boolean = false;
   isPoste: boolean = false;
   isPieceType: boolean = false;
+  isFamilySituation: boolean = false;
+  isCivility: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
   constructor() { }
@@ -205,11 +207,17 @@ export class ParametersComponent implements OnInit {
   }
   isNotAboutOrganisation(){
     this.isPoste = false;
+    this.isPieceType = false;
+    this.isFamilySituation = false;
+    this.isCivility = false;
   }
 
   onPoste(){
     this.isNotAboutTontine();
     this.isPoste = true;
+    this.isPieceType = false;
+    this.isFamilySituation = false;
+    this.isCivility = false;
     this.dynamicTitle = "Liste des postes de l'organisation"
   }
 
@@ -217,5 +225,26 @@ export class ParametersComponent implements OnInit {
     this.isNotAboutTontine();
     this.isPoste = false;
     this.isPieceType = true;
+    this.isFamilySituation = false;
+    this.isCivility = false;
+    this.dynamicTitle = "Liste les types de pièce"
+  }
+
+  onFamilySituation(){
+    this.isNotAboutTontine();
+    this.isPoste = false;
+    this.isPieceType = false;
+    this.isFamilySituation = true;
+    this.isCivility = false;
+    this.dynamicTitle = "Liste des situations familiales"
+  }
+
+  onCivility(){
+    this.isNotAboutTontine();
+    this.isPoste = false;
+    this.isPieceType = false;
+    this.isFamilySituation = false;
+    this.isCivility = true;
+    this.dynamicTitle = "Liste des civilités"
   }
 }

@@ -164,6 +164,20 @@
                             <span>Types de pièces</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onFamilySituation()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Situation familiale</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onCivility()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Civilité</span>
+                        </a>
+                    </li>
                 </ul> 
             </li>
         </ul>
@@ -288,6 +302,8 @@
             <app-payment-status *ngIf="isPaymentStatus"></app-payment-status>
             <app-poste *ngIf="isPoste"></app-poste>
             <app-piece-type *ngIf="isPieceType"></app-piece-type>
+            <app-family-situation *ngIf="isFamilySituation"></app-family-situation>
+            <app-civility *ngIf="isCivility"></app-civility>
         </div>
     </div>
 

@@ -944,7 +944,7 @@
 
 
 <!-- add sponsore -->
-<div id="addMember" class="modal h-modal" [ngClass]="openStatusModal">
+<div id="changerStatus" class="modal h-modal" [ngClass]="openStatusModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -977,7 +977,7 @@
                         </div><br><br>
                        
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid" >Update</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Update</button>
                         </div>
                     </form>
                 </div>

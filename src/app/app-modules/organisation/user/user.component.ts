@@ -54,6 +54,7 @@ export class UserComponent implements OnInit {
   isSelectMutualist: boolean = false;
   isSelectMember: boolean = false;
   adminIsConnected: boolean = false;
+  isSaving: boolean = false;
   birthDate: any;
   dateOfValidity: any;
   dateOfIssue: any;
@@ -585,8 +586,11 @@ export class UserComponent implements OnInit {
   }
 
   updateStatusUser(idUser: number, idStatus: number){
+    this.isSaving = true;
     this.userService.changeUserStatus(idUser, idStatus).subscribe(()=>{
+      this.isSaving = false;
       this.closeStatusModal();
+      this.getAllUsers();
       this.utilityService.showMessage(
         'success',
         'Le status de l\'utilisateur a été modifié avec succès !',
@@ -594,6 +598,7 @@ export class UserComponent implements OnInit {
         'white'
       );
     }, ()=>{
+       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'Une erreur s\'est produites !',

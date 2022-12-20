@@ -1,43 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PieceType } from 'src/app/core/classes/pieceType';
-import { PieceTypeService } from 'src/app/core/services/piece-type/piece-type.service';
+import { Civility } from 'src/app/core/classes/civility';
+import { CivilityService } from 'src/app/core/services/civility/civility.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-piece-type',
-  templateUrl: './piece-type.component.html',
-  styleUrls: ['./piece-type.component.scss']
+  selector: 'app-civility',
+  templateUrl: './civility.component.html',
+  styleUrls: ['./civility.component.scss']
 })
-export class PieceTypeComponent implements OnInit {
+export class CivilityComponent implements OnInit {
 
   openCreateModal: string = "";
   openUpdateModal: string = "";
-  createPieceTypeForm!: FormGroup;
-  updatePieceTypeForm!: FormGroup;
-  pieceType: PieceType = new PieceType();
-  pieceTypes: PieceType[] = [];
+  civilities: Civility[] = [];
+  civility: Civility = new Civility()
+  createCivilityForm!: FormGroup;
+  updateCivilityForm!: FormGroup;
   isSaving: boolean = false;
-  constructor(private formBuilder: FormBuilder,
-    private pieceTypeService: PieceTypeService,
+  constructor(private civilityService: CivilityService,  
+    private formBuilder: FormBuilder, 
     private utilityService: UtilityService) { }
 
   ngOnInit(): void {
+    this.getAllCivilities();
     this.formInit();
-    this.getAllPieceType();
   }
 
   formInit() {
-    this.createPieceTypeForm = this.formBuilder.group({
+    this.createCivilityForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
     })
 
-    this.updatePieceTypeForm = this.formBuilder.group({
+    this.updateCivilityForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
     })
   }
-
   onOpenCreateModal(){
     this.openCreateModal = "is-active";
   }
@@ -45,27 +46,31 @@ export class PieceTypeComponent implements OnInit {
   closeCreateModal(){
     this.openCreateModal = "";
   }
-  
-  getAllPieceType(){
-    this.pieceTypeService.findAllPieceTypes().subscribe((res)=>{
-      this.pieceTypes = res.data;
+
+  getAllCivilities(){
+    this.civilityService.findAllCivilities().subscribe((res)=>{
+      this.civilities = res.data;
     })
   }
-  
-  onSubmitCreateTypePiece(){
-    const formValue = this.createPieceTypeForm.value;
-    this.cratePieceType(formValue.label);
+
+  onSubmitCivility(){
+    const formValue = this.createCivilityForm.value;
+    this.civility.label = formValue.label;
+    this.civility.name = formValue.name;
+    this.createCivility(this.civility)
   }
 
-  cratePieceType(label: string){
+  createCivility(civlity: Civility){
     this.isSaving = true;
-    this.pieceTypeService.createPieceType(label).subscribe((res)=>{
-      this.closeCreateModal();
-      this.getAllPieceType();
+    this.civilityService.createCivility(civlity).subscribe((res)=>{
+      console.log("Civility::", res);
+      
       this.isSaving = false;
+      this.closeCreateModal()
+      this.getAllCivilities();
       this.utilityService.showMessage(
         'success',
-        'Type de pièce crée avec succès',
+        'Civilité crée avec succès !',
         '#06d6a0',
         'white'
       );
@@ -73,55 +78,56 @@ export class PieceTypeComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'Une erreur s\'est produite',
+        'une erreur d\'est produites',
         '#e62965',
         'white'
       );
-    })
-  }
-
-  onOpenUpdateModal(id: number){
-    this.pieceTypeService.findPieceTypeById(id).subscribe((res)=>{
-      this.openUpdateModal = "is-active";
-      this.pieceType = res.data;
     })
   }
 
   closeUpdateModal(){
-  this.openUpdateModal = "";
+    this.openUpdateModal = "";
   }
 
-  onDelete(id: number){
-    this.deleteMessage(id);
+  onOpenUpdateModal(id: number){
+    this.civilityService.findCivilityById(id).subscribe((res)=>{
+      this.civility = res.data
+      this.openUpdateModal = "is-active";
+    })
   }
 
-  onSubmitUpdatePieceType(id: number){
-    const formValue = this.updatePieceTypeForm.value;
-    this.pieceType.label = formValue.label;
-    this.updatePieceType(id, this.pieceType)
+  onSubmitUpdateCivility(id: number){
+    const formValue = this.updateCivilityForm.value;
+    this.civility.label = formValue.label;
+    this.civility.name = formValue.name;
+    this.updateCivility(id, this.civility)
   }
 
-  updatePieceType(id: number, pieceType: PieceType){
+  updateCivility(idCivility: number, civility: Civility){
     this.isSaving = true;
-    this.pieceTypeService.updatePieceType(id, pieceType).subscribe(()=>{
+    this.civilityService.updateCivility(idCivility, civility).subscribe(()=>{
+       this.isSaving = false;
       this.closeUpdateModal();
-      this.getAllPieceType();
-      this.isSaving = false;
-      this.utilityService.showMessage(
+      this.getAllCivilities();
+       this.utilityService.showMessage(
         'success',
-        'Type de pièce modifié avec succès',
+        'Civilité modifiée avec succès !',
         '#06d6a0',
         'white'
       );
     }, ()=>{
-      this.isSaving = false;
+       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'Une erreur s\'est produite',
+        'une erreur d\'est produites',
         '#e62965',
         'white'
       );
     })
+  }
+
+  onDelete(id: number){
+    this.deleteMessage(id);
   }
 
   deleteMessage(id: number) {
@@ -148,12 +154,12 @@ export class PieceTypeComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.pieceTypeService.deletePieceType(id).subscribe(
+          this.civilityService.deleteCivility(id).subscribe(
             () => {
-              this.getAllPieceType();
+              this.getAllCivilities();
               swalWithBootstrapButtons.fire({
                 title: 'Deleted !',
-                text: 'Le type de pièce a bien été supprimé !.',
+                text: 'La civilité a bien été supprimé !.',
                 confirmButtonColor: '#198AE3',
               });
             },
@@ -174,4 +180,5 @@ export class PieceTypeComponent implements OnInit {
         }
       });
   }
+
 }
