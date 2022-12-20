@@ -38,7 +38,7 @@ export class CivilityService {
     return this.httpClient.put<any>(this.baseUrl + 'civilities/'+ idCivility, civility, httpOptions);
   }
 
-  deletePieceType(idCivility: number):Observable<any>{
+  deleteCivility(idCivility: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'civilities/'+ idCivility, httpOptions);
   }
 }

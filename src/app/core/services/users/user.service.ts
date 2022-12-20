@@ -92,7 +92,7 @@ export class UserService {
   }
 
   changeUserStatus(idUser: number, idStatus: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/status/${idStatus}`, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/status/${idStatus}`, {}, httpOptions);
   }
 
 }

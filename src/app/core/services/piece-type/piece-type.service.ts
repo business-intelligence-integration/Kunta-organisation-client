@@ -26,8 +26,8 @@ export class PieceTypeService {
     return this.httpClient.get<any>(this.baseUrl + 'piece-types', httpOptions);
   }
 
-  createPieceType(pieceType: PieceType):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'piece-types/', pieceType, httpOptions);
+  createPieceType(label: string):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'piece-types?label=' + label, {}, httpOptions);
   } 
 
   findPieceTypeById(idPieceType: number):Observable<any>{
