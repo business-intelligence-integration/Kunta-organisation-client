@@ -188,21 +188,6 @@
 
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="field demo-select">
-                                                        <div class="control">
-                                                            <label class="radio" (click)="onMutualiste()">
-                                                                <input type="radio">
-                                                                <span></span>
-                                                                Mutualiste
-                                                            </label>
-            
-                                                            <label class="radio" (click)="onMembre()">
-                                                                <input type="radio">
-                                                                <span></span>
-                                                                Membre
-                                                            </label>
-                                                        </div>
-                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -852,7 +837,7 @@
                                 <i class="lnir lnir-arrow-left rem-100"></i>
                             </span>
                             <button (click)="cancelUpdatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Annuler</button>
-                            <button [disabled]="updateUserForm.invalid" (click)="onUpdate()" id="save-button" class="button h-button is-primary is-raised">Modifier</button>
+                            <button [disabled]="updateUserForm.invalid || isSaving" (click)="onUpdate()" id="save-button" class="button h-button is-primary is-raised">Modifier</button>
                         </div>
                     </div>
                 </div>
@@ -871,68 +856,350 @@
                         <div class="columns is-multiline">
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Nom(s) *</label>
-                                    <div class="control">
-                                        <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
+                                    <label>Nom</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" [(ngModel)]="user.lastName" placeholder="LastName" formControlName="lastName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="updateUserForm.get('lastName')?.errors?.['required'] && updateUserForm.get('lastName')?.touched">
+                                            <small class="text-police">veuillez entrer le nom</small>
+                                        </div>
                                     </div>
-                                    <div class="text-danger"
-                                        *ngIf="updateUserForm.get('firstName')?.errors?.['required'] && updateUserForm.get('firstName')?.touched">
-                                        <small class="text-police" translate>enter the user's first name</small>
-                                     </div>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Prénom(s) *</label>
-                                    <div class="control">
-                                        <input type="text" class="input" [(ngModel)]="user.lastName" placeholder="LastName" formControlName="lastName">
+                                    <label>Prenom</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="updateUserForm.get('firstName')?.errors?.['required'] && updateUserForm.get('firstName')?.touched">
+                                            <small class="text-police">veuillez entrer le prénom</small>
+                                        </div>
                                     </div>
-                                    <div class="text-danger"
-                                        *ngIf="updateUserForm.get('lastName')?.errors?.['required'] && updateUserForm.get('lastName')?.touched">
-                                        <small class="text-police" translate>enter the user's last name</small>
-                                     </div>
                                 </div>
                             </div>
-                           
-                            <div class="column is-12">
-                                <div class="field">
-                                    <label>Numéro de Tel. *</label>
-                                    <div class="control">
-                                        <input type="number" class="input" [(ngModel)]="user.phoneNumber" placeholder="Phone Number"
+                    
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label>Numéro de Tel. *</label>
+                                        <div class="control has-icon">
+                                            <input type="number" class="input" [(ngModel)]="user.phoneNumber" placeholder="Phone Number"
                                             formControlName="phoneNumber">
+                                            <div class="text-danger"
+                                                *ngIf="updateUserForm.get('phoneNumber')?.errors?.['required'] && updateUserForm.get('phoneNumber')?.touched">
+                                                <small class="text-police" translate>Veuillez entrer le numéro de téléphone</small>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="text-danger"
-                                        *ngIf="updateUserForm.get('phoneNumber')?.errors?.['required'] && updateUserForm.get('phoneNumber')?.touched">
-                                        <small class="text-police" translate>enter the user's phone number</small>
-                                     </div>
                                 </div>
-                            </div>
-                        
-                            <div class="column is-12">
-                                <div class="field">
-                                    <label>Email *</label>
-                                    <div class="control">
-                                        <input type="email" class="input" [(ngModel)]="user.userName" placeholder="Email Address" formControlName="userName">
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label>Deuxième numéro de Tel.</label>
+                                        <div class="control has-icon">
+                                            <input type="email" class="input" [(ngModel)]="user.secondPhoneNumber" placeholder="Deuxième numéro de Tel" formControlName="secondPhoneNumber">
+                                            <div class="form-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                            </div>
+                                            <div class="text-danger"
+                                            *ngIf="updateUserForm.get('secondPhoneNumber')?.errors?.['required'] && updateUserForm.get('secondPhoneNumber')?.touched">
+                                            <small class="text-police" translate>Veuillez entrer le second numéro de téléphone</small>
+                                         </div>
+                                        </div>
                                     </div>
-                                    <div class="text-danger"
+                                </div>
+
+                                <div class="column is-12">
+                                    <div class="field">
+                                        <label>Numéro WhatsApp *</label>
+                                        <div class="control has-icon">
+                                            <input type="text" class="input" [(ngModel)]="user.whatsappPhoneNumber" placeholder="Numéro WhatsApp"
+                                            formControlName="whatsappPhoneNumber">
+                                            <div class="text-danger"
+                                                *ngIf="updateUserForm.get('whatsappPhoneNumber')?.errors?.['required'] && updateUserForm.get('whatsappPhoneNumber')?.touched">
+                                                <small class="text-police" translate>Veuillez entrer le numéro whatsapp </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Email principale</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.userName" placeholder="Email principale" formControlName="userName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
                                         *ngIf="updateUserForm.get('userName')?.errors?.['required'] && updateUserForm.get('userName')?.touched">
-                                        <small class="text-police" translate>enter the user's email</small>
+                                        <small class="text-police" translate>Veuillez entrer l'adresse email principale</small>
                                      </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="column is-12">
+                            <div class="column is-6">
                                 <div class="field">
-                                    <label>Ville *</label>
-                                    <div class="control">
-                                        <input type="text" class="input" [(ngModel)]="user.city" placeholder="Ville" formControlName="city">
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="updateUserForm.get('city')?.errors?.['required'] && updateUserForm.get('city')?.touched">
-                                        <small class="text-police" translate>enter the user's email</small>
+                                    <label>Email secondaire</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.secondaryEmail" placeholder="Email secondaire" formControlName="secondaryEmail">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('secondaryEmail')?.errors?.['required'] && updateUserForm.get('secondaryEmail')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer l'adresse email secondaire</small>
                                      </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Adresse principale</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.mainAddress" placeholder="Adresse principale" formControlName="mainAddress">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('mainAddress')?.errors?.['required'] && updateUserForm.get('mainAddress')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer l'adresse principale</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Adresse secondaire</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.secondaryAddress" placeholder="Adresse secondaire" formControlName="secondaryAddress">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('secondaryAddress')?.errors?.['required'] && updateUserForm.get('secondaryAddress')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer l'adresse secondaire</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="column is-12">
+                                <div class="field">
+                                    <div>
+                                        <label> Civilité*</label><br>
+                                        <select class="input_comp" formControlName="idCivility" aria-label="Default select example"  [(ngModel)]="ngSelectCivility">
+                                            <option value="0" disabled>--selectionner une  Civilité--</option>
+                                            <option *ngFor="let cyvility of cyvilities" [value]="cyvility.id" >{{ cyvility.label }}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('idCivility')?.errors?.['required'] && updateUserForm.get('idCivility')?.touched">
+                                        <small class="text-police" translate>selectionner la civilité</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Ville</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.city" placeholder="Ville" formControlName="city">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('city')?.errors?.['required'] && updateUserForm.get('city')?.touched">
+                                        <small class="text-police" translate>veuiller entre la ville</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Pays de résidence</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" placeholder="Pays de résidence">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Nationalité</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.nationality" placeholder="Nationalité" formControlName="nationality">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('nationality')?.errors?.['required'] && updateUserForm.get('nationality')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer la nationalité</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Numéro identifiant nationale</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" [(ngModel)]="user.nationalIDNumber" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('nationalIDNumber')?.errors?.['required'] && updateUserForm.get('nationalIDNumber')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer le numéro de l'identifiant nationale</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="column is-6">
+                                <div class="field">
+                                    <div>
+                                        <label>Situation familiale*</label><br>
+                                        <select class="input_comp" formControlName="idFamilySituation" aria-label="Default select example"  [(ngModel)]="ngSelectFamilySituation">
+                                            <option value="0" disabled>--selectionner une situation familiale--</option>
+                                            <option *ngFor="let familySitaution of familySitautions" [value]="familySitaution.id" >{{ familySitaution.label }}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('idFamilySituation')?.errors?.['required'] && updateUserForm.get('idFamilySituation')?.touched">
+                                        <small class="text-police" translate>selectionner une situation familiale</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Nombre d’enfants *</label>
+                                    <div class="control">
+                                        <input type="number" class="input" [(ngModel)]="user.numberOfChildren" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('numberOfChildren')?.errors?.['required'] && updateUserForm.get('numberOfChildren')?.touched">
+                                        <small class="text-police" translate>veuillez entrer le nombre d'enfant</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="column is-6">
+                                <div class="field">
+                                    <div>
+                                        <label>Types de pièces *</label><br>
+                                        <select class="input_comp" formControlName="idPieceType" aria-label="Default select example"  [(ngModel)]="ngSelectTypePiece1">
+                                            <option value="0" disabled>--selectionner un type de pièce--</option>
+                                            <option *ngFor="let pieceType of pieceTypes" [value]="pieceType.id" >{{ pieceType.label }}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('idPieceType')?.errors?.['required'] && updateUserForm.get('idPieceType')?.touched">
+                                        <small class="text-police" translate>selectionner un type de pièce</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Pièce d'identité *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" [(ngModel)]="user.pieceId" placeholder="pièce d'identité" formControlName="pieceId">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('pieceId')?.errors?.['required'] && updateUserForm.get('pieceId')?.touched">
+                                        <small class="text-police" translate>veuiller entrer la pièce d'identité de l'ayant droit</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Lieu de délivrance *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" [(ngModel)]="user.placeOfIssue" placeholder="Lieu de délivrance" formControlName="placeOfIssue">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('placeOfIssue')?.errors?.['required'] && updateUserForm.get('placeOfIssue')?.touched">
+                                        <small class="text-police" translate>veuillez entrer le lieu de résidence</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Boite postale *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" [(ngModel)]="user.postalBox" placeholder="boite postale"
+                                            formControlName="postalBox">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('postalBox')?.errors?.['required'] && updateUserForm.get('postalBox')?.touched">
+                                        <small class="text-police" translate>veuiller entrer la boite postale</small>
+                                    </div>
+                                </div>            
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de délivrance *</label><br>
+                                    <div class="card-header-widget datepicker-style">
+                                        <div class="input-daterange input-group align-items-center">
+                                            <input class="champ" [(ngModel)]="user.dateOfIssue" formControlName="dateOfIssue" type="date" id="DOB1" name="DOB"  (input)="onSelectCreateDate($event.timeStamp)">
+                                        </div>
+                                   </div>
+                                   <div class="text-danger" *ngIf="updateUserForm.get('dateOfIssue')?.errors?.['required'] && updateUserForm.get('dateOfIssue')?.touched">
+                                     <small class="text-police" translate>veuillez selectionner la date de délivrance</small>
+                                   </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de validité *</label><br>
+                                    <div class="card-header-widget datepicker-style">
+                                        <div class="input-daterange input-group align-items-center">
+                                            <input class="champ" [(ngModel)]="user.dateOfValidity" formControlName="dateOfValidity" type="date" id="DOB2" name="DOB" (input)="onSelectCreateDate($event.timeStamp)">
+                                        </div>
+                                   </div>
+                                   <div class="text-danger" *ngIf="updateUserForm.get('dateOfValidity')?.errors?.['required'] && updateUserForm.get('dateOfValidity')?.touched">
+                                     <small class="text-police" translate>veuillez selectionner la date de validité</small>
+                                   </div>
+                                </div>
+                            </div>
+                            <!-- <div class="column is-6">
+                                <div class="field">
+                                    <label>Password *</label>
+                                    <div class="control">
+                                        <input type="password" class="input" placeholder="Password" formControlName="password">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('password')?.errors?.['required'] && updateUserForm.get('password')?.touched">
+                                        <small class="text-police" translate>enter the user's password</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Confirm Password *</label>
+                                    <div class="control">
+                                        <input type="password" class="input" placeholder="Confirm Password"
+                                            formControlName="confPassword">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="updateUserForm.get('confPassword')?.errors?.['required'] && updateUserForm.get('confPassword')?.touched">
+                                        <small class="text-police" translate>enter the user's confirm password</small>
+                                    </div>
+                                </div>            
+                            </div> -->
                         </div>
                     </form>
                 </div>

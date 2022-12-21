@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Filleuls</h1>
+                    <h1 class="title is-4"> compte de <span>{{ user.firstName }}</span></h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -225,7 +225,7 @@
                 
                     <div class="column is-4">
                         <div class="filter-box">
-                            <h4 class="dark-inverted">Détails de l'utilisateur</h4>
+                            <h4 class="dark-inverted">Détails de {{ user.firstName }}</h4>
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
@@ -471,7 +471,7 @@
                         </div>
 
                         <div class="filter-box">
-                            <h4 class="dark-inverted">Détails du bénéficiaire</h4>
+                            <h4 class="dark-inverted">Détails de l'ayant droit de {{ user.firstName }}</h4>
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
@@ -609,7 +609,6 @@
 
                     <!--Results-->
                     <div class="column is-8">
-
                         <div class="flex-table">
 
                             <!--Table header-->

@@ -130,6 +130,19 @@ export class UserComponent implements OnInit {
       userName: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
       id: new FormControl(null, Validators.required),
+      dateOfIssue: new FormControl(null, Validators.required),
+      dateOfValidity: new FormControl(null, Validators.required),
+      mainAddress: new FormControl(null, Validators.required),
+      nationalIDNumber: new FormControl(null, Validators.required),
+      nationality: new FormControl(null, Validators.required),
+      numberOfChildren: new FormControl(null, Validators.required),
+      pieceId: new FormControl(null, Validators.required),
+      placeOfIssue: new FormControl(null, Validators.required),
+      postalBox: new FormControl(null, Validators.required),
+      secondPhoneNumber: new FormControl(null, Validators.required),
+      secondaryAddress: new FormControl(null, Validators.required),
+      secondaryEmail: new FormControl(null, Validators.required),
+      whatsappPhoneNumber:new FormControl(null, Validators.required),
     })
 
     this.addSponsoreForm = this.formBuilder.group({
@@ -204,9 +217,11 @@ export class UserComponent implements OnInit {
    }
 
    this.addUserForm.reset();
+   this.beneficiaryForm.reset();
   }
 
   onSubmitUpdateUser(){
+    this.isSaving = true;
     const formValue = this.updateUserForm.value;
     this.user.firstName = formValue.firstName;
     this.user.lastName = formValue.lastName;
@@ -214,8 +229,20 @@ export class UserComponent implements OnInit {
     this.user.phoneNumber = formValue.phoneNumber;
     this.user.userName = formValue.userName
     this.user.city = formValue.city;
-    console.log("update::", this.user);
-    
+    this.user.dateOfIssue = formValue.dateOfIssue;
+    this.user.dateOfValidity = formValue.dateOfValidity;
+    this.user.mainAddress = formValue.mainAddress;
+    this.user.nationalIDNumber = formValue.nationalIDNumber;
+    this.user.nationality = formValue.nationality;
+    this.user.numberOfChildren = formValue.numberOfChildren;
+    this.user.pieceId = formValue.pieceId;
+    this.user.placeOfIssue = formValue.placeOfIssue;
+    this.user.postalBox = formValue.postalBox;
+    this.user.secondPhoneNumber = formValue.secondPhoneNumber;
+    this.user.secondaryAddress = formValue.secondaryAddress;
+    this.user.secondaryEmail = formValue.secondaryEmail;
+    this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
+
     this.updateUser(this.user, formValue.id)
   }
 
@@ -231,8 +258,8 @@ export class UserComponent implements OnInit {
   }
 
   updateUser(user: User, id: number){
-    console.log("user:", user);
     this.userService.updateMemberById(user, id).subscribe(()=>{
+      this.isSaving = false;
       this.getAllUsers();
       this.closeUpdateUserModal();
       this.utilityService.showMessage(
@@ -245,6 +272,7 @@ export class UserComponent implements OnInit {
       this.updatUser = false
       this.creatUser = false
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
