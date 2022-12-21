@@ -532,7 +532,7 @@
                          </div>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="paymentUpdateStatusForm.invalid" >Modifier</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="paymentUpdateStatusForm.invalid || isSaving" >Modifier</button>
                         </div><br>
                        
                     </form>

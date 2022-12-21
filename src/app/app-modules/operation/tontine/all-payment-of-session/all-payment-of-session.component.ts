@@ -39,6 +39,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
   date: any;
   isCotisation: boolean = true;
   isMember: boolean = false;
+  isSaving: boolean = false;
   idPayment: number = 0;
   users: User[] = [];
 
@@ -86,14 +87,10 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findAllPaymentsOfASession(params['id']).subscribe((res)=>{
       this.sessionOfPayments = res.data;
-      console.log("sessionOfPayments::", res);
-      
       })
 
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
         this.operationSession = res.data;
-        console.log("newSession::", this.operationSession);
-        
       })
     })
   }
@@ -222,7 +219,9 @@ export class AllPaymentOfSessionComponent implements OnInit {
   }
 
   checkPayment(idPayment: number){
+    this.isSaving = true;
     this.paymentService.checkPayment(idPayment).subscribe(()=>{
+      this.isSaving = false;
       this.closeUpdatePaymentStatusModal();
       this.getAllPaymentStaus()
       this.utilityService.showMessage(
@@ -232,6 +231,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'une erreur s\'est produite !',
@@ -242,7 +242,9 @@ export class AllPaymentOfSessionComponent implements OnInit {
   }
 
   validatePayment(idPayment: number){
+    this.isSaving = true;
     this.paymentService.validatePayment(idPayment).subscribe(()=>{
+      this.isSaving = false;
       this.closeUpdatePaymentStatusModal();
       this.getAllPaymentStaus()
       this.utilityService.showMessage(
@@ -252,6 +254,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'une erreur s\'est produite !',
@@ -265,8 +268,6 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params)=>{
       this.sessionService.findAllUserPaymentStateBySession(params['id']).subscribe((res)=>{
        this.users = res.data
-        console.log("users::",  this.users);
-        
       })
     })
   }

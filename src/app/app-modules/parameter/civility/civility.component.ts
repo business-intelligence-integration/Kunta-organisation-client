@@ -10,16 +10,17 @@ import Swal from 'sweetalert2';
   templateUrl: './civility.component.html',
   styleUrls: ['./civility.component.scss']
 })
-export class CivilityComponent implements OnInit {
 
+export class CivilityComponent implements OnInit {
   openCreateModal: string = "";
   openUpdateModal: string = "";
   civilities: Civility[] = [];
-  civility: Civility = new Civility()
+  civility: Civility = new Civility();
   createCivilityForm!: FormGroup;
   updateCivilityForm!: FormGroup;
   isSaving: boolean = false;
-  constructor(private civilityService: CivilityService,  
+  constructor(
+    private civilityService: CivilityService,  
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService) { }
 
@@ -39,6 +40,7 @@ export class CivilityComponent implements OnInit {
       name: new FormControl(null, Validators.required),
     })
   }
+
   onOpenCreateModal(){
     this.openCreateModal = "is-active";
   }
@@ -63,8 +65,7 @@ export class CivilityComponent implements OnInit {
   createCivility(civlity: Civility){
     this.isSaving = true;
     this.civilityService.createCivility(civlity).subscribe((res)=>{
-      console.log("Civility::", res);
-      
+
       this.isSaving = false;
       this.closeCreateModal()
       this.getAllCivilities();
@@ -106,17 +107,17 @@ export class CivilityComponent implements OnInit {
   updateCivility(idCivility: number, civility: Civility){
     this.isSaving = true;
     this.civilityService.updateCivility(idCivility, civility).subscribe(()=>{
-       this.isSaving = false;
+      this.isSaving = false;
       this.closeUpdateModal();
       this.getAllCivilities();
-       this.utilityService.showMessage(
+      this.utilityService.showMessage(
         'success',
         'Civilité modifiée avec succès !',
         '#06d6a0',
         'white'
       );
     }, ()=>{
-       this.isSaving = false;
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'une erreur d\'est produites',
