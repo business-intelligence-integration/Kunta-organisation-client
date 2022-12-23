@@ -254,6 +254,9 @@
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
                             <span>Name</span>
+                            <span>Reference</span>
+                            <span>Observation</span>
+                            <span>Membre(s)</span>
                             <span>Date de création</span>
                             <span class="cell-end">Actions</span>
                         </div>
@@ -271,6 +274,15 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Location">
                                     <span class="light-text" data-filter-match="">{{ club.name }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ club.reference }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ club.observation }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ club.members.length }}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Location">
                                     <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>

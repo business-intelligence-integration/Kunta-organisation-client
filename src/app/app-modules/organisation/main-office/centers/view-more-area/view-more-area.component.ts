@@ -110,6 +110,8 @@ export class ViewMoreAreaComponent implements OnInit {
 
   getAllArea(){
     this.areaService.findAllAreas().subscribe((res)=>{
+      console.log("listArea::", res);
+      
       this.areas = res.data
     })
   }

@@ -319,6 +319,17 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
+                                        Pays de résidence.
+                                    </label>
+                                    <div class="control-end">
+                                        <span class="tag is-rounded">{{ user?.country?.name }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox is-circle">
+                                        <span></span>
                                         Nationalité.
                                     </label>
                                     <div class="control-end">
@@ -376,7 +387,7 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        Id de la pièce
+                                        Identifiant de la pièce
                                     </label>
                                     <div class="control-end">
                                         <span class="tag is-rounded">{{ user.pieceId }}</span>
@@ -471,137 +482,35 @@
                         </div>
 
                         <div class="filter-box">
-                            <h4 class="dark-inverted">Détails de l'ayant droit de {{ user.firstName }}</h4>
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Nom
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.lastName }}</span>
+                            <h4 class="dark-inverted">Liste des ayants droit de {{ user.firstName }}</h4><br>
+                            <div class="flex-table">
+        
+                                <!--Table header-->
+                                <div class="flex-table-header" data-filter-hide="">
+                                    <span>Nom</span>
+                                    <span>Prenom</span>
+                                    <span>Date de naissance</span>
+                                    <!-- <span class="cell-end">Actions</span> -->
+                                </div>
+                    
+                                <div class="flex-list-inner">
+                                    <!--Table item-->
+                                    <div class="flex-table-item" *ngFor="let beneficiary of beneficiaries">
+                                        <div class="flex-table-cell" data-th="Location">
+                                            <span class="light-text" data-filter-match="">{{ beneficiary.lastName }}</span>
+                                        </div>
+                                        <div class="flex-table-cell" data-th="Location">
+                                            <span class="light-text" data-filter-match="">{{ beneficiary.firstName }}</span>
+                                        </div>
+                                        <div class="flex-table-cell" data-th="Location">
+                                            <span class="light-text" data-filter-match="">{{ beneficiary.birthDate }}</span>
+                                        </div>
+           
                                     </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Prenom
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.firstName }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Numéro de Tel.
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.phoneNumber }}</span>
-                                    </div>
-                                </div>
-                            </div>
+                    
+                            </div> 
 
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Numéro de Tel. WhatSapp
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.whatsAppNumber }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                         
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Email
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.email }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Date de naissance
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.birthDate }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Ville
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.city }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Pays
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.country }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Type de pièce
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.pieceType.label }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Id de la pierce
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.pieceId }}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Boite postale
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ beneficiary.postalBox }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                           
                         </div>
 
 
@@ -610,7 +519,18 @@
                     <!--Results-->
                     <div class="column is-8">
                         <div class="flex-table">
-
+                            
+                            <!-- <div class="filter-box">
+                                <h4 class="dark-inverted">Liste des filleuls de {{ user.firstName }}</h4>
+                            </div> -->
+                            <div class="flex-list-inner">
+                                <div class="flex-table-item">                                
+                                    <div class="flex-table-cell" data-th="Email">
+                                        <span class="is-grow" data-filter-match="">Liste des filleuls de {{ user.firstName }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <!--Table header-->
                             <div class="flex-table-header" data-filter-hide="">
                                 <span class="is-grow">Id</span>
@@ -619,7 +539,7 @@
                                 <span>Numéro tél</span>
                                 <span>Email</span>
                                 <span>Ville</span>
-                                <!-- <span class="cell-end">Actions</span> -->
+                                <span class="cell-end">Actions</span>
                             </div>
                 
                             <div class="flex-list-inner">
@@ -648,12 +568,9 @@
                                     <div class="flex-table-cell" data-th="Email">
                                         <span class="light-text" data-filter-match="">{{ user.city }}</span>
                                     </div>
-                                    <!-- <div class="flex-table-cell cell-end" data-th="Actions">
-                                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <a _ngcontent-nct-c62="" [ngClass]="disabledUserAction" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                                        </div>
-                                    </div> -->
-                                </div>
+                                    <div class="flex-table-cell cell-end" data-th="Actions">
+                                        <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']" [queryParams]="{id: user.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                     </div>
                             </div>
                 
                         </div> 

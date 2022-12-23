@@ -38,8 +38,8 @@
             <div class="flex-table-header" data-filter-hide="">
                 <!-- <span class="is-grow">Id</span> -->
                 <span>Appelation</span>
-                <span>zone(s)</span>
                 <span>Reference</span>
+                <span>zone(s)</span>
                 <span>club(s)</span>
                 <span>membre(s)</span>
                 <span>Appelation</span>
@@ -61,11 +61,11 @@
                         <span class="light-text" data-filter-match="">{{ center?.name }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
-                        <span class="light-text" data-filter-match="">{{ center.areas.length }}</span>
-                        <a (click)="onAddArea(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <span class="light-text" data-filter-match="">{{ center?.reference }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
-                        <span class="light-text" data-filter-match="">{{ center?.reference }}</span>
+                        <span class="light-text" data-filter-match="">{{ center.areas.length }}</span>
+                        <a (click)="onAddArea(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ center?.clubs?.length}}</span>

@@ -23,9 +23,9 @@ export class ClubComponent implements OnInit {
   addClubForm!: FormGroup;
   addMemberForm! : FormGroup;
   updateClubForm!: FormGroup;
-  members: User[] =[];
+  members: any;
   clubs: Organism[] = [];
-  areas: Organism[] = [];
+  areas: any;
   createDate: string = "";
   club: Organism;
   idMember: number = 0;
@@ -236,7 +236,7 @@ export class ClubComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      this.members = res.data
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
     })
   }
 
@@ -247,7 +247,7 @@ export class ClubComponent implements OnInit {
 
    getAllAreas(){
     this.areaService.findAllAreas().subscribe((res)=>{
-      this.areas = res.data;
+      this.areas = res.data.map((area:any)=>({value: area.id, label:area.name}));
     })
   }
 

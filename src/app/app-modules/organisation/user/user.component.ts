@@ -2,11 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Beneficiary } from 'src/app/core/classes/beneficiary';
 import { Civility } from 'src/app/core/classes/civility';
+import { Country } from 'src/app/core/classes/country';
 import { FamilySituation } from 'src/app/core/classes/familySituation';
 import { PieceType } from 'src/app/core/classes/pieceType';
 import { Status } from 'src/app/core/classes/status';
 import { User } from 'src/app/core/classes/user';
 import { CivilityService } from 'src/app/core/services/civility/civility.service';
+import { CountryService } from 'src/app/core/services/country/country.service';
 import { FamilySituationService } from 'src/app/core/services/family-situation/family-situation.service';
 import { StatusService } from 'src/app/core/services/organisation/status/status.service';
 import { PieceTypeService } from 'src/app/core/services/piece-type/piece-type.service';
@@ -30,7 +32,7 @@ export class UserComponent implements OnInit {
   ngSelectTypePiece1 = 0;
   ngSelectTypePiece2 = 0;
   ngSelectStatus = 0;
-  openAddModal: string = "";
+  openBeneficiaryModal: string = "";
   openUpdateModal: string = "";
   openSponsoreModal: string = "";
   addUserForm!: FormGroup;
@@ -62,6 +64,8 @@ export class UserComponent implements OnInit {
   cyvilities: Civility[] = [];
   familySitautions: FamilySituation[] = [];
   status: Status[] = [];
+  userOfSelect: any;
+  countries: any;
   openStatusModal: string = "";
 
    @Input() isAdmin!: boolean
@@ -75,7 +79,8 @@ export class UserComponent implements OnInit {
     private pieceTypeService: PieceTypeService,
     private civilityService: CivilityService,
     private familySituationService: FamilySituationService,
-    private statusService: StatusService) { 
+    private statusService: StatusService,
+    private countryService: CountryService) { 
     this.users = [];
     this.user = new User();
   }
@@ -90,6 +95,7 @@ export class UserComponent implements OnInit {
     this.getAllcivilities();
     this.getAllFamilySituation();
     this.getAllStatus();
+    this.getAllCountries();
   }
 
   
@@ -121,6 +127,7 @@ export class UserComponent implements OnInit {
       idCivility: new FormControl(null, Validators.required),
       idFamilySituation: new FormControl(null, Validators.required),
       idPieceType: new FormControl(null, Validators.required),
+      idCountry: new FormControl(null, Validators.required),
     })
 
     this.updateUserForm = this.formBuilder.group({
@@ -205,19 +212,18 @@ export class UserComponent implements OnInit {
 
    if(formValue.userType == "USER"){
     if(this.isSelectMember){
-      this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+      this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
     }else{
-      this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+      this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
     }
     if(formValue.userType == "ADMIN"){
-      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
     }
    }else if(formValue.userType == "OPERATOR"){
-    this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation)
+    this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
    }
 
    this.addUserForm.reset();
-   this.beneficiaryForm.reset();
   }
 
   onSubmitUpdateUser(){
@@ -300,92 +306,104 @@ export class UserComponent implements OnInit {
     this.openUpdateModal = ""
   }
 
-  closeUserModal(){
-    this.openAddModal = ""
+  onOpenBeneficiaryModal(id: number){
+    this.openBeneficiaryModal = "is-active"
+    this.idUser = id;
+  }
+
+  closeBeneficiaryModal(){
+    this.openBeneficiaryModal = ""
   }
 
   getAllUsers(){
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
-      console.log("users::", result);
-      
+      this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
     })
   }
 
-  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
-    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe(()=>{
+  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+    this.isSaving = true;
+    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+      this.isSaving = false;
       this.getAllUsers();
-      this.closeUserModal();
       this.utilityService.showMessage(
         'success',
-        'Admin successfully created',
+        'Admin crée avec succès !',
         '#06d6a0',
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite !',
+            '#e62965',
+            'white'
+          );
+    })
+  }
+
+  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+    this.isSaving = true;
+    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe(()=>{
+      this.isSaving = false;
+      this.getAllUsers();
+      this.utilityService.showMessage(
+        'success',
+        'Membre crée avec succès !',
+        '#06d6a0',
+        'white'
+      );
+    },()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
     })
   }
 
-  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
-    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe(()=>{
-      console.log("user::", member);
-      
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+    this.isSaving = true;
+    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+      this.isSaving = false;
       this.getAllUsers();
-      this.closeUserModal();
       this.utilityService.showMessage(
         'success',
-        'Member successfully created',
+        'Mutualiste crée avec succès !',
         '#06d6a0',
         'white'
       );
-    }, (error)=>{
+    }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
     })
   }
 
-  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
-    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe((res)=>{
+  createOperator(operator: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+    this.isSaving = true;
+    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+      this.isSaving = false;
       this.getAllUsers();
-      this.closeUserModal();
-      // this.utilityService.showMessage(
-      //   'success',
-      //   'Mutualist successfully created',
-      //   '#06d6a0',
-      //   'white'
-      // );
-      console.log("resNewUser::", res);
-      console.log("resNewUser2::", res.data.id);
-      
-      this.idUser = res.data.id
-      this.onAddFiciary()
-    })
-  }
-
-  createOperator(operator: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number){
-    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idFamilySituation).subscribe(()=>{
-      this.getAllUsers();
-      this.closeUserModal();
       this.utilityService.showMessage(
         'success',
-        'Operator successfully created',
+        'Operator crée avec succès !',
         '#06d6a0',
         'white'
       );
-    }, (error)=>{
+    }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -484,7 +502,6 @@ export class UserComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      console.log("resMembre::", res);
       this.membersArray = res.data.map((member:any)=>({value:member.id, label:member.firstName}));
     })
   }
@@ -493,30 +510,33 @@ export class UserComponent implements OnInit {
     this.openSponsoreModal = "";
   }
 
-  onAddSponsore(){
-    const formValue = this.addSponsoreForm.value;
-    this.addSponsore(this.idUser, formValue.id);
-  }
+  // onAddSponsore(){
+  //   const formValue = this.addSponsoreForm.value;
+  //   this.addSponsore(this.idUser, formValue.id);
+  // }
 
-  addSponsore(idUser: number, idToAdd: number){
-    this.userService.addSponsoredMember(idUser, idToAdd).subscribe(()=>{
-      this.getAllUsers();
-      this.closeSponsoreModal();
-      this.utilityService.showMessage(
-        'success',
-        'Member successfully added',
-        '#06d6a0',
-        'white'
-      );
-    }, ()=>{
-      this.utilityService.showMessage(
-        'warning',
-        'An error has occurred',
-        '#e62965',
-        'white'
-      );
-    })
-  }
+  // addSponsore(idUser: number, idToAdd: number){
+  //   this.isSaving = true;
+  //   this.userService.addSponsoredMember(idUser, idToAdd).subscribe(()=>{
+  //     this.isSaving = false;
+  //     this.getAllUsers();
+  //     this.closeSponsoreModal();
+  //     this.utilityService.showMessage(
+  //       'success',
+  //       'Member successfully added',
+  //       '#06d6a0',
+  //       'white'
+  //     );
+  //   }, ()=>{
+  //     this.isSaving = false;
+  //     this.utilityService.showMessage(
+  //       'warning',
+  //       'An error has occurred',
+  //       '#e62965',
+  //       'white'
+  //     );
+  //   })
+  // }
 
   onSelectCreateDate(event: any){
 
@@ -541,20 +561,26 @@ export class UserComponent implements OnInit {
     this.beneficiary.postalBox = formValue.postalBox
     this.beneficiary.birthDate = formValue.birthDate
     this.createBeneficiary(this.idUser, formValue.idPieceType, this.beneficiary)
+    this.beneficiaryForm.reset();
   }
 
   createBeneficiary(idUser: number, idPieceType: number, beneficiary: Beneficiary){
+    this.isSaving = true;
     this.userService.addBeneficiary(idUser, idPieceType, beneficiary).subscribe(()=>{
+      this.isSaving = false;
+      this.getAllUsers();
+      this.closeBeneficiaryModal()
       this.utilityService.showMessage(
         'success',
-        'mutualiste create successfully created',
+        'L\'ayant droit a été crée avec succès !',
         '#06d6a0',
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -562,7 +588,6 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUser(event: any){
-    console.log("select:User::", event);
     if(event == "ADMIN" || event == "OPERATOR" || event == "1"){
       this.isAdminAndOperator = true
       this.isUser = false;
@@ -639,4 +664,11 @@ export class UserComponent implements OnInit {
   closeStatusModal(){
     this.openStatusModal = "";
   }
+
+  getAllCountries(){
+    this.countryService.findAllCountries().subscribe((res)=>{
+      this.countries = res.data.map((country:any)=>({value:country.id, label: country.name}));
+    })
+  }
+
 }

@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 export class ProductionManagerComponent implements OnInit {
   ngSelect = 0;
   clubMembers: User[] = [];
-  members: User[] = [];
+  members: any;
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -103,7 +103,7 @@ export class ProductionManagerComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      this.members = res.data;
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
     })
   }
 

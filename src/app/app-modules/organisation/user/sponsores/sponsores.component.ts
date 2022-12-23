@@ -17,6 +17,7 @@ export class SponsoresComponent implements OnInit {
   user: User = new User();
   sponsores: User[] = [];
   beneficiary: Beneficiary = new Beneficiary();
+  beneficiaries: Beneficiary[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
     private userService: UserService) { }
@@ -44,7 +45,7 @@ export class SponsoresComponent implements OnInit {
       this.userService.getMemberById(params['id']).subscribe((res)=>{
         this.user = res.data;
         this.sponsores = res.data.sponsoredUsers;
-        this.beneficiary = this.user.beneficiaries[0];
+        this.beneficiaries = this.user.beneficiaries;
         console.log("sponsore::", this.user);
       });
     })

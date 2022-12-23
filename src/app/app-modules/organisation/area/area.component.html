@@ -59,12 +59,13 @@
                         <span class="light-text" data-filter-match="">{{ area.name }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area.reference }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
                         <a (click)="onAddClub(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
-                        <span class="light-text" data-filter-match="">{{ area.reference }}</span>
-                    </div>
+                   
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area?.members?.length }}</span>
                     </div>

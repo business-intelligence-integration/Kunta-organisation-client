@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span (click) = "onOpenAddUser()">Créer responsable de Production</span>
+            <span (click) = "onOpenAddUser()">Ajouter le responsable de Production</span>
         </button>
     </div>
 </div>
@@ -138,11 +138,26 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
-                        <label>membres *</label>
+                        <!-- <label>membres *</label>
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un membre--</option>
                             <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
-                        </select><br><br>
+                        </select><br><br> -->
+
+                        <div class="field">
+                            <label>Membres *</label><br>
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="members"
+                                    id="member"
+                                    formControlName="id"
+                                    placeholder="--Selectionnez un membre--">
+                            </select2>
+                            <div class="text-danger"
+                            *ngIf="addMemberForm.get('id')?.errors?.['required'] && addMemberForm.get('id')?.touched">
+                            <small class="text-police" translate>Selectionnez un membre</small>
+                            </div>
+                        </div><br>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
                         </div>

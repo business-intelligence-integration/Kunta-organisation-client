@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
+import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -15,8 +17,10 @@ import Swal from 'sweetalert2';
 })
 export class MembersGeneralAssemblyComponent implements OnInit {
   ngSelect = 0;
+  ngSelect2 = 0;
   clubMembers: User[] = [];
-  members: User[] = [];
+  members: any;
+  posts: Post[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -24,12 +28,14 @@ export class MembersGeneralAssemblyComponent implements OnInit {
   centers: Organism[] = [];
   users: User[] = [];
   center: Organism;
+  isSaving: boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private centerService: CenterService,
     private userService: UserService,
-    private utilityService: UtilityService) {
+    private utilityService: UtilityService,
+    private fonctionService: FonctionService) {
       this.user = new User();
       this.center = new Organism();
      }
@@ -39,11 +45,13 @@ export class MembersGeneralAssemblyComponent implements OnInit {
     // this.getAllMainOffice();
     this.getAllMembers();
     this.getCenter();
+    this.getAllFonction();
   }
 
   formInit() {
     this.addMemberForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
+      idFonction: new FormControl(null, Validators.required),
     })
 
   }
@@ -57,10 +65,9 @@ export class MembersGeneralAssemblyComponent implements OnInit {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
         this.center = res;
         this.idCenter = res.data.id;
-        console.log("res::", res);
-        console.log("res::", res.data.membersGeneralAssembly);
+        console.log('membersGeneralAssembly::', res.data.membersGeneralAssembly);
+        
         this.users = res.data.membersGeneralAssembly;
-        console.log("res::",  this.user);
       });
     })
   }
@@ -71,11 +78,13 @@ export class MembersGeneralAssemblyComponent implements OnInit {
 
   onAddMember(){
     const formValue = this.addMemberForm.value;
-    this.addMemberToCenter(this.idCenter, formValue.id);
+    this.addMemberToCenter(this.idCenter, formValue.id, formValue.idFonction);
   }
 
-  addMemberToCenter(idCenter: number, idMember: number){
-    this.centerService.addToMembersGeneralAssembly(idCenter, idMember).subscribe(()=>{
+  addMemberToCenter(idCenter: number, idMember: number, idFonction: number){
+    this.isSaving = true;
+    this.centerService.addToMembersGeneralAssembly(idCenter, idMember, idFonction).subscribe(()=>{
+    this.isSaving = false;
       this.getCenter();
       this.closeMemberModal();
       this.utilityService.showMessage(
@@ -85,6 +94,7 @@ export class MembersGeneralAssemblyComponent implements OnInit {
         'white'
       );
     }, ()=>{
+    this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -96,7 +106,7 @@ export class MembersGeneralAssemblyComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      this.members = res.data;
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
     })
   }
 
@@ -155,6 +165,11 @@ export class MembersGeneralAssemblyComponent implements OnInit {
       });
   }
 
+  getAllFonction(){
+    this.fonctionService.findAllPosts().subscribe((res)=>{
+      this.posts = res.data
+    })
+  }
 
 
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -33,7 +35,7 @@ export class CentersComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private centerService: CenterService,
     private areaService: AreaService,
-    private utilityService: UtilityService,) { 
+    private utilityService: UtilityService) { 
       this.center = new Organism();
       this.area = new Organism();
     }
@@ -42,6 +44,7 @@ export class CentersComponent implements OnInit {
     this.getAllCenters();
     this.formInit();
     this.getAllArea();
+   
   }
 
   formInit() {
@@ -266,4 +269,5 @@ export class CentersComponent implements OnInit {
 
   }
 
+  
 }

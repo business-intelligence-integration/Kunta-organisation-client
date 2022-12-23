@@ -38,13 +38,13 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <span class="is-grow">Id</span>
                 <span>Nom</span>
                 <span>Prenom</span>
                 <span>Numéro tél</span>
                 <span>Email</span>
                 <!-- <span>Ville</span> -->
                 <span>Filleuls</span>
+                <span>Ayants droit</span>
                 <span>Status</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -52,14 +52,6 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let user of users">
-                    <div class="flex-table-cell is-media is-grow">
-                        <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ user.id }}</span>
-                            <span class="item-meta">
-                              <span data-filter-match="">{{ user.lastName }}</span>
-                            </span>
-                        </div>
-                    </div>
                     <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ user.lastName }}</span>
                     </div>
@@ -79,6 +71,12 @@
                         <span class="light-text" data-filter-match="">{{ user.sponsoredUsers.length }}</span>
                         <!-- <a (click)="onOpenAddSponsore(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a> -->
                     </div>
+
+                    <div class="flex-table-cell" data-th="Filleuls">
+                        <span class="light-text" data-filter-match="">{{ user.beneficiaries.length }}</span>
+                        <a (click)="onOpenBeneficiaryModal(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                    </div>
+
                     <div class="flex-table-cell" data-th="Location">
                         <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': user?.status?.label === 'SUSPENDU', 'is-success': user?.status?.label === 'NORMAL'}">{{ user?.status?.label }}</span>
                         <a _ngcontent-nct-c62="" *ngIf="adminIsConnected" (click)="onUpdateUserStatus(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
@@ -135,7 +133,7 @@
                             </span>
                             <button (click)="cancelCreatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Annuler</button>
                             <!-- <button (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised">Enregistrer</button> -->
-                            <button [disabled]="addUserForm.invalid || beneficiaryForm.invalid" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised">Enregistrer</button>
+                            <button [disabled]="addUserForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised">Enregistrer</button>
                         </div>
                     </div>
                 </div>
@@ -194,7 +192,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="isAdminAndOperator || isUser">
-                                    <div class="field">
+                                    <!-- <div class="field">
                                         <div class="mb-2">
                                             <label>Parain *</label><br>
                                             <select class="input_comp" formControlName="idSponsor" aria-label="Default select example"  [(ngModel)]="ngSelectUser">
@@ -204,6 +202,39 @@
                                             <div class="text-danger"
                                             *ngIf="addUserForm.get('idSponsor')?.errors?.['required'] && addUserForm.get('idSponsor')?.touched">
                                             <small class="text-police" translate>veuillez selectioner un parain</small>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="field">
+                                        <div>
+                                            <label>Parain *</label><br>
+                                            <!-- <select class="input_comp" formControlName="idCountry" aria-label="Default select example"  [(ngModel)]="ngSelectFamilySituation">
+                                                <option value="0" disabled>--selectionner le pays de résidence--</option>
+                                                <option *ngFor="let country of countries" [value]="country.id" >{{ country.name }}</option>
+                                            </select> -->
+                                            <select2
+                                                    class="w-100 color-border"
+                                                    [data]="userOfSelect"
+                                                    id="user"
+                                                    formControlName="idSponsor"
+                                                    placeholder="--selectionner le pays de résidence--">
+                                            </select2>
+                                            <div class="text-danger"
+                                            *ngIf="addUserForm.get('idSponsor')?.errors?.['required'] && addUserForm.get('idSponsor')?.touched">
+                                            <small class="text-police" translate>--Selectioner un parain--</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div>
+                                            <label> Civilité*</label><br>
+                                            <select class="input_comp" formControlName="idCivility" aria-label="Default select example"  [(ngModel)]="ngSelectCivility">
+                                                <option value="0" disabled>--selectionner une  Civilité--</option>
+                                                <option *ngFor="let cyvility of cyvilities" [value]="cyvility.id" >{{ cyvility.label }}</option>
+                                            </select>
+                                            <div class="text-danger"
+                                            *ngIf="addUserForm.get('idCivility')?.errors?.['required'] && addUserForm.get('idCivility')?.touched">
+                                            <small class="text-police" translate>selectionner la civilité</small>
                                             </div>
                                         </div>
                                     </div>
@@ -345,22 +376,29 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="column is-12">
+                                      
+                                        <div class="column is-6">
                                             <div class="field">
                                                 <div>
-                                                    <label> Civilité*</label><br>
-                                                    <select class="input_comp" formControlName="idCivility" aria-label="Default select example"  [(ngModel)]="ngSelectCivility">
-                                                        <option value="0" disabled>--selectionner une  Civilité--</option>
-                                                        <option *ngFor="let cyvility of cyvilities" [value]="cyvility.id" >{{ cyvility.label }}</option>
-                                                    </select>
+                                                    <label>Pays de résidence*</label><br>
+                                                    <!-- <select class="input_comp" formControlName="idCountry" aria-label="Default select example"  [(ngModel)]="ngSelectFamilySituation">
+                                                        <option value="0" disabled>--selectionner le pays de résidence--</option>
+                                                        <option *ngFor="let country of countries" [value]="country.id" >{{ country.name }}</option>
+                                                    </select> -->
+                                                    <select2
+                                                            class="w-100 color-border"
+                                                            [data]="countries"
+                                                            id="country"
+                                                            formControlName="idCountry"
+                                                            placeholder="--selectionner le pays de résidence--">
+                                                    </select2>
                                                     <div class="text-danger"
-                                                    *ngIf="addUserForm.get('idCivility')?.errors?.['required'] && addUserForm.get('idCivility')?.touched">
-                                                    <small class="text-police" translate>selectionner la civilité</small>
+                                                    *ngIf="addUserForm.get('idCountry')?.errors?.['required'] && addUserForm.get('idCountry')?.touched">
+                                                    <small class="text-police" translate>veuillez selectionner le pays de résidence</small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-            
                                         <div class="column is-6">
                                             <div class="field">
                                                 <label>Ville</label>
@@ -373,17 +411,6 @@
                                                     *ngIf="addUserForm.get('city')?.errors?.['required'] && addUserForm.get('city')?.touched">
                                                     <small class="text-police" translate>veuiller entre la ville</small>
                                                  </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="column is-6">
-                                            <div class="field">
-                                                <label>Pays de résidence</label>
-                                                <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Pays de résidence">
-                                                    <div class="form-icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -465,7 +492,7 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Pièce d'identité *</label>
+                                                <label>Numéro de pièce*</label>
                                                 <div class="control">
                                                     <input type="text" class="input" placeholder="pièce d'identité" formControlName="pieceId">
                                                 </div>
@@ -561,179 +588,12 @@
         
                         </div>
     
-                        <div class="border-style" *ngIf="isAdminAndOperator || isUser">
+                        <!-- <div class="border-style" *ngIf="isAdminAndOperator || isUser">
                             <div class="fieldset-heading">
                                 <h4>Informations de l'ayant droit</h4>
                             </div>
-                            <form class="modal-form" [formGroup]="beneficiaryForm" (ngSubmit)="onAddFiciary()">
-                                <div class="columns is-multiline">
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Nom</label>
-                                            <div class="control has-icon">
-                                                <input type="text" class="input" placeholder="LastName" formControlName="lastName">
-                                                <div class="form-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                                </div>
-                                                <div class="text-danger"
-                                                    *ngIf="beneficiaryForm.get('lastName')?.errors?.['required'] && beneficiaryForm.get('lastName')?.touched">
-                                                    <small class="text-police">veuillez entrer le nom de l'ayant droit</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Prenom</label>
-                                            <div class="control has-icon">
-                                                <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
-                                                <div class="form-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                                </div>
-                                                <div class="text-danger"
-                                                    *ngIf="beneficiaryForm.get('firstName')?.errors?.['required'] && beneficiaryForm.get('firstName')?.touched">
-                                                    <small class="text-police">veuillez entrer le prénom de l'ayant droit</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Numéro de Tel. *</label>
-                                            <div class="control has-icon">
-                                                <input type="number" class="input" placeholder="Phone Number"
-                                                formControlName="phoneNumber">
-                                                <div class="text-danger"
-                                                    *ngIf="beneficiaryForm.get('phoneNumber')?.errors?.['required'] && beneficiaryForm.get('phoneNumber')?.touched">
-                                                    <small class="text-police" translate>Veuillez entrer le numéro de téléphone de l'ayant droit</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Numéro WhatsApp *</label>
-                                            <div class="control has-icon">
-                                                <input type="text" class="input" placeholder="numéro whatsapp"
-                                                formControlName="whatsAppNumber">
-                                                <div class="text-danger"
-                                                    *ngIf="beneficiaryForm.get('whatsAppNumber')?.errors?.['required'] && beneficiaryForm.get('whatsAppNumber')?.touched">
-                                                    <small class="text-police" translate>Veuillez entrer le numéro de téléphone whatsapp de l'ayant droit</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-                                    <div class="column is-12">
-                                        <div class="field">
-                                            <label>Adresse Mail</label>
-                                            <div class="control has-icon">
-                                                <input type="email" class="input" placeholder="Email Address" formControlName="email">
-                                                <div class="form-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                </div>
-                                                <div class="text-danger"
-                                                *ngIf="beneficiaryForm.get('email')?.errors?.['required'] && beneficiaryForm.get('email')?.touched">
-                                                <small class="text-police" translate>Veuillez entrer l'email de l'ayant droit</small>
-                                             </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Ville</label>
-                                            <div class="control has-icon">
-                                                <input type="email" class="input" placeholder="Ville" formControlName="city">
-                                                <!-- <div class="form-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                </div> -->
-                                                <div class="text-danger"
-                                                *ngIf="beneficiaryForm.get('city')?.errors?.['required'] && beneficiaryForm.get('city')?.touched">
-                                                <small class="text-police" translate>Veuillez entrer la ville de l'ayant droit</small>
-                                             </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Pays</label>
-                                            <div class="control has-icon">
-                                                <input type="email" class="input" placeholder="pays" formControlName="country">
-                                                <!-- <div class="form-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                </div> -->
-                                                <div class="text-danger"
-                                                *ngIf="beneficiaryForm.get('country')?.errors?.['required'] && beneficiaryForm.get('country')?.touched">
-                                                <small class="text-police" translate>Veuillez entrer le pays de l'ayant droit</small>
-                                             </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <div>
-                                                <label>Types de pièces *</label><br>
-                                                <select class="input_comp" formControlName="idPieceType" aria-label="Default select example"  [(ngModel)]="ngSelectTypePiece2">
-                                                    <option value="0" disabled>--selectionner un type de pièce--</option>
-                                                    <option *ngFor="let pieceType of pieceTypes" [value]="pieceType.id" >{{ pieceType.label }}</option>
-                                                </select>
-                                                <div class="text-danger"
-                                                *ngIf="beneficiaryForm.get('idPieceType')?.errors?.['required'] && beneficiaryForm.get('idPieceType')?.touched">
-                                                <small class="text-police" translate>selectionner un type de pièce</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Pièce d'identité *</label>
-                                            <div class="control">
-                                                <input type="text" class="input" placeholder="pièce d'identité" formControlName="pieceId">
-                                            </div>
-                                            <div class="text-danger"
-                                                *ngIf="beneficiaryForm.get('pieceId')?.errors?.['required'] && beneficiaryForm.get('pieceId')?.touched">
-                                                <small class="text-police" translate>veuiller entrer la pièce d'identité de l'ayant droit</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                  
-                                 
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Boite postale *</label>
-                                            <div class="control">
-                                                <input type="text" class="input" placeholder="boite postale"
-                                                    formControlName="postalBox">
-                                            </div>
-                                            <div class="text-danger"
-                                                *ngIf="beneficiaryForm.get('postalBox')?.errors?.['required'] && beneficiaryForm.get('postalBox')?.touched">
-                                                <small class="text-police" translate>veuiller entrer la boite postale de l'ayant droit</small>
-                                            </div>
-                                        </div>            
-                                    </div>
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Date de naissance *</label><br>
-                                            <div class="card-header-widget datepicker-style">
-                                                <div class="input-daterange input-group align-items-center">
-                                                    <input class="champ" formControlName="birthDate" type="date" id="DOB3" name="DOB" [(ngModel)]="birthDate" (input)="onSelectCreateDate($event.timeStamp)">
-                                                </div>
-                                           </div>
-                                           <div class="text-danger" *ngIf="beneficiaryForm.get('birthDate')?.errors?.['required'] && beneficiaryForm.get('birthDate')?.touched">
-                                             <small class="text-police" translate>veuillez selectionner la date de naissance de l'ayant droit</small>
-                                           </div>
-                                        </div>
-                                    </div>
-                               
-                                </div>
-                            </form>
-                        </div>
+                           
+                        </div> -->
                     </div>
                 </div>
 
@@ -1230,7 +1090,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="changeStatusForm" (ngSubmit)="onSubmitUpdateStatus()">
                        <div class="field">
-                            <div>
+                            <div> 
                                 <label>Status *</label><br>
                                 <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
                                     <option value="0" disabled>--selectionner un status--</option>
@@ -1241,7 +1101,7 @@
                                 <small class="text-police" translate>selectionner un status</small>
                                 </div>
                             </div>
-                        </div><br><br>
+                        </div><br>
                        
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Update</button>
@@ -1251,6 +1111,204 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeStatusModal()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addBeneficiaryToMember" class="modal h-modal" [ngClass]="openBeneficiaryModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajout d'un ayant droit</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeBeneficiaryModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="beneficiaryForm" (ngSubmit)="onAddFiciary()">
+                        <div class="columns is-multiline">
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Nom</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="beneficiaryForm.get('lastName')?.errors?.['required'] && beneficiaryForm.get('lastName')?.touched">
+                                            <small class="text-police">veuillez entrer le nom de l'ayant droit</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Prenom</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="beneficiaryForm.get('firstName')?.errors?.['required'] && beneficiaryForm.get('firstName')?.touched">
+                                            <small class="text-police">veuillez entrer le prénom de l'ayant droit</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Numéro de Tel. *</label>
+                                    <div class="control has-icon">
+                                        <input type="number" class="input" placeholder="Phone Number"
+                                        formControlName="phoneNumber">
+                                        <div class="text-danger"
+                                            *ngIf="beneficiaryForm.get('phoneNumber')?.errors?.['required'] && beneficiaryForm.get('phoneNumber')?.touched">
+                                            <small class="text-police" translate>Veuillez entrer le numéro de téléphone de l'ayant droit</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Numéro WhatsApp *</label>
+                                    <div class="control has-icon">
+                                        <input type="text" class="input" placeholder="numéro whatsapp"
+                                        formControlName="whatsAppNumber">
+                                        <div class="text-danger"
+                                            *ngIf="beneficiaryForm.get('whatsAppNumber')?.errors?.['required'] && beneficiaryForm.get('whatsAppNumber')?.touched">
+                                            <small class="text-police" translate>Veuillez entrer le numéro de téléphone whatsapp de l'ayant droit</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Adresse Mail</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" placeholder="Email Address" formControlName="email">
+                                        <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="beneficiaryForm.get('email')?.errors?.['required'] && beneficiaryForm.get('email')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer l'email de l'ayant droit</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Ville</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" placeholder="Ville" formControlName="city">
+                                        <!-- <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div> -->
+                                        <div class="text-danger"
+                                        *ngIf="beneficiaryForm.get('city')?.errors?.['required'] && beneficiaryForm.get('city')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer la ville de l'ayant droit</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Pays</label>
+                                    <div class="control has-icon">
+                                        <input type="email" class="input" placeholder="pays" formControlName="country">
+                                        <!-- <div class="form-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div> -->
+                                        <div class="text-danger"
+                                        *ngIf="beneficiaryForm.get('country')?.errors?.['required'] && beneficiaryForm.get('country')?.touched">
+                                        <small class="text-police" translate>Veuillez entrer le pays de l'ayant droit</small>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <div>
+                                        <label>Types de pièces *</label><br>
+                                        <select class="input_comp" formControlName="idPieceType" aria-label="Default select example"  [(ngModel)]="ngSelectTypePiece2">
+                                            <option value="0" disabled>--selectionner un type de pièce--</option>
+                                            <option *ngFor="let pieceType of pieceTypes" [value]="pieceType.id" >{{ pieceType.label }}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                        *ngIf="beneficiaryForm.get('idPieceType')?.errors?.['required'] && beneficiaryForm.get('idPieceType')?.touched">
+                                        <small class="text-police" translate>selectionner un type de pièce</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Pièce d'identité *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" placeholder="pièce d'identité" formControlName="pieceId">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="beneficiaryForm.get('pieceId')?.errors?.['required'] && beneficiaryForm.get('pieceId')?.touched">
+                                        <small class="text-police" translate>veuiller entrer la pièce d'identité de l'ayant droit</small>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                         
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Boite postale *</label>
+                                    <div class="control">
+                                        <input type="text" class="input" placeholder="boite postale"
+                                            formControlName="postalBox">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="beneficiaryForm.get('postalBox')?.errors?.['required'] && beneficiaryForm.get('postalBox')?.touched">
+                                        <small class="text-police" translate>veuiller entrer la boite postale de l'ayant droit</small>
+                                    </div>
+                                </div>            
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de naissance *</label><br>
+                                    <div class="card-header-widget datepicker-style">
+                                        <div class="input-daterange input-group align-items-center">
+                                            <input class="champ" formControlName="birthDate" type="date" id="DOB3" name="DOB" [(ngModel)]="birthDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                        </div>
+                                   </div>
+                                   <div class="text-danger" *ngIf="beneficiaryForm.get('birthDate')?.errors?.['required'] && beneficiaryForm.get('birthDate')?.touched">
+                                     <small class="text-police" translate>veuillez selectionner la date de naissance de l'ayant droit</small>
+                                   </div>
+                                </div>
+                            </div>
+                       
+                        </div>
+
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="beneficiaryForm.invalid || isSaving" >Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeBeneficiaryModal()">Cancel</a>
             </div>
         </div>
     </div>

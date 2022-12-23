@@ -49,24 +49,23 @@ export class MainOfficeService {
     return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-center/${idCenter}`, {}, httpOptions);
   }
 
-  addMemeberToCGA(idMainOffice: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-centers-general-assembly/${idMember}`, {}, httpOptions);
+  addMemeberToCGA(idMainOffice: number, idMember: number, idPost: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-centers-general-assembly/post/${idPost}/user/${idMember}`, {}, httpOptions);
   }
 
-  addMemberToExecutiveBoard(idMainOffice: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-executive-board/${idMember}`, {}, httpOptions);
+  addMemberToExecutiveBoard(idMainOffice: number, idMember: number, idFonction: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-executive-board/post/${idFonction}/user/${idMember}`, {}, httpOptions);
+  }
+  addMemberToGcc(idMainOffice: number, idMember: number, idPost: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-governance-and-compensation-committee/post/${idPost}/user/${idMember}`, {}, httpOptions);
   }
 
-  addMemberToGcc(idMainOffice: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-governance-and-compensation-committee/${idMember}`, {}, httpOptions);
+  addMemberToPmc(idMainOffice: number, idMember: number, idPost: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-production-and-monitoring-committee/post/${idPost}/user/${idMember}`, {}, httpOptions);
   }
 
-  addMemberToPmc(idMainOffice: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-production-and-monitoring-committee/${idMember}`, {}, httpOptions);
-  }
-
-  addMemberToSdc(idMainOffice: number, idMember: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-strategic-development-committee/${idMember}`, {}, httpOptions);
+  addMemberToSdc(idMainOffice: number, idMember: number, idPost: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/add-to-strategic-development-committee/post/${idPost}/user/${idMember}`, {}, httpOptions);
   }
 
   removeFromCGA(idMainOffice: number, idMember: number):Observable<any>{

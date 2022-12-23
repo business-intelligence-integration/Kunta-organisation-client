@@ -37,7 +37,9 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
                 <span>Appelation</span>
-              
+                <span>Reference</span>
+                <span>Observation</span>
+                <span>Appelation</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -54,6 +56,12 @@
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ center.name }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ center.reference }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ center.observation }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

@@ -280,6 +280,9 @@
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
                             <span>Appelation</span>
+                            <span>Reference</span>
+                            <span>Observation</span>
+                            <span>Club(s)</span>
                             <span class="cell-end">Actions</span>
                         </div>
 
@@ -297,7 +300,15 @@
                                 <div class="flex-table-cell" data-th="Location">
                                     <span class="light-text" data-filter-match="">{{ area.name }}</span>
                                 </div>
-
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ area.reference }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ area.observation }}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Location">
+                                    <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
+                                </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                         <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>

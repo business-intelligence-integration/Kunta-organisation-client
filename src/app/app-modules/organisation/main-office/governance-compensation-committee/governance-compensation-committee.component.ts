@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
+import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
-import { ClubService } from 'src/app/core/services/clubs/club.service';
+import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -19,20 +20,23 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
   ngSelect = 0;
   ngSelect2 = 0;
   clubMembers: User[] = [];
-  members: User[] = [];
+  members: any;
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
   idMainOffice: number = 0;
   mainOffices: Organism[] = [];
   users: User[] = [];
+  posts: Post[] = [];
   mainOffice: Organism;
+  isSaving: boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private mainOfficeService: MainOfficeService,
     private userService: UserService,
-    private utilityService: UtilityService) {
+    private utilityService: UtilityService,
+    private fonctionService: FonctionService) {
       this.user = new User();
       this.mainOffice = new Organism();
      }
@@ -41,11 +45,13 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
     this.formInit();
     this.getAllMainOffice();
     this.getAllMembers();
+    this.getAllFonction();
   }
 
   formInit() {
     this.addMemberForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
+      idFonction: new FormControl(null, Validators.required),
     })
 
   }
@@ -60,7 +66,6 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
       this.mainOffices =  res.data;
       this.idMainOffice = res.data[0].id;
       this.users = res.data[0].governanceAndCompensationCommittee;
-      console.log("Main::", res.data[0]);
       
     })
   }
@@ -71,11 +76,13 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
 
   onAddMember(){
     const formValue = this.addMemberForm.value;
-    this.addMemberToaddToGcc(this.idMainOffice, formValue.id);
+    this.addMemberToaddToGcc(this.idMainOffice, formValue.id, formValue.idFonction);
   }
 
-  addMemberToaddToGcc(idMainOffice: number, idMember: number){
-    this.mainOfficeService.addMemberToGcc(idMainOffice, idMember).subscribe(()=>{
+  addMemberToaddToGcc(idMainOffice: number, idMember: number, idFonction: number){
+    this.isSaving = true;
+    this.mainOfficeService.addMemberToGcc(idMainOffice, idMember, idFonction).subscribe(()=>{
+      this.isSaving = false;
       this.getAllMainOffice();
       this.closeMemberModal();
       this.utilityService.showMessage(
@@ -85,6 +92,7 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -96,8 +104,7 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      console.log("res::", res);
-      this.members = res.data;
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
     })
   }
 
@@ -156,4 +163,9 @@ export class GovernanceCompensationCommitteeComponent implements OnInit {
       });
   }
 
+  getAllFonction(){
+    this.fonctionService.findAllPosts().subscribe((res)=>{
+      this.posts = res.data
+    })
+  }
 }
