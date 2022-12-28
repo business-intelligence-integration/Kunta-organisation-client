@@ -12,6 +12,7 @@ import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 export class ViewDetailsTontineComponent implements OnInit {
 
   operation: Operation = new Operation();
+  tontine: Tontine = new Tontine();
   constructor(private activatedRoute: ActivatedRoute, private tontineService: TontineService) { }
 
   ngOnInit(): void {
@@ -21,7 +22,7 @@ export class ViewDetailsTontineComponent implements OnInit {
   getTotine(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['id']).subscribe((res)=>{
-        this.operation = res.data
+        this.tontine = res.data
       });
     })
   }

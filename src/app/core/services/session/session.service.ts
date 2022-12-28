@@ -35,8 +35,8 @@ export class SessionService {
     return this.httpClient.put<any>(this.baseUrl + 'sessions/'+ id, session, httpOptions);
   }
 
-  createPaymentForSession(payment: Payment, idSession: number, idUser: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'sessions/' + idSession + '/payment/user/' + idUser + "?token=" + this.utilityService.loadToken(), payment);
+  createPaymentForSession(payment: Payment, idSession: number, idUser: number, idPaymentMethod: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'sessions/' + idSession + '/payment/user/' + idUser + '/payment-method/' + idPaymentMethod + "?token=" + this.utilityService.loadToken(), payment);
   } 
 
   createPenaltyForSession(penalty: Penality, idSession: number, idPenaltyType: number, idUser: number):Observable<any>{
@@ -61,5 +61,9 @@ export class SessionService {
 
   findAllUserPaymentStateBySession(idSession: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-states' + '?token=' + this.utilityService.loadToken());
+  }
+ 
+  findPenaltiesOfASession(idSession: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-penalties' + '?token=' + this.utilityService.loadToken());
   }
 }

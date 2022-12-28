@@ -102,6 +102,7 @@ export class TontineComponent implements OnInit {
       idTransv: new FormControl(null, Validators.required),
       idGain: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+      observation: new FormControl(null, Validators.required),
     })
 
 
@@ -130,7 +131,9 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      this.operations = res.data;
+      console.log("AllTontine::", res);
+      
+      this.tontines = res.data;
     })
   }
 
@@ -161,6 +164,7 @@ export class TontineComponent implements OnInit {
     this.tontine.peb =formValue.peb;
     this.tontine.name =formValue.name;
     this.tontine.durationInMonths = formValue.durationInMonths;
+    this.tontine.observation = formValue.observation;
    
     
     this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea, formValue.idGain)
@@ -458,20 +462,20 @@ export class TontineComponent implements OnInit {
     let startDate = new Date(formValue.startDate);
     let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
     this.cycleDto.startDate = startDateFormated;
-    console.log("cycle::", this.cycleDto);
     this.createCycle(this.idTontine,  this.cycleDto)
   }
 
   createCycle(idTontine: number, cycle: CycleDto){
     this.tontineService.createCycleForTontine(idTontine, cycle).subscribe((cycleDb)=>{
-      console.log("cycle2::", cycleDb);
       this.isSaving = false;
       this.closeCycleModal();
       this.getAllTontine();
+      console.log("cycleDb::", cycleDb);
+      
       if(cycleDb.data == null){
         this.utilityService.showMessage(
           'warning',
-          'This tontine doesn\'t have any members !',
+          'Cette tontine n\'a pas de membres !',
           '#e62965',
           'white'
         );
@@ -497,8 +501,9 @@ export class TontineComponent implements OnInit {
 
   onSetSatus(idStontine: number, idStatus: number, label: string){  
     this.tontineService.findTontineById(idStontine).subscribe((res)=>{
+
       if(label == "OUVERT"){
-        if(res.data.tontine.registeredMembers < 2){
+        if(res.data.registeredMembers < 2){
           this.utilityService.showMessage(
             'warning',
             'Cette tontine ne peut être fermée car elle doit contenir au moins 2 membres.',
@@ -513,7 +518,7 @@ export class TontineComponent implements OnInit {
           }
         }
       }else if(label == "FERMÉ"){
-        if(res.data.tontine.cycles.length > 0){
+        if(res.data.cycles.length > 0){
           this.utilityService.showMessage(
             'warning',
             'Vous ne pouvez plus ouvrir cette tontine car un cycle a déjà été créé..',
@@ -535,17 +540,17 @@ export class TontineComponent implements OnInit {
   setStatus(idStontine: number, idStatus: number){
     this.tontineService.setStatus(idStontine, idStatus).subscribe((res)=>{
       this.getAllTontine();
-      if(res.data.tontine.status.label == "FERMÉ"){
+      if(res.data.status.label == "FERMÉ"){
         this.utilityService.showMessage(
           'success',
-          'Tontine successfully closed',
+          'Fermeture réussie de la Tontine',
           '#06d6a0',
           'white'
         );
-      }else if(res.data.tontine.status.label == "OUVERT"){
+      }else if(res.data.status.label == "OUVERT"){
         this.utilityService.showMessage(
           'success',
-          'Tontine successfully opened',
+          'Ouverture réussie de la Tontine',
           '#06d6a0',
           'white'
         );

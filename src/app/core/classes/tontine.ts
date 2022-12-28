@@ -1,7 +1,9 @@
+import { Account } from "./account";
 import { Cycle } from "./cycle";
 import { Frequency } from "./frequency";
 import { Gain } from "./gain";
 import { Level } from "./level";
+import { Organism } from "./organism";
 import { Status } from "./status";
 
 export class Tontine{
@@ -16,6 +18,7 @@ export class Tontine{
   durationInMonths: number = 0;
   peb: number = 0;
   registeredMembers: number = 0;
+  observation: string = "";
   sessionsNumber: number = 0;
   status: Status = new Status();
   level: Level = new Level();
@@ -23,4 +26,6 @@ export class Tontine{
   tontineSessionFrequency: Frequency = new Frequency();
   cycles: Cycle[] = [];
   gainMode: Gain = new Gain();
+  clubOwner: Organism = new Organism();
+  account: Account = new Account();
 }

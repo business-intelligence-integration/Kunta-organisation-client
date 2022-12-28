@@ -1,4 +1,6 @@
+import { PaymentMethod } from "./paymentMethod";
 import { PaymentStatus } from "./PaymentStatus";
+import { User } from "./user";
 
 export class Payment{
     id: number = 0;
@@ -8,4 +10,6 @@ export class Payment{
     remainingToPay: number = 0;
     toBePaid: number = 0;
     paymentStatus: PaymentStatus = new PaymentStatus()
+    paymentMethod: PaymentMethod = new PaymentMethod();
+    user: User = new User();
 } 

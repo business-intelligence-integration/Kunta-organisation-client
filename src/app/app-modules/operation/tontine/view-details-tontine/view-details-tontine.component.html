@@ -14,14 +14,14 @@
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ operation.tontine.lotsToBeAwarded }}</span>
+                                        <span>{{ tontine.lotsToBeAwarded }}</span>
                                         <p>Lots à attribuer</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ operation.tontine.awardedLots }}</span>
+                                        <span>{{ tontine.awardedLots }}</span>
                                         <p>Lots attribués</p>
                                     </div>
                                 </div>
@@ -31,14 +31,14 @@
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
-                                        <span>{{ operation.tontine.registeredMembers }}</span>
+                                        <span>{{ tontine.registeredMembers }}</span>
                                         <p>Membres inscrits</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-leaf"></i>
-                                        <span>{{ operation.tontine.membersWithoutPenalties }}</span>
+                                        <span>{{ tontine.membersWithoutPenalties }}</span>
                                         <p>Membres sans pénalités</p>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ operation.tontine.collectedPenalties }}</span>
+                                        <span>{{ tontine.collectedPenalties }}</span>
                                         <p>Pénalités collectées</p>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ operation.tontine.sessionsNumber }}</span>
+                                        <span>{{ tontine.sessionsNumber }}</span>
                                         <p>Nombre de séances</p>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Club propriétaire de la tontine:</span><br>
-                                <p>{{ operation.owner.name }}</p>
+                                <p>{{ tontine.clubOwner.name }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -89,7 +89,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Niveau de transversalité:</span><br>
-                                <p>{{ operation.tontine.level.label }}</p>
+                                <p>{{ tontine.level.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -98,7 +98,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Fréquence de contribution:</span><br>
-                                <p>{{ operation.tontine.contributionFrequency.label }}</p>
+                                <p>{{ tontine.contributionFrequency.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -107,7 +107,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Séance de tontine:</span><br>
-                                <p>{{ operation.tontine.tontineSessionFrequency.label }}</p>
+                                <p>{{ tontine.tontineSessionFrequency.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -116,7 +116,16 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Mode de gain:</span><br>
-                                <p> {{ operation.tontine.gainMode.label }}</p>
+                                <p> {{ tontine.gainMode.label }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Observation:</span><br>
+                                <p> {{ tontine.observation }}</p>
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,6 @@ export class AllPaymentOfSessionComponent implements OnInit {
   payment: Payment = new Payment();
   session: Session = new Session();
   operationSession: OperationSession = new OperationSession();
-  sessionOfPayments: SessionOfPayment[] = [];
   sessionOfPayment: SessionOfPayment = new SessionOfPayment();
   paymentUpdateForm!: FormGroup;
   paymentUpdateStatusForm!: FormGroup;
@@ -86,11 +85,14 @@ export class AllPaymentOfSessionComponent implements OnInit {
   findAllPaymentsOfASession(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findAllPaymentsOfASession(params['id']).subscribe((res)=>{
-      this.sessionOfPayments = res.data;
+        
+      this.payments = res.data;
+      console.log("sessionOfPayments::", this.payments);
       })
 
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
-        this.operationSession = res.data;
+        console.log("sessionOfPayments2::", res);
+        this.session = res.data;
       })
     })
   }

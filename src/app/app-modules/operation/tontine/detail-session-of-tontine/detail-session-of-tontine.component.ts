@@ -4,10 +4,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { Cycle } from 'src/app/core/classes/cycle';
 import { Payment } from 'src/app/core/classes/payment';
+import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { Penality } from 'src/app/core/classes/penality';
 import { PenalityType } from 'src/app/core/classes/penalityType';
 import { Session } from 'src/app/core/classes/session';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
+import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
 import { TontineService } from 'src/app/core/services/tontine/tontine.service';
@@ -21,11 +23,12 @@ import Swal from 'sweetalert2';
 })
 export class DetailSessionOfTontineComponent implements OnInit {
   ngSelect3 = 0;
+  ngSelectPaymentMethod = 0;
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
   sessions: Session[] = [];
-  membersArray: any[] = [];
+  membersArray: any;
   payment: Payment = new Payment();
   idCycle: number = 0;
   idSession: number = 0;
@@ -43,6 +46,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   date: any;
   isSaving: boolean = false
   penalityTypes: PenalityType[] = [];
+  paymentMethods: PaymentMethod[] = [];
   penality: Penality = new Penality();
   constructor(private cycleService: CycleService,  
     private activatedRoute: ActivatedRoute,
@@ -50,7 +54,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
     private tontineService: TontineService,
     private sessionService: SessionService,
     private utilityService: UtilityService,
-    private penalityTypeService: PenaltyTypeService) { }
+    private penalityTypeService: PenaltyTypeService,
+    private paymentMethodService: PaymentMethodService) { }
 
   ngOnInit(): void {
     this.getAllSessionsOfCycle();
@@ -59,6 +64,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.formInit();
     this.initDatesPicker();
     this.getAllPenalityTypes();
+    this.getPaymentMethod();
   }
 
   formInit() {
@@ -67,6 +73,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
       date: new FormControl(null, Validators.required),
       proof: new FormControl(null, Validators.required),
       idMember: new FormControl(null, Validators.required),
+      idPaymentMethod: new FormControl(null, Validators.required),
     })
 
     this.penalityForm = this.formBuilder.group({
@@ -107,7 +114,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.cycleService.findCycleById(params['id']).subscribe((res)=>{
         this.cycle = res.data;
-        console.log("AllCycle::", res);
       });
     })
   }
@@ -115,8 +121,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   getTontine(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['tontine']).subscribe((res)=>{
-        console.log("AllTontine::", res);
-        this.membersArray = res.data.registeredMembers.map((member:any)=>({value:member.id, label:member.firstName }))
+        this.membersArray = res.data.tontineMembers.map((tontineMember:any)=>({value:tontineMember.participant.id, label:tontineMember.participant.firstName }))
       });
     })
   }
@@ -124,9 +129,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
-        this.sessions = res.data;
-        console.log("resSéances::", res);
+        console.log("Sessions::", res);
         
+        this.sessions = res.data;
       });
     })
   }
@@ -213,11 +218,11 @@ export class DetailSessionOfTontineComponent implements OnInit {
     let date = new Date(formValue.date);
     let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');
     this.payment.date = dateFormated;
-    this.createPaymentForSession(this.payment, this.idSession, formValue.idMember);
+    this.createPaymentForSession(this.payment, this.idSession, formValue.idMember, formValue.idPaymentMethod);
   }
 
-  createPaymentForSession(payment: Payment, idSession: number, idMember: number){
-    this.sessionService.createPaymentForSession(payment, idSession, idMember).subscribe(()=>{
+  createPaymentForSession(payment: Payment, idSession: number, idMember: number, idPaymentMethod: number){
+    this.sessionService.createPaymentForSession(payment, idSession, idMember, idPaymentMethod).subscribe(()=>{
       this.isSaving = false;
       this.getAllSessionsOfCycle();
       this.closePaymentModal();
@@ -291,5 +296,11 @@ export class DetailSessionOfTontineComponent implements OnInit {
     // let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
   }
 
+  getPaymentMethod(){
+    this.paymentMethodService.findAllPaymentMethods().subscribe((res)=>{
+      console.log("methodPayment::", res);
+      this.paymentMethods = res.data
+    })
+  }
 
 }

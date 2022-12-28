@@ -39,11 +39,15 @@ import { PosteComponent } from './parameter/organisation/poste/poste.component';
 import { PieceTypeComponent } from './parameter/piece-type/piece-type.component';
 import { FamilySituationComponent } from './parameter/family-situation/family-situation.component';
 import { CivilityComponent } from './parameter/civility/civility.component';
+import { AllPenalityOfSessionComponent } from './operation/tontine/all-penality-of-session/all-penality-of-session.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"all-penality-of-session", component: AllPenalityOfSessionComponent, canActivate: [EntityGuard]
+      },
       {
         path:"civility", component: CivilityComponent, canActivate: [EntityGuard]
       },

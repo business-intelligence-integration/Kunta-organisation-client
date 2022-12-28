@@ -352,8 +352,8 @@
                                 <span>Total cotisé (FCFA)</span>
                                 <span>Total à cotiser (FCFA)</span>
                                 <span>Total des pénalités (FCFA)</span>
-                                <span style="color: black; font-weight: 650;">Cotiser</span>
-                                <span style="color: black; font-weight: 650;">Pénaliser</span>
+                                <span class="style-font">Cotiser</span>
+                                <span class="style-font">Pénaliser</span>
                                 <span>Status</span>
                                 <span>Action</span>
                             </div>
@@ -395,7 +395,7 @@
                                     <div class="flex-table-cell" data-th="Pénaliser">
                                         <span class="light-text" data-filter-match="">{{ session.penalties.length }}</span>
                                         <a  class="pagination-previous has-chevron" (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
-                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Status">
                                         <span class="tag is-rounded" data-filter-match="" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
@@ -572,7 +572,18 @@
                                     <small class="text-police">veuillez entrer le montant cotisé</small>
                                 </div>
                         </div>
-                        
+                        <div class="field">
+                            <label>Méthode de paiement  *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPaymentMethod">
+                                <option value="0" disabled>--Selectionnez une méthode de paiement--</option>
+                                <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }}</span> </option>
+                            </select>
+
+                            <div class="text-danger"
+                                *ngIf="paymentForm.get('idPaymentMethod')?.errors?.['required'] && paymentForm.get('idPaymentMethod')?.touched">
+                                <small class="text-police">veuillez selectionner une méthode de paiement</small>
+                             </div>
+                        </div>
                         <div class="field">
                             <label>Montant cotisé*</label><br>
                             <div class="control">

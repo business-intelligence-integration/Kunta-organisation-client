@@ -67,7 +67,7 @@
         <ul>
             <li>
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowAllPayments()">Cotisations</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowAllPenality()">Pénalités</a>
                 </div>
             </li>
 
@@ -100,8 +100,8 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4" *ngIf="isCotisation">Liste des paiements de la séance du <span>{{ session.date }}</span></h1>
-                    <h1 class="title is-4" *ngIf="isMember">Liste des membres ayant contribué</h1>
+                    <!-- <h1 class="title is-4" *ngIf="isCotisation">Liste des paiements de la séance du <span>{{ session.date }}</span></h1>
+                    <h1 class="title is-4" *ngIf="isMember">Liste des membres ayant contribué</h1> -->
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -203,11 +203,10 @@
 </div>
 
 
-<div class="page-content-inner" *ngIf="isCotisation">
+<div class="page-content-inner">
 
     <div class="flex-list-wrapper flex-list-v1">
 
-        <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
@@ -222,7 +221,6 @@
 
             <div class="flex-list-wrapper flex-list-v1">
 
-                <!--List Empty Search Placeholder -->
                 <div class="page-placeholder custom-text-filter-placeholder is-hidden">
                     <div class="placeholder-content">
                         <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
@@ -235,69 +233,46 @@
 
                 <div class="flex-table">
 
-                    <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
-                        <!-- <span class="is-grow">Id</span> -->
-                        <span>versé</span>
-                        <span>Preuve</span>
-                        <!-- <span>À verser</span> -->
-                        <!-- <span>Reste à payer</span> -->
-                        <span>Membre</span>
+                        <span class="is-grow">Id</span>
                         <span>Date</span>
-                        <span>Methode de paiement</span>
-                        <span>Statut</span>
+                        <span>Montant</span>
+                        <span>Description</span>
+                        <span>payé</span>
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
-                        <!--Table item-->
-                        <div class="flex-table-item" *ngFor="let payment of payments">
-                            <!-- <div class="flex-table-cell is-media is-grow">
+
+                        <div class="flex-table-item" *ngFor="let penality of penalities">
+                            <div class="flex-table-cell is-media is-grow">
                                 <div>
-                                    <span class="item-name dark-inverted" data-filter-match="">{{ payment.id }}</span>
+                                    <span class="item-name dark-inverted" data-filter-match="">{{ penality.id }}</span>
                                     <span class="item-meta">
-                                      <span data-filter-match="">{{ payment.paid }}</span>
+                                      <span data-filter-match="">{{ penality.date }}</span>
                                     </span>
                                 </div>
-                            </div> -->
+                            </div>
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ penality.date }}</span>
+                            </div>
 
                             <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ payment.paid }}</span>
+                                <span class="light-text" data-filter-match="">{{ penality.penaltyType.amount }}</span>
                             </div>
 
                             <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ payment.proof }}</span>
+                                <span class="light-text" data-filter-match="">{{ penality.penaltyType.label }}</span>
                             </div>
 
-                            <!-- <div class="flex-table-cell" data-th="À verser">
-                                <span class="light-text" data-filter-match="">{{ payment.toBePaid }}</span>
-                            </div> -->
-
-                            <!-- <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ payment.remainingToPay }}</span>
-                            </div> -->
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ payment.user.firstName }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ payment.date }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ payment.paymentMethod.label }}</span>
-                            </div>
                             <div class="flex-table-cell" data-th="Status">
-                                <a _ngcontent-nct-c62="" (click)="onUpdatePaymentSatatus(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                <span class="tag is-rounded" data-filter-match="">{{ payment.paymentStatus.label }}</span>
+                                <span class="light-text" data-filter-match="">{{ penality.paid }}</span>
                             </div>
                             
         
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatePayment(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                    <a _ngcontent-nct-c62="" (click)="onDelate(payment.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
+
                                 </div>
                             </div>
                         </div>
@@ -305,7 +280,49 @@
         
                 </div>
 
-                <!--Table Pagination-->
+                <!-- <div class="flex-table">
+
+                    <div class="flex-table-header" data-filter-hide="">
+                        <span>Date</span>
+                        <span>Montant</span>
+                        <span>Description</span>
+                        <span>payé</span>
+                        <span>Action</span>
+                    </div>
+                    <div class="flex-list-inner">
+                        <div class="flex-table-item" *ngFor="let penality of penalities">
+
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ penality.date }}</span>
+                            </div>
+
+                            <div class="flex-table-cell" data-th="Reste à payer">
+                                <span class="light-text" data-filter-match="">{{ penality.penaltyType.amount }}</span>
+                            </div>
+
+                            <div class="flex-table-cell" data-th="Reste à payer">
+                                <span class="light-text" data-filter-match="">{{ penality.penaltyType.label }}</span>
+                            </div>
+
+                            <div class="flex-table-cell" data-th="Reste à payer">
+                                <span class="light-text" data-filter-match="">{{ penality.paid }}</span>
+                            </div>
+                            <div class="flex-table-cell" data-th="Status">
+                           
+                               
+                            </div>
+                            
+        
+                            <div class="flex-table-cell cell-end" data-th="Actions">
+                                <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div> -->
+
                 <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
                     <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
                     <a class="pagination-next has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -327,11 +344,10 @@
 
 </div>
 
-<div class="page-content-inner" *ngIf="isMember">
+<!-- <div class="page-content-inner" *ngIf="isMember">
 
     <div class="flex-list-wrapper flex-list-v1">
 
-        <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
@@ -346,7 +362,6 @@
 
             <div class="flex-list-wrapper flex-list-v1">
 
-                <!--List Empty Search Placeholder -->
                 <div class="page-placeholder custom-text-filter-placeholder is-hidden">
                     <div class="placeholder-content">
                         <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
@@ -359,7 +374,6 @@
 
                 <div class="flex-table">
 
-                    <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
                         <span>Utilisateur</span>
@@ -369,7 +383,7 @@
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
-                        <!--Table item-->
+
                         <div class="flex-table-item" *ngFor="let user of users">
                             <div class="flex-table-cell is-media is-grow">
                                 <div>
@@ -393,9 +407,7 @@
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
                             </div>
-                            <!-- <div class="flex-table-cell" data-th="À verser">
-                                <span class="light-text" data-filter-match="">{{ payment.toBePaid }}</span>
-                            </div> -->
+
                             <div class="flex-table-cell" data-th="Status">
                                 <span class="light-text" data-filter-match="">{{ user.upToDate }}</span>
                             </div>
@@ -404,8 +416,7 @@
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatePayment(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
-                                    <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
+
                                 </div>
                             </div>
                         </div>
@@ -413,7 +424,7 @@
         
                 </div>
 
-                <!--Table Pagination-->
+
                 <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
                     <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
                     <a class="pagination-next has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -433,7 +444,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 
     </div>
@@ -441,7 +452,7 @@
 
 </div>
 
-<div id="updatePayment" class="modal h-modal" [ngClass]="openUpdatePaymntModal">
+<!-- <div id="updatePayment" class="modal h-modal" [ngClass]="openUpdatePaymntModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -459,17 +470,7 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="paymentUpdateForm" (ngSubmit)="onSubmitUpdatePayment(payment.id)">
-                        <!-- <div class="field">
-                            <label>Montant cotisé*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" [(ngModel)]="payment.paid" placeholder="Montant" formControlName="amount">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="paymentUpdateForm.get('amount')?.errors?.['required'] && paymentUpdateForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant cotisé</small>
-                             </div>
-                        </div> -->
-                        
+
                         <div class="field">
                             <label>Preuve*</label><br>
                             <div class="control">
@@ -481,17 +482,6 @@
                              </div>
                         </div>
 
-                        <!-- <div class="field">
-                            <label>Date de cotisation *</label><br>
-                            <div class="card-header-widget datepicker-style">
-                                <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="date" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
-                                </div>
-                           </div>
-                           <div class="text-danger" *ngIf="paymentUpdateForm.get('date')?.errors?.['required'] && paymentUpdateForm.get('date')?.touched">
-                             <small class="text-police" translate>selectionner la date de paiement</small>
-                           </div>
-                        </div> -->
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="paymentUpdateForm.invalid" >Modifier</button>
                         </div><br>
@@ -504,9 +494,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div id="updatePaymentStatus" class="modal h-modal" [ngClass]="openUpdatePaymntStatusModal">
+<!-- <div id="updatePaymentStatus" class="modal h-modal" [ngClass]="openUpdatePaymntStatusModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -548,4 +538,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

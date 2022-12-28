@@ -12,6 +12,7 @@ import { DetailSessionOfTontineComponent } from './tontine/detail-session-of-ton
 import { Select2Module } from 'ng-select2-component';
 import { AllPaymentOfSessionComponent } from './tontine/all-payment-of-session/all-payment-of-session.component';
 import { ViewMoreDetailsSessionComponent } from './tontine/view-more-details-session/view-more-details-session.component';
+import { AllPenalityOfSessionComponent } from './tontine/all-penality-of-session/all-penality-of-session.component';
 
 
 
@@ -25,6 +26,7 @@ import { ViewMoreDetailsSessionComponent } from './tontine/view-more-details-ses
     DetailSessionOfTontineComponent,
     AllPaymentOfSessionComponent,
     ViewMoreDetailsSessionComponent,
+    AllPenalityOfSessionComponent,
   ],
   imports: [
     CommonModule,

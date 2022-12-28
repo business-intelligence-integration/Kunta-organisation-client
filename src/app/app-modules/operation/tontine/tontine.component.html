@@ -48,44 +48,44 @@
 
             <div class="flex-list-inner">
                 <!--Table item-->
-                <div class="flex-table-item" *ngFor="let operation of operations">
+                <div class="flex-table-item" *ngFor="let tontine of tontines">
                     <div class="flex-table-cell" data-th="Solde du compte">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.accountBalance }}</span>
+                        <span class="light-text" data-filter-match="">{{ tontine?.account?.balance }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Montant collecté">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.collectedAmount }}</span>
+                        <span class="light-text" data-filter-match="">{{ tontine.collectedAmount }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.name }}</span>
+                        <span class="light-text" data-filter-match="">{{ tontine.name }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Plan d’épargne de base">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.peb }}</span>
+                        <span class="light-text" data-filter-match="">{{ tontine.peb }}</span>
                     </div>
 
                     <div class="flex-table-cell" data-th="Membres inscrits">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.registeredMembers }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(operation.owner.id, operation.tontine.level.label,  operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
+                        <span class="light-text" data-filter-match="">{{ tontine.registeredMembers }}</span>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label,  tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
-                        [queryParams]="{id: operation.tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Cycle">
-                        <span class="light-text" data-filter-match="">{{ operation.tontine.cycles.length }}</span>
-                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': operation.tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(operation.tontine.id)"><i class="lnir lnir-plus"></i></a>
+                        <span class="light-text" data-filter-match="">{{ tontine.cycles.length }}</span>
+                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""[routerLink]="['/detail-cycle']"
-                        [queryParams]="{id: operation.tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Status">
-                        <span class="tag is-rounded is-cliquable" (click)="onSetSatus(operation.tontine.id, operation.tontine.status.id, operation.tontine.status.label)" data-filter-match="" [ngClass]="{'is-danger': operation.tontine.status.label === 'FERMÉ', 'is-success': operation.tontine.status.label === 'OUVERT'}">{{ operation.tontine.status.label }}</span>
+                        <span class="tag is-rounded is-cliquable" (click)="onSetSatus(tontine.id, tontine.status.id, tontine.status.label)" data-filter-match="" [ngClass]="{'is-danger': tontine.status.label === 'FERMÉ', 'is-success': tontine.status.label === 'OUVERT'}">{{ tontine.status.label }}</span>
                     </div>
 
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62=""  (click)="onUpdateTontine(operation.tontine.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62=""  (click)="onUpdateTontine(tontine.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-details-tontine']"
-                        [queryParams]="{id: operation.tontine.id}"  class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelate(operation.tontine.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        [queryParams]="{id: tontine.id}"  class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onDelate(tontine.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                              </div>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid || isSaving" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div><br>
                        
                     </form>
@@ -469,6 +469,11 @@
                                     <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
                                 </select>
+
+                                <div class="text-danger"
+                                        *ngIf="createTontineForm.get('idFrequenceCot')?.errors?.['required'] && createTontineForm.get('idFrequenceCot')?.touched">
+                                        <small class="text-police">veuillez sélectionner la fréquence de cotisation</small>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Fréquence des séances de tontine  *</label>
@@ -476,6 +481,10 @@
                                     <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
                                 </select>
+                                <div class="text-danger"
+                                        *ngIf="createTontineForm.get('idFrequenceSea')?.errors?.['required'] && createTontineForm.get('idFrequenceSea')?.touched">
+                                        <small class="text-police">veuillez sélectionner la fréquence des séances de tontine</small>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Niveau de transversalité *</label>
@@ -483,6 +492,10 @@
                                     <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
                                     <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
                                 </select>
+                                <div class="text-danger"
+                                        *ngIf="createTontineForm.get('idTransv')?.errors?.['required'] && createTontineForm.get('idTransv')?.touched">
+                                        <small class="text-police">veuillez sélectionner le niveau de transversalité</small>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Mode de gain *</label>
@@ -490,14 +503,23 @@
                                     <option value="0" disabled>--Selectionnez le mode de gain--</option>
                                     <option *ngFor="let gain of gains" [value]="gain.id"  [ngClass]="{'d-none': gain.label === 'ENCHÈRES'}"> <span> {{ gain.label }} </span> </option>
                                 </select>
+                                <div class="text-danger"
+                                    *ngIf="createTontineForm.get('idGain')?.errors?.['required'] && createTontineForm.get('idGain')?.touched">
+                                    <small class="text-police">veuillez sélectionner le mode de gain</small>
+                               </div>
                             </div>
     
                             <div class="field">
                                 <label>Observation</label>
                                 <div class="control">
-                                    <textarea class="textarea" rows="4"
+                                    <textarea class="textarea" rows="4" formControlName="observation"
                                         placeholder="Observation..."></textarea>
                                 </div>
+
+                                <div class="text-danger"
+                                    *ngIf="createTontineForm.get('observation')?.errors?.['required'] && createTontineForm.get('observation')?.touched">
+                                    <small class="text-police">veuillez entrer une observation</small>
+                               </div>
                             </div><br>
                         </form>
                     </div>

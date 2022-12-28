@@ -27,8 +27,8 @@ export class ViewMoreParticipantComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.getTontineUsers(params['id']).subscribe((res)=>{
         this.idParticipant = params['id'];
-        this.users = res.data;
-        console.log("this.users::", this.users);
+        // this.users = res.data;
+        console.log("users::", res);
         
       });
     })
