@@ -17,9 +17,10 @@ export class CommunicationAgentToAreaComponent implements OnInit {
   communicationAgent: User = new User();
   openAgentModal: string = "";
   addAgentForm!: FormGroup;
-  users: User[] = [];
+  users: any;
   agentComunicationIsNull: boolean = true;
   idArea: number = 0;
+  isSaving: boolean = false;
   constructor( private activatedRoute: ActivatedRoute, 
     private areaService: AreaService,
     private formBuilder: FormBuilder,
@@ -57,7 +58,7 @@ export class CommunicationAgentToAreaComponent implements OnInit {
 
   getAllUser(){
     this.userService.getAllUsers().subscribe((res)=>{
-      this.users = res.data
+      this.users = res.data.map((user:any)=>({value:user.id, label: user.firstName}));
     })
   }
 
@@ -67,7 +68,9 @@ export class CommunicationAgentToAreaComponent implements OnInit {
   }
 
   addAgent(idArea: number, idAgent: number){
+    this.isSaving = true;
     this.areaService.addCommunicationAgentToArea(idArea, idAgent).subscribe(()=>{
+      this.isSaving = false;
       this.getArea();
       this.closeAgentModal();
       this.utilityService.showMessage(
@@ -77,6 +80,7 @@ export class CommunicationAgentToAreaComponent implements OnInit {
         'white'
       );
     },()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',

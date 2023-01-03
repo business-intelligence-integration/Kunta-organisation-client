@@ -18,9 +18,10 @@ export class DataEntryAgentToAreaComponent implements OnInit {
   entryAgent: User;
   openAgentModal: string = "";
   addAgentForm!: FormGroup;
-  users: User[] = [];
+  users: any;
   idArea: number = 0;
   agentEntryIsNull: boolean = true;
+  isSaving: boolean = false;
   constructor( private activatedRoute: ActivatedRoute, 
     private areaService: AreaService,
     private formBuilder: FormBuilder,
@@ -59,7 +60,7 @@ export class DataEntryAgentToAreaComponent implements OnInit {
 
   getAllUser(){
     this.userService.getAllUsers().subscribe((res)=>{
-      this.users = res.data
+      this.users = res.data.map((user:any)=>({value:user.id, label: user.firstName}));
     })
   }
 
@@ -69,7 +70,9 @@ export class DataEntryAgentToAreaComponent implements OnInit {
   }
 
   addAgent(idArea: number, idAgent: number){
+    this.isSaving = true;
     this.areaService.addDataEntryAgentToArea(idArea, idAgent).subscribe(()=>{
+      this.isSaving = false;
       this.getArea();
       this.closeAgentModal();
       this.utilityService.showMessage(
@@ -79,6 +82,7 @@ export class DataEntryAgentToAreaComponent implements OnInit {
         'white'
       );
     },()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',

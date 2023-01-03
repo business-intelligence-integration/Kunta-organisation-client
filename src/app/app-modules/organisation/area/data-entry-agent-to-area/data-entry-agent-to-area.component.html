@@ -117,13 +117,24 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addAgentForm" (ngSubmit)="onAddAgent()">
-                        <label>Utilisateurs *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                            <option value="0" disabled>--Selectionnez un utilisateur--</option>
-                            <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }}-{{ user.lastName }}  </span> </option>
-                        </select><br><br>
+                        <div class="field margin-user">
+                            <div>
+                                <label>Utilisateurs *</label><br>
+                                <select2
+                                        class="w-100 color-border"
+                                        [data]="users"
+                                        id="user"
+                                        formControlName="id"
+                                        placeholder="--selectionnez un utilisateur--">
+                                </select2>
+                                <div class="text-danger"
+                                *ngIf="addAgentForm.get('id')?.errors?.['required'] && addAgentForm.get('id')?.touched">
+                                <small class="text-police" translate>--ur--</small>
+                                </div>
+                            </div>
+                        </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addAgentForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addAgentForm.invalid || isSaving" >Save</button>
                         </div>
                     </form>
                 </div>
