@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Beneficiary } from 'src/app/core/classes/beneficiary';
@@ -67,6 +68,7 @@ export class UserComponent implements OnInit {
   userOfSelect: any;
   countries: any;
   openStatusModal: string = "";
+  maxAge: any;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -96,6 +98,7 @@ export class UserComponent implements OnInit {
     this.getAllFamilySituation();
     this.getAllStatus();
     this.getAllCountries();
+    this.getMaxAge();
   }
 
   
@@ -160,12 +163,12 @@ export class UserComponent implements OnInit {
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null, Validators.required),
-      whatsAppNumber: new FormControl(null, Validators.required),
+      // whatsAppNumber: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
-      city: new FormControl(null, Validators.required),
-      country: new FormControl(null, Validators.required),
+      // city: new FormControl(null, Validators.required),
+      // country: new FormControl(null, Validators.required),
       pieceId: new FormControl(null, Validators.required),
-      postalBox: new FormControl(null, Validators.required),
+      // postalBox: new FormControl(null, Validators.required),
       birthDate: new FormControl(null, Validators.required),
       idPieceType: new FormControl(null, Validators.required),
     })
@@ -553,12 +556,12 @@ export class UserComponent implements OnInit {
     this.beneficiary.firstName = formValue.firstName
     this.beneficiary.lastName = formValue.lastName
     this.beneficiary.phoneNumber = formValue.phoneNumber
-    this.beneficiary.whatsAppNumber = formValue.whatsAppNumber
+    // this.beneficiary.whatsAppNumber = formValue.whatsAppNumber
     this.beneficiary.email = formValue.email
-    this.beneficiary.city = formValue.city
-    this.beneficiary.country = formValue.country
+    // this.beneficiary.city = formValue.city
+    // this.beneficiary.country = formValue.country
     this.beneficiary.pieceId = formValue.pieceId
-    this.beneficiary.postalBox = formValue.postalBox
+    // this.beneficiary.postalBox = formValue.postalBox
     this.beneficiary.birthDate = formValue.birthDate
     this.createBeneficiary(this.idUser, formValue.idPieceType, this.beneficiary)
     this.beneficiaryForm.reset();
@@ -670,5 +673,11 @@ export class UserComponent implements OnInit {
       this.countries = res.data.map((country:any)=>({value:country.id, label: country.name}));
     })
   }
+
+  getMaxAge(){
+    this.maxAge = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
+  }
+
+ 
 
 }

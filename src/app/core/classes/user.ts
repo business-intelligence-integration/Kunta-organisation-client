@@ -31,6 +31,8 @@ export class User{
     whatsappPhoneNumber: string = "";
     remainingToPayByUser: number = 0;
     toBePaidByUser: number = 0;
+    penaltiesToPay: number = 0;
+    remainingToPay: number = 0;
     upToDate: boolean = false;
     sponsoredUsers: User[] = []
     beneficiaries: Beneficiary[] = [];

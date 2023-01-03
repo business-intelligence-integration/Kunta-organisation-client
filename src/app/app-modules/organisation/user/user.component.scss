@@ -65,8 +65,13 @@
 //   padding: 4px;
 // }
 .champ {
-  width:175px;
+  width:178px;
 }
+
+.champ2 {
+  width:425px;
+}
+
 
 .datepicker-style input {
   border: none;
@@ -100,4 +105,16 @@
 
 .card-header-widget+.card-header-widget {
   margin-left: 20%;
+}
+.but-style{
+  margin-top: 5%;
+}
+.create-but{
+  margin-left: 77%;
+  margin-top: -10%;
+}
+
+.update-but{
+  margin-left: 80%;
+  margin-top: -10%;
 }

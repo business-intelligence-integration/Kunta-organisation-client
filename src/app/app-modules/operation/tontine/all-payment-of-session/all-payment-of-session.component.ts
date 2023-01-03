@@ -13,6 +13,7 @@ import { PaymentService } from 'src/app/core/services/payment/payment.service';
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
 
 @Component({
@@ -48,7 +49,8 @@ export class AllPaymentOfSessionComponent implements OnInit {
     private penalityTypeService: PenaltyTypeService,
     private paymentStatusService: PaymentStatusService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.findAllPaymentsOfASession();
@@ -69,6 +71,8 @@ export class AllPaymentOfSessionComponent implements OnInit {
     })
   }
 
+  backBack(){this.location.back()}
+  
   activeHomeSider() {
     if (this.activeToggle == "") {
       this.activeToggle = "active";
@@ -213,7 +217,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
 
   onSubmitUpdatePaymentStatus(){
     const formValue = this.paymentUpdateStatusForm.value;
-     if(formValue.status == "VERIFIE"){
+     if(formValue.status == "CONTROLE"){
       this.checkPayment(this.idPayment);
      }else if(formValue.status == "VALIDE"){
       this.validatePayment(this.idPayment);
@@ -225,7 +229,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.paymentService.checkPayment(idPayment).subscribe(()=>{
       this.isSaving = false;
       this.closeUpdatePaymentStatusModal();
-      this.getAllPaymentStaus()
+      this.findAllPaymentsOfASession();
       this.utilityService.showMessage(
         'success',
         'Le paiement a bien été vérifié !',
@@ -245,10 +249,12 @@ export class AllPaymentOfSessionComponent implements OnInit {
 
   validatePayment(idPayment: number){
     this.isSaving = true;
-    this.paymentService.validatePayment(idPayment).subscribe(()=>{
+    this.paymentService.validatePayment(idPayment).subscribe((res)=>{
+      console.log("pénalitéss::", res);
+      
       this.isSaving = false;
       this.closeUpdatePaymentStatusModal();
-      this.getAllPaymentStaus()
+      this.findAllPaymentsOfASession();
       this.utilityService.showMessage(
         'success',
         'Le paiement a bien été validé !',
@@ -270,6 +276,8 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params)=>{
       this.sessionService.findAllUserPaymentStateBySession(params['id']).subscribe((res)=>{
        this.users = res.data
+       console.log('users::', res);
+       
       })
     })
   }

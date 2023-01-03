@@ -131,9 +131,9 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      console.log("AllTontine::", res);
-      
       this.tontines = res.data;
+      console.log("listTontines::", res);
+      
     })
   }
 
@@ -272,7 +272,6 @@ export class TontineComponent implements OnInit {
   getAllArea(){
     this.areaService.findAllAreas().subscribe((res)=>{
       this.areas = res.data
-      console.log("this.areasN::", this.areas);
     })
   }
 
@@ -368,7 +367,7 @@ export class TontineComponent implements OnInit {
       this.openMemberModal = "";
       this.utilityService.showMessage(
         'success',
-        'Member successfully added',
+        'Membre ajouté avec succès',
         '#06d6a0',
         'white'
       );
@@ -376,7 +375,7 @@ export class TontineComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -386,8 +385,6 @@ export class TontineComponent implements OnInit {
   onOpenDetailModel(id: number){
     this.tontineService.findTontineById(id).subscribe((res)=>{
       this.operation = res.data
-      console.log("this.tontine::", this.operation);
-      
       this.openDetailModal = "is-active";
     })
    
@@ -400,14 +397,14 @@ export class TontineComponent implements OnInit {
   getAllGains(){
     this.gainService.findAllGainModes().subscribe((res)=>{
       this.gains = res.data;
-      console.log("resgains::", res);
-      
     })
   }
 
   onUpdateTontine(id: number){
     this.tontineService.findTontineById(id).subscribe((res)=>{
-      this.tontine = res.data.tontine;
+      this.tontine = res.data;
+      console.log("UpdateT::", res);
+      
       this.openUpdateModal = "is-active"
     })
   }
@@ -423,7 +420,9 @@ export class TontineComponent implements OnInit {
   }
 
   updateTontine(tontine: Tontine, idTontine: number){
+    this.isSaving = true;
     this.tontineService.updateTontine(tontine, idTontine).subscribe((res)=>{
+      this.isSaving = false;
       this.getAllTontine();
       this.closeUpdateTontineModal();
       this.utilityService.showMessage(
@@ -433,6 +432,7 @@ export class TontineComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -470,8 +470,6 @@ export class TontineComponent implements OnInit {
       this.isSaving = false;
       this.closeCycleModal();
       this.getAllTontine();
-      console.log("cycleDb::", cycleDb);
-      
       if(cycleDb.data == null){
         this.utilityService.showMessage(
           'warning',
@@ -482,7 +480,7 @@ export class TontineComponent implements OnInit {
       }else{
         this.utilityService.showMessage(
           'success',
-          'Cycle successfully created',
+          'Cycle créé avec succès',
           '#06d6a0',
           'white'
         );
@@ -492,7 +490,7 @@ export class TontineComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );

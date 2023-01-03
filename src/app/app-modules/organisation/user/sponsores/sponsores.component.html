@@ -489,8 +489,8 @@
                                 <div class="flex-table-header" data-filter-hide="">
                                     <span>Nom</span>
                                     <span>Prenom</span>
-                                    <span>Date de naissance</span>
-                                    <!-- <span class="cell-end">Actions</span> -->
+                                    <span>Age</span>
+                                    <span class="cell-end">Actions</span>
                                 </div>
                     
                                 <div class="flex-list-inner">
@@ -503,9 +503,13 @@
                                             <span class="light-text" data-filter-match="">{{ beneficiary.firstName }}</span>
                                         </div>
                                         <div class="flex-table-cell" data-th="Location">
-                                            <span class="light-text" data-filter-match="">{{ beneficiary.birthDate }}</span>
+                                            <span class="light-text" data-filter-match=""> {{ calculateAgeAccordingDateOfBirth(beneficiary.birthDate) }} </span>
                                         </div>
-           
+                                        <div class="flex-table-cell cell-end" data-th="Actions">
+                                            <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                                            <a _ngcontent-nct-c62=""  (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                     

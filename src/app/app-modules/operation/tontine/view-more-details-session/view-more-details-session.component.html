@@ -1,5 +1,5 @@
 <div class="page-content-inner">
-    <a routerLink="/operations" class="pagination-previous has-chevron return-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+    <a (click)="backBack()" class="pagination-previous has-chevron return-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
     <!--Pronotion Page-->
     <div class="promotion-page-wrapper">
         
@@ -13,7 +13,7 @@
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ operationSession.session.totalPaid }} FCFA</span>
+                                        <span>{{ session.totalPaid }} FCFA</span>
                                         <p>Total payé</p>
                                     </div>
                                 </div>
@@ -21,26 +21,44 @@
                                 <div class="header-item" >
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
-                                        <span>{{ operationSession.session.totalToBePaid }} FCFA</span>
+                                        <span>{{ session.totalToBePaid }} FCFA</span>
                                         <p>Total à payer</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="all-projects-header">
-                                <div class="header-item" style="margin-left: 35%;">
+                             <div class="all-projects-header">
+
+                                <div class="header-item style-session-margin">
                                     <div class="item-inner">
-                                        <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ operationSession.session.totalPenalties }}</span>
+                                        <i class="lnil lnil-leaf"></i>
+                                        <span>{{ session.penalties.length }}</span>
+                                        <p>Nombre de pénalités</p>
+                                    </div>
+                                </div>
+                            
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ session.totalPenalties }}</span>
                                         <p>Total pénalités</p>
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="all-projects-header">
+                                <div class="header-item" style="margin-left: 35%;">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ session.totalPenalties }}</span>
+                                        <p>Total pénalités</p>
+                                    </div>
+                                </div>
+                            </div> -->
                             <div class="all-projects-header">
 
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-leaf"></i>
-                                        <span>{{ operationSession.session.payments.length }}</span>
+                                        <span>{{ session.payments.length }}</span>
                                         <p>Paiements</p>
                                     </div>
                                 </div>
@@ -48,7 +66,7 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ operationSession.session.userPaymentStates.length }}</span>
+                                        <span>{{ session.userPaymentStates.length }}</span>
                                         <p>Cotisations</p>
                                     </div>
                                 </div>
@@ -72,7 +90,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Date limite de contribution:</span><br>
-                                <p>{{ operationSession.session.contributionDeadline }}</p>
+                                <p>{{ session.contributionDeadline }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -81,7 +99,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Date:</span><br>
-                                <p>{{ operationSession.session.date }}</p>
+                                <p>{{ session.date }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -90,7 +108,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Heure:</span><br>
-                                <p>{{ operationSession.session.hour }}</p>
+                                <p>{{ session.hour }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -99,7 +117,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Gagnant:</span><br>
-                                <p>{{ operationSession.winner.firstName }}</p>
+                                <p>{{ session.winner.firstName }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -108,8 +126,19 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Ville du gagnant:</span><br>
-                                <p> {{ operationSession.winner.city }}</p>
+                                <p> {{ session.winner.city }}</p>
                             </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Status:</span><br>
+                                <!-- <p> {{ session.status.label }}</p> -->
+                                <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>

@@ -28,26 +28,36 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
+                <span>Type de pénalité</span>
+                <span>Payé</span>
                 <span>Date</span>
                 <span>Membre</span>
                 <!-- <span>Action</span> -->
             </div>
             <div class="flex-list-inner">
-                <div class="flex-table-item" *ngFor="let managePenalty of managePenalties">
+                <div class="flex-table-item" *ngFor="let penalty of penalties">
                     <div class="flex-table-cell is-media is-grow">
                         <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ managePenalty.penalty.id }}</span>
+                            <span class="item-name dark-inverted" data-filter-match="">{{ penalty.id }}</span>
                             <span class="item-meta">
-                              <span data-filter-match="">{{ managePenalty.penalty.date }}</span>
+                              <span data-filter-match="">{{ penalty.penaltyType.label }}</span>
                             </span>
                         </div>
                     </div>
+                  
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ managePenalty.penalty.date }}</span>
+                        <span class="light-text" data-filter-match="">{{ penalty.penaltyType.label }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ managePenalty.user.firstName }}</span>
+                        <span class="light-text" data-filter-match="">{{ penalty.paid }}</span>
                     </div>
+                    <div class="flex-table-cell" data-th="Nom">
+                        <span class="light-text" data-filter-match="">{{ penalty.date }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Nom">
+                        <span class="light-text" data-filter-match="">{{ penalty.user.firstName }}</span>
+                    </div>
+
                     <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                         <a _ngcontent-nct-c62="" (click)="onUpdatePenaltyType(penaltyType.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>

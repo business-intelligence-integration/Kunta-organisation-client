@@ -190,7 +190,7 @@
                     </a>
                 </div>
             </div>
-            <a routerLink="/operations" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -238,7 +238,7 @@
                     <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
                         <!-- <span class="is-grow">Id</span> -->
-                        <span>versé</span>
+                        <span>Versé</span>
                         <span>Preuve</span>
                         <!-- <span>À verser</span> -->
                         <!-- <span>Reste à payer</span> -->
@@ -363,7 +363,7 @@
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
                         <span>Utilisateur</span>
-                        <span>Montant à payer(FCFA)</span>
+                        <span>Montant payé(FCFA)</span>
                         <span>Reste à payer(FCFA)</span>
                         <span>A jour</span>
                         <span>Action</span>
@@ -383,11 +383,11 @@
                                 <span class="light-text" data-filter-match="">{{ user.userName }}</span>
                             </div>
 
-
-                           
-
-                            <div class="flex-table-cell" data-th="Raison">
+                            <!-- <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ user.toBePaidByUser }}</span>
+                            </div> -->
+                            <div class="flex-table-cell" data-th="Raison">
+                                <span class="light-text" data-filter-match="">{{ user.toBePaidByUser - user.remainingToPayByUser}}</span>
                             </div>
 
                             <div class="flex-table-cell" data-th="Raison">
@@ -397,7 +397,8 @@
                                 <span class="light-text" data-filter-match="">{{ payment.toBePaid }}</span>
                             </div> -->
                             <div class="flex-table-cell" data-th="Status">
-                                <span class="light-text" data-filter-match="">{{ user.upToDate }}</span>
+                                <span class="light-text" data-filter-match="" *ngIf="user.upToDate === false">non</span>
+                                <span class="light-text" data-filter-match="" *ngIf="user.upToDate === true">oui</span>
                             </div>
                             
         
@@ -528,7 +529,7 @@
                             <label>Participants *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="status" [(ngModel)]="ngSelect">
                                 <option value="0" disabled>--Selectionnez un statut de paiement--</option>
-                                <option value="VERIFIE"> <span> VERIFIÉ </span> </option>
+                                <option value="CONTROLE"> <span> CONTROLÉ </span> </option>
                                 <option value="VALIDE"> <span> VALIDÉ </span> </option>
                             </select><br><br>
                             <div class="text-danger"

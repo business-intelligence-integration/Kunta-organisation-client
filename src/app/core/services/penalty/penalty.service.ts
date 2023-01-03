@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Penality } from '../../classes/penality';
 import { UtilityService } from '../utility/utility.service';
 
 const httpOptions ={
@@ -23,6 +24,12 @@ export class PenaltyService {
 
   findAllPenalties():Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'penalties?token=' + this.utilityService.loadToken());
+  }
+
+  payPenalty(idPenalty: number, idUser: number, idPaymentMethod: number, penality: Penality):Observable<any>{
+    console.log("penality::", penality);
+    
+    return this.httpClient.patch<any>(this.baseUrl + `penalties/${idPenalty}/user/${idUser}/pay/payment-method/${idPaymentMethod}` + "?token=" +this.utilityService.loadToken(), penality);
   }
 
 }

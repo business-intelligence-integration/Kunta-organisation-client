@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OperationSession } from 'src/app/core/classes/operationSession';
 import { SessionService } from 'src/app/core/services/session/session.service';
+import {Location} from "@angular/common";
+import { Session } from 'src/app/core/classes/session';
 
 @Component({
   selector: 'app-view-more-details-session',
@@ -11,18 +13,22 @@ import { SessionService } from 'src/app/core/services/session/session.service';
 export class ViewMoreDetailsSessionComponent implements OnInit {
 
   operationSession: OperationSession = new OperationSession();
+  session: Session = new Session();
   constructor(private activatedRoute: ActivatedRoute,
-    private sessionService: SessionService) { }
+    private sessionService: SessionService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getSession();
   }
 
+  backBack(){this.location.back()}
+
   getSession(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
-       this.operationSession = res.data
-       console.log("this.operationSession::", this.operationSession);
+       this.session = res.data
+       console.log("this.operationSession::", res);
        
       });
     })

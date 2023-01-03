@@ -179,7 +179,7 @@
                     </a>
                 </div>
             </div>
-            <a routerLink="/operations" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -352,8 +352,8 @@
                                 <span>Total cotisé (FCFA)</span>
                                 <span>Total à cotiser (FCFA)</span>
                                 <span>Total des pénalités (FCFA)</span>
-                                <span class="style-font">Cotiser</span>
-                                <span class="style-font">Pénaliser</span>
+                                <span style="color: black; font-weight: 650;">Cotiser</span>
+                                <span style="color: black; font-weight: 650;">Pénaliser</span>
                                 <span>Status</span>
                                 <span>Action</span>
                             </div>
@@ -387,7 +387,7 @@
                                         <span class="light-text" data-filter-match="">{{ session.totalPenalties }}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Cotiser">
-                                        <span class="light-text" data-filter-match="">{{ session.userPaymentStates.length }}</span>
+                                        <span class="light-text" data-filter-match="">{{ session.payments.length }}</span>
                                         <a  class="pagination-previous has-chevron" (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
                                         <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
@@ -673,7 +673,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Date de cotisation *</label><br>
+                            <label>Date*</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input formControlName="date" class="champ" type="date" id="DOB" name="DOB"  [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">

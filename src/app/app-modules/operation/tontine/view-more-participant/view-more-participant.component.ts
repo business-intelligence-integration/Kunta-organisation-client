@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/core/classes/user';
 import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import Swal from 'sweetalert2';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-view-more-participant',
@@ -17,19 +18,21 @@ export class ViewMoreParticipantComponent implements OnInit {
   isPushed: string = "";
   idParticipant: number = 0;
 
-  constructor( private activatedRoute: ActivatedRoute, private tontineService: TontineService) { }
+  constructor( private activatedRoute: ActivatedRoute, 
+    private tontineService: TontineService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getTotineUser();
   }
 
+  backBack(){this.location.back()}
+
   getTotineUser(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.getTontineUsers(params['id']).subscribe((res)=>{
         this.idParticipant = params['id'];
-        // this.users = res.data;
-        console.log("users::", res);
-        
+        this.users = res.data;
       });
     })
   }

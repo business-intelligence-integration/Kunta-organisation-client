@@ -10,16 +10,11 @@ export class Session{
     totalPaid :number = 0
     totalPenalties: number = 0
     totalToBePaid: number = 0
-    hour: Hour = new Hour();
+    hour: string = "";
     payments: Payment[] = [];
     penalties: Penality[] = [];
     userPaymentStates: User[] = [];
+    userPenaltyStates: User[] = [];
     status: Status = new Status();
-}
-
-class Hour {
-    hour: string = "";
-    minute: string = "";
-    nano: number = 0;
-    second: string = "";
+    winner: User = new User();
 }

@@ -7,7 +7,7 @@ import { Session } from 'src/app/core/classes/session';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
-import Swal from 'sweetalert2';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-detail-cycle',
@@ -27,11 +27,13 @@ export class DetailCycleComponent implements OnInit {
   updateCycleForm!: FormGroup;
   startDate: any;
   idTontine: number = 0;
+  isSaving: boolean = false;
   constructor(private cycleService: CycleService, 
     private activatedRoute: ActivatedRoute,
     private tontineService: TontineService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.findAllCyclesOfTontine();
@@ -44,6 +46,9 @@ export class DetailCycleComponent implements OnInit {
       name: new FormControl(null, Validators.required),
     })
   }
+
+  backBack(){this.location.back()}
+
   activeHomeSider() {
     if (this.activeToggle == "") {
       this.activeToggle = "active";
@@ -93,7 +98,9 @@ export class DetailCycleComponent implements OnInit {
   }
 
   updateCycle(id: number, cycle: Cycle){
+    this.isSaving = true;
     this.cycleService.updateCycle(id, cycle).subscribe(()=>{
+      this.isSaving = false;
       this.findAllCyclesOfTontine();
       this.closeCycleModal()
       this.utilityService.showMessage(
@@ -103,6 +110,7 @@ export class DetailCycleComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',

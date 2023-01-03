@@ -14,6 +14,7 @@ import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-t
 import { SessionService } from 'src/app/core/services/session/session.service';
 import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
 
 @Component({
@@ -55,7 +56,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
     private sessionService: SessionService,
     private utilityService: UtilityService,
     private penalityTypeService: PenaltyTypeService,
-    private paymentMethodService: PaymentMethodService) { }
+    private paymentMethodService: PaymentMethodService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getAllSessionsOfCycle();
@@ -87,6 +89,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
       date: new FormControl(null, Validators.required),
     })
   }
+  
+  backBack(){this.location.back()}
 
   initDatesPicker() {
     this.startDateMin = new DatePipe('en-US').transform(
@@ -291,14 +295,12 @@ export class DetailSessionOfTontineComponent implements OnInit {
   onSubmitContributionDeadline(){
     const formValue = this.updateContributionDeadlineForm.value;
     let contributionDeadline = new Date(formValue.contributionDeadline);
-    console.log("contributionDeadline::", contributionDeadline);
-    
+
     // let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
   }
 
   getPaymentMethod(){
     this.paymentMethodService.findAllPaymentMethods().subscribe((res)=>{
-      console.log("methodPayment::", res);
       this.paymentMethods = res.data
     })
   }

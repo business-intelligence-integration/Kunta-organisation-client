@@ -6,6 +6,7 @@ import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-view-more-area',
@@ -43,7 +44,8 @@ export class ViewMoreAreaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private centerService: CenterService,
     private activatedRoute: ActivatedRoute,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getAllArea();
@@ -56,6 +58,8 @@ export class ViewMoreAreaComponent implements OnInit {
       id: new FormControl(null, Validators.required),
     })
   }
+
+  comeBack(){this.location.back()}
 
   getCenter(){
     this.activatedRoute.queryParams.subscribe((params) => {

@@ -66,4 +66,6 @@ export class SessionService {
   findPenaltiesOfASession(idSession: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-penalties' + '?token=' + this.utilityService.loadToken());
   }
+
+
 }

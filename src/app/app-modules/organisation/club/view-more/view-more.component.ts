@@ -7,6 +7,7 @@ import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-view-more',
@@ -40,7 +41,8 @@ export class ViewMoreComponent implements OnInit {
     private formBuilder: FormBuilder,
     private clubService: ClubService,
     private userService: UserService,
-    private utilityService: UtilityService) {
+    private utilityService: UtilityService,
+    private location: Location) {
       this.user = new User();
       this.pilot = new User();
      }
@@ -58,7 +60,8 @@ export class ViewMoreComponent implements OnInit {
     })
 
   }
-
+  
+  comeBack(){this.location.back()}
   activeHomeSider() {
     if (this.activeToggle == "") {
       this.activeToggle = "active";
