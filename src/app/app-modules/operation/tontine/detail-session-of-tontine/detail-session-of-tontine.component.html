@@ -398,7 +398,7 @@
                                         <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Status">
-                                        <span class="tag is-rounded" data-filter-match="" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
+                                        <span class="tag is-rounded cliquable-span" data-filter-match="" (click)="onUpdateSessionStatus(session.id)" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
                                     </div>
                                     <div class="flex-table-cell cell-end" data-th="Actions">
                                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -754,3 +754,4 @@
         </div>
     </div>
 </div>
+

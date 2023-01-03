@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
@@ -32,6 +33,7 @@ export class CentersComponent implements OnInit {
   members: User[] = [];
   area: Organism;
   idCenter: number = 0;
+  maxCreationAreaDate: any;
   constructor(private formBuilder: FormBuilder,
     private centerService: CenterService,
     private areaService: AreaService,
@@ -44,6 +46,7 @@ export class CentersComponent implements OnInit {
     this.getAllCenters();
     this.formInit();
     this.getAllArea();
+    this.getMaxCreationaDate();
    
   }
 
@@ -268,6 +271,8 @@ export class CentersComponent implements OnInit {
   onSelectCreateDate(event: any){
 
   }
-
+  getMaxCreationaDate(){
+    this.maxCreationAreaDate = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
+  }
   
 }

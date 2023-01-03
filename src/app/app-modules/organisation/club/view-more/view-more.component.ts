@@ -16,6 +16,7 @@ import {Location} from "@angular/common";
 })
 export class ViewMoreComponent implements OnInit {
   ngSelect = 0;
+  isSaving: boolean = false;
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";
@@ -142,7 +143,9 @@ export class ViewMoreComponent implements OnInit {
   }
 
   addMemberToClub(idClub: number, idMember: number){
+    this.isSaving = true;
     this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
+        this.isSaving = false;
       this.getClub();
       this.closeMemberModal();
       this.addMemberForm.reset();
@@ -152,11 +155,15 @@ export class ViewMoreComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+    },()=>{
+      this.isSaving = false;
     })
   }
 
   addPilotToClub(idClub: number, idMember: number){
+    this.isSaving = true;
     this.clubService.addPilotToClub(idClub, idMember).subscribe(()=>{
+      this.isSaving = false;
       this.getClub();
       this.closePilotModal();
       this.addMemberForm.reset();
@@ -166,6 +173,9 @@ export class ViewMoreComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+    },()=>{
+      this.isSaving = false;
+      
     })
   }
 

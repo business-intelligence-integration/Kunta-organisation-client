@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class CommunicationAgentToAreaComponent implements OnInit {
   ngSelect = 0;
-  communicationAgent: User;
+  communicationAgent: User = new User();
   openAgentModal: string = "";
   addAgentForm!: FormGroup;
   users: User[] = [];
@@ -25,7 +25,6 @@ export class CommunicationAgentToAreaComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private utilityService: UtilityService,) {
-    this.communicationAgent = new User();
    }
 
   ngOnInit(): void {

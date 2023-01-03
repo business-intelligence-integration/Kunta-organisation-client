@@ -67,6 +67,7 @@ export class TontineComponent implements OnInit {
   isSaving: boolean = false;
   creatTontine:boolean = false;
   isList:boolean = true;
+  maxDateOfTontineList:any;
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -90,6 +91,7 @@ export class TontineComponent implements OnInit {
     this.getAllUsers();
     this.getAllGains();
     this.initDatesPicker();
+    this.getMaxDateOfTontineList();
   }
 
   formInit() {
@@ -131,10 +133,24 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
+      let maxDate = new Date(Date.now());
+      res.data.forEach((tontine: any)=>{
+       tontine.cycles.forEach((cycle: any)=>{
+       let  minDate = new Date(cycle.endDate);
+         if(minDate > maxDate){
+             maxDate = minDate;
+         }
+       })
+      })
       this.tontines = res.data;
-      console.log("listTontines::", res);
-      
+      this.maxDateOfTontineList = new DatePipe('en-US').transform(maxDate,'yyyy-MM-dd');
     })
+  }
+
+  getMaxDateOfTontineList(){
+    
+    
+    // this.maxAge = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
   

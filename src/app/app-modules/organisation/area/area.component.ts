@@ -31,6 +31,7 @@ export class AreaComponent implements OnInit {
   openClubModal: string = "";
   createDate: string = "";
   centers: Organism[] =  [];
+  CreationAreaDate: any;
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
     private utilityService: UtilityService,
@@ -45,6 +46,7 @@ export class AreaComponent implements OnInit {
     this.getAllAreas();
     this.getAllClubs();
     this.getAllCenters();
+    this.getMaxCreationAreaDate();
   }
 
   formInit() {
@@ -304,6 +306,10 @@ getAllCenters(){
   onSelectCreateDate(event: any){
     console.log("event::", event);
     
+  }
+
+  getMaxCreationAreaDate(){
+    this.CreationAreaDate = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
 

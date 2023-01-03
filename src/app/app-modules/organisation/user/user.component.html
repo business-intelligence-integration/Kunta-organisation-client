@@ -524,7 +524,7 @@
                                                 <label>Date de délivrance *</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
-                                                        <input class="champ" formControlName="dateOfIssue" type="date" id="DOB1" name="DOB" [(ngModel)]="dateOfIssue" (input)="onSelectCreateDate($event.timeStamp)">
+                                                        <input class="champ" formControlName="dateOfIssue" type="date" id="DOB1" name="DOB" [(ngModel)]="dateOfIssue" (input)="onSelectIssueDate($event.timeStamp)">
                                                     </div>
                                                </div>
                                                <div class="text-danger" *ngIf="addUserForm.get('dateOfIssue')?.errors?.['required'] && addUserForm.get('dateOfIssue')?.touched">
@@ -538,12 +538,15 @@
                                                 <label>Date de validité *</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
-                                                        <input class="champ" formControlName="dateOfValidity" type="date" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectCreateDate($event.timeStamp)">
+                                                        <input class="champ" formControlName="dateOfValidity" type="date" min="{{ minValidityDate }}" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectValidityDate($event.timeStamp)">
                                                     </div>
                                                </div>
                                                <div class="text-danger" *ngIf="addUserForm.get('dateOfValidity')?.errors?.['required'] && addUserForm.get('dateOfValidity')?.touched">
                                                  <small class="text-police" translate>veuillez selectionner la date de validité</small>
-                                               </div>
+                                               </div><br>
+                                               <div class="text-danger" *ngIf="showErroMessage">
+                                                <small class="text-police" translate>veuillez au préalable sélectionner la date de délivrance</small>
+                                              </div>
                                             </div>
                                         </div>
                                         <div class="column is-6">
@@ -580,18 +583,10 @@
                                 <div class="buttons">
                                   
                                     <button (click)="cancelCreatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Annuler</button>
-                                    <!-- <button (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised">Enregistrer</button> -->
                                     <button  [disabled]="addUserForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Enregistrer</button>
                                 </div>
                             </div>
                         </div>
-    
-                        <!-- <div class="border-style" *ngIf="isAdminAndOperator || isUser">
-                            <div class="fieldset-heading">
-                                <h4>Informations de l'ayant droit</h4>
-                            </div>
-                           
-                        </div> -->
                        
                     </div>
                 </div>
@@ -601,84 +596,6 @@
     </div>
 
 </div>
-
-
-<!-- update user -->
-<!-- <div id="updateUser" class="modal h-modal" [ngClass]="openUpdateModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Modifier l'utilisateur</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateUserModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateUserForm" (ngSubmit)="onSubmitUpdateUser()">
-                        <div class="control">
-                            <input type="hidden" hidden class="input" [(ngModel)]="user.id" formControlName="id">
-                        </div>
-                        <div class="field">
-                            <label>Nom(s) *</label>
-                            <div class="control">
-                                <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateUserForm.get('firstName')?.errors?.['required'] && updateUserForm.get('firstName')?.touched">
-                                <small class="text-police" translate>enter the user's first name</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Prénom(s) *</label>
-                            <div class="control">
-                                <input type="text" class="input" [(ngModel)]="user.lastName" placeholder="LastName" formControlName="lastName">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateUserForm.get('lastName')?.errors?.['required'] && updateUserForm.get('lastName')?.touched">
-                                <small class="text-police" translate>enter the user's last name</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Numéro de Tel. *</label>
-                            <div class="control">
-                                <input type="number" class="input" [(ngModel)]="user.phoneNumber" placeholder="Phone Number"
-                                    formControlName="phoneNumber">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateUserForm.get('phoneNumber')?.errors?.['required'] && updateUserForm.get('phoneNumber')?.touched">
-                                <small class="text-police" translate>enter the user's phone number</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Email *</label>
-                            <div class="control">
-                                <input type="email" class="input" [(ngModel)]="user.userName" placeholder="Email Address" formControlName="userName">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateUserForm.get('userName')?.errors?.['required'] && updateUserForm.get('userName')?.touched">
-                                <small class="text-police" translate>enter the user's email</small>
-                             </div>
-                        </div>
-                       
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateUserForm.invalid" >Modifier</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateUserModal()">Cancel</a>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 
 <div *ngIf="updatUser" class="page-content-inner">
@@ -842,21 +759,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="column is-12">
-                                <div class="field">
-                                    <div>
-                                        <label> Civilité*</label><br>
-                                        <select class="input_comp" formControlName="idCivility" aria-label="Default select example"  [(ngModel)]="ngSelectCivility">
-                                            <option value="0" disabled>--selectionner une  Civilité--</option>
-                                            <option *ngFor="let cyvility of cyvilities" [value]="cyvility.id" >{{ cyvility.label }}</option>
-                                        </select>
-                                        <div class="text-danger"
-                                        *ngIf="updateUserForm.get('idCivility')?.errors?.['required'] && updateUserForm.get('idCivility')?.touched">
-                                        <small class="text-police" translate>selectionner la civilité</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
 
                             <div class="column is-6">
                                 <div class="field">
@@ -915,23 +817,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="column is-6">
-                                <div class="field">
-                                    <div>
-                                        <label>Situation familiale*</label><br>
-                                        <select class="input_comp" formControlName="idFamilySituation" aria-label="Default select example"  [(ngModel)]="ngSelectFamilySituation">
-                                            <option value="0" disabled>--selectionner une situation familiale--</option>
-                                            <option *ngFor="let familySitaution of familySitautions" [value]="familySitaution.id" >{{ familySitaution.label }}</option>
-                                        </select>
-                                        <div class="text-danger"
-                                        *ngIf="updateUserForm.get('idFamilySituation')?.errors?.['required'] && updateUserForm.get('idFamilySituation')?.touched">
-                                        <small class="text-police" translate>selectionner une situation familiale</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Nombre d’enfants *</label>
@@ -945,21 +830,6 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="column is-6">
-                                <div class="field">
-                                    <div>
-                                        <label>Types de pièces *</label><br>
-                                        <select class="input_comp" formControlName="idPieceType" aria-label="Default select example"  [(ngModel)]="ngSelectTypePiece1">
-                                            <option value="0" disabled>--selectionner un type de pièce--</option>
-                                            <option *ngFor="let pieceType of pieceTypes" [value]="pieceType.id" >{{ pieceType.label }}</option>
-                                        </select>
-                                        <div class="text-danger"
-                                        *ngIf="updateUserForm.get('idPieceType')?.errors?.['required'] && updateUserForm.get('idPieceType')?.touched">
-                                        <small class="text-police" translate>selectionner un type de pièce</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Pièce d'identité *</label>
@@ -1025,32 +895,6 @@
                                    </div>
                                 </div>
                             </div>
-                            <!-- <div class="column is-6">
-                                <div class="field">
-                                    <label>Password *</label>
-                                    <div class="control">
-                                        <input type="password" class="input" placeholder="Password" formControlName="password">
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="updateUserForm.get('password')?.errors?.['required'] && updateUserForm.get('password')?.touched">
-                                        <small class="text-police" translate>enter the user's password</small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="column is-6">
-                                <div class="field">
-                                    <label>Confirm Password *</label>
-                                    <div class="control">
-                                        <input type="password" class="input" placeholder="Confirm Password"
-                                            formControlName="confPassword">
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="updateUserForm.get('confPassword')?.errors?.['required'] && updateUserForm.get('confPassword')?.touched">
-                                        <small class="text-police" translate>enter the user's confirm password</small>
-                                    </div>
-                                </div>            
-                            </div> -->
                         </div>
                     </form>
 
@@ -1066,7 +910,6 @@
     </div>
 
 </div>
-
 
 <!-- add sponsore -->
 <div id="changerStatus" class="modal h-modal" [ngClass]="openStatusModal">
@@ -1182,28 +1025,9 @@
                                     <div class="control has-icon">
                                         <input type="number" class="input" placeholder="Phone Number"
                                         formControlName="phoneNumber">
-                                        <!-- <div class="text-danger"
-                                            *ngIf="beneficiaryForm.get('phoneNumber')?.errors?.['required'] && beneficiaryForm.get('phoneNumber')?.touched">
-                                            <small class="text-police" translate>Veuillez entrer le numéro de téléphone de l'ayant droit</small>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="column is-6">
-                                <div class="field">
-                                    <label>Numéro WhatsApp *</label>
-                                    <div class="control has-icon">
-                                        <input type="text" class="input" placeholder="numéro whatsapp"
-                                        formControlName="whatsAppNumber">
-                                        <div class="text-danger"
-                                            *ngIf="beneficiaryForm.get('whatsAppNumber')?.errors?.['required'] && beneficiaryForm.get('whatsAppNumber')?.touched">
-                                            <small class="text-police" translate>Veuillez entrer le numéro de téléphone whatsapp de l'ayant droit</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Adresse Mail *</label>

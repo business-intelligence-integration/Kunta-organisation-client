@@ -444,15 +444,15 @@
                             <option value="0" disabled>--Selectionnez un membre--</option>
                             <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
 
-                              <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">
-                                <small class="text-police" translate>select the room </small>
-                           </div> -->
+                              <div class="text-danger" *ngIf="addMemberForm.get('id')?.errors?.['required'] && addMemberForm.get('id')?.touched">
+                                <small class="text-police" translate>sélectionner un membre </small>
+                           </div>
                         </select><br><br>
                
         
                         <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div>
                     </form>
                 </div>
@@ -497,7 +497,7 @@
         
                         <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div>
                     </form>
                 </div>

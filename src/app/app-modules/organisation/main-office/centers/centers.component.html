@@ -49,14 +49,6 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let center of newListcenters">
-                    <!-- <div class="flex-table-cell is-media is-grow">
-                        <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ center.id }}</span>
-                            <span class="item-meta">
-                              <span data-filter-match="">{{ center.name }}</span>
-                            </span>
-                        </div>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ center?.name }}</span>
                     </div>
@@ -153,7 +145,7 @@
                             <label>Date de creation *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                    <input class="champ" formControlName="creationDate" max="{{ maxCreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addCenterForm.get('creationDate')?.errors?.['required'] && addCenterForm.get('creationDate')?.touched">
@@ -228,47 +220,6 @@
     </div>
 </div>
 
-
-<!-- <div id="addClub" class="modal h-modal" [ngClass]="openAreaModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Ajout Zone</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeAreaModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="addAreaForm" (ngSubmit)="onSubmitArea()">
-                        <label>Zones *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                            <option value="0" disabled>--Selectionnez une zone--</option>
-                            <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }} </span> </option>
-
-                              <div class="text-danger" *ngIf="addAreaForm.get('id')?.errors?.['required'] && addAreaForm.get('id')?.touched">
-                                <small class="text-police" translate>Veuillez selectionner la zone </small>
-                           </div>
-                        </select><br><br>
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addAreaForm.invalid" >Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeAreaModal()">Cancel</a>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <!-- add new club -->
 <div class="modal h-modal" [ngClass]="openAreaModal">
     <div class="modal-background h-modal-close"></div>
@@ -312,7 +263,7 @@
                             <label>Date de creation *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                    <input class="champ" formControlName="creationDate" max="{{ maxCreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addAreaForm.get('creationDate')?.errors?.['required'] && addAreaForm.get('creationDate')?.touched">

@@ -24,6 +24,7 @@ import Swal from 'sweetalert2';
 })
 export class DetailSessionOfTontineComponent implements OnInit {
   ngSelect3 = 0;
+  ngSelectStatus= 0;
   ngSelectPaymentMethod = 0;
   activeToggle: string = "";
   homeSider: string = "";
@@ -49,6 +50,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   penalityTypes: PenalityType[] = [];
   paymentMethods: PaymentMethod[] = [];
   penality: Penality = new Penality();
+
   constructor(private cycleService: CycleService,  
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder, 
@@ -304,5 +306,13 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.paymentMethods = res.data
     })
   }
+
+  onUpdateSessionStatus(id: number){
+    this.idSession = id;
+    alert('cool le grand julio !');
+  }
+
+
+
 
 }

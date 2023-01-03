@@ -58,6 +58,7 @@ export class UserComponent implements OnInit {
   isSelectMember: boolean = false;
   adminIsConnected: boolean = false;
   isSaving: boolean = false;
+  showErroMessage: boolean = false;
   birthDate: any;
   dateOfValidity: any;
   dateOfIssue: any;
@@ -69,6 +70,7 @@ export class UserComponent implements OnInit {
   countries: any;
   openStatusModal: string = "";
   maxAge: any;
+  minValidityDate: any
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -162,7 +164,7 @@ export class UserComponent implements OnInit {
     this.beneficiaryForm = this.formBuilder.group({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
+      phoneNumber: new FormControl(null),
       // whatsAppNumber: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
       // city: new FormControl(null, Validators.required),
@@ -678,6 +680,18 @@ export class UserComponent implements OnInit {
     this.maxAge = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
- 
 
+ onSelectIssueDate(event: any){
+  this.minValidityDate = this.dateOfIssue;
+  this.dateOfValidity = null;
+ }
+
+ onSelectValidityDate(event: any){
+  if(this.dateOfIssue == undefined || this.dateOfIssue == null){
+    this.showErroMessage = true;
+    this.dateOfValidity = null;
+  }else{
+    this.showErroMessage = false;
+  }
+ }
 }

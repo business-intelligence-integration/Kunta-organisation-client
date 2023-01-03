@@ -215,24 +215,6 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
                 </div>
-            
-                <!-- <div class="buttons" *ngIf="isCummunicationAgentList">
-                    <button class="button h-button is-primary is-elevated">
-                        <span class="icon">
-                          <i aria-hidden="true" class="fas fa-plus"></i>
-                      </span>
-                        <span (click)="onAddAgentComunication()">Ajouter un agent</span>
-                    </button>
-                </div>
-
-                <div class="buttons" *ngIf="isAgentEntryList">
-                    <button class="button h-button is-primary is-elevated">
-                        <span class="icon">
-                          <i aria-hidden="true" class="fas fa-plus"></i>
-                      </span>
-                        <span (click)="onAddAgentEntry()">Ajouter un agent</span>
-                    </button>
-                </div> -->
             </div>
           
             <div *ngIf="isListClubs" class="page-content-inner">
@@ -348,10 +330,6 @@
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
-
-                              <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">
-                                <small class="text-police" translate>select the room </small>
-                           </div> -->
                         </select><br><br>
                
         

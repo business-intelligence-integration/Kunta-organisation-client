@@ -146,25 +146,13 @@
                             <label>Date de creation *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                    <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB" max="{{ maxCreationClubDate }}"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addClubForm.get('creationDate')?.errors?.['required'] && addClubForm.get('creationDate')?.touched">
                              <small class="text-police" translate>selectionner la date de création</small>
                            </div>
                         </div>
-
-                        <!-- <div class="field">
-                            <label>Zone du club*</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idArea" [(ngModel)]="ngSelect5">
-                                <option value="0" disabled>--Selectionnez la zone du club--</option>
-                                <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }} </span> </option>
-                            </select>
-                            <div class="text-danger"
-                            *ngIf="addClubForm.get('idArea')?.errors?.['required'] && addClubForm.get('idArea')?.touched">
-                            <small class="text-police" translate>entrer l'appelation de la zone</small>
-                            </div>
-                        </div> -->
 
                         <div class="field">
                             <label>Zone du club*</label><br>
