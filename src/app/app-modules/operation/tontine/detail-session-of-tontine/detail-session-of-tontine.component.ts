@@ -36,6 +36,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   idSession: number = 0;
   cycle: Cycle = new Cycle();
   geUrl: string = "assets/images/money.png";
+  geUrl_aleatoire: string = "assets/images/fleches-aleatoires.png";
   geUrl_penality: string = "assets/images/penalty-card.png";
   openPaymntModal: string = "";
   openPenalityModal: string = "";
@@ -307,12 +308,110 @@ export class DetailSessionOfTontineComponent implements OnInit {
     })
   }
 
-  onUpdateSessionStatus(id: number){
+  onUpdateSessionStatus(id: number, status: string){
     this.idSession = id;
-    alert('cool le grand julio !');
+    if(status == "OUVERT"){
+      this.sessionService.findSessionById(id).subscribe((res)=>{
+        let penalities = [];
+        let penalityIsOkay: boolean = true;
+        if(res.data.penalties.length > 0){
+          penalities =  res.data.penalties
+          penalities.forEach((penalty:any) => {
+            if(penalty.paid == false){
+              penalityIsOkay = false;
+            }
+          });
+        }
+        if(res.data.totalToBePaid != res.data.totalPaid || !penalityIsOkay){
+          this.utilityService.showMessage(
+            'warning',
+            'Désolé vous ne pouvez pas fermer cette séance car tous les paiments n\'ont pas encore été effectué !',
+            '#e62965',
+            'white'
+          );
+        }
+        if(res.data.totalToBePaid == res.data.totalPaid
+          && penalityIsOkay){
+          this.sessionService.closeSessionById(id).subscribe(()=>{
+          this.getAllSessionsOfCycle();
+          this.utilityService.showMessage(
+            'success',
+            'La séance a bien été fermé !',
+            '#06d6a0',
+            'white'
+          );
+          })
+        }
+    })
+    }else if(status == "FERMÉ"){
+      this.sessionService.openSessionById(id).subscribe((res)=>{
+        console.log('res::', res);
+        
+        this.getAllSessionsOfCycle()
+        this.utilityService.showMessage(
+          'success',
+          'La séance a bien été ouvert !',
+          '#06d6a0',
+          'white'
+        );
+      })
+    }
+  
+  }
+
+  onGenerateWinner(idSession: number){
+    this.generate(idSession);
   }
 
 
-
-
+  generate(idSession: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'êtes-vous sûr de vouloir génrer le gagant maintenant ?',
+        text: "Vous ne pourrez pas revenir en arrière !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, générer !',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.sessionService.generateWinnerOfASession(idSession).subscribe(
+            () => {
+              this.getAllSessionsOfCycle();
+              swalWithBootstrapButtons.fire({
+                title: 'Généré !',
+                text: 'le gagant a bien été généré.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé !',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'Vous avez annulé la génération du gagnant de cette séance',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
 }

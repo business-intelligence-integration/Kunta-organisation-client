@@ -67,5 +67,15 @@ export class SessionService {
     return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-penalties' + '?token=' + this.utilityService.loadToken());
   }
 
+  closeSessionById(idSession: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/close`+ '?token=' + this.utilityService.loadToken(), {});
+  }
 
+  openSessionById(idSession: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/open`, httpOptions);
+  }
+
+  generateWinnerOfASession(idSession: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/generate-winner`, httpOptions);
+  }
 }

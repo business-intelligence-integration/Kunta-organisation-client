@@ -27,8 +27,6 @@ export class PenaltyService {
   }
 
   payPenalty(idPenalty: number, idUser: number, idPaymentMethod: number, penality: Penality):Observable<any>{
-    console.log("penality::", penality);
-    
     return this.httpClient.patch<any>(this.baseUrl + `penalties/${idPenalty}/user/${idUser}/pay/payment-method/${idPaymentMethod}` + "?token=" +this.utilityService.loadToken(), penality);
   }
 

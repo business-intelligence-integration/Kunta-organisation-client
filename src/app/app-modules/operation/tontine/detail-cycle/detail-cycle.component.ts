@@ -28,6 +28,7 @@ export class DetailCycleComponent implements OnInit {
   startDate: any;
   idTontine: number = 0;
   isSaving: boolean = false;
+  isClosing: boolean = true;
   constructor(private cycleService: CycleService, 
     private activatedRoute: ActivatedRoute,
     private tontineService: TontineService,
@@ -67,6 +68,8 @@ export class DetailCycleComponent implements OnInit {
       this.tontineService.findAllCyclesOfTontine(params['id']).subscribe((res)=>{
         this.idTontine = params['id']
         this.cycles = res.data;
+        console.log("cycles:: ", res);
+        
       })
     })
     
@@ -89,11 +92,7 @@ export class DetailCycleComponent implements OnInit {
 
   onSubmitUpdateCycle(){
     const formValue = this.updateCycleForm.value;
-      // let startDate = new Date(formValue.startDate);
-      // let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
-      // this.cycle.durationInMonths = formValue.durationInMonths;
       this.cycle.name = formValue.name;
-      // this.cycle.startDate = startDateFormated;
     this.updateCycle(formValue.idCycle, this.cycle);
   }
 
@@ -119,12 +118,34 @@ export class DetailCycleComponent implements OnInit {
       );
     })
   }
-  // getAllSessionsOfCycle(){
-  //   this.activatedRoute.queryParams.subscribe((params) => {
-  //     this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
-  //       this.sessions = res.data;
-  //     });
-  //   })
-  // }
 
+  onChangeCycleStatus(idCycle: number){
+    this.cycleService.findCycleById(idCycle).subscribe((res)=>{
+      res.data.sessions.map((session:any)=>{
+        if(session.status.label == "OUVERT"){
+          this.isClosing = false;
+        }
+      })
+
+     if(this.isClosing == false){
+      this.utilityService.showMessage(
+        'warning',
+        'Désolé vous ne pouvez pas fermer ce cycle car il y a encore des séances en cours !',
+        '#e62965',
+        'white'
+      );
+     }else{
+      this.cycleService.closeCycleById(idCycle).subscribe(()=>{
+        this.findAllCyclesOfTontine();
+        this.utilityService.showMessage(
+          'success',
+          'Le cycle a bien été fermé et ne poura plus être ouvert !',
+          '#06d6a0',
+          'white'
+        );
+      })
+     }
+      
+    })
+  }
 }

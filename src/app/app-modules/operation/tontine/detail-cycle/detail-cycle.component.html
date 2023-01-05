@@ -251,7 +251,7 @@
                                 <span class="light-text" data-filter-match="">{{ cycle.startDate }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Status">
-                                <span class="tag is-rounded" data-filter-match="" [ngClass]="{'is-danger': cycle.status.label === 'FERMÉ', 'is-success': cycle.status.label === 'OUVERT'}">{{ cycle.status.label }}</span>
+                                <span class="tag is-rounded cliquable"  data-filter-match="" (click)="onChangeCycleStatus(cycle.id)" [ngClass]="{'is-danger': cycle.status.label === 'FERMÉ', 'is-success': cycle.status.label === 'OUVERT'}">{{ cycle.status.label }}</span>
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

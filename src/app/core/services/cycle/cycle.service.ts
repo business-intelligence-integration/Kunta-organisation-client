@@ -29,10 +29,6 @@ export class CycleService {
     return this.httpClient.get<any>(this.baseUrl + 'cycles/'+ id, httpOptions);
   }
 
-  // updateCycle(durationInMonths: number, id: number, name: string, startDate: any):Observable<any>{
-  //   return this.httpClient.put<any>(this.baseUrl + 'cycles/'+ id + "?durationInMonths=" + durationInMonths + "?id=" + id + "?name=" + name + "?startDate=" + startDate, httpOptions);
-  // }
-
   updateCycle(id: number, cycle: Cycle):Observable<any>{
     return this.httpClient.put<any>(this.baseUrl + 'cycles/'+ id, cycle, httpOptions);
   }
@@ -43,6 +39,10 @@ export class CycleService {
 
   deleteSessionOfACycle(idCycle: number, idSession: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl +'cycles/' + idCycle + '/sessions/' + idSession, httpOptions);
+  }
+
+  closeCycleById(idCycle: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'cycles/'+ idCycle + "/close", httpOptions);
   }
 
 }

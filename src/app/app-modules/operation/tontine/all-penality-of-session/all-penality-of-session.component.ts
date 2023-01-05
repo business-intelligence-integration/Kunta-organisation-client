@@ -138,7 +138,7 @@ export class AllPenalityOfSessionComponent implements OnInit {
 
   makePayment(idPenality: number, idUser: number, idPaymentMethod: number, penality: Penality){
     this.isSaving = true;
-    this.penalityService.payPenalty(idPenality, idUser, idPaymentMethod, penality).subscribe((res)=>{
+    this.penalityService.payPenalty(idPenality, idUser, idPaymentMethod, penality).subscribe(()=>{
       this.paymentForm.reset();
       this.isSaving = false;
       this.getAllPanalities();
