@@ -36,6 +36,7 @@ export class AllPenalityOfSessionComponent implements OnInit {
   geUrl: string = "assets/images/money.png";
   paymentMethods: PaymentMethod[] = [];
   date: any;
+  idPenalityType: number = 0;
   constructor(private sessionService: SessionService,
     private activatedRoute: ActivatedRoute, 
     private formBuilder: FormBuilder, 
@@ -106,10 +107,11 @@ export class AllPenalityOfSessionComponent implements OnInit {
     })
   }
 
-  onOpenPaymentModal(idPenality: number, idUser: number){
-    this.idPenality = idPenality;
-    this.idUser = idUser;
-    this.openPaymntModal = "is-active";
+  onOpenPaymentModal(idPenality: number, idUser: number, idPenalityType: number){
+     this.idPenalityType = idPenalityType;
+      this.idPenality = idPenality;
+      this.idUser = idUser;
+      this.openPaymntModal = "is-active";
   }
 
   closePaymentModal(){
@@ -128,12 +130,19 @@ export class AllPenalityOfSessionComponent implements OnInit {
 
   onSubmitPayment(){
     const formValue = this.paymentForm.value;
-    this.penalityTypeService.findPenaltyTypeById(formValue.idPaymentMethod).subscribe((res)=>{
+    this.penalityTypeService.findPenaltyTypeById(this.idPenalityType).subscribe((res)=>{
       this.penality.paid = res.data.amount;
       this.penality.date = formValue.date;
       this.penality.proof = formValue.proof;
+      this.makePayment(this.idPenality, this.idUser, formValue.idPaymentMethod, this.penality)
     })
-    this.makePayment(this.idPenality, this.idUser, formValue.idPaymentMethod, this.penality)
+    
+    // console.log("idUser::", this.idUser);
+    // console.log("idPenality::", this.idPenality);
+    // console.log("idPaymentMethod::", formValue.idPaymentMethod);
+    // console.log("Penalty::", this.penality);
+    // console.log("IdPenalityType::", this.idPenalityType);
+    
   }
 
   makePayment(idPenality: number, idUser: number, idPaymentMethod: number, penality: Penality){

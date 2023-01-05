@@ -8,6 +8,7 @@ import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
+import { Penality } from 'src/app/core/classes/penality';
 
 @Component({
   selector: 'app-detail-cycle',
@@ -121,13 +122,22 @@ export class DetailCycleComponent implements OnInit {
 
   onChangeCycleStatus(idCycle: number){
     this.cycleService.findCycleById(idCycle).subscribe((res)=>{
+      let penalityIsOkay: boolean = true;
+      let paymentIsOkay: boolean = true;
       res.data.sessions.map((session:any)=>{
-        if(session.status.label == "OUVERT"){
-          this.isClosing = false;
+        if(session.penalties.length > 0){
+          session.penalties.forEach((penalty:any) => {
+            if(penalty.paid === false){
+              penalityIsOkay = false;
+            }
+          });
+        }
+        if(session.totalToBePaid != session.totalPaid){
+             paymentIsOkay = false;
         }
       })
 
-     if(this.isClosing == false){
+     if(!paymentIsOkay || !paymentIsOkay){
       this.utilityService.showMessage(
         'warning',
         'Désolé vous ne pouvez pas fermer ce cycle car il y a encore des séances en cours !',

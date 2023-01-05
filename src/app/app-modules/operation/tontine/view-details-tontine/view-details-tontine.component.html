@@ -9,6 +9,39 @@
                 <div class="action-box">
                     <div class="box-content">
                         <div class="page-content-inner all-projects">
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ totalExpectedContribution }} FCFA</span>
+                                        <p>Cotisation attentu</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ totalContributionReceived }} FCFA</span>
+                                        <p>cotisation reçu</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ penaltyAfflicted }} FCFA</span>
+                                        <p>Pénalité affligé </p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ penaltyPaid }} FCFA</span>
+                                        <p>Pénalité payé</p>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="all-projects-header">
                                 <div class="header-item style-session-margin">
@@ -44,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="all-projects-header">
+                            <!-- <div class="all-projects-header">
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
@@ -60,7 +93,7 @@
                                         <p>Nombre de séances</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
   
                     </div>
@@ -74,6 +107,24 @@
                     </div>
 
                     <div class="action-list">
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Date début:</span><br>
+                                <p>{{ startDate }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Date fin:</span><br>
+                                <p>{{ endDate }}</p>
+                            </div>
+                        </div>
                         <div class="media-flex">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -126,6 +177,15 @@
                             <div class="flex-meta">
                                 <span>Observation:</span><br>
                                 <p> {{ tontine.observation }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Statut:</span><br>
+                                <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': tontine.status.label === 'FERMÉ', 'is-success': tontine.status.label === 'OUVERT'}">{{ tontine.status.label }}</span>
                             </div>
                         </div>
                     </div>

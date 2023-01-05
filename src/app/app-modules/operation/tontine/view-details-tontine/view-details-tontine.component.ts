@@ -14,6 +14,12 @@ export class ViewDetailsTontineComponent implements OnInit {
 
   operation: Operation = new Operation();
   tontine: Tontine = new Tontine();
+  totalExpectedContribution: number = 0;
+  totalContributionReceived: number = 0;
+  penaltyAfflicted : number = 0;
+  penaltyPaid: number = 0;
+  startDate: any;
+  endDate: any;
   constructor(private activatedRoute: ActivatedRoute, 
     private tontineService: TontineService,
     private location: Location) { }
@@ -25,9 +31,35 @@ export class ViewDetailsTontineComponent implements OnInit {
   backBack(){this.location.back()}
   
   getTotine(){
+    let totalExpectedContribution: number = 0;
+    let totalContributionReceived: number = 0;
+    let penaltyAfflicted : number = 0;
+    let penaltyPaid: number = 0;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['id']).subscribe((res)=>{
+        console.log("tontine::", res);
+        
         this.tontine = res.data
+        this.startDate = res.data.cycles[0].startDate;
+        this.endDate = res.data.cycles[res.data.cycles.length - 1].endDate;
+          res.data.cycles.map((cycle:any)=>{
+            cycle.sessions.map((session:any)=>{
+              totalExpectedContribution = totalExpectedContribution + session.totalToBePaid;
+              totalContributionReceived = totalContributionReceived + session.totalPaid;
+              session.penalties.map((penalty:any)=>{
+                penaltyAfflicted = penaltyAfflicted + penalty.penaltyType.amount;
+                if(penalty.paid == true){
+                  penaltyPaid = penaltyPaid + penalty.penaltyType.amount;
+                }
+              })
+
+            })          
+          })
+
+          this.totalExpectedContribution = totalExpectedContribution;
+          this.totalContributionReceived = totalContributionReceived
+          this.penaltyAfflicted = penaltyAfflicted;
+          this.penaltyPaid = penaltyPaid;
       });
     })
   }

@@ -117,7 +117,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Gagnant:</span><br>
-                                <p>{{ session.winner.firstName }}</p>
+                                <p>{{ session?.winner?.firstName }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -126,7 +126,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Ville du gagnant:</span><br>
-                                <p> {{ session.winner.city }}</p>
+                                <p> {{ session?.winner?.city }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -136,7 +136,8 @@
                             <div class="flex-meta">
                                 <span>Status:</span><br>
                                 <!-- <p> {{ session.status.label }}</p> -->
-                                <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
+                                <span class="tag is-rounded" data-filter-match="" *ngIf="session.winner != null">CLOTURÉ</span>
+                                <span class="tag is-rounded is-cliquable" data-filter-match="" *ngIf="session.winner == null" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
                             </div>
                            
                         </div>

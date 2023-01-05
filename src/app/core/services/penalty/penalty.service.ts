@@ -30,4 +30,7 @@ export class PenaltyService {
     return this.httpClient.patch<any>(this.baseUrl + `penalties/${idPenalty}/user/${idUser}/pay/payment-method/${idPaymentMethod}` + "?token=" +this.utilityService.loadToken(), penality);
   }
 
+  findPenaltyById(idPenalty: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'penalties/' + idPenalty + '?token=' + this.utilityService.loadToken());
+  }
 }

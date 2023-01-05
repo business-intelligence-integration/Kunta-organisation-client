@@ -136,7 +136,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
-        console.log("Sessions::", res);
+        console.log("sessions::", res);
         
         this.sessions = res.data;
       });
@@ -344,17 +344,28 @@ export class DetailSessionOfTontineComponent implements OnInit {
         }
     })
     }else if(status == "FERMÉ"){
-      this.sessionService.openSessionById(id).subscribe((res)=>{
-        console.log('res::', res);
+      this.sessionService.findSessionById(id).subscribe((res)=>{
         
-        this.getAllSessionsOfCycle()
-        this.utilityService.showMessage(
-          'success',
-          'La séance a bien été ouvert !',
-          '#06d6a0',
-          'white'
-        );
+        if(res.data.winner != null){
+          this.utilityService.showMessage(
+            'warning',
+            'Désolé vous ne pouvez plus ouvrir cette séance car tous les paiments ont été effectué et le gagnant a été généré !',
+            '#e62965',
+            'white'
+          );
+        }else{
+          this.sessionService.openSessionById(id).subscribe((res)=>{  
+            this.getAllSessionsOfCycle()
+            this.utilityService.showMessage(
+              'success',
+              'La séance a bien été ouvert !',
+              '#06d6a0',
+              'white'
+            );
+          })
+        }
       })
+    
     }
   
   }
@@ -365,6 +376,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
 
 
   generate(idSession: number) {
+    let penalityIsNoOkay: boolean = false;
+    let paymentIsNoOkay: boolean = false;
     const swalWithBootstrapButtons = Swal.mixin({
       buttonsStyling: true,
     });
@@ -388,23 +401,55 @@ export class DetailSessionOfTontineComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.sessionService.generateWinnerOfASession(idSession).subscribe(
-            () => {
-              this.getAllSessionsOfCycle();
-              swalWithBootstrapButtons.fire({
-                title: 'Généré !',
-                text: 'le gagant a bien été généré.',
-                confirmButtonColor: '#198AE3',
-              });
-            },
-            () => {
-              swalWithBootstrapButtons.fire({
-                title: 'Annulé !',
-                text: 'Une erreur s\'est produite',
-                confirmButtonColor: '#d33',
-              });
+          this.sessionService.findSessionById(idSession).subscribe((res)=>{
+            if(res.data.winner != null){
+              this.utilityService.showMessage(
+                'warning',
+                'Désolé le gagant de cette tontine a déjà été généré, vous ne pouvez plus en générer un autre !',
+                '#e62965',
+                'white'
+              );
+            }else{
+              res.data.penalties.map((penalty:any)=>{
+                if(penalty.paid == false){
+                  penalityIsNoOkay = true;
+                }
+              })
+              if(res.data.totalToBePaid != res.data.totalPaid){
+                paymentIsNoOkay = true
+              }
+        
+              if(paymentIsNoOkay || penalityIsNoOkay){
+                this.utilityService.showMessage(
+                  'warning',
+                  'Désolé vous ne pouvez pas encore générer le gagnant de cette séance car tous les paiements n\'ont pas encore été effectué !',
+                  '#e62965',
+                  'white'
+                );
+              }else{
+                this.sessionService.generateWinnerOfASession(idSession).subscribe(
+                  () => {
+                    this.getAllSessionsOfCycle();
+                    swalWithBootstrapButtons.fire({
+                      title: 'Généré !',
+                      text: 'le gagant a bien été généré.',
+                      confirmButtonColor: '#198AE3',
+                    });
+                  },
+                  () => {
+                    swalWithBootstrapButtons.fire({
+                      title: 'Annulé !',
+                      text: 'Une erreur s\'est produite',
+                      confirmButtonColor: '#d33',
+                    });
+                  }
+                );
+              }
             }
-          );
+
+          })
+         
+         
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: 'Annulé',
@@ -414,4 +459,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
         }
       });
   }
+
+
 }

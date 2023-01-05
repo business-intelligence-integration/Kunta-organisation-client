@@ -281,13 +281,13 @@
                                     </label>
             
                                     <div class="control-end">
-                                        <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': cycle.status.label === 'FERMÉ', 'is-success': cycle.status.label === 'OUVERT'}">{{ cycle.status.label }}</span>
+                                        <span class="tag is-rounded" data-filter-match="" [ngClass]="{'is-danger': cycle.status.label === 'FERMÉ', 'is-success': cycle.status.label === 'OUVERT'}">{{ cycle.status.label }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="filter-box">
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -297,7 +297,7 @@
                                         <span class="tag is-rounded">{{ cycle.echeanceNumber }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
@@ -398,8 +398,10 @@
                                         <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Status">
-                                        <span class="tag is-rounded cliquable-span" data-filter-match="" (click)="onUpdateSessionStatus(session.id, session.status.label)" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
-                                        <a  class="pagination-previous has-chevron" *ngIf="session.status.label === 'FERMÉ'" (click)="onGenerateWinner(session.id)"> <img width="18" height="18" src="{{ geUrl_aleatoire }}" alt=""></a>
+                                        <span class="light-text mr-2" data-filter-match="">{{ session?.winner?.firstName }} </span>
+                                        <span class="tag is-rounded" data-filter-match="" *ngIf="session.winner != null">CLOTURÉ</span>
+                                        <span class="tag is-rounded cliquable-span" data-filter-match="" *ngIf="session.winner == null" (click)="onUpdateSessionStatus(session.id, session.status.label)" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
+                                        <a  class="pagination-previous has-chevron" *ngIf="session.status.label === 'FERMÉ' && session.winner == null" (click)="onGenerateWinner(session.id)"> <img width="18" height="18" src="{{ geUrl_aleatoire }}" alt=""></a>
                                     </div>
                                     <div class="flex-table-cell cell-end" data-th="Actions">
                                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

@@ -133,17 +133,7 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      let maxDate = new Date(Date.now());
-      res.data.forEach((tontine: any)=>{
-       tontine.cycles.forEach((cycle: any)=>{
-       let  minDate = new Date(cycle.endDate);
-         if(minDate > maxDate){
-             maxDate = minDate;
-         }
-       })
-      })
       this.tontines = res.data;
-      this.maxDateOfTontineList = new DatePipe('en-US').transform(maxDate,'yyyy-MM-dd');
     })
   }
 
@@ -460,6 +450,16 @@ export class TontineComponent implements OnInit {
 
   onOpenCreateCycle(id: number){
     this.idTontine = id;
+    this.tontineService.findTontineById(id).subscribe((res)=>{
+      let maxDate = new Date(Date.now());
+      res.data.cycles.forEach((cycle: any)=>{
+        let  minDate = new Date(cycle.endDate);
+          if(minDate > maxDate){
+              maxDate = minDate;
+          }
+        })
+        this.maxDateOfTontineList = new DatePipe('en-US').transform(maxDate,'yyyy-MM-dd');
+    })
     this.openCycleModal = "is-active";
   }
 
