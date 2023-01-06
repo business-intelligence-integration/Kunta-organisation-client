@@ -18,6 +18,8 @@ export class ViewDetailsTontineComponent implements OnInit {
   totalContributionReceived: number = 0;
   penaltyAfflicted : number = 0;
   penaltyPaid: number = 0;
+  totalExpectedGain: number = 0;
+  totalGainMade: number = 0;
   startDate: any;
   endDate: any;
   constructor(private activatedRoute: ActivatedRoute, 
@@ -35,6 +37,8 @@ export class ViewDetailsTontineComponent implements OnInit {
     let totalContributionReceived: number = 0;
     let penaltyAfflicted : number = 0;
     let penaltyPaid: number = 0;
+    let numberOfGainMade: number =0;
+    let lotAmount: number = 0;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['id']).subscribe((res)=>{
         console.log("tontine::", res);
@@ -42,8 +46,13 @@ export class ViewDetailsTontineComponent implements OnInit {
         this.tontine = res.data
         this.startDate = res.data.cycles[0].startDate;
         this.endDate = res.data.cycles[res.data.cycles.length - 1].endDate;
-          res.data.cycles.map((cycle:any)=>{
+        this.totalExpectedGain = res.data.cycles.length * res.data.cycles[0].lotAmount * res.data.cycles[0].sessions.length;
+        lotAmount = res.data.cycles[0].lotAmount;
+        res.data.cycles.map((cycle:any)=>{
             cycle.sessions.map((session:any)=>{
+              if(session.winner != null){
+                numberOfGainMade = numberOfGainMade + 1;
+              }
               totalExpectedContribution = totalExpectedContribution + session.totalToBePaid;
               totalContributionReceived = totalContributionReceived + session.totalPaid;
               session.penalties.map((penalty:any)=>{
@@ -60,6 +69,7 @@ export class ViewDetailsTontineComponent implements OnInit {
           this.totalContributionReceived = totalContributionReceived
           this.penaltyAfflicted = penaltyAfflicted;
           this.penaltyPaid = penaltyPaid;
+          this.totalGainMade = lotAmount * numberOfGainMade;
       });
     })
   }

@@ -134,6 +134,8 @@ export class TontineComponent implements OnInit {
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
       this.tontines = res.data;
+      console.log("tontines::", res);
+      
     })
   }
 
@@ -409,8 +411,6 @@ export class TontineComponent implements OnInit {
   onUpdateTontine(id: number){
     this.tontineService.findTontineById(id).subscribe((res)=>{
       this.tontine = res.data;
-      console.log("UpdateT::", res);
-      
       this.openUpdateModal = "is-active"
     })
   }

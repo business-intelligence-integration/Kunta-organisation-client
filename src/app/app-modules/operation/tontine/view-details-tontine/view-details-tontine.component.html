@@ -47,15 +47,15 @@
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ tontine.lotsToBeAwarded }}</span>
-                                        <p>Lots à attribuer</p>
+                                        <span>{{ totalExpectedGain }} FCFA</span>
+                                        <p>Totale gain à effectuer</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ tontine.awardedLots }}</span>
-                                        <p>Lots attribués</p>
+                                        <span>{{ totalGainMade }} FCFA</span>
+                                        <p>Totale gain effectué</p>
                                     </div>
                                 </div>
                             </div>
@@ -64,15 +64,15 @@
                                 <div class="header-item style-session-margin">
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
-                                        <span>{{ tontine.registeredMembers }}</span>
-                                        <p>Membres inscrits</p>
+                                        <span>{{ totalExpectedContribution - totalExpectedGain }} FCFA</span>
+                                        <p>Totale marge attendu</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-leaf"></i>
-                                        <span>{{ tontine.membersWithoutPenalties }}</span>
-                                        <p>Membres sans pénalités</p>
+                                        <span>{{ totalContributionReceived - totalGainMade }} FCFA</span>
+                                        <p>Totale marge actuelle</p>
                                     </div>
                                 </div>
                             </div>

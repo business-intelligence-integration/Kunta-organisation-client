@@ -165,12 +165,8 @@ export class UserComponent implements OnInit {
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null),
-      // whatsAppNumber: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      // city: new FormControl(null, Validators.required),
-      // country: new FormControl(null, Validators.required),
+      email: new FormControl(null),
       pieceId: new FormControl(null, Validators.required),
-      // postalBox: new FormControl(null, Validators.required),
       birthDate: new FormControl(null, Validators.required),
       idPieceType: new FormControl(null, Validators.required),
     })
@@ -498,13 +494,6 @@ export class UserComponent implements OnInit {
     this.idUser = id;
   }
 
-  // getAllMembers(){
-  //   this.userService.getAllMambers().subscribe((res)=>{
-  //     console.log("resMembre::", res);
-  //     this.members = res.data;
-  //   })
-  // }
-
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
       this.membersArray = res.data.map((member:any)=>({value:member.id, label:member.firstName}));
@@ -514,34 +503,6 @@ export class UserComponent implements OnInit {
   closeSponsoreModal(){
     this.openSponsoreModal = "";
   }
-
-  // onAddSponsore(){
-  //   const formValue = this.addSponsoreForm.value;
-  //   this.addSponsore(this.idUser, formValue.id);
-  // }
-
-  // addSponsore(idUser: number, idToAdd: number){
-  //   this.isSaving = true;
-  //   this.userService.addSponsoredMember(idUser, idToAdd).subscribe(()=>{
-  //     this.isSaving = false;
-  //     this.getAllUsers();
-  //     this.closeSponsoreModal();
-  //     this.utilityService.showMessage(
-  //       'success',
-  //       'Member successfully added',
-  //       '#06d6a0',
-  //       'white'
-  //     );
-  //   }, ()=>{
-  //     this.isSaving = false;
-  //     this.utilityService.showMessage(
-  //       'warning',
-  //       'An error has occurred',
-  //       '#e62965',
-  //       'white'
-  //     );
-  //   })
-  // }
 
   onSelectCreateDate(event: any){
 

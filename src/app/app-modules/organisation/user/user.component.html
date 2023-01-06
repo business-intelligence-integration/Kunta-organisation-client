@@ -183,26 +183,9 @@
                                     </div>
                                 </div>
                                 <div *ngIf="isAdminAndOperator || isUser">
-                                    <!-- <div class="field">
-                                        <div class="mb-2">
-                                            <label>Parain *</label><br>
-                                            <select class="input_comp" formControlName="idSponsor" aria-label="Default select example"  [(ngModel)]="ngSelectUser">
-                                                <option value="0" disabled>--Selectioner un parain--</option>
-                                                <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }}</option>
-                                            </select>
-                                            <div class="text-danger"
-                                            *ngIf="addUserForm.get('idSponsor')?.errors?.['required'] && addUserForm.get('idSponsor')?.touched">
-                                            <small class="text-police" translate>veuillez selectioner un parain</small>
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <div class="field">
                                         <div>
                                             <label>Parain *</label><br>
-                                            <!-- <select class="input_comp" formControlName="idCountry" aria-label="Default select example"  [(ngModel)]="ngSelectFamilySituation">
-                                                <option value="0" disabled>--selectionner le pays de résidence--</option>
-                                                <option *ngFor="let country of countries" [value]="country.id" >{{ country.name }}</option>
-                                            </select> -->
                                             <select2
                                                     class="w-100 color-border"
                                                     [data]="userOfSelect"
@@ -372,10 +355,6 @@
                                             <div class="field">
                                                 <div>
                                                     <label>Pays de résidence*</label><br>
-                                                    <!-- <select class="input_comp" formControlName="idCountry" aria-label="Default select example"  [(ngModel)]="ngSelectFamilySituation">
-                                                        <option value="0" disabled>--selectionner le pays de résidence--</option>
-                                                        <option *ngFor="let country of countries" [value]="country.id" >{{ country.name }}</option>
-                                                    </select> -->
                                                     <select2
                                                             class="w-100 color-border"
                                                             [data]="countries"
@@ -1066,10 +1045,6 @@
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         </div>
-                                        <div class="text-danger"
-                                        *ngIf="beneficiaryForm.get('email')?.errors?.['required'] && beneficiaryForm.get('email')?.touched">
-                                        <small class="text-police" translate>Veuillez entrer l'email de l'ayant droit</small>
-                                     </div>
                                     </div>
                                 </div>
                             </div>

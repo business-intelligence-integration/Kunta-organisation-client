@@ -240,8 +240,6 @@
                         <!-- <span class="is-grow">Id</span> -->
                         <span>Versé</span>
                         <span>Preuve</span>
-                        <!-- <span>À verser</span> -->
-                        <!-- <span>Reste à payer</span> -->
                         <span>Membre</span>
                         <span>Date</span>
                         <span>Methode de paiement</span>
@@ -251,15 +249,6 @@
                     <div class="flex-list-inner">
                         <!--Table item-->
                         <div class="flex-table-item" *ngFor="let payment of payments">
-                            <!-- <div class="flex-table-cell is-media is-grow">
-                                <div>
-                                    <span class="item-name dark-inverted" data-filter-match="">{{ payment.id }}</span>
-                                    <span class="item-meta">
-                                      <span data-filter-match="">{{ payment.paid }}</span>
-                                    </span>
-                                </div>
-                            </div> -->
-
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ payment.paid }}</span>
                             </div>
@@ -267,14 +256,6 @@
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ payment.proof }}</span>
                             </div>
-
-                            <!-- <div class="flex-table-cell" data-th="À verser">
-                                <span class="light-text" data-filter-match="">{{ payment.toBePaid }}</span>
-                            </div> -->
-
-                            <!-- <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ payment.remainingToPay }}</span>
-                            </div> -->
 
                             <div class="flex-table-cell" data-th="Reste à payer">
                                 <span class="light-text" data-filter-match="">{{ payment.user.firstName }}</span>
@@ -289,15 +270,13 @@
                             </div>
                             <div class="flex-table-cell" data-th="Status">
                                 <a _ngcontent-nct-c62="" (click)="onUpdatePaymentSatatus(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                <span class="tag is-rounded" data-filter-match="">{{ payment.paymentStatus.label }}</span>
+                                <span class="tag is-rounded" [ngClass]="{'is-danger': payment.paymentStatus.label === 'ENREGISTRÉ', 'is-success': payment.paymentStatus.label === 'VALIDÉ'}" data-filter-match="">{{ payment.paymentStatus.label }}</span>
                             </div>
                             
         
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatePayment(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                    <a _ngcontent-nct-c62="" (click)="onDelate(payment.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
                                 </div>
                             </div>
                         </div>
@@ -382,10 +361,6 @@
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ user.userName }}</span>
                             </div>
-
-                            <!-- <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ user.toBePaidByUser }}</span>
-                            </div> -->
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ user.toBePaidByUser - user.remainingToPayByUser}}</span>
                             </div>
@@ -393,20 +368,15 @@
                             <div class="flex-table-cell" data-th="Raison">
                                 <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
                             </div>
-                            <!-- <div class="flex-table-cell" data-th="À verser">
-                                <span class="light-text" data-filter-match="">{{ payment.toBePaid }}</span>
-                            </div> -->
+     
                             <div class="flex-table-cell" data-th="Status">
-                                <span class="light-text" data-filter-match="" *ngIf="user.upToDate === false">non</span>
-                                <span class="light-text" data-filter-match="" *ngIf="user.upToDate === true">oui</span>
+                                <span class="tag is-rounded is-danger" *ngIf="user.upToDate === false">non</span>
+                                <span class="tag is-rounded is-success" *ngIf="user.upToDate === true">oui</span>
                             </div>
-                            
         
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatePayment(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
-                                    <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
                                 </div>
                             </div>
                         </div>

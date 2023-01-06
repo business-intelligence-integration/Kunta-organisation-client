@@ -69,8 +69,6 @@ export class DetailCycleComponent implements OnInit {
       this.tontineService.findAllCyclesOfTontine(params['id']).subscribe((res)=>{
         this.idTontine = params['id']
         this.cycles = res.data;
-        console.log("cycles:: ", res);
-        
       })
     })
     
@@ -122,22 +120,22 @@ export class DetailCycleComponent implements OnInit {
 
   onChangeCycleStatus(idCycle: number){
     this.cycleService.findCycleById(idCycle).subscribe((res)=>{
-      let penalityIsOkay: boolean = true;
+      // let penalityIsOkay: boolean = true;
       let paymentIsOkay: boolean = true;
       res.data.sessions.map((session:any)=>{
-        if(session.penalties.length > 0){
-          session.penalties.forEach((penalty:any) => {
-            if(penalty.paid === false){
-              penalityIsOkay = false;
-            }
-          });
-        }
+        // if(session.penalties.length > 0){
+        //   session.penalties.forEach((penalty:any) => {
+        //     if(penalty.paid === false){
+        //       penalityIsOkay = false;
+        //     }
+        //   });
+        // }
         if(session.totalToBePaid != session.totalPaid){
              paymentIsOkay = false;
         }
       })
 
-     if(!paymentIsOkay || !paymentIsOkay){
+     if(!paymentIsOkay){
       this.utilityService.showMessage(
         'warning',
         'Désolé vous ne pouvez pas fermer ce cycle car il y a encore des séances en cours !',

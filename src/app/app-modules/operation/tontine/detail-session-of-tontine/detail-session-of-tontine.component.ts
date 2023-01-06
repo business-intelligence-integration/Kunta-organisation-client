@@ -121,6 +121,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.cycleService.findCycleById(params['id']).subscribe((res)=>{
         this.cycle = res.data;
+        console.log("cycle::", this.cycle);
+        
       });
     })
   }
@@ -136,8 +138,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
-        console.log("sessions::", res);
-        
         this.sessions = res.data;
       });
     })
@@ -312,17 +312,17 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.idSession = id;
     if(status == "OUVERT"){
       this.sessionService.findSessionById(id).subscribe((res)=>{
-        let penalities = [];
-        let penalityIsOkay: boolean = true;
-        if(res.data.penalties.length > 0){
-          penalities =  res.data.penalties
-          penalities.forEach((penalty:any) => {
-            if(penalty.paid == false){
-              penalityIsOkay = false;
-            }
-          });
-        }
-        if(res.data.totalToBePaid != res.data.totalPaid || !penalityIsOkay){
+        // let penalities = [];
+        // let penalityIsOkay: boolean = true;
+        // if(res.data.penalties.length > 0){
+        //   penalities =  res.data.penalties
+        //   penalities.forEach((penalty:any) => {
+        //     if(penalty.paid == false){
+        //       penalityIsOkay = false;
+        //     }
+        //   });
+        // }
+        if(res.data.totalToBePaid != res.data.totalPaid){
           this.utilityService.showMessage(
             'warning',
             'Désolé vous ne pouvez pas fermer cette séance car tous les paiments n\'ont pas encore été effectué !',
@@ -330,8 +330,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
             'white'
           );
         }
-        if(res.data.totalToBePaid == res.data.totalPaid
-          && penalityIsOkay){
+        if(res.data.totalToBePaid == res.data.totalPaid){
           this.sessionService.closeSessionById(id).subscribe(()=>{
           this.getAllSessionsOfCycle();
           this.utilityService.showMessage(
@@ -448,8 +447,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
             }
 
           })
-         
-         
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: 'Annulé',
