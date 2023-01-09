@@ -21,6 +21,7 @@ import { Cycle } from 'src/app/core/classes/cycle';
 import { DatePipe } from '@angular/common';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import { CycleDto } from 'src/app/core/classes/cycleDto';
+import { TontineMembers } from 'src/app/core/classes/tontineMembers';
 
 @Component({
   selector: 'app-tontine',
@@ -68,6 +69,8 @@ export class TontineComponent implements OnInit {
   creatTontine:boolean = false;
   isList:boolean = true;
   maxDateOfTontineList:any;
+  sessionsNumber: number = 0;
+  numberOfMembers: number = 0;
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -260,7 +263,13 @@ export class TontineComponent implements OnInit {
     this.openMemberModal = "";
   }
 
-  onOpenAddMember(id: number, label: string, idTontine: number){
+  onOpenAddMember(id: number, label: string, idTontine: number, sessionsNumber: number, tontineMembers: TontineMembers[]){
+    let numberOfMembers: number = 0;
+    tontineMembers.forEach((member:any) => {
+      numberOfMembers = numberOfMembers + member.userPlan;
+    });
+    this.numberOfMembers = numberOfMembers
+    this.sessionsNumber = sessionsNumber;
     this.idTontine = idTontine;
     if(label == 'CLUB'){
       this.getAllUserOfClub(id);
@@ -367,18 +376,30 @@ export class TontineComponent implements OnInit {
   }
 
   onAddMember(){
+    let difference: number = 0;
     this.isSaving = true;
     const formValue = this.addMemberForm.value;
-    this.tontineService.addParticipant(this.idTontine, formValue.id, formValue.planValue).subscribe(()=>{
+    this.tontineService.addParticipant(this.idTontine, formValue.id, formValue.planValue).subscribe((res)=>{
+      difference = this.sessionsNumber  - formValue.planValue;
+     
       this.isSaving = false;
       this.getAllTontine();
       this.openMemberModal = "";
-      this.utilityService.showMessage(
-        'success',
-        'Membre ajouté avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res.data == null){
+        this.utilityService.showMessage(
+          'warning',
+          'Désolé, le nombre de bras de participants qui est de: ' + this.numberOfMembers +' en ce moment ne doit pas être supérieur au nombre de séance(' + this.sessionsNumber + ') généré',
+          '#e62965',
+          'white'
+        );
+      }else{
+        this.utilityService.showMessage(
+          'success',
+          'Membre ajouté avec succès',
+          '#06d6a0',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -513,23 +534,42 @@ export class TontineComponent implements OnInit {
     })
   }
 
-  onSetSatus(idStontine: number, idStatus: number, label: string){  
+  onSetSatus(idStontine: number, idStatus: number, label: string,  sessionsNumber: number, tontineMembers: TontineMembers[]){ 
+    let numberOfMembers: number = 0;
+    tontineMembers.forEach((member:any) => {
+      numberOfMembers = numberOfMembers + member.userPlan;
+    });
+    this.numberOfMembers = numberOfMembers
+    this.sessionsNumber = sessionsNumber; 
+  
+    
     this.tontineService.findTontineById(idStontine).subscribe((res)=>{
 
       if(label == "OUVERT"){
         if(res.data.registeredMembers < 2){
-          this.utilityService.showMessage(
-            'warning',
-            'Cette tontine ne peut être fermée car elle doit contenir au moins 2 membres.',
-            '#e62965',
-            'white'
-          );
+            this.utilityService.showMessage(
+              'warning',
+              'Cette tontine ne peut être fermée car elle doit contenir au moins 2 membres.',
+              '#e62965',
+              'white'
+            );
+          
         }else{
-          if(idStatus == 1){
-            this.setStatus(idStontine, 2)
-          }else if(idStatus == 2){
-            this.setStatus(idStontine, 1)
-          }
+            if(this.sessionsNumber > this.numberOfMembers){
+              this.utilityService.showMessage(
+                'warning',
+                'Cette tontine ne peut être fermée car le nombre de bras des participants ne conrrespond pas encore au nombre de séance généré, il en reste encore ' + (this.sessionsNumber - this.numberOfMembers) + ' bras',
+                '#e62965',
+                'white'
+              );
+            }else{
+              if(idStatus == 1){
+                this.setStatus(idStontine, 2)
+              }else if(idStatus == 2){
+                this.setStatus(idStontine, 1)
+              }
+            }
+         
         }
       }else if(label == "FERMÉ"){
         if(res.data.cycles.length > 0){

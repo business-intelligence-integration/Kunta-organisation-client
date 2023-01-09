@@ -5,6 +5,7 @@ import { Gain } from "./gain";
 import { Level } from "./level";
 import { Organism } from "./organism";
 import { Status } from "./status";
+import { TontineMembers } from "./tontineMembers";
 
 export class Tontine{
   id: number = 0;
@@ -28,4 +29,5 @@ export class Tontine{
   gainMode: Gain = new Gain();
   clubOwner: Organism = new Organism();
   account: Account = new Account();
+  tontineMembers: TontineMembers[] = [];
 }

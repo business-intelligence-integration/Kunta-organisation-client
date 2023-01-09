@@ -20,6 +20,8 @@ export class ViewDetailsTontineComponent implements OnInit {
   penaltyPaid: number = 0;
   totalExpectedGain: number = 0;
   totalGainMade: number = 0;
+  numberOfCycle: number = 0;
+
   startDate: any;
   endDate: any;
   constructor(private activatedRoute: ActivatedRoute, 
@@ -41,12 +43,11 @@ export class ViewDetailsTontineComponent implements OnInit {
     let lotAmount: number = 0;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['id']).subscribe((res)=>{
-        console.log("tontine::", res);
-        
         this.tontine = res.data
         this.startDate = res.data.cycles[0].startDate;
         this.endDate = res.data.cycles[res.data.cycles.length - 1].endDate;
         this.totalExpectedGain = res.data.cycles.length * res.data.cycles[0].lotAmount * res.data.cycles[0].sessions.length;
+        this.numberOfCycle = res.data.cycles.length;
         lotAmount = res.data.cycles[0].lotAmount;
         res.data.cycles.map((cycle:any)=>{
             cycle.sessions.map((session:any)=>{

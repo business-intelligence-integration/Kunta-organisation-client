@@ -64,7 +64,7 @@
 
                     <div class="flex-table-cell" data-th="Membres inscrits">
                         <span class="light-text" data-filter-match="">{{ tontine.registeredMembers }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label,  tontine.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label, tontine.id, tontine.sessionsNumber, tontine.tontineMembers)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
                         [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
@@ -77,7 +77,7 @@
                     </div>
 
                     <div class="flex-table-cell" data-th="Status">
-                        <span class="tag is-rounded is-cliquable" (click)="onSetSatus(tontine.id, tontine.status.id, tontine.status.label)" data-filter-match="" [ngClass]="{'is-danger': tontine.status.label === 'FERMÉ', 'is-success': tontine.status.label === 'OUVERT'}">{{ tontine.status.label }}</span>
+                        <span class="tag is-rounded is-cliquable" (click)="onSetSatus(tontine.id, tontine.status.id, tontine.status.label, tontine.sessionsNumber, tontine.tontineMembers)" data-filter-match="" [ngClass]="{'is-danger': tontine.status.label === 'FERMÉ', 'is-success': tontine.status.label === 'OUVERT'}">{{ tontine.status.label }}</span>
                     </div>
 
                     <div class="flex-table-cell cell-end" data-th="Actions">
