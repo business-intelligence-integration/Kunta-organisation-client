@@ -191,11 +191,11 @@
                                                     [data]="userOfSelect"
                                                     id="user"
                                                     formControlName="idSponsor"
-                                                    placeholder="--selectionner le pays de résidence--">
+                                                    placeholder="--selectionner un parain--">
                                             </select2>
                                             <div class="text-danger"
                                             *ngIf="addUserForm.get('idSponsor')?.errors?.['required'] && addUserForm.get('idSponsor')?.touched">
-                                            <small class="text-police" translate>--Selectioner un parain--</small>
+                                            <small class="text-police" translate>--Selectionner un parain--</small>
                                             </div>
                                         </div>
                                     </div>
