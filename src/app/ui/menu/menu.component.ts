@@ -12,7 +12,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 export class MenuComponent implements OnInit {
   activeProfil: string = "";
   isActive: string = "";
-  imageUrl: string = "assets/images/téléchargement.png";
+  imageUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/t%C3%A9l%C3%A9chargement_vojsxd.png";
   user: User;
   constructor( private utilityService: UtilityService,
     private router: Router,

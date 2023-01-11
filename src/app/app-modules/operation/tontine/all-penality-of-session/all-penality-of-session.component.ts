@@ -33,7 +33,7 @@ export class AllPenalityOfSessionComponent implements OnInit {
   idPenality: number = 0;
   idUser: number = 0;
   isSaving: boolean = false;
-  geUrl: string = "assets/images/money.png";
+  geUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/money_f3bgzk.png";
   paymentMethods: PaymentMethod[] = [];
   date: any;
   idPenalityType: number = 0;

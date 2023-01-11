@@ -35,9 +35,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
   idCycle: number = 0;
   idSession: number = 0;
   cycle: Cycle = new Cycle();
-  geUrl: string = "assets/images/money.png";
-  geUrl_aleatoire: string = "assets/images/fleches-aleatoires.png";
-  geUrl_penality: string = "assets/images/penalty-card.png";
+  geUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/money_f3bgzk.png";
+  geUrl_aleatoire: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/fleches-aleatoires_jtbstk.png";
+  geUrl_penality: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/penalty-card_ddp7wo.png";
   openPaymntModal: string = "";
   openPenalityModal: string = "";
   openupdateContributionDeadlineModal: string = "";
