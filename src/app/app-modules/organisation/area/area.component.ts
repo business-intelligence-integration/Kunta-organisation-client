@@ -32,6 +32,7 @@ export class AreaComponent implements OnInit {
   createDate: string = "";
   centers: Organism[] =  [];
   CreationAreaDate: any;
+  isSaving: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
     private utilityService: UtilityService,
@@ -278,13 +279,13 @@ getAllCenters(){
     let createDate = new Date(formValue.creationDate);
     let moveDateFormated = new DatePipe('en-US').transform(createDate,'yyyy-MM-dd');
     this.club.creationDate = moveDateFormated
-    console.log(this.club);
-    
     this.createClub(this.club);
   }
 
   createClub(club: Organism){
+    this.isSaving = true;
     this.clubService.createclub(club, this.idArea).subscribe(()=>{
+      this.isSaving = false;
       this.getAllAreas();
       this.closeClubModal();
       this.utilityService.showMessage(
@@ -294,6 +295,7 @@ getAllCenters(){
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',

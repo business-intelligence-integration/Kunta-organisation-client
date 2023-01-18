@@ -177,7 +177,7 @@
                             </div>
                         </div>
                         <div class="control login">
-                            <button [disabled]="addClubForm.invalid"
+                            <button [disabled]="addClubForm.invalid || isSaving"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
                         </div>
                     </form>
@@ -254,16 +254,6 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onSubmitMember()">
-                        <!-- <label>Membres *</label>
-                        <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                            <option value="0" disabled>--Selectionnez un membre--</option>
-                            <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }} </span> </option>
-
-                              <div class="text-danger" *ngIf="addMemberForm.get('id')?.errors?.['required'] && addMemberForm.get('id')?.touched">
-                                <small class="text-police" translate>Veuillez selectionnez un membre </small>
-                           </div>
-                        </select><br><br> -->
-               
                         <div class="field">
                             <label>Membres *</label><br>
                             <select2
@@ -281,7 +271,7 @@
         
                         <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addMemberForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div>
                     </form>
                 </div>

@@ -23,7 +23,7 @@ export class PenaltyService {
   } 
 
   findAllPenalties():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'penalties?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'penalties');
   }
 
   payPenalty(idPenalty: number, idUser: number, idPaymentMethod: number, penality: Penality):Observable<any>{
@@ -31,6 +31,6 @@ export class PenaltyService {
   }
 
   findPenaltyById(idPenalty: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'penalties/' + idPenalty + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'penalties/' + idPenalty);
   }
 }

@@ -32,6 +32,7 @@ export class ClubComponent implements OnInit {
   idMember: number = 0;
   idClub: number = 0 ;
   maxCreationClubDate: any;
+  isSaving: boolean = false;
   constructor(private formBuilder: FormBuilder, 
     private clubService: ClubService,
     private userService: UserService,
@@ -84,7 +85,9 @@ export class ClubComponent implements OnInit {
   }
 
   createClub(club: Organism, idArea: number){
+    this.isSaving = true;
     this.clubService.createclub(club, idArea).subscribe((res)=>{
+      this.isSaving = false;
       this.getAllClubs()
       this.onCloseAddModal()
       this.utilityService.showMessage(
@@ -94,6 +97,7 @@ export class ClubComponent implements OnInit {
         'white'
       );
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'An error has occurred',
@@ -103,25 +107,6 @@ export class ClubComponent implements OnInit {
     })
   }
 
-  // addClubToArea(idArea: number, idClub: number){
-  //   this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
-  //     this.getAllClubs();
-  //     this.onCloseAddModal();
-  //     this.utilityService.showMessage(
-  //       'success',
-  //       'Club successfully created',
-  //       '#06d6a0',
-  //       'white'
-  //     );
-  //   }, ()=>{
-  //     this.utilityService.showMessage(
-  //       'warning',
-  //       'An error has occurred',
-  //       '#e62965',
-  //       'white'
-  //     );
-  //   })
-  // }
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((result)=>{
@@ -225,20 +210,30 @@ export class ClubComponent implements OnInit {
   }
 
   addMembr(idClub: number, idMember: number){
+    this.isSaving = true;
     this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
+      this.isSaving = false;
       this.getAllClubs();
       this.closeMemberModal();
       this.utilityService.showMessage(
         'success',
-        'Area successfully added to center',
+        'Member successfully added to club',
         '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\est produite !',
+        '#e62965',
         'white'
       );
     })
   }
 
   getAllMembers(){
-    this.userService.getAllMambers().subscribe((res)=>{
+    this.userService.getAllUsers().subscribe((res)=>{
       this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
     })
   }

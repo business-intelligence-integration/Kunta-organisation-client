@@ -22,27 +22,27 @@ export class PaymentService {
   }
 
   findAllPayments():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'payments?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'payments');
   }
 
   findPaymentById(idPayment: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'payments/' + idPayment + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'payments/' + idPayment);
   }
 
   updatePayment(payment: Payment, idPayment: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'payments/'+ idPayment + '?token=' + this.utilityService.loadToken(), payment);
+    return this.httpClient.put<any>(this.baseUrl + 'payments/'+ idPayment, payment);
   }
 
   deletePayment(idPayment: number):Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl + 'payments/'+ idPayment +'?token=' + this.utilityService.loadToken());
+    return this.httpClient.delete<any>(this.baseUrl + 'payments/'+ idPayment);
   }
   
   checkPayment(idPayment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/check-payment` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/check-payment`, {});
   }
 
   validatePayment(idPayment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/validate-payment` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/validate-payment`, {});
   }
 
 

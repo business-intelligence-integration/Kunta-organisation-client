@@ -91,9 +91,9 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
-    this.getAllUsers();
     this.management();
     this.getConnectedUser();
+    this.getAllUsers();
     this.getAllMembers();
     this.getAllPieceType();
     this.getAllcivilities();
@@ -255,6 +255,12 @@ export class UserComponent implements OnInit {
 
   getConnectedUser() {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      if(this.userOfSelect <= 0){
+        this.userOfSelect = [{value: this.user.id, label: this.user.firstName}]
+        console.log("userOfSelect::", this.userOfSelect);
+        
+      }
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
           this.adminIsConnected = true;
@@ -320,6 +326,7 @@ export class UserComponent implements OnInit {
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
       this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+      
     })
   }
 

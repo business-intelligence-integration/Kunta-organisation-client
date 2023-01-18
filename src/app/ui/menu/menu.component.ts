@@ -41,8 +41,6 @@ export class MenuComponent implements OnInit {
   getConnectedUser() {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
-      console.log("user::", res);
-      
     })
   }
 

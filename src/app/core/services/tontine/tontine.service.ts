@@ -31,11 +31,11 @@ export class TontineService {
   }
 
   updateTontine(tontine: Tontine, idTontine: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'tontines/'+ idTontine + '?token='+ this.utilityService.loadToken(), tontine);
+    return this.httpClient.put<any>(this.baseUrl + 'tontines/'+ idTontine, tontine);
   }
 
   findTontineById(id: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ id + "?token=" + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ id);
   }
 
   deleteTontineById(id: number):Observable<any>{
@@ -47,30 +47,30 @@ export class TontineService {
   }
 
   removeParticipant(idTontine: number, idUser: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/remove-participant/${idUser}` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/remove-participant/${idUser}`, {});
   }
 
   setFrequency(idTontine: number, idFrequency: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-frequency/${idFrequency}` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-frequency/${idFrequency}`, {});
   }
 
   setLevel(idTontine: number, idLevel: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-transversality-level/${idLevel}` + "?token=" + this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/set-transversality-level/${idLevel}`, {});
   }
 
   getTontineUsers(idTontine: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/users' + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/users');
   }
 
   createCycleForTontine(idTontine: number, cycle: CycleDto):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'tontines/' + idTontine + '/cycles?token=' + this.utilityService.loadToken(), cycle);
+    return this.httpClient.post<any>(this.baseUrl + 'tontines/' + idTontine + "/cycles", cycle);
   }
 
   setStatus(idTontine: number, idStatus: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/status/${idStatus}` + "?token=" +this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/status/${idStatus}`, {});
   }
 
   findAllCyclesOfTontine(idTontine: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/cycles', httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/cycles');
   }
 }

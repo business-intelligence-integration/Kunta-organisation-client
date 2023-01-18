@@ -378,7 +378,7 @@
                                     <div class="flex-table-cell" data-th="Status">
                                         <span class="tag is-rounded" data-filter-match="" *ngIf="session.winner != null">CLOTURÉ</span>
                                         <span class="tag is-rounded cliquable-span" data-filter-match="" *ngIf="session.winner == null" (click)="onUpdateSessionStatus(session.id, session.status.label)" [ngClass]="{'is-danger': session.status.label === 'FERMÉ', 'is-success': session.status.label === 'OUVERT'}">{{ session.status.label }}</span>
-                                        <a  class="pagination-previous has-chevron" *ngIf="session.status.label === 'FERMÉ' && session.winner == null && session.totalToBePaid >0 && session.totalToBePaid === session.totalPaid" (click)="onGenerateWinner(session.id)"> <img width="18" height="18" src="{{ geUrl_aleatoire }}" alt=""></a>
+                                        <a  class="pagination-previous has-chevron" *ngIf="session.status.label === 'CLOTURÉ' && session.winner == null && session.totalToBePaid >0" (click)="onGenerateWinner(session.id)"> <img width="18" height="18" src="{{ geUrl_aleatoire }}" alt=""></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Status">
                                         <span class="light-text mr-2" data-filter-match="" *ngIf="session.winner != null">{{ session?.winner?.firstName }}-{{ cycle.lotAmount }} FCFA </span>

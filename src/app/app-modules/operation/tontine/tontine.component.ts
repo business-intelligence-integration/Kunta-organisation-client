@@ -172,11 +172,10 @@ export class TontineComponent implements OnInit {
   onSubmitCreateTontine(){
     this.isSaving = true;
     const formValue = this.createTontineForm.value;
-    this.tontine.peb =formValue.peb;
-    this.tontine.name =formValue.name;
+    this.tontine.peb = formValue.peb;
+    this.tontine.name = formValue.name;
     this.tontine.durationInMonths = formValue.durationInMonths;
     this.tontine.observation = formValue.observation;
-   
     
     this.createTontine(this.tontine, formValue.idClub, formValue.idTransv, formValue.idFrequenceCot, formValue.idFrequenceSea, formValue.idGain)
   }
@@ -185,7 +184,7 @@ export class TontineComponent implements OnInit {
     this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe(()=>{
       this.isSaving = false;
       this.getAllTontine();
-      // this.closeCreateTontineModal();
+      this.createTontineForm.reset();
       this.utilityService.showMessage(
         'success',
         'Tontine successfully created',
@@ -496,7 +495,7 @@ export class TontineComponent implements OnInit {
     this.isSaving = true;
     const formValue = this.createCycleForm.value;
     this.cycleDto.name = formValue.name;
-    let startDate = new Date(formValue.startDate);
+    let startDate = new Date();
     let startDateFormated = new DatePipe('en-US').transform(startDate,'yyyy-MM-dd');
     this.cycleDto.startDate = startDateFormated;
     this.createCycle(this.idTontine,  this.cycleDto)
@@ -510,7 +509,7 @@ export class TontineComponent implements OnInit {
       if(cycleDb.data == null){
         this.utilityService.showMessage(
           'warning',
-          'Cette tontine n\'a pas de membres !',
+          'Erreur : Un autre cycle est encore ouvert pour cette tontine !',
           '#e62965',
           'white'
         );

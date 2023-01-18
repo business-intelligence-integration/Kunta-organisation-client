@@ -22,27 +22,27 @@ export class CycleService {
   }
 
   findAllCycles():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'cycles', httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'cycles');
   }
 
   findCycleById(id: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'cycles/'+ id, httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'cycles/'+ id);
   }
 
   updateCycle(id: number, cycle: Cycle):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'cycles/'+ id, cycle, httpOptions);
+    return this.httpClient.put<any>(this.baseUrl + 'cycles/'+ id, cycle);
   }
 
   findAllSessionsOfCycle(id: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'cycles/' + id + '/sessions', httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'cycles/' + id + '/sessions');
   }
 
   deleteSessionOfACycle(idCycle: number, idSession: number):Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl +'cycles/' + idCycle + '/sessions/' + idSession, httpOptions);
+    return this.httpClient.delete<any>(this.baseUrl +'cycles/' + idCycle + '/sessions/' + idSession);
   }
 
   closeCycleById(idCycle: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'cycles/'+ idCycle + "/close", httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + 'cycles/'+ idCycle + "/close", {});
   }
 
 }

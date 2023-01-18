@@ -139,6 +139,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
         this.sessions = res.data;
+        console.log("sessions::", this.sessions);
+        
       });
     })
   }
@@ -312,16 +314,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.idSession = id;
     if(status == "OUVERT"){
       this.sessionService.findSessionById(id).subscribe((res)=>{
-        // let penalities = [];
-        // let penalityIsOkay: boolean = true;
-        // if(res.data.penalties.length > 0){
-        //   penalities =  res.data.penalties
-        //   penalities.forEach((penalty:any) => {
-        //     if(penalty.paid == false){
-        //       penalityIsOkay = false;
-        //     }
-        //   });
-        // }
         if(res.data.totalToBePaid != res.data.totalPaid){
           this.utilityService.showMessage(
             'warning',
@@ -344,7 +336,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
     })
     }else if(status == "FERMÉ"){
       this.sessionService.findSessionById(id).subscribe((res)=>{
-        
         if(res.data.winner != null){
           this.utilityService.showMessage(
             'warning',
@@ -375,7 +366,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
 
 
   generate(idSession: number) {
-    let penalityIsNoOkay: boolean = false;
+    // let penalityIsNoOkay: boolean = false;
     let paymentIsNoOkay: boolean = false;
     const swalWithBootstrapButtons = Swal.mixin({
       buttonsStyling: true,
@@ -409,16 +400,16 @@ export class DetailSessionOfTontineComponent implements OnInit {
                 'white'
               );
             }else{
-              res.data.penalties.map((penalty:any)=>{
-                if(penalty.paid == false){
-                  penalityIsNoOkay = true;
-                }
-              })
+              // res.data.penalties.map((penalty:any)=>{
+              //   if(penalty.paid == false){
+              //     penalityIsNoOkay = true;
+              //   }
+              // })
               if(res.data.totalToBePaid != res.data.totalPaid){
                 paymentIsNoOkay = true
               }
         
-              if(paymentIsNoOkay || penalityIsNoOkay){
+              if(paymentIsNoOkay){
                 this.utilityService.showMessage(
                   'warning',
                   'Désolé vous ne pouvez pas encore générer le gagnant de cette séance car tous les paiements n\'ont pas encore été effectué !',

@@ -24,15 +24,15 @@ export class SessionService {
   }
 
   findAllSessions():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions' + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'sessions');
   }
 
   findSessionById(id: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ id + "?token=" + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ id);
   }
 
   updateSession(session: Session, id: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'sessions/'+ id, session, httpOptions);
+    return this.httpClient.put<any>(this.baseUrl + 'sessions/'+ id, session);
   }
 
   createPaymentForSession(payment: Payment, idSession: number, idUser: number, idPaymentMethod: number):Observable<any>{
@@ -44,38 +44,38 @@ export class SessionService {
   } 
 
   findAllPaymentsOfASession(idSession: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-payments' + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-payments');
   }
 
   updateContributionDeadline(session: Session, idSession: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/contribution-deadline`+ '?token=' + this.utilityService.loadToken(), session);
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/contribution-deadline`, session);
   }
 
   createSecondTimePayment(idSession: number, idPayment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/re-payment/last-payment/${idPayment}`+ '?token=' + this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/re-payment/last-payment/${idPayment}`, {});
   }
 
   findUserPaymentStateByUserIdAndSession(idSession: number, idUser: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-state/user/' + idUser + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-state/user/' + idUser);
   }
 
   findAllUserPaymentStateBySession(idSession: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-states' + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/payment-states');
   }
  
   findPenaltiesOfASession(idSession: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-penalties' + '?token=' + this.utilityService.loadToken());
+    return this.httpClient.get<any>(this.baseUrl + 'sessions/'+ idSession + '/all-penalties');
   }
 
   closeSessionById(idSession: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/close`+ '?token=' + this.utilityService.loadToken(), {});
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/close`, {});
   }
 
   openSessionById(idSession: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/open`, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/open`, {});
   }
 
   generateWinnerOfASession(idSession: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/generate-winner`, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/generate-winner` + '?token=' + this.utilityService.loadToken(), {});
   }
 }
