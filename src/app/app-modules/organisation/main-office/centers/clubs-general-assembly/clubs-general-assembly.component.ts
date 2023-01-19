@@ -72,17 +72,6 @@ export class ClubsGeneralAssemblyComponent implements OnInit {
   }
 
 
-
-  // getAllMainOffice(){
-  //   this.mainOfficeService.findAllOffices().subscribe((res)=>{
-  //     this.mainOffices =  res.data;
-  //     this.idMainOffice = res.data[0].id;
-  //     this.users = res.data[0].centersGeneralAssembly;
-  //     console.log("Main::", res.data[0].centersGeneralAssembly);
-      
-  //   })
-  // }
-
   closeMemberModal(){
     this.openMemberModal = "";
   }

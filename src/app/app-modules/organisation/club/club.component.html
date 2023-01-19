@@ -18,7 +18,6 @@
 
 <div class="page-content-inner">
     <div class="flex-list-wrapper flex-list-v1">
-        <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
@@ -33,7 +32,6 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <!-- <span class="is-grow">Id</span> -->
                 <span>Appelation</span>
                 <span>Reference</span>
                 <span>Membre(s)</span>
@@ -45,14 +43,6 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let club of clubs">
-                    <!-- <div class="flex-table-cell is-media is-grow">
-                        <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ club.id }}</span>
-                            <span class="item-meta">
-                              <span data-filter-match="">{{ club.name }}</span>
-                            </span>
-                        </div>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ club.name }}</span>
                     </div>
@@ -268,8 +258,6 @@
                             <small class="text-police" translate>Selectionnez un membre</small>
                             </div>
                         </div><br>
-        
-                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div>

@@ -121,8 +121,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.cycleService.findCycleById(params['id']).subscribe((res)=>{
         this.cycle = res.data;
-        console.log("cycle::", this.cycle);
-        
       });
     })
   }
@@ -139,8 +137,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
         this.sessions = res.data;
-        console.log("sessions::", this.sessions);
-        
       });
     })
   }

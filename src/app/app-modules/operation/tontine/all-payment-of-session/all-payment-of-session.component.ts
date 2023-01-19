@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { OperationSession } from 'src/app/core/classes/operationSession';
 import { Payment } from 'src/app/core/classes/payment';
 import { PaymentStatus } from 'src/app/core/classes/PaymentStatus';
-import { PenalityType } from 'src/app/core/classes/penalityType';
 import { Session } from 'src/app/core/classes/session';
 import { SessionOfPayment } from 'src/app/core/classes/sessionOfPayment';
 import { User } from 'src/app/core/classes/user';
@@ -88,14 +87,11 @@ export class AllPaymentOfSessionComponent implements OnInit {
 
   findAllPaymentsOfASession(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.sessionService.findAllPaymentsOfASession(params['id']).subscribe((res)=>{
-        
+      this.sessionService.findAllPaymentsOfASession(params['id']).subscribe((res)=>{   
       this.payments = res.data;
-      console.log("sessionOfPayments::", this.payments);
       })
 
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
-        console.log("sessionOfPayments2::", res);
         this.session = res.data;
       })
     })
@@ -210,8 +206,6 @@ export class AllPaymentOfSessionComponent implements OnInit {
   getAllPaymentStaus(){
     this.paymentStatusService.findAllPaymentStatus().subscribe((res)=>{
       this.paymentStatus = res.data
-      console.log("payment res:::", res);
-      
     })
   }
 
@@ -276,8 +270,6 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params)=>{
       this.sessionService.findAllUserPaymentStateBySession(params['id']).subscribe((res)=>{
        this.users = res.data
-       console.log('users::', res);
-       
       })
     })
   }
@@ -290,5 +282,6 @@ export class AllPaymentOfSessionComponent implements OnInit {
   onShowAllUsers(){
     this.isCotisation = false;
     this.isMember = true;
+    this.getAllUserPaymentStateBySession()
   }
 }

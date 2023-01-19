@@ -188,15 +188,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
     </div>
-
-    <!-- <div class="buttons">
-        <button class="button h-button is-primary is-elevated">
-            <span class="icon">
-              <i aria-hidden="true" class="fas fa-plus"></i>
-          </span>
-            <span (click) = "onOpenAddCenter()">Ajouter un centre</span>
-        </button>
-    </div> -->
 </div>
 
 <div class="page-content-inner">
@@ -322,7 +313,7 @@
                                         Pays de résidence.
                                     </label>
                                     <div class="control-end">
-                                        <span class="tag is-rounded">{{ user?.country?.name }}</span>
+                                        <span class="tag is-rounded">{{ user.country.name }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -523,10 +514,6 @@
                     <!--Results-->
                     <div class="column is-8">
                         <div class="flex-table">
-                            
-                            <!-- <div class="filter-box">
-                                <h4 class="dark-inverted">Liste des filleuls de {{ user.firstName }}</h4>
-                            </div> -->
                             <div class="flex-list-inner">
                                 <div class="flex-table-item">                                
                                     <div class="flex-table-cell" data-th="Email">

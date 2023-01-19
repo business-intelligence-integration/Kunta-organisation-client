@@ -91,8 +91,6 @@
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
-                                <!-- <a _ngcontent-nct-c62="" (click)="onUpdateUser(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
                                 <a _ngcontent-nct-c62="" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                 </div>
                             </div>
@@ -142,15 +140,6 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
-
-                        <!-- <div class="field">
-                            <label>membres *</label>
-                            <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                                <option value="0" disabled>--Selectionnez un membre--</option>
-                                <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
-                            </select>
-                        </div> -->
-
                         <div class="field">
                             <label>Membres *</label><br>
                             <select2

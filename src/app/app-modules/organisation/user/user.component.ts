@@ -258,8 +258,6 @@ export class UserComponent implements OnInit {
       this.user = res.data;
       if(this.userOfSelect <= 0){
         this.userOfSelect = [{value: this.user.id, label: this.user.firstName}]
-        console.log("userOfSelect::", this.userOfSelect);
-        
       }
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){

@@ -78,7 +78,6 @@ export class ViewMorePostComponent implements OnInit {
   }
 
   onUpdateCenter(id: number){
-    console.log("id::", id);
     this.centerService.getCenterById(id).subscribe((res)=>{
       this.openUpdateCenter ="is-active";
       this.center = res.data;      

@@ -106,14 +106,6 @@ getAllCenters(){
     })
   }
 
-  // getAllAreas(){
-  //   this.areaService.findAllAreas().subscribe((res)=>{
-  //     this.areas = res.data;
-  //     console.log("this.areas::", res);
-      
-  //   })
-  // }
-
   getAllAreas(){
     let tabArea: Organism[]= [];
     this.areaService.findAllAreas().subscribe({
@@ -137,36 +129,6 @@ getAllCenters(){
       })
     })
     this.areas = tabArea;
-    console.log("this.areas::", this.areas);
-    
-    // this.centerService.findAllCenters()
-    // .subscribe({
-    //   next: (result) => result.data.map((center: any) => {
-    //     let clubs:Organism[] = []
-    //     let members: User[] = [];
-    //     let uniqCenter: Organism;
-    //     let newareas: Organism[] = center.areas
-    //     if(newareas.length > 0){
-    //       newareas.forEach((area:any)=>{
-    //           let newclubs: Organism[] = area.clubs
-    //           if(newclubs.length >0){
-    //             newclubs.forEach((club:any)=>{
-    //               let newmembers: User[] = club.members
-    //               if(newmembers.length > 0){
-    //                 newmembers.forEach((member:any)=>{
-    //                   members.push(member)
-    //                 }) 
-    //               }
-    //               clubs.push(club)
-    //           })}  
-    //           areas.push(area)
-    //         })
-    //     }
-    //     uniqCenter = { ...center, clubs, members}
-    //     tabCenter.push(uniqCenter);
-    //   }),
-    // });
-    // this.newListcenters = tabCenter;
   }
 
   onUpdateArea(id: number){
@@ -306,8 +268,7 @@ getAllCenters(){
   }
 
   onSelectCreateDate(event: any){
-    console.log("event::", event);
-    
+
   }
 
   getMaxCreationAreaDate(){

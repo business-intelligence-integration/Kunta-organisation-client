@@ -84,32 +84,6 @@
                     </li>
                 </ul>
             </li>
-            <!-- <li>
-                <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" (click)="onShowUser()">Users <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                </div>
-
-                <ul>
-                    <li>
-                        <a class="is-submenu" href="/admin-list-flex-1.html">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Flex List V1</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="is-submenu" href="/admin-list-flex-2.html">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Flex List V2</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="is-submenu" href="/admin-list-flex-3.html">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Flex List V3</span>
-                        </a>
-                    </li>
-                </ul>
-            </li> -->
         </ul>
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
 </div>
@@ -304,8 +278,6 @@
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
-                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatemember(member.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
                                     <a _ngcontent-nct-c62="" (click)="onDeleteMember(member.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
@@ -387,8 +359,6 @@
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
-                                    <!-- <a _ngcontent-nct-c62="" (click)="onUpdatepilot(pilot.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
                                     <a _ngcontent-nct-c62="" (click)="onDeletePilot(pilot.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
@@ -448,9 +418,6 @@
                                 <small class="text-police" translate>sélectionner un membre </small>
                            </div>
                         </select><br><br>
-               
-        
-                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div>
@@ -488,14 +455,7 @@
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un membre--</option>
                             <option *ngFor="let member of members" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
-
-                              <!-- <div class="text-danger" *ngIf="newReservation.get('idRoom')?.errors?.['required'] && newReservation.get('idRoom')?.touched">
-                                <small class="text-police" translate>select the room </small>
-                           </div> -->
                         </select><br><br>
-               
-        
-                        <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
                         </div>

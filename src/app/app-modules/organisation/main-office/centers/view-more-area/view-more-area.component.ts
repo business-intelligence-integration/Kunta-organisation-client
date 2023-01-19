@@ -67,8 +67,6 @@ export class ViewMoreAreaComponent implements OnInit {
         this.areasOfCenter = res.data.areas;
         this.centerName = res.data.name
         this.idCenter = res.data.id
-        console.log("center::", res);
-        
       });
     })
   }

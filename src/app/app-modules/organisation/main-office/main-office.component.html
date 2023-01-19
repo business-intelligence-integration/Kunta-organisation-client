@@ -5,15 +5,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
     </div>
-
-    <!-- <div class="buttons">
-        <button class="button h-button is-primary is-elevated">
-            <span class="icon">
-              <i aria-hidden="true" class="fas fa-plus"></i>
-          </span>
-            <span (click) = "onAddMainOffice()">Add Main office</span>
-        </button>
-    </div> -->
 </div>
 
 <div class="page-content-inner">
@@ -44,10 +35,6 @@
 
                             <div class="card-grid-item-body">
                                 <div class="center">
-                                    <!-- <div class="h-avatar is-big">
-                                        <img class="avatar" src="assets/img/avatars/photos/13.jpg" data-demo-src="assets/img/avatars/photos/13.jpg" alt="" data-user-popover="6">
-                                        <img class="badge" src="assets/img/icons/flags/united-states-of-america.svg" data-demo-src="assets/img/icons/flags/united-states-of-america.svg" alt="">
-                                    </div> -->
                                     <div class="meta">
                                         <span class="dark-inverted" data-filter-match="">{{ mainOffice.id }}</span>
                                       
@@ -55,33 +42,10 @@
                                 </div>
                                 <div class="right">
                                     <span data-filter-match="">{{ mainOffice.name }}</span>
-                                    <!-- <div class="social-links">
-                                        <a href="#" class="social-link">
-                                            <i aria-hidden="true" class="fab fa-linkedin-in"></i>
-                                        </a>
-                                        <a href="#" class="social-link">
-                                            <i aria-hidden="true" class="fab fa-twitter"></i>
-                                        </a>
-                                        <a href="#" class="social-link">
-                                            <i aria-hidden="true" class="fab fa-dribbble"></i>
-                                        </a>
-                                        <a href="#" class="social-link">
-                                            <i aria-hidden="true" class="fab fa-github"></i>
-                                        </a>
-                                    </div> -->
                                 </div>
                             </div>
 
                             <div class="card-grid-item-footer">
-                                <!-- <div class="left">
-                                    <div class="progress-stats">
-                                        <span class="dark-inverted">Progress</span>
-                                        <span>65%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <progress class="progress is-primary is-tiny" value="65" max="100">65%</progress>
-                                    </div>
-                                </div> -->
                                 <div class="left">
                                     <div class="buttons">
                                         <button (click)="onUpdateMainOffice(mainOffice.id)" class="button h-button is-rounded is-dark-outlined">modifier</button>
@@ -98,68 +62,9 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!-- <div class="page-placeholder custom-text-filter-placeholder is-hidden">
-                    <div class="placeholder-content">
-                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
-                        <h3>We couldn't find any matching results.</h3>
-                        <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
-                            search terms you've entered. Please try different search terms or criteria.</p>
-                    </div>
-                </div>
-         -->
-                <!-- <div class="flex-table">
-                    <div class="flex-table-header" data-filter-hide="">
-                        <span class="is-grow">Id</span>
-                        <span>Appelation</span>
-                        <span class="cell-end">Actions</span>
-                    </div>
-        
-                    <div class="flex-list-inner" *ngFor="let mainOffice of mainOffices">
-                        <div class="flex-table-item">
-                            <div class="flex-table-cell is-media is-grow">
-                              
-                                <div>
-                                    <span class="item-name dark-inverted" data-filter-match="">{{ mainOffice.id }}</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex-table-cell" data-th="name">
-                                <span class="light-text" data-filter-match="">{{ mainOffice.name }}</span>
-                            </div>
-        
-                            <a _ngcontent-nct-c62="" (click)="onUpdateMainOffice(mainOffice.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                            <a _ngcontent-nct-c62="" (click)="onDeleteMainOffice(mainOffice.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                                               
-                        </div>
-                    </div>
-        
-                </div> -->
-
             </div>
 
         </div>
-
-        <!--List Empty Search Placeholder -->
-
-
-        <!--Table Pagination-->
-        <!-- <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
-            <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
-            <a class="pagination-next has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-            <ul class="pagination-list">
-                <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-                <li><span class="pagination-ellipsis">…</span></li>
-                <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-                <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
-                </li>
-                <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-                <li><span class="pagination-ellipsis">…</span></li>
-                <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-            </ul>
-        </nav> -->
     </div>
 
 </div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Operation } from 'src/app/core/classes/operation';
 
 @Component({
   selector: 'app-operations',
@@ -45,8 +44,6 @@ export class OperationsComponent implements OnInit {
   }
 
   onShowAllTontine(){
-    // this.isTransversality = false;
-    // this.isFrequency = false;
     this.isTontine = true;
     this.dynamicTitle = "Liste des tontines"
   }

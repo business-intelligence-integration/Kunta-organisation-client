@@ -22,9 +22,7 @@ export class AdminComponent implements OnInit {
 
   getAllAmins(){
     this.userService.getAllAdmins().subscribe((res)=>{
-      this.users = res.data
-      console.log("admin::", res);
-      
+      this.users = res.data  
     })
   }
 
@@ -33,8 +31,6 @@ export class AdminComponent implements OnInit {
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
           this.disabledUserAction = ""
-          console.log("disabled::", this.disabledUserAction);
-          
         }
       })
     })

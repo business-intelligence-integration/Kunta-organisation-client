@@ -65,8 +65,6 @@ export class MembersGeneralAssemblyComponent implements OnInit {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
         this.center = res;
         this.idCenter = res.data.id;
-        console.log('membersGeneralAssembly::', res.data.membersGeneralAssembly);
-        
         this.users = res.data.membersGeneralAssembly;
       });
     })

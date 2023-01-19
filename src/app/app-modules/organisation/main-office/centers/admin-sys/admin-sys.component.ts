@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
-import { ClubService } from 'src/app/core/services/clubs/club.service';
-import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -40,7 +38,6 @@ export class AdminSysComponent implements OnInit {
 
   ngOnInit(): void {
     this.formInit();
-    // this.getAllMainOffice();
     this.getAllMembers();
     this.getCenter();
   }

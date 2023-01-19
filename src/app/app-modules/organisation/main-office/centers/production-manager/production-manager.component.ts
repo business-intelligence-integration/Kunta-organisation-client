@@ -61,8 +61,6 @@ export class ProductionManagerComponent implements OnInit {
         this.center = res;
         this.idCenter = res.data.id;
         this.user = res.data.productionManager;
-        console.log("resP:", this.user);
-        
         if(this.user == null || this.user == undefined){
           this.productManagerIsNull = true;
         }else{

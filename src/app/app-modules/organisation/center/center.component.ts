@@ -76,7 +76,6 @@ export class CenterComponent implements OnInit {
   getAllCenters(){
     this.centerService.findAllCenters().subscribe((result)=>{
       this.centers = result.data
-      console.log("centers::", this.centers);
     })
   }
 

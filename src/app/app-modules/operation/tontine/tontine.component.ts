@@ -136,9 +136,7 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      // this.tontines = res.data;
-      console.log("tontines::", res);
-      
+      this.tontines = res.data;
     })
   }
 
@@ -181,9 +179,7 @@ export class TontineComponent implements OnInit {
   }
 
   createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number, idGain: number){
-    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe((res)=>{
-      console.log("resT::", res);
-      
+    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe(()=>{
       this.isSaving = false;
       this.getAllTontine();
       this.createTontineForm.reset();

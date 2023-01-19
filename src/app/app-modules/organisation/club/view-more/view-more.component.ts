@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Organism } from 'src/app/core/classes/organism';
 import { User } from 'src/app/core/classes/user';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UserService } from 'src/app/core/services/users/user.service';
@@ -180,7 +179,6 @@ export class ViewMoreComponent implements OnInit {
   }
 
   getAllMembers(){
-    //à remplacer avec member
     this.userService.getAllMambers().subscribe((res)=>{
       this.members= res.data;
     })

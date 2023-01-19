@@ -91,7 +91,6 @@ export class AllPenalityOfSessionComponent implements OnInit {
   getAllPanalities(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findPenaltiesOfASession(params['id']).subscribe((res)=>{
-        console.log("AllPenalities::", res);
         this.penalities = res.data;
       })
     })
@@ -101,8 +100,6 @@ export class AllPenalityOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params)=>{
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
         this.session = res.data
-       console.log("sessions::", res);
-       
       })
     })
   }
@@ -136,12 +133,7 @@ export class AllPenalityOfSessionComponent implements OnInit {
       this.penality.proof = formValue.proof;
       this.makePayment(this.idPenality, this.idUser, formValue.idPaymentMethod, this.penality)
     })
-    
-    // console.log("idUser::", this.idUser);
-    // console.log("idPenality::", this.idPenality);
-    // console.log("idPaymentMethod::", formValue.idPaymentMethod);
-    // console.log("Penalty::", this.penality);
-    // console.log("IdPenalityType::", this.idPenalityType);
+  
     
   }
 
