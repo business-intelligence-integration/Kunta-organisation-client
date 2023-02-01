@@ -70,6 +70,11 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowAllTontine()">Tontines</a>
                 </div>
             </li>
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowAllMutualInvestment()">Placements mutualisés</a>
+                </div>
+            </li>
             <!-- <li class="has-children" [ngClass]="activeListTontine">
                 
                 <div class="collapse-wrap">
@@ -266,6 +271,7 @@
             </div>
 
             <app-tontine *ngIf="isTontine"></app-tontine>
+            <app-mutual-investment *ngIf="isMutualInvestment"></app-mutual-investment>
             <!-- <app-transversality *ngIf="isTransversality"></app-transversality>
             <app-frequency *ngIf="isFrequency"></app-frequency> -->
         </div>

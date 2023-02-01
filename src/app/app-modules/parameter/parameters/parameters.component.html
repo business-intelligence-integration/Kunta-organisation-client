@@ -65,6 +65,41 @@
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
+            <li class="has-children" [ngClass]="activeOganisation">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);"class="parent-link" (click)="onDisplayOrganisationDetail()">Oganisation <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul [style.display]="wrapdwonDetailOganisation">
+
+                    <li>
+                        <a class="is-submenu" (click)="onPoste()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>poste</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onPieceType()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Types de pièces</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onFamilySituation()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Situation familiale</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onCivility()">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Civilité</span>
+                        </a>
+                    </li>
+                </ul> 
+            </li>
             <li class="has-children" [ngClass]="activeListTontine">
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);"class="parent-link" (click)="onDisplayTontineDetail()">Tontines <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -145,37 +180,30 @@
                     </li> -->
                 </ul> 
             </li>
-            <li class="has-children" [ngClass]="activeOganisation">
+            <li class="has-children" [ngClass]="activeMutualInvestment ">
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);"class="parent-link" (click)="onDisplayOrganisationDetail()">Oganisation <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                    <a href="javascript:void(0);"class="parent-link" (click)="onDisplayMutualInvestment()">Placements Mutualisés <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
-                <ul [style.display]="wrapdwonDetailOganisation">
+                <ul [style.display]="wrapdwonDetailMutualInvestment ">
 
                     <li>
-                        <a class="is-submenu" (click)="onPoste()">
+                        <a class="is-submenu" (click)="onDraweeForm()">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>poste</span>
+                            <span>Formulaire de tirage</span>
                         </a>
                     </li>
 
                     <li>
-                        <a class="is-submenu" (click)="onPieceType()">
+                        <a class="is-submenu" (click)="onProfitabilityType()">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Types de pièces</span>
+                            <span>Type de rentabilité</span>
                         </a>
                     </li>
 
                     <li>
-                        <a class="is-submenu" (click)="onFamilySituation()">
+                        <a class="is-submenu" (click)="onRefundType()">
                             <i class="lnil lnil-list-alt-1"></i>
-                            <span>Situation familiale</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="is-submenu" (click)="onCivility()">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Civilité</span>
+                            <span>Type de remboursement</span>
                         </a>
                     </li>
                 </ul> 
@@ -304,6 +332,10 @@
             <app-piece-type *ngIf="isPieceType"></app-piece-type>
             <app-family-situation *ngIf="isFamilySituation"></app-family-situation>
             <app-civility *ngIf="isCivility"></app-civility>
+
+            <app-drawee-form *ngIf="isDraweeForm"></app-drawee-form>
+            <app-profitability-type *ngIf="isProfitabilityType"></app-profitability-type>
+            <app-refund-type *ngIf="isRefundType"></app-refund-type>
         </div>
     </div>
 

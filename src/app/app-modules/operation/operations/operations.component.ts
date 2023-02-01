@@ -11,10 +11,8 @@ export class OperationsComponent implements OnInit {
   isPushed: string = "";
   activeListTontine: string = "";
   isTontine: boolean = true;
+  isMutualInvestment: boolean = false;
   dynamicTitle: string = "Liste des tontines"
-  isTransversality: boolean = false;
-  isFrequency: boolean = false;
-
   wrapdwonDetailTontine: string ="display-block";
   constructor() { }
 
@@ -44,21 +42,16 @@ export class OperationsComponent implements OnInit {
   }
 
   onShowAllTontine(){
+    this.isMutualInvestment = false;
     this.isTontine = true;
     this.dynamicTitle = "Liste des tontines"
   }
 
-  onTransversality(){
+  onShowAllMutualInvestment(){
     this.isTontine = false;
-    this.isFrequency = false;
-    this.isTransversality = true;
-    this.dynamicTitle = "Liste des niveaux de transversalité"
+    this.isMutualInvestment = true;
+    this.dynamicTitle = "Liste des palcements mutualisés"
   }
 
-  onFrequency(){
-    this.isTransversality = false;
-    this.isTontine = false;
-    this.isFrequency = true;
-    this.dynamicTitle = "Liste Fréquences"
-  }
+
 }

@@ -1,5 +1,5 @@
 import { LabelObjet } from "./labelObjet";
 
-export class Frequency extends LabelObjet{
+export class DroweeForm extends LabelObjet{
     description: string = "";
 }

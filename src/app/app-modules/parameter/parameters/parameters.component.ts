@@ -11,6 +11,7 @@ export class ParametersComponent implements OnInit {
   isPushed: string = "";
   activeListTontine: string = "";
   activeOganisation: string = "";
+  activeMutualInvestment: string = "";
   dynamicTitle: string = "Liste de Fréquences"
   isFrequency: boolean = true;
   isGain: boolean = false;
@@ -25,8 +26,12 @@ export class ParametersComponent implements OnInit {
   isPieceType: boolean = false;
   isFamilySituation: boolean = false;
   isCivility: boolean = false;
+  isDraweeForm: boolean = false;
+  isProfitabilityType: boolean = false;
+  isRefundType: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
+  wrapdwonDetailMutualInvestment: string  = "display-block";
   constructor() { }
 
   ngOnInit(): void {
@@ -64,9 +69,20 @@ export class ParametersComponent implements OnInit {
     }
   }
 
+  onDisplayMutualInvestment(){
+    if(this.activeMutualInvestment == ""){
+      this.activeMutualInvestment = "active" 
+      this.wrapdwonDetailMutualInvestment ="block"
+    }else{
+      this.activeMutualInvestment =""
+      this.wrapdwonDetailMutualInvestment ="none"
+    }
+  }
+
 
   onTransversality(){
     this.isNotAboutOrganisation();
+    this.isNotAboutMutualInsvestMent();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -81,6 +97,7 @@ export class ParametersComponent implements OnInit {
 
   onFrequency(){
     this.isNotAboutOrganisation();
+    this.isNotAboutMutualInsvestMent();
     this.isPaymentStatus = false;
     this.isPenalty = false;
     this.isPenaltyType = false
@@ -94,6 +111,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onGain(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
@@ -108,6 +126,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onCycle(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
@@ -122,6 +141,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onSession(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
@@ -136,6 +156,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onStatus(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
@@ -150,6 +171,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenalyType(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenalty = false;
@@ -165,6 +187,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPenaly(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPaymentStatus = false;
     this.isPenaltyType = false
@@ -180,6 +203,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPaymentStatus(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutOrganisation();
     this.isPenaltyType = false
     this.isGain = false;
@@ -193,6 +217,8 @@ export class ParametersComponent implements OnInit {
     this.isPaymentStatus = true;
     this.dynamicTitle = "Liste des status de paiement"
   }
+
+
   isNotAboutTontine(){
     this.isPenaltyType = false
     this.isGain = false;
@@ -211,8 +237,12 @@ export class ParametersComponent implements OnInit {
     this.isFamilySituation = false;
     this.isCivility = false;
   }
+  isNotAboutMutualInsvestMent(){
+   this.isDraweeForm = false;
+  }
 
   onPoste(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutTontine();
     this.isPoste = true;
     this.isPieceType = false;
@@ -222,6 +252,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onPieceType(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutTontine();
     this.isPoste = false;
     this.isPieceType = true;
@@ -231,6 +262,7 @@ export class ParametersComponent implements OnInit {
   }
 
   onFamilySituation(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutTontine();
     this.isPoste = false;
     this.isPieceType = false;
@@ -240,11 +272,39 @@ export class ParametersComponent implements OnInit {
   }
 
   onCivility(){
+    this.isNotAboutMutualInsvestMent();
     this.isNotAboutTontine();
     this.isPoste = false;
     this.isPieceType = false;
     this.isFamilySituation = false;
     this.isCivility = true;
     this.dynamicTitle = "Liste des civilités"
+  }
+
+  onDraweeForm(){
+    this.isNotAboutOrganisation();
+    this.isNotAboutTontine();
+    this.isProfitabilityType= false;
+    this.isRefundType = false;
+    this.isDraweeForm = true;
+    this.dynamicTitle = "Liste des formulaires de tirage au sort";
+  }
+
+  onProfitabilityType(){
+    this.isNotAboutOrganisation();
+    this.isNotAboutTontine();
+    this.isRefundType = false;
+    this.isDraweeForm = false;
+    this.isProfitabilityType= true;
+    this.dynamicTitle = "Liste des types de rentabilités";
+  }
+
+  onRefundType(){
+    this.isNotAboutOrganisation();
+    this.isNotAboutTontine();
+    this.isDraweeForm = false;
+    this.isProfitabilityType= false;
+    this.isRefundType = true;
+    this.dynamicTitle = "Liste des types de remboursement";
   }
 }

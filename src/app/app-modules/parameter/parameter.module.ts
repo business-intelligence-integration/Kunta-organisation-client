@@ -17,6 +17,9 @@ import { PosteComponent } from './organisation/poste/poste.component';
 import { PieceTypeComponent } from './piece-type/piece-type.component';
 import { FamilySituationComponent } from './family-situation/family-situation.component';
 import { CivilityComponent } from './civility/civility.component';
+import { DraweeFormComponent } from './mutual-investment/drawee-form/drawee-form.component';
+import { ProfitabilityTypeComponent } from './mutual-investment/profitability-type/profitability-type.component';
+import { RefundTypeComponent } from './mutual-investment/refund-type/refund-type.component';
 
 
 @NgModule({
@@ -35,6 +38,9 @@ import { CivilityComponent } from './civility/civility.component';
     PieceTypeComponent,
     FamilySituationComponent,
     CivilityComponent,
+    DraweeFormComponent,
+    ProfitabilityTypeComponent,
+    RefundTypeComponent,
   ],
   imports: [
     CommonModule,
