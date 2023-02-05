@@ -20,7 +20,6 @@ export class OrganismComponent implements OnInit {
   wrapdwonDetaiilsMainOffice: string ="display-block";
   marginBut: string = "0px"
   isUser: boolean = true;
-  isCenter: boolean = false;
   isClub: boolean = false;
   isArea: boolean = false;
   isMainOffice: boolean = false;
@@ -71,7 +70,6 @@ export class OrganismComponent implements OnInit {
     this.isClub = false;
     this.isArea = false;
     this.isMainOffice = false;
-    this.isCenter = true;
     this.dynamicTitle = "Centres";
   }
 
@@ -81,7 +79,6 @@ export class OrganismComponent implements OnInit {
     //  this.areAboutCenter()
     this.isAccount = false; 
     this.isMainCenters = false;
-    this.isCenter = false;
     this.isUser = false
     this.isArea = false;
     this.isMainOffice = false;
@@ -95,7 +92,6 @@ export class OrganismComponent implements OnInit {
     //  this.areAboutCenter()
     this.isAccount = false; 
     this.isMainCenters = false;
-    this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
     this.isMainOffice = false;
@@ -108,7 +104,6 @@ export class OrganismComponent implements OnInit {
     this.areMainOffice();
     //  this.areAboutCenter()
     this.isMainCenters = false;
-    this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
     this.isMainOffice = false;
@@ -123,7 +118,6 @@ export class OrganismComponent implements OnInit {
      this.areMainOffice();
     //  this.areAboutCenter()
     this.isAccount = false; 
-    this.isCenter = false;
     this.isUser = false
     this.isClub = false; 
     this.isArea = false;
@@ -161,7 +155,6 @@ export class OrganismComponent implements OnInit {
     this.areMainOffice();
     // this.areAboutCenter()
     this.isMainCenters = false;
-    this.isCenter = false;
     this.isClub = false;
     this.isArea = false;
     this.isMainOffice = false;
@@ -170,13 +163,6 @@ export class OrganismComponent implements OnInit {
   }
 
   onDisplayMainOffice(){
-    // this.areNotUsers();
-    // this.isCenter = false;
-    // this.isClub = false;
-    // this.isArea = false;
-    // this.isMainOffice = true;
-    // this.isUser = false;
-    // this.dynamicTitle = "Utilisateurs";
     if(this.activateMainOfficeDetails == ""){
       this.activateMainOfficeDetails = "active" 
       this.activeListCenter =""
@@ -259,7 +245,6 @@ export class OrganismComponent implements OnInit {
     this.isClub = false;
     this.isArea = false;
     this.isMainOffice = false;
-    this.isCenter = false;
     this.isAccount = false;
    }
 

@@ -430,17 +430,6 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="paymentUpdateForm" (ngSubmit)="onSubmitUpdatePayment(payment.id)">
-                        <!-- <div class="field">
-                            <label>Montant cotisé*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" [(ngModel)]="payment.paid" placeholder="Montant" formControlName="amount">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="paymentUpdateForm.get('amount')?.errors?.['required'] && paymentUpdateForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant cotisé</small>
-                             </div>
-                        </div> -->
-                        
                         <div class="field">
                             <label>Preuve*</label><br>
                             <div class="control">
@@ -451,18 +440,6 @@
                                 <small class="text-police">veuillez entrer la raison de la cotisation</small>
                              </div>
                         </div>
-
-                        <!-- <div class="field">
-                            <label>Date de cotisation *</label><br>
-                            <div class="card-header-widget datepicker-style">
-                                <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="date" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
-                                </div>
-                           </div>
-                           <div class="text-danger" *ngIf="paymentUpdateForm.get('date')?.errors?.['required'] && paymentUpdateForm.get('date')?.touched">
-                             <small class="text-police" translate>selectionner la date de paiement</small>
-                           </div>
-                        </div> -->
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="paymentUpdateForm.invalid" >Modifier</button>
                         </div><br>

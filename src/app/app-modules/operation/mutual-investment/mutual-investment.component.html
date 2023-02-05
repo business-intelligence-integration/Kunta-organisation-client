@@ -1,4 +1,4 @@
-<div class="list-flex-toolbar">
+<div class="list-flex-toolbar" *ngIf="!createMutualInvestment">
     <div class="control has-icon">
         <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
         <div class="form-icon">
@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="buttons" (click)="onOpenCreateModal()">
+    <div class="buttons" (click)="onCreateMutualInvestment()">
         <button class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="page-content-inner">
+<div class="page-content-inner" *ngIf="!createMutualInvestment">
 
     <div class="flex-list-wrapper flex-list-v1">
 
@@ -36,59 +36,50 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <span>Solde du compte</span>
-                <span>Montant collecté</span>
                 <span>Nom</span>
-                <span>Plan d’épargne de base</span>
-                <span>Membres inscrits</span>
-                <span>Cycle</span>
-                <span>Status</span>
+                <span>Organisme</span>
+                <span>Montant minimal</span>
+                <span>Taux de rentabilité</span>
+                <span>Montant rentable</span>
+                <span>Evaluation</span>
+                <span>Date de début</span>
+                <span>Date de fin</span>
                 <span class="cell-end">Actions</span>
             </div>
 
             <div class="flex-list-inner">
                 <!--Table item-->
-                <!-- <div class="flex-table-item" *ngFor="let tontine of tontines">
-                    <div class="flex-table-cell" data-th="Solde du compte">
-                        <span class="light-text" data-filter-match="">{{ tontine?.account?.balance }}</span>
-                    </div>
-                    <div class="flex-table-cell" data-th="Montant collecté">
-                        <span class="light-text" data-filter-match="">{{ tontine.collectedAmount }}</span>
-                    </div>
+                <div class="flex-table-item" *ngFor="let mutualInvestment of mutualInvestments">
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ tontine.name }}</span>
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Plan d’épargne de base">
-                        <span class="light-text" data-filter-match="">{{ tontine.peb }}</span>
+                    <div class="flex-table-cell" data-th="Organisme">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.organism }}</span>
                     </div>
-
-                    <div class="flex-table-cell" data-th="Membres inscrits">
-                        <span class="light-text" data-filter-match="">{{ tontine.registeredMembers }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label, tontine.id, tontine.sessionsNumber, tontine.tontineMembers)"><i class="lnir lnir-plus"></i></a>
-                        <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
-                        [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    <div class="flex-table-cell" data-th="Montant minimal">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount  }}</span>
                     </div>
-
-                    <div class="flex-table-cell" data-th="Cycle">
-                        <span class="light-text" data-filter-match="">{{ tontine.cycles.length }}</span>
-                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(tontine.id)"><i class="lnir lnir-plus"></i></a>
-                        <a _ngcontent-nct-c62=""[routerLink]="['/detail-cycle']"
-                        [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    <div class="flex-table-cell" data-th="Taux de rentabilité">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate  }}</span>
                     </div>
-
-                    <div class="flex-table-cell" data-th="Status">
-                        <span class="tag is-rounded is-cliquable" (click)="onSetSatus(tontine.id, tontine.status.id, tontine.status.label, tontine.sessionsNumber, tontine.tontineMembers)" data-filter-match="" [ngClass]="{'is-danger': tontine.status.label === 'FERMÉ', 'is-success': tontine.status.label === 'OUVERT'}">{{ tontine.status.label }}</span>
+                    <div class="flex-table-cell" data-th="Montant rentable">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityAmount }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Date de début">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.startDate  }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Date de fin">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.endDate  }}</span>
                     </div>
 
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62=""  (click)="onUpdateTontine(tontine.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" [routerLink]="['/view-details-tontine']"
-                        [queryParams]="{id: tontine.id}"  class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelate(tontine.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
 
         </div>
@@ -112,70 +103,165 @@
 
 </div>
 
-<!--new drawee form-->
-<!-- <div id="createDraweeForm" class="modal h-modal" [ngClass]="openCreateModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Création d'un formulaire de tirage au sort</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseCreateModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="createMutualInvestmentForm" (ngSubmit)="onSubmitCreateMutualInvestmentForm()">
-                        <div class="field">
-                            <label>Durée de l'échec en mois*</label>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="Durée de l'échec en mois" formControlName="echeanceDurationInMonths">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">
-                                <small class="text-police" translate>veuillez entrer la durée de l'échec en mois </small>
-                             </div>
-                        </div>
-                        <div class="column is-6">
-                            <div class="field">
-                                <label>Date de début *</label><br>
-                                <div class="card-header-widget datepicker-style">
-                                    <div class="input-daterange input-group align-items-center">
-                                        <input class="champ" formControlName="endDate" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
-                                    </div>
-                               </div>
-                               <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                 <small class="text-police" translate>veuillez selectionner la date de délivrance</small>
-                               </div>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label>Description *</label>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Description" formControlName="description">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="createMutualInvestmentForm.get('description')?.errors?.['required'] && createMutualInvestmentForm.get('description')?.touched">
-                                <small class="text-police" translate>veuillez entrer la description</small>
-                             </div>
-                        </div>
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createDraweeFormForm.invalid || isSaving">Creer</button>
-                        </div>
-                    </form>
+<div *ngIf="createMutualInvestment" class="page-content-inner">
+    <!--Form Layout 1-->
+    <div class="form-layout">
+        <div class="form-outer">
+            <div class="form-header stuck-header is-stuck">
+                <div class="form-header-inner">
+                    <div class="left">
+                        <h3>Création d'un placement mutualisé</h3>
+                    </div>
+                   
                 </div>
             </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="onCloseCreateModal()">Cancel</a>
+            <div class="form-body">
+                <!--Fieldset-->
+                <div class="border-style">
+                    <div class="form-fieldset">
+                        <div class="fieldset-heading">
+                            <h4>Informations du placement mutualisé </h4>
+                        </div>
+                        <form class="modal-form" [formGroup]="createMutualInvestmentForm" (ngSubmit)="onSubmitMutualInvestment()">
+                            <div class="field">
+                                <label>Nom*</label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="nom du placement mutualisé" formControlName="name">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('name')?.errors?.['required'] && createMutualInvestmentForm.get('name')?.touched">
+                                    <small class="text-police">veuillez entrer le nom du placement mutualisé</small>
+                                 </div>
+                            </div>
+                            <div class="field">
+                                <label>Organisme*</label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="organisme" formControlName="organism">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('organism')?.errors?.['required'] && createMutualInvestmentForm.get('organism')?.touched">
+                                    <small class="text-police">veuillez entrer l'organisme</small>
+                                 </div>
+                            </div>
+                            <div class="field">
+                                <label>Montant minimal*</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="montant minimal" formControlName="minimumAmount">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('minimumAmount')?.errors?.['required'] && createMutualInvestmentForm.get('minimumAmount')?.touched">
+                                    <small class="text-police">veuillez entrer le montant minimal</small>
+                                 </div>
+                            </div>
+                            <div class="field">
+                                <label>Formulaires de tirage au sort  *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idDraweeForm" [(ngModel)]="ngSelect1">
+                                    <option value="0" disabled>--Selectionnez un formulaire de tirage au sort--</option>
+                                    <option *ngFor="let draweeForm of draweeForms" [value]="draweeForm.id"> <span> {{ draweeForm.description }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idDraweeForm')?.errors?.['required'] && createMutualInvestmentForm.get('idDraweeForm')?.touched">
+                                        <small class="text-police">veuillez sélectionner un formulaire de tirage au sort</small>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Types de rentabilités  *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect2">
+                                    <option value="0" disabled>--Selectionnez un types de rentabilité--</option>
+                                    <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idProfitabilityType')?.errors?.['required'] && createMutualInvestmentForm.get('idProfitabilityType')?.touched">
+                                        <small class="text-police">veuillez sélectionner un types de rentabilité</small>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Types de remboursements  *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelect3">
+                                    <option value="0" disabled>--Selectionnez un type de remboursement--</option>
+                                    <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idRefundType')?.errors?.['required'] && createMutualInvestmentForm.get('idRefundType')?.touched">
+                                        <small class="text-police">veuillez sélectionner un type de remboursement</small>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>taux de rentabilité*</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('profitabilityRate')?.errors?.['required'] && createMutualInvestmentForm.get('profitabilityRate')?.touched">
+                                    <small class="text-police">veuillez entrer le taux de rentabilité</small>
+                                 </div>
+                            </div>    
+                            <div class="field">
+                                <label>Durée de l'échec en mois*</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="Durée de l'échec en mois" formControlName="echeanceDurationInMonths">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">
+                                    <small class="text-police">veuillez entrer le nom de la mutualInvestment</small>
+                                 </div>
+                            </div>
+                            <div class="field">
+                                <label>Evaluation*</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="évaluation" formControlName="rating">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('rating')?.errors?.['required'] && createMutualInvestmentForm.get('rating')?.touched">
+                                    <small class="text-police">veuillez entrer l'évaluation</small>
+                                 </div>
+                            </div>
+                            <div class="columns is-multiline">
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label>Date de début *</label><br>
+                                        <div class="card-header-widget datepicker-style">
+                                            <div class="input-daterange input-group align-items-center">
+                                                <input class="champ" formControlName="startDate" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
+                                            </div>
+                                       </div>
+                                       <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
+                                         <small class="text-police" translate>veuillez selectionner la date de début</small>
+                                       </div>
+                                    </div>
+                                </div>
+    
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label>Date de fin *</label><br>
+                                        <div class="card-header-widget datepicker-style">
+                                            <div class="input-daterange input-group align-items-center">
+                                                <input class="champ" formControlName="endDate" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
+                                            </div>
+                                       </div>
+                                       <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
+                                         <small class="text-police" translate>veuillez selectionner la date de fin</small>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                           <br>
+                        </form>
+
+                        <div class="right but-style">
+                            <div class="buttons">
+                                <button (click)="cancelCreatingMutualInvestment()" id="save-button" class="button h-button is-light is-dark-outlined">Retour</button>
+                                <button [disabled]="createMutualInvestmentForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Créer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
             </div>
         </div>
     </div>
-</div> -->
+
+</div>
 
 
 

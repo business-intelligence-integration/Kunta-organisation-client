@@ -270,72 +270,16 @@
                                 <span class="tag is-rounded is-cliquable is-danger" *ngIf="penality.paid === false">nom</span>
                                 <span class="tag is-rounded is-cliquable is-success" *ngIf="penality.paid === true">oui</span>
                             </div>
-
-                            <!-- <div class="flex-table-cell" data-th="Status">
-                                <span class="light-text" data-filter-match="" [ngClass]="{'is-danger': penality.paid === false, 'is-success': penality.paid === true}">{{ penality.paid }}</span>
-                            </div> -->
-
                             <div class="flex-table-cell" data-th="Cotiser">
                                 <a class="pagination-previous has-chevron"  [ngClass]="{'disabled': penality.paid === true}" (click)="onOpenPaymentModal(penality.id, penality.user.id, penality.penaltyType.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
                             </div>
                             <div class="flex-table-cell" data-th="Status">
                                 <span class="light-text" data-filter-match="">{{ penality.user.firstName }}</span>
                             </div>
-        
-                            <!-- <div class="flex-table-cell cell-end" data-th="Actions">
-                                <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-
-                                </div>
-                            </div> -->
                         </div>
                     </div>
         
                 </div>
-
-                <!-- <div class="flex-table">
-
-                    <div class="flex-table-header" data-filter-hide="">
-                        <span>Date</span>
-                        <span>Montant</span>
-                        <span>Description</span>
-                        <span>payé</span>
-                        <span>Action</span>
-                    </div>
-                    <div class="flex-list-inner">
-                        <div class="flex-table-item" *ngFor="let penality of penalities">
-
-                            <div class="flex-table-cell" data-th="Raison">
-                                <span class="light-text" data-filter-match="">{{ penality.date }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ penality.penaltyType.amount }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ penality.penaltyType.label }}</span>
-                            </div>
-
-                            <div class="flex-table-cell" data-th="Reste à payer">
-                                <span class="light-text" data-filter-match="">{{ penality.paid }}</span>
-                            </div>
-                            <div class="flex-table-cell" data-th="Status">
-                           
-                               
-                            </div>
-                            
-        
-                            <div class="flex-table-cell cell-end" data-th="Actions">
-                                <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        
-                </div> -->
-
                 <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
                     <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
                     <a class="pagination-next has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -481,20 +425,6 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="paymentForm" (ngSubmit)="onSubmitPayment()">
-                        <!-- <div class="field">
-                            <label>membres de la tontine*</label>
-                            <select2
-                                    class="w-100 color-border"
-                                    [data]="membersArray"
-                                    id="club"
-                                    formControlName="idMember"
-                                    placeholder="--Selectionnez un membre--">
-                            </select2>
-                                <div class="text-danger"
-                                    *ngIf="paymentForm.get('idMember')?.errors?.['required'] && paymentForm.get('idMember')?.touched">
-                                    <small class="text-police">veuillez entrer le montant cotisé</small>
-                                </div>
-                        </div> -->
                         <div class="field">
                             <label>Méthode de paiement  *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPaymentMethod">
@@ -507,16 +437,6 @@
                                 <small class="text-police">veuillez selectionner une méthode de paiement</small>
                              </div>
                         </div>
-                        <!-- <div class="field">
-                            <label>Montant payé*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="paymentForm.get('amount')?.errors?.['required'] && paymentForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant cotisé</small>
-                             </div>
-                        </div> -->
                         
                         <div class="field">
                             <label>Justificatif*</label><br>

@@ -143,7 +143,6 @@ export class TontineComponent implements OnInit {
   getMaxDateOfTontineList(){
     
     
-    // this.maxAge = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
   
@@ -156,10 +155,6 @@ export class TontineComponent implements OnInit {
     this.isList = true;
     this.creatTontine = false;
   }
-
-  // closeCreateTontineModal(){
-  //   this.openCreateModal = "";
-  // }
 
   getAllClubs(){
     this.clubServices.findAllClubs().subscribe((res)=>{

@@ -8,4 +8,5 @@ export class MutualInvestment{
     profitabilityRate: number = 0;
     rating: number = 0;
     startDate: any;
+    profitabilityAmount: number = 0;
   }

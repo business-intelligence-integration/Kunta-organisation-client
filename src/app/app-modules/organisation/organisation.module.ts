@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { OrganisationRoutingModule } from './organisation-routing.module';
 import { UserComponent } from './user/user.component';
-import { CenterComponent } from './center/center.component';
 import { ClubComponent } from './club/club.component';
 import { OrganismComponent } from './organism/organism.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +40,6 @@ import { Select2Module } from 'ng-select2-component';
 @NgModule({
   declarations: [
     UserComponent,
-    CenterComponent,
     ClubComponent,
     OrganismComponent,
     AreaComponent,
