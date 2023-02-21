@@ -151,10 +151,17 @@
 
                         <div class="field">
                             <label>centre de la zone*</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelectCenter">
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="centers"
+                                    id="center"
+                                    formControlName="idCenter"
+                                    placeholder="--Selectionnez le centre de la zone--">
+                            </select2>
+                            <!-- <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelectCenter">
                                 <option value="0" disabled>--Selectionnez le centre de la zone--</option>
-                                <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }} </span> </option>
-                            </select>
+                                <option *ngFor="let centre of centers" [value]="area.id"> <span> {{ area.name }} </span> </option>
+                            </select> -->
                             <div class="text-danger"
                             *ngIf="addAreaForm.get('idCenter')?.errors?.['required'] && addAreaForm.get('idCenter')?.touched">
                             <small class="text-police" translate>entrer l'appelation du centre</small>

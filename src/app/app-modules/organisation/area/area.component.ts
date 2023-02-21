@@ -30,7 +30,7 @@ export class AreaComponent implements OnInit {
   club: Organism;
   openClubModal: string = "";
   createDate: string = "";
-  centers: Organism[] =  [];
+  centers: any;
   CreationAreaDate: any;
   isSaving: boolean = false;
   constructor(private formBuilder: FormBuilder,
@@ -74,7 +74,7 @@ export class AreaComponent implements OnInit {
 
 getAllCenters(){
   this.centerService.findAllCenters().subscribe((res)=>{
-    this.centers = res.data;
+    this.centers = res.data.map((centre:any)=>({value: centre.id, label:centre.name}));
   })
 }
 

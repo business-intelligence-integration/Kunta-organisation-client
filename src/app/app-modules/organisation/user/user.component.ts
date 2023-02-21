@@ -217,10 +217,11 @@ export class UserComponent implements OnInit {
     }else{
       this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
     }
-    if(formValue.userType == "ADMIN"){
-      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-    }
-   }else if(formValue.userType == "OPERATOR"){
+   }if(formValue.userType == "ADMIN"){
+    console.log("this.user::", this.user);
+    
+    this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+  }else if(formValue.userType == "OPERATOR"){
     this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
    }
 
@@ -330,7 +331,10 @@ export class UserComponent implements OnInit {
 
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
+    console.log("isSaving1...");
+    
     this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+      console.log("isSaving2...");
       this.isSaving = false;
       this.getAllUsers();
       this.utilityService.showMessage(
