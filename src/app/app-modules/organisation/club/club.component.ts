@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
-import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UserService } from 'src/app/core/services/users/user.service';
@@ -90,6 +89,7 @@ export class ClubComponent implements OnInit {
       this.isSaving = false;
       this.getAllClubs()
       this.onCloseAddModal()
+      this.addClubForm.reset();
       this.utilityService.showMessage(
         'success',
         'Club successfully created',
@@ -110,6 +110,7 @@ export class ClubComponent implements OnInit {
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((result)=>{
+      console.log('clubs::', result.data)
       this.clubs = result.data
     })
   }
@@ -120,7 +121,7 @@ export class ClubComponent implements OnInit {
       this.club = res.data
     }, (error)=>{
       console.log(error);
-      
+        
     })
   }
 
@@ -210,8 +211,12 @@ export class ClubComponent implements OnInit {
   }
 
   addMembr(idClub: number, idMember: number){
+    console.log('idClub::', idClub);
+    console.log('idMember::', idMember);
+    
     this.isSaving = true;
-    this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
+    this.clubService.addMemberToClub(idClub, idMember).subscribe((res)=>{
+      console.log('resClub::', res);
       this.isSaving = false;
       this.getAllClubs();
       this.closeMemberModal();

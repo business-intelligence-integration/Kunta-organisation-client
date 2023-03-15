@@ -215,7 +215,7 @@
                                     <div class="columns is-multiline">
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Nom</label>
+                                                <label>Nom*</label>
                                                 <div class="control has-icon">
                                                     <input type="text" class="input" placeholder="LastName" formControlName="lastName">
                                                     <div class="form-icon">
@@ -230,7 +230,7 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Prenom</label>
+                                                <label>Prenom*</label>
                                                 <div class="control has-icon">
                                                     <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
                                                     <div class="form-icon">
@@ -246,7 +246,7 @@
                                 
                                             <div class="column is-6">
                                                 <div class="field">
-                                                    <label>Numéro de Tel. *</label>
+                                                    <label>Numéro de Tel.*</label>
                                                     <div class="control has-icon">
                                                         <input type="number" class="input" placeholder="Phone Number"
                                                         formControlName="phoneNumber">
@@ -265,17 +265,17 @@
                                                         <div class="form-icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                         </div>
-                                                        <div class="text-danger"
+                                                        <!-- <div class="text-danger"
                                                         *ngIf="addUserForm.get('secondPhoneNumber')?.errors?.['required'] && addUserForm.get('secondPhoneNumber')?.touched">
                                                         <small class="text-police" translate>Veuillez entrer le second numéro de téléphone</small>
-                                                     </div>
+                                                     </div> -->
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="column is-12">
                                                 <div class="field">
-                                                    <label>Numéro WhatsApp *</label>
+                                                    <label>Numéro WhatsApp*</label>
                                                     <div class="control has-icon">
                                                         <input type="text" class="input" placeholder="Numéro WhatsApp"
                                                         formControlName="whatsappPhoneNumber">
@@ -289,7 +289,7 @@
                                        
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Email principale</label>
+                                                <label>Email principale*</label>
                                                 <div class="control has-icon">
                                                     <input type="email" class="input" placeholder="Email principale" formControlName="userName">
                                                     <div class="form-icon">
@@ -311,17 +311,17 @@
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
-                                                    <div class="text-danger"
+                                                    <!-- <div class="text-danger"
                                                     *ngIf="addUserForm.get('secondaryEmail')?.errors?.['required'] && addUserForm.get('secondaryEmail')?.touched">
                                                     <small class="text-police" translate>Veuillez entrer l'adresse email secondaire</small>
-                                                 </div>
+                                                 </div> -->
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Adresse principale</label>
+                                                <label>Adresse principale*</label>
                                                 <div class="control has-icon">
                                                     <input type="email" class="input" placeholder="Adresse principale" formControlName="mainAddress">
                                                     <div class="form-icon">
@@ -337,16 +337,16 @@
 
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Adresse secondaire</label>
+                                                <label>Adresse secondair</label>
                                                 <div class="control has-icon">
                                                     <input type="email" class="input" placeholder="Adresse secondaire" formControlName="secondaryAddress">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
-                                                    <div class="text-danger"
+                                                    <!-- <div class="text-danger"
                                                     *ngIf="addUserForm.get('secondaryAddress')?.errors?.['required'] && addUserForm.get('secondaryAddress')?.touched">
                                                     <small class="text-police" translate>Veuillez entrer l'adresse secondaire</small>
-                                                 </div>
+                                                 </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -371,7 +371,7 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Ville</label>
+                                                <label>Ville*</label>
                                                 <div class="control has-icon">
                                                     <input type="email" class="input" placeholder="Ville" formControlName="city">
                                                     <div class="form-icon">
@@ -384,12 +384,12 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Nationalité</label>
+                                                <label>Nationalité*</label>
                                                 <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Nationalité" formControlName="nationality">
+                                                    <input type="text" class="input" placeholder="Nationalité" formControlName="nationality">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
@@ -400,9 +400,25 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- <div class="column is-6">
+                                            <div class="field">
+                                                <label>Nationalité* </label>
+                                                <div class="control has-icon">
+                                                    <input type="email" placeholder="Nationalité" formControlName="nationality">
+                                                    <div class="form-icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                                    </div>
+                                                    <div class="text-danger"
+                                                    *ngIf="addUserForm.get('nationality')?.errors?.['required'] && addUserForm.get('nationality')?.touched">
+                                                    <small class="text-police" translate>Veuillez entrer la nationalité</small>
+                                                 </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Numéro identifiant nationale</label>
+                                                <label>Numéro identifiant nationale*</label>
                                                 <div class="control has-icon">
                                                     <input type="email" class="input" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
                                                     <div class="form-icon">
@@ -434,7 +450,7 @@
 
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Nombre d’enfants *</label>
+                                                <label>Nombre d’enfants*</label>
                                                 <div class="control">
                                                     <input type="number" class="input" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
                                                 </div>
@@ -448,7 +464,7 @@
                                         <div class="column is-6">
                                             <div class="field">
                                                 <div>
-                                                    <label>Types de pièces *</label><br>
+                                                    <label>Types de pièces*</label><br>
                                                     <select class="input_comp" formControlName="idPieceType" aria-label="Default select example"  [(ngModel)]="ngSelectTypePiece1">
                                                         <option value="0" disabled>--selectionner un type de pièce--</option>
                                                         <option *ngFor="let pieceType of pieceTypes" [value]="pieceType.id" >{{ pieceType.label }}</option>
@@ -475,7 +491,7 @@
 
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Lieu de délivrance *</label>
+                                                <label>Lieu de délivrance*</label>
                                                 <div class="control">
                                                     <input type="text" class="input" placeholder="Lieu de délivrance" formControlName="placeOfIssue">
                                                 </div>
@@ -487,7 +503,7 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Boite postale *</label>
+                                                <label>Boite postale*</label>
                                                 <div class="control">
                                                     <input type="text" class="input" placeholder="boite postale"
                                                         formControlName="postalBox">
@@ -500,7 +516,7 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Date de délivrance *</label><br>
+                                                <label>Date de délivrance*</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
                                                         <input class="champ" formControlName="dateOfIssue" type="date" id="DOB1" name="DOB" [(ngModel)]="dateOfIssue" (input)="onSelectIssueDate($event.timeStamp)">
@@ -514,7 +530,7 @@
 
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Date de validité *</label><br>
+                                                <label>Date de validité*</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
                                                         <input class="champ" formControlName="dateOfValidity" type="date" min="{{ minValidityDate }}" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectValidityDate($event.timeStamp)">
@@ -530,7 +546,7 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Password *</label>
+                                                <label>Password*</label>
                                                 <div class="control">
                                                     <input type="password" class="input" placeholder="Password" formControlName="password">
                                                 </div>
@@ -543,7 +559,7 @@
             
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Confirm Password *</label>
+                                                <label>Confirm Password*</label>
                                                 <div class="control">
                                                     <input type="password" class="input" placeholder="Confirm Password"
                                                         formControlName="confPassword">
@@ -603,7 +619,7 @@
                         <div class="columns is-multiline">
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Nom</label>
+                                    <label>Nom*</label>
                                     <div class="control has-icon">
                                         <input type="text" class="input" [(ngModel)]="user.lastName" placeholder="LastName" formControlName="lastName">
                                         <div class="form-icon">
@@ -618,7 +634,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Prenom</label>
+                                    <label>Prenom*</label>
                                     <div class="control has-icon">
                                         <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
                                         <div class="form-icon">
@@ -634,7 +650,7 @@
                     
                                 <div class="column is-6">
                                     <div class="field">
-                                        <label>Numéro de Tel. *</label>
+                                        <label>Numéro de Tel.*</label>
                                         <div class="control has-icon">
                                             <input type="number" class="input" [(ngModel)]="user.phoneNumber" placeholder="Phone Number"
                                             formControlName="phoneNumber">
@@ -653,17 +669,17 @@
                                             <div class="form-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                             </div>
-                                            <div class="text-danger"
+                                            <!-- <div class="text-danger"
                                             *ngIf="updateUserForm.get('secondPhoneNumber')?.errors?.['required'] && updateUserForm.get('secondPhoneNumber')?.touched">
                                             <small class="text-police" translate>Veuillez entrer le second numéro de téléphone</small>
-                                         </div>
+                                         </div> -->
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="column is-12">
                                     <div class="field">
-                                        <label>Numéro WhatsApp *</label>
+                                        <label>Numéro WhatsApp*</label>
                                         <div class="control has-icon">
                                             <input type="text" class="input" [(ngModel)]="user.whatsappPhoneNumber" placeholder="Numéro WhatsApp"
                                             formControlName="whatsappPhoneNumber">
@@ -677,7 +693,7 @@
                            
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Email principale</label>
+                                    <label>Email principale*</label>
                                     <div class="control has-icon">
                                         <input type="email" class="input" [(ngModel)]="user.userName" placeholder="Email principale" formControlName="userName">
                                         <div class="form-icon">
@@ -699,17 +715,17 @@
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         </div>
-                                        <div class="text-danger"
+                                        <!-- <div class="text-danger"
                                         *ngIf="updateUserForm.get('secondaryEmail')?.errors?.['required'] && updateUserForm.get('secondaryEmail')?.touched">
                                         <small class="text-police" translate>Veuillez entrer l'adresse email secondaire</small>
-                                     </div>
+                                     </div> -->
                                     </div>
                                 </div>
                             </div>
 
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Adresse principale</label>
+                                    <label>Adresse principale*</label>
                                     <div class="control has-icon">
                                         <input type="email" class="input" [(ngModel)]="user.mainAddress" placeholder="Adresse principale" formControlName="mainAddress">
                                         <div class="form-icon">
@@ -731,17 +747,17 @@
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         </div>
-                                        <div class="text-danger"
+                                        <!-- <div class="text-danger"
                                         *ngIf="updateUserForm.get('secondaryAddress')?.errors?.['required'] && updateUserForm.get('secondaryAddress')?.touched">
                                         <small class="text-police" translate>Veuillez entrer l'adresse secondaire</small>
-                                     </div>
+                                     </div> -->
                                     </div>
                                 </div>
                             </div>
 
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Ville</label>
+                                    <label>Ville*</label>
                                     <div class="control has-icon">
                                         <input type="email" class="input" [(ngModel)]="user.city" placeholder="Ville" formControlName="city">
                                         <div class="form-icon">
@@ -756,7 +772,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Pays de résidence</label>
+                                    <label>Pays de résidence*</label>
                                     <div class="control has-icon">
                                         <input type="email" class="input" placeholder="Pays de résidence">
                                         <div class="form-icon">
@@ -768,7 +784,7 @@
 
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Nationalité</label>
+                                    <label>Nationalité*</label>
                                     <div class="control has-icon">
                                         <input type="email" class="input" [(ngModel)]="user.nationality" placeholder="Nationalité" formControlName="nationality">
                                         <div class="form-icon">
@@ -783,7 +799,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Numéro identifiant nationale</label>
+                                    <label>Numéro identifiant nationale*</label>
                                     <div class="control has-icon">
                                         <input type="email" class="input" [(ngModel)]="user.nationalIDNumber" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
                                         <div class="form-icon">
@@ -798,7 +814,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Nombre d’enfants *</label>
+                                    <label>Nombre d’enfants*</label>
                                     <div class="control">
                                         <input type="number" class="input" [(ngModel)]="user.numberOfChildren" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
                                     </div>
@@ -811,7 +827,7 @@
 
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Pièce d'identité *</label>
+                                    <label>Pièce d'identité*</label>
                                     <div class="control">
                                         <input type="text" class="input" [(ngModel)]="user.pieceId" placeholder="pièce d'identité" formControlName="pieceId">
                                     </div>
@@ -824,7 +840,7 @@
 
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Lieu de délivrance *</label>
+                                    <label>Lieu de délivrance*</label>
                                     <div class="control">
                                         <input type="text" class="input" [(ngModel)]="user.placeOfIssue" placeholder="Lieu de délivrance" formControlName="placeOfIssue">
                                     </div>
@@ -836,7 +852,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Boite postale *</label>
+                                    <label>Boite postale*</label>
                                     <div class="control">
                                         <input type="text" class="input" [(ngModel)]="user.postalBox" placeholder="boite postale"
                                             formControlName="postalBox">
@@ -849,7 +865,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Date de délivrance *</label><br>
+                                    <label>Date de délivrance*</label><br>
                                     <div class="card-header-widget datepicker-style">
                                         <div class="input-daterange input-group align-items-center">
                                             <input class="champ" [(ngModel)]="user.dateOfIssue" formControlName="dateOfIssue" type="date" id="DOB1" name="DOB"  (input)="onSelectCreateDate($event.timeStamp)">
@@ -863,7 +879,7 @@
 
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Date de validité *</label><br>
+                                    <label>Date de validité*</label><br>
                                     <div class="card-header-widget datepicker-style">
                                         <div class="input-daterange input-group align-items-center">
                                             <input class="champ" [(ngModel)]="user.dateOfValidity" formControlName="dateOfValidity" type="date" id="DOB2" name="DOB" (input)="onSelectCreateDate($event.timeStamp)">
@@ -879,7 +895,7 @@
 
                     <div class="right but-style">
                         <div class="buttons">
-                            <button (click)="cancelUpdatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Annuler</button>
+                            <button (click)="cancelUpdatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Retour</button>
                             <button [disabled]="updateUserForm.invalid || isSaving" (click)="onUpdate()" id="save-button" class="button h-button is-primary is-raised update-but">Modifier</button>
                         </div>
                     </div>

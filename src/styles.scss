@@ -4,7 +4,6 @@
     /* cannot give overflow: hidden as it will crop tooltips which overflow outside chart area */
   }
   
-  
   /* scrollbar is not visible by default for legend, hence forcing the visibility */
   .apexcharts-canvas ::-webkit-scrollbar {
     -webkit-appearance: none;
