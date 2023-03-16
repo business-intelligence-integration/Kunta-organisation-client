@@ -216,7 +216,18 @@
                 
                     <div class="column is-4">
                         <div class="filter-box">
-                            <h4 class="dark-inverted">Détails de {{ user.firstName }}</h4>
+                            <h4 class="dark-inverted">Détails de {{ user.firstName }} </h4>
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox is-circle">
+                                        <span></span>
+                                        Roles
+                                    </label>
+                                    <div class="control-end" *ngFor="let role of user.roles">
+                                        <span class="tag is-rounded" style="background-color: rgb(83, 75, 134); color: white;"> {{ role.name }}</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">

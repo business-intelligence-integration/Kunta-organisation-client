@@ -324,6 +324,8 @@ export class UserComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
+      console.log("users:: ", result.data);
+      
       this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
       
     })

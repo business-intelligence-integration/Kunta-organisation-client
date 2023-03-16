@@ -211,21 +211,28 @@ export class ClubComponent implements OnInit {
   }
 
   addMembr(idClub: number, idMember: number){
-    console.log('idClub::', idClub);
-    console.log('idMember::', idMember);
-    
     this.isSaving = true;
     this.clubService.addMemberToClub(idClub, idMember).subscribe((res)=>{
       console.log('resClub::', res);
       this.isSaving = false;
       this.getAllClubs();
       this.closeMemberModal();
-      this.utilityService.showMessage(
-        'success',
-        'Member successfully added to club',
-        '#06d6a0',
-        'white'
-      );
+      if(res.data == null){
+        this.utilityService.showMessage(
+          'warning',
+          'Désolé, un membre ne peu appartenir à deux clubs!',
+          '#e62965',
+          'white'
+        );
+      }else{
+        this.utilityService.showMessage(
+          'success',
+          'Member successfully added to club',
+          '#06d6a0',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
