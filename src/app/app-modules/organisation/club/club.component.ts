@@ -1,0 +1,263 @@
+import { DatePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Organism } from 'src/app/core/classes/organism';
+import { User } from 'src/app/core/classes/user';
+import { AreaService } from 'src/app/core/services/areas/area.service';
+import { ClubService } from 'src/app/core/services/clubs/club.service';
+import { UserService } from 'src/app/core/services/users/user.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'app-club',
+  templateUrl: './club.component.html',
+  styleUrls: ['./club.component.scss']
+})
+export class ClubComponent implements OnInit {
+  ngSelect = 0;
+  ngSelect5 = 0;
+  Clubs: string = "Clubs";
+  openAddClub: string = "";
+  openUpdateClub: string = "";
+  openMemberModal: string = "";
+  addClubForm!: FormGroup;
+  addMemberForm! : FormGroup;
+  updateClubForm!: FormGroup;
+  members: any;
+  clubs: Organism[] = [];
+  areas: any;
+  createDate: string = "";
+  club: Organism;
+  idMember: number = 0;
+  idClub: number = 0 ;
+  maxCreationClubDate: any;
+  isSaving: boolean = false;
+  constructor(private formBuilder: FormBuilder, 
+    private clubService: ClubService,
+    private userService: UserService,
+    private utilityService: UtilityService,
+    private areaService: AreaService) {
+      this.club = new Organism();
+     }
+
+  ngOnInit(): void {
+    this.formInit();
+    this.getAllClubs();
+    this.getAllMembers();
+    this.getAllAreas();
+    this.getMaxCreationClubDate();
+  }
+
+  formInit() {
+    this.addClubForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required),
+      idArea: new FormControl(null, Validators.required),
+      creationDate:new FormControl(null, Validators.required),
+      reference:new FormControl(null, Validators.required),
+      observation: new FormControl(null)
+    })
+
+    this.updateClubForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
+      reference:new FormControl(null, Validators.required),
+      observation: new FormControl(null)
+    })
+
+    this.addMemberForm = this.formBuilder.group({
+      id: new FormControl(null, Validators.required),
+    })
+  }
+
+  onAddClub(){
+    this.openAddClub = "is-active";
+  }
+
+  onCloseAddModal(){
+    this.openAddClub = "";
+  }
+
+  onSubmitClub(){
+    const formValue = this.addClubForm.value;
+    this.club.name = formValue.name
+    this.club.reference = formValue.reference;
+    this.club.observation = formValue.observation;
+    this.createClub(this.club, formValue.idArea);
+  }
+
+  createClub(club: Organism, idArea: number){
+    this.isSaving = true;
+    this.clubService.createclub(club, idArea).subscribe((res)=>{
+      this.isSaving = false;
+      this.getAllClubs()
+      this.onCloseAddModal()
+      this.utilityService.showMessage(
+        'success',
+        'Club crée avec succès !',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+
+  getAllClubs(){
+    this.clubService.findAllClubs().subscribe((result)=>{
+      this.clubs = result.data
+    })
+  }
+
+  onUpdateClub(id: number){
+    this.clubService.getclubById(id).subscribe((res)=>{
+      this.openUpdateClub = "is-active"
+      this.club = res.data
+    }, (error)=>{
+      console.log(error);
+      
+    })
+  }
+
+  onDeleteClub(id: number){
+    this.deleteMessage(id);
+  }
+
+  deleteMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.clubService.deleteclubById(id).subscribe(
+            () => {
+              this.getAllClubs();
+              swalWithBootstrapButtons.fire({
+                title: 'Supprimé !',
+                text: 'Club a été supprimé.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreure s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
+  onCloseUpdateModal(){
+    this.openUpdateClub = ""
+  }
+
+  onSubmitUpdateClub(){
+    const formValue  = this.updateClubForm.value;
+    this.club.name = formValue.name;
+    this.club.reference = formValue.reference;
+    this.club.observation = formValue.observation;
+    this.clubService.updateclubById(this.club, formValue.id).subscribe((club)=>{
+      this.getAllClubs();
+      this.onCloseUpdateModal();
+      this.utilityService.showMessage(
+        'success',
+        'Club mis a jour avec succès',
+        '#06d6a0',
+        'white'
+      );
+    })
+
+    
+  }
+
+  onAddMember(idClub: number){
+    this.idClub = idClub;
+    this.openMemberModal = "is-active";
+  }
+
+  closeMemberModal(){
+    this.openMemberModal = "";
+  }
+
+  addMembr(idClub: number, idMember: number){
+    this.isSaving = true;
+    this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
+      this.isSaving = false;
+      this.getAllClubs();
+      this.closeMemberModal();
+      this.utilityService.showMessage(
+        'success',
+        'Membre ajouté au club avec succès',
+        '#06d6a0',
+        'white'
+      );
+    }, ()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  getAllMembers(){
+    this.userService.getAllUsers().subscribe((res)=>{
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
+    })
+  }
+
+  onSubmitMember(){
+    const formValue  = this.addMemberForm.value;
+    this.addMembr(this.idClub, formValue.id)
+  }
+
+   getAllAreas(){
+    this.areaService.findAllAreas().subscribe((res)=>{
+      this.areas = res.data.map((area:any)=>({value: area.id, label:area.name}));
+    })
+  }
+
+  getMaxCreationClubDate(){
+    this.maxCreationClubDate = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
+  }
+
+  onSelectCreateDate(event: any){
+
+  }
+}

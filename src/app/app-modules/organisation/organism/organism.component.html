@@ -1,0 +1,202 @@
+<div id="layouts-sidebar" class="sidebar-panel is-generic" [ngClass]="homeSider">
+    <div class="subpanel-header">
+
+        <div class="dropdown project-dropdown dropdown-trigger is-spaced">
+            <div class="h-avatar is-small">
+                <span class="avatar is-fake is-h-green">
+                  <span>O</span>
+                </span>
+            </div>
+            <span class="status-indicator"></span>
+
+            <div class="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-warning">
+                              <span>D</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Delivery App Project</span>
+                            <span>Food For Good</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-h-green">
+                              <span>M</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Health and Fitness Dashboard</span>
+                            <span>Fit'n'Dance</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-info">
+                              <span>L</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Learning Tracker Dashboard</span>
+                            <span>Fit'n'Dance</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-h-purple">
+                              <span>B</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Banking and Finance Dashboard</span>
+                            <span>H Bank</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="no-mb">Organisation</h3>
+        <div class="panel-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </div>
+    </div>
+    <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
+        <ul>
+            <li class="has-children" [ngClass]="activeListUser">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Utilisateurs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul [style.display]="wrapdwonListUser">
+                    <li>
+                        <a (click)="onShowAll()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Tous les utilisateurs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="clickOnAdmin()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Administrateurs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="clickOnMember()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Membres</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="clickOnMutualist()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Mutualistes</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Clubs</a>
+                </div>
+            </li>
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Zones</a>
+                </div>
+            </li>
+            <li>
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" (click)="onMainCenters()" >Centres</a>
+                </div>
+            </li>
+            <li class="has-children" [ngClass]="activateMainOfficeDetails">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul [style.display]="wrapdwonDetaiilsMainOffice">
+                    <li>
+                        <a (click)="onExecutiveBoard()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Comité exécutif</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="onGeneralAssembly()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Assemblée générale</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="onCompensationCommittee()"  class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>comité de gouvernance et de rémunération</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="onMonitoringCommittee()"  class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>comité de production et de surveillance</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a (click)="onDevelopmentCommittee()"  class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>comité de développement stratégique</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
+</div>
+
+<div id="app-hr" class="view-wrapper" [ngClass]="isPushed" data-naver-offset="150" data-menu-item="#home-sidebar-menu"
+    data-mobile-item="#home-sidebar-menu-mobile">
+    <div class="page-content-wrapper">
+        <div class="page-content is-relative">
+
+            <div class="page-title has-text-centered">
+                <!-- Sidebar Trigger -->
+                <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
+                    <span class="menu-toggle has-chevron">
+                      <span class="icon-box-toggle" [ngClass]="activeToggle" (click)="activeHomeSider()">
+                          <span class="rotate">
+                              <i class="icon-line-top"></i>
+                              <i class="icon-line-center"></i>
+                              <i class="icon-line-bottom"></i>
+                          </span>
+                    </span>
+                    </span>
+                </div>
+
+                <div class="title-wrap">
+                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
+                </div>
+            </div>
+
+            <app-user *ngIf="isUser"></app-user>
+            <app-club *ngIf="isClub"></app-club>
+            <app-area *ngIf="isArea"></app-area>
+            <app-main-office *ngIf="isMainOffice"></app-main-office>
+            <app-account  *ngIf="isAccount"></app-account>
+
+            <app-admin *ngIf="isAdmin"></app-admin>
+            <app-member *ngIf="isMember"></app-member>
+            <app-mutulist *ngIf="isMutulist"></app-mutulist>
+            <app-operator *ngIf="isOperator"></app-operator>
+            <app-centers *ngIf="isMainCenters"></app-centers>
+
+            <app-executive-board *ngIf="isExecutiveBoard"></app-executive-board>
+            <app-general-assembly *ngIf="isGeneralAssembly"></app-general-assembly>
+            <app-governance-compensation-committee *ngIf="isCompensationCommittee"></app-governance-compensation-committee>
+            <app-production-monitoring-committee *ngIf="isMonitoringCommittee"></app-production-monitoring-committee>
+            <app-strategic-development-committee *ngIf="isDevelopmentCommittee"></app-strategic-development-committee>
+   
+            
+        </div>
+    </div>
+
+</div>

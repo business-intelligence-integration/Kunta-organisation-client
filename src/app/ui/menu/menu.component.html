@@ -1,0 +1,72 @@
+   <!--Sidebar-->
+        <div class="main-sidebar">
+            <div class="sidebar-brand">
+                <a [routerLink]="['/dashboards/']">
+                    <img class="light-image" src="https://res.cloudinary.com/b2i-group/image/upload/v1673430526/kunta-organisation/img/logo_p4a6oz.svg" alt="">
+                    <img class="dark-image" src="https://res.cloudinary.com/b2i-group/image/upload/v1673430526/kunta-organisation/img/logo-light_dwxxh6.svg" alt="">
+                </a>
+            </div>
+            <div class="sidebar-inner">
+  
+                <div class="naver" style="margin-top: 214px;"></div>
+  
+                <ul class="icon-menu">
+                    <!-- Activity -->
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/dashboards/']" tooltip=" DASHBOARD " theme='light' id="home-sidebar-menu" data-content="Dashboards" class="is-active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity sidebar-svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        </a>
+                    </li> <!-- Layouts -->
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/organization/']" tooltip=" ORGANISATION " theme='light' id="layouts-sidebar-menu" data-content="Layouts">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid sidebar-svg"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        </a>
+                    </li> <!-- Bounties -->
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/operations/']" tooltip=" OPERATIONS " theme='light' id="elements-sidebar-menu" data-content="Elements">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box sidebar-svg"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </a>
+                    </li> <!-- Bugs -->
+                </ul>
+  
+                <!-- User account -->
+                <ul class="bottom-menu">
+                    <!-- Notifications -->
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/parameters/']" tooltip=" PARAMETRES " theme='light' id="open-settings" data-content="Settings">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings sidebar-svg"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </a>
+                    </li> <!-- Profile -->
+                    <li id="user-menu">
+                        <div id="profile-menu" class="dropdown profile-dropdown dropdown-trigger is-spaced is-up"  [ngClass]="activeProfil" (click)="onActive()">
+                            <img src="{{ imageUrl }}" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
+                            <span class="status-indicator"></span>
+  
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-head">
+                                        <div class="h-avatar is-large">
+                                            <img class="avatar" src="{{ imageUrl }}" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
+                                        </div>
+                                        <div class="meta">
+                                            <span>{{user.firstName}} {{user.lastName}}</span>
+                                            <!-- <span>Product Manager</span> -->
+                                        </div>
+                                    </div>
+                                    <hr class="dropdown-divider">
+                                    <div class="dropdown-item is-button">
+                                        <button (click)="logout()" class="button h-button is-primary is-raised is-fullwidth logout-button">
+                                            <span class="icon is-small">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                          </span>
+                                            <span>Se déconnecter</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--Languages panel-->

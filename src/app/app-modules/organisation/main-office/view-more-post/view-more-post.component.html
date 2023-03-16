@@ -1,0 +1,345 @@
+<div id="layouts-sidebar" class="sidebar-panel is-generic" [ngClass]="homeSider">
+    <div class="subpanel-header">
+
+        <div class="dropdown project-dropdown dropdown-trigger is-spaced">
+            <div class="h-avatar is-small">
+                <span class="avatar is-fake is-h-green">
+                  <span>H</span>
+                </span>
+            </div>
+            <span class="status-indicator"></span>
+
+            <div class="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-warning">
+                              <span>D</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Delivery App Project</span>
+                            <span>Food For Good</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-h-green">
+                              <span>M</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Health and Fitness Dashboard</span>
+                            <span>Fit'n'Dance</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-info">
+                              <span>L</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Learning Tracker Dashboard</span>
+                            <span>Fit'n'Dance</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-h-purple">
+                              <span>B</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Banking and Finance Dashboard</span>
+                            <span>H Bank</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="no-mb">Management</h3>
+        <div class="panel-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </div>
+    </div>
+    <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
+        <ul>
+  
+        </ul>
+    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
+</div>
+
+<div id="app-hr" class="view-wrapper" [ngClass]="isPushed" data-naver-offset="150" data-menu-item="#home-sidebar-menu"
+    data-mobile-item="#home-sidebar-menu-mobile">
+    <div class="page-content-wrapper">
+        <div class="page-content is-relative">
+
+            <div class="page-title has-text-centered">
+                <!-- Sidebar Trigger -->
+                <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
+                    <span class="menu-toggle has-chevron">
+                      <span class="icon-box-toggle" [ngClass]="activeToggle" (click)="activeHomeSider()">
+                          <span class="rotate">
+                              <i class="icon-line-top"></i>
+                              <i class="icon-line-center"></i>
+                              <i class="icon-line-bottom"></i>
+                          </span>
+                    </span>
+                    </span>
+                </div>
+
+                <div class="title-wrap">
+                    <h1 class="title is-4">Centers</h1>
+                </div>
+
+                <div class="toolbar ml-auto">
+
+                    <div class="toolbar-link">
+                        <label class="dark-mode ml-auto">
+                            <input type="checkbox" checked="">
+                            <span></span>
+                        </label>
+                    </div>
+
+                    <a class="toolbar-link right-panel-trigger" data-panel="languages-panel">
+                        <img src="assets/img/icons/flags/united-states-of-america.svg" alt="">
+                    </a>
+
+                    <div class="toolbar-notifications is-hidden-mobile">
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger">
+                            <div class="is-trigger" aria-haspopup="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                <span class="new-indicator pulsate"></span>
+                            </div>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <div class="heading">
+                                        <div class="heading-left">
+                                            <h6 class="heading-title">Notifications</h6>
+                                        </div>
+                                        <div class="heading-right">
+                                            <a class="notification-link" href="/admin-profile-notifications.html">See all</a>
+                                        </div>
+                                    </div>
+                                    <ul class="notification-list">
+                                        <li>
+                                            <a class="notification-item">
+                                                <div class="img-left">
+                                                    <img class="user-photo" alt="" src="assets/img/avatars/photos/7.jpg" data-demo-src="assets/img/avatars/photos/7.jpg">
+                                                </div>
+                                                <div class="user-content">
+                                                    <p class="user-info"><span class="name">Alice C.</span> left a comment.</p>
+                                                    <p class="time">1 hour ago</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="notification-item">
+                                                <div class="img-left">
+                                                    <img class="user-photo" alt="" src="assets/img/avatars/photos/12.jpg" data-demo-src="assets/img/avatars/photos/12.jpg">
+                                                </div>
+                                                <div class="user-content">
+                                                    <p class="user-info"><span class="name">Joshua S.</span> uploaded a file.</p>
+                                                    <p class="time">2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="notification-item">
+                                                <div class="img-left">
+                                                    <img class="user-photo" alt="" src="assets/img/avatars/photos/13.jpg" data-demo-src="assets/img/avatars/photos/13.jpg">
+                                                </div>
+                                                <div class="user-content">
+                                                    <p class="user-info"><span class="name">Tara S.</span> sent you a message.</p>
+                                                    <p class="time">2 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="notification-item">
+                                                <div class="img-left">
+                                                    <img class="user-photo" alt="" src="assets/img/avatars/photos/25.jpg" data-demo-src="assets/img/avatars/photos/25.jpg">
+                                                </div>
+                                                <div class="user-content">
+                                                    <p class="user-info"><span class="name">Melany W.</span> left a comment.</p>
+                                                    <p class="time">3 hours ago</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <a class="toolbar-link right-panel-trigger" data-panel="activity-panel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    </a>
+                </div>
+            </div>
+            <a routerLink="/organization" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            
+<div class="list-flex-toolbar">
+    <div class="control has-icon">
+        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <div class="form-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="button h-button is-primary is-elevated">
+            <span class="icon">
+              <i aria-hidden="true" class="fas fa-plus"></i>
+          </span>
+            <span (click) = "onOpenAddCenter()">Ajouter un centre</span>
+        </button>
+    </div>
+</div>
+
+
+<div class="page-content-inner">
+
+    <div class="tile-grid tile-grid-v1">
+
+        <!--List Empty Search Placeholder -->
+        <div class="page-placeholder custom-text-filter-placeholder is-hidden">
+            <div class="placeholder-content">
+                <img class="light-image" src="assets/img/illustrations/placeholders/search-6.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-6-dark.svg" alt="">
+                <h3>We couldn't find any matching results.</h3>
+                <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
+                    search terms you've entered. Please try different search terms or criteria.</p>
+            </div>
+        </div>
+
+        <!--Tile Grid v1-->
+        <div class="columns is-multiline">
+
+            <!--Grid item-->
+            <div class="column is-4" *ngFor="let center of centersOfMainOffice">
+                <div class="tile-grid-item">
+                    <div class="tile-grid-item-inner">
+                        <div class="meta">
+                            <span class="dark-inverted">{{center.id}}</span>
+                            <span>{{center.name}}</span>
+                        </div>
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger">
+                            <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                            <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    </div>
+    </div>
+
+</div>
+
+
+<!-- add new center -->
+<div class="modal h-modal" [ngClass]="openAddCenter">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter un centre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="inner-content">
+                        <form class="modal-form" [formGroup]="addCenterForm" (ngSubmit)="onSubmitCenter()">
+                            <label>centres *</label>
+                            <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
+                                <option value="0" disabled>--Selectionnez un centre--</option>
+                                <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
+    
+                                  <div class="text-danger" *ngIf="addCenterForm.get('id')?.errors?.['required'] && addCenterForm.get('id')?.touched">
+                                    <small class="text-police" translate>Veuillez selectionner la zone </small>
+                               </div>
+                            </select><br><br>
+                   
+            
+                            <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
+                            <div class="control login">
+                                <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addCenterForm.invalid" >Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseAddModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- update center -->
+<div class="modal h-modal" [ngClass]="openUpdateCenter">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modifier un centre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseUpdateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="inner-content">
+                        <div class="modal-card-body">
+                            <div class="inner-content">
+                                <form class="modal-form" [formGroup]="updateCenterForm" (ngSubmit)="onSubmitUpdateCenter()">
+                                    <input type="hidden"  [(ngModel)]="center.id" class="input" hidden formControlName="id">
+                                    <div class="field">
+                                        <label>Appelation *</label><br>
+                                        <div class="control">
+                                            <input type="text" class="input" [(ngModel)]="center.name" placeholder="Appelation" formControlName="name">
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="updateCenterForm.get('name')?.errors?.['required'] && updateCenterForm.get('name')?.touched">
+                                            <small class="text-police">entrer l'appelation du centre</small>
+                                        </div>
+                                    </div><br>
+                                    <div class="control login">
+                                        <button [disabled]="updateCenterForm.invalid"
+                                            class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseUpdateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

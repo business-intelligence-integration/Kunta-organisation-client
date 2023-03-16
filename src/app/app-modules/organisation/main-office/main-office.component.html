@@ -1,0 +1,158 @@
+<div class="list-flex-toolbar">
+    <div class="control has-icon">
+        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <div class="form-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-inner">
+
+    <div class="flex-list-wrapper flex-list-v1">
+
+        <div class="page-content-inner">
+
+            <div class="card-grid card-grid-v1">
+
+                <!--List Empty Search Placeholder -->
+                <div class="page-placeholder custom-text-filter-placeholder is-hidden">
+                    <div class="placeholder-content">
+                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
+                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                        <h3>We couldn't find any matching results.</h3>
+                        <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
+                            search terms you've entered. Please try different search terms or criteria.</p>
+                    </div>
+                </div>
+
+                <!--Card Grid v1-->
+                <div class="columns is-multiline">
+
+                    <!--Grid item-->
+                    <div class="column is-12" *ngFor="let mainOffice of mainOffices">
+                        <div class="card-grid-item">
+
+                            <div class="card-grid-item-body">
+                                <div class="center">
+                                    <div class="meta">
+                                        <span class="dark-inverted" data-filter-match="">{{ mainOffice.id }}</span>
+                                      
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <span data-filter-match="">{{ mainOffice.name }}</span>
+                                </div>
+                            </div>
+
+                            <div class="card-grid-item-footer">
+                                <div class="left">
+                                    <div class="buttons">
+                                        <button (click)="onUpdateMainOffice(mainOffice.id)" class="button h-button is-rounded is-dark-outlined">modifier</button>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="buttons">
+                                        <button [routerLink]="['/view-posts']"
+                                        [queryParams]="{id: mainOffice.id}" class="button h-button is-rounded is-dark-outlined">voir plus</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- add new club -->
+<div class="modal h-modal" [ngClass]="openAddMainOffice">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter un bureau principale</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addMainOfficeForm" (ngSubmit)="onSubmitMainOffice()">
+                        <div class="field">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addMainOfficeForm.get('name')?.errors?.['required'] && addMainOfficeForm.get('name')?.touched">
+                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="addMainOfficeForm.invalid"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseAddModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add new club -->
+<div class="modal h-modal" [ngClass]="openUpdateMainOffice">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modifier le bureau principale</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseUpdateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="updateMainOfficeForm" (ngSubmit)="onSubmitUpdateMainOffice()">
+                        <div class="field">
+                            <input type="hidden" [(ngModel)]="mainOffice.id" class="input" formControlName="id">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" [(ngModel)]="mainOffice.name" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateMainOfficeForm.get('name')?.errors?.['required'] && updateMainOfficeForm.get('name')?.touched">
+                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="updateMainOfficeForm.invalid"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseUpdateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>

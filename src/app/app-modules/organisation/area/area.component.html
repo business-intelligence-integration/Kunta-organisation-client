@@ -1,0 +1,326 @@
+<div class="list-flex-toolbar">
+    <div class="control has-icon">
+        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <div class="form-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="button h-button is-primary is-elevated">
+            <span class="icon">
+              <i aria-hidden="true" class="fas fa-plus"></i>
+          </span>
+            <span (click) = "onAddArea()">Créer une zone</span>
+        </button>
+    </div>
+</div>
+
+<div class="page-content-inner">
+
+    <div class="flex-list-wrapper flex-list-v1">
+
+        <!--List Empty Search Placeholder -->
+        <div class="page-placeholder custom-text-filter-placeholder is-hidden">
+            <div class="placeholder-content">
+                <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                <h3>We couldn't find any matching results.</h3>
+                <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
+                    search terms you've entered. Please try different search terms or criteria.</p>
+            </div>
+        </div>
+
+        <div class="flex-table">
+
+            <!--Table header-->
+            <div class="flex-table-header" data-filter-hide="">
+                <!-- <span class="is-grow">Id</span> -->
+                <span>Appelation</span>
+                <span>Reference</span>
+                <span>Club(s)</span>
+                <span>member(s)</span>
+                <span>Observation</span>
+                <span class="cell-end">Actions</span>
+            </div>
+
+            <div class="flex-list-inner">
+                <!--Table item-->
+                <div class="flex-table-item" *ngFor="let area of areas">
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area.name }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area.reference }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
+                        <a (click)="onAddClub(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                    </div>
+                   
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area?.members?.length }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Location">
+                        <span class="light-text" data-filter-match="">{{ area?.observation }}</span>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="Actions">
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                            <a _ngcontent-nct-c62="" [routerLink]="['/view-more-club']"
+                    [queryParams]="{id: area.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    <a _ngcontent-nct-c62="" (click)="onUpdateArea(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                    <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!--Table Pagination-->
+        <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
+            <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
+            <a class="pagination-next has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+            <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                <li><span class="pagination-ellipsis">…</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
+                </li>
+                <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                <li><span class="pagination-ellipsis">…</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+
+<!-- add new club -->
+<div class="modal h-modal" [ngClass]="openAddArea">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Création de la zone</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseAddModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addAreaForm" (ngSubmit)="onSubmitArea()">
+                        <div class="field">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addAreaForm.get('name')?.errors?.['required'] && addAreaForm.get('name')?.touched">
+                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Reférence *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addAreaForm.get('reference')?.errors?.['required'] && addAreaForm.get('reference')?.touched">
+                                <small class="text-police" translate>entrer la reférence du centre</small>
+                            </div>
+                        </div> 
+                        <div class="field">
+                            <label>Date de creation *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input class="champ" formControlName="creationDate" max="{{ CreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                </div>
+                           </div>
+                           <div class="text-danger" *ngIf="addAreaForm.get('creationDate')?.errors?.['required'] && addAreaForm.get('creationDate')?.touched">
+                             <small class="text-police" translate>selectionner la date de création</small>
+                           </div>
+                        </div>
+
+                        <div class="field">
+                            <label>centre de la zone*</label>
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="centers"
+                                    id="center"
+                                    formControlName="idCenter"
+                                    placeholder="--Selectionnez le centre de la zone--">
+                            </select2>
+                            <!-- <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelectCenter">
+                                <option value="0" disabled>--Selectionnez le centre de la zone--</option>
+                                <option *ngFor="let centre of centers" [value]="area.id"> <span> {{ area.name }} </span> </option>
+                            </select> -->
+                            <div class="text-danger"
+                            *ngIf="addAreaForm.get('idCenter')?.errors?.['required'] && addAreaForm.get('idCenter')?.touched">
+                            <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Observation</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="4"
+                                    formControlName="observation" placeholder="Observation..."></textarea>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="addAreaForm.invalid"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseAddModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- update club -->
+<div class="modal h-modal" [ngClass]="openUpdateArea">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modifier la zone</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseUpdateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="updateAreaForm" (ngSubmit)="onSubmitUpdateArea()">
+                        <div class="field">
+                            <input type="hidden" [(ngModel)]="area.id" class="input" formControlName="id">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" [(ngModel)]="area.name" class="input" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateAreaForm.get('name')?.errors?.['required'] && updateAreaForm.get('name')?.touched">
+                                <small class="text-police" translate>Entrer l'appelation du centre</small>
+                            </div>
+                            <label>Reference *</label><br>
+                            <div class="control">
+                                <input type="text" [(ngModel)]="area.reference" class="input" placeholder="Reference" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateAreaForm.get('reference')?.errors?.['required'] && updateAreaForm.get('reference')?.touched">
+                                <small class="text-police" translate>Entrer la reference du centre</small>
+                            </div>
+                            <label>Observation *</label><br>
+                            <div class="control">
+                                <textarea type="text" [(ngModel)]="area.observation" class="textarea" placeholder="Observation" formControlName="observation"></textarea>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateAreaForm.get('observation')?.errors?.['required'] && updateAreaForm.get('observation')?.touched">
+                                <small class="text-police" translate>Entrer l'observation du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="updateAreaForm.invalid"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseUpdateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add new club -->
+<div class="modal h-modal" [ngClass]="openClubModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Création d'un club</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeClubModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitClub()">
+                        <div class="field">
+                            <label>Appelation *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Appelation" formControlName="name">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addClubForm.get('name')?.errors?.['required'] && addClubForm.get('name')?.touched">
+                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Reférence *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addClubForm.get('reference')?.errors?.['required'] && addClubForm.get('reference')?.touched">
+                                <small class="text-police" translate>entrer la reférence du centre</small>
+                            </div>
+                        </div> 
+                        <div class="field">
+                            <label>Date de creation *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input class="champ" formControlName="creationDate" max="{{ CreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                                </div>
+                           </div>
+                           <div class="text-danger" *ngIf="addClubForm.get('creationDate')?.errors?.['required'] && addClubForm.get('creationDate')?.touched">
+                             <small class="text-police" translate>selectionner la date de création</small>
+                           </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Observation</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="4"
+                                    formControlName="observation" placeholder="Observation..."></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="control login">
+                            <button [disabled]="addClubForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeClubModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
