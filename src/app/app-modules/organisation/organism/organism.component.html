@@ -65,50 +65,65 @@
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
-            <li class="has-children" [ngClass]="activeListUser">
+            <li>
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/users/']" >Utilisateurs</a>
+                </div>
+            </li>
+            <!-- <li class="has-children" [ngClass]="activeListUser">
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Utilisateurs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
                 <ul [style.display]="wrapdwonListUser">
                     <li>
-                        <a (click)="onShowAll()" class="is-submenu">
+                        
+                        <a [routerLink]="['/organization/users/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Tous les utilisateurs</span>
                         </a>
                     </li>
                     <li>
-                        <a (click)="clickOnAdmin()" class="is-submenu">
+                        <a [routerLink]="['/organization/users/admins']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Administrateurs</span>
                         </a>
                     </li>
                     <li>
-                        <a (click)="clickOnMember()" class="is-submenu">
+                        <a [routerLink]="['/organization/users/members']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Membres</span>
                         </a>
                     </li>
                     <li>
-                        <a (click)="clickOnMutualist()" class="is-submenu">
+                        <a [routerLink]="['/organization/users/mutualistes']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Mutualistes</span>
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li>
-                <div class="collapse-wrap" >
+                <!-- <div class="collapse-wrap" >
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Clubs</a>
+                </div> -->
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/clubs/']">Clubs</a>
                 </div>
             </li>
             <li>
-                <div class="collapse-wrap" >
+                <!-- <div class="collapse-wrap" >
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Zones</a>
+                </div> -->
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/areas/']">Zones</a>
                 </div>
             </li>
             <li>
-                <div class="collapse-wrap" >
+                <!-- <div class="collapse-wrap" >
                     <a href="javascript:void(0);" class="parent-link" (click)="onMainCenters()" >Centres</a>
+                </div> -->
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/centers/']" >Centres</a>
                 </div>
             </li>
             <li class="has-children" [ngClass]="activateMainOfficeDetails">
@@ -117,32 +132,53 @@
                 </div>
                 <ul [style.display]="wrapdwonDetaiilsMainOffice">
                     <li>
-                        <a (click)="onExecutiveBoard()" class="is-submenu">
+                        <!-- <a (click)="onExecutiveBoard()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Comité exécutif</span>
+                        </a> -->
+                        <a [routerLink]="['/organization/executif-board/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité exécutif</span>
                         </a>
+
                     </li>
                     <li>
-                        <a (click)="onGeneralAssembly()" class="is-submenu">
+                        <!-- <a (click)="onGeneralAssembly()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Assemblée générale</span>
+                        </a> -->
+                        <a [routerLink]="['/organization/general-assembly/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Assemblée générale</span>
                         </a>
                     </li>
                     <li>
-                        <a (click)="onCompensationCommittee()"  class="is-submenu">
+                        <!-- <a (click)="onCompensationCommittee()"  class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Comité de gouvernance et de rémunération</span>
+                        </a> -->
+                        <a [routerLink]="['/organization/governance-compensation/']"  class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de gouvernance et de rémunération</span>
                         </a>
                     </li>
                     <li>
-                        <a (click)="onMonitoringCommittee()" class="is-submenu">
+                        <!-- <a (click)="onMonitoringCommittee()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Comité de production et de surveillance</span>
+                        </a> -->
+                        <a [routerLink]="['/organization/production-monitoring-committee/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de production et de surveillance</span>
                         </a>
                     </li>
 
                     <li>
-                        <a (click)="onDevelopmentCommittee()" class="is-submenu">
+                        <!-- <a (click)="onDevelopmentCommittee()" class="is-submenu">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Comité de développement stratégique</span>
+                        </a> -->
+                        <a [routerLink]="['/organization/strategic-development-committee/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de développement stratégique</span>
                         </a>
@@ -173,27 +209,27 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
+                    <h1 class="title is-4">Organisation</h1>
                 </div>
             </div>
-
-            <app-user *ngIf="isUser"></app-user>
+            <router-outlet></router-outlet>
+            <!-- <app-user *ngIf="isUser"></app-user>
             <app-club *ngIf="isClub"></app-club>
             <app-area *ngIf="isArea"></app-area>
             <app-main-office *ngIf="isMainOffice"></app-main-office>
-            <app-account  *ngIf="isAccount"></app-account>
+            <app-account  *ngIf="isAccount"></app-account>-->
 
-            <app-admin *ngIf="isAdmin"></app-admin>
+            <!-- <app-admin *ngIf="isAdmin"></app-admin>
             <app-member *ngIf="isMember"></app-member>
             <app-mutulist *ngIf="isMutulist"></app-mutulist>
             <app-operator *ngIf="isOperator"></app-operator>
-            <app-centers *ngIf="isMainCenters"></app-centers>
+            <app-centers *ngIf="isMainCenters"></app-centers> -->
 
-            <app-executive-board *ngIf="isExecutiveBoard"></app-executive-board>
+            <!--<app-executive-board *ngIf="isExecutiveBoard"></app-executive-board>
             <app-general-assembly *ngIf="isGeneralAssembly"></app-general-assembly>
             <app-governance-compensation-committee *ngIf="isCompensationCommittee"></app-governance-compensation-committee>
             <app-production-monitoring-committee *ngIf="isMonitoringCommittee"></app-production-monitoring-committee>
-            <app-strategic-development-committee *ngIf="isDevelopmentCommittee"></app-strategic-development-committee>
+            <app-strategic-development-committee *ngIf="isDevelopmentCommittee"></app-strategic-development-committee> -->
    
             
         </div>

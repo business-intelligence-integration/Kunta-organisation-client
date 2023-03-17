@@ -66,13 +66,19 @@
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
             <li>
-                <div class="collapse-wrap">
+                <!-- <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowAllTontine()">Tontines</a>
+                </div> -->
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/operations/tontines/']">Tontines</a>
                 </div>
             </li>
             <li>
-                <div class="collapse-wrap">
+                <!-- <div class="collapse-wrap">
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowAllMutualInvestment()">Placements mutualisés</a>
+                </div> -->
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/operations/mutual-investment/']">Placements mutualisés</a>
                 </div>
             </li>
         </ul>
@@ -97,12 +103,13 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
+                    <h1 class="title is-4">Operation</h1>
                 </div>
                
             </div>
-            <app-tontine *ngIf="isTontine"></app-tontine>
-            <app-mutual-investment *ngIf="isMutualInvestment"></app-mutual-investment>
+            <router-outlet></router-outlet>
+            <!-- <app-tontine *ngIf="isTontine"></app-tontine>
+            <app-mutual-investment *ngIf="isMutualInvestment"></app-mutual-investment> -->
         </div>
     </div>
 

@@ -45,6 +45,7 @@ const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+     
       {
         path:"all-penality-of-session", component: AllPenalityOfSessionComponent, canActivate: [EntityGuard]
       },

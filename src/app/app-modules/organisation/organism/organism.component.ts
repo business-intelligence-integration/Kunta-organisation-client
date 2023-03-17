@@ -42,7 +42,7 @@ export class OrganismComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.areNotUsers();
+    //this.areNotUsers();
   }
 
   activeHomeSider() {
@@ -57,73 +57,68 @@ export class OrganismComponent implements OnInit {
     }
   }
 
-  onShowUser(){
+  // onShowUser(){
    
-  }
+  // }
 
-  onShowCenter(){
-    this.areNotUsers();
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isAccount = false; 
-    this.isUser = false
-    this.isClub = false;
-    this.isArea = false;
-    this.isMainOffice = false;
-    this.dynamicTitle = "Centres";
-  }
+  // onShowCenter(){
+  //   this.areNotUsers();
+  //   this.areMainOffice();
+  //   this.isAccount = false; 
+  //   this.isUser = false
+  //   this.isClub = false;
+  //   this.isArea = false;
+  //   this.isMainOffice = false;
+  //   this.dynamicTitle = "Centres";
+  // }
 
-  onShowClub(){
-    this.areNotUsers();
-     this.areMainOffice();
-    //  this.areAboutCenter()
-    this.isAccount = false; 
-    this.isMainCenters = false;
-    this.isUser = false
-    this.isArea = false;
-    this.isMainOffice = false;
-    this.isClub = true; 
-    this.dynamicTitle = "Clubs";
-  }
+  // onShowClub(){
+  //   this.areNotUsers();
+  //    this.areMainOffice();
+  //   this.isAccount = false; 
+  //   this.isMainCenters = false;
+  //   this.isUser = false
+  //   this.isArea = false;
+  //   this.isMainOffice = false;
+  //   this.isClub = true; 
+  //   this.dynamicTitle = "Clubs";
+  // }
 
-  onShowArea(){
-    this.areNotUsers();
-    this.areMainOffice();
-    //  this.areAboutCenter()
-    this.isAccount = false; 
-    this.isMainCenters = false;
-    this.isUser = false
-    this.isClub = false; 
-    this.isMainOffice = false;
-    this.isArea = true;
-    this.dynamicTitle = "Zones";
-  }
+  // onShowArea(){
+  //   this.areNotUsers();
+  //   this.areMainOffice();
+  //   this.isAccount = false; 
+  //   this.isMainCenters = false;
+  //   this.isUser = false
+  //   this.isClub = false; 
+  //   this.isMainOffice = false;
+  //   this.isArea = true;
+  //   this.dynamicTitle = "Zones";
+  // }
 
-  onAccounts(){
-    this.areNotUsers();
-    this.areMainOffice();
-    //  this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isUser = false
-    this.isClub = false; 
-    this.isMainOffice = false;
-    this.isArea = false;
-    this.isAccount = true; 
-    this.dynamicTitle = "Comptes";
-  }
+  // onAccounts(){
+  //   this.areNotUsers();
+  //   this.areMainOffice();
+  //   this.isMainCenters = false;
+  //   this.isUser = false
+  //   this.isClub = false; 
+  //   this.isMainOffice = false;
+  //   this.isArea = false;
+  //   this.isAccount = true; 
+  //   this.dynamicTitle = "Comptes";
+  // }
 
 
-  onShowMainOffice(){
-    this.areNotUsers();
-     this.areMainOffice();
-    //  this.areAboutCenter()
-    this.isAccount = false; 
-    this.isUser = false
-    this.isClub = false; 
-    this.isArea = false;
-    this.isMainOffice = true;
-    this.dynamicTitle = "Bureau principale";
-  }
+  // onShowMainOffice(){
+  //   this.areNotUsers();
+  //    this.areMainOffice();
+  //   this.isAccount = false; 
+  //   this.isUser = false
+  //   this.isClub = false; 
+  //   this.isArea = false;
+  //   this.isMainOffice = true;
+  //   this.dynamicTitle = "Bureau principale";
+  // }
 
 
 
@@ -150,17 +145,16 @@ export class OrganismComponent implements OnInit {
     }
   }
 
-  onShowAll(){
-    this.areNotUsers();
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isClub = false;
-    this.isArea = false;
-    this.isMainOffice = false;
-    this.isUser = true;
-    this.dynamicTitle = "Utilisateurs";
-  }
+  // onShowAll(){
+  //   this.areNotUsers();
+  //   this.areMainOffice();
+  //   this.isMainCenters = false;
+  //   this.isClub = false;
+  //   this.isArea = false;
+  //   this.isMainOffice = false;
+  //   this.isUser = true;
+  //   this.dynamicTitle = "Utilisateurs";
+  // }
 
   onDisplayMainOffice(){
     if(this.activateMainOfficeDetails == ""){
@@ -172,160 +166,134 @@ export class OrganismComponent implements OnInit {
       this.wrapdwonDetaiilsMainOffice ="none"
     }
   }
-
-  clickOnAdmin(){
-    this.areNotOrganisations()
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isUser = false;
-    this.isMember = false;
-    this.isOperator = false;
-    this.isMutulist = false;
-    this.isAdmin = true;
-    this.dynamicTitle = "Admins";
-  }
-
-  clickOnMember(){
-    this.areNotOrganisations()
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isUser = false;
-    this.isOperator = false;
-    this.isMutulist = false;
-    this.isAdmin = false;
-    this.isMember = true;
-    this.dynamicTitle = "Membres";
-  }
-
-  clickOnMutualist(){
-    this.areNotOrganisations()
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isUser = false;
-    this.isOperator = false;
-    this.isAdmin = false;
-    this.isMember = false;
-    this.isMutulist = true;
-    this.dynamicTitle = "Mutulistes";
-  }
-
-
-  clickOnOperator(){
-    this.areNotOrganisations()
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isUser = false;
-    this.isAdmin = false;
-    this.isMember = false;
-    this.isMutulist = false;
-    this.isOperator = true;
-    this.dynamicTitle = "Operateurs";
-  }
-
-  onMainCenters(){
-    this.areNotOrganisations()
-    this.areMainOffice();
-    // this.areAboutCenter()
-    this.isUser = false;
-    this.isAdmin = false;
-    this.isMember = false;
-    this.isMutulist = false;
-    this.isOperator = false;
-    this.isMainCenters = true;
-    this.dynamicTitle = "Liste des centres";
-  }
-
-
-  areNotOrganisations(){
-    this.isUser = false
-    this.isClub = false;
-    this.isArea = false;
-    this.isMainOffice = false;
-    this.isAccount = false;
-   }
-
-  areNotMainOffice(){
-    this.areNotOrganisations();
-    // this.areAboutCenter()
-    this.isMainCenters = false;
-    this.isOperator = false;
-    this.isAdmin = false;
-    this.isMember = false;
-    this.isMutulist = false;
-  }
-
-  areMainOffice(){
-    this.isGeneralAssembly = false;
-    this.isCompensationCommittee = false;
-    this.isMonitoringCommittee = false;
-    this.isDevelopmentCommittee = false;
-    this.isExecutiveBoard = false;
-  }
-
-  areNotUsers(){
-    this.isAdmin = false;
-    this.isMember = false;
-    this.isMutulist = false;
-    this.isOperator = false;
-  }
-
-  onExecutiveBoard(){
-    this.areNotMainOffice()
-    // this.areAboutCenter()
-    this.isGeneralAssembly = false;
-    this.isCompensationCommittee = false;
-    this.isMonitoringCommittee = false;
-    this.isDevelopmentCommittee = false;
-    this.isExecutiveBoard = true;
-    this.dynamicTitle = "Membres du comité exécutif";
-  }
-
-  onGeneralAssembly(){
-    this.areNotMainOffice()
-    // this.areAboutCenter()
-    this.isCompensationCommittee = false;
-    this.isMonitoringCommittee = false;
-    this.isDevelopmentCommittee = false;
-    this.isExecutiveBoard = false;
-    this.isGeneralAssembly = true;
-    this.dynamicTitle = "Membres de l'assemblée générale";
-  }
-
-  onCompensationCommittee(){
-    this.areNotMainOffice()
-    // this.areAboutCenter()
-    this.isMonitoringCommittee = false;
-    this.isDevelopmentCommittee = false;
-    this.isExecutiveBoard = false;
-    this.isGeneralAssembly = false;
-    this.isCompensationCommittee = true;
-    this.dynamicTitle = "Membres du comité de gouvernance et de rémunération";
-  }
-
-  onMonitoringCommittee(){
-    this.areNotMainOffice()
-    // this.areAboutCenter()
-    this.isDevelopmentCommittee = false;
-    this.isExecutiveBoard = false;
-    this.isGeneralAssembly = false;
-    this.isCompensationCommittee = false;
-    this.isMonitoringCommittee = true;
-    this.dynamicTitle = "Membres du comité de production et de surveillance";
-  }
-  onDevelopmentCommittee(){
-    this.areNotMainOffice()
-    // this.areAboutCenter()
-    this.isExecutiveBoard = false;
-    this.isGeneralAssembly = false;
-    this.isCompensationCommittee = false;
-    this.isMonitoringCommittee = false;
-    this.isDevelopmentCommittee = true;
-    this.dynamicTitle = "Membres du comité de développement stratégique";
-  }
+  // clickOnAdmin(){
+  //   this.areNotOrganisations()
+  //   this.areMainOffice();
+  //   this.isMainCenters = false;
+  //   this.isUser = false;
+  //   this.isMember = false;
+  //   this.isOperator = false;
+  //   this.isMutulist = false;
+  //   this.isAdmin = true;
+  //   this.dynamicTitle = "Admins";
+  // }
+  // clickOnMember(){
+  //   this.areNotOrganisations()
+  //   this.areMainOffice();
+  //   this.isMainCenters = false;
+  //   this.isUser = false;
+  //   this.isOperator = false;
+  //   this.isMutulist = false;
+  //   this.isAdmin = false;
+  //   this.isMember = true;
+  //   this.dynamicTitle = "Membres";
+  // }
+  // clickOnMutualist(){
+  //   this.areNotOrganisations()
+  //   this.areMainOffice();
+  //   this.isMainCenters = false;
+  //   this.isUser = false;
+  //   this.isOperator = false;
+  //   this.isAdmin = false;
+  //   this.isMember = false;
+  //   this.isMutulist = true;
+  //   this.dynamicTitle = "Mutulistes";
+  // }
+  // clickOnOperator(){
+  //   this.areNotOrganisations()
+  //   this.areMainOffice();
+  //   this.isMainCenters = false;
+  //   this.isUser = false;
+  //   this.isAdmin = false;
+  //   this.isMember = false;
+  //   this.isMutulist = false;
+  //   this.isOperator = true;
+  //   this.dynamicTitle = "Operateurs";
+  // }
+  // onMainCenters(){
+  //   this.areNotOrganisations()
+  //   this.areMainOffice();
+  //   this.isUser = false;
+  //   this.isAdmin = false;
+  //   this.isMember = false;
+  //   this.isMutulist = false;
+  //   this.isOperator = false;
+  //   this.isMainCenters = true;
+  //   this.dynamicTitle = "Liste des centres";
+  // }
+  // areNotOrganisations(){
+  //   this.isUser = false
+  //   this.isClub = false;
+  //   this.isArea = false;
+  //   this.isMainOffice = false;
+  //   this.isAccount = false;
+  //  }
+  // areNotMainOffice(){
+  //   this.areNotOrganisations();
+  //   this.isMainCenters = false;
+  //   this.isOperator = false;
+  //   this.isAdmin = false;
+  //   this.isMember = false;
+  //   this.isMutulist = false;
+  // }
+  // areMainOffice(){
+  //   this.isGeneralAssembly = false;
+  //   this.isCompensationCommittee = false;
+  //   this.isMonitoringCommittee = false;
+  //   this.isDevelopmentCommittee = false;
+  //   this.isExecutiveBoard = false;
+  // }
+  // areNotUsers(){
+  //   this.isAdmin = false;
+  //   this.isMember = false;
+  //   this.isMutulist = false;
+  //   this.isOperator = false;
+  // }
+  // onExecutiveBoard(){
+  //   this.areNotMainOffice()
+  //   this.isGeneralAssembly = false;
+  //   this.isCompensationCommittee = false;
+  //   this.isMonitoringCommittee = false;
+  //   this.isDevelopmentCommittee = false;
+  //   this.isExecutiveBoard = true;
+  //   this.dynamicTitle = "Membres du comité exécutif";
+  // }
+  // onGeneralAssembly(){
+  //   this.areNotMainOffice()
+  //   this.isCompensationCommittee = false;
+  //   this.isMonitoringCommittee = false;
+  //   this.isDevelopmentCommittee = false;
+  //   this.isExecutiveBoard = false;
+  //   this.isGeneralAssembly = true;
+  //   this.dynamicTitle = "Membres de l'assemblée générale";
+  // }
+  // onCompensationCommittee(){
+  //   this.areNotMainOffice()
+  //   this.isMonitoringCommittee = false;
+  //   this.isDevelopmentCommittee = false;
+  //   this.isExecutiveBoard = false;
+  //   this.isGeneralAssembly = false;
+  //   this.isCompensationCommittee = true;
+  //   this.dynamicTitle = "Membres du comité de gouvernance et de rémunération";
+  // }
+  // onMonitoringCommittee(){
+  //   this.areNotMainOffice()
+  //   this.isDevelopmentCommittee = false;
+  //   this.isExecutiveBoard = false;
+  //   this.isGeneralAssembly = false;
+  //   this.isCompensationCommittee = false;
+  //   this.isMonitoringCommittee = true;
+  //   this.dynamicTitle = "Membres du comité de production et de surveillance";
+  // }
+  // onDevelopmentCommittee(){
+  //   this.areNotMainOffice()
+  //   this.isExecutiveBoard = false;
+  //   this.isGeneralAssembly = false;
+  //   this.isCompensationCommittee = false;
+  //   this.isMonitoringCommittee = false;
+  //   this.isDevelopmentCommittee = true;
+  //   this.dynamicTitle = "Membres du comité de développement stratégique";
+  // }
 
 
 }
