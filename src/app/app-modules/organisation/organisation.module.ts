@@ -35,6 +35,7 @@ import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/d
 import { AccountComponent } from './account/account.component';
 import { SponsoresComponent } from './user/sponsores/sponsores.component';
 import { Select2Module } from 'ng-select2-component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { Select2Module } from 'ng-select2-component';
     OrganisationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    Select2Module
+    Select2Module,
+    TooltipModule
   ]
 })
 export class OrganisationModule { }

@@ -14,6 +14,7 @@ import { AllPaymentOfSessionComponent } from './tontine/all-payment-of-session/a
 import { ViewMoreDetailsSessionComponent } from './tontine/view-more-details-session/view-more-details-session.component';
 import { AllPenalityOfSessionComponent } from './tontine/all-penality-of-session/all-penality-of-session.component';
 import { MutualInvestmentComponent } from './mutual-investment/mutual-investment.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 
@@ -35,7 +36,8 @@ import { MutualInvestmentComponent } from './mutual-investment/mutual-investment
     OperationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    Select2Module
+    Select2Module,
+    TooltipModule
   ]
 })
 export class OperationModule { }

@@ -93,7 +93,7 @@
                     <h1 class="title is-4">Liste des cycles de la tontine</h1>
                 </div>
             </div>
-            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -144,7 +144,7 @@
                         <span class="is-grow">Id</span>
                         <span>Nom</span>
                         <span>Date de début</span>
-                        <span>Satus</span>
+                        <span>Statut</span>
                         <span>Action</span>
                     </div>
                     <div class="flex-list-inner">
@@ -170,8 +170,8 @@
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62=""[routerLink]="['/detail-session-of-tontine']"
-                                    [queryParams]="{id: cycle.id, tontine: idTontine}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                <a _ngcontent-nct-c62="" (click)="onUpdateCycle(cycle.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                                    [queryParams]="{id: cycle.id, tontine: idTontine}" tooltip=" Voir details cycle " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                <a _ngcontent-nct-c62="" (click)="onUpdateCycle(cycle.id)" tooltip=" Modifier cycle " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>mofication du cycle</h3>
+                <h3>Mofication du cycle</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeCycleModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

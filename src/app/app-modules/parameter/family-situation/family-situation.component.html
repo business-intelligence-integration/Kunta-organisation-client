@@ -37,7 +37,7 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Label</span>
+                <span>Appelation</span>
                 <span>Action</span>
             </div>
 
@@ -57,8 +57,8 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" (click)="onOpenUpdateModal(familySituation.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelete(familySituation.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Modifier Situation Familiale " theme='light' (click)="onOpenUpdateModal(familySituation.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Supprimer Situation Familiale " theme='light' (click)="onDelete(familySituation.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>

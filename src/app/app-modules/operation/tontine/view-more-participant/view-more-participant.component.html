@@ -179,7 +179,7 @@
                     </a>
                 </div>
             </div>
-            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -264,7 +264,7 @@
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                <a _ngcontent-nct-c62="" (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                <a _ngcontent-nct-c62="" (click)="onDeleteUser(user.id)" tooltip=" Retirer le membre " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                 </div>
                             </div>
                         </div>

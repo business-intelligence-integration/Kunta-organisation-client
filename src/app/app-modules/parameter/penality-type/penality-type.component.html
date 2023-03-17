@@ -28,8 +28,8 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Amount</span>
-                <span>Label</span>
+                <span>Montant</span>
+                <span>Appelation</span>
                 <span>Action</span>
             </div>
             <div class="flex-list-inner">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" (click)="onUpdatePenaltyType(penaltyType.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Modifier type de penalité " theme='light' (click)="onUpdatePenaltyType(penaltyType.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         </div>
                     </div>
                 </div>

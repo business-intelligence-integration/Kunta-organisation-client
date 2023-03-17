@@ -37,7 +37,7 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Label</span>
+                <span>Appelation</span>
                 <span>Description</span>
                 <span>Action</span>
             </div>
@@ -61,8 +61,8 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" (click)="onOpenUpdateModal(frequency.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelete(frequency.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Modifier Frequence " theme='light' (click)="onOpenUpdateModal(frequency.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Supprimer Frequence " theme='light' (click)="onDelete(frequency.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                             <input type="hidden" hidden class="input" [(ngModel)]="frequency.id" formControlName="id">
                         </div>
                         <div class="field">
-                            <label>Appelation*</label>
+                            <label>Appelation *</label>
                             <div class="control">
                                 <input type="text" class="input" [(ngModel)]="frequency.label" placeholder="Appelation" formControlName="label">
                             </div>

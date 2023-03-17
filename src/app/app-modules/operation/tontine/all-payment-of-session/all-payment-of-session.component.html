@@ -190,7 +190,7 @@
                     </a>
                 </div>
             </div>
-            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -244,7 +244,7 @@
                         <span>Date</span>
                         <span>Methode de paiement</span>
                         <span>Statut</span>
-                        <span>Action</span>
+                        <!-- <span>Action</span> -->
                     </div>
                     <div class="flex-list-inner">
                         <!--Table item-->
@@ -269,16 +269,16 @@
                                 <span class="light-text" data-filter-match="">{{ payment.paymentMethod.label }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Status">
-                                <a _ngcontent-nct-c62="" (click)="onUpdatePaymentSatatus(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                                <a _ngcontent-nct-c62="" tooltip=" Modifier Statut " theme='light' (click)="onUpdatePaymentSatatus(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                 <span class="tag is-rounded" [ngClass]="{'is-danger': payment.paymentStatus.label === 'ENREGISTRÉ', 'is-success': payment.paymentStatus.label === 'VALIDÉ'}" data-filter-match="">{{ payment.paymentStatus.label }}</span>
                             </div>
                             
         
-                            <div class="flex-table-cell cell-end" data-th="Actions">
+                            <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    <a _ngcontent-nct-c62="" tooltip=" Voir details payement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
         
@@ -345,7 +345,7 @@
                         <span>Montant payé(FCFA)</span>
                         <span>Reste à payer(FCFA)</span>
                         <span>A jour</span>
-                        <span>Action</span>
+                        <!-- <span>Action</span> -->
                     </div>
                     <div class="flex-list-inner">
                         <!--Table item-->
@@ -374,11 +374,11 @@
                                 <span class="tag is-rounded is-success" *ngIf="user.upToDate === true">oui</span>
                             </div>
         
-                            <div class="flex-table-cell cell-end" data-th="Actions">
+                            <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    <a _ngcontent-nct-c62="" tooltip=" Voir details membre " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
         
@@ -417,7 +417,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modificationd de la cotisation</h3>
+                <h3>Modification de la cotisation</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdatePaymentModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -459,7 +459,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modificationd du status de payment</h3>
+                <h3>Modification du statut de payment</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdatePaymentStatusModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

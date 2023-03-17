@@ -190,7 +190,7 @@
                     </a>
                 </div>
             </div>
-            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -271,7 +271,7 @@
                                 <span class="tag is-rounded is-cliquable is-success" *ngIf="penality.paid === true">oui</span>
                             </div>
                             <div class="flex-table-cell" data-th="Cotiser">
-                                <a class="pagination-previous has-chevron"  [ngClass]="{'disabled': penality.paid === true}" (click)="onOpenPaymentModal(penality.id, penality.user.id, penality.penaltyType.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
+                                <a class="pagination-previous has-chevron" tooltip=" Payer pénalité " theme='light'  [ngClass]="{'disabled': penality.paid === true}" (click)="onOpenPaymentModal(penality.id, penality.user.id, penality.penaltyType.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
                             </div>
                             <div class="flex-table-cell" data-th="Status">
                                 <span class="light-text" data-filter-match="">{{ penality.user.firstName }}</span>
@@ -370,7 +370,7 @@
         
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    <a _ngcontent-nct-c62="" tooltip=" Voir details penalité " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
 
                                 </div>
                             </div>

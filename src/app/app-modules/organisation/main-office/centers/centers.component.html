@@ -57,7 +57,7 @@
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ center.areas.length }}</span>
-                        <a (click)="onAddArea(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a (click)="onAddArea(center.id)" tooltip=" Ajouter une zone " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ center?.clubs?.length}}</span>
@@ -72,9 +72,9 @@
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                         
                             <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-area']"
-                        [queryParams]="{id: center.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        [queryParams]="{id: center.id}" tooltip=" Voir details centre " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onUpdateCenter(center.id)" tooltip=" Modifier le centre " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" (click)="onDeleteCenter(center.id)" tooltip=" Supprimer le centre " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
 
                         </div>
                     </div>

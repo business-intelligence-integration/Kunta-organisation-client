@@ -90,7 +90,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Création d'un type de remboussement</h3>
+                <h3>Création d'un type de remboursement</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeRefundTypeFormModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -104,13 +104,13 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="createRefundTypeForm" (ngSubmit)="onSubmitCreateRefundTypeForm()">
                         <div class="field">
-                            <label>Type de remboussement*</label>
+                            <label>Type de remboursement*</label>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Appelation" formControlName="type">
                             </div>
                             <div class="text-danger"
                                 *ngIf="createRefundTypeForm.get('type')?.errors?.['required'] && createRefundTypeForm.get('type')?.touched">
-                                <small class="text-police" translate>veuillez entrer le type de remboussement </small>
+                                <small class="text-police" translate>veuillez entrer le type de remboursement </small>
                              </div>
                         </div>
                         <div class="control login">
@@ -131,7 +131,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modification d'un type de remboussement</h3>
+                <h3>Modification d'un type de remboursement</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateRefundTypeFormModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -145,7 +145,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updateRefundTypeForm" (ngSubmit)="onSubmitUpdateRefundTypeForm(refundType.id)">
                         <div class="field">
-                            <label>Type de remboussement*</label>
+                            <label>Type de remboursement*</label>
                             <div class="control">
                                 <input type="text" class="input" [(ngModel)]="refundType.type" placeholder="Appelation" formControlName="type">
                             </div>
