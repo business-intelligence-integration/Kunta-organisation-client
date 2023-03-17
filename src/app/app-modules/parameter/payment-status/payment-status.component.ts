@@ -135,12 +135,12 @@ export class PaymentStatusComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -151,23 +151,23 @@ export class PaymentStatusComponent implements OnInit {
             () => {
               this.getAllPaymentStaus();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
+                title: 'Supprimé !',
                 text: 'Le statut a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }

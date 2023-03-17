@@ -62,6 +62,8 @@ export class AreaComponent implements OnInit {
     this.updateAreaForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+      reference: new FormControl(null, Validators.required),
+      observation: new FormControl(null, Validators.required),
     })
 
     this.addClubForm = this.formBuilder.group({
@@ -96,7 +98,7 @@ getAllCenters(){
       this.getAllAreas();
       this.utilityService.showMessage(
         'success',
-        'Area successfully created',
+        'Zone crée avec succès !',
         '#06d6a0',
         'white'
       );
@@ -146,7 +148,7 @@ getAllCenters(){
       this.getAllAreas();
       this.utilityService.showMessage(
         'success',
-        'Area successfully updated',
+        'Zone mise a jour avec succès !',
         '#06d6a0',
         'white'
       );
@@ -156,6 +158,8 @@ getAllCenters(){
   onSubmitUpdateArea(){
     const formValue = this.updateAreaForm.value;
     this.area.name = formValue.name;
+    this.area.reference = formValue.reference;
+    this.area.observation = formValue.observation;
     this.updateAre(this.area, formValue.id);
   }
 
@@ -175,12 +179,12 @@ getAllCenters(){
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -191,23 +195,23 @@ getAllCenters(){
             () => {
               this.getAllAreas();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Area has been deleted.',
+                title: 'Supprimé !',
+                text: 'Zone a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreure s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }
@@ -252,7 +256,7 @@ getAllCenters(){
       this.closeClubModal();
       this.utilityService.showMessage(
         'success',
-        'Club successfully added to are',
+        'Club ajouté à la Zone avec succès.',
         '#06d6a0',
         'white'
       );
@@ -260,7 +264,7 @@ getAllCenters(){
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreure s\'est produite',
         '#e62965',
         'white'
       );

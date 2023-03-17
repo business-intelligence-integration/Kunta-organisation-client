@@ -73,14 +73,14 @@ export class TransversalityComponent implements OnInit {
       this.closeUpdateLevelModal();
       this.utilityService.showMessage(
         'success',
-        'Level successfully updated',
+        'Niveau mis a jour avec succès',
         '#06d6a0',
         'white'
       );
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -104,14 +104,14 @@ export class TransversalityComponent implements OnInit {
       this.closeCreateLevelModal();
       this.utilityService.showMessage(
         'success',
-        'Level successfully created',
+        'Niveau crée avec succès',
         '#06d6a0',
         'white'
       );
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -134,12 +134,12 @@ export class TransversalityComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -150,23 +150,23 @@ export class TransversalityComponent implements OnInit {
             () => {
               this.getAllLevel();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Level has been deleted.',
+                title: 'Supprimé !',
+                text: 'Niveau a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }

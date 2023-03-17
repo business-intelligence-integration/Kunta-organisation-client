@@ -81,12 +81,12 @@ export class SponsoresComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Vous êtes sûr ?',
+        title: 'Êtes-vous sûre ?',
         text: "Vous ne pourrez pas revenir en arrière !",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Oui, supprimez-le !',
-        cancelButtonText: 'Non, annulez !',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -97,14 +97,14 @@ export class SponsoresComponent implements OnInit {
             () => {
               this.getUser();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
+                title: 'Supprimé !',
                 text: 'L\'ayant droit a bien été supprimé !',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
+                title: 'Annulé',
                 text: 'Une erreur s\'est produite',
                 confirmButtonColor: '#d33',
               });
@@ -112,8 +112,8 @@ export class SponsoresComponent implements OnInit {
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }

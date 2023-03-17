@@ -32,7 +32,7 @@ export class ViewMoreComponent implements OnInit {
   isMember: boolean = true;
   pilotIsNull: boolean = false;
   clubMembers: User[] = [];
-  members: User[] = [];
+  members: any;
   pilots: User[] = [];
   user: User;
   wrapdwonListUser: string ="display-block";
@@ -150,7 +150,7 @@ export class ViewMoreComponent implements OnInit {
       this.addMemberForm.reset();
       this.utilityService.showMessage(
         'success',
-        'Member successfully added',
+        'Membre ajouté avec succès !',
         '#06d6a0',
         'white'
       );
@@ -168,7 +168,7 @@ export class ViewMoreComponent implements OnInit {
       this.addMemberForm.reset();
       this.utilityService.showMessage(
         'success',
-        'Member successfully added',
+        'Membre ajouté avec succès !',
         '#06d6a0',
         'white'
       );
@@ -178,9 +178,15 @@ export class ViewMoreComponent implements OnInit {
     })
   }
 
+  // getAllMembers(){
+  //   this.userService.getAllMambers().subscribe((res)=>{
+  //     this.members= res.data;
+  //   })
+  // }
+
   getAllMembers(){
-    this.userService.getAllMambers().subscribe((res)=>{
-      this.members= res.data;
+    this.userService.getAllUsers().subscribe((res)=>{
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
     })
   }
 
@@ -200,12 +206,12 @@ export class ViewMoreComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, remove it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -216,23 +222,23 @@ export class ViewMoreComponent implements OnInit {
             () => {
               this.getClub();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Member has been removed.',
+                title: 'Retiré !',
+                text: 'Membre a été retiré.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }
@@ -255,12 +261,12 @@ export class ViewMoreComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, remove it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, retirer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -270,24 +276,24 @@ export class ViewMoreComponent implements OnInit {
           this.clubService.removePilot(this.idClub).subscribe(
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Member has been removed.',
+                title: 'Retiré. !',
+                text: 'Membre a été retiré.',
                 confirmButtonColor: '#198AE3',
               });
               this.getClub();
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }

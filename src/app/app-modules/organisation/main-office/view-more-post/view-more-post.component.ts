@@ -107,7 +107,7 @@ export class ViewMorePostComponent implements OnInit {
       this.onCloseAddModal();
       this.utilityService.showMessage(
         'success',
-        'Center successfully added to main office',
+        'Centre ajouté avec succès au Bureau Principal !',
         '#06d6a0',
         'white'
       );
@@ -132,12 +132,12 @@ export class ViewMorePostComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, remove it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, retirer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -148,23 +148,23 @@ export class ViewMorePostComponent implements OnInit {
             () => {
               this.getMainOffice();
               swalWithBootstrapButtons.fire({
-                title: 'Removed !',
-                text: 'Center has been moved from main office.',
+                title: 'Retiré !',
+                text: 'Centre a été retiré du Bureau Principal.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the remiving',
+            title: 'Annulé',
+            text: 'Vous avez annulé le retrait',
             confirmButtonColor: '#d33',
           });
         }
@@ -183,7 +183,7 @@ export class ViewMorePostComponent implements OnInit {
       this.onCloseUpdateModal();
       this.utilityService.showMessage(
         'success',
-        'Center of main office successfully updated',
+        'Centre du Bureau Principal mis a jour avec succès !',
         '#06d6a0',
         'white'
       );

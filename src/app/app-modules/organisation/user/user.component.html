@@ -115,6 +115,7 @@
     </div>
 </div>
 
+<!-- Create A User -->
 
 <div *ngIf="creatUser" class="page-content-inner">
 
@@ -291,14 +292,26 @@
                                             <div class="field">
                                                 <label>Email principale*</label>
                                                 <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Email principale" formControlName="userName">
+                                                    <input type="email" class="input" placeholder="Email principale" formControlName="userName" required>
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
-                                                    <div class="text-danger"
+                                                    <!-- <div class="text-danger"
                                                     *ngIf="addUserForm.get('userName')?.errors?.['required'] && addUserForm.get('userName')?.touched">
-                                                    <small class="text-police" translate>Veuillez entrer l'adresse email principale</small>
-                                                 </div>
+                                                    <small class="text-police" translate>Veuillez entrer l'adresse email principale</small> 
+                                                    </div> -->
+                                                    <div class="text-danger"
+                                                    *ngIf="addUserForm.get('userName')?.touched && addUserForm.get('userName')?.invalid">
+
+                                                        <div class="text-danger" *ngIf="addUserForm.get('userName')?.errors?.['required']">
+                                                            <small class="text-police" translate>Veuillez entrer l'adresse email principale</small>
+                                                        </div>
+
+                                                        <div class="text-danger" *ngIf="addUserForm.controls['userName'].errors?.['pattern']">
+                                                            <small class="text-police" translate>Veuillez entrer une adresse email valide</small>
+                                                        </div>
+                                                                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,7 +327,13 @@
                                                     <!-- <div class="text-danger"
                                                     *ngIf="addUserForm.get('secondaryEmail')?.errors?.['required'] && addUserForm.get('secondaryEmail')?.touched">
                                                     <small class="text-police" translate>Veuillez entrer l'adresse email secondaire</small>
-                                                 </div> -->
+                                                    </div> -->
+                                                    <div class="text-danger" *ngIf="addUserForm.get('secondaryEmail')?.touched && addUserForm.get('secondaryEmail')?.invalid">
+                                                        <div class="text-danger" *ngIf="addUserForm.controls['secondaryEmail'].errors?.['pattern']">
+                                                            <small class="text-police" translate>Veuillez entrer une adresse email valide</small>
+                                                        </div>
+                                                                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -592,6 +611,7 @@
 
 </div>
 
+<!-- Update User -->
 
 <div *ngIf="updatUser" class="page-content-inner">
     <!--Form Layout 1-->

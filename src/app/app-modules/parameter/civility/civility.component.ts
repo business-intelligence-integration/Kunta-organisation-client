@@ -79,7 +79,7 @@ export class CivilityComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'une erreur d\'est produites',
+        'Une erreur d\'est produites',
         '#e62965',
         'white'
       );
@@ -120,7 +120,7 @@ export class CivilityComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'une erreur d\'est produites',
+        'Une erreur d\'est produite',
         '#e62965',
         'white'
       );
@@ -143,12 +143,12 @@ export class CivilityComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Vous êtes sûr ?',
-        text: "Vous ne pourrez pas revenir en arrière !",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -159,23 +159,23 @@ export class CivilityComponent implements OnInit {
             () => {
               this.getAllCivilities();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
+                title: 'Supprimé !',
                 text: 'La civilité a bien été supprimé !.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'une erreur s\'est produite !',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }

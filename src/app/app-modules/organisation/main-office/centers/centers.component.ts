@@ -61,6 +61,8 @@ export class CentersComponent implements OnInit {
     this.updateCenterForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+      reference: new FormControl(null, Validators.required),
+      observation: new FormControl(null, Validators.required),
     })
 
     this.addAreaForm = this.formBuilder.group({
@@ -139,12 +141,12 @@ export class CentersComponent implements OnInit {
          hideClass: {
            popup: 'animate__animated animate__fadeOutUp',
          },
-         title: 'Are you sure ?',
-         text: "You won't be able to revert this!",
+         title: 'Êtes-vous sûre ?',
+         text: "Cet action est irreversible!",
          icon: 'warning',
          showCancelButton: true,
-         confirmButtonText: 'Yes, delete it!',
-         cancelButtonText: 'No, cancel!',
+         confirmButtonText: 'Oui, supprimer!',
+         cancelButtonText: 'Non, annuler!',
          confirmButtonColor: '#198AE3',
          cancelButtonColor: '#d33',
          reverseButtons: true,
@@ -155,23 +157,23 @@ export class CentersComponent implements OnInit {
              () => {
                this.getAllCenters();
                swalWithBootstrapButtons.fire({
-                 title: 'Deleted !',
-                 text: 'Center has been deleted.',
+                 title: 'Supprimé !',
+                 text: 'Centre a été supprimé.',
                  confirmButtonColor: '#198AE3',
                });
              },
              () => {
                swalWithBootstrapButtons.fire({
-                 title: 'Cancelled',
-                 text: 'An error has occurred',
+                 title: 'Annulé',
+                 text: 'Une erreure s\'est produite',
                  confirmButtonColor: '#d33',
                });
              }
            );
          } else if (result.dismiss === Swal.DismissReason.cancel) {
            swalWithBootstrapButtons.fire({
-             title: 'Cancelled',
-             text: 'you have cancelled the deletion',
+             title: 'Annulé',
+             text: 'Vous avez annulé la suppression',
              confirmButtonColor: '#d33',
            });
          }
@@ -203,7 +205,7 @@ export class CentersComponent implements OnInit {
       this.addCenterForm.reset();
       this.utilityService.showMessage(
         'success',
-        'Center successfully created',
+        'Centre crée avec succès !',
         '#06d6a0',
         'white'
       );
@@ -220,6 +222,8 @@ export class CentersComponent implements OnInit {
   onSubmitUpdateCenter(){
     const formValue = this.updateCenterForm.value;
     this.center.name = formValue.name;
+    this.center.reference = formValue.reference;
+    this.center.observation = formValue.observation;
     this.updateCenter(this.center, formValue.id);
   }
 
@@ -229,7 +233,7 @@ export class CentersComponent implements OnInit {
       this.onCloseUpdateModale();
       this.utilityService.showMessage(
         'success',
-        'Center successfully updated',
+        'Centre mis a jour avec succès !',
         '#06d6a0',
         'white'
       );
@@ -258,7 +262,7 @@ export class CentersComponent implements OnInit {
       this.addAreaForm.reset();
       this.utilityService.showMessage(
         'success',
-        'Area successfully added to center',
+        'Zone ajoutée au Centre avec succès !',
         '#06d6a0',
         'white'
       );

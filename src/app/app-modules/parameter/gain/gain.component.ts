@@ -82,14 +82,14 @@ export class GainComponent implements OnInit {
       this.closeCreateGainModal();
       this.utilityService.showMessage(
         'success',
-        'Gain successfully created',
+        'Gain crée avec succès !',
         '#06d6a0',
         'white'
       );
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -108,12 +108,12 @@ export class GainComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -124,23 +124,23 @@ export class GainComponent implements OnInit {
             () => {
               this.getAllGains();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Gain has been deleted.',
+                title: 'Supprimé !',
+                text: 'Gain supprimé avec succès !',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }
@@ -160,14 +160,14 @@ export class GainComponent implements OnInit {
       this.closeUpdateGainModal();
       this.utilityService.showMessage(
         'success',
-        'Gain successfully updated',
+        'Gain mis a jour avec succès !',
         '#06d6a0',
         'white'
       );
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );

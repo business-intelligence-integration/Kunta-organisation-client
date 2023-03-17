@@ -75,7 +75,7 @@ export class CommunicationAgentToAreaComponent implements OnInit {
       this.closeAgentModal();
       this.utilityService.showMessage(
         'success',
-        'Member successfully added',
+        'Membre ajouté avec succès !',
         '#06d6a0',
         'white'
       );
@@ -83,7 +83,7 @@ export class CommunicationAgentToAreaComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -120,12 +120,12 @@ export class CommunicationAgentToAreaComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, remove it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, retirer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -136,23 +136,23 @@ export class CommunicationAgentToAreaComponent implements OnInit {
             () => {
               this.getArea();
               swalWithBootstrapButtons.fire({
-                title: 'Removed !',
-                text: 'Agent has been removed.',
+                title: 'Retiré !',
+                text: 'Agent a été retiré',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite !',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }

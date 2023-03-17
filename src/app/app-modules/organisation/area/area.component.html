@@ -216,7 +216,23 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateAreaForm.get('name')?.errors?.['required'] && updateAreaForm.get('name')?.touched">
-                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                                <small class="text-police" translate>Entrer l'appelation du centre</small>
+                            </div>
+                            <label>Reference *</label><br>
+                            <div class="control">
+                                <input type="text" [(ngModel)]="area.reference" class="input" placeholder="Reference" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateAreaForm.get('reference')?.errors?.['required'] && updateAreaForm.get('reference')?.touched">
+                                <small class="text-police" translate>Entrer la reference du centre</small>
+                            </div>
+                            <label>Observation *</label><br>
+                            <div class="control">
+                                <textarea type="text" [(ngModel)]="area.observation" class="textarea" placeholder="Observation" formControlName="observation"></textarea>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateAreaForm.get('observation')?.errors?.['required'] && updateAreaForm.get('observation')?.touched">
+                                <small class="text-police" translate>Entrer l'observation du centre</small>
                             </div>
                         </div><br>
                         <div class="control login">

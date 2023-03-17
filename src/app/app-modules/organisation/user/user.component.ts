@@ -8,6 +8,7 @@ import { FamilySituation } from 'src/app/core/classes/familySituation';
 import { PieceType } from 'src/app/core/classes/pieceType';
 import { Status } from 'src/app/core/classes/status';
 import { User } from 'src/app/core/classes/user';
+import { GlobalConstants } from 'src/app/core/constants/global.contant';
 import { CivilityService } from 'src/app/core/services/civility/civility.service';
 import { CountryService } from 'src/app/core/services/country/country.service';
 import { FamilySituationService } from 'src/app/core/services/family-situation/family-situation.service';
@@ -110,7 +111,7 @@ export class UserComponent implements OnInit {
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null, Validators.required),
-      userName: new FormControl(null, Validators.required),
+      userName: new FormControl(null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]),
       city: new FormControl(null, Validators.required),
       userType: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
@@ -127,7 +128,7 @@ export class UserComponent implements OnInit {
       postalBox: new FormControl(null, Validators.required),
       secondPhoneNumber: new FormControl(null),
       secondaryAddress: new FormControl(null),
-      secondaryEmail: new FormControl(null),
+      secondaryEmail: new FormControl(null, [Validators.pattern(GlobalConstants.emailRegex)]),
       whatsappPhoneNumber:new FormControl(null, Validators.required),
       idCivility: new FormControl(null, Validators.required),
       idFamilySituation: new FormControl(null, Validators.required),
@@ -276,7 +277,7 @@ export class UserComponent implements OnInit {
       this.closeUpdateUserModal();
       this.utilityService.showMessage(
         'success',
-        'User successfully update',
+        'Utilisateur mis a jour avec succès !',
         '#06d6a0',
         'white'
       );
@@ -287,7 +288,7 @@ export class UserComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -444,12 +445,12 @@ export class UserComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -460,23 +461,23 @@ export class UserComponent implements OnInit {
             () => {
               this.getAllUsers();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'User has been deleted.',
+                title: 'Supprimé !',
+                text: 'L\'utilisateur a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreure s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }
@@ -631,7 +632,7 @@ export class UserComponent implements OnInit {
        this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'Une erreur s\'est produites !',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );

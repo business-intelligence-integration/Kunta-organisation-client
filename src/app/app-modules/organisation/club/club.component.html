@@ -209,7 +209,27 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateClubForm.get('name')?.errors?.['required'] && updateClubForm.get('name')?.touched">
-                                <small class="text-police" translate>entrer l'appelation du centre</small>
+                                <small class="text-police" translate>Entrer l'appelation du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <label>Reference *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" [(ngModel)]="club.reference" placeholder="Reference" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateClubForm.get('reference')?.errors?.['required'] && updateClubForm.get('reference')?.touched">
+                                <small class="text-police" translate>Entrer la reference du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <label>Observation *</label><br>
+                            <div class="control">
+                                <textarea type="text" class="textarea" rows="4" [(ngModel)]="club.observation" placeholder="Observation" formControlName="observation"></textarea>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateClubForm.get('observation')?.errors?.['required'] && updateClubForm.get('observation')?.touched">
+                                <small class="text-police" translate>Entrer l'observation du centre</small>
                             </div>
                         </div><br>
                         <div class="control login">

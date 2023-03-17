@@ -60,6 +60,8 @@ export class ClubComponent implements OnInit {
     this.updateClubForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+      reference:new FormControl(null, Validators.required),
+      observation: new FormControl(null)
     })
 
     this.addMemberForm = this.formBuilder.group({
@@ -92,7 +94,7 @@ export class ClubComponent implements OnInit {
       this.addClubForm.reset();
       this.utilityService.showMessage(
         'success',
-        'Club successfully created',
+        'Club crée avec succès !',
         '#06d6a0',
         'white'
       );
@@ -100,7 +102,7 @@ export class ClubComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
@@ -141,12 +143,12 @@ export class ClubComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -157,23 +159,23 @@ export class ClubComponent implements OnInit {
             () => {
               this.getAllClubs();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Club has been deleted.',
+                title: 'Supprimé !',
+                text: 'Club a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreure s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }
@@ -187,12 +189,14 @@ export class ClubComponent implements OnInit {
   onSubmitUpdateClub(){
     const formValue  = this.updateClubForm.value;
     this.club.name = formValue.name;
+    this.club.reference = formValue.reference;
+    this.club.observation = formValue.observation;
     this.clubService.updateclubById(this.club, formValue.id).subscribe((club)=>{
       this.getAllClubs();
       this.onCloseUpdateModal();
       this.utilityService.showMessage(
         'success',
-        'Club successfully updated',
+        'Club mis a jour avec succès',
         '#06d6a0',
         'white'
       );
@@ -213,25 +217,25 @@ export class ClubComponent implements OnInit {
   addMembr(idClub: number, idMember: number){
     this.isSaving = true;
     this.clubService.addMemberToClub(idClub, idMember).subscribe((res)=>{
-      console.log('resClub::', res);
       this.isSaving = false;
-      this.getAllClubs();
-      this.closeMemberModal();
-      if(res.data == null){
+      if(res == null){
         this.utilityService.showMessage(
           'warning',
-          'Désolé, un membre ne peu appartenir à deux clubs!',
+          'Un utilisateur ne peut appartenir à deux(2) clubs',
           '#e62965',
           'white'
         );
       }else{
+        this.getAllClubs();
+        this.closeMemberModal();
         this.utilityService.showMessage(
           'success',
-          'Member successfully added to club',
+          'Membre ajouté au club avec succès',
           '#06d6a0',
           'white'
         );
       }
+      
       
     }, ()=>{
       this.isSaving = false;

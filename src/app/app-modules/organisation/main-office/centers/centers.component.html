@@ -40,9 +40,9 @@
                 <span>Appelation</span>
                 <span>Reference</span>
                 <span>zone(s)</span>
-                <span>club(s)</span>
-                <span>membre(s)</span>
-                <span>Appelation</span>
+                <span>Club(s)</span>
+                <span>Membre(s)</span>
+                <span>Observation</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -175,6 +175,8 @@
     </div>
 </div>
 
+<!-- Update Center -->
+
 <div class="modal h-modal" [ngClass]="openUpdateCenter">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -201,11 +203,29 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateCenterForm.get('name')?.errors?.['required'] && updateCenterForm.get('name')?.touched">
-                                <small class="text-police">entrer l'appelation du centre</small>
+                                <small class="text-police">Entrer l'appelation du centre</small>
                             </div>
-                        </div>
-                     
-                        <br>
+                        </div><br>
+                        <div class="field">
+                            <label>Reference *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" [(ngModel)]="center.reference" placeholder="Reference" formControlName="reference">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateCenterForm.get('reference')?.errors?.['required'] && updateCenterForm.get('reference')?.touched">
+                                <small class="text-police">Entrer la reference du centre</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <label>Observation *</label><br>
+                            <div class="control">
+                                <textarea type="text" class="textarea" [(ngModel)]="center.observation" placeholder="Observation" formControlName="observation"></textarea>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateCenterForm.get('observation')?.errors?.['required'] && updateCenterForm.get('observation')?.touched">
+                                <small class="text-police">Entrer l'observation du centre</small>
+                            </div>
+                        </div><br>
                         <div class="control login">
                             <button [disabled]="updateCenterForm.invalid"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
