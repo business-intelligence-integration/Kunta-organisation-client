@@ -242,7 +242,7 @@
                 </div>
             </div>
 
-            <a (click)="comeBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="comeBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             <div  *ngIf="isListAreas" class="list-flex-toolbar">
                 <div class="control has-icon">
                     <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
@@ -302,7 +302,7 @@
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                        <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" tooltip=" Retirer la zone du centre " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>

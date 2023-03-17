@@ -5,6 +5,7 @@ import { AppModulesRoutingModule } from './app-modules-routing.module';
 import { AppContentComponent } from './app-content/app-content.component';
 import { UiModule } from '../ui/ui.module';
 import { Select2Module } from 'ng-select2-component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { Select2Module } from 'ng-select2-component';
     CommonModule,
     AppModulesRoutingModule,
     UiModule,
-    Select2Module
+    Select2Module,
+    TooltipModule
     
   ]
 })

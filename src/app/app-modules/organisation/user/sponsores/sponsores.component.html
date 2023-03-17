@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4"> compte de <span>{{ user.firstName }}</span></h1>
+                    <h1 class="title is-4"> Compte de <span>{{ user.firstName }}</span></h1>
                 </div>
 
                 <div class="toolbar ml-auto">
@@ -179,7 +179,7 @@
                     </a>
                 </div>
             </div>
-            <a routerLink="/organization" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a routerLink="/organization" tooltip=" Retour " theme="light" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -244,7 +244,7 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        numéro Tel.
+                                        Numéro Tel.
                                     </label>
                                     <div class="control-end">
                                         <span class="tag is-rounded">{{ user.phoneNumber }}</span>
@@ -461,7 +461,7 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        Status
+                                        Statut
                                     </label>
             
                                     <div class="control-end">
@@ -498,7 +498,7 @@
                                         </div>
                                         <div class="flex-table-cell cell-end" data-th="Actions">
                                             <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                            <a _ngcontent-nct-c62=""  (click)="onDeleteUser(user.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                            <a _ngcontent-nct-c62=""  (click)="onDeleteUser(user.id)" tooltip=" Supprimer l\'ayant droit " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -560,7 +560,7 @@
                                         <span class="light-text" data-filter-match="">{{ user.city }}</span>
                                     </div>
                                     <div class="flex-table-cell cell-end" data-th="Actions">
-                                        <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']" [queryParams]="{id: user.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']" [queryParams]="{id: user.id}" tooltip=" Voir détails filleul" theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                      </div>
                             </div>
                 

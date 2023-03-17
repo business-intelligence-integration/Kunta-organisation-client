@@ -20,6 +20,7 @@ import { CivilityComponent } from './civility/civility.component';
 import { DraweeFormComponent } from './mutual-investment/drawee-form/drawee-form.component';
 import { ProfitabilityTypeComponent } from './mutual-investment/profitability-type/profitability-type.component';
 import { RefundTypeComponent } from './mutual-investment/refund-type/refund-type.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { RefundTypeComponent } from './mutual-investment/refund-type/refund-type
     ParameterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    TooltipModule
   ]
 })
 export class ParameterModule { }

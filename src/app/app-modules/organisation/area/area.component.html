@@ -55,7 +55,7 @@
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
-                        <a (click)="onAddClub(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a (click)="onAddClub(area.id)" tooltip=" Ajouter un club " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                    
                     <div class="flex-table-cell" data-th="Location">
@@ -67,9 +67,9 @@
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-more-club']"
-                    [queryParams]="{id: area.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                    <a _ngcontent-nct-c62="" (click)="onUpdateArea(area.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                    <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                    [queryParams]="{id: area.id}" tooltip=" Voir details zone " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    <a _ngcontent-nct-c62="" (click)="onUpdateArea(area.id)" tooltip=" Modifier la zone " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                    <a _ngcontent-nct-c62="" (click)="onDeleteArea(area.id)" tooltip=" Supprimer la zone " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
 
                         </div>
                     </div>

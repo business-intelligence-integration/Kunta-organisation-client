@@ -11,7 +11,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
           </span>
-            <span>créer un status de paiement</span>
+            <span>Créer un statut de paiement</span>
         </button>
     </div>
 </div>
@@ -37,7 +37,7 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Appellation</span>
+                <span>Appelation</span>
                 <span>Action</span>
             </div>
             <div class="flex-list-inner">
@@ -55,8 +55,8 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" (click)="onOpenUpdateStatus(pStatus.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelete(pStatus.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Modifier statut paiement " theme='light' (click)="onOpenUpdateStatus(pStatus.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Supprimer statut paiement " theme='light' (click)="onDelete(pStatus.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                     </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Création d'un status de paiement</h3>
+                <h3>Création d'un statut de paiement</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closePaymentStatuspeModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -102,13 +102,13 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="paymentStatusForm" (ngSubmit)="onSubmitPaymentStatus()">
                         <div class="field">
-                            <label>Appellation*</label><br>
+                            <label>Appelation*</label><br>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Appellation" formControlName="label">
                             </div>
                             <div class="text-danger"
                                 *ngIf="paymentStatusForm.get('label')?.errors?.['required'] && paymentStatusForm.get('label')?.touched">
-                                <small class="text-police">veuillez entrer l'appellation du type de paiement</small>
+                                <small class="text-police">veuillez entrer l'appelation du type de paiement</small>
                              </div>
                         </div>
                         <div class="control login">
@@ -131,7 +131,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modfification d'un status de paiement</h3>
+                <h3>Modfification d'un statut de paiement</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdatePaymentStatuspeModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -145,7 +145,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updatePaymentStatusForm" (ngSubmit)="onSubmitUpdatePaymentStatus(pStatus.id)">
                         <div class="field">
-                            <label>Appellation*</label><br>
+                            <label>Appelation*</label><br>
                             <div class="control">
                                 <input type="text" [(ngModel)]="pStatus.label" class="input" placeholder="Appellation" formControlName="label">
                             </div>

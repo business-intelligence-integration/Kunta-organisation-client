@@ -82,7 +82,7 @@ export class SponsoresComponent implements OnInit {
           popup: 'animate__animated animate__fadeOutUp',
         },
         title: 'Êtes-vous sûre ?',
-        text: "Vous ne pourrez pas revenir en arrière !",
+        text: "Cette action est irreversible !",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Oui, supprimer!',

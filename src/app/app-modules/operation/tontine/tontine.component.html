@@ -42,7 +42,7 @@
                 <span>Plan d’épargne de base</span>
                 <span>Membres inscrits</span>
                 <span>Cycle</span>
-                <span>Status</span>
+                <span>Statut</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -64,16 +64,16 @@
 
                     <div class="flex-table-cell" data-th="Membres inscrits">
                         <span class="light-text" data-filter-match="">{{ tontine.registeredMembers }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label, tontine.id, tontine.sessionsNumber, tontine.tontineMembers)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" tooltip=" Inscrir membre " theme='light' [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label, tontine.id, tontine.sessionsNumber, tontine.tontineMembers)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
-                        [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        [queryParams]="{id: tontine.id}" tooltip=" Voir details membres " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Cycle">
                         <span class="light-text" data-filter-match="">{{ tontine.cycles.length }}</span>
-                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(tontine.id)"><i class="lnir lnir-plus"></i></a>
+                        <a  class="pagination-previous has-chevron" tooltip=" Ajouter un cycle " theme='light' [ngClass]="{'disabled': tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""[routerLink]="['/detail-cycle']"
-                        [queryParams]="{id: tontine.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        [queryParams]="{id: tontine.id}" tooltip=" Voir liste cycle " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Status">
@@ -82,10 +82,10 @@
 
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62=""  (click)="onUpdateTontine(tontine.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Modifier la tontine " theme='light'  (click)="onUpdateTontine(tontine.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-details-tontine']"
-                        [queryParams]="{id: tontine.id}"  class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDelate(tontine.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        [queryParams]="{id: tontine.id}" tooltip=" Voir details tontine " theme='light'  class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" tooltip=" Supprimer la tontine " theme='light' (click)="onDelate(tontine.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>modification d'une tontine</h3>
+                <h3>Modification d'une tontine</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateTontineModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

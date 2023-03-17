@@ -51,7 +51,7 @@
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ club.members.length }}</span>
-                        <a (click)="onAddMember(club.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a (click)="onAddMember(club.id)" tooltip=" Ajouter un membre " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Location">
                         <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
@@ -62,9 +62,9 @@
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-more']"
-                            [queryParams]="{id: club.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                            <a _ngcontent-nct-c62="" (click)="onUpdateClub(club.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                            <a _ngcontent-nct-c62="" (click)="onDeleteClub(club.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                            [queryParams]="{id: club.id}" tooltip=" Voir details club " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                            <a _ngcontent-nct-c62="" (click)="onUpdateClub(club.id)" tooltip=" Modifier le club " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                            <a _ngcontent-nct-c62="" (click)="onDeleteClub(club.id)" tooltip=" Supprimer le club " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>

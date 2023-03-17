@@ -179,7 +179,7 @@
                     </a>
                 </div>
             </div>
-            <a (click)="backBack()" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+            <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
@@ -268,7 +268,7 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        Status
+                                        Statut
                                     </label>
             
                                     <div class="control-end">
@@ -335,7 +335,7 @@
                                 <span>Total des pénalités (FCFA)</span>
                                 <span style="color: black; font-weight: 650;">Cotiser</span>
                                 <span style="color: black; font-weight: 650;">Pénaliser</span>
-                                <span>Status</span>
+                                <span>Statut</span>
                                 <span>Gagnant</span>
                                 <span>Action</span>
                             </div>
@@ -357,14 +357,14 @@
                                     </div>
                                     <div class="flex-table-cell" data-th="Cotiser">
                                         <span class="light-text" data-filter-match="">{{ session.payments.length }}</span>
-                                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
-                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Cotiser " theme='light' (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
+                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" tooltip=" Voir details cotisation " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
         
                                     <div class="flex-table-cell" data-th="Pénaliser">
                                         <span class="light-text" data-filter-match="">{{ session.penalties.length }}</span>
-                                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
-                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Appliquer une pénalité " theme='light' (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
+                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id}" tooltip=" Voir details pénalité " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Status">
                                         <span class="tag is-rounded" data-filter-match="" *ngIf="session.winner != null">CLOTURÉ</span>
@@ -377,7 +377,7 @@
                                     </div>
                                     <div class="flex-table-cell cell-end" data-th="Actions">
                                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <a _ngcontent-nct-c62="" [routerLink]="['/view-more-details-session']" [queryParams]="{id: session.id}" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a _ngcontent-nct-c62="" [routerLink]="['/view-more-details-session']" [queryParams]="{id: session.id}" tooltip=" Voir details séance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                        
                                         </div>
                                     </div>
