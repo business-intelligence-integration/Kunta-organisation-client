@@ -25,20 +25,20 @@ import { DataEntryAgentToAreaComponent } from './organisation/area/data-entry-ag
 import { SponsoresComponent } from './organisation/user/sponsores/sponsores.component';
 import { ViewMoreParticipantComponent } from './operation/tontine/view-more-participant/view-more-participant.component';
 import { ViewDetailsTontineComponent } from './operation/tontine/view-details-tontine/view-details-tontine.component';
-import { CycleComponent } from './parameter/cycle/cycle.component';
-import { SessionComponent } from './parameter/session/session.component';
+import { CycleComponent } from './parameter/tontine/cycle/cycle.component';
+import { SessionComponent } from './parameter/tontine/session/session.component';
 import { DetailCycleComponent } from './operation/tontine/detail-cycle/detail-cycle.component';
 import { DetailSessionOfTontineComponent } from './operation/tontine/detail-session-of-tontine/detail-session-of-tontine.component';
-import { StatusComponent } from './parameter/status/status.component';
+import { StatusComponent } from './parameter/tontine/status/status.component';
 import { AllPaymentOfSessionComponent } from './operation/tontine/all-payment-of-session/all-payment-of-session.component';
-import { PenalityTypeComponent } from './parameter/penality-type/penality-type.component';
-import { PenaltyComponent } from './parameter/penalty/penalty.component';
+import { PenalityTypeComponent } from './parameter/tontine/penality-type/penality-type.component';
+import { PenaltyComponent } from './parameter/tontine/penalty/penalty.component';
 import { PaymentStatus } from '../core/classes/PaymentStatus';
 import { ViewMoreDetailsSessionComponent } from './operation/tontine/view-more-details-session/view-more-details-session.component';
 import { PosteComponent } from './parameter/organisation/poste/poste.component';
-import { PieceTypeComponent } from './parameter/piece-type/piece-type.component';
-import { FamilySituationComponent } from './parameter/family-situation/family-situation.component';
-import { CivilityComponent } from './parameter/civility/civility.component';
+import { PieceTypeComponent } from './parameter/organisation/piece-type/piece-type.component';
+import { FamilySituationComponent } from './parameter/organisation/family-situation/family-situation.component';
+import { CivilityComponent } from './parameter/organisation/civility/civility.component';
 import { AllPenalityOfSessionComponent } from './operation/tontine/all-penality-of-session/all-penality-of-session.component';
 
 const routes: Routes = [
