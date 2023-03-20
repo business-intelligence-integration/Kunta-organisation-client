@@ -80,231 +80,231 @@ export class ParametersComponent implements OnInit {
   }
 
 
-  onTransversality(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutMutualInsvestMent();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isSession = false;
-    this.isCycle = false;
-    this.isGain = false;
-    this.isFrequency = false;
-    this.isTransversality = true;
-    this.dynamicTitle = "Liste des niveaux de transversalité"
-  }
+  // onTransversality(){
+  //   this.isNotAboutOrganisation();
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isStatus = false;
+  //   this.isSession = false;
+  //   this.isCycle = false;
+  //   this.isGain = false;
+  //   this.isFrequency = false;
+  //   this.isTransversality = true;
+  //   this.dynamicTitle = "Liste des niveaux de transversalité"
+  // }
 
-  onFrequency(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutMutualInsvestMent();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = true;
-    this.dynamicTitle = "Liste de Fréquences"
-  }
+  // onFrequency(){
+  //   this.isNotAboutOrganisation();
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isStatus = false;
+  //   this.isCycle = false;
+  //   this.isSession = false;
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = true;
+  //   this.dynamicTitle = "Liste de Fréquences"
+  // }
 
-  onGain(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isSession = false;
-    this.isCycle = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isGain = true;
-    this.dynamicTitle = "Liste de Gains"
-  }
+  // onGain(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isStatus = false;
+  //   this.isSession = false;
+  //   this.isCycle = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isGain = true;
+  //   this.dynamicTitle = "Liste de Gains"
+  // }
 
-  onCycle(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isSession = false;
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = true;
-    this.dynamicTitle = "Liste des cycles"
-  }
+  // onCycle(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isStatus = false;
+  //   this.isSession = false;
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = true;
+  //   this.dynamicTitle = "Liste des cycles"
+  // }
 
-  onSession(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = true;
-    this.dynamicTitle = "Liste des séances"
-  }
+  // onSession(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isStatus = false;
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = false;
+  //   this.isSession = true;
+  //   this.dynamicTitle = "Liste des séances"
+  // }
 
-  onStatus(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = true;
-    this.dynamicTitle = "Liste des status"
-  }
+  // onStatus(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = false;
+  //   this.isSession = false;
+  //   this.isStatus = true;
+  //   this.dynamicTitle = "Liste des status"
+  // }
 
-  onPenalyType(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = true
-    this.dynamicTitle = "Liste des types de penalité"
-  }
+  // onPenalyType(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPaymentStatus = false;
+  //   this.isPenalty = false;
+  //   this.isPenaltyType = false
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = false;
+  //   this.isSession = false;
+  //   this.isStatus = false;
+  //   this.isPenaltyType = true
+  //   this.dynamicTitle = "Liste des types de penalité"
+  // }
 
-  onPenaly(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = false;
-    this.isPenalty = true;
-    this.dynamicTitle = "Liste des pénalités"
-  }
+  // onPenaly(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPaymentStatus = false;
+  //   this.isPenaltyType = false
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = false;
+  //   this.isSession = false;
+  //   this.isStatus = false;
+  //   this.isPenaltyType = false;
+  //   this.isPenalty = true;
+  //   this.dynamicTitle = "Liste des pénalités"
+  // }
 
-  onPaymentStatus(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = false;
-    this.isPenalty = false;
-    this.isPaymentStatus = true;
-    this.dynamicTitle = "Liste des status de paiement"
-  }
+  // onPaymentStatus(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutOrganisation();
+  //   this.isPenaltyType = false
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = false;
+  //   this.isSession = false;
+  //   this.isStatus = false;
+  //   this.isPenaltyType = false;
+  //   this.isPenalty = false;
+  //   this.isPaymentStatus = true;
+  //   this.dynamicTitle = "Liste des status de paiement"
+  // }
 
 
-  isNotAboutTontine(){
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = false;
-    this.isPenalty = false;
-    this.isPaymentStatus = false;
-  }
-  isNotAboutOrganisation(){
-    this.isPoste = false;
-    this.isPieceType = false;
-    this.isFamilySituation = false;
-    this.isCivility = false;
-  }
-  isNotAboutMutualInsvestMent(){
-   this.isDraweeForm = false;
-  }
+  // isNotAboutTontine(){
+  //   this.isPenaltyType = false
+  //   this.isGain = false;
+  //   this.isTransversality = false;
+  //   this.isFrequency = false;
+  //   this.isCycle = false;
+  //   this.isSession = false;
+  //   this.isStatus = false;
+  //   this.isPenaltyType = false;
+  //   this.isPenalty = false;
+  //   this.isPaymentStatus = false;
+  // }
+  // isNotAboutOrganisation(){
+  //   this.isPoste = false;
+  //   this.isPieceType = false;
+  //   this.isFamilySituation = false;
+  //   this.isCivility = false;
+  // }
+  // isNotAboutMutualInsvestMent(){
+  //  this.isDraweeForm = false;
+  // }
 
-  onPoste(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = true;
-    this.isPieceType = false;
-    this.isFamilySituation = false;
-    this.isCivility = false;
-    this.dynamicTitle = "Liste des postes de l'organisation"
-  }
+  // onPoste(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutTontine();
+  //   this.isPoste = true;
+  //   this.isPieceType = false;
+  //   this.isFamilySituation = false;
+  //   this.isCivility = false;
+  //   this.dynamicTitle = "Liste des postes de l'organisation"
+  // }
 
-  onPieceType(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = false;
-    this.isPieceType = true;
-    this.isFamilySituation = false;
-    this.isCivility = false;
-    this.dynamicTitle = "Liste les types de pièce"
-  }
+  // onPieceType(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutTontine();
+  //   this.isPoste = false;
+  //   this.isPieceType = true;
+  //   this.isFamilySituation = false;
+  //   this.isCivility = false;
+  //   this.dynamicTitle = "Liste les types de pièce"
+  // }
 
-  onFamilySituation(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = false;
-    this.isPieceType = false;
-    this.isFamilySituation = true;
-    this.isCivility = false;
-    this.dynamicTitle = "Liste des situations familiales"
-  }
+  // onFamilySituation(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutTontine();
+  //   this.isPoste = false;
+  //   this.isPieceType = false;
+  //   this.isFamilySituation = true;
+  //   this.isCivility = false;
+  //   this.dynamicTitle = "Liste des situations familiales"
+  // }
 
-  onCivility(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = false;
-    this.isPieceType = false;
-    this.isFamilySituation = false;
-    this.isCivility = true;
-    this.dynamicTitle = "Liste des civilités"
-  }
+  // onCivility(){
+  //   this.isNotAboutMutualInsvestMent();
+  //   this.isNotAboutTontine();
+  //   this.isPoste = false;
+  //   this.isPieceType = false;
+  //   this.isFamilySituation = false;
+  //   this.isCivility = true;
+  //   this.dynamicTitle = "Liste des civilités"
+  // }
 
-  onDraweeForm(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutTontine();
-    this.isProfitabilityType= false;
-    this.isRefundType = false;
-    this.isDraweeForm = true;
-    this.dynamicTitle = "Liste des formulaires de tirage au sort";
-  }
+  // onDraweeForm(){
+  //   this.isNotAboutOrganisation();
+  //   this.isNotAboutTontine();
+  //   this.isProfitabilityType= false;
+  //   this.isRefundType = false;
+  //   this.isDraweeForm = true;
+  //   this.dynamicTitle = "Liste des formulaires de tirage au sort";
+  // }
 
-  onProfitabilityType(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutTontine();
-    this.isRefundType = false;
-    this.isDraweeForm = false;
-    this.isProfitabilityType= true;
-    this.dynamicTitle = "Liste des types de rentabilités";
-  }
+  // onProfitabilityType(){
+  //   this.isNotAboutOrganisation();
+  //   this.isNotAboutTontine();
+  //   this.isRefundType = false;
+  //   this.isDraweeForm = false;
+  //   this.isProfitabilityType= true;
+  //   this.dynamicTitle = "Liste des types de rentabilités";
+  // }
 
-  onRefundType(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutTontine();
-    this.isDraweeForm = false;
-    this.isProfitabilityType= false;
-    this.isRefundType = true;
-    this.dynamicTitle = "Liste des types de remboursement";
-  }
+  // onRefundType(){
+  //   this.isNotAboutOrganisation();
+  //   this.isNotAboutTontine();
+  //   this.isDraweeForm = false;
+  //   this.isProfitabilityType= false;
+  //   this.isRefundType = true;
+  //   this.dynamicTitle = "Liste des types de remboursement";
+  // }
 }
