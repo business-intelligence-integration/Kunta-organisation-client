@@ -15,6 +15,9 @@ import { HomeComponent } from './home/home.component';
     DashboardRoutingModule,
     UiModule
   ],
+  exports: [
+    HomeComponent
+  ]
  
 })
 export class DashboardModule { }

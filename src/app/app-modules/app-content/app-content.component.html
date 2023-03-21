@@ -11,20 +11,20 @@
                 <div class="navbar-brand">
                     <!-- Mobile menu toggler icon -->
                     <div class="brand-start">
-                        <div class="navbar-burger">
+                        <div class="navbar-burger" [ngClass]="activeBurger" (click)="activeMobileSider() " >
                             <span></span>
                             <span></span>
                             <span></span>
                         </div>
                     </div>
   
-                    <a class="navbar-item is-brand" href="index.html">
+                    <a class="navbar-item is-brand" [routerLink]="['/dashboards/']">
                         <img class="light-image" src="https://res.cloudinary.com/b2i-group/image/upload/v1673430526/kunta-organisation/img/logo_p4a6oz.svg" alt="">
                         <img class="dark-image" src="https://res.cloudinary.com/b2i-group/image/upload/v1673430526/kunta-organisation/img/logo-light_dwxxh6.svg" alt="">
                     </a>
   
                     <div class="brand-end">
-                        <div class="navbar-item has-dropdown is-notification is-hidden-tablet is-hidden-desktop">
+                        <!-- <div class="navbar-item has-dropdown is-notification is-hidden-tablet is-hidden-desktop">
                             <a class="navbar-link is-arrowless" href="javascript:void(0);">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                                 <span class="new-indicator pulsate"></span>
@@ -88,25 +88,25 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="dropdown is-right is-spaced dropdown-trigger user-dropdown">
+                        </div> -->
+                        <div class="dropdown is-right is-spaced dropdown-trigger user-dropdown" [ngClass]="activeProfil" (click)="onActive()">
                             <div class="is-trigger" aria-haspopup="true">
                                 <div class="profile-avatar">
-                                    <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
+                                    <img class="avatar" src="{{ imageUrl }}" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
                                 </div>
                             </div>
                             <div class="dropdown-menu" role="menu">
                                 <div class="dropdown-content">
                                     <div class="dropdown-head">
                                         <div class="h-avatar is-large">
-                                            <img class="avatar" src="assets/img/avatars/photos/8.jpg" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
+                                            <img class="avatar" src="{{ imageUrl }}" data-demo-src="assets/img/avatars/photos/8.jpg" alt="">
                                         </div>
                                         <div class="meta">
-                                            <span>Erik Kovalsky</span>
-                                            <span>Product Manager</span>
+                                            <span>{{user.firstName}} {{user.lastName}}</span>
+                                            <span>Connecté</span>
                                         </div>
                                     </div>
-                                    <a href="#" class="dropdown-item is-media">
+                                    <!-- <a href="#" class="dropdown-item is-media">
                                         <div class="icon">
                                             <i class="lnil lnil-user-alt"></i>
                                         </div>
@@ -152,14 +152,14 @@
                                             <span>Settings</span>
                                             <span>Account settings</span>
                                         </div>
-                                    </a>
+                                    </a> -->
                                     <hr class="dropdown-divider">
                                     <div class="dropdown-item is-button">
-                                        <button class="button h-button is-primary is-raised is-fullwidth logout-button">
+                                        <button (click)="logout()" class="button h-button is-primary is-raised is-fullwidth logout-button">
                                             <span class="icon is-small">
                                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                           </span>
-                                            <span>Logout</span>
+                                            <span>Se déconnecter</span>
                                         </button>
                                     </div>
                                 </div>
@@ -171,50 +171,35 @@
             </div>
         </nav>
         <!--Mobile sidebar-->
-        <div class="mobile-main-sidebar">
+        <!-- <div class="mobile-main-sidebar" [ngClass]="activeMainSidebar" >
             <div class="inner">
                 <ul class="icon-side-menu">
-                    <li>
-                        <a href="/admin-dashboards-personal-1.html" id="home-sidebar-menu-mobile" class="is-active">
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/dashboards/']" id="home-sidebar-menu-mobile" class="is-active">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                         </a>
                     </li>
-                    <li>
-                        <a href="/admin-grid-users-1.html" id="layouts-sidebar-menu-mobile">
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/organization/users']" id="layouts-sidebar-menu-mobile">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                         </a>
                     </li>
-                    <li>
-                        <a href="/elements-hub.html" id="elements-sidebar-menu-mobile">
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/operations/tontines']" id="elements-sidebar-menu-mobile">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/components-hub.html" id="components-sidebar-menu-mobile">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/messaging-chat.html" id="open-messages-mobile">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                         </a>
                     </li>
                 </ul>
   
                 <ul class="bottom-icon-side-menu">
-                    <li>
-                        <a href="javascript:" class="right-panel-trigger" data-panel="search-panel">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
+                    <li [routerLinkActive]="['active']">
+                        <a [routerLink]="['/parameters/']">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                         </a>
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <!--Circular menu-->
         <div id="circular-menu" class="circular-menu">
   
@@ -1245,490 +1230,9 @@
                 </ul>
             </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 771px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 488px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
         </div>
-        <div class="mobile-subsidebar">
-            <div class="inner">
-                <div class="sidebar-title">
-                    <h3>Layouts</h3>
-                </div>
-  
-                <ul class="submenu">
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Lists <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-view-1.html">
-                                    <i class="lnil lnil-list-alt"></i>
-                                    <span>List View V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-view-2.html">
-                                    <i class="lnil lnil-list-alt"></i>
-                                    <span>List View V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-view-3.html">
-                                    <i class="lnil lnil-list-alt"></i>
-                                    <span>List View V3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-view-4.html">
-                                    <i class="lnil lnil-list-alt"></i>
-                                    <span>List View V4</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Flex Lists <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-flex-1.html">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Flex List V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-flex-2.html">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Flex List V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-flex-3.html">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Flex List V3</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children active">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Datatable <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul style="display: block;">
-                            <li>
-                                <a class="is-submenu" href="/admin-list-datatable-1.html">
-                                    <i class="lnil lnil-layout-alt"></i>
-                                    <span>Datatable V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-datatable-2.html">
-                                    <i class="lnil lnil-layout-alt"></i>
-                                    <span>Datatable V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-list-datatable-3.html">
-                                    <i class="lnil lnil-layout-alt"></i>
-                                    <span>Datatable V3</span>
-                                </a>
-                            </li>
-                            <li class="is-active">
-                                <a class="is-submenu" href="/admin-list-datatable-4.html">
-                                    <i class="lnil lnil-layout-alt"></i>
-                                    <span>Datatable V4</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Placeload <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-placeload-1.html">
-                                    <i class="lnil lnil-reload"></i>
-                                    <span>Placeload V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-placeload-2.html">
-                                    <i class="lnil lnil-reload"></i>
-                                    <span>Placeload V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-placeload-3.html">
-                                    <i class="lnil lnil-reload"></i>
-                                    <span>Placeload V3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-placeload-4.html">
-                                    <i class="lnil lnil-reload"></i>
-                                    <span>Placeload V4</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Card Grid <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-cards-1.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Card Grid V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-cards-2.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Card Grid V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-cards-3.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Card Grid V3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-cards-4.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Card Grid V4</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Tile Grid <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-tiles-1.html">
-                                    <i class="lnil lnil-layout-alt-2"></i>
-                                    <span>Tile Grid V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-tiles-2.html">
-                                    <i class="lnil lnil-layout-alt-2"></i>
-                                    <span>Tile Grid V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-tiles-3.html">
-                                    <i class="lnil lnil-layout-alt-2"></i>
-                                    <span>Tile Grid V3</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">User Grid <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-users-1.html">
-                                    <i class="lnil lnil-users-alt"></i>
-                                    <span>User Grid V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-users-2.html">
-                                    <i class="lnil lnil-users-alt"></i>
-                                    <span>User Grid V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-users-3.html">
-                                    <i class="lnil lnil-users-alt"></i>
-                                    <span>User Grid V3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-grid-users-4.html">
-                                    <i class="lnil lnil-users-alt"></i>
-                                    <span>User Grid V4</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Personal <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-profile-view.html">
-                                    <i class="lnil lnil-user-alt"></i>
-                                    <span>Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-profile-edit-1.html">
-                                    <i class="lnil lnil-pencil"></i>
-                                    <span>Edit Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-profile-notifications.html">
-                                    <i class="lnil lnil-notification"></i>
-                                    <span>Notifications</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-profile-settings.html">
-                                    <i class="lnil lnil-cog"></i>
-                                    <span>Settings</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Pages <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/auth-login-1.html">
-                                    <i class="lnil lnil-pointer-right"></i>
-                                    <span>Login v1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/auth-login-2.html">
-                                    <i class="lnil lnil-pointer-right"></i>
-                                    <span>Login v2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/auth-login-3.html">
-                                    <i class="lnil lnil-pointer-right"></i>
-                                    <span>Login v3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/auth-signup-2.html">
-                                    <i class="lnil lnil-crown"></i>
-                                    <span>Signup v1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/auth-signup-3.html">
-                                    <i class="lnil lnil-crown"></i>
-                                    <span>Signup v2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/auth-signup-1.html">
-                                    <i class="lnil lnil-crown"></i>
-                                    <span>Signup Flow</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-search-results.html">
-                                    <i class="lnil lnil-search-alt"></i>
-                                    <span>Search Results</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-search-empty.html">
-                                    <i class="lnil lnil-search-alt"></i>
-                                    <span>Empty Search</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Subpages <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-saas-billing.html">
-                                    <i class="lnil lnil-credit-card"></i>
-                                    <span>SaaS Billing</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-welcome.html">
-                                    <i class="lnil lnil-door-alt"></i>
-                                    <span>Welcome</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-action-page-1.html">
-                                    <i class="lnil lnil-thunderbolt"></i>
-                                    <span>Action Page V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-action-page-2.html">
-                                    <i class="lnil lnil-thunderbolt"></i>
-                                    <span>Action Page V2</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Projects <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-projects-projects.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Projects V1</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-projects-projects-2.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Projects V2</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-projects-projects-3.html">
-                                    <i class="lnil lnil-grid-alt"></i>
-                                    <span>Projects V3</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-projects-project.html">
-                                    <i class="lnil lnil-layout"></i>
-                                    <span>Project Details</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-kanban-board.html">
-                                    <i class="lnil lnil-layout-alt-1"></i>
-                                    <span>Kanban Board</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Utility <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-utility-account-confirm.html">
-                                    <i class="lnil lnil-thunderbolt"></i>
-                                    <span>Confirm Account</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-utility-promotion.html">
-                                    <i class="lnil lnil-magnet"></i>
-                                    <span>Promotion Page</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-utility-invoice.html">
-                                    <i class="lnil lnil-calculator-alt"></i>
-                                    <span>Invoice</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-utility-status.html">
-                                    <i class="lnil lnil-checkmark-circle"></i>
-                                    <span>App Status</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Onboarding <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/admin-onboarding-page-1.html">
-                                    <i class="lnil lnil-train"></i>
-                                    <span>Onboarding V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-onboarding-page-2.html">
-                                    <i class="lnil lnil-train-alt"></i>
-                                    <span>Onboarding V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-onboarding-page-3.html">
-                                    <i class="lnil lnil-car"></i>
-                                    <span>Onboarding V3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-onboarding-page-4.html">
-                                    <i class="lnil lnil-car-alt"></i>
-                                    <span>Onboarding V4</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/admin-onboarding-page-5.html">
-                                    <i class="lnil lnil-train"></i>
-                                    <span>Onboarding V5</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-children">
-                        <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link">Error Pages <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                        </div>
-                        <ul>
-                            <li>
-                                <a class="is-submenu" href="/error-page-1.html">
-                                    <i class="lnil lnil-cross-circle"></i>
-                                    <span>Error 404 V1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/error-page-2.html">
-                                    <i class="lnil lnil-cross-circle"></i>
-                                    <span>Error 404 V2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/error-page-3.html">
-                                    <i class="lnil lnil-cross-circle"></i>
-                                    <span>Error 404 V3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/error-page-4.html">
-                                    <i class="lnil lnil-cross-circle"></i>
-                                    <span>Error 404 V4</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="is-submenu" href="/error-page-5.html">
-                                    <i class="lnil lnil-cross-circle"></i>
-                                    <span>Error 500 V1</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-  
-            </div>
-        </div>
-        <!-- Content Wrapper -->
-        <div id="app-projects" class="view-wrapper" data-naver-offset="214" data-menu-item="#layouts-sidebar-menu" data-mobile-item="#home-sidebar-menu-mobile">
-            <router-outlet></router-outlet>           
-        </div>
+
+        <router-outlet>
+            <!-- <app-home [activeSubSidebar]="activeSubSidebar"></app-home> -->
+        </router-outlet>
+
+        

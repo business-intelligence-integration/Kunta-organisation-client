@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-parameters',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parameters.component.scss']
 })
 export class ParametersComponent implements OnInit {
+
+  @Input() activeSubSidebar: string = "";
+  @Input() activeMainSidebar: string = "";
+
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";

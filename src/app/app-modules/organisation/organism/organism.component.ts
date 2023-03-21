@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OrganismComponent implements OnInit {
 
+  @Input() activeSubSidebar: string = "";
+  @Input() activeMainSidebar: string = "";
+  
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";

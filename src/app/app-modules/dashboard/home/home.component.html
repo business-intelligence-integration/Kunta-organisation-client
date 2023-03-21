@@ -1,117 +1,631 @@
+<!--Mobile sidebar-->
+<div class="mobile-main-sidebar" [ngClass]="activeMainSidebar" >
+    <div class="inner">
+        <ul class="icon-side-menu">
+            <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/dashboards/']" id="home-sidebar-menu-mobile" class="is-active">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </a>
+            </li>
+            <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/organization/users']" id="layouts-sidebar-menu-mobile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </a>
+            </li>
+            <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/operations/tontines']" id="elements-sidebar-menu-mobile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                </a>
+            </li>
+        </ul>
 
-<div id="app-hr" class="view-wrapper" [ngClass]="isPushed" data-naver-offset="150" data-menu-item="#home-sidebar-menu"
-    data-mobile-item="#home-sidebar-menu-mobile">
-    <div class="page-content-wrapper">
-        <div class="page-content is-relative">
-    
-            <div class="page-title has-text-centered">
-                <!-- Sidebar Trigger -->
-                <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
-                    <span class="menu-toggle has-chevron">
-                      <span class="icon-box-toggle">
-                          <span class="rotate">
-                              <i class="icon-line-top"></i>
-                              <i class="icon-line-center"></i>
-                              <i class="icon-line-bottom"></i>
-                          </span>
-                    </span>
-                    </span>
-                </div>
-    
-                <div class="title-wrap">
-                    <h1 class="title is-4">Datatable</h1>
-                </div>
-            </div>
-    
-            <div class="datatable-toolbar">
-                <div class="field has-addons is-disabled">
-                    <p class="control">
-                        <button class="button h-button">
-                            <span class="icon is-small">
-                              <i aria-hidden="true" class="fas fa-download"></i>
-                          </span>
-                            <span>Download</span>
-                        </button>
-                    </p>
-                    <p class="control">
-                        <button class="button h-button">
-                            <span class="icon is-small">
-                              <i aria-hidden="true" class="fas fa-upload"></i>
-                          </span>
-                            <span>Update</span>
-                        </button>
-                    </p>
-                    <p class="control">
-                        <button class="button h-button">
-                            <span class="icon is-small">
-                              <i aria-hidden="true" class="fas fa-times"></i>
-                          </span>
-                            <span>Remove</span>
-                        </button>
-                    </p>
-                </div>
-    
-                <div class="buttons">
-                    <button class="button h-button is-primary is-elevated">
-                        <span class="icon">
-                          <i aria-hidden="true" class="fas fa-upload"></i>
-                      </span>
-                        <span>Upload File</span>
-                    </button>
-                </div>
-            </div>
-    
-            <div class="page-content-inner">
-    
-                <!-- Datatable -->
-                <div class="table-wrapper" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
-                    <table id="empty-datatable" class="table is-datatable is-hoverable table-is-bordered">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="control">
-                                        <label class="checkbox is-primary is-outlined is-circle">
-                                            <input type="checkbox">
-                                            <span></span>
-                                        </label>
-                                    </div>
-                                </th>
-                                <th>Type</th>
-                                <th>Name</th>
-                                <th class="has-text-centered sorting" data-sort="size">Size</th>
-                                <th class="has-text-centered sorting" data-sort="version">Version</th>
-                                <th>Last Updated</th>
-                                <th></th>
-                            </tr>
-                        <tr class="datatable-filter-line"><td></td><td></td><td class="datatable-filter-cell"><div class="control has-icon"><input type="text" placeholder="Type to Filter... " class="datatable-filter datatable-input-text input" data-filter="name">
-    <div class="form-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-    </div>
-    </div></td><td></td><td></td><td></td><td></td></tr></thead>
-                        <tbody></tbody>
-                    </table>
-    
-                    <!--Empty Placeholder-->
-                    <div class="section-placeholder">
-                        <div class="placeholder-content">
-                            <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                            <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
-                            <h3 class="dark-inverted">No data to show</h3>
-                            <p>There is currently no data to show in this list.</p>
-                        </div>
-                    </div>
-                </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 493px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
-    
-                <div id="paging-first-datatable" class="pagination datatable-pagination pagination-datatables text-center">
-                    <div class="datatable-info">
-                        <span>Showing 0 to 0 of 0 items.</span>
-                    </div>
-                <ul class="pagination"><li class="active"><a data-page="prev"><i class="fas fa-angle-left"></i></a></li><li class="active"><a data-page="next"><i class="fas fa-angle-right"></i></a></li></ul></div>
-    
-            </div>
-    
-        </div>
+        <ul class="bottom-icon-side-menu">
+            <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/parameters/']">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
+<!-- Mobile Sub Side Bar Menu -->
+<!-- <div class="mobile-subsidebar" [ngClass]="activeSubSidebar">
+    <div class="inner">
+        <div class="sidebar-title">
+            <h3>Layouts</h3>
+        </div>
 
+        <ul class="submenu">
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Lists <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-view-1.html">
+                            <i class="lnil lnil-list-alt"></i>
+                            <span>List View V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-view-2.html">
+                            <i class="lnil lnil-list-alt"></i>
+                            <span>List View V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-view-3.html">
+                            <i class="lnil lnil-list-alt"></i>
+                            <span>List View V3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-view-4.html">
+                            <i class="lnil lnil-list-alt"></i>
+                            <span>List View V4</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Flex Lists <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-flex-1.html">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Flex List V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-flex-2.html">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Flex List V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-flex-3.html">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Flex List V3</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children active">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Datatable <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul style="display: block;">
+                    <li>
+                        <a class="is-submenu" href="/admin-list-datatable-1.html">
+                            <i class="lnil lnil-layout-alt"></i>
+                            <span>Datatable V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-datatable-2.html">
+                            <i class="lnil lnil-layout-alt"></i>
+                            <span>Datatable V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-list-datatable-3.html">
+                            <i class="lnil lnil-layout-alt"></i>
+                            <span>Datatable V3</span>
+                        </a>
+                    </li>
+                    <li class="is-active">
+                        <a class="is-submenu" href="/admin-list-datatable-4.html">
+                            <i class="lnil lnil-layout-alt"></i>
+                            <span>Datatable V4</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Placeload <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-placeload-1.html">
+                            <i class="lnil lnil-reload"></i>
+                            <span>Placeload V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-placeload-2.html">
+                            <i class="lnil lnil-reload"></i>
+                            <span>Placeload V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-placeload-3.html">
+                            <i class="lnil lnil-reload"></i>
+                            <span>Placeload V3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-placeload-4.html">
+                            <i class="lnil lnil-reload"></i>
+                            <span>Placeload V4</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Card Grid <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-cards-1.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Card Grid V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-cards-2.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Card Grid V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-cards-3.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Card Grid V3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-cards-4.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Card Grid V4</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Tile Grid <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-tiles-1.html">
+                            <i class="lnil lnil-layout-alt-2"></i>
+                            <span>Tile Grid V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-tiles-2.html">
+                            <i class="lnil lnil-layout-alt-2"></i>
+                            <span>Tile Grid V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-tiles-3.html">
+                            <i class="lnil lnil-layout-alt-2"></i>
+                            <span>Tile Grid V3</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">User Grid <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-users-1.html">
+                            <i class="lnil lnil-users-alt"></i>
+                            <span>User Grid V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-users-2.html">
+                            <i class="lnil lnil-users-alt"></i>
+                            <span>User Grid V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-users-3.html">
+                            <i class="lnil lnil-users-alt"></i>
+                            <span>User Grid V3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-grid-users-4.html">
+                            <i class="lnil lnil-users-alt"></i>
+                            <span>User Grid V4</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Personal <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-profile-view.html">
+                            <i class="lnil lnil-user-alt"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-profile-edit-1.html">
+                            <i class="lnil lnil-pencil"></i>
+                            <span>Edit Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-profile-notifications.html">
+                            <i class="lnil lnil-notification"></i>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-profile-settings.html">
+                            <i class="lnil lnil-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Pages <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/auth-login-1.html">
+                            <i class="lnil lnil-pointer-right"></i>
+                            <span>Login v1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/auth-login-2.html">
+                            <i class="lnil lnil-pointer-right"></i>
+                            <span>Login v2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/auth-login-3.html">
+                            <i class="lnil lnil-pointer-right"></i>
+                            <span>Login v3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/auth-signup-2.html">
+                            <i class="lnil lnil-crown"></i>
+                            <span>Signup v1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/auth-signup-3.html">
+                            <i class="lnil lnil-crown"></i>
+                            <span>Signup v2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/auth-signup-1.html">
+                            <i class="lnil lnil-crown"></i>
+                            <span>Signup Flow</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-search-results.html">
+                            <i class="lnil lnil-search-alt"></i>
+                            <span>Search Results</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-search-empty.html">
+                            <i class="lnil lnil-search-alt"></i>
+                            <span>Empty Search</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Subpages <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-saas-billing.html">
+                            <i class="lnil lnil-credit-card"></i>
+                            <span>SaaS Billing</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-welcome.html">
+                            <i class="lnil lnil-door-alt"></i>
+                            <span>Welcome</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-action-page-1.html">
+                            <i class="lnil lnil-thunderbolt"></i>
+                            <span>Action Page V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-action-page-2.html">
+                            <i class="lnil lnil-thunderbolt"></i>
+                            <span>Action Page V2</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Projects <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-projects-projects.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Projects V1</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-projects-projects-2.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Projects V2</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-projects-projects-3.html">
+                            <i class="lnil lnil-grid-alt"></i>
+                            <span>Projects V3</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-projects-project.html">
+                            <i class="lnil lnil-layout"></i>
+                            <span>Project Details</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-kanban-board.html">
+                            <i class="lnil lnil-layout-alt-1"></i>
+                            <span>Kanban Board</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin is-auto"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Utility <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-utility-account-confirm.html">
+                            <i class="lnil lnil-thunderbolt"></i>
+                            <span>Confirm Account</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-utility-promotion.html">
+                            <i class="lnil lnil-magnet"></i>
+                            <span>Promotion Page</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-utility-invoice.html">
+                            <i class="lnil lnil-calculator-alt"></i>
+                            <span>Invoice</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-utility-status.html">
+                            <i class="lnil lnil-checkmark-circle"></i>
+                            <span>App Status</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Onboarding <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/admin-onboarding-page-1.html">
+                            <i class="lnil lnil-train"></i>
+                            <span>Onboarding V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-onboarding-page-2.html">
+                            <i class="lnil lnil-train-alt"></i>
+                            <span>Onboarding V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-onboarding-page-3.html">
+                            <i class="lnil lnil-car"></i>
+                            <span>Onboarding V3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-onboarding-page-4.html">
+                            <i class="lnil lnil-car-alt"></i>
+                            <span>Onboarding V4</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/admin-onboarding-page-5.html">
+                            <i class="lnil lnil-train"></i>
+                            <span>Onboarding V5</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-children">
+                <div class="collapse-wrap">
+                    <a href="javascript:void(0);" class="parent-link">Error Pages <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                </div>
+                <ul>
+                    <li>
+                        <a class="is-submenu" href="/error-page-1.html">
+                            <i class="lnil lnil-cross-circle"></i>
+                            <span>Error 404 V1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/error-page-2.html">
+                            <i class="lnil lnil-cross-circle"></i>
+                            <span>Error 404 V2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/error-page-3.html">
+                            <i class="lnil lnil-cross-circle"></i>
+                            <span>Error 404 V3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/error-page-4.html">
+                            <i class="lnil lnil-cross-circle"></i>
+                            <span>Error 404 V4</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="is-submenu" href="/error-page-5.html">
+                            <i class="lnil lnil-cross-circle"></i>
+                            <span>Error 500 V1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</div> -->
+<!-- /////////////////////////////////////////////////////////////////////////// -->
+<!-- Content Wrapper -->
+<div id="app-hr" class="view-wrapper" [ngClass]="isPushed" data-naver-offset="150" data-menu-item="#home-sidebar-menu"
+data-mobile-item="#home-sidebar-menu-mobile">
+<div class="page-content-wrapper">
+    <div class="page-content is-relative">
+
+        <div class="page-title has-text-centered">
+            <!-- Sidebar Trigger -->
+            <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
+                <span class="menu-toggle has-chevron">
+                <span class="icon-box-toggle">
+                    <span class="rotate">
+                        <i class="icon-line-top"></i>
+                        <i class="icon-line-center"></i>
+                        <i class="icon-line-bottom"></i>
+                    </span>
+                </span>
+                </span>
+            </div>
+
+            <div class="title-wrap">
+                <h1 class="title is-4">Datatable</h1>
+            </div>
+        </div>
+
+        <div class="datatable-toolbar">
+            <div class="field has-addons is-disabled">
+                <p class="control">
+                    <button class="button h-button">
+                        <span class="icon is-small">
+                        <i aria-hidden="true" class="fas fa-download"></i>
+                    </span>
+                        <span>Download</span>
+                    </button>
+                </p>
+                <p class="control">
+                    <button class="button h-button">
+                        <span class="icon is-small">
+                        <i aria-hidden="true" class="fas fa-upload"></i>
+                    </span>
+                        <span>Update</span>
+                    </button>
+                </p>
+                <p class="control">
+                    <button class="button h-button">
+                        <span class="icon is-small">
+                        <i aria-hidden="true" class="fas fa-times"></i>
+                    </span>
+                        <span>Remove</span>
+                    </button>
+                </p>
+            </div>
+
+            <div class="buttons">
+                <button class="button h-button is-primary is-elevated">
+                    <span class="icon">
+                    <i aria-hidden="true" class="fas fa-upload"></i>
+                </span>
+                    <span>Upload File</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="page-content-inner">
+
+            <!-- Datatable -->
+            <div class="table-wrapper" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
+                <table id="empty-datatable" class="table is-datatable is-hoverable table-is-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="control">
+                                    <label class="checkbox is-primary is-outlined is-circle">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </th>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th class="has-text-centered sorting" data-sort="size">Size</th>
+                            <th class="has-text-centered sorting" data-sort="version">Version</th>
+                            <th>Last Updated</th>
+                            <th></th>
+                        </tr>
+                    <tr class="datatable-filter-line"><td></td><td></td><td class="datatable-filter-cell"><div class="control has-icon"><input type="text" placeholder="Type to Filter... " class="datatable-filter datatable-input-text input" data-filter="name">
+<div class="form-icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+</div>
+</div></td><td></td><td></td><td></td><td></td></tr></thead>
+                    <tbody></tbody>
+                </table>
+
+                <!--Empty Placeholder-->
+                <div class="section-placeholder">
+                    <div class="placeholder-content">
+                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
+                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                        <h3 class="dark-inverted">No data to show</h3>
+                        <p>There is currently no data to show in this list.</p>
+                    </div>
+                </div>
+            </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 493px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
+
+            <div id="paging-first-datatable" class="pagination datatable-pagination pagination-datatables text-center">
+                <div class="datatable-info">
+                    <span>Showing 0 to 0 of 0 items.</span>
+                </div>
+            <ul class="pagination"><li class="active"><a data-page="prev"><i class="fas fa-angle-left"></i></a></li><li class="active"><a data-page="next"><i class="fas fa-angle-right"></i></a></li></ul></div>
+
+        </div>
+
+    </div>
+</div>
+</div>
 
