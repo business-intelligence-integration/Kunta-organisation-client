@@ -39,7 +39,7 @@
                 <span class="is-grow">Id</span>
                 <span>Appelation</span>
                 <span>Description</span>
-                <span>Action</span>
+                <span>Actions</span>
             </div>
 
             <div class="flex-list-inner">
@@ -53,10 +53,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ frequency.label }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Description">
                         <span class="light-text" data-filter-match="">{{ frequency.description }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -108,7 +108,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="createFrequenceForm" (ngSubmit)="onSubmitCreateFrequence()">
                         <div class="field">
-                            <label>Appelation*</label>
+                            <label>Appelation *</label>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Appelation" formControlName="label">
                             </div>
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateFrequenceModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateFrequenceModal()">Annuler</a>
             </div>
         </div>
     </div>
@@ -189,7 +189,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateFrequenceModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateFrequenceModal()">Annuler</a>
             </div>
         </div>
     </div>

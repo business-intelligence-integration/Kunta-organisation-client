@@ -38,8 +38,8 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
                 <span>Appellation</span>
-                <span>Organisation</span>
-                <span>Action</span>
+                <span>Description</span>
+                <span>Actions</span>
             </div>
 
             <div class="flex-list-inner">
@@ -53,10 +53,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ frequency.label }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Description">
                         <span class="light-text" data-filter-match="">{{ frequency.description }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateModal()">Annuler</a>
             </div>
         </div>
     </div>

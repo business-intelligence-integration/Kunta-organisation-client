@@ -164,7 +164,7 @@
                             <div class="flex-table-cell" data-th="Prenom">
                                 <span class="light-text" data-filter-match="">{{ cycle.startDate }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Status">
+                            <div class="flex-table-cell" data-th="Statut">
                                 <span class="tag is-rounded cliquable"  data-filter-match="" (click)="onChangeCycleStatus(cycle.id)" [ngClass]="{'is-danger': cycle.status.label === 'FERMÉ', 'is-success': cycle.status.label === 'OUVERT'}">{{ cycle.status.label }}</span>
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeCycleModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCycleModal()">Annuler</a>
             </div>
         </div>
     </div>

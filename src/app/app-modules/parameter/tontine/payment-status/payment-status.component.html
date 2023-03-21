@@ -38,7 +38,7 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
                 <span>Appelation</span>
-                <span>Action</span>
+                <span>Actions</span>
             </div>
             <div class="flex-list-inner">
                 <div class="flex-table-item" *ngFor="let pStatus of paymentStatus">
@@ -50,7 +50,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ pStatus.label }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -119,7 +119,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closePaymentStatuspeModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closePaymentStatuspeModal()">Annuler</a>
             </div>
         </div>
     </div>
@@ -162,7 +162,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentStatuspeModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentStatuspeModal()">Annuler</a>
             </div>
         </div>
     </div>

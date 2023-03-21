@@ -71,22 +71,22 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Location">
+                            <div class="flex-table-cell" data-th="Nom">
                                 <span class="light-text" data-filter-match="">{{ user.lastName }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Location">
+                            <div class="flex-table-cell" data-th="Prenom">
                                 <span class="light-text" data-filter-match="">{{ user.firstName }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Location">
+                            <div class="flex-table-cell" data-th="Numéro Tel">
                                 <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Location">
+                            <div class="flex-table-cell" data-th="Email">
                                 <span class="light-text" data-filter-match="">{{ user.email }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Email">
+                            <div class="flex-table-cell" data-th="Fonction">
                                 <span class="light-text" data-filter-match="">{{ user.post.name }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Email">
+                            <div class="flex-table-cell" data-th="Ville">
                                 <span class="light-text" data-filter-match="">{{ user.city }}</span>
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
@@ -155,20 +155,20 @@
                             </div>
                         </div><br>
                         <div class="field">
-                            <label>fonction du membre *</label>
+                            <label>Fonction du membre *</label>
                             <select class="input_comp" formControlName="idFonction" aria-label="Default select example" [(ngModel)]="ngSelect2">
                                 <option value="0" disabled>--Selectionnez la fonction du membre--</option>
                                 <option *ngFor="let post of posts" [value]="post.id"> <span>{{ post.name }} </span> </option>
                             </select>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Enregistrer</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeMemberModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeMemberModal()">Annuler</a>
             </div>
         </div>
     </div>

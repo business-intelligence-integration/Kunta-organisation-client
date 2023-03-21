@@ -30,7 +30,7 @@
                 <span class="is-grow">Id</span>
                 <span>Montant</span>
                 <span>Appelation</span>
-                <span>Action</span>
+                <span>Actions</span>
             </div>
             <div class="flex-list-inner">
                 <div class="flex-table-item" *ngFor="let penaltyType of penaltyTypes">
@@ -42,10 +42,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Montant">
                         <span class="light-text" data-filter-match="">{{ penaltyType.amount }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ penaltyType.label }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -106,13 +106,13 @@
                         </div>
                         
                         <div class="field">
-                            <label>Appellation*</label><br>
+                            <label>Appelation*</label><br>
                             <div class="control">
                                 <input type="text" [(ngModel)]="penaltyType.label" class="input" placeholder="Appellation" formControlName="label">
                             </div>
                             <div class="text-danger"
                                 *ngIf="penaltyTypeForm.get('label')?.errors?.['required'] && penaltyTypeForm.get('label')?.touched">
-                                <small class="text-police">veuillez entrer l'appellation du type de paiement</small>
+                                <small class="text-police">veuillez entrer l'appelation du type de paiement</small>
                              </div>
                         </div>
                         <div class="control login">
@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closePenaltyTypeModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closePenaltyTypeModal()">Annuler</a>
             </div>
         </div>
     </div>

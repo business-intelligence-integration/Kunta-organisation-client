@@ -169,26 +169,26 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Date">
                                 <span class="light-text" data-filter-match="">{{ penality.date }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Montant">
                                 <span class="light-text" data-filter-match="">{{ penality.penaltyType.amount }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Description">
                                 <span class="light-text" data-filter-match="">{{ penality.penaltyType.label }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Status">
+                            <div class="flex-table-cell" data-th="Payé">
                                 <span class="tag is-rounded is-cliquable is-danger" *ngIf="penality.paid === false">nom</span>
                                 <span class="tag is-rounded is-cliquable is-success" *ngIf="penality.paid === true">oui</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Cotiser">
+                            <div class="flex-table-cell" data-th="Payer">
                                 <a class="pagination-previous has-chevron" tooltip=" Payer pénalité " theme='light'  [ngClass]="{'disabled': penality.paid === true}" (click)="onOpenPaymentModal(penality.id, penality.user.id, penality.penaltyType.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
                             </div>
-                            <div class="flex-table-cell" data-th="Status">
+                            <div class="flex-table-cell" data-th="Utilisateur">
                                 <span class="light-text" data-filter-match="">{{ penality.user.firstName }}</span>
                             </div>
                         </div>
@@ -265,20 +265,20 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Utilisateur">
                                 <span class="light-text" data-filter-match="">{{ user.userName }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Total de penalité(FCFA)">
                                 <span class="light-text" data-filter-match="">{{ user.penaltiesToPay }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Reste à payer(FCFA)">
                                 <span class="light-text" data-filter-match="">{{ user.remainingToPay }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Status">
-                                <span class="tag is-rounded is-cliquable is-danger" *ngIf="user.upToDate === false">nom</span>
+                            <div class="flex-table-cell" data-th="A Jour">
+                                <span class="tag is-rounded is-cliquable is-danger" *ngIf="user.upToDate === false">non</span>
                                 <span class="tag is-rounded is-cliquable is-success" *ngIf="user.upToDate === true">oui</span>
                             </div>
                         
@@ -383,7 +383,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closePaymentModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closePaymentModal()">Annuler</a>
             </div>
         </div>
     </div>
