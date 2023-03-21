@@ -142,4 +142,8 @@ export class ParametersComponent implements OnInit {
   onRefundType(){
     this.dynamicTitle = "Types de remboursement"
   }
+
+  onFamilySituation(){
+    this.dynamicTitle = "Situation familiale"
+  }
 }
