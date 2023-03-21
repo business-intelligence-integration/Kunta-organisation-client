@@ -80,6 +80,10 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     ReactiveFormsModule,
     Select2Module,
     TooltipModule
+  ],
+  exports: [
+    OrganismComponent,
+    UserComponent,
   ]
 })
 export class OrganisationModule { }
