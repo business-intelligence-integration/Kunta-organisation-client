@@ -73,4 +73,8 @@ export class TontineService {
   findAllCyclesOfTontine(idTontine: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'tontines/'+ idTontine + '/cycles');
   }
+
+  findTontineByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'tontines/search?name='+ name, httpOptions);
+  }
 }

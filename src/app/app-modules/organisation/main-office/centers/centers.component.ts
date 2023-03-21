@@ -24,6 +24,7 @@ export class CentersComponent implements OnInit {
   addCenterForm!: FormGroup
   updateCenterForm!: FormGroup;
   addAreaForm!: FormGroup;
+  searchForm!: FormGroup;
   centers: Organism[] = [];
   newListcenters: Organism[] = [];
   countCenter: number = 0;
@@ -33,6 +34,7 @@ export class CentersComponent implements OnInit {
   members: User[] = [];
   area: Organism;
   idCenter: number = 0;
+  isSaving:boolean = false;
   maxCreationAreaDate: any;
   constructor(private formBuilder: FormBuilder,
     private centerService: CenterService,
@@ -70,6 +72,10 @@ export class CentersComponent implements OnInit {
       reference: new FormControl(null, Validators.required),
       creationDate: new FormControl(null, Validators.required),
       observation: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required)
     })
   }  
 
@@ -198,7 +204,9 @@ export class CentersComponent implements OnInit {
   }
 
   createCenter(center: Organism){
+    this.isSaving = true;
     this.centerService.createCenter(center).subscribe((res)=>{
+      this.isSaving = false;
       this.center = res.data
       this.onCloseAddModal();
       this.getAllCenters();
@@ -211,7 +219,7 @@ export class CentersComponent implements OnInit {
       );
     }, (error)=>{
       console.log(error);
-      
+      this.isSaving = false;
     })
   }
 
@@ -228,7 +236,9 @@ export class CentersComponent implements OnInit {
   }
 
   updateCenter(center: Organism, id: number){
+    this.isSaving = true;
     this.centerService.updateCenterById(center, id).subscribe(()=>{
+      this.isSaving = false;
       this.getAllCenters();
       this.onCloseUpdateModale();
       this.utilityService.showMessage(
@@ -238,6 +248,7 @@ export class CentersComponent implements OnInit {
         'white'
       );
     }, (error)=>{
+      this.isSaving = false;
       console.log(error);
       this.getCenterById(id);
     })
@@ -279,4 +290,17 @@ export class CentersComponent implements OnInit {
     this.maxCreationAreaDate = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
   
+  searchCenters(){
+    this.findCentersByName(this.searchForm.value.name);
+    
+    
+  }
+
+  findCentersByName(name: string){
+    this.centerService.findCentersByName(name).subscribe((res)=>{
+      console.log('search...', name);
+      this.newListcenters = [];
+      this.newListcenters = res?.data;
+    })
+  }
 }

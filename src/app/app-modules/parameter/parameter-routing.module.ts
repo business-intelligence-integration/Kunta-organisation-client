@@ -22,6 +22,7 @@ import { TransversalityComponent } from './tontine/transversality/transversality
 const routes: Routes = [
   {path:"", component: ParametersComponent, canActivate: [EntityGuard],
   children: [
+    {path:"", component: CivilityComponent, canActivate: [EntityGuard]},
     {path:"civility", component: CivilityComponent, canActivate: [EntityGuard]},
     {path:"family-situation", component: FamilySituationComponent, canActivate: [EntityGuard]},
     {path:"piece-type", component: PieceTypeComponent, canActivate: [EntityGuard]},

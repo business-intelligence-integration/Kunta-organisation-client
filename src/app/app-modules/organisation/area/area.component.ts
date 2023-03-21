@@ -23,6 +23,7 @@ export class AreaComponent implements OnInit {
   addAreaForm!: FormGroup;
   updateAreaForm!: FormGroup;
   addClubForm!: FormGroup;
+  searchForm!: FormGroup;
   areas: Organism[] = [];
   clubs: Organism[] = [];
   area: Organism;
@@ -70,7 +71,11 @@ export class AreaComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       creationDate: new FormControl(null, Validators.required),
       reference: new FormControl(null, Validators.required),
-      observation: new FormControl(null),
+      observation: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required)
     })
   }
 
@@ -143,7 +148,9 @@ getAllCenters(){
   
 
   updateAre(area: Organism, id: number){
+    this.isSaving = true;
     this.areaService.updateAreaById(area, id).subscribe(()=>{
+      this.isSaving = false;
       this.onCloseUpdateModal();
       this.getAllAreas();
       this.utilityService.showMessage(
@@ -152,6 +159,8 @@ getAllCenters(){
         '#06d6a0',
         'white'
       );
+    },()=>{
+      this.isSaving = false;
     })
   }
 
@@ -279,5 +288,14 @@ getAllCenters(){
     this.CreationAreaDate = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
+  searchAres(){
+    this.findAreasByName(this.searchForm.value.name);
+  }
 
+  findAreasByName(name: string){
+    this.areaService.findAreasByName(name).subscribe((res)=>{
+      this.areas = [];
+      this.areas = res?.data;
+    })
+  }
 }

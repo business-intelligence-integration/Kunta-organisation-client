@@ -127,6 +127,7 @@ export class ViewMoreComponent implements OnInit {
   closeMemberModal(){
     this.openMemberModal = "";
   }
+  
   closePilotModal(){
     this.openPilotModal = "";
   }

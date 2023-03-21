@@ -70,7 +70,7 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowAllTontine()">Tontines</a>
                 </div> -->
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/operations/tontines/']">Tontines</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowAllTontine()" [routerLink]="['/operations/tontines/']">Tontines</a>
                 </div>
             </li>
             <li>
@@ -78,7 +78,7 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowAllMutualInvestment()">Placements mutualisés</a>
                 </div> -->
                 <div class="collapse-wrap">
-                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/operations/mutual-investment/']">Placements mutualisés</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowAllMutualInvestment()" [routerLink]="['/operations/mutual-investment/']">Placements mutualisés</a>
                 </div>
             </li>
         </ul>
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Operation</h1>
+                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
                 </div>
                
             </div>

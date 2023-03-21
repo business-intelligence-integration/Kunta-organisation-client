@@ -43,6 +43,7 @@ export class TontineComponent implements OnInit {
   openCreateModal: string = "";
   createTontineForm!: FormGroup;
   updateTontineForm!: FormGroup;
+  searchForm!: FormGroup;
   addMemberForm!: FormGroup;
   createCycleForm!: FormGroup;
   openMemberModal: string = "";
@@ -124,6 +125,10 @@ export class TontineComponent implements OnInit {
     this.createCycleForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
       startDate: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required)
     })
   }
 
@@ -618,4 +623,14 @@ export class TontineComponent implements OnInit {
     this.isList = true;
   }
 
+  searchTontines(){
+    this.findTontinesByName(this.searchForm.value.name);
+  }
+
+  findTontinesByName(name: string){
+    this.tontineService.findTontineByName(name).subscribe((res)=>{
+      this.tontines = [];
+      this.tontines = res?.data;
+    })
+  }
 }

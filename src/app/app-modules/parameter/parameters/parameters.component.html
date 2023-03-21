@@ -76,7 +76,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Poste</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/postes/']">
+                        <a class="is-submenu" (click)="onPoste()" [routerLink]="['/parameters/postes/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Poste</span>
                         </a>
@@ -87,7 +87,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Types de pièces</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/piece-type/']">
+                        <a class="is-submenu" (click)="onPieceType()" [routerLink]="['/parameters/piece-type/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Types de pièces</span>
                         </a>
@@ -98,7 +98,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Situation familiale</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/family-situation/']">
+                        <a class="is-submenu" (click)="onPieceType()" [routerLink]="['/parameters/family-situation/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Situation familiale</span>
                         </a>
@@ -109,7 +109,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Civilité</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/civility/']">
+                        <a class="is-submenu" (click)="onCivility()" [routerLink]="['/parameters/civility/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Civilité</span>
                         </a>
@@ -126,7 +126,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Frequences</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/frequencies/']">
+                        <a class="is-submenu" (click)="onFrequency()" [routerLink]="['/parameters/frequencies/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Frequences</span>
                         </a>
@@ -136,7 +136,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Niveaux de transversalité</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/transversality/']">
+                        <a class="is-submenu" (click)="onTransversality()" [routerLink]="['/parameters/transversality/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Niveaux de transversalité</span>
                         </a>
@@ -147,7 +147,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Gain</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/gains/']">
+                        <a class="is-submenu" (click)="onGain()" [routerLink]="['/parameters/gains/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Gain</span>
                         </a>
@@ -158,7 +158,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Cycle</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/cycles/']">
+                        <a (click)="onCycle()" class="is-submenu" [routerLink]="['/parameters/cycles/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Cycle</span>
                         </a>
@@ -169,7 +169,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Séance</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/session/']">
+                        <a (click)="onSession()" class="is-submenu" [routerLink]="['/parameters/session/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Séance</span>
                         </a>
@@ -179,7 +179,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Statut</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/status/']">
+                        <a (click)="onStatus()" class="is-submenu" [routerLink]="['/parameters/status/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Statut</span>
                         </a>
@@ -190,7 +190,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Type Penalité</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/penalty-type/']">
+                        <a class="is-submenu" (click)="onPenalyType()" [routerLink]="['/parameters/penalty-type/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Type Penalité</span>
                         </a>
@@ -201,7 +201,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Penalité</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/penalty/']">
+                        <a class="is-submenu" (click)="onPenaly()" [routerLink]="['/parameters/penalty/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Penalité</span>
                         </a>
@@ -212,7 +212,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Statut Paiement</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/payment-status/']">
+                        <a class="is-submenu" (click)="onPaymentStatus()" [routerLink]="['/parameters/payment-status/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Statut Paiement</span>
                         </a>
@@ -237,7 +237,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Formulaire de tirage</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/drawee-form/']">
+                        <a class="is-submenu" (click)="onDraweeForm()" [routerLink]="['/parameters/drawee-form/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Formulaire de tirage</span>
                         </a>
@@ -248,7 +248,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Type de rentabilité</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/profitability-type/']">
+                        <a class="is-submenu" (click)="onProfitabilityType()" [routerLink]="['/parameters/profitability-type/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Type de rentabilité</span>
                         </a>
@@ -259,7 +259,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Type de remboursement</span>
                         </a> -->
-                        <a class="is-submenu" [routerLink]="['/parameters/refund-type/']">
+                        <a  (click)="onRefundType()" class="is-submenu" [routerLink]="['/parameters/refund-type/']">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Type de remboursement</span>
                         </a>
@@ -289,7 +289,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Paramètres</h1>
+                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
                 </div>
 
             </div>

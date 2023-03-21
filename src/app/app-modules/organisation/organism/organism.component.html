@@ -67,47 +67,15 @@
         <ul>
             <li>
                 <div class="collapse-wrap" >
-                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/users/']" >Utilisateurs</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowUsers()" [routerLink]="['/organization/users/']" >Utilisateurs</a>
                 </div>
             </li>
-            <!-- <li class="has-children" [ngClass]="activeListUser">
-                <div class="collapse-wrap">
-                    <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Utilisateurs <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-                </div>
-                <ul [style.display]="wrapdwonListUser">
-                    <li>
-                        
-                        <a [routerLink]="['/organization/users/']" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Tous les utilisateurs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/organization/users/admins']" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Administrateurs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/organization/users/members']" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Membres</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/organization/users/mutualistes']" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Mutualistes</span>
-                        </a>
-                    </li>
-                </ul>
-            </li> -->
             <li>
                 <!-- <div class="collapse-wrap" >
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()">Clubs</a>
                 </div> -->
                 <div class="collapse-wrap" >
-                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/clubs/']">Clubs</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowClub()" [routerLink]="['/organization/clubs/']">Clubs</a>
                 </div>
             </li>
             <li>
@@ -115,7 +83,7 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowArea()">Zones</a>
                 </div> -->
                 <div class="collapse-wrap" >
-                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/areas/']">Zones</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowZone()" [routerLink]="['/organization/areas/']">Zones</a>
                 </div>
             </li>
             <li>
@@ -123,7 +91,7 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onMainCenters()" >Centres</a>
                 </div> -->
                 <div class="collapse-wrap" >
-                    <a href="javascript:void(0);" class="parent-link" [routerLink]="['/organization/centers/']" >Centres</a>
+                    <a href="javascript:void(0);" class="parent-link" (click)="onShowCentre()" [routerLink]="['/organization/centers/']" >Centres</a>
                 </div>
             </li>
             <li class="has-children" [ngClass]="activateMainOfficeDetails">
@@ -136,7 +104,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité exécutif</span>
                         </a> -->
-                        <a [routerLink]="['/organization/executif-board/']" class="is-submenu">
+                        <a (click)="onShowExecutifBoard()" [routerLink]="['/organization/executif-board/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité exécutif</span>
                         </a>
@@ -147,7 +115,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Assemblée générale</span>
                         </a> -->
-                        <a [routerLink]="['/organization/general-assembly/']" class="is-submenu">
+                        <a (click)="onShowGeneralAssembly()" [routerLink]="['/organization/general-assembly/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Assemblée générale</span>
                         </a>
@@ -157,7 +125,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de gouvernance et de rémunération</span>
                         </a> -->
-                        <a [routerLink]="['/organization/governance-compensation/']"  class="is-submenu">
+                        <a (click)="onShowGovernanceCompensation()" [routerLink]="['/organization/governance-compensation/']"  class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de gouvernance et de rémunération</span>
                         </a>
@@ -167,7 +135,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de production et de surveillance</span>
                         </a> -->
-                        <a [routerLink]="['/organization/production-monitoring-committee/']" class="is-submenu">
+                        <a (click)="onShowGovernanceCompensation()" [routerLink]="['/organization/production-monitoring-committee/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de production et de surveillance</span>
                         </a>
@@ -178,7 +146,7 @@
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de développement stratégique</span>
                         </a> -->
-                        <a [routerLink]="['/organization/strategic-development-committee/']" class="is-submenu">
+                        <a (click)="onShowGovernanceCompensation()" [routerLink]="['/organization/strategic-development-committee/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de développement stratégique</span>
                         </a>
@@ -209,7 +177,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Organisation</h1>
+                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
                 </div>
             </div>
             <router-outlet></router-outlet>

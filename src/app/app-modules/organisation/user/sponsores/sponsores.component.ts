@@ -6,7 +6,7 @@ import { User } from 'src/app/core/classes/user';
 import { BeneficiaryService } from 'src/app/core/services/beneficiary/beneficiary.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import Swal from 'sweetalert2';
-
+import {Location} from "@angular/common";
 @Component({
   selector: 'app-sponsores',
   templateUrl: './sponsores.component.html',
@@ -25,7 +25,8 @@ export class SponsoresComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private userService: UserService,
-    private beneficiaryService: BeneficiaryService) { }
+    private beneficiaryService: BeneficiaryService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -46,7 +47,7 @@ export class SponsoresComponent implements OnInit {
     }
 
   }
-
+  comeBack(){this.location.back()}
   getUser(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.userService.getMemberById(params['id']).subscribe((res)=>{

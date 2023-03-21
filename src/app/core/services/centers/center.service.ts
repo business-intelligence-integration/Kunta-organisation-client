@@ -101,5 +101,9 @@ export class CenterService {
   getAllCenterUsersId(idCenter: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + `centers/${idCenter}/users`, httpOptions);
   }
+
+  findCentersByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'centers/search?name='+ name, httpOptions);
+  }
 }
 
