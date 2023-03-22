@@ -336,8 +336,6 @@ export class UserComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
-      console.log("users:: ", result.data);
-      
       this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
       
     })
@@ -679,14 +677,12 @@ export class UserComponent implements OnInit {
   }
  }
 
- onSelectUserRole(role: any){
-    console.log("role::", role);
-    this.selectedRoleS = role;
- }
-
- checkByRole(user: User){
-  console.log("user::", user);
-  
+ onSelectUserRole(roleName: any){
+    if(roleName == "ALL" || roleName == "0"){
+      this.getAllUsers();
+    }else{
+      this.findUsersByRoleName(roleName);
+    }
  }
 
  searchUsers(){
@@ -697,6 +693,13 @@ export class UserComponent implements OnInit {
   this.userService.findUsersByLastName(lastName).subscribe((res)=>{
     this.users = [];
     this.users = res?.data;
+  })
+ }
+
+ findUsersByRoleName(name: string){
+  this.userService.findUsersByRoleName(name).subscribe((res)=>{
+    this.users = [];
+    this.users = res.data;
   })
  }
 

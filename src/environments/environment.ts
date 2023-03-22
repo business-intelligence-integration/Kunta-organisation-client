@@ -16,7 +16,11 @@ export const environment = {
   // baseUrlApiActivity: 'http://185.98.137.195:8080/kt-activities/'
 
   //nouveau server (sur le quel on effectue le dev)
-  baseUrlApi: 'http://localhost:8083/',
+  // baseUrlApi: 'http://localhost:8083/',
+  // baseUrlApiActivity: 'http://localhost:8084/'
+
+  //serveur ngrok
+  baseUrlApi: 'https://7152-154-73-203-135.eu.ngrok.io/',
   baseUrlApiActivity: 'http://localhost:8084/'
 
 };

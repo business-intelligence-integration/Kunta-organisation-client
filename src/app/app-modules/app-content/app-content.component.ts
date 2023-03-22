@@ -39,6 +39,7 @@ export class AppContentComponent implements OnInit {
       this.activeMainSidebar = "";
       this.activeSubSidebar = "";
     }
+    console.log("activeBurger::", this.activeBurger);
   }
 
   onActive() {

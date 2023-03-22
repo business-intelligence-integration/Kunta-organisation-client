@@ -11,8 +11,8 @@
     </form>
     <div class="select">
         <form class="modal-form" [formGroup]="selectRoleForm">
-            <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" >
-                <option value="0">Selection par rôle</option>
+            <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" [(ngModel)]="ngSelectRole">
+                <option value="0" disabled>Selection par rôle</option>
                 <option value="ALL">Tous les utilisateurs</option>
                 <option value="ADMIN">Admin</option>
                 <option value="OPERATOR">Opérateur</option>
@@ -63,7 +63,7 @@
                 <span class="cell-end">Actions</span>
             </div>
 
-            <div *ngIf="selectedRoleS=='ALL'" class="flex-list-inner">
+            <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let user of users">
                     <div class="flex-table-cell" data-th="Nom">
@@ -109,59 +109,6 @@
 
                 
             </div>
-
-             <div *ngIf="selectedRoleS!='ALL'" class="flex-list-inner">
-                <!--Table item-->
-                
-
-                   <div class="flex-table-item" *ngFor="let user of users">
-                    <div class="flex-table-item" *ngIf="checkByRole(user)">
-                        <div class="flex-table-cell" data-th="Nom">
-                            <span class="light-text" data-filter-match="">{{ user.lastName }}</span>
-                        </div>
-                        <div class="flex-table-cell" data-th="Prenom">
-                            <span class="light-text" data-filter-match="">{{ user.firstName }}</span>
-                        </div>
-                        <div class="flex-table-cell" data-th="Numéro tél">
-                            <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
-                        </div>
-                        <div class="flex-table-cell" data-th="Email">
-                            <span class="light-text" data-filter-match="">{{ user.email }}</span>
-                        </div>
-                        <!-- <div class="flex-table-cell" data-th="Ville">
-                            <span class="light-text" data-filter-match="">{{ user.city }}</span>
-                        </div> -->
-                        <div class="flex-table-cell" data-th="Filleuls">
-                            <span class="light-text" data-filter-match="">{{ user.sponsoredUsers.length }}</span>
-                            <!-- <a (click)="onOpenAddSponsore(user.id)" class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a> -->
-                        </div>
-    
-                        <div class="flex-table-cell" data-th="Filleuls">
-                            <span class="light-text" data-filter-match="">{{ user.beneficiaries.length }}</span>
-                            <a (click)="onOpenBeneficiaryModal(user.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
-                        </div>
-    
-                        <div class="flex-table-cell" data-th="Location">
-                            <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': user?.status?.label === 'SUSPENDU', 'is-success': user?.status?.label === 'NORMAL'}">{{ user?.status?.label }}</span>
-                            <a _ngcontent-nct-c62="" *ngIf="adminIsConnected" (click)="onUpdateUserStatus(user.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
-                        </div>
-                        
-                        <div class="flex-table-cell cell-end" data-th="Actions">
-                            <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                <!-- <a _ngcontent-nct-c62="" class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a> -->
-                                <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']"
-                                [queryParams]="{id: user.id}" tooltip=" Voir détails utilisateur " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                            <a _ngcontent-nct-c62="" *ngIf="adminIsConnected" (click)="onUpdateUser(user.id)" tooltip=" Modifier utilisateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                            <a _ngcontent-nct-c62="" *ngIf="adminIsConnected" (click)="onDeleteUser(user.id)" tooltip=" Supprimer utilisateur " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                   </div>
-
-                
-            </div>
-
         </div>
 
 
