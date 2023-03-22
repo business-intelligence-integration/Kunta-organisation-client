@@ -6,13 +6,15 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { NavbarMobileComponent } from './navbar-mobile/navbar-mobile.component';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    NavbarMobileComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { TooltipModule } from 'ng2-tooltip-directive';
   exports: [
     MenuComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    NavbarMobileComponent
   ]
 })
 export class UiModule { }
