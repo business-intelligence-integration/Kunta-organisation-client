@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Centers</h1>
+                    <h1 class="title is-4">Centres</h1>
                 </div>
 
             </div>
@@ -179,7 +179,7 @@
                 <div class="inner-content">
                     <div class="inner-content">
                         <form class="modal-form" [formGroup]="addCenterForm" (ngSubmit)="onSubmitCenter()">
-                            <label>centres *</label>
+                            <label>Centres *</label>
                             <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                                 <option value="0" disabled>--Selectionnez un centre--</option>
                                 <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
@@ -192,7 +192,7 @@
             
                             <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                             <div class="control login">
-                                <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addCenterForm.invalid" >Save</button>
+                                <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addCenterForm.invalid" >Enregistrer</button>
                             </div>
                         </form>
                     </div>

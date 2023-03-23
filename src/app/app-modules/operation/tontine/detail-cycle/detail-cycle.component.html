@@ -113,8 +113,8 @@
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
-                <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                 <h3>We couldn't find any matching results.</h3>
                 <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                     search terms you've entered. Please try different search terms or criteria.</p>
@@ -128,8 +128,8 @@
                 <!--List Empty Search Placeholder -->
                 <div class="page-placeholder custom-text-filter-placeholder is-hidden">
                     <div class="placeholder-content">
-                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                        <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                        <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                         <h3>We couldn't find any matching results.</h3>
                         <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                             search terms you've entered. Please try different search terms or criteria.</p>
@@ -164,7 +164,7 @@
                             <div class="flex-table-cell" data-th="Prenom">
                                 <span class="light-text" data-filter-match="">{{ cycle.startDate }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Status">
+                            <div class="flex-table-cell" data-th="Statut">
                                 <span class="tag is-rounded cliquable"  data-filter-match="" (click)="onChangeCycleStatus(cycle.id)" [ngClass]="{'is-danger': cycle.status.label === 'FERMÉ', 'is-success': cycle.status.label === 'OUVERT'}">{{ cycle.status.label }}</span>
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeCycleModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCycleModal()">Annuler</a>
             </div>
         </div>
     </div>

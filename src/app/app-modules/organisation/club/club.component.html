@@ -46,17 +46,17 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let club of clubs">
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ club.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Reference">
                         <span class="light-text" data-filter-match="">{{ club.reference }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Membre(s)">
                         <span class="light-text" data-filter-match="">{{ club.members.length }}</span>
                         <a (click)="onAddMember(club.id)" tooltip=" Ajouter un membre " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Date de creation">
                         <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Observation">
@@ -287,13 +287,13 @@
                             </div>
                         </div><br>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Enregistrer</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeMemberModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeMemberModal()">Annuler</a>
             </div>
         </div>
     </div>

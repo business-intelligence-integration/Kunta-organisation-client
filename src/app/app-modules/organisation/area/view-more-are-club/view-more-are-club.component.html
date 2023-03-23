@@ -150,7 +150,7 @@
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
-                            <span>Name</span>
+                            <span>Appelation</span>
                             <span>Reference</span>
                             <span>Observation</span>
                             <span>Membre(s)</span>
@@ -169,19 +169,19 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="flex-table-cell" data-th="Location">
+                                <div class="flex-table-cell" data-th="Appelation">
                                     <span class="light-text" data-filter-match="">{{ club.name }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Location">
+                                <div class="flex-table-cell" data-th="Reference">
                                     <span class="light-text" data-filter-match="">{{ club.reference }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Location">
+                                <div class="flex-table-cell" data-th="Observation">
                                     <span class="light-text" data-filter-match="">{{ club.observation }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Location">
+                                <div class="flex-table-cell" data-th="Membre(s)">
                                     <span class="light-text" data-filter-match="">{{ club.members.length }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Location">
+                                <div class="flex-table-cell" data-th="Date de creation">
                                     <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
@@ -241,7 +241,7 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitclub()">
-                        <label>clubs *</label>
+                        <label>Clubs *</label>
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                             <option value="0" disabled>--Selectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
@@ -250,13 +250,13 @@
         
                         <!-- <input type="text" hidden class="input" formControlName="roleName"> -->
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addClubForm.invalid" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="addClubForm.invalid" >Enregistrer</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeClubModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeClubModal()">Annuler</a>
             </div>
         </div>
     </div>

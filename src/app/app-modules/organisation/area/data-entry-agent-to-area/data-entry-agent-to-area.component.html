@@ -55,16 +55,16 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ entryAgent.lastName }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Prenom">
                         <span class="light-text" data-filter-match="">{{ entryAgent.firstName }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Numéro Tel">
                         <span class="light-text" data-filter-match="">{{ entryAgent.phoneNumber }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Email">
                         <span class="light-text" data-filter-match="">{{ entryAgent.email }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -132,13 +132,13 @@
                             </div>
                         </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addAgentForm.invalid || isSaving" >Save</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addAgentForm.invalid || isSaving" >Enregistrer</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeAgentModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeAgentModal()">Annuler</a>
             </div>
         </div>
     </div>

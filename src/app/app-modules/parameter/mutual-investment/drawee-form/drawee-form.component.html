@@ -23,8 +23,8 @@
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
-                <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                 <h3>We couldn't find any matching results.</h3>
                 <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                     search terms you've entered. Please try different search terms or criteria.</p>
@@ -53,10 +53,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ draweeForm.label }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Description">
                         <span class="light-text" data-filter-match="">{{ draweeForm.description }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -135,7 +135,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateDraweeFormModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateDraweeFormModal()">Annuler</a>
             </div>
         </div>
     </div>
@@ -186,7 +186,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateDraweeFormModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateDraweeFormModal()">Annuler</a>
             </div>
         </div>
     </div>

@@ -42,7 +42,7 @@
                 <!-- <span class="is-grow">Id</span> -->
                 <span>Appelation</span>
                 <span>Reference</span>
-                <span>zone(s)</span>
+                <span>Zone(s)</span>
                 <span>Club(s)</span>
                 <span>Membre(s)</span>
                 <span>Observation</span>
@@ -52,23 +52,23 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let center of newListcenters">
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ center?.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Reference">
                         <span class="light-text" data-filter-match="">{{ center?.reference }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Zone(s)">
                         <span class="light-text" data-filter-match="">{{ center.areas.length }}</span>
                         <a (click)="onAddArea(center.id)" tooltip=" Ajouter une zone " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Club(s)">
                         <span class="light-text" data-filter-match="">{{ center?.clubs?.length}}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Membre(s)">
                         <span class="light-text" data-filter-match="">{{ center?.members?.length }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Observation">
                         <span class="light-text" data-filter-match="">{{ center?.observation }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">

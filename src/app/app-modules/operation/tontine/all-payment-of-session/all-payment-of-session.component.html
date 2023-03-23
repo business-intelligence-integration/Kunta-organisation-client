@@ -125,8 +125,8 @@
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
-                <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                 <h3>We couldn't find any matching results.</h3>
                 <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                     search terms you've entered. Please try different search terms or criteria.</p>
@@ -140,8 +140,8 @@
                 <!--List Empty Search Placeholder -->
                 <div class="page-placeholder custom-text-filter-placeholder is-hidden">
                     <div class="placeholder-content">
-                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                        <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                        <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                         <h3>We couldn't find any matching results.</h3>
                         <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                             search terms you've entered. Please try different search terms or criteria.</p>
@@ -164,26 +164,26 @@
                     <div class="flex-list-inner">
                         <!--Table item-->
                         <div class="flex-table-item" *ngFor="let payment of payments">
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Versé">
                                 <span class="light-text" data-filter-match="">{{ payment.paid }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Preuve">
                                 <span class="light-text" data-filter-match="">{{ payment.proof }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Reste à payer">
+                            <div class="flex-table-cell" data-th="Membre">
                                 <span class="light-text" data-filter-match="">{{ payment.user.firstName }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Reste à payer">
+                            <div class="flex-table-cell" data-th="Date">
                                 <span class="light-text" data-filter-match="">{{ payment.date }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Reste à payer">
+                            <div class="flex-table-cell" data-th="Methode de paiement">
                                 <span class="light-text" data-filter-match="">{{ payment.paymentMethod.label }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Status">
+                            <div class="flex-table-cell" data-th="Statut">
                                 <a _ngcontent-nct-c62="" tooltip=" Modifier Statut " theme='light' (click)="onUpdatePaymentSatatus(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                 <span class="tag is-rounded" [ngClass]="{'is-danger': payment.paymentStatus.label === 'ENREGISTRÉ', 'is-success': payment.paymentStatus.label === 'VALIDÉ'}" data-filter-match="">{{ payment.paymentStatus.label }}</span>
                             </div>
@@ -228,8 +228,8 @@
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
-                <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                 <h3>We couldn't find any matching results.</h3>
                 <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                     search terms you've entered. Please try different search terms or criteria.</p>
@@ -243,8 +243,8 @@
                 <!--List Empty Search Placeholder -->
                 <div class="page-placeholder custom-text-filter-placeholder is-hidden">
                     <div class="placeholder-content">
-                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                        <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                        <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                         <h3>We couldn't find any matching results.</h3>
                         <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                             search terms you've entered. Please try different search terms or criteria.</p>
@@ -273,18 +273,18 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Utilisateur">
                                 <span class="light-text" data-filter-match="">{{ user.userName }}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Montant payé(FCFA)">
                                 <span class="light-text" data-filter-match="">{{ user.toBePaidByUser - user.remainingToPayByUser}}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Raison">
+                            <div class="flex-table-cell" data-th="Reste à payer(FCFA)">
                                 <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
                             </div>
      
-                            <div class="flex-table-cell" data-th="Status">
+                            <div class="flex-table-cell" data-th="A jour">
                                 <span class="tag is-rounded is-danger" *ngIf="user.upToDate === false">non</span>
                                 <span class="tag is-rounded is-success" *ngIf="user.upToDate === true">oui</span>
                             </div>
@@ -363,7 +363,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentModal()">Annuler</a>
             </div>
         </div>
     </div>
@@ -407,7 +407,7 @@
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentStatusModal()">Cancel</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentStatusModal()">Annuler</a>
             </div>
         </div>
     </div>

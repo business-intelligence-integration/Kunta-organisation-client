@@ -413,13 +413,13 @@
                                 <div class="flex-list-inner">
                                     <!--Table item-->
                                     <div class="flex-table-item" *ngFor="let beneficiary of beneficiaries">
-                                        <div class="flex-table-cell" data-th="Location">
+                                        <div class="flex-table-cell" data-th="Nom">
                                             <span class="light-text" data-filter-match="">{{ beneficiary.lastName }}</span>
                                         </div>
-                                        <div class="flex-table-cell" data-th="Location">
+                                        <div class="flex-table-cell" data-th="Prenom">
                                             <span class="light-text" data-filter-match="">{{ beneficiary.firstName }}</span>
                                         </div>
-                                        <div class="flex-table-cell" data-th="Location">
+                                        <div class="flex-table-cell" data-th="Age">
                                             <span class="light-text" data-filter-match=""> {{ calculateAgeAccordingDateOfBirth(beneficiary.birthDate) }} </span>
                                         </div>
                                         <div class="flex-table-cell cell-end" data-th="Actions">
@@ -470,19 +470,19 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="flex-table-cell" data-th="Location">
+                                    <div class="flex-table-cell" data-th="Nom">
                                         <span class="light-text" data-filter-match="">{{ user.lastName }}</span>
                                     </div>
-                                    <div class="flex-table-cell" data-th="Location">
+                                    <div class="flex-table-cell" data-th="Prenom">
                                         <span class="light-text" data-filter-match="">{{ user.firstName }}</span>
                                     </div>
-                                    <div class="flex-table-cell" data-th="Location">
+                                    <div class="flex-table-cell" data-th="Numéro Tel">
                                         <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
                                     </div>
-                                    <div class="flex-table-cell" data-th="Location">
+                                    <div class="flex-table-cell" data-th="Email">
                                         <span class="light-text" data-filter-match="">{{ user.email }}</span>
                                     </div>
-                                    <div class="flex-table-cell" data-th="Email">
+                                    <div class="flex-table-cell" data-th="Ville">
                                         <span class="light-text" data-filter-match="">{{ user.city }}</span>
                                     </div>
                                     <div class="flex-table-cell cell-end" data-th="Actions">

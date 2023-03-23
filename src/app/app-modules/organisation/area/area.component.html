@@ -42,7 +42,7 @@
                 <span>Appelation</span>
                 <span>Reference</span>
                 <span>Club(s)</span>
-                <span>member(s)</span>
+                <span>Membre(s)</span>
                 <span>Observation</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -50,21 +50,21 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let area of areas">
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ area.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Prenom">
                         <span class="light-text" data-filter-match="">{{ area.reference }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Club(s)">
                         <span class="light-text" data-filter-match="">{{ area.clubs.length }}</span>
                         <a (click)="onAddClub(area.id)" tooltip=" Ajouter un club " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
                    
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Membre(s)">
                         <span class="light-text" data-filter-match="">{{ area?.members?.length }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Location">
+                    <div class="flex-table-cell" data-th="Observation">
                         <span class="light-text" data-filter-match="">{{ area?.observation }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -153,7 +153,7 @@
                         </div>
 
                         <div class="field">
-                            <label>centre de la zone*</label>
+                            <label>Centre de la zone*</label>
                             <select2
                                     class="w-100 color-border"
                                     [data]="centers"

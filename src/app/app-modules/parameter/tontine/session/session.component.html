@@ -23,8 +23,8 @@
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
-                <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                 <h3>We couldn't find any matching results.</h3>
                 <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                     search terms you've entered. Please try different search terms or criteria.</p>
@@ -39,11 +39,11 @@
                 <span class="is-grow">Id</span>
                 <span>Date limite de contribution</span>
                 <span>Date</span>
-                <span>Hour</span>
+                <span>Heure</span>
                 <span>Total payé (FCFA)</span>
                 <span>Total des pénalités (FCFA)</span>
-                <span>total à payer (FCFA)</span>
-                <span>Action</span>
+                <span>Total à payer (FCFA)</span>
+                <span>Actions</span>
             </div>
             <div class="flex-list-inner">
                 <!--Table item-->
@@ -56,22 +56,22 @@
                             </span>
                         </div>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Date limite de contribution">
                         <span class="light-text" data-filter-match="">{{ session.contributionDeadline }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Nom">
+                    <div class="flex-table-cell" data-th="Date">
                         <span class="light-text" data-filter-match="">{{ session.date }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Heure">
                         <span class="light-text" data-filter-match="">{{ session.hour }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Total payé (FCFA)">
                         <span class="light-text" data-filter-match="">{{ session.totalPaid }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Total des pénalités (FCFA)">
                         <span class="light-text" data-filter-match="">{{ session.totalPenalties }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Total à payer (FCFA)">
                         <span class="light-text" data-filter-match="">{{ session.totalToBePaid }}</span>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">

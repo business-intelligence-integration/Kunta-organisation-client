@@ -514,6 +514,77 @@
 </div> -->
 <!-- /////////////////////////////////////////////////////////////////////////// -->
 <!-- Content Wrapper -->
+
+<div id="layouts-sidebar" class="sidebar-panel is-generic" [ngClass]="homeSider">
+    <div class="subpanel-header">
+
+        <div class="dropdown project-dropdown dropdown-trigger is-spaced">
+            <div class="h-avatar is-small">
+                <span class="avatar is-fake is-h-green">
+                  <span>O</span>
+                </span>
+            </div>
+            <span class="status-indicator"></span>
+
+            <div class="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-warning">
+                              <span>D</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Delivery App Project</span>
+                            <span>Food For Good</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-h-green">
+                              <span>M</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Health and Fitness Dashboard</span>
+                            <span>Fit'n'Dance</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-info">
+                              <span>L</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Learning Tracker Dashboard</span>
+                            <span>Fit'n'Dance</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-block">
+                        <div class="h-avatar is-small">
+                            <span class="avatar is-fake is-h-purple">
+                              <span>B</span>
+                            </span>
+                        </div>
+                        <div class="meta">
+                            <span class="dark-inverted">Banking and Finance Dashboard</span>
+                            <span>H Bank</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3 class="no-mb">Dashboard</h3>
+        <div class="panel-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </div>
+    </div>
+    <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
+ 
+    </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
+</div>
+
 <div id="app-hr" class="view-wrapper" [ngClass]="isPushed" data-naver-offset="150" data-menu-item="#home-sidebar-menu"
 data-mobile-item="#home-sidebar-menu-mobile">
 <div class="page-content-wrapper">
@@ -523,7 +594,7 @@ data-mobile-item="#home-sidebar-menu-mobile">
             <!-- Sidebar Trigger -->
             <div class="huro-hamburger nav-trigger push-resize" data-sidebar="layouts-sidebar">
                 <span class="menu-toggle has-chevron">
-                <span class="icon-box-toggle">
+                <span class="icon-box-toggle" [ngClass]="activeToggle" (click)="activeHomeSider()">
                     <span class="rotate">
                         <i class="icon-line-top"></i>
                         <i class="icon-line-center"></i>
@@ -598,19 +669,19 @@ data-mobile-item="#home-sidebar-menu-mobile">
                             <th>Last Updated</th>
                             <th></th>
                         </tr>
-                    <tr class="datatable-filter-line"><td></td><td></td><td class="datatable-filter-cell"><div class="control has-icon"><input type="text" placeholder="Type to Filter... " class="datatable-filter datatable-input-text input" data-filter="name">
-<div class="form-icon">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-</div>
-</div></td><td></td><td></td><td></td><td></td></tr></thead>
-                    <tbody></tbody>
+                        <tr class="datatable-filter-line"><td></td><td></td><td class="datatable-filter-cell"><div class="control has-icon"><input type="text" placeholder="Type to Filter... " class="datatable-filter datatable-input-text input" data-filter="name">
+                        <div class="form-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                        </div></td><td></td><td></td><td></td><td></td></tr></thead>
+                        <tbody></tbody>
                 </table>
 
                 <!--Empty Placeholder-->
                 <div class="section-placeholder">
                     <div class="placeholder-content">
-                        <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
-                        <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt="">
+                        <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
+                        <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                         <h3 class="dark-inverted">No data to show</h3>
                         <p>There is currently no data to show in this list.</p>
                     </div>
