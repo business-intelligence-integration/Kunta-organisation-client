@@ -68,4 +68,8 @@ export class AreaService {
   getAllAreaUsersId(idArea: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + `areas/${idArea}/users`, httpOptions);
   }
+
+  findAreasByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'areas/search?name='+ name, httpOptions);
+  }
 }

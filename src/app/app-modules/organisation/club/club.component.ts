@@ -23,6 +23,7 @@ export class ClubComponent implements OnInit {
   addClubForm!: FormGroup;
   addMemberForm! : FormGroup;
   updateClubForm!: FormGroup;
+  searchForm!: FormGroup;
   members: any;
   clubs: Organism[] = [];
   areas: any;
@@ -54,18 +55,22 @@ export class ClubComponent implements OnInit {
       idArea: new FormControl(null, Validators.required),
       creationDate:new FormControl(null, Validators.required),
       reference:new FormControl(null, Validators.required),
-      observation: new FormControl(null)
+      observation: new FormControl(null, Validators.required)
     })
 
     this.updateClubForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
       reference:new FormControl(null, Validators.required),
-      observation: new FormControl(null)
+      observation: new FormControl(null, Validators.required)
     })
 
     this.addMemberForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.required),
     })
   }
 
@@ -187,11 +192,13 @@ export class ClubComponent implements OnInit {
   }
 
   onSubmitUpdateClub(){
+    this.isSaving = true;
     const formValue  = this.updateClubForm.value;
     this.club.name = formValue.name;
     this.club.reference = formValue.reference;
     this.club.observation = formValue.observation;
-    this.clubService.updateclubById(this.club, formValue.id).subscribe((club)=>{
+    this.clubService.updateclubById(this.club, formValue.id).subscribe(()=>{
+      this.isSaving = false;
       this.getAllClubs();
       this.onCloseUpdateModal();
       this.utilityService.showMessage(
@@ -200,6 +207,8 @@ export class ClubComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+    },()=>{
+      this.isSaving = false;;
     })
 
     
@@ -271,5 +280,16 @@ export class ClubComponent implements OnInit {
 
   onSelectCreateDate(event: any){
 
+  }
+
+  searchClubs(){
+    this.findClubsByName(this.searchForm.value.name)
+  }
+
+  findClubsByName(name: string){
+    this.clubService.findClubsByName(name).subscribe((res)=>{
+      this.clubs = [];
+      this.clubs = res?.data;
+    })
   }
 }

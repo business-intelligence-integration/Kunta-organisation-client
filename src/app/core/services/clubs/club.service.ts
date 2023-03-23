@@ -58,4 +58,8 @@ export class ClubService {
   getAllClubUsersId(idClub: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + `clubs/${idClub}/users`, httpOptions);
   }
+
+  findClubsByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'clubs/search?name='+ name, httpOptions);
+  }
 }

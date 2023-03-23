@@ -95,4 +95,11 @@ export class UserService {
     return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/status/${idStatus}`, {}, httpOptions);
   }
 
+  findUsersByLastName(lastName: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'users/search?lastName='+ lastName, httpOptions);
+  }
+
+  findUsersByRoleName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'users/filter-by-role-name?name='+ name, httpOptions);
+  }
 }

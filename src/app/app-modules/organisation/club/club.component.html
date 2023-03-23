@@ -1,10 +1,13 @@
 <div class="list-flex-toolbar">
-    <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
-        <div class="form-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <form [formGroup]="searchForm">
+        <div class="control has-icon">
+            <input class="input custom-text-filter" (ngModelChange)="searchClubs()" formControlName="name" placeholder="Appelation..." data-filter-target=".flex-table-item">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            
         </div>
-    </div>
+    </form>
 
     <div class="buttons">
         <button class="button h-button is-primary is-elevated">
@@ -165,6 +168,11 @@
                                 <textarea class="textarea" rows="4"
                                     formControlName="observation" placeholder="Observation..."></textarea>
                             </div>
+
+                            <div class="text-danger"
+                            *ngIf="addClubForm.get('observation')?.errors?.['required'] && addClubForm.get('observation')?.touched">
+                            <small class="text-police" translate>--Entrer l'observation du centre --</small>
+                            </div>
                         </div>
                         <div class="control login">
                             <button [disabled]="addClubForm.invalid || isSaving"
@@ -233,7 +241,7 @@
                             </div>
                         </div><br>
                         <div class="control login">
-                            <button [disabled]="updateClubForm.invalid"
+                            <button [disabled]="updateClubForm.invalid || isSaving"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
                         </div>
                     </form>

@@ -92,19 +92,18 @@
                 <div class="title-wrap">
                     <h1 class="title is-4"> Compte de <span>{{ user.firstName }}</span></h1>
                 </div>
-
             </div>
-        </div>
-        <a routerLink="/organization" tooltip=" Retour " theme="light" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+
+            <a (click)="comeBack()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             
-<div class="list-flex-toolbar">
-    <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
-        <div class="form-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-    </div>
-</div>
+            <div class="list-flex-toolbar">
+                <div class="control has-icon">
+                    <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+                    <div class="form-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                </div>
+            </div>
 
 <div class="page-content-inner">
 
@@ -513,17 +512,18 @@
                 </div>
             </div>
 
+            </div>
         </div>
-    </div>
-
-</div>
-
-
-
 
     </div>
-    </div>
 
+
+
+
+        </div>
+        </div>
+
+        </div>
 </div>
 
 

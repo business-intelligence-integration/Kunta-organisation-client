@@ -1,10 +1,13 @@
 <div class="list-flex-toolbar">
-    <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
-        <div class="form-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <form [formGroup]="searchForm">
+        <div class="control has-icon">
+            <input class="input custom-text-filter" (ngModelChange)="searchAres()" formControlName="name" placeholder="Appelation..." data-filter-target=".flex-table-item">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            
         </div>
-    </div>
+    </form>
 
     <div class="buttons">
         <button class="button h-button is-primary is-elevated">
@@ -118,7 +121,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addAreaForm" (ngSubmit)="onSubmitArea()">
                         <div class="field">
-                            <label>Appelation *</label><br>
+                            <label>Appelation*</label><br>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Appelation" formControlName="name">
                             </div>
@@ -128,7 +131,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label>Reférence *</label><br>
+                            <label>Reférence*</label><br>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Reférence" formControlName="reference">
                             </div>
@@ -138,7 +141,7 @@
                             </div>
                         </div> 
                         <div class="field">
-                            <label>Date de creation *</label><br>
+                            <label>Date de creation*</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="creationDate" max="{{ CreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
@@ -169,7 +172,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Observation</label>
+                            <label>Observation*</label>
                             <div class="control">
                                 <textarea class="textarea" rows="4"
                                     formControlName="observation" placeholder="Observation..."></textarea>
@@ -236,7 +239,7 @@
                             </div>
                         </div><br>
                         <div class="control login">
-                            <button [disabled]="updateAreaForm.invalid"
+                            <button [disabled]="updateAreaForm.invalid || isSaving"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Modifier</button>
                         </div>
                     </form>

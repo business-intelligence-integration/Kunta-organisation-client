@@ -19,6 +19,7 @@ import { UserComponent } from './user/user.component';
 const routes: Routes = [
   {path:"", component: OrganismComponent, canActivate: [EntityGuard],
   children: [
+    {path:"", component: UserComponent, canActivate: [EntityGuard]},
     {path:"users", component: UserComponent, canActivate: [EntityGuard]},
     {path:"clubs", component: ClubComponent, canActivate: [EntityGuard]},
     {path:"areas", component: AreaComponent, canActivate: [EntityGuard]},
@@ -32,6 +33,7 @@ const routes: Routes = [
     {path:"governance-compensation", component: GovernanceCompensationCommitteeComponent, canActivate: [EntityGuard]},
     {path:"production-monitoring-committee", component: ProductionMonitoringCommitteeComponent, canActivate: [EntityGuard]},
     {path:"strategic-development-committee", component: StrategicDevelopmentCommitteeComponent, canActivate: [EntityGuard]},
+    
   ]
 },
   // {path:"organization", component: OrganismComponent, canActivate: [EntityGuard]},

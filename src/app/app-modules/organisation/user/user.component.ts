@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Beneficiary } from 'src/app/core/classes/beneficiary';
 import { Civility } from 'src/app/core/classes/civility';
-import { Country } from 'src/app/core/classes/country';
 import { FamilySituation } from 'src/app/core/classes/familySituation';
 import { PieceType } from 'src/app/core/classes/pieceType';
 import { Status } from 'src/app/core/classes/status';
@@ -34,6 +33,7 @@ export class UserComponent implements OnInit {
   ngSelectTypePiece1 = 0;
   ngSelectTypePiece2 = 0;
   ngSelectStatus = 0;
+  ngSelectRole = 0;
   openBeneficiaryModal: string = "";
   openUpdateModal: string = "";
   openSponsoreModal: string = "";
@@ -42,6 +42,8 @@ export class UserComponent implements OnInit {
   addSponsoreForm!: FormGroup;
   beneficiaryForm!: FormGroup;
   changeStatusForm!: FormGroup;
+  selectRoleForm!: FormGroup;
+  searchForm!: FormGroup;
   pieceTypes: PieceType[] = [];
   users: User[];
   members: User[] = [];
@@ -72,6 +74,7 @@ export class UserComponent implements OnInit {
   openStatusModal: string = "";
   maxAge: any;
   minValidityDate: any
+  selectedRoleS: string = "ALL"
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -160,6 +163,14 @@ export class UserComponent implements OnInit {
 
     this.addSponsoreForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
+    })
+
+    this.selectRoleForm = this.formBuilder.group({
+      selectedRole: new FormControl(null),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      lastName: new FormControl(null),
     })
 
     this.beneficiaryForm = this.formBuilder.group({
@@ -325,8 +336,6 @@ export class UserComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
-      console.log("users:: ", result.data);
-      
       this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
       
     })
@@ -667,4 +676,31 @@ export class UserComponent implements OnInit {
     this.showErroMessage = false;
   }
  }
+
+ onSelectUserRole(roleName: any){
+    if(roleName == "ALL" || roleName == "0"){
+      this.getAllUsers();
+    }else{
+      this.findUsersByRoleName(roleName);
+    }
+ }
+
+ searchUsers(){
+    this.findUsersByLastName(this.searchForm.value.lastName);
+ }
+
+ findUsersByLastName(lastName: string){
+  this.userService.findUsersByLastName(lastName).subscribe((res)=>{
+    this.users = [];
+    this.users = res?.data;
+  })
+ }
+
+ findUsersByRoleName(name: string){
+  this.userService.findUsersByRoleName(name).subscribe((res)=>{
+    this.users = [];
+    this.users = res.data;
+  })
+ }
+
 }

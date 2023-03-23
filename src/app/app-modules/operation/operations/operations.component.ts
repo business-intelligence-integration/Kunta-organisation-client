@@ -42,17 +42,13 @@ export class OperationsComponent implements OnInit {
     }
   }
 
-  // onShowAllTontine(){
-  //   this.isMutualInvestment = false;
-  //   this.isTontine = true;
-  //   this.dynamicTitle = "Liste des tontines"
-  // }
+  onShowAllTontine(){
+    this.dynamicTitle = "Liste des tontines"
+  }
 
-  // onShowAllMutualInvestment(){
-  //   this.isTontine = false;
-  //   this.isMutualInvestment = true;
-  //   this.dynamicTitle = "Liste des palcements mutualisés"
-  // }
+  onShowAllMutualInvestment(){
+    this.dynamicTitle = "Liste des palcements mutualisés"
+  }
 
 
 }
