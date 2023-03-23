@@ -193,7 +193,7 @@
   
                 <ul class="bottom-icon-side-menu">
                     <li (click)="onShowParameterSubBar()" [routerLinkActive]="['active']">
-                        <a [routerLink]="['/parameters/']">
+                        <a [routerLink]="['/parameters/postes/']">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                         </a>
                     </li>
@@ -317,12 +317,12 @@
                 <ul class="submenu">
                     <li class="has-children">
                         <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link" [routerLink]="['/operations/tontines/']">Tontines</a>
+                            <a href="javascript:void(0);" (click)="onCloseAllMobileMenu()" class="parent-link" [routerLink]="['/operations/tontines/']">Tontines</a>
                         </div>
                     </li>
                     <li class="has-children">
                         <div class="collapse-wrap">
-                            <a href="javascript:void(0);" class="parent-link" [routerLink]="['/operations/mutual-investment/']">Placements mutualisés</a>
+                            <a href="javascript:void(0);" (click)="onCloseAllMobileMenu()" class="parent-link" [routerLink]="['/operations/mutual-investment/']">Placements mutualisés</a>
                         </div>
                     </li>
                 </ul>
@@ -346,28 +346,28 @@
                         <ul [style.display]="wrapdwonDetailOganisation">
         
                             <li>
-                                <a class="is-submenu" (click)="onPoste()">
+                                <a class="is-submenu" (click)="onPoste()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/postes/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Poste</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onPieceType()">
+                                <a class="is-submenu" (click)="onPieceType()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/piece-type/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Types de pièces</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onFamilySituation()">
+                                <a class="is-submenu" (click)="onFamilySituation()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/family-situation/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Situation familiale</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onCivility()">
+                                <a class="is-submenu" (click)="onCivility()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/civility/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Civilité</span>
                                 </a>
@@ -386,61 +386,61 @@
                                 </a>
                             </li> -->
                             <li>
-                                <a class="is-submenu" (click)="onFrequency()">
+                                <a class="is-submenu" (click)="onFrequency()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/frequencies/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Frequences</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="is-submenu" (click)="onTransversality()">
+                                <a class="is-submenu" (click)="onTransversality()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/transversality/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Niveaux de transversalité</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onGain()">
+                                <a class="is-submenu" (click)="onGain()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/gains/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Gain</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onCycle()">
+                                <a class="is-submenu" (click)="onCycle()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/cycles/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Cycle</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onSession()">
+                                <a class="is-submenu" (click)="onSession()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/session/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Séance</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="is-submenu" (click)="onStatus()">
+                                <a class="is-submenu" (click)="onStatus()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/status/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Statut</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onPenalyType()">
+                                <a class="is-submenu" (click)="onPenalyType()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/penalty-type/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Type Penalité</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onPenaly()">
+                                <a class="is-submenu" (click)="onPenaly()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/penalty/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Penalité</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onPaymentStatus()">
+                                <a class="is-submenu" (click)="onPaymentStatus()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/payment-status/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Statut Paiement</span>
                                 </a>
@@ -461,21 +461,21 @@
                         <ul [style.display]="wrapdwonDetailMutualInvestment ">
         
                             <li>
-                                <a class="is-submenu" (click)="onDraweeForm()">
+                                <a class="is-submenu" (click)="onDraweeForm()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/drawee-form/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Formulaire de tirage</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onProfitabilityType()">
+                                <a class="is-submenu" (click)="onProfitabilityType()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/profitability-type/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Type de rentabilité</span>
                                 </a>
                             </li>
         
                             <li>
-                                <a class="is-submenu" (click)="onRefundType()">
+                                <a class="is-submenu" (click)="onRefundType()" (click)="onCloseAllMobileMenu()" [routerLink]="['/parameters/refund-type/']">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Type de remboursement</span>
                                 </a>
