@@ -82,7 +82,7 @@ export class AppContentComponent implements OnInit {
     }
     console.log("activeBurger::", this.activeBurger);
     console.log("activeMainSidebar::", this.activeMainSidebar);
-    console.log("activeSubSidebar::", this.activeSubSidebar);
+    // console.log("activeSubSidebar::", this.activeSubSidebar);
   }
 
   onActive() {
