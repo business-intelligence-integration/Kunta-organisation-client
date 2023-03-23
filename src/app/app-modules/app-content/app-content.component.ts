@@ -61,6 +61,14 @@ export class AppContentComponent implements OnInit {
     this.getConnectedUser();
   }
 
+  onCloseAllMobileMenu() {
+    this.activeBurger = "";
+    this.activeMainSidebar = "";
+    this.activeSubSidebarOfOrganism = "";
+    this.activeSubSidebarOfOperation = "";
+    this.activeSubSidebarOfParameter = "";
+  }
+
   activeMobileSider() {
     if (this.activeBurger == "") {
       this.activeBurger = "is-active";
