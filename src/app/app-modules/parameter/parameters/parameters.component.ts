@@ -7,9 +7,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ParametersComponent implements OnInit {
 
-  @Input() activeSubSidebar: string = "";
-  @Input() activeMainSidebar: string = "";
-
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";

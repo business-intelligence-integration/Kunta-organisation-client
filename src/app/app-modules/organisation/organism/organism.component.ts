@@ -6,9 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./organism.component.scss']
 })
 export class OrganismComponent implements OnInit {
-
-  @Input() activeSubSidebar: string = "";
-  @Input() activeMainSidebar: string = "";
   
   activeRightMenu: string = "";
   activeToggle: string = "";
