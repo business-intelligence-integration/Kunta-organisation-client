@@ -209,17 +209,17 @@
                 </div>
         
                 <ul class="submenu">
-                    <li class="has-children">
+                    <li class="has-children" [routerLinkActive]="['active']">
                         <div class="collapse-wrap">
                             <a href="javascript:void(0);" (click)="onCloseAllMobileMenu()" class="parent-link" [routerLink]="['/organization/users/']" >Utilisateurs </a>
                         </div>
                     </li>
-                    <li class="has-children">
+                    <li class="has-children" [routerLinkActive]="['active']">
                         <div class="collapse-wrap">
                             <a href="javascript:void(0);" (click)="onCloseAllMobileMenu()" class="parent-link" [routerLink]="['/organization/clubs/']" >Clubs </a>
                         </div>
                     </li>
-                    <!-- <li class="has-children">
+                    <!-- <li class="has-children active">
                         <div class="collapse-wrap">
                             <a href="javascript:void(0);" class="parent-link">Flex Lists <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                         </div>
@@ -232,17 +232,17 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li class="has-children active">
+                    <li class="has-children" [routerLinkActive]="['active']">
                         <div class="collapse-wrap">
                             <a href="javascript:void(0);" (click)="onCloseAllMobileMenu()" class="parent-link" [routerLink]="['/organization/areas/']">Zones</a>
                         </div>
                     </li>
-                    <li class="has-children">
+                    <li class="has-children" [routerLinkActive]="['active']">
                         <div class="collapse-wrap">
                             <a href="javascript:void(0);" (click)="onCloseAllMobileMenu()" class="parent-link" [routerLink]="['/organization/centers/']">Centres</a>
                         </div>
                     </li>
-                    <li class="has-children">
+                    <li class="has-children" [routerLinkActive]="['active']">
                         <div class="collapse-wrap">
                             <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                         </div>
@@ -341,7 +341,7 @@
                 <ul class="submenu">
                     <li class="has-children" [ngClass]="activeOganisation">
                         <div class="collapse-wrap">
-                            <a href="javascript:void(0);"class="parent-link" (click)="onDisplayOrganisationDetail()">Oganisation <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                            <a href="javascript:void(0);"class="parent-link" (click)="onDisplayOrganisationDetail()">Organisation <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                         </div>
                         <ul [style.display]="wrapdwonDetailOganisation">
         
