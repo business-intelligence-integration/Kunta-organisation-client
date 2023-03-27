@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Post } from '../../classes/post';
 import { UtilityService } from '../utility/utility.service';
 
 const httpOptions ={
@@ -21,23 +20,23 @@ export class FonctionService {
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
 
-  findAllPosts():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'posts', httpOptions);
+  findAllFunctions():Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'functions', httpOptions);
   }
 
-  createPost(poste: Post):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'posts', poste, httpOptions);
+  createFunction(functions: Function):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'functions', functions, httpOptions);
   }
 
-  findPostById(idPost: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'posts/'+ idPost, httpOptions);
+  findFunctionById(idFunction: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'functions/'+ idFunction, httpOptions);
   }
 
-  updatePost(poste: Post, idPost: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'posts/'+ idPost, poste, httpOptions);
+  updateFunction(functions: Function, idFunction: number):Observable<any>{
+    return this.httpClient.put<any>(this.baseUrl + 'functions/'+ idFunction, functions, httpOptions);
   }
 
-  deletePost(id: number):Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl + 'posts/'+ id, httpOptions);
+  deleteFunction(id: number):Observable<any>{
+    return this.httpClient.delete<any>(this.baseUrl + 'functions/'+ id, httpOptions);
   }
 }

@@ -20,7 +20,7 @@ export class MembersGeneralAssemblyComponent implements OnInit {
   ngSelect2 = 0;
   clubMembers: User[] = [];
   members: any;
-  posts: Post[] = [];
+  functions: Post[] = [];
   openMemberModal: string = "";
   user: User;
   addMemberForm!: FormGroup;
@@ -164,8 +164,8 @@ export class MembersGeneralAssemblyComponent implements OnInit {
   }
 
   getAllFonction(){
-    this.fonctionService.findAllPosts().subscribe((res)=>{
-      this.posts = res.data
+    this.fonctionService.findAllFunctions().subscribe((res)=>{
+      this.functions = res.data
     })
   }
 

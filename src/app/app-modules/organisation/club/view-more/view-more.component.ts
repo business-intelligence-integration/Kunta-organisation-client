@@ -26,10 +26,12 @@ export class ViewMoreComponent implements OnInit {
 
   openMemberModal: string = "";
   openPilotModal: string = "";
+  dynamicTitle: string = "";
 
   addMemberForm!: FormGroup;
   isPilote: boolean = false;
   isMember: boolean = true;
+  isListPosts: boolean = false;
   pilotIsNull: boolean = false;
   clubMembers: User[] = [];
   members: any;
@@ -102,14 +104,21 @@ export class ViewMoreComponent implements OnInit {
   }
 
   clickOnMemeber(){
-    this.isPilote = false;
+    this.isListPosts = false;
     this.isMember = true;
+    this.dynamicTitle = "Membres du club";
   }
 
-  clickOnPilot(){
+  clickOnPosts(){
     this.isMember = false;
-    this.isPilote = true
+    this.isListPosts = true;
+    this.dynamicTitle = "Liste des postes";
   }
+
+  // clickOnPilot(){
+  //   this.isMember = false;
+  //   this.isPilote = true
+  // }
 
   onOpenAddUser(){
     this.openMemberModal = "is-active";

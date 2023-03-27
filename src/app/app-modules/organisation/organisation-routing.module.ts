@@ -7,6 +7,7 @@ import { CentersComponent } from './main-office/centers/centers.component';
 import { ExecutiveBoardComponent } from './main-office/executive-board/executive-board.component';
 import { GeneralAssemblyComponent } from './main-office/general-assembly/general-assembly.component';
 import { GovernanceCompensationCommitteeComponent } from './main-office/governance-compensation-committee/governance-compensation-committee.component';
+import { PostsOfMainOfficeComponent } from './main-office/posts-of-main-office/posts-of-main-office.component';
 import { ProductionMonitoringCommitteeComponent } from './main-office/production-monitoring-committee/production-monitoring-committee.component';
 import { StrategicDevelopmentCommitteeComponent } from './main-office/strategic-development-committee/strategic-development-committee.component';
 import { OrganismComponent } from './organism/organism.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
     {path:"users/members", component: MemberComponent, canActivate: [EntityGuard]},
     {path:"users/mutualistes", component: MutulistComponent, canActivate: [EntityGuard]},
     {path:"users/operators", component: OperatorComponent, canActivate: [EntityGuard]},
+    {path:"main-office/posts", component: PostsOfMainOfficeComponent, canActivate: [EntityGuard]},
     {path:"executif-board", component: ExecutiveBoardComponent, canActivate: [EntityGuard]},
     {path:"general-assembly", component: GeneralAssemblyComponent, canActivate: [EntityGuard]},
     {path:"governance-compensation", component: GovernanceCompensationCommitteeComponent, canActivate: [EntityGuard]},

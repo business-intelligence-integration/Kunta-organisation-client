@@ -42,5 +42,5 @@ export class User{
     familySituation: FamilySituation = new FamilySituation();
     civility: Civility = new Civility();
     country: Country = new Country();
-    post: Post = new Post();
+    function: Function = new Function();
 }

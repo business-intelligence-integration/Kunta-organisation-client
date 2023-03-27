@@ -36,6 +36,10 @@ import { AccountComponent } from './account/account.component';
 import { SponsoresComponent } from './user/sponsores/sponsores.component';
 import { Select2Module } from 'ng-select2-component';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { PostsOfMainOfficeComponent } from './main-office/posts-of-main-office/posts-of-main-office.component';
+import { PostsOfCentersComponent } from './main-office/centers/posts-of-centers/posts-of-centers.component';
+import { PostsOfAreaComponent } from './area/posts-of-area/posts-of-area.component';
+import { PostsOfClubComponent } from './club/posts-of-club/posts-of-club.component';
 
 
 @NgModule({
@@ -71,7 +75,11 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     CommunicationAgentToAreaComponent,
     DataEntryAgentToAreaComponent,
     AccountComponent,
-    SponsoresComponent
+    SponsoresComponent,
+    PostsOfMainOfficeComponent,
+    PostsOfCentersComponent,
+    PostsOfAreaComponent,
+    PostsOfClubComponent
   ],
   imports: [
     CommonModule,

@@ -26,6 +26,7 @@ export class ViewMoreAreaComponent implements OnInit {
   areasOfCenter: Organism[] = [];
   idCenter: number = 0;
   isListAreas: boolean = true;
+  isListPosts: boolean = false;
   centerName: string = "";
   dynamicTitle: string = "Liste des zones";
 
@@ -128,123 +129,124 @@ export class ViewMoreAreaComponent implements OnInit {
     }
   }
 
-  onMemberGeneralAssembly(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isMemberToGcc = false;
-    this.isExecutiveBoardCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isAdminSys = false
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = true
-    this.dynamicTitle = "Assemblée générale des membres";
-  }
+  // onMemberGeneralAssembly(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isMemberToGcc = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isAdminSys = false
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = true
+  //   this.dynamicTitle = "Assemblée générale des membres";
+  // }
 
-  onAccountant(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isMemberToGcc = false;
-    this.isExecutiveBoardCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isAdminSys = false
-    this.isMemberGeneralAssembly = false
-    this.isAccountant = true;
-    this.dynamicTitle = "Comptable";
-  }
-  onAdminSys(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isMemberToGcc = false;
-    this.isExecutiveBoardCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = true;
-    this.dynamicTitle = "Administrateur Système";
-  }
+  // onAccountant(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isMemberToGcc = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isAdminSys = false
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAccountant = true;
+  //   this.dynamicTitle = "Comptable";
+  // }
+  // onAdminSys(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isMemberToGcc = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = true;
+  //   this.dynamicTitle = "Administrateur Système";
+  // }
 
-  onDevelopmentCommitteeCenter(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isMemberToGcc = false;
-    this.isExecutiveBoardCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = false;
-    this.isDevelopmentCommitteeCenter = true;
-    this.dynamicTitle = "Assemblée générale des membres";
-  }
+  // onDevelopmentCommitteeCenter(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isMemberToGcc = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = false;
+  //   this.isDevelopmentCommitteeCenter = true;
+  //   this.dynamicTitle = "Assemblée générale des membres";
+  // }
 
-  onGeneralAssemblyCenter(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isMemberToGcc = false;
-    this.isExecutiveBoardCenter = false;
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isGeneralAssemblyCenter = true;
-    this.dynamicTitle = "Comité de Développement";
-  }
+  // onGeneralAssemblyCenter(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isMemberToGcc = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isGeneralAssemblyCenter = true;
+  //   this.dynamicTitle = "Comité de Développement";
+  // }
 
-  onExecutiveBoardCenter(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isMemberToGcc = false;
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isExecutiveBoardCenter = true;
-    this.dynamicTitle = "Assemblée représentative des Clubs";
-  }
+  // onExecutiveBoardCenter(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isMemberToGcc = false;
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isExecutiveBoardCenter = true;
+  //   this.dynamicTitle = "Assemblée représentative des Clubs";
+  // }
 
-  onMemberToGcc(){
-     this.isListAreas = false;
-    this.isProductionmanager = false
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isExecutiveBoardCenter = false;
-    this.isMemberToGcc = true;
-    this.dynamicTitle = "Conseil d’Administration";
-  }
+  // onMemberToGcc(){
+  //    this.isListAreas = false;
+  //   this.isProductionmanager = false
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isMemberToGcc = true;
+  //   this.dynamicTitle = "Conseil d’Administration";
+  // }
 
-  onProductionmanager(){
-     this.isListAreas = false;
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isExecutiveBoardCenter = false;
-    this.isMemberToGcc = false;
-    this.isProductionmanager = true;
-    this.dynamicTitle = "Comité de Gouvernance et des Rémunérations";
-  }
+  // onProductionmanager(){
+  //    this.isListAreas = false;
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isMemberToGcc = false;
+  //   this.isProductionmanager = true;
+  //   this.dynamicTitle = "Comité de Gouvernance et des Rémunérations";
+  // }
 
-  allExcepArea(){
-    this.isListAreas = false;
-    this.isAccountant = false;
-    this.isMemberGeneralAssembly = false
-    this.isAdminSys = false;
-    this.isDevelopmentCommitteeCenter = false;
-    this.isGeneralAssemblyCenter = false;
-    this.isExecutiveBoardCenter = false;
-    this.isMemberToGcc = false;
-    this.isProductionmanager = false;
-  }
+  // allExcepArea(){
+  //   this.isListAreas = false;
+  //   this.isAccountant = false;
+  //   this.isMemberGeneralAssembly = false
+  //   this.isAdminSys = false;
+  //   this.isDevelopmentCommitteeCenter = false;
+  //   this.isGeneralAssemblyCenter = false;
+  //   this.isExecutiveBoardCenter = false;
+  //   this.isMemberToGcc = false;
+  //   this.isProductionmanager = false;
+  // }
 
   onListAreas(){
-    this.allExcepArea();
+    // this.allExcepArea();
+    this.isListPosts = false;
     this.isListAreas = true;
     this.dynamicTitle = "Liste des zones";
   }
@@ -303,6 +305,12 @@ export class ViewMoreAreaComponent implements OnInit {
           });
         }
       });
+  }
+
+  onListPosts(){
+    this.isListAreas = false;
+    this.isListPosts = true;
+    this.dynamicTitle = "Liste des postes";
   }
 
 }

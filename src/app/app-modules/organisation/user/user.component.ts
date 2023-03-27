@@ -104,6 +104,8 @@ export class UserComponent implements OnInit {
     this.getAllFamilySituation();
     this.getAllStatus();
     this.getAllCountries();
+    console.log("this.userOfSelect::", this.userOfSelect);
+    
     this.getMaxAge();
   }
 
@@ -269,9 +271,11 @@ export class UserComponent implements OnInit {
   getConnectedUser() {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
-      if(this.userOfSelect <= 0){
+      if(this.users.length <= 0){
         this.userOfSelect = [{value: this.user.id, label: this.user.firstName}]
       }
+
+      console.log("userOfSelect2::", this.userOfSelect);
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
           this.adminIsConnected = true;
@@ -336,7 +340,9 @@ export class UserComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().subscribe((result)=>{
       this.users = result.data
-      this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+      if(this.users.length >0){
+        this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+      }
       
     })
   }

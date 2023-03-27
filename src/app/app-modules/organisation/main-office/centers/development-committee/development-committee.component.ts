@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Function } from 'src/app/core/classes/function';
 import { Organism } from 'src/app/core/classes/organism';
 import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
@@ -26,7 +27,7 @@ export class DevelopmentCommitteeComponent implements OnInit {
   addMemberForm!: FormGroup;
   idCenter: number = 0;
   centers: Organism[] = [];
-  posts: Post[] = [];
+  functions: Function[] = [];
   users: User[] = [];
   isSaving: boolean = false;
   center: Organism;
@@ -168,8 +169,8 @@ export class DevelopmentCommitteeComponent implements OnInit {
 
 
   getAllFonction(){
-    this.fonctionService.findAllPosts().subscribe((res)=>{
-      this.posts = res.data
+    this.fonctionService.findAllFunctions().subscribe((res)=>{
+      this.functions = res.data
     })
   }
 

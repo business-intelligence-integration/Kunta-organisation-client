@@ -100,16 +100,18 @@
                     <a href="javascript:void(0);" class="parent-link" (click)="onShowCentre()" [routerLink]="['/organization/centers/']" >Centres</a>
                 </div>
             </li>
-            <li class="has-children" [ngClass]="activateMainOfficeDetails">
+
+            <li>
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" (click)="onDisplayMainOffice()" [routerLink]="['/organization/main-office/posts']" >Bureau principale</a>
+                </div>
+            </li>
+            <!-- <li class="has-children" [ngClass]="activateMainOfficeDetails">
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
                 <ul [style.display]="wrapdwonDetaiilsMainOffice">
                     <li>
-                        <!-- <a (click)="onExecutiveBoard()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Comité exécutif</span>
-                        </a> -->
                         <a (click)="onShowExecutifBoard()" [routerLink]="['/organization/executif-board/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité exécutif</span>
@@ -117,30 +119,18 @@
 
                     </li>
                     <li>
-                        <!-- <a (click)="onGeneralAssembly()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Assemblée générale</span>
-                        </a> -->
                         <a (click)="onShowGeneralAssembly()" [routerLink]="['/organization/general-assembly/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Assemblée générale</span>
                         </a>
                     </li>
                     <li>
-                        <!-- <a (click)="onCompensationCommittee()"  class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Comité de gouvernance et de rémunération</span>
-                        </a> -->
                         <a (click)="onShowGovernanceCompensation()" [routerLink]="['/organization/governance-compensation/']"  class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de gouvernance et de rémunération</span>
                         </a>
                     </li>
                     <li>
-                        <!-- <a (click)="onMonitoringCommittee()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Comité de production et de surveillance</span>
-                        </a> -->
                         <a (click)="onShowGovernanceCompensation()" [routerLink]="['/organization/production-monitoring-committee/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de production et de surveillance</span>
@@ -148,17 +138,13 @@
                     </li>
 
                     <li>
-                        <!-- <a (click)="onDevelopmentCommittee()" class="is-submenu">
-                            <i class="lnil lnil-list-alt-1"></i>
-                            <span>Comité de développement stratégique</span>
-                        </a> -->
                         <a (click)="onShowGovernanceCompensation()" [routerLink]="['/organization/strategic-development-committee/']" class="is-submenu">
                             <i class="lnil lnil-list-alt-1"></i>
                             <span>Comité de développement stratégique</span>
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
 </div>

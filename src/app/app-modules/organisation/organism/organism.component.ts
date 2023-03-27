@@ -81,14 +81,15 @@ export class OrganismComponent implements OnInit {
   }
 
   onDisplayMainOffice(){
-    if(this.activateMainOfficeDetails == ""){
-      this.activateMainOfficeDetails = "active" 
-      this.activeListCenter =""
-      this.wrapdwonDetaiilsMainOffice ="block"
-    }else{
-      this.activateMainOfficeDetails =""
-      this.wrapdwonDetaiilsMainOffice ="none"
-    }
+    // if(this.activateMainOfficeDetails == ""){
+    //   this.activateMainOfficeDetails = "active" 
+    //   this.activeListCenter =""
+    //   this.wrapdwonDetaiilsMainOffice ="block"
+    // }else{
+    //   this.activateMainOfficeDetails =""
+    //   this.wrapdwonDetaiilsMainOffice ="none"
+    // }
+    this.dynamicTitle = "Bureau principale";
   }
 
   onShowClub(){

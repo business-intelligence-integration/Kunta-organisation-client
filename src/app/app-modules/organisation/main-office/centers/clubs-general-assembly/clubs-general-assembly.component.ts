@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Function } from 'src/app/core/classes/function';
 import { Organism } from 'src/app/core/classes/organism';
-import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
@@ -28,7 +28,7 @@ export class ClubsGeneralAssemblyComponent implements OnInit {
   centers: Organism[] = [];
   users: User[] = [];
   center: Organism;
-  posts: Post[] = [];
+  functions: Function[] = [];
   isSaving: boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute,
@@ -166,8 +166,8 @@ export class ClubsGeneralAssemblyComponent implements OnInit {
   }
 
   getAllFonction(){
-    this.fonctionService.findAllPosts().subscribe((res)=>{
-      this.posts = res.data
+    this.fonctionService.findAllFunctions().subscribe((res)=>{
+      this.functions = res.data
     })
   }
 

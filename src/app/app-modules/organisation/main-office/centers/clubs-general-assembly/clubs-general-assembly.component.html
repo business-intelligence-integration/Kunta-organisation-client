@@ -84,7 +84,7 @@
                                 <span class="light-text" data-filter-match="">{{ user.email }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Fonction">
-                                <span class="light-text" data-filter-match="">{{ user.post.name }}</span>
+                                <span class="light-text" data-filter-match="">{{ user.function.name }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Ville">
                                 <span class="light-text" data-filter-match="">{{ user.city }}</span>
@@ -159,7 +159,7 @@
                             <label>Fonction du membre *</label>
                             <select class="input_comp" formControlName="idFonction" aria-label="Default select example" [(ngModel)]="ngSelect2">
                                 <option value="0" disabled>--Selectionnez la fonction du membre--</option>
-                                <option *ngFor="let post of posts" [value]="post.id"> <span>{{ post.name }} </span> </option>
+                                <option *ngFor="let function of functions" [value]="function.id"> <span>{{ function.name }} </span> </option>
                             </select>
                         </div>
                         <div class="control login">

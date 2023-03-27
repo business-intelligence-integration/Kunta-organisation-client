@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Function } from 'src/app/core/classes/function';
 import { Organism } from 'src/app/core/classes/organism';
 import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
@@ -27,7 +28,7 @@ export class ProductionMonitoringCommitteeComponent implements OnInit {
   idMainOffice: number = 0;
   mainOffices: Organism[] = [];
   users: User[] = [];
-  posts: Post[] = [];
+  functions: Function[] = [];
   isSaving: boolean = false;
   mainOffice: Organism;
 
@@ -163,8 +164,8 @@ export class ProductionMonitoringCommitteeComponent implements OnInit {
   }
 
   getAllFonction(){
-    this.fonctionService.findAllPosts().subscribe((res)=>{
-      this.posts = res.data
+    this.fonctionService.findAllFunctions().subscribe((res)=>{
+      this.functions = res.data
     })
   }
 
