@@ -13,6 +13,12 @@ export class AppContentComponent implements OnInit {
 
   activeBurger: string = "";
   activeMainSidebar: string = "";
+
+  activeSidebarDashboard: string = "is-active";
+  activeSidebarOrganism: string = "";
+  activeSidebarOperation: string = "";
+  activeSidebarParameter: string = "";
+
   activeSubSidebarOfOrganism: string = "";
   activeSubSidebarOfOperation: string = "";
   activeSubSidebarOfParameter: string = "";
@@ -30,7 +36,7 @@ export class AppContentComponent implements OnInit {
   activeListTontine: string = "";
   activeOganisation: string = "";
   activeMutualInvestment: string = "";
-  dynamicTitle: string = "Liste de Fréquences"
+  dynamicTitle: string = "Poste Mobile";
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
   wrapdwonDetailMutualInvestment: string  = "display-block";
@@ -118,6 +124,11 @@ export class AppContentComponent implements OnInit {
     this.activeSubSidebarOfOrganism = "";
     this.activeSubSidebarOfOperation = "";
     this.activeSubSidebarOfParameter = "";
+
+    this.activeSidebarDashboard = "is-active";
+    this.activeSidebarOrganism = "";
+    this.activeSidebarOperation = "";
+    this.activeSidebarParameter = "";
   }
 
   onShowOrganismSubBar(){
@@ -125,6 +136,11 @@ export class AppContentComponent implements OnInit {
       this.activeSubSidebarOfOrganism = "is-active";
       this.activeSubSidebarOfOperation = "";
       this.activeSubSidebarOfParameter = "";
+
+      this.activeSidebarDashboard = "";
+      this.activeSidebarOrganism = "is-active";
+      this.activeSidebarOperation = "";
+      this.activeSidebarParameter = "";
     }else{
       this.activeSubSidebarOfOrganism = "";
     }
@@ -136,6 +152,11 @@ export class AppContentComponent implements OnInit {
       this.activeSubSidebarOfOperation = "is-active";
       this.activeSubSidebarOfOrganism = "";
       this.activeSubSidebarOfParameter = "";
+
+      this.activeSidebarDashboard = "";
+      this.activeSidebarOrganism = "";
+      this.activeSidebarOperation = "is-active";
+      this.activeSidebarParameter = "";
     }else{
       this.activeSubSidebarOfOperation = "";
     }
@@ -146,6 +167,11 @@ export class AppContentComponent implements OnInit {
       this.activeSubSidebarOfParameter = "is-active";
       this.activeSubSidebarOfOrganism = "";
       this.activeSubSidebarOfOperation = "";
+
+      this.activeSidebarDashboard = "";
+      this.activeSidebarOrganism = "";
+      this.activeSidebarOperation = "";
+      this.activeSidebarParameter = "is-active";
     }else{
       this.activeSubSidebarOfParameter = "";
     }
@@ -182,233 +208,67 @@ export class AppContentComponent implements OnInit {
     }
   }
 
-
-  onTransversality(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutMutualInsvestMent();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isSession = false;
-    this.isCycle = false;
-    this.isGain = false;
-    this.isFrequency = false;
-    this.isTransversality = true;
-    this.dynamicTitle = "Liste des niveaux de transversalité"
-  }
-
-  onFrequency(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutMutualInsvestMent();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = true;
-    this.dynamicTitle = "Liste de Fréquences"
-  }
-
-  onGain(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isSession = false;
-    this.isCycle = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isGain = true;
-    this.dynamicTitle = "Liste de Gains"
-  }
-
-  onCycle(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isSession = false;
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = true;
-    this.dynamicTitle = "Liste des cycles"
-  }
-
-  onSession(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isStatus = false;
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = true;
-    this.dynamicTitle = "Liste des séances"
-  }
-
-  onStatus(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = true;
-    this.dynamicTitle = "Liste des status"
-  }
-
-  onPenalyType(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenalty = false;
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = true
-    this.dynamicTitle = "Liste des types de penalité"
-  }
-
-  onPenaly(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPaymentStatus = false;
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = false;
-    this.isPenalty = true;
-    this.dynamicTitle = "Liste des pénalités"
-  }
-
-  onPaymentStatus(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutOrganisation();
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = false;
-    this.isPenalty = false;
-    this.isPaymentStatus = true;
-    this.dynamicTitle = "Liste des status de paiement"
-  }
-
-
-  isNotAboutTontine(){
-    this.isPenaltyType = false
-    this.isGain = false;
-    this.isTransversality = false;
-    this.isFrequency = false;
-    this.isCycle = false;
-    this.isSession = false;
-    this.isStatus = false;
-    this.isPenaltyType = false;
-    this.isPenalty = false;
-    this.isPaymentStatus = false;
-  }
-  isNotAboutOrganisation(){
-    this.isPoste = false;
-    this.isPieceType = false;
-    this.isFamilySituation = false;
-    this.isCivility = false;
-  }
-  isNotAboutMutualInsvestMent(){
-   this.isDraweeForm = false;
-  }
-
   onPoste(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = true;
-    this.isPieceType = false;
-    this.isFamilySituation = false;
-    this.isCivility = false;
-    this.dynamicTitle = "Liste des postes de l'organisation"
+    this.dynamicTitle = "Postes"
   }
 
   onPieceType(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = false;
-    this.isPieceType = true;
-    this.isFamilySituation = false;
-    this.isCivility = false;
-    this.dynamicTitle = "Liste les types de pièce"
-  }
-
-  onFamilySituation(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = false;
-    this.isPieceType = false;
-    this.isFamilySituation = true;
-    this.isCivility = false;
-    this.dynamicTitle = "Liste des situations familiales"
+    this.dynamicTitle = "Types de pièces"
   }
 
   onCivility(){
-    this.isNotAboutMutualInsvestMent();
-    this.isNotAboutTontine();
-    this.isPoste = false;
-    this.isPieceType = false;
-    this.isFamilySituation = false;
-    this.isCivility = true;
-    this.dynamicTitle = "Liste des civilités"
+    this.dynamicTitle = "Civilités"
   }
 
+  onFrequency(){
+    this.dynamicTitle = "Frequences"
+  }
+
+  onTransversality(){
+    this.dynamicTitle = "Niveaux de transversalité"
+  }
+  onGain(){
+    this.dynamicTitle = "Gains"
+  }
+
+  onCycle(){
+    this.dynamicTitle = "Cycles"
+  }
+
+  onSession(){
+    this.dynamicTitle = "Séances"
+  }
+
+  onStatus(){
+    this.dynamicTitle = "Statuts"
+  }
+
+  onPenalyType(){
+    this.dynamicTitle = "Types Penalité"
+  }
+
+  onPenaly(){
+    this.dynamicTitle = "Penalités"
+  }
+
+  onPaymentStatus(){
+    this.dynamicTitle = "Statuts Paiement"
+  }
+  
   onDraweeForm(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutTontine();
-    this.isProfitabilityType= false;
-    this.isRefundType = false;
-    this.isDraweeForm = true;
-    this.dynamicTitle = "Liste des formulaires de tirage au sort";
+    this.dynamicTitle = "Formulaires de tirage"
   }
 
   onProfitabilityType(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutTontine();
-    this.isRefundType = false;
-    this.isDraweeForm = false;
-    this.isProfitabilityType= true;
-    this.dynamicTitle = "Liste des types de rentabilités";
+    this.dynamicTitle = "Types de rentabilité"
   }
 
   onRefundType(){
-    this.isNotAboutOrganisation();
-    this.isNotAboutTontine();
-    this.isDraweeForm = false;
-    this.isProfitabilityType= false;
-    this.isRefundType = true;
-    this.dynamicTitle = "Liste des types de remboursement";
+    this.dynamicTitle = "Types de remboursement"
+  }
+
+  onFamilySituation(){
+    this.dynamicTitle = "Situation familiale"
   }
   /////////////////////////////////////////////////////////////////// END Parameters Functions
 
