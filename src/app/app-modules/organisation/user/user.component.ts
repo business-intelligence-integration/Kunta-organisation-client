@@ -104,8 +104,6 @@ export class UserComponent implements OnInit {
     this.getAllFamilySituation();
     this.getAllStatus();
     this.getAllCountries();
-    console.log("this.userOfSelect::", this.userOfSelect);
-    
     this.getMaxAge();
   }
 
@@ -270,6 +268,8 @@ export class UserComponent implements OnInit {
 
   getConnectedUser() {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      console.log("conectedAdmin::", res);
+      
       this.user = res.data;
       if(this.users.length <= 0){
         this.userOfSelect = [{value: this.user.id, label: this.user.firstName}]
@@ -349,8 +349,6 @@ export class UserComponent implements OnInit {
 
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
-    console.log("isSaving1...");
-    
     this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
       console.log("isSaving2...");
       this.isSaving = false;

@@ -111,7 +111,8 @@ export class CentersComponent implements OnInit {
       }),
     });
     this.newListcenters = tabCenter;
-  
+    console.log("newListcenters::", this.newListcenters);
+    
   }
 
   getAllArea(){
@@ -205,7 +206,11 @@ export class CentersComponent implements OnInit {
 
   createCenter(center: Organism){
     this.isSaving = true;
+    console.log("center::", center);
+    
     this.centerService.createCenter(center).subscribe((res)=>{
+      console.log("resCenter::", res);
+      
       this.isSaving = false;
       this.center = res.data
       this.onCloseAddModal();
