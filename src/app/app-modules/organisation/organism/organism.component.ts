@@ -119,6 +119,10 @@ export class OrganismComponent implements OnInit {
     this.dynamicTitle = "Comité de gouvernance et de rémunération";
   }
 
+  onShowProductionMonitoringCommittee(){
+    this.dynamicTitle = "Comité de production et de surveillance";
+  }
+
   onShowStrategicDevelopmentCommittee(){
     this.dynamicTitle = "Comité de développement stratégique";
   }
