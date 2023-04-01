@@ -388,7 +388,7 @@ export class TontineComponent implements OnInit {
       if(res.data == null){
         this.utilityService.showMessage(
           'warning',
-          'Désolé, le nombre de bras de participants qui est de: ' + this.numberOfMembers +' en ce moment ne doit pas être supérieur au nombre de séance(' + this.sessionsNumber + ') généré',
+          'Désolé, vous avez probablement entré un nombre de bras supérieur à celui demandé, nombre de bras actuel: '+ this.numberOfMembers  + ', nombre de bras prévu: ' + this.numberOfMembers + ', assurez-vous de ne pas ajouter un utiliateur 2 fois.',
           '#e62965',
           'white'
         );

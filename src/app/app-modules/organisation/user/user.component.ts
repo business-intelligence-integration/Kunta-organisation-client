@@ -47,10 +47,10 @@ export class UserComponent implements OnInit {
   selectRoleForm!: FormGroup;
   searchForm!: FormGroup;
   pieceTypes: PieceType[] = [];
-  users: User[];
+  users: User[] = [];
   members: User[] = [];
   membersArray: any[] = [];
-  user: User;
+  user: User = new User();
   idUser: number = 0; 
   Utilisateurs: string = "Utilisateurs"
   isProgressing: boolean = false;
@@ -93,8 +93,6 @@ export class UserComponent implements OnInit {
     private statusService: StatusService,
     private location: Location,
     private countryService: CountryService) { 
-    this.users = [];
-    this.user = new User();
   }
 
   ngOnInit(): void {
@@ -270,7 +268,40 @@ export class UserComponent implements OnInit {
     this.updateUser(this.user, formValue.id)
   }
 
+  getAllUsers(){
+    let users: User[] = [];
+    this.userService.getAllUsers().subscribe({
+      next: (res)=> res.data.map((user: any)=>{
+        this.userOfSelect = {value: user.id, label: user.firstName}
+        let isSimpleUser = false;
+        if(this.adminIsConnected){
+          users.push(user)
+        }else if(this.operatorIsConnected){
+          user.roles.map((role:Role)=>{
+            if(role.name != "ADMIN" && role.name != "OPERATOR"){
+              isSimpleUser = true;
+            }
+          })
+          if(isSimpleUser){
+            users.push(user)
+          }
+        }
+      })
+    })
+
+    this.userService.getAllUsers().subscribe((result)=>{
+          if(result.data.length >0){
+            this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+          }      
+        })
+
+    this.users = users;
+
+    
+  }
+
   getConnectedUser() {
+    this.getAllUsers();
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
       if(this.users.length <= 0){
@@ -350,37 +381,7 @@ export class UserComponent implements OnInit {
   //   })
   // }
 
-  getAllUsers(){
-    let users: User[] = [];
-    this.userService.getAllUsers().subscribe({
-      next: (res)=> res.data.map((user: any)=>{
-        this.userOfSelect = {value: user.id, label: user.firstName}
-        let isSimpleUser = false;
-        if(this.adminIsConnected){
-          users.push(user)
-        }else if(this.operatorIsConnected){
-          user.roles.map((role:Role)=>{
-            if(role.name != "ADMIN" && role.name != "OPERATOR"){
-              isSimpleUser = true;
-            }
-          })
-          if(isSimpleUser){
-            users.push(user)
-          }
-        }
-      })
-    })
 
-    this.userService.getAllUsers().subscribe((result)=>{
-          if(result.data.length >0){
-            this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
-          }      
-        })
-
-    this.users = users;
-
-    
-  }
 
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
