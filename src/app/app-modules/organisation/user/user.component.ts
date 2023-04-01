@@ -20,6 +20,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import { Role } from 'src/app/core/classes/role';
 import { flatMap } from 'rxjs';
+import { RoleService } from 'src/app/core/services/roles/role.service';
 
 @Component({
   selector: 'app-user',
@@ -29,6 +30,7 @@ import { flatMap } from 'rxjs';
 export class UserComponent implements OnInit {
   disabledUserAction: string="disabled";
   ngSelect: any = "1";
+  ngSelectRoleUser = 0
   ngSelectUser = 0;
   ngSelect2 = 0;
   ngSelectCivility = 0;
@@ -47,6 +49,7 @@ export class UserComponent implements OnInit {
   changeStatusForm!: FormGroup;
   selectRoleForm!: FormGroup;
   searchForm!: FormGroup;
+  addRoleToUserForm!: FormGroup;
   pieceTypes: PieceType[] = [];
   users: User[] = [];
   members: User[] = [];
@@ -79,6 +82,8 @@ export class UserComponent implements OnInit {
   maxAge: any;
   minValidityDate: any
   selectedRoleS: string = "ALL"
+  openAddRoleModal: string = "";
+  roles: Role[] = [];
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -93,6 +98,7 @@ export class UserComponent implements OnInit {
     private familySituationService: FamilySituationService,
     private statusService: StatusService,
     private location: Location,
+    private roleService: RoleService,
     private countryService: CountryService) { 
   }
 
@@ -108,6 +114,7 @@ export class UserComponent implements OnInit {
     this.getAllStatus();
     this.getAllCountries();
     this.getMaxAge();
+    this.getAllRoles();
   }
 
   
@@ -188,6 +195,10 @@ export class UserComponent implements OnInit {
 
     this.changeStatusForm = this.formBuilder.group({
       idStatus: new FormControl(null, Validators.required),
+    })
+
+    this.addRoleToUserForm = this.formBuilder.group({
+      idRole: new FormControl(null),
     })
   }
 
@@ -745,4 +756,53 @@ export class UserComponent implements OnInit {
   })
  }
 
+ closeAddRoleModal(){
+  this.openAddRoleModal = ""
+ }
+
+ onAddRoleTOUser(idUser: number){
+  this.openAddRoleModal = "is-active";
+  this.idUser = idUser;
+ }
+
+ getAllRoles(){
+  this.roleService.findAllRoles().subscribe((res)=>{
+    this.roles = res.data;
+  })
+ }
+
+ onSubmitAddRoleTOUser(){
+  const formValue = this.addRoleToUserForm.value;
+  this.isSaving = true;
+  this.userService.addRole(this.idUser, formValue.idRole).subscribe((res)=>{
+    console.log("resRole::", res);
+    this.closeAddRoleModal()
+    this.getAllUsers();
+    this.isSaving = false;
+    if(res.data == null){
+      this.utilityService.showMessage(
+        'warning',
+        'Vous ne pouvez pas ajouter 2 fois le même role à l\'utilisateur !',
+        '#e62965',
+        'white'
+      );
+    }else{
+      this.utilityService.showMessage(
+        'success',
+        'Le role a été ajouté à l\'utilisateur avec succès !',
+        '#06d6a0',
+        'white'
+      );
+    }
+    
+  },()=>{
+    this.isSaving = false;
+    this.utilityService.showMessage(
+      'warning',
+      'Une erreur s\'est produite !',
+      '#e62965',
+      'white'
+    );
+  })
+ }
 }
