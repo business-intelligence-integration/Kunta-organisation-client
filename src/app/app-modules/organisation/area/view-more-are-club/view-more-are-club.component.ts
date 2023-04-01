@@ -8,6 +8,8 @@ import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
+import { Post } from 'src/app/core/classes/post';
+import { PostService } from 'src/app/core/services/post/post.service';
 
 @Component({
   selector: 'app-view-more-are-club',
@@ -35,11 +37,13 @@ export class ViewMoreAreClubComponent implements OnInit {
   dynamicTitle = "Liste des clubs";
   communicationAgent: User;
   dataEntryAgent: User;
+  posts: Post[] = [];
   constructor(private areaService: AreaService, 
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private clubService: ClubService,
     private location: Location,
+    private postService: PostService,
     private utilityService: UtilityService) {
       this.communicationAgent = new User();
       this.dataEntryAgent = new User();
@@ -49,6 +53,7 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.getArea();
     this.getAllClubs();
     this.formInit();
+    this.finAllPostByIdArea();
   }
 
   formInit() {
@@ -208,5 +213,16 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.isListClubs = false;
     this.isListPosts = true;
     this.dynamicTitle = "Listes des poste"
+  }
+
+  finAllPostByIdArea(){
+    this.activatedRoute.queryParams.subscribe((params) => {
+        this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
+          this.posts = res.data
+          console.log("postsArea:: ", res);
+          
+        })
+      });
+   
   }
 }

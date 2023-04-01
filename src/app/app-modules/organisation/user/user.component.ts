@@ -13,10 +13,12 @@ import { CountryService } from 'src/app/core/services/country/country.service';
 import { FamilySituationService } from 'src/app/core/services/family-situation/family-situation.service';
 import { StatusService } from 'src/app/core/services/organisation/status/status.service';
 import { PieceTypeService } from 'src/app/core/services/piece-type/piece-type.service';
+import {Location} from "@angular/common";
 
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
+import { Role } from 'src/app/core/classes/role';
 
 @Component({
   selector: 'app-user',
@@ -60,6 +62,7 @@ export class UserComponent implements OnInit {
   isSelectMutualist: boolean = false;
   isSelectMember: boolean = false;
   adminIsConnected: boolean = false;
+  operatorIsConnected: boolean = false;
   isSaving: boolean = false;
   showErroMessage: boolean = false;
   birthDate: any;
@@ -88,17 +91,18 @@ export class UserComponent implements OnInit {
     private civilityService: CivilityService,
     private familySituationService: FamilySituationService,
     private statusService: StatusService,
+    private location: Location,
     private countryService: CountryService) { 
     this.users = [];
     this.user = new User();
   }
 
   ngOnInit(): void {
+    this.getAllUsers();
     this.formInit();
     this.management();
-    this.getConnectedUser();
-    this.getAllUsers();
     this.getAllMembers();
+    this.getConnectedUser();
     this.getAllPieceType();
     this.getAllcivilities();
     this.getAllFamilySituation();
@@ -188,8 +192,10 @@ export class UserComponent implements OnInit {
     })
   }
 
+  comeBack(){this.location.back()}
+
   onOpenAddUser(){
-    if(this.adminIsConnected == true){
+    if(this.adminIsConnected == true || this.operatorIsConnected == true){
       this.creatUser = true;
       this.isList = false;
     }else{
@@ -230,8 +236,6 @@ export class UserComponent implements OnInit {
       this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
     }
    }if(formValue.userType == "ADMIN"){
-    console.log("this.user::", this.user);
-    
     this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
   }else if(formValue.userType == "OPERATOR"){
     this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
@@ -268,18 +272,17 @@ export class UserComponent implements OnInit {
 
   getConnectedUser() {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
-      console.log("conectedAdmin::", res);
-      
       this.user = res.data;
       if(this.users.length <= 0){
         this.userOfSelect = [{value: this.user.id, label: this.user.firstName}]
       }
-
-      console.log("userOfSelect2::", this.userOfSelect);
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
           this.adminIsConnected = true;
           this.disabledUserAction = ""
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+          
         }
       })
     })
@@ -337,14 +340,46 @@ export class UserComponent implements OnInit {
     this.openBeneficiaryModal = ""
   }
 
-  getAllUsers(){
-    this.userService.getAllUsers().subscribe((result)=>{
-      this.users = result.data
-      if(this.users.length >0){
-        this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
-      }
+  // getAllUsers(){
+  //   this.userService.getAllUsers().subscribe((result)=>{
+  //     this.users = result.data
+  //     if(this.users.length >0){
+  //       this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+  //     }
       
+  //   })
+  // }
+
+  getAllUsers(){
+    let users: User[] = [];
+    this.userService.getAllUsers().subscribe({
+      next: (res)=> res.data.map((user: any)=>{
+        this.userOfSelect = {value: user.id, label: user.firstName}
+        let isSimpleUser = false;
+        if(this.adminIsConnected){
+          users.push(user)
+        }else if(this.operatorIsConnected){
+          user.roles.map((role:Role)=>{
+            if(role.name != "ADMIN" && role.name != "OPERATOR"){
+              isSimpleUser = true;
+            }
+          })
+          if(isSimpleUser){
+            users.push(user)
+          }
+        }
+      })
     })
+
+    this.userService.getAllUsers().subscribe((result)=>{
+          if(result.data.length >0){
+            this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+          }      
+        })
+
+    this.users = users;
+
+    
   }
 
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){

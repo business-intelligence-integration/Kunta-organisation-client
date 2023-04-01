@@ -64,7 +64,7 @@
                     <span class="light-text" style="margin-left: -70px;" data-filter-match="">{{ post.description }}</span>
                 </div>
                 <div class="flex-table-cell" data-th="Nombre d'utilisateurs maximal">
-                    <span class="light-text" style="margin-left: -50px;" data-filter-match="">1</span>
+                    <span class="light-text" style="margin-left: -50px;" data-filter-match="">{{ post.operators.length }}</span>
                         <a (click)="onOpenAddOperatorModal(post.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                 </div>
                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -92,7 +92,63 @@
 
 </div>
 
-
+<div id="addOperator" class="modal h-modal" [ngClass]="openOperatorModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajout d'un operateur</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeOperatorModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addOperatorForm" (ngSubmit)="onSubmitOperator()">
+                        <div class="field">
+                            <label>Membres *</label><br>
+                            <select2
+                                    class="w-100 color-border"
+                                    [data]="operators"
+                                    id="operator"
+                                    formControlName="idOperator"
+                                    placeholder="--Selectionnez un operateur--">
+                            </select2>
+                            <div class="text-danger"
+                            *ngIf="addOperatorForm.get('idOperator')?.errors?.['required'] && addOperatorForm.get('idOperator')?.touched">
+                            <small class="text-police" translate>Selectionnez un membre</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <div>
+                                <label> Functions*</label><br>
+                                <select class="input_comp" formControlName="idFunction" aria-label="Default select example"  [(ngModel)]="ngSelectFunction">
+                                    <option value="0" disabled>--selectionner une  fonction--</option>
+                                    <option *ngFor="let function of functions" [value]="function.id" >{{ function.name }}</option>
+                                </select>
+                                <div class="text-danger"
+                                *ngIf="addOperatorForm.get('idFunction')?.errors?.['required'] && addOperatorForm.get('idFunction')?.touched">
+                                <small class="text-police" translate>selectionner la function</small>
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addOperatorForm.invalid || isSaving" >Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeOperatorModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
