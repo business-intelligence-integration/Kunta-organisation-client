@@ -72,4 +72,8 @@ export class AreaService {
   findAreasByName(name: string):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'areas/search?name='+ name, httpOptions);
   }
+
+  findAreaByIdClub(idClub: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'areas/findBy/' + idClub, httpOptions);
+  }
 }

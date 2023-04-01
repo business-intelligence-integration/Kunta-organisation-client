@@ -14,6 +14,12 @@ import { SessionService } from 'src/app/core/services/session/session.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
+import { TontineService } from 'src/app/core/services/tontine/tontine.service';
+import { AreaService } from 'src/app/core/services/areas/area.service';
+import { PostService } from 'src/app/core/services/post/post.service';
+import { UserService } from 'src/app/core/services/users/user.service';
+import { CenterService } from 'src/app/core/services/centers/center.service';
+import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 
 @Component({
   selector: 'app-all-payment-of-session',
@@ -38,9 +44,12 @@ export class AllPaymentOfSessionComponent implements OnInit {
   date: any;
   isCotisation: boolean = true;
   isMember: boolean = false;
+  isCenterOfficer: boolean = false;
   isSaving: boolean = false;
+  isController: boolean = false;
   idPayment: number = 0;
   users: User[] = [];
+  
 
   constructor(private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
@@ -49,6 +58,12 @@ export class AllPaymentOfSessionComponent implements OnInit {
     private paymentStatusService: PaymentStatusService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
+    private tontineService: TontineService,
+    private areaService: AreaService,
+    private postService: PostService,
+    private userService: UserService,
+    private centerService:CenterService,
+    private mainService: MainOfficeService,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -56,6 +71,8 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.formInit();
     this.getAllPaymentStaus();
     this.getAllUserPaymentStateBySession();
+    this.getTontine();
+    this.getMainOfficeById();
   }
 
   formInit() {
@@ -283,5 +300,45 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.isCotisation = false;
     this.isMember = true;
     this.getAllUserPaymentStateBySession()
+  }
+
+  getTontine(){
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.tontineService.findTontineById(params['tontine']).subscribe((res)=>{
+        this.areaService.findAreaByIdClub(res.data.clubOwner.id).subscribe((res)=>{
+          this.centerService.findCenterByIdArea(res.data.id).subscribe((res)=>{
+            this.postService.finAllPostByIdCenter(res.data.id).subscribe((res)=>{
+                this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((connectedRes) => {
+                  if(res.data[7].operators[0].id == connectedRes.data.id){       
+                    this.isCenterOfficer = true;
+                  }
+                })
+            })
+           
+          })          
+          // this.postService.finAllPostByIdArea(res.data.id).subscribe((connectedRes)=>{
+          //   this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+          //     if(connectedRes.data[1].operators[0].id == res.data.id){
+          //       this.isEntryAgent = true;
+          //     }
+          //   })
+          // })
+        })
+      });
+    })
+  }
+
+  getMainOfficeById(){
+    this.mainService.getById(1).subscribe((mainOffice)=>{
+      console.log("resMain::", mainOffice);
+      this.postService.finAllPostByIdMainOffice(1).subscribe((posts)=>{
+        console.log("posts::", posts);
+        this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((connectedRes) => {
+          if(posts.data[3].operators[0].id == connectedRes.data.id){       
+            this.isController = true;
+          }
+        })
+      })
+    })
   }
 }

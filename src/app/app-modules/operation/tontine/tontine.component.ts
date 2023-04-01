@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import { CycleDto } from 'src/app/core/classes/cycleDto';
 import { TontineMembers } from 'src/app/core/classes/tontineMembers';
+import { PostService } from 'src/app/core/services/post/post.service';
 
 @Component({
   selector: 'app-tontine',
@@ -81,6 +82,7 @@ export class TontineComponent implements OnInit {
     private transversalityService: TransversalityLevelService,
     private areaService: AreaService,
     private centerSeervice: CenterService,
+    private postService: PostService,
     private gainService: GainService,
     private cycleService: CycleService,) { }
 
@@ -166,6 +168,8 @@ export class TontineComponent implements OnInit {
   getAllClubs(){
     this.clubServices.findAllClubs().subscribe((res)=>{
       this.clubsArray = res.data.map((club:any)=>({value:club.id, label:club.name}));
+      console.log("allClubs::", res);
+      
     })
   }
 
@@ -632,5 +636,22 @@ export class TontineComponent implements OnInit {
       this.tontines = [];
       this.tontines = res?.data;
     })
+  }
+
+  getTontine(id: number): boolean{
+     let isEntryAgent:boolean = false;
+    this.tontineService.findTontineById(id).subscribe((res)=>{
+      this.areaService.findAreaByIdClub(res.data.clubOwner.id).subscribe((res)=>{
+        this.postService.finAllPostByIdArea(res.data.id).subscribe((connectedRes)=>{
+          this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+            if(connectedRes.data[1].operators[0].id == res.data.id){
+              isEntryAgent = true;
+            }
+          })
+        })
+      })
+      this.membersArray = res.data.tontineMembers.map((tontineMember:any)=>({value:tontineMember.participant.id, label:tontineMember.participant.firstName }))
+    });
+    return isEntryAgent;
   }
 }

@@ -93,6 +93,8 @@ export class ClubComponent implements OnInit {
   createClub(club: Organism, idArea: number){
     this.isSaving = true;
     this.clubService.createclub(club, idArea).subscribe((res)=>{
+      console.log("createClub::", res);
+      
       this.isSaving = false;
       this.getAllClubs()
       this.onCloseAddModal()

@@ -391,8 +391,8 @@
                             <label>Participants *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="status" [(ngModel)]="ngSelect">
                                 <option value="0" disabled>--Selectionnez un statut de paiement--</option>
-                                <option value="CONTROLE"> <span> CONTROLÉ </span> </option>
-                                <option value="VALIDE"> <span> VALIDÉ </span> </option>
+                                <option *ngIf="isController" value="CONTROLE"> <span> CONTROLÉ </span> </option>
+                                <option *ngIf="isCenterOfficer" value="VALIDE"> <span> VALIDÉ </span> </option>
                             </select><br><br>
                             <div class="text-danger"
                             *ngIf="paymentUpdateStatusForm.get('status')?.errors?.['required'] && paymentUpdateStatusForm.get('status')?.touched">

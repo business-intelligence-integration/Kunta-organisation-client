@@ -19,6 +19,7 @@ import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import { Role } from 'src/app/core/classes/role';
+import { flatMap } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -535,6 +536,7 @@ export class UserComponent implements OnInit {
 
   cancelCreatingUser(){
     this.creatUser = false;
+    this.updatUser = false;
     this.isList = true;
   }
 
