@@ -301,19 +301,21 @@ export class UserComponent implements OnInit {
       })
     })
 
+    this.users = users;
+    console.log("users::", users)
+
     this.userService.getAllUsers().subscribe((result)=>{
           if(result.data.length >0){
             this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
           }      
         })
 
-    this.users = users;
-
+   
     
   }
 
   getConnectedUser() {
-    this.getAllUsers();
+    //this.getAllUsers();
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
       if(this.users.length <= 0){
@@ -518,7 +520,7 @@ export class UserComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.userService.deleteById(id).subscribe(
+          this.userService.disableUser(id).subscribe(
             () => {
               this.getAllUsers();
               swalWithBootstrapButtons.fire({

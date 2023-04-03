@@ -1120,7 +1120,8 @@
                                 <label>Role *</label><br>
                                 <select class="input_comp" formControlName="idRole" aria-label="Default select example"  [(ngModel)]="ngSelectRoleUser">
                                     <option value="0" disabled>--selectionner un statut--</option>
-                                    <option *ngFor="let role of roles" [value]="role.id" >{{ role.name }}</option>
+                                    <option *ngFor="let role of roles" [value]="role.id" 
+                                    [ngClass]="{'d-none': role.name === 'ACTUATOR'}">{{ role.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="addRoleToUserForm.get('idRole')?.errors?.['required'] && addRoleToUserForm.get('idRole')?.touched">
