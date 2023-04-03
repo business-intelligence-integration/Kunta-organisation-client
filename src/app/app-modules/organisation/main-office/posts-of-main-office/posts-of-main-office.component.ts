@@ -57,8 +57,7 @@ export class PostsOfMainOfficeComponent implements OnInit {
 
   getAllPostByIdMainOffice(id: number){
     this.postService.finAllPostByIdMainOffice(id).subscribe((res)=>{
-      // this.posts = res.data;
-      console.log("posts::", res)
+      this.posts = res.data;
     });
   }
 
