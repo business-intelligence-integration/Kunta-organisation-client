@@ -51,9 +51,6 @@ export class PostsOfMainOfficeComponent implements OnInit {
 
   getAllMainOffices(){
     this.mainOfficeService.findAllOffices().subscribe((res)=>{
-      console.log("resMain::", res);
-      
-     // this.posts = res.data[0].posts;
       this.idMainOffice = res.data[0].id;
       this.getAllPostByIdMainOffice(this.idMainOffice);
     })
@@ -62,7 +59,6 @@ export class PostsOfMainOfficeComponent implements OnInit {
   getAllPostByIdMainOffice(id: number){
     this.postService.finAllPostByIdMainOffice(id).subscribe((res)=>{
       this.posts = res.data;
-      console.log("posts::", res);
     });
   }
 
@@ -96,7 +92,6 @@ export class PostsOfMainOfficeComponent implements OnInit {
   addOperatorToMainOffice(idOperator: number, idFunction: number){
     this.isSaving = true;
     this.postService.addOperatorToPost(idOperator, this.idPost, idFunction).subscribe((res)=>{
-      console.log("res::", res);
       this.getAllMainOffices();
       this.isSaving = false;
       this.closeOperatorModal();

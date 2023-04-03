@@ -39,8 +39,8 @@
         <!--List Empty Search Placeholder -->
         <div class="page-placeholder custom-text-filter-placeholder is-hidden">
             <div class="placeholder-content">
-                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt=""> -->
-                <!-- <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
+                <!-- <img class="light-image" src="assets/img/illustrations/placeholders/search-4.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-4-dark.svg" alt=""> -->
                 <h3>We couldn't find any matching results.</h3>
                 <p class="is-larger">Too bad. Looks like we couldn't find any matching results for the
                     search terms you've entered. Please try different search terms or criteria.</p>
@@ -164,7 +164,7 @@
                                     <div class="mb-2">
                                         <label>Types d'utilisateurs *</label><br>
                                         <select class="input_comp" formControlName="userType" aria-label="Default select example" (ngModelChange)="onSelectUser($event)"   [(ngModel)]="ngSelect">
-                                            <option value="1" disabled>--Select a Type--</option>
+                                            <option value="1" disabled>--Selectionner un type--</option>
                                             <option *ngIf="adminIsConnected" value="ADMIN">ADMIN</option>
                                             <!-- <option value="MEMBER" >MEMBER</option> -->
                                             <option value="USER">USER</option>
@@ -216,7 +216,7 @@
                                             </select2>
                                             <div class="text-danger"
                                             *ngIf="addUserForm.get('idSponsor')?.errors?.['required'] && addUserForm.get('idSponsor')?.touched">
-                                            <small class="text-police" translate>--Selectionner un parain--</small>
+                                            <small class="text-police" translate>--selectionner un parain--</small>
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +224,7 @@
                                         <div>
                                             <label> Civilité*</label><br>
                                             <select class="input_comp" formControlName="idCivility" aria-label="Default select example"  [(ngModel)]="ngSelectCivility">
-                                                <option value="0" disabled>--selectionner une  Civilité--</option>
+                                                <option value="0" disabled>--selectionner une  civilité--</option>
                                                 <option *ngFor="let cyvility of cyvilities" [value]="cyvility.id" >{{ cyvility.label }}</option>
                                             </select>
                                             <div class="text-danger"
@@ -238,7 +238,7 @@
                                             <div class="field">
                                                 <label>Nom*</label>
                                                 <div class="control has-icon">
-                                                    <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                                                    <input type="text" class="input" placeholder="Nom" formControlName="lastName">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                                     </div>
@@ -253,7 +253,7 @@
                                             <div class="field">
                                                 <label>Prenom*</label>
                                                 <div class="control has-icon">
-                                                    <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                                                    <input type="text" class="input" placeholder="Prenom" formControlName="firstName">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                                     </div>
@@ -269,7 +269,7 @@
                                                 <div class="field">
                                                     <label>Numéro de Tel.*</label>
                                                     <div class="control has-icon">
-                                                        <input type="number" class="input" placeholder="Phone Number"
+                                                        <input type="number" class="input" placeholder="Numéro de Tel."
                                                         formControlName="phoneNumber">
                                                         <div class="text-danger"
                                                             *ngIf="addUserForm.get('phoneNumber')?.errors?.['required'] && addUserForm.get('phoneNumber')?.touched">
@@ -943,7 +943,7 @@
                     <form class="modal-form" [formGroup]="changeStatusForm" (ngSubmit)="onSubmitUpdateStatus()">
                        <div class="field">
                             <div> 
-                                <label>Status *</label><br>
+                                <label>Statut *</label><br>
                                 <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
                                     <option value="0" disabled>--selectionner un statut--</option>
                                     <option *ngFor="let st of status" [value]="st.id" >{{ st.label }}</option>
@@ -956,7 +956,7 @@
                         </div><br>
                        
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Mettre a jour</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Enregistrer</button>
                         </div>
                     </form>
                 </div>

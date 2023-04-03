@@ -61,8 +61,6 @@ export class RefundTypeComponent implements OnInit {
     const formValue = this.createRefundTypeForm.value;
     this.refundType.type =formValue.type;
     this.refundTypeService.createRefundType(this.refundType).subscribe((res)=>{
-      console.log("res::", res);
-      
       this.isSaving = false;
       this.getAllRefundTypes();
       this.closeRefundTypeFormModal();

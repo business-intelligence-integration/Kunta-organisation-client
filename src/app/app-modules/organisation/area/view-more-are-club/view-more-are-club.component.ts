@@ -83,8 +83,6 @@ export class ViewMoreAreClubComponent implements OnInit {
         this.clubsOfArea = res.data.clubs;
         this.communicationAgent = res.data.communicationAgent;
         this.dataEntryAgent = res.data.dataEntryAgent;
-        console.log("res::", res);
-        
       });
     })
   }
@@ -219,8 +217,6 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
         this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
           this.posts = res.data
-          console.log("postsArea:: ", res);
-          
         })
       });
    

@@ -93,8 +93,6 @@ export class ClubComponent implements OnInit {
   createClub(club: Organism, idArea: number){
     this.isSaving = true;
     this.clubService.createclub(club, idArea).subscribe((res)=>{
-      console.log("createClub::", res);
-      
       this.isSaving = false;
       this.getAllClubs()
       this.onCloseAddModal()
@@ -119,7 +117,6 @@ export class ClubComponent implements OnInit {
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((result)=>{
-      console.log('clubs::', result.data)
       this.clubs = result.data
     })
   }
@@ -164,8 +161,6 @@ export class ClubComponent implements OnInit {
         if (result.isConfirmed) {
           this.clubService.deleteclubById(id).subscribe(
             (res) => {
-              console.log("resClubDel::", res);
-              
               this.getAllClubs();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',

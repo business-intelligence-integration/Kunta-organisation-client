@@ -12,7 +12,6 @@ const routes: Routes = [
     {path:"tontines", component: TontineComponent, canActivate: [EntityGuard]},
     {path:"mutual-investment", component: MutualInvestmentComponent, canActivate: [EntityGuard]},
   ]},
-  // {path:"operations", component: OperationsComponent, canActivate: [EntityGuard]}
 ];
 
 

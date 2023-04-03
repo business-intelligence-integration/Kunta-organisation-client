@@ -302,7 +302,6 @@ export class UserComponent implements OnInit {
     })
 
     this.users = users;
-    console.log("users::", users)
 
     this.userService.getAllUsers().subscribe((result)=>{
           if(result.data.length >0){
@@ -315,7 +314,7 @@ export class UserComponent implements OnInit {
   }
 
   getConnectedUser() {
-    //this.getAllUsers();
+    this.getAllUsers();
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
       if(this.users.length <= 0){
@@ -400,7 +399,6 @@ export class UserComponent implements OnInit {
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
     this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
-      console.log("isSaving2...");
       this.isSaving = false;
       this.getAllUsers();
       this.utilityService.showMessage(
@@ -777,7 +775,6 @@ export class UserComponent implements OnInit {
   const formValue = this.addRoleToUserForm.value;
   this.isSaving = true;
   this.userService.addRole(this.idUser, formValue.idRole).subscribe((res)=>{
-    console.log("resRole::", res);
     this.closeAddRoleModal()
     this.getAllUsers();
     this.isSaving = false;

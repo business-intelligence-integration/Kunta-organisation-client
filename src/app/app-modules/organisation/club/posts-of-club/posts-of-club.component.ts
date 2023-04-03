@@ -50,8 +50,6 @@ export class PostsOfClubComponent implements OnInit {
   getClub(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.clubService.getclubById(params['id']).subscribe((res)=>{
-        console.log("ClubRes::", res);
-       // this.posts = res.data.posts;
       });
     })
   }
@@ -73,8 +71,6 @@ export class PostsOfClubComponent implements OnInit {
   addOperatorToMainOffice(idOperator: number, idFunction: number){
     this.isSaving = true;
     this.postService.addOperatorToPost(idOperator, this.idPost, idFunction).subscribe((res)=>{
-      console.log("resP::", res);
-      
       this.isSaving = false;
       this.closeOperatorModal();
       this.finAllPostByIdClub();
@@ -118,7 +114,6 @@ export class PostsOfClubComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
         this.postService.finAllPostByIdClub(params['id']).subscribe((res)=>{
           this.posts = res.data
-          console.log("postsClub:: ", res);
         })
       });
    

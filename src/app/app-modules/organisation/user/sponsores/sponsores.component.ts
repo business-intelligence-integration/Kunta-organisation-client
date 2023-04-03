@@ -54,7 +54,6 @@ export class SponsoresComponent implements OnInit {
         this.user = res.data;
         this.sponsores = res.data.sponsoredUsers;
         this.beneficiaries = this.user.beneficiaries;
-        console.log("sponsore::", res);
       });
     })
   }

@@ -261,8 +261,6 @@ export class AllPaymentOfSessionComponent implements OnInit {
   validatePayment(idPayment: number){
     this.isSaving = true;
     this.paymentService.validatePayment(idPayment).subscribe((res)=>{
-      console.log("pénalitéss::", res);
-      
       this.isSaving = false;
       this.closeUpdatePaymentStatusModal();
       this.findAllPaymentsOfASession();
@@ -330,9 +328,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
 
   getMainOfficeById(){
     this.mainService.getById(1).subscribe((mainOffice)=>{
-      console.log("resMain::", mainOffice);
       this.postService.finAllPostByIdMainOffice(1).subscribe((posts)=>{
-        console.log("posts::", posts);
         this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((connectedRes) => {
           if(posts.data[3].operators[0].id == connectedRes.data.id){       
             this.isController = true;

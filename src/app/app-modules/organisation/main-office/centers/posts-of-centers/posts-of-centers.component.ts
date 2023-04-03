@@ -61,8 +61,7 @@ export class PostsOfCentersComponent implements OnInit {
   getAllPostByIdCenter(){
     this.activatedRoute.queryParams.subscribe((params) => {
         this.postService.finAllPostByIdCenter(params['id']).subscribe((res)=>{
-          this.posts = res.data
-          console.log("posts:: ", res);
+          this.posts = res.data;
           
         })
       });
@@ -98,8 +97,6 @@ export class PostsOfCentersComponent implements OnInit {
   addOperatorToMainOffice(idOperator: number, idFunction: number){
     this.isSaving = true;
     this.postService.addOperatorToPost(idOperator, this.idPost, idFunction).subscribe((res)=>{
-      console.log("resP::", res);
-      
       this.isSaving = false;
       this.closeOperatorModal();
       this.getAllPostByIdCenter();

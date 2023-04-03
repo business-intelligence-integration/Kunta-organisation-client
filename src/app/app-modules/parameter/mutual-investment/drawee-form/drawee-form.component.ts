@@ -97,8 +97,6 @@ export class DraweeFormComponent implements OnInit {
     this.draweeForm.label =formValue.label;
     this.draweeForm.description =formValue.description;
     this.draweeFormService.updateDraweeForm(this.draweeForm, id).subscribe((res)=>{
-      console.log("res::", res);
-      
       this.isSaving = false;
       this.getAllDroweeForm();
       this.closeUpdateDraweeFormModal();
