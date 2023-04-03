@@ -25,11 +25,15 @@ import { PieceTypeComponent } from './parameter/organisation/piece-type/piece-ty
 import { FamilySituationComponent } from './parameter/organisation/family-situation/family-situation.component';
 import { CivilityComponent } from './parameter/organisation/civility/civility.component';
 import { AllPenalityOfSessionComponent } from './operation/tontine/all-penality-of-session/all-penality-of-session.component';
+import { UserDetailsRoleComponent } from './organisation/user/user-details-role/user-details-role.component';
 
 const routes: Routes = [
   {
     path:"", component: AppContentComponent,
     children: [
+      {
+        path:"user-details-role", component: UserDetailsRoleComponent, canActivate: [EntityGuard]
+      },
      
       {
         path:"all-penality-of-session", component: AllPenalityOfSessionComponent, canActivate: [EntityGuard]

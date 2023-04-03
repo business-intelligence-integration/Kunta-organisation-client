@@ -43,4 +43,5 @@ export class User{
     civility: Civility = new Civility();
     country: Country = new Country();
     function: Function = new Function();
+    statusUserEnum: string = "";
 }

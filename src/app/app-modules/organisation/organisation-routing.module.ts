@@ -26,6 +26,7 @@ const routes: Routes = [
     {path:"users/operators", component: OperatorComponent, canActivate: [EntityGuard]},
     {path:"main-office/posts", component: PostsOfMainOfficeComponent, canActivate: [EntityGuard]},
    
+   
     
   ]
 },

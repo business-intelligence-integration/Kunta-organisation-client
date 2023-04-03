@@ -44,4 +44,24 @@ export class PostService {
   findAllPostsByOrganisationLevel(organisationLevel: string):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'posts/find/'+ organisationLevel, httpOptions);
   }
+
+  finAllPostByIdMainOffice(idMainOffice: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'posts/findMainOffice/'+ idMainOffice, httpOptions);
+  }
+
+  finAllPostByIdCenter(idCenter: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'posts/findCenter/'+ idCenter, httpOptions);
+  }
+
+  finAllPostByIdArea(idArea: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'posts/findArea/'+ idArea, httpOptions);
+  }
+
+  finAllPostByIdClub(idClub: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'posts/findClub/'+ idClub, httpOptions);
+  }
+
+  addOperatorToPost(idOperator: number, idPost: number, idFunction: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + "posts/add-operator?idOperator=" + idOperator + "&idPost=" + idPost + "&idFunction=" + idFunction, {}, httpOptions);
+  }
 }

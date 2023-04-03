@@ -86,6 +86,7 @@ export class PosteComponent implements OnInit {
     this.postService.createPost(post).subscribe((res)=>{
       console.log("resPost::", res);
       this.closeCreateModal();
+      this.finAllPosts();
       this.isSaving = false;
       this.utilityService.showMessage(
         'success',

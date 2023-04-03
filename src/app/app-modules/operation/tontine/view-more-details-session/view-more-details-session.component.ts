@@ -28,6 +28,7 @@ export class ViewMoreDetailsSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{
        this.session = res.data
+       
       });
     })
   }

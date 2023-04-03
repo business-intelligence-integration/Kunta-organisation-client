@@ -16,6 +16,10 @@ import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
+import { AreaService } from 'src/app/core/services/areas/area.service';
+import { Organism } from 'src/app/core/classes/organism';
+import { PostService } from 'src/app/core/services/post/post.service';
+import { UserService } from 'src/app/core/services/users/user.service';
 
 @Component({
   selector: 'app-detail-session-of-tontine',
@@ -50,7 +54,10 @@ export class DetailSessionOfTontineComponent implements OnInit {
   isSaving: boolean = false
   penalityTypes: PenalityType[] = [];
   paymentMethods: PaymentMethod[] = [];
+  area: Organism = new Organism();
   penality: Penality = new Penality();
+  isEntryAgent: boolean = false;
+  isTontine: number = 0;
 
   constructor(private cycleService: CycleService,  
     private activatedRoute: ActivatedRoute,
@@ -60,6 +67,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
     private utilityService: UtilityService,
     private penalityTypeService: PenaltyTypeService,
     private paymentMethodService: PaymentMethodService,
+    private areaService: AreaService,
+    private postService: PostService,
+    private userService: UserService,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -128,6 +138,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
   getTontine(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findTontineById(params['tontine']).subscribe((res)=>{
+        this.isTontine = params['tontine'];
+        this.getAreaByIdClub(res.data.clubOwner.id)
         this.membersArray = res.data.tontineMembers.map((tontineMember:any)=>({value:tontineMember.participant.id, label:tontineMember.participant.firstName }))
       });
     })
@@ -444,5 +456,21 @@ export class DetailSessionOfTontineComponent implements OnInit {
       });
   }
 
+getAreaByIdClub(idClub: number){
+  this.areaService.findAreaByIdClub(idClub).subscribe((res)=>{
+    this.area = res.data;
+    this.getPostsByIdArea(res.data.id);
+  })
+}
+
+  getPostsByIdArea(idArea: number){
+    this.postService.finAllPostByIdArea(idArea).subscribe((connectedRes)=>{
+      this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+        if(connectedRes.data[1].operators[0].id == res.data.id){
+          this.isEntryAgent = true;
+        }
+      })
+    })
+  }
 
 }

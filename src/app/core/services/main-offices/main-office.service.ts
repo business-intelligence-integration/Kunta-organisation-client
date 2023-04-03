@@ -88,8 +88,6 @@ export class MainOfficeService {
     return this.httpClient.patch<any>(this.baseUrl + `main-office/${idMainOffice}/remove-from-strategic-development-committee/${idMember}`, {}, httpOptions);
   }
 
-  addOperatorToPostInMainOffice(idOperator: number, idPost: number, idMainOffice: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + "main-office/add-operator?idOperator=" + idOperator + "&idPost=" + idPost + "&idMainOffice=" + idMainOffice, {}, httpOptions);
-  }
+
 
 }

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
+import { Post } from 'src/app/core/classes/post';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
+import { PostService } from 'src/app/core/services/post/post.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -25,6 +27,7 @@ export class ViewMorePostComponent implements OnInit {
   updateCenterForm!: FormGroup;
   centersOfMainOffice: Organism[] = [];
   centers: Organism[] = [];
+  posts: Post[] = [];
   center: Organism;
   idMainOffice: number = 0;
 
@@ -33,7 +36,8 @@ export class ViewMorePostComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private centerService: CenterService,
-    private utilityService: UtilityService,) {
+    private utilityService: UtilityService,
+    private postService: PostService) {
     this.mainOffice = new Organism();
     this.center = new Organism();
    }
@@ -63,6 +67,7 @@ export class ViewMorePostComponent implements OnInit {
       });
     })
   }
+
 
   activeHomeSider() {
     if (this.activeToggle == "") {

@@ -272,14 +272,14 @@
                                     </div>
                                     <div class="flex-table-cell" data-th="Cotiser">
                                         <span class="light-text" data-filter-match="">{{ session.payments.length }}</span>
-                                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Cotiser " theme='light' (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
-                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id}" tooltip=" Voir details cotisation " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a *ngIf="isEntryAgent" class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Cotiser " theme='light' (click)="onOpenPaymentModal(session.id)"> <img width="18" height="18" src="{{ geUrl }}" alt=""></a>
+                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-payment-of-session']" [queryParams]="{id: session.id, tontine: isTontine}" tooltip=" Voir details cotisation " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
         
                                     <div class="flex-table-cell" data-th="Pénaliser">
                                         <span class="light-text" data-filter-match="">{{ session.penalties.length }}</span>
-                                        <a  class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Appliquer une pénalité " theme='light' (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
-                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id}" tooltip=" Voir details pénalité " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                        <a *ngIf="isEntryAgent" class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Appliquer une pénalité " theme='light' (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
+                                        <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id, tontine: isTontine}" tooltip=" Voir details pénalité " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Statut">
                                         <span class="tag is-rounded" data-filter-match="" *ngIf="session.winner != null">CLOTURÉ</span>

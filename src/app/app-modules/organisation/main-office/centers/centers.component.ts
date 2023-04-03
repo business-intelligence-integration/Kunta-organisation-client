@@ -206,8 +206,6 @@ export class CentersComponent implements OnInit {
 
   createCenter(center: Organism){
     this.isSaving = true;
-    console.log("center::", center);
-    
     this.centerService.createCenter(center).subscribe((res)=>{
       console.log("resCenter::", res);
       

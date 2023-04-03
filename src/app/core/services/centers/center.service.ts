@@ -105,5 +105,9 @@ export class CenterService {
   findCentersByName(name: string):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'centers/search?name='+ name, httpOptions);
   }
+
+  findCenterByIdArea(idArea: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'centers/findBy/' + idArea, httpOptions);
+  }
 }
 

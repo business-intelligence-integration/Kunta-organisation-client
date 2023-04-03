@@ -25,6 +25,7 @@ import { PostsOfCentersComponent } from './main-office/centers/posts-of-centers/
 import { PostsOfAreaComponent } from './area/posts-of-area/posts-of-area.component';
 import { PostsOfClubComponent } from './club/posts-of-club/posts-of-club.component';
 import { PostsOfMainOfficeComponent } from './main-office/posts-of-main-office/posts-of-main-office.component';
+import { UserDetailsRoleComponent } from './user/user-details-role/user-details-role.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { PostsOfMainOfficeComponent } from './main-office/posts-of-main-office/p
     PostsOfMainOfficeComponent,
     PostsOfCentersComponent,
     PostsOfAreaComponent,
-    PostsOfClubComponent
+    PostsOfClubComponent,
+    UserDetailsRoleComponent
   ],
   imports: [
     CommonModule,

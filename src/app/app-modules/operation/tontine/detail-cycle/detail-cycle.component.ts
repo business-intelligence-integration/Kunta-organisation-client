@@ -9,6 +9,9 @@ import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
 import { Penality } from 'src/app/core/classes/penality';
+import { AreaService } from 'src/app/core/services/areas/area.service';
+import { PostService } from 'src/app/core/services/post/post.service';
+import { UserService } from 'src/app/core/services/users/user.service';
 
 @Component({
   selector: 'app-detail-cycle',
@@ -30,11 +33,15 @@ export class DetailCycleComponent implements OnInit {
   idTontine: number = 0;
   isSaving: boolean = false;
   isClosing: boolean = true;
+  isEntryAgent: boolean = false;
   constructor(private cycleService: CycleService, 
     private activatedRoute: ActivatedRoute,
     private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
+    private areaService: AreaService,
+    private postService: PostService,
+    private userService: UserService,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -69,10 +76,26 @@ export class DetailCycleComponent implements OnInit {
       this.tontineService.findAllCyclesOfTontine(params['id']).subscribe((res)=>{
         this.idTontine = params['id']
         this.cycles = res.data;
+        this.getTontine(params['id']);
       })
     })
     
+    
   }
+
+  getTontine(id: number){
+   this.tontineService.findTontineById(id).subscribe((res)=>{
+     this.areaService.findAreaByIdClub(res.data.clubOwner.id).subscribe((res)=>{
+       this.postService.finAllPostByIdArea(res.data.id).subscribe((connectedRes)=>{
+         this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+           if(connectedRes.data[1].operators[0].id == res.data.id){
+             this.isEntryAgent = true;
+           }
+         })
+       })
+     })
+   });
+ }
 
   onUpdateCycle(id: number){
     this.cycleService.findCycleById(id).subscribe((res)=>{
