@@ -13,7 +13,7 @@ export class ParametersComponent implements OnInit {
   activeListTontine: string = "";
   activeOganisation: string = "";
   activeMutualInvestment: string = "";
-  dynamicTitle: string = "Poste"
+  dynamicTitle: string = "Postes"
   isFrequency: boolean = true;
   isGain: boolean = false;
   isSession: boolean = false;

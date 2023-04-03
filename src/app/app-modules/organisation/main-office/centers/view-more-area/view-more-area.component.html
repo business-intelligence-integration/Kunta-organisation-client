@@ -65,7 +65,34 @@
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
         <ul>
-            <li class="has-children" [ngClass]="activeListCenter">
+            <li>
+                <a (click)="onListAreas()" class="is-submenu">
+                    <i class="lnil lnil-list-alt-1" style="margin-right: 10px;"></i>
+                    <span>Liste zones</span>
+                </a>
+            </li> 
+             <li>
+                <a (click)="onListPosts()" class="is-submenu">
+                    <i class="lnil lnil-list-alt-1" style="margin-right: 10px;"></i>
+                    <span>Liste postes</span>
+                </a>
+            </li>
+        </ul>
+        <!-- <ul>
+            <li class="has-children">
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" (click)="onListAreas()">Liste zones</a>
+                </div>
+            </li>
+            <li>
+                <div class="collapse-wrap" >
+                    <a href="javascript:void(0);" class="parent-link" (click)="onListPosts()">Liste postes</a>
+                </div>
+            </li>
+        </ul> -->
+        <!-- <ul>
+            
+            <li>
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" (click)="onListCenter()" class="parent-link">{{ centerName }} <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
                 </div>
@@ -128,7 +155,7 @@
                     </li> 
                 </ul>
             </li>
-        </ul>
+        </ul> -->
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
 </div>
 
@@ -244,14 +271,15 @@
 
             </div>
 
-            <app-accountant *ngIf="isAccountant"></app-accountant>
+            <app-posts-of-centers *ngIf="isListPosts"></app-posts-of-centers>
+        <!-- <app-accountant *ngIf="isAccountant"></app-accountant>
         <app-admin-sys *ngIf="isAdminSys"></app-admin-sys>
         <app-members-general-assembly *ngIf="isMemberGeneralAssembly"></app-members-general-assembly>
         <app-development-committee *ngIf="isDevelopmentCommitteeCenter"></app-development-committee>
         <app-clubs-general-assembly *ngIf="isGeneralAssemblyCenter"></app-clubs-general-assembly>
         <app-executive-board-center *ngIf="isExecutiveBoardCenter"></app-executive-board-center>
         <app-member-to-gcc *ngIf="isMemberToGcc"></app-member-to-gcc>
-        <app-production-manager *ngIf="isProductionmanager"></app-production-manager>
+        <app-production-manager *ngIf="isProductionmanager"></app-production-manager> -->
         </div>
 
 

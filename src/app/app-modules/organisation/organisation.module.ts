@@ -17,25 +17,14 @@ import { ViewMoreComponent } from './club/view-more/view-more.component';
 import { ViewMoreAreClubComponent } from './area/view-more-are-club/view-more-are-club.component';
 import { ViewMoreAreaComponent } from './main-office/centers/view-more-area/view-more-area.component';
 import { CentersComponent } from './main-office/centers/centers.component';
-import { GeneralAssemblyComponent } from './main-office/general-assembly/general-assembly.component';
-import { ExecutiveBoardComponent } from './main-office/executive-board/executive-board.component';
-import { GovernanceCompensationCommitteeComponent } from './main-office/governance-compensation-committee/governance-compensation-committee.component';
-import { ProductionMonitoringCommitteeComponent } from './main-office/production-monitoring-committee/production-monitoring-committee.component';
-import { StrategicDevelopmentCommitteeComponent } from './main-office/strategic-development-committee/strategic-development-committee.component';
-import { MembersGeneralAssemblyComponent } from './main-office/centers/members-general-assembly/members-general-assembly.component';
-import { AccountantComponent } from './main-office/centers/accountant/accountant.component';
-import { AdminSysComponent } from './main-office/centers/admin-sys/admin-sys.component';
-import { DevelopmentCommitteeComponent } from './main-office/centers/development-committee/development-committee.component';
-import { ExecutiveBoardComponentCenter } from './main-office/centers/executive-board/executive-board.component';
-import { ProductionManagerComponent } from './main-office/centers/production-manager/production-manager.component';
-import { ClubsGeneralAssemblyComponent } from './main-office/centers/clubs-general-assembly/clubs-general-assembly.component';
-import { MemberToGccComponent } from './main-office/centers/member-to-gcc/member-to-gcc.component';
-import { CommunicationAgentToAreaComponent } from './area/communication-agent-to-area/communication-agent-to-area.component';
-import { DataEntryAgentToAreaComponent } from './area/data-entry-agent-to-area/data-entry-agent-to-area.component';
 import { AccountComponent } from './account/account.component';
 import { SponsoresComponent } from './user/sponsores/sponsores.component';
 import { Select2Module } from 'ng-select2-component';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { PostsOfCentersComponent } from './main-office/centers/posts-of-centers/posts-of-centers.component';
+import { PostsOfAreaComponent } from './area/posts-of-area/posts-of-area.component';
+import { PostsOfClubComponent } from './club/posts-of-club/posts-of-club.component';
+import { PostsOfMainOfficeComponent } from './main-office/posts-of-main-office/posts-of-main-office.component';
 
 
 @NgModule({
@@ -54,24 +43,12 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     ViewMoreAreClubComponent,
     ViewMoreAreaComponent,
     CentersComponent,
-    GeneralAssemblyComponent,
-    ExecutiveBoardComponent,
-    ExecutiveBoardComponentCenter,
-    GovernanceCompensationCommitteeComponent,
-    ProductionMonitoringCommitteeComponent,
-    StrategicDevelopmentCommitteeComponent,
-    MembersGeneralAssemblyComponent,
-    AccountantComponent,
-    AdminSysComponent,
-    DevelopmentCommitteeComponent,
-    ExecutiveBoardComponent,
-    ProductionManagerComponent,
-    ClubsGeneralAssemblyComponent,
-    MemberToGccComponent,
-    CommunicationAgentToAreaComponent,
-    DataEntryAgentToAreaComponent,
     AccountComponent,
-    SponsoresComponent
+    SponsoresComponent,
+    PostsOfMainOfficeComponent,
+    PostsOfCentersComponent,
+    PostsOfAreaComponent,
+    PostsOfClubComponent
   ],
   imports: [
     CommonModule,

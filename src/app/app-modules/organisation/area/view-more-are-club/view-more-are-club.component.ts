@@ -6,6 +6,7 @@ import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,6 +29,7 @@ export class ViewMoreAreClubComponent implements OnInit {
   activeListClub: string = "";
   wrapdwonArea: string ="display-block";
   isListClubs: boolean = true;
+  isListPosts: boolean = false;
   isCummunicationAgentList: boolean = false;
   isAgentEntryList: boolean = false;
   dynamicTitle = "Liste des clubs";
@@ -37,6 +39,7 @@ export class ViewMoreAreClubComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private clubService: ClubService,
+    private location: Location,
     private utilityService: UtilityService) {
       this.communicationAgent = new User();
       this.dataEntryAgent = new User();
@@ -168,43 +171,42 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.deleteMessage(this.idArea, id)
   }
 
-  onListCenter(){
-    if(this.activeListClub == ""){
-      this.activeListClub = "active" 
-      this.wrapdwonArea ="block"
-    }else{
-      this.activeListClub =""
-      this.wrapdwonArea ="none"
-    }
-  }
+  // onListCenter(){
+  //   if(this.activeListClub == ""){
+  //     this.activeListClub = "active" 
+  //     this.wrapdwonArea ="block"
+  //   }else{
+  //     this.activeListClub =""
+  //     this.wrapdwonArea ="none"
+  //   }
+  // }
 
   onShowClubList(){
-    this.isCummunicationAgentList = false;
-    this.isAgentEntryList = false;
+    // this.isCummunicationAgentList = false;
+    // this.isAgentEntryList = false;
+    this.isListPosts = false;
     this.isListClubs = true;
     this.dynamicTitle = "Liste des clubs";
   }
 
-  onShowAgentCommunicationList(){
-    this.isAgentEntryList = false;
+  // onShowAgentCommunicationList(){
+  //   this.isAgentEntryList = false;
+  //   this.isListClubs = false;
+  //   this.isCummunicationAgentList = true;
+  //   this.dynamicTitle = "Agent de communication";
+  // }
+
+  // onShowDataEntryAgent(){
+  //   this.isListClubs = false;
+  //   this.isCummunicationAgentList = false;
+  //   this.isAgentEntryList = true;
+  //   this.dynamicTitle = "Agent de saisie de données";
+  // }
+  comeBack(){this.location.back()}
+
+  onShowAllPosts(){
     this.isListClubs = false;
-    this.isCummunicationAgentList = true;
-    this.dynamicTitle = "Agent de communication";
-  }
-
-  onShowDataEntryAgent(){
-    this.isListClubs = false;
-    this.isCummunicationAgentList = false;
-    this.isAgentEntryList = true;
-    this.dynamicTitle = "Agent de saisie de données";
-  }
-
-
-  onAddAgentComunication(){
-
-  }
-
-  onAddAgentEntry(){
-
+    this.isListPosts = true;
+    this.dynamicTitle = "Listes des poste"
   }
 }

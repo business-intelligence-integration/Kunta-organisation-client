@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="inner" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
-        <ul>
+        <!-- <ul>
             <li class="has-children" [ngClass]="activeListUser">
                 <div class="collapse-wrap">
                     <a href="javascript:void(0);" (click)="onDisplayUserList()" class="parent-link">Users <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
@@ -83,6 +83,21 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+        </ul> -->
+
+        <ul>
+            <li>
+                <a (click)="clickOnMemeber()" class="is-submenu">
+                    <i class="lnil lnil-list-alt-1" style="margin-right: 10px;"></i>
+                    <span>Membres</span>
+                </a>
+            </li>
+            <li>
+                <a (click)="clickOnPosts()" class="is-submenu">
+                    <i class="lnil lnil-list-alt-1" style="margin-right: 10px;"></i>
+                    <span>Postes</span>
+                </a>
             </li>
         </ul>
     </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 643px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 496px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
@@ -108,13 +123,13 @@
                 </div>
 
                 <div class="title-wrap">
-                    <h1 class="title is-4">Membres du club</h1>
+                    <h1 class="title is-4">{{ dynamicTitle }}</h1>
                 </div>
                
             </div>
             <a (click)="comeBack()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
             <div class="list-flex-toolbar">
-                <div class="control has-icon">
+                <div *ngIf="isMember" class="control has-icon">
                     <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
                     <div class="form-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -222,6 +237,7 @@
 
             </div>
 
+<<<<<<< HEAD
             <div *ngIf="isPilote" class="page-content-inner">
 
                 <div class="flex-list-wrapper flex-list-v1">
@@ -300,6 +316,9 @@
                 </div>
 
             </div>
+=======
+            <app-posts-of-club *ngIf="isListPosts"></app-posts-of-club>
+>>>>>>> b5159fff178cd4b0e073ea81b130f3e0cb2023e4
         </div>
     </div>
 

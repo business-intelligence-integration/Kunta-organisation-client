@@ -37,37 +37,42 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span class="is-grow">Id</span>
-                <span>Appellation</span>
+                <span>Appelation</span>
+                <span>Nombre d'utilisateur maximal</span>
                 <span>Description</span>
+                <span>Niveau d'organisation</span>
                 <span>Actions</span>
             </div>
 
-            <div class="flex-list-inner">
-                <!--Table item-->
-                <!-- <div class="flex-table-item" *ngFor="let frequency of frequencies">
-                    <div class="flex-table-cell is-media is-grow">
-                        <div>
-                            <span class="item-name dark-inverted" data-filter-match="">{{ frequency.id }}</span>
-                            <span class="item-meta">
-                              <span data-filter-match="">{{ frequency.label }}</span>
-                            </span>
-                        </div>
+            <div class="flex-table-item" *ngFor="let post of posts">
+                <div class="flex-table-cell is-media is-grow">
+                    <div>
+                        <span class="item-name dark-inverted" data-filter-match="">{{ post.id }}</span>
+                        <span class="item-meta">
+                          <span data-filter-match="">{{ post.name }}</span>
+                        </span>
                     </div>
-                    <div class="flex-table-cell" data-th="Appelation">
-                        <span class="light-text" data-filter-match="">{{ frequency.label }}</span>
+                </div>
+                <div class="flex-table-cell" data-th="Appelation">
+                    <span class="light-text" data-filter-match="">{{ post.name }}</span>
+                </div>
+                <div class="flex-table-cell" data-th="Appelation">
+                    <span *ngIf="post.maxNumberOfUser != 0" class="light-text" data-filter-match="">{{ post.maxNumberOfUser }}</span>
+                    <span *ngIf="post.maxNumberOfUser === 0" class="light-text" data-filter-match="">Illimité</span>
+                </div>
+                <div class="flex-table-cell" data-th="Appelation">
+                    <span class="light-text" data-filter-match="">{{ post.description }}</span>
+                </div>
+                <div class="flex-table-cell" data-th="Appelation">
+                    <span class="light-text" data-filter-match="">{{ post.organisationLevelEnum }}</span>
+                </div>
+                <div class="flex-table-cell cell-end" data-th="Actions">
+                    <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                    <a _ngcontent-nct-c62="" (click)="onUpdatePost(post.id)" tooltip=" Modifier le poste " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                    <a _ngcontent-nct-c62="" (click)="onDeletePoste(post.id)" tooltip=" Supprimer le poste " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Description">
-                        <span class="light-text" data-filter-match="">{{ frequency.description }}</span>
-                    </div>
-                    <div class="flex-table-cell cell-end" data-th="Actions">
-                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" tooltip=" Modifier " theme='light' (click)="onOpenUpdateModal(frequency.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" tooltip=" Supprimer " theme='light' (click)="onDelete(frequency.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                        </div>
-                    </div>
-                </div> -->
+                </div>
             </div>
-
         </div>
         <!--Table Pagination-->
         <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
@@ -88,8 +93,8 @@
 
 </div>
 
-<!--new frequency-->
-<div id="updateFrequency" class="modal h-modal" [ngClass]="openCreateModal">
+<!--new poste-->
+<div id="createPoste" class="modal h-modal" [ngClass]="openCreateModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -104,35 +109,163 @@
                     </svg>
                 </button>
             </header>
-            <!-- <div class="modal-card-body">
+            <div class="modal-card-body">
                 <div class="inner-content">
-                        <form class="modal-form" [formGroup]="createPosteForm">
+                        <form class="modal-form" [formGroup]="createPosteForm" (ngSubmit)="onCreatePoste()">
+                            <div class="field">
+                                <label>Appelation du poste*</label>
+                                <div class="control">
+                                    <input type="text" formControlName="name" class="input" placeholder="poste">
+                                </div>
+                            </div>
+
+                            <div class="text-danger"
+                            *ngIf="createPosteForm.get('name')?.errors?.['required'] && createPosteForm.get('name')?.touched">
+                            <small class="text-police" translate>Veuillez entrer l'appelation du poste</small>
+                             </div>
 
                         <div class="field">
                             <label>Niveau d'organisation *</label>
-                            <select class="input_comp" aria-label="Default select example" [(ngModel)]="ngSelect2">
+                            <select class="input_comp" formControlName="organisationLevel" aria-label="Default select example" [(ngModel)]="ngSelect2">
                                 <option value="0" disabled>--Selectionnez le niveau où le poste sera créé--</option>
-                                <option value=""> <span>CLUB </span> </option>
-                                <option value=""> <span>ZONE </span> </option>
-                                <option value=""> <span>CENTRE </span> </option>
-                                <option value=""> <span>BUREAU PRINCIPALE </span> </option>
+                                <option value="CLUB"> <span>CLUB </span> </option>
+                                <option value="AREA"> <span>ZONE </span> </option>
+                                <option value="CENTER"> <span>CENTRE </span> </option>
+                                <option value="MAINOFFICE"> <span>BUREAU PRINCIPALE </span> </option>
                             </select>
+                            <div class="text-danger"
+                                *ngIf="createPosteForm.get('organisationLevel')?.errors?.['required'] && createPosteForm.get('organisationLevel')?.touched">
+                                <small class="text-police" translate>Veuillez sélectionner le niveau d'organisation</small>
+                           </div>
                         </div>
-
-                        <div class="field">
-                            <label>poste*</label>
+                        <div class="field demo-select">
+                            <label>Le nombre d'utilisateur pour le poste est-il limité ?</label>
                             <div class="control">
-                                <input type="text" class="input" placeholder="poste">
+                                <label (click)="isLimited()" class="radio">
+                                    <input type="radio" name="outlined_radio">
+                                    <span></span>
+                                    Oui
+                                </label>
+
+                                <label (click)="isNotLimited()" class="radio is-outlined is-primary">
+                                    <input type="radio" name="outlined_radio">
+                                    <span></span>
+                                   Non
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field" *ngIf="isTheNumberOfUsersLimited">
+                            <label>Nombre d'utilisateur maximal pour le poste*</label>
+                            <div class="control">
+                                <input type="number" formControlName="maxNumberOfUser" class="input" placeholder="poste">
+                            </div>   
+                            <div *ngIf="isTheNumberOfUsersLimited">
+                                <div class="text-danger" *ngIf="createPosteForm.get('maxNumberOfUser')?.errors?.['required'] && createPosteForm.get('maxNumberOfUser')?.touched">
+                                    <small class="text-police" translate>Veuillez entrer l'appelation du poste</small>
+                                </div>
                             </div>
                            
                         </div>
-                       
+
+                        <div class="field">
+                            <label>Description</label><br>
+                            <div class="control">
+                                <textarea type="text" class="textarea" rows="4" placeholder="Description" formControlName="description"></textarea>
+                            </div>
+                        </div>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createPosteForm.invalid">Creer</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="createPosteForm.invalid || isSaving">Creer</button>
                         </div>
                     </form>
                 </div>
-            </div> -->
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeCreateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--update poste-->
+<div id="updatePoste" class="modal h-modal" [ngClass]="openUpdateModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>modification du poste</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                        <form class="modal-form" [formGroup]="updatePosteForm" (ngSubmit)="onUpdatePoste(post.id)">
+                            <div class="field">
+                                <label>Appelation du poste*</label>
+                                <div class="control">
+                                    <input type="text" formControlName="name" [(ngModel)]="post.name" class="input" placeholder="poste">
+                                </div>
+                            </div>
+
+                            <div class="text-danger"
+                            *ngIf="updatePosteForm.get('name')?.errors?.['required'] && updatePosteForm.get('name')?.touched">
+                            <small class="text-police" translate>Veuillez entrer l'appelation du poste</small>
+                             </div>
+
+                        <div class="field">
+                            <label>Niveau d'organisation *</label>
+                            <select class="input_comp" formControlName="organisationLevel" [(ngModel)]="post.organisationLevelEnum" aria-label="Default select example" [(ngModel)]="ngSelect2">
+                                <option value="0" disabled>--Selectionnez le niveau où le poste sera créé--</option>
+                                <option value="CLUB"> <span>CLUB </span> </option>
+                                <option value="AREA"> <span>ZONE </span> </option>
+                                <option value="CENTER"> <span>CENTRE </span> </option>
+                                <option value="MAINOFFICE"> <span>BUREAU PRINCIPALE </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="updatePosteForm.get('organisationLevel')?.errors?.['required'] && updatePosteForm.get('organisationLevel')?.touched">
+                                <small class="text-police" translate>Veuillez sélectionner le niveau d'organisation</small>
+                           </div>
+                        </div>
+                        <div class="field demo-select">
+                            <label>Le nombre d'utilisateur pour le poste est-il limité ?</label>
+                            <div class="control">
+                                <label (click)="isLimited()" class="radio">
+                                    <input type="radio" name="outlined_radio">
+                                    <span></span>
+                                    Oui
+                                </label>
+
+                                <label (click)="isNotLimited()" class="radio is-outlined is-primary">
+                                    <input type="radio" name="outlined_radio">
+                                    <span></span>
+                                   Non
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field" *ngIf="isTheNumberOfUsersLimited">
+                            <label>Nombre d'utilisateur maximal pour le poste*</label>
+                            <div class="control">
+                                <input type="number" [(ngModel)]="post.maxNumberOfUser" formControlName="maxNumberOfUser" class="input" placeholder="poste">
+                            </div>   
+                        </div>
+
+                        <div class="field">
+                            <label>Description</label><br>
+                            <div class="control">
+                                <textarea type="text" [(ngModel)]="post.description" class="textarea" rows="4" placeholder="Description" formControlName="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updatePosteForm.invalid || isSaving">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeCreateModal()">Annuler</a>
             </div>

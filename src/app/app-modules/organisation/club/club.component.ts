@@ -161,7 +161,9 @@ export class ClubComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.clubService.deleteclubById(id).subscribe(
-            () => {
+            (res) => {
+              console.log("resClubDel::", res);
+              
               this.getAllClubs();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
