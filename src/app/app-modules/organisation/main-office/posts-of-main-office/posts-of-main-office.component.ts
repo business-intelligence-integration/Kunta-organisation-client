@@ -30,7 +30,6 @@ export class PostsOfMainOfficeComponent implements OnInit {
     private mainOfficeService: MainOfficeService,
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private fonctionService: FonctionService,
     private utilityService: UtilityService) { }
 
@@ -58,7 +57,8 @@ export class PostsOfMainOfficeComponent implements OnInit {
 
   getAllPostByIdMainOffice(id: number){
     this.postService.finAllPostByIdMainOffice(id).subscribe((res)=>{
-      this.posts = res.data;
+      // this.posts = res.data;
+      console.log("posts::", res)
     });
   }
 

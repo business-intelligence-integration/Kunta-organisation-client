@@ -80,6 +80,7 @@ export class UserComponent implements OnInit {
   openStatusModal: string = "";
   maxAge: any;
   minValidityDate: any
+  dateNow: any
   selectedRoleS: string = "ALL"
   openAddRoleModal: string = "";
   roles: Role[] = [];
@@ -114,8 +115,11 @@ export class UserComponent implements OnInit {
     this.getAllCountries();
     this.getMaxAge();
     this.getAllRoles();
+    this.initDates();
   }
-
+  initDates(){
+    this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
+  }
   
 
   formInit() {
@@ -237,20 +241,28 @@ export class UserComponent implements OnInit {
    this.user.secondaryAddress = formValue.secondaryAddress;
    this.user.secondaryEmail = formValue.secondaryEmail;
    this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
-
-   if(formValue.userType == "USER"){
-    if(this.isSelectMember){
-      this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-    }else{
-      this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-    }
-   }if(formValue.userType == "ADMIN"){
-    this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-  }else if(formValue.userType == "OPERATOR"){
-    this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+   if(formValue.password != formValue.confPassword){
+    this.utilityService.showMessage(
+      'warning',
+      'Désolé, les mots de passe sont différents !',
+      '#e62965',
+      'white'
+    );
+   }else{
+    if(formValue.userType == "USER"){
+      if(this.isSelectMember){
+        this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+      }else{
+        this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+      }
+     }if(formValue.userType == "ADMIN"){
+      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+    }else if(formValue.userType == "OPERATOR"){
+      this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+     }
+  
+     this.addUserForm.reset();
    }
-
-   this.addUserForm.reset();
   }
 
   onSubmitUpdateUser(){
