@@ -102,4 +102,16 @@ export class UserService {
   findUsersByRoleName(name: string):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'users/filter-by-role-name?name='+ name, httpOptions);
   }
+
+  addRole(idUser: number, idRole: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/user-add-role/${idUser}/role/${idRole}`, {}, httpOptions);
+  }
+
+  removeRole(idUser: number, idRole: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/user-remove/${idUser}/role/${idRole}`, {}, httpOptions);
+  }
+
+  disableUser(idUser: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/disable/${idUser}`, {}, httpOptions);
+  }
 }
