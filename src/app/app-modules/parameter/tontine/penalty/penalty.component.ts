@@ -22,8 +22,6 @@ export class PenaltyComponent implements OnInit {
   getAllPenalties(){
     this.penaltyService.findAllPenalties().subscribe((res)=>{
       this.penalties = res.data;
-      console.log("managePenalties::", res);
-      
     })
   }
 }

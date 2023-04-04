@@ -28,8 +28,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getConnectedUser();
-    // this.getRole();
-    console.log("imageUrl::", this.imageUrl);
     
   }
 

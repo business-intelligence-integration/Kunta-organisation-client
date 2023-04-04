@@ -66,7 +66,6 @@ export class PosteComponent implements OnInit {
   finAllPosts(){
     this.postService.findAllPosts().subscribe((res)=>{
       this.posts = res.data;
-      console.log("posts::", res);
       
     })
   }
@@ -82,9 +81,7 @@ export class PosteComponent implements OnInit {
   }
 
   createPost(post: Post){
-    console.log("poste::", post);
     this.postService.createPost(post).subscribe((res)=>{
-      console.log("resPost::", res);
       this.closeCreateModal();
       this.finAllPosts();
       this.isSaving = false;
@@ -162,7 +159,6 @@ export class PosteComponent implements OnInit {
 
   onUpdatePost(id: number){
     this.postService.findPostById(id).subscribe((res)=>{
-      console.log("updatePoste::", res);
       this.post = res.data;
       if(this.post.maxNumberOfUser > 0){
         this.isTheNumberOfUsersLimited = true
@@ -181,8 +177,6 @@ export class PosteComponent implements OnInit {
     this.isSaving = true
     const formValue = this.updatePosteForm.value;
     this.post.name = formValue.name;
-    console.log("isLimited::", this.isTheNumberOfUsersLimited);
-    
     if(this.isTheNumberOfUsersLimited){
       if(formValue.maxNumberOfUser <= 0){
         this.isSaving = false;
@@ -209,7 +203,6 @@ export class PosteComponent implements OnInit {
 
   updatePost(post: Post, id: number){
     this.postService.updatePost(post, id).subscribe((res)=>{
-      console.log("updatePost::", res);
       this.finAllPosts();
       this.closeUpdateModal()
       this.isSaving = false;

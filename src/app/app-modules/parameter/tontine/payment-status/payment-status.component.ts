@@ -40,8 +40,6 @@ export class PaymentStatusComponent implements OnInit {
   getAllPaymentStaus(){
     this.paymentStatusService.findAllPaymentStatus().subscribe((res)=>{
       this.paymentStatus = res.data
-      console.log("payment res:::", res);
-      
     })
   }
 

@@ -19,7 +19,6 @@ import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import { Role } from 'src/app/core/classes/role';
-import { flatMap } from 'rxjs';
 import { RoleService } from 'src/app/core/services/roles/role.service';
 
 @Component({
@@ -81,6 +80,7 @@ export class UserComponent implements OnInit {
   openStatusModal: string = "";
   maxAge: any;
   minValidityDate: any
+  dateNow: any
   selectedRoleS: string = "ALL"
   openAddRoleModal: string = "";
   roles: Role[] = [];
@@ -115,8 +115,11 @@ export class UserComponent implements OnInit {
     this.getAllCountries();
     this.getMaxAge();
     this.getAllRoles();
+    this.initDates();
   }
-
+  initDates(){
+    this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
+  }
   
 
   formInit() {
@@ -238,20 +241,28 @@ export class UserComponent implements OnInit {
    this.user.secondaryAddress = formValue.secondaryAddress;
    this.user.secondaryEmail = formValue.secondaryEmail;
    this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
-
-   if(formValue.userType == "USER"){
-    if(this.isSelectMember){
-      this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-    }else{
-      this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-    }
-   }if(formValue.userType == "ADMIN"){
-    this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-  }else if(formValue.userType == "OPERATOR"){
-    this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+   if(formValue.password != formValue.confPassword){
+    this.utilityService.showMessage(
+      'warning',
+      'Désolé, les mots de passe sont différents !',
+      '#e62965',
+      'white'
+    );
+   }else{
+    if(formValue.userType == "USER"){
+      if(this.isSelectMember){
+        this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+      }else{
+        this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+      }
+     }if(formValue.userType == "ADMIN"){
+      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+    }else if(formValue.userType == "OPERATOR"){
+      this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+     }
+  
+     this.addUserForm.reset();
    }
-
-   this.addUserForm.reset();
   }
 
   onSubmitUpdateUser(){
@@ -302,7 +313,6 @@ export class UserComponent implements OnInit {
     })
 
     this.users = users;
-    console.log("users::", users)
 
     this.userService.getAllUsers().subscribe((result)=>{
           if(result.data.length >0){
@@ -315,7 +325,7 @@ export class UserComponent implements OnInit {
   }
 
   getConnectedUser() {
-    //this.getAllUsers();
+    this.getAllUsers();
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
       if(this.users.length <= 0){
@@ -400,7 +410,6 @@ export class UserComponent implements OnInit {
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
     this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
-      console.log("isSaving2...");
       this.isSaving = false;
       this.getAllUsers();
       this.utilityService.showMessage(
@@ -777,7 +786,6 @@ export class UserComponent implements OnInit {
   const formValue = this.addRoleToUserForm.value;
   this.isSaving = true;
   this.userService.addRole(this.idUser, formValue.idRole).subscribe((res)=>{
-    console.log("resRole::", res);
     this.closeAddRoleModal()
     this.getAllUsers();
     this.isSaving = false;

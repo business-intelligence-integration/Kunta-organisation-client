@@ -86,9 +86,6 @@ export class AppContentComponent implements OnInit {
       this.activeSubSidebarOfOperation = "";
       this.activeSubSidebarOfParameter = "";
     }
-    console.log("activeBurger::", this.activeBurger);
-    console.log("activeMainSidebar::", this.activeMainSidebar);
-    // console.log("activeSubSidebar::", this.activeSubSidebar);
   }
 
   onActive() {
@@ -144,7 +141,6 @@ export class AppContentComponent implements OnInit {
     }else{
       this.activeSubSidebarOfOrganism = "";
     }
-    // console.log(";;;;;", this.activeSubSidebarOfOrganism);
   }
 
   onShowOperationSubBar(){

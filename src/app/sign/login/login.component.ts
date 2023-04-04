@@ -15,6 +15,9 @@ export class LoginComponent implements OnInit {
   login: Login;
   isNotLogin: boolean = false;
   isProgressing: boolean = false;
+
+  visible:boolean = true;
+  changetype:boolean =true;
   
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -32,6 +35,13 @@ export class LoginComponent implements OnInit {
       email: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     })
+  }
+
+
+
+  viewpass(){
+    this.visible = !this.visible;
+    this.changetype = !this.changetype;
   }
 
   onSignIn(){

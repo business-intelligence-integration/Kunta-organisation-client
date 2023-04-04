@@ -82,8 +82,6 @@ export class UserDetailsRoleComponent implements OnInit {
         if (result.isConfirmed) {
           this.userService.removeRole(this.idUser, idRole).subscribe(
             (res) => {
-              console.log("res::", res);
-              
               this.getUser();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',

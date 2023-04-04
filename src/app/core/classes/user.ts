@@ -3,7 +3,6 @@ import { Civility } from "./civility";
 import { Country } from "./country";
 import { FamilySituation } from "./familySituation";
 import { PieceType } from "./pieceType";
-import { Post } from "./post";
 import { Role } from "./role";
 import { Status } from "./status";
 

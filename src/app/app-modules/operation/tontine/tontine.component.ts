@@ -143,8 +143,6 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      console.log("tontines::", res);
-      
       this.tontines = res.data;
     })
   }
@@ -168,8 +166,6 @@ export class TontineComponent implements OnInit {
   getAllClubs(){
     this.clubServices.findAllClubs().subscribe((res)=>{
       this.clubsArray = res.data.map((club:any)=>({value:club.id, label:club.name}));
-      console.log("allClubs::", res);
-      
     })
   }
 
@@ -186,7 +182,6 @@ export class TontineComponent implements OnInit {
 
   createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number, idGain: number){
     this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe((tontine)=>{
-      console.log("tontine::", tontine)
       this.isSaving = false;
       this.getAllTontine();
       this.createTontineForm.reset();

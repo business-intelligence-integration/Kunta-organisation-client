@@ -51,7 +51,6 @@ export class PostsOfAreaComponent implements OnInit {
   getArea(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.areaService.getAreaById(params['id']).subscribe((res)=>{
-        console.log("areaRes::", res);
         this.posts = res.data.posts;
       });
     })
@@ -62,8 +61,6 @@ export class PostsOfAreaComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
         this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
           this.posts = res.data
-          console.log("postsArea:: ", res);
-          
         })
       });
    
@@ -92,8 +89,6 @@ export class PostsOfAreaComponent implements OnInit {
   addOperatorToMainOffice(idOperator: number, idFunction: number){
     this.isSaving = true;
     this.postService.addOperatorToPost(idOperator, this.idPost, idFunction).subscribe((res)=>{
-      console.log("resP::", res);
-      
       this.isSaving = false;
       this.closeOperatorModal();
       this.finAllPostByIdArea();

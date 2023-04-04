@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Cycle } from '../../classes/cycle';
 import { CycleDto } from '../../classes/cycleDto';
 import { Tontine } from '../../classes/tontine';
 import { UtilityService } from '../utility/utility.service';

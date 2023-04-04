@@ -164,11 +164,19 @@
                                     <div class="mb-2">
                                         <label>Types d'utilisateurs *</label><br>
                                         <select class="input_comp" formControlName="userType" aria-label="Default select example" (ngModelChange)="onSelectUser($event)"   [(ngModel)]="ngSelect">
+<<<<<<< HEAD
                                             <option value="1" disabled>--Selectionner un Type--</option>
                                             <option *ngIf="adminIsConnected" value="ADMIN">ADMINISTRATEUR</option>
                                             <!-- <option value="MEMBER" >MEMBER</option> -->
                                             <option value="USER">UTILISATEUR</option>
                                             <option *ngIf="adminIsConnected" value="OPERATOR">OPERATEUR</option>
+=======
+                                            <option value="1" disabled>--Selectionner un type--</option>
+                                            <option *ngIf="adminIsConnected" value="ADMIN">ADMIN</option>
+                                            <!-- <option value="MEMBER" >MEMBER</option> -->
+                                            <option value="USER">USER</option>
+                                            <option *ngIf="adminIsConnected" value="OPERATOR">OPERATOR</option>
+>>>>>>> be517c252a4d5d3001103a045d7915dd22b16103
                                         </select>
                                         <div class="text-danger"
                                         *ngIf="addUserForm.get('userType')?.errors?.['required'] && addUserForm.get('userType')?.touched">
@@ -282,7 +290,7 @@
                                                 <div class="field">
                                                     <label>Deuxième numéro de Tel.</label>
                                                     <div class="control has-icon">
-                                                        <input type="email" class="input" placeholder="Deuxième numéro de Tel" formControlName="secondPhoneNumber">
+                                                        <input type="number" class="input" placeholder="Deuxième numéro de Tel" formControlName="secondPhoneNumber">
                                                         <div class="form-icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                         </div>
@@ -298,7 +306,7 @@
                                                 <div class="field">
                                                     <label>Numéro WhatsApp*</label>
                                                     <div class="control has-icon">
-                                                        <input type="text" class="input" placeholder="Numéro WhatsApp"
+                                                        <input type="number" class="input" placeholder="Numéro WhatsApp"
                                                         formControlName="whatsappPhoneNumber">
                                                         <div class="text-danger"
                                                             *ngIf="addUserForm.get('whatsappPhoneNumber')?.errors?.['required'] && addUserForm.get('whatsappPhoneNumber')?.touched">
@@ -534,7 +542,7 @@
                                                 <label>Date de délivrance*</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
-                                                        <input class="champ" formControlName="dateOfIssue" type="date" id="DOB1" name="DOB" [(ngModel)]="dateOfIssue" (input)="onSelectIssueDate($event.timeStamp)">
+                                                        <input class="champ" formControlName="dateOfIssue" type="date" max="{{ dateNow }}" id="DOB1" name="DOB" [(ngModel)]="dateOfIssue" (input)="onSelectIssueDate($event.timeStamp)">
                                                     </div>
                                                </div>
                                                <div class="text-danger" *ngIf="addUserForm.get('dateOfIssue')?.errors?.['required'] && addUserForm.get('dateOfIssue')?.touched">
@@ -548,7 +556,7 @@
                                                 <label>Date de validité*</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
-                                                        <input class="champ" formControlName="dateOfValidity" type="date" min="{{ minValidityDate }}" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectValidityDate($event.timeStamp)">
+                                                        <input class="champ" formControlName="dateOfValidity" type="date" min="{{ minValidityDate }}" max="{{ dateNow }}" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectValidityDate($event.timeStamp)">
                                                     </div>
                                                </div>
                                                <div class="text-danger" *ngIf="addUserForm.get('dateOfValidity')?.errors?.['required'] && addUserForm.get('dateOfValidity')?.touched">

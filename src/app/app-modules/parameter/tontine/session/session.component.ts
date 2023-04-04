@@ -20,8 +20,6 @@ export class SessionComponent implements OnInit {
 
   getAllSession(){
     this.sessionService.findAllSessions().subscribe((res)=>{
-      console.log("resS::", res);
-      
       this.sessions = res.data
     })
   }

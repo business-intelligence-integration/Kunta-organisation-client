@@ -42,7 +42,6 @@ const routes: Routes = [
 
   ]
 }
-  // {path:"parameters", component: ParametersComponent, canActivate: [EntityGuard]}
 ];
 
 
