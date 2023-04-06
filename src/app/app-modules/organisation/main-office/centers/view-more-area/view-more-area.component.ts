@@ -30,6 +30,9 @@ export class ViewMoreAreaComponent implements OnInit {
   centerName: string = "";
   dynamicTitle: string = "Liste des zones";
 
+  selectMenuForm!: FormGroup;
+  ngSelectMenu = 0;
+
   isMemberGeneralAssembly: boolean = false;
   isAccountant: boolean = false;
   isAdminSys: boolean =  false;
@@ -58,6 +61,10 @@ export class ViewMoreAreaComponent implements OnInit {
     this.addAreaForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
     })
+
+    this.selectMenuForm = this.formBuilder.group({
+      selectedMenu: new FormControl(null),
+    })
   }
 
   comeBack(){this.location.back()}
@@ -83,6 +90,14 @@ export class ViewMoreAreaComponent implements OnInit {
       this.isPushed = "";
     }
 
+  }
+
+  onSelectMenuRole(menuName: any){
+    if(menuName == "AREA" || menuName == "0"){
+      this.onListAreas();
+    }else{
+      this.onListPosts();
+    }
   }
 
   onAddArea(){

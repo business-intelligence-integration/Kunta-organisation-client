@@ -18,6 +18,8 @@ import { PostService } from 'src/app/core/services/post/post.service';
 })
 export class ViewMoreAreClubComponent implements OnInit {
   ngSelect = 0;
+  selectMenuForm!: FormGroup;
+  ngSelectMenu = 0;
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";
@@ -60,6 +62,10 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.addClubForm = this.formBuilder.group({
       id: new FormControl(null, Validators.required),
     })
+
+    this.selectMenuForm = this.formBuilder.group({
+      selectedMenu: new FormControl(null),
+    })
   }
 
   activeHomeSider() {
@@ -73,6 +79,14 @@ export class ViewMoreAreClubComponent implements OnInit {
       this.isPushed = "";
     }
 
+  }
+
+  onSelectMenuRole(menuName: any){
+    if(menuName == "CLUB" || menuName == "0"){
+      this.onShowClubList();
+    }else{
+      this.onShowAllPosts();
+    }
   }
 
   getArea(){

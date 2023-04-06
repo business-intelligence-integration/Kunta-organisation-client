@@ -122,12 +122,22 @@
 
             <a (click)="comeBack()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
 
-            <div class="list-flex-toolbar" *ngIf="isListClubs">
-                <div class="control has-icon">
+            <div class="list-flex-toolbar">
+                <div *ngIf="isListClubs" class="control has-icon">
                     <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
                     <div class="form-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
+                </div>
+
+                <div class="select is-hidden-desktop is-hidden-tablet no-shadow" style="margin-right: 10px" >
+                    <form action="" class="modal-form" [formGroup]="selectMenuForm">
+                        <select formControlName="selectedMenu" (ngModelChange)="onSelectMenuRole($event)" [(ngModel)]="ngSelectMenu" >
+                            <option value="0" disabled>Sous-menu</option>
+                            <option value="CLUB">Tous les clubs</option>
+                            <option value="POST">Liste postes</option>
+                        </select>
+                    </form>
                 </div>
             </div>
           
