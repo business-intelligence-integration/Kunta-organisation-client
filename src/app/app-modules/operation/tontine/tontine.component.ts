@@ -143,7 +143,9 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      this.tontines = res.data;
+      if(res.data != null){
+        this.tontines = res.data;
+      }
     })
   }
 
