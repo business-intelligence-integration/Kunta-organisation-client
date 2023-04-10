@@ -244,14 +244,10 @@
                     </li>
                     <li class="has-children" [routerLinkActive]="['active']">
                         <div class="collapse-wrap">
-                            <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link">Bureau principale <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+                            <a href="javascript:void(0);" (click)="onDisplayMainOffice()" class="parent-link" [routerLink]="['/organization/main-office/posts']">Bureau principale</a>
                         </div>
-                        <ul [style.display]="wrapdwonDetaiilsMainOffice">
+                        <!-- <ul [style.display]="wrapdwonDetaiilsMainOffice">
                             <li>
-                                <!-- <a (click)="onExecutiveBoard()" class="is-submenu">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Comité exécutif</span>
-                                </a> -->
                                 <a [routerLink]="['/organization/executif-board/']" (click)="onCloseAllMobileMenu()" class="is-submenu">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Comité exécutif</span>
@@ -259,30 +255,18 @@
         
                             </li>
                             <li>
-                                <!-- <a (click)="onGeneralAssembly()" class="is-submenu">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Assemblée générale</span>
-                                </a> -->
                                 <a [routerLink]="['/organization/general-assembly/']" (click)="onCloseAllMobileMenu()" class="is-submenu">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Assemblée générale</span>
                                 </a>
                             </li>
                             <li>
-                                <!-- <a (click)="onCompensationCommittee()"  class="is-submenu">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Comité de gouvernance et de rémunération</span>
-                                </a> -->
                                 <a [routerLink]="['/organization/governance-compensation/']" (click)="onCloseAllMobileMenu()" class="is-submenu">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Comité de gouvernance et de rémunération</span>
                                 </a>
                             </li>
                             <li>
-                                <!-- <a (click)="onMonitoringCommittee()" class="is-submenu">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Comité de production et de surveillance</span>
-                                </a> -->
                                 <a [routerLink]="['/organization/production-monitoring-committee/']" (click)="onCloseAllMobileMenu()" class="is-submenu">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Comité de production et de surveillance</span>
@@ -290,16 +274,12 @@
                             </li>
         
                             <li>
-                                <!-- <a (click)="onDevelopmentCommittee()" class="is-submenu">
-                                    <i class="lnil lnil-list-alt-1"></i>
-                                    <span>Comité de développement stratégique</span>
-                                </a> -->
                                 <a [routerLink]="['/organization/strategic-development-committee/']" (click)="onCloseAllMobileMenu()" class="is-submenu">
                                     <i class="lnil lnil-list-alt-1"></i>
                                     <span>Comité de développement stratégique</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
                     </li>
                 </ul>
         

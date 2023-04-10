@@ -20,7 +20,6 @@
                 <option value="MUTUALIST">Mutualiste</option>
             </select>
         </form>
-        
     </div>
     <div class="buttons">
         <button *ngIf="adminIsConnected || operatorIsConnected" class="button h-button is-primary is-elevated">
@@ -165,14 +164,14 @@
                                         <label>Types d'utilisateurs *</label><br>
                                         <select class="input_comp" formControlName="userType" aria-label="Default select example" (ngModelChange)="onSelectUser($event)"   [(ngModel)]="ngSelect">
                                             <option value="1" disabled>--Selectionner un type--</option>
-                                            <option *ngIf="adminIsConnected" value="ADMIN">ADMIN</option>
+                                            <option *ngIf="adminIsConnected" value="ADMIN">ADMINISTRATEUR</option>
                                             <!-- <option value="MEMBER" >MEMBER</option> -->
-                                            <option value="USER">USER</option>
-                                            <option *ngIf="adminIsConnected" value="OPERATOR">OPERATOR</option>
+                                            <option value="USER">UTILISATEUR</option>
+                                            <option *ngIf="adminIsConnected" value="OPERATOR">OPERATEUR</option>
                                         </select>
                                         <div class="text-danger"
                                         *ngIf="addUserForm.get('userType')?.errors?.['required'] && addUserForm.get('userType')?.touched">
-                                        <small class="text-police" translate>select user's type</small>
+                                        <small class="text-police" translate>selectionner type d'utilisateur</small>
                                         </div>
                                     </div>
                                 </div>
@@ -410,7 +409,7 @@
                                                     </div>
                                                     <div class="text-danger"
                                                     *ngIf="addUserForm.get('city')?.errors?.['required'] && addUserForm.get('city')?.touched">
-                                                    <small class="text-police" translate>veuiller entre la ville</small>
+                                                    <small class="text-police" translate>veuiller entrer la ville</small>
                                                  </div>
                                                 </div>
                                             </div>
@@ -581,7 +580,7 @@
                                                 </div>
                                                 <div class="text-danger"
                                                     *ngIf="addUserForm.get('confPassword')?.errors?.['required'] && addUserForm.get('confPassword')?.touched">
-                                                    <small class="text-police" translate>enter the user's confirm password</small>
+                                                    <small class="text-police" translate>entrer le mot de password confirmé de l'utilisateur </small>
                                                 </div>
                                             </div>            
                                         </div>

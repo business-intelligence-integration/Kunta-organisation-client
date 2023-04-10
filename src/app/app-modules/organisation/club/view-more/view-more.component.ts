@@ -28,6 +28,9 @@ export class ViewMoreComponent implements OnInit {
   openPilotModal: string = "";
   dynamicTitle: string = "";
 
+  selectMenuForm!: FormGroup;
+  ngSelectMenu = 0;
+
   addMemberForm!: FormGroup;
   isPilote: boolean = false;
   isMember: boolean = true;
@@ -61,6 +64,10 @@ export class ViewMoreComponent implements OnInit {
       id: new FormControl(null, Validators.required),
     })
 
+    this.selectMenuForm = this.formBuilder.group({
+      selectedMenu: new FormControl(null),
+    })
+
   }
   
   comeBack(){this.location.back()}
@@ -75,6 +82,14 @@ export class ViewMoreComponent implements OnInit {
       this.isPushed = "";
     }
 
+  }
+
+  onSelectMenuRole(menuName: any){
+    if(menuName == "MEMBER" || menuName == "0"){
+      this.clickOnMemeber();
+    }else{
+      this.clickOnPosts();
+    }
   }
 
   onDisplayUserList(){

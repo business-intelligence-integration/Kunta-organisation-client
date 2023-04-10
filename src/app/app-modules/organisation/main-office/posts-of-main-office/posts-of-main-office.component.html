@@ -56,14 +56,14 @@
                 <div class="flex-table-cell" data-th="Appelation">
                     <span class="light-text" data-filter-match="">{{ post.name }}</span>
                 </div>
-                <div class="flex-table-cell" data-th="Appelation">
+                <div class="flex-table-cell" data-th="Nbre d'utilisateur maximal ">
                     <span *ngIf="post.maxNumberOfUser != 0" class="light-text" data-filter-match="">{{ post.maxNumberOfUser }}</span>
                     <span *ngIf="post.maxNumberOfUser === 0" class="light-text" data-filter-match="">Illimité</span>
                 </div>
-                <div class="flex-table-cell" data-th="Appelation">
-                    <span class="light-text" style="margin-left: -70px;" data-filter-match="">{{ post.description }}</span>
+                <div class="flex-table-cell" data-th="Description">
+                    <span class="light-text" data-filter-match="">{{ post.description }}</span>
                 </div>
-                <div class="flex-table-cell" data-th="Nombre d'utilisateurs maximal">
+                <div class="flex-table-cell" data-th="Nbre d'opérateur actuel">
                     <span class="light-text" data-filter-match="">{{ post.operators.length }}</span>
                         <a (click)="onOpenAddOperatorModal(post.id)" tooltip=" Ajouter un opérateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                 </div>

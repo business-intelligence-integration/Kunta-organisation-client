@@ -135,6 +135,16 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
                 </div>
+                
+                <div class="select is-hidden-desktop is-hidden-tablet no-shadow" style="margin-right: 10px" >
+                    <form action="" class="modal-form" [formGroup]="selectMenuForm">
+                        <select formControlName="selectedMenu" (ngModelChange)="onSelectMenuRole($event)" [(ngModel)]="ngSelectMenu" >
+                            <option value="0" disabled>Sous-menu</option>
+                            <option value="MEMBER">Membres</option>
+                            <option value="POST">Postes</option>
+                        </select>
+                    </form>
+                </div>
             
                 <div class="buttons">
                     <button *ngIf="isMember" class="button h-button is-primary is-elevated">
@@ -242,7 +252,7 @@
 
 </div>
 
-<!-- add memeber -->
+<!-- add member -->
 <div id="addMember" class="modal h-modal" [ngClass]="openMemberModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -261,7 +271,7 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddMember()">
-                        <label>membres *</label>
+                        <label>Membres *</label>
                          <select2
                                     class="w-100 color-border"
                                     [data]="members"
@@ -311,7 +321,7 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addMemberForm" (ngSubmit)="onAddPilot()">
-                        <label>membres *</label>
+                        <label>Membres *</label>
                         <select2
                                     class="w-100 color-border"
                                     [data]="members"
