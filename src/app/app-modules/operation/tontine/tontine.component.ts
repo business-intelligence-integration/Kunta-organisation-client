@@ -189,7 +189,7 @@ export class TontineComponent implements OnInit {
       this.createTontineForm.reset();
       this.utilityService.showMessage(
         'success',
-        'Tontine successfully created',
+        'Tontine créé avec succès',
         '#06d6a0',
         'white'
       );
@@ -197,7 +197,7 @@ export class TontineComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite',
         '#e62965',
         'white'
       );
@@ -221,12 +221,12 @@ export class TontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -237,23 +237,23 @@ export class TontineComponent implements OnInit {
             () => {
               this.getAllTontine();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Tontine has been deleted.',
+                title: 'Supprimé !',
+                text: 'Tontine a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'La supprission a été annulé',
             confirmButtonColor: '#d33',
           });
         }
@@ -455,7 +455,7 @@ export class TontineComponent implements OnInit {
       this.closeUpdateTontineModal();
       this.utilityService.showMessage(
         'success',
-        'Tontine successfully updated',
+        'Tontine mis a jour avec succès',
         '#06d6a0',
         'white'
       );
@@ -463,7 +463,7 @@ export class TontineComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
