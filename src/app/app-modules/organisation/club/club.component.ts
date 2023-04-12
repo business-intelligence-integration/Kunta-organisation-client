@@ -207,7 +207,7 @@ export class ClubComponent implements OnInit {
         'white'
       );
     },()=>{
-      this.isSaving = false;;
+      this.isSaving = false;
     })
 
     
