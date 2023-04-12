@@ -35,7 +35,7 @@ export class PostsOfCentersComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit(): void {
-    this.getCenter()
+   // this.getCenter()
     this.getAllPostByIdCenter();
     this.formInit();
     this.getAllFunctions();
@@ -50,13 +50,13 @@ export class PostsOfCentersComponent implements OnInit {
   }
 
 
-  getCenter(){
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.centerService.getCenterById(params['id']).subscribe((res)=>{
-       //this.posts = res.data.posts;
-      });
-    })
-  }
+  // getCenter(){
+  //   this.activatedRoute.queryParams.subscribe((params) => {
+  //     this.centerService.getCenterById(params['id']).subscribe((res)=>{
+  //      //this.posts = res.data.posts;
+  //     });
+  //   })
+  // }
 
   getAllPostByIdCenter(){
     this.activatedRoute.queryParams.subscribe((params) => {

@@ -55,7 +55,7 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.getArea();
     this.getAllClubs();
     this.formInit();
-    this.finAllPostByIdArea();
+    // this.finAllPostByIdArea();
   }
 
   formInit() {
@@ -204,6 +204,8 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.isListPosts = false;
     this.isListClubs = true;
     this.dynamicTitle = "Liste des clubs";
+    console.log("isListPosts::", this.isListPosts);
+    console.log("isListClubs::", this.isListClubs);
   }
 
   // onShowAgentCommunicationList(){
@@ -225,14 +227,16 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.isListClubs = false;
     this.isListPosts = true;
     this.dynamicTitle = "Listes des poste"
+    console.log("isListPosts::", this.isListPosts);
+    console.log("isListClubs::", this.isListClubs);
   }
 
-  finAllPostByIdArea(){
-    this.activatedRoute.queryParams.subscribe((params) => {
-        this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
-          this.posts = res.data
-        })
-      });
+  // finAllPostByIdArea(){
+  //   this.activatedRoute.queryParams.subscribe((params) => {
+  //       this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
+  //         this.posts = res.data
+  //       })
+  //     });
    
-  }
+  // }
 }

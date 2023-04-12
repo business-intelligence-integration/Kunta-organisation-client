@@ -33,7 +33,7 @@ export class PostsOfAreaComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getArea();
+    // this.getArea();
     this.finAllPostByIdArea();
     this.formInit();
     this.getAllOperators();
@@ -48,19 +48,21 @@ export class PostsOfAreaComponent implements OnInit {
   }
 
 
-  getArea(){
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.areaService.getAreaById(params['id']).subscribe((res)=>{
-        this.posts = res.data.posts;
-      });
-    })
-  }
+  // getArea(){
+  //   this.activatedRoute.queryParams.subscribe((params) => {
+  //     this.areaService.getAreaById(params['id']).subscribe((res)=>{
+  //       this.posts = res.data.posts;
+  //       console.log("posts::", this.posts);
+  //     });
+  //   })
+  // }
 
 
   finAllPostByIdArea(){
     this.activatedRoute.queryParams.subscribe((params) => {
         this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
           this.posts = res.data
+          console.log("posts::", this.posts);
         })
       });
    

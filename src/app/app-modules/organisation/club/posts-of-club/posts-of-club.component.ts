@@ -33,7 +33,7 @@ export class PostsOfClubComponent implements OnInit {
     private clubService: ClubService) { }
 
   ngOnInit(): void {
-    this.getClub();
+    // this.getClub();
     this.finAllPostByIdClub();
     this.formInit();
     this.getAllFunctions();
@@ -47,12 +47,12 @@ export class PostsOfClubComponent implements OnInit {
     })
   }
 
-  getClub(){
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.clubService.getclubById(params['id']).subscribe((res)=>{
-      });
-    })
-  }
+  // getClub(){
+  //   this.activatedRoute.queryParams.subscribe((params) => {
+  //     this.clubService.getclubById(params['id']).subscribe((res)=>{
+  //     });
+  //   })
+  // }
 
   onOpenAddOperatorModal(id: number){
     this.openOperatorModal = "is-active";
