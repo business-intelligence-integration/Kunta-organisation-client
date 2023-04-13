@@ -125,7 +125,7 @@
                         </div>
                         <form class="modal-form" [formGroup]="createMutualInvestmentForm" (ngSubmit)="onSubmitMutualInvestment()">
                             <div class="field">
-                                <label>Nom*</label><br>
+                                <label>Nom *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="nom du placement mutualisé" formControlName="name">
                                 </div>
@@ -135,7 +135,18 @@
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Organisme*</label><br>
+                                <label>Formulaires de tirage au sort *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idDraweeForm" [(ngModel)]="ngSelect1" (ngModelChange)="onDraweeSelected($event)">
+                                    <option value="0" disabled>--Selectionnez un formulaire de tirage au sort--</option>
+                                    <option *ngFor="let draweeForm of draweeForms" [value]="draweeForm.id"> <span> {{ draweeForm.description }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idDraweeForm')?.errors?.['required'] && createMutualInvestmentForm.get('idDraweeForm')?.touched">
+                                        <small class="text-police">veuillez sélectionner un formulaire de tirage au sort</small>
+                                </div>
+                            </div>
+                            <div class="field" *ngIf="isOthers">
+                                <label>Organisme</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="organisme" formControlName="organism">
                                 </div>
@@ -144,8 +155,19 @@
                                     <small class="text-police">veuillez entrer l'organisme</small>
                                  </div>
                             </div>
+                            <div class="field" *ngIf="isPhysical">
+                                <label>Liste des mutualistes</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
+                                    <option value="0" disabled>--Selectionnez un mutualiste--</option>
+                                    <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idMutualist')?.errors?.['required'] && createMutualInvestmentForm.get('idMutualist')?.touched">
+                                        <small class="text-police">veuillez sélectionner un mutualiste</small>
+                                </div>
+                            </div>
                             <div class="field">
-                                <label>Montant minimal*</label><br>
+                                <label>Montant minimal *</label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="montant minimal" formControlName="minimumAmount">
                                 </div>
@@ -155,19 +177,8 @@
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Formulaires de tirage au sort  *</label>
-                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idDraweeForm" [(ngModel)]="ngSelect1">
-                                    <option value="0" disabled>--Selectionnez un formulaire de tirage au sort--</option>
-                                    <option *ngFor="let draweeForm of draweeForms" [value]="draweeForm.id"> <span> {{ draweeForm.description }}  </span> </option>
-                                </select>
-                                <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idDraweeForm')?.errors?.['required'] && createMutualInvestmentForm.get('idDraweeForm')?.touched">
-                                        <small class="text-police">veuillez sélectionner un formulaire de tirage au sort</small>
-                                </div>
-                            </div>
-                            <div class="field">
                                 <label>Types de rentabilités  *</label>
-                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect2">
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect3" (ngModelChange)="onProfitabilitySelected($event)">
                                     <option value="0" disabled>--Selectionnez un types de rentabilité--</option>
                                     <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
                                 </select>
@@ -176,19 +187,8 @@
                                         <small class="text-police">veuillez sélectionner un types de rentabilité</small>
                                 </div>
                             </div>
-                            <div class="field">
-                                <label>Types de remboursements  *</label>
-                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelect3">
-                                    <option value="0" disabled>--Selectionnez un type de remboursement--</option>
-                                    <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
-                                </select>
-                                <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idRefundType')?.errors?.['required'] && createMutualInvestmentForm.get('idRefundType')?.touched">
-                                        <small class="text-police">veuillez sélectionner un type de remboursement</small>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label>Taux de rentabilité*</label><br>
+                            <div class="field" *ngIf="isCertain">
+                                <label>Taux de rentabilité </label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
                                 </div>
@@ -198,17 +198,39 @@
                                  </div>
                             </div>    
                             <div class="field">
-                                <label>Durée de l'échec en mois*</label><br>
+                                <label>Types de remboursements *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelect4" (ngModelChange)="onRefundSelected($event)">
+                                    <option value="0" disabled>--Selectionnez un type de remboursement--</option>
+                                    <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idRefundType')?.errors?.['required'] && createMutualInvestmentForm.get('idRefundType')?.touched">
+                                        <small class="text-police">veuillez sélectionner un type de remboursement</small>
+                                </div>
+                            </div>
+                            <div class="field" *ngIf="isPeriod">
+                                <label>Frequence de remboursement</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelect5">
+                                    <option value="0" disabled>--Selectionnez une frequence de remboursement--</option>
+                                    <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idFrequency')?.errors?.['required'] && createMutualInvestmentForm.get('idFrequency')?.touched">
+                                        <small class="text-police">veuillez sélectionner une frequence de remboursement</small>
+                                </div>
+                            </div>
+                            <div class="field" *ngIf="isPeriod">
+                                <label>Durée de l'échéance en mois</label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="Durée de l'échec en mois" formControlName="echeanceDurationInMonths">
                                 </div>
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">
-                                    <small class="text-police">veuillez entrer le nom de la mutualInvestment</small>
+                                    <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Evaluation*</label><br>
+                                <label>Evaluation *</label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="évaluation" formControlName="rating">
                                 </div>
