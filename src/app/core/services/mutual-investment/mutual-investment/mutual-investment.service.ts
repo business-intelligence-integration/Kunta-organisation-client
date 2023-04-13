@@ -25,8 +25,8 @@ export class MutualInvestmentService {
     return this.httpClient.get<any>(this.baseUrl + 'mutual-investments', httpOptions);
   }
 
-  createMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '?token=' + this.utilityService.loadToken(), mutualInvestment);
+  createMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idFrequency: number, idMutualist: number,):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '?idFrequency=' + idFrequency + '&idMutualist=' + idMutualist+ '&token=' + this.utilityService.loadToken(), mutualInvestment);
   }
 
   findMutualInvestmentById(idInvestment: number):Observable<any>{
@@ -38,7 +38,7 @@ export class MutualInvestmentService {
   }
 
   deleteMutualInvestment(idInvestment: number):Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
+    return this.httpClient.delete<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + '?token=' + this.utilityService.loadToken());
   }
 
   generateRefundDates(idInvestment: number):Observable<any>{
