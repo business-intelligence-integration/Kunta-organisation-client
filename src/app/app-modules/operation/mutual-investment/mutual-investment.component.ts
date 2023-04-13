@@ -162,6 +162,8 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   onSubmitMutualInvestment(){
+    let idFrequency: number = 0;
+    let idMutualist: number = 0;
     this.isSaving = true;
     const formValue = this.createMutualInvestmentForm.value;
     this.mutualInvestment.echeanceDurationInMonths = formValue.echeanceDurationInMonths;
@@ -172,8 +174,13 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
     this.mutualInvestment.rating = formValue.rating;
+    if(formValue.idFrequency != null){
+       idFrequency = formValue.idFrequency
+    }if(formValue.idMutualist != null){
+      idMutualist = formValue.idMutualist
+   }
 
-    this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, formValue.idFrequency, formValue.idMutualist);
+    this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, idFrequency, idMutualist);
     
   }
 
@@ -293,7 +300,7 @@ export class MutualInvestmentComponent implements OnInit {
               this.getAllMutualInvestments();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
-                text: 'Placement mutualisé a été supprimé.',
+                text: 'Le placement mutualisé a été supprimé avec succès !.',
                 confirmButtonColor: '#198AE3',
               });
             },

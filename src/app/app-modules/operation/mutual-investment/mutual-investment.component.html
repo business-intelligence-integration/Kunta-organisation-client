@@ -107,6 +107,7 @@
 <div *ngIf="createMutualInvestment" class="page-content-inner">
     <!--Form Layout 1-->
     <div class="form-layout">
+        <a (click)="cancelCreatingMutualInvestment()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron get-potition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br>
         <div class="form-outer">
             <div class="form-header stuck-header is-stuck">
                 <div class="form-header-inner">
@@ -222,7 +223,7 @@
                             <div class="field" *ngIf="isPeriod">
                                 <label>Durée de l'échéance en mois</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="Durée de l'échec en mois" formControlName="echeanceDurationInMonths">
+                                    <input type="number" class="input" placeholder="durée de l'échéance en mois" formControlName="echeanceDurationInMonths">
                                 </div>
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">

@@ -38,7 +38,7 @@ export class MutualInvestmentService {
   }
 
   deleteMutualInvestment(idInvestment: number):Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
+    return this.httpClient.delete<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + '?token=' + this.utilityService.loadToken());
   }
 
   generateRefundDates(idInvestment: number):Observable<any>{
