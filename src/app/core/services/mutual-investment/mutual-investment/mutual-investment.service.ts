@@ -26,7 +26,7 @@ export class MutualInvestmentService {
   }
 
   createMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idFrequency: number, idMutualist: number,):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '?idFrequency=' + idFrequency + '?idMutualist=' + idMutualist+ '&token=' + this.utilityService.loadToken(), mutualInvestment);
+    return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '?idFrequency=' + idFrequency + '&idMutualist=' + idMutualist+ '&token=' + this.utilityService.loadToken(), mutualInvestment);
   }
 
   findMutualInvestmentById(idInvestment: number):Observable<any>{

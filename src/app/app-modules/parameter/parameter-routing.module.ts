@@ -18,6 +18,7 @@ import { PenaltyComponent } from './tontine/penalty/penalty.component';
 import { SessionComponent } from './tontine/session/session.component';
 import { StatusComponent } from './tontine/status/status.component';
 import { TransversalityComponent } from './tontine/transversality/transversality.component';
+import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-profile.component';
 
 const routes: Routes = [
   {path:"", component: ParametersComponent, canActivate: [EntityGuard],
@@ -39,6 +40,7 @@ const routes: Routes = [
     {path:"drawee-form", component: DraweeFormComponent, canActivate: [EntityGuard]},
     {path:"profitability-type", component: ProfitabilityTypeComponent, canActivate: [EntityGuard]},
     {path:"refund-type", component: RefundTypeComponent, canActivate: [EntityGuard]},
+    {path:"risk-profile", component: RiskProfileComponent, canActivate: [EntityGuard]},
 
   ]
 }

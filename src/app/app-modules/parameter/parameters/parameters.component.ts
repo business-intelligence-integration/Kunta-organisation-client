@@ -30,6 +30,7 @@ export class ParametersComponent implements OnInit {
   isDraweeForm: boolean = false;
   isProfitabilityType: boolean = false;
   isRefundType: boolean = false;
+  isRiskProfile: boolean = false;
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
   wrapdwonDetailMutualInvestment: string  = "display-block";
@@ -138,6 +139,10 @@ export class ParametersComponent implements OnInit {
 
   onRefundType(){
     this.dynamicTitle = "Types de remboursement"
+  }
+
+  onRiskProfile(){
+    this.dynamicTitle = "Profil des risques"
   }
 
   onFamilySituation(){

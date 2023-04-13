@@ -21,6 +21,7 @@ import { DraweeFormComponent } from './mutual-investment/drawee-form/drawee-form
 import { ProfitabilityTypeComponent } from './mutual-investment/profitability-type/profitability-type.component';
 import { RefundTypeComponent } from './mutual-investment/refund-type/refund-type.component';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-profile.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     DraweeFormComponent,
     ProfitabilityTypeComponent,
     RefundTypeComponent,
+    RiskProfileComponent,
   ],
   imports: [
     CommonModule,
