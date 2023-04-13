@@ -121,6 +121,11 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number){
+    console.log(":::::::mutualInvestment::", mutualInvestment);
+    console.log(":::::::idDraweeForm::", idDraweeForm);
+    console.log(":::::::idRefundType::", idRefundType);
+    console.log(":::::::idProfitabilityType::", idProfitabilityType);
+    
     this.mutualInvestmentService.createMutualInvestment(mutualInvestment, idDraweeForm, idRefundType, idProfitabilityType).subscribe(()=>{
       this.isSaving = false;
       this.getAllMutualInvestments();
