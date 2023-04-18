@@ -14,6 +14,12 @@ import Swal from 'sweetalert2';
 import { User } from 'src/app/core/classes/user';
 import { FrequencyService } from 'src/app/core/services/frequencies/frequency.service';
 import { Frequency } from 'src/app/core/classes/frequency';
+import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
+import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
+import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
+import { RiskProfile } from 'src/app/core/classes/riskProfile';
+import { Center } from 'src/app/core/classes/center';
+import { CenterService } from 'src/app/core/services/centers/center.service';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -26,6 +32,10 @@ export class MutualInvestmentComponent implements OnInit {
   ngSelect3 = 0;
   ngSelect4 = 0;
   ngSelect5 = 0;
+  ngSelect6 = 0;
+  ngSelect7 = 0;
+  ngSelect8 = 0;
+  ngSelect9 = 0;
   openCreateModal: string = ""
   createMutualInvestmentForm!: FormGroup
   endDate: any;
@@ -46,21 +56,39 @@ export class MutualInvestmentComponent implements OnInit {
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
+  idInvestment: number = 0;
+  openDepositModal: string = "";
+  openOfferModal: string = "";
+  addSecurityDepositForm!: FormGroup;
+  addSubscriptionOfferForm!: FormGroup;
+  securityDeposit: SecurityDeposit = new SecurityDeposit();
+  subscriptionOffer: SubscriptionOffer = new SubscriptionOffer();
+  riskProfiles: RiskProfile[] = [];
+  // idProfile: number = 0;
+  // profitabilityTypeInfo: ProfitabilityType[] = [];
+  // profitabilityRate: number = 0;
+  disabledInput: boolean = true;
+  isOfferCertain: boolean = false;
+  centers: Center[] = [];
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
+    private centerService: CenterService,
     private draweeFormService: DraweeFormService,
     private userService: UserService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
     private profitabilityTypeService: ProfitabilityTypeService,
+    private riskProfileService: RiskProfileService,
     private refundTypeService: RefundTypeService,
     private frequencyService: FrequencyService,) { }
 
   ngOnInit(): void {
     this.getAllMutualInvestments();
+    this.getAllCenters();
     this.getAllDroweeForm();
     this.getAllUsers();
-    this.getAllProfitabilityType();
+    this.getAllProfitabilityTypes();
+    this.getAllRiskProfiles();
     this.getAllRefundTypes();
     this.getAllFrequency();
     this.formInit();
@@ -71,6 +99,7 @@ export class MutualInvestmentComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       organism: new FormControl(null),
       minimumAmount: new FormControl(null, Validators.required),
+      idCenter: new FormControl(null, Validators.required),
       idDraweeForm: new FormControl(null, Validators.required),
       idMutualist: new FormControl(null),
       idProfitabilityType: new FormControl(null, Validators.required),
@@ -89,11 +118,29 @@ export class MutualInvestmentComponent implements OnInit {
       minimumAmount: new FormControl(null, Validators.required),
       profitabilityRate: new FormControl(null, Validators.required),
     })
+
+    this.addSubscriptionOfferForm = this.formBuilder.group({
+      idProfile: new FormControl(null, Validators.required),
+      idProfitabilityType: new FormControl(null, Validators.required),
+      profitabilityRate: new FormControl(null),
+    })
+
+    this.addSecurityDepositForm = this.formBuilder.group({
+      idUser: new FormControl(null, Validators.required),
+      amount: new FormControl(null, Validators.required),
+    })
   }
 
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
       this.mutualInvestments = res.data;
+      console.log("Mutual List.. ", res.data);
+    })
+  }
+
+  getAllCenters(){
+    this.centerService.findAllCenters().subscribe((res)=>{
+      this.centers = res.data;
     })
   }
 
@@ -109,9 +156,15 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
-  getAllProfitabilityType(){
+  getAllProfitabilityTypes(){
     this.profitabilityTypeService.findAllProfitabilityTypes().subscribe((res)=>{
       this.profitabilityTypes = res.data;
+    })
+  }
+
+  getAllRiskProfiles(){
+    this.riskProfileService.findAllRiskProfiles().subscribe((res)=>{
+      this.riskProfiles = res.data;
     })
   }
 
@@ -178,21 +231,18 @@ export class MutualInvestmentComponent implements OnInit {
        idFrequency = formValue.idFrequency
     }if(formValue.idMutualist != null){
       idMutualist = formValue.idMutualist
-   }
+    }
 
-    this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, idFrequency, idMutualist);
-    
+    this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, formValue.idCenter, idFrequency, idMutualist);
   }
 
-  createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idFrequency: number, idMutualist: number){
-    console.log('mutualInvestment..', mutualInvestment);
-    console.log('idDraweeForm..', idDraweeForm);
-    console.log('idRefundType..', idRefundType);
-    console.log('idProfitabilityType..', idProfitabilityType);
-    this.mutualInvestmentService.createMutualInvestment(mutualInvestment, idDraweeForm, idRefundType, idProfitabilityType, idFrequency, idMutualist).subscribe(()=>{
+  createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter:number, idFrequency: number, idMutualist: number){
+    this.mutualInvestmentService.createMutualInvestment(mutualInvestment, idDraweeForm, idRefundType, idProfitabilityType, idCenter, idFrequency, idMutualist).subscribe((res)=>{
       this.isSaving = false;
       this.getAllMutualInvestments();
       this.createMutualInvestmentForm.reset();
+      this.cancelCreatingMutualInvestment();
+      console.log('resultat creation..', res)
       this.utilityService.showMessage(
         'success',
         'Placement mutualisé crée avec succès !',
@@ -230,6 +280,105 @@ export class MutualInvestmentComponent implements OnInit {
     this.createMutualInvestment = true;
   }
 
+  ///////////////// Add Subscription Offer
+  onOpenAddSubscriptionOffer(idInvestment: number){
+    this.openOfferModal = "is-active";
+    this.idInvestment = idInvestment;
+  }
+
+  closeSubscriptionOfferModal() {
+    this.openOfferModal = "";
+  }
+
+  onAddSubscriptionOffer() {
+    const formValue = this.addSubscriptionOfferForm.value;
+    console.log('idInvestment ', this.idInvestment);
+    console.log('idProfile ', formValue.idProfile);
+    console.log('idProfitabilityType ', formValue.idProfitabilityType);
+    console.log('profitabilityRate ', formValue.profitabilityRate);
+
+
+    this.addSubscriptionOffer(this.idInvestment, formValue.idProfile, formValue.idProfitabilityType, formValue.profitabilityRate)
+  }
+
+  addSubscriptionOffer(idInvestment: number, idProfile: number, idProfitabilityType: number, profitabilityRate: number) {
+    this.isSaving = true;
+    this.mutualInvestmentService.createSubscriptionOffer(idInvestment, idProfile, idProfitabilityType, profitabilityRate).subscribe((res) => {
+      this.isSaving = false;
+      this.getAllMutualInvestments();
+      this.addSubscriptionOfferForm.reset();
+      this.closeSubscriptionOfferModal();
+      this.utilityService.showMessage(
+        'success',
+        'Offre ajoutée avec succès',
+        '#06d6a0',
+        'white'
+      );
+    }, (error) => {
+      console.log("error: ", error);
+      this.isSaving = false;
+      this.closeSubscriptionOfferModal();
+      this.addSubscriptionOfferForm.reset();
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  onOfferProfitabilitySelected(val: any) {
+    if(val == 1) {
+      this.isOfferCertain = true;
+    } else {
+      this.isOfferCertain = false;
+    }
+  }
+
+  ///////////////// Add Security Deposit
+  onOpenAddSecurityDeposit(idInvestment: number){
+    this.openDepositModal = "is-active";
+    this.idInvestment = idInvestment;
+  }
+
+  closeSecurityDepositModal() {
+    this.openDepositModal = "";
+  }
+
+  onAddSecurtiyDeposit() {
+    const formValue = this.addSecurityDepositForm.value;
+    this.securityDeposit.amount = formValue.amount;
+    this.addSecurityDeposit(this.idInvestment, formValue.idUser, this.securityDeposit)
+  }
+
+  addSecurityDeposit(idInvestment: number, idUser: number, securityDeposit: SecurityDeposit) {
+    this.isSaving = true;
+    this.mutualInvestmentService.addSecurityDeposit(idInvestment, idUser, securityDeposit).subscribe((res) => {
+      this.isSaving = false;
+      this.getAllMutualInvestments();
+      this.addSecurityDepositForm.reset();
+      this.closeSecurityDepositModal();
+      this.utilityService.showMessage(
+        'success',
+        'Caution ajoutée avec succès',
+        '#06d6a0',
+        'white'
+      );
+    }, (error) => {
+      console.log("error: ", error);
+      this.isSaving = false;
+      this.closeSecurityDepositModal();
+      this.addSecurityDepositForm.reset();
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
   ////////////////// Update Option
   onUpdateMutualInvestment(id: number) {
     this.mutualInvestmentService.findMutualInvestmentById(id).subscribe((res) => {
@@ -245,24 +394,30 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   onSubmitUpdateMutualInvestment() {
-    // this.isSaving = true;
+    this.isSaving = true;
     const formValue = this.updateMutualInvestmentForm.value;
     this.mutualInvestment.name = formValue.name;
     this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.minimumAmount = formValue.minimumAmount;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
     this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, formValue.id).subscribe(() => {
-      // this.isSaving = false;
+      this.isSaving = false;
       this.getAllMutualInvestments();
       this.onCloseUpdateModal();
       this.utilityService.showMessage(
         'success',
-        'Club mis a jour avec succès',
+        'Placement mis a jour avec succès',
         '#06d6a0',
         'white'
       );
     },()=>{
-      // this.isSaving = false;
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
     })
   }
 

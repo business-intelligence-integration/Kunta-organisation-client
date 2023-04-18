@@ -1,40 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from 'src/app/core/classes/user';
-import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import Swal from 'sweetalert2';
 import {Location} from "@angular/common";
+import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
+import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
 
 @Component({
-  selector: 'app-view-more-participant',
-  templateUrl: './view-more-participant.component.html',
-  styleUrls: ['./view-more-participant.component.scss']
+  selector: 'app-view-more-security-deposit',
+  templateUrl: './view-more-security-deposit.component.html',
+  styleUrls: ['./view-more-security-deposit.component.scss']
 })
-export class ViewMoreParticipantComponent implements OnInit {
+export class ViewMoreSecurityDepositComponent implements OnInit {
 
-  users: User[] = [];
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
-  idParticipant: number = 0;
+  securityDeposits: SecurityDeposit[] = [];
+  idInvestment: number = 0;
 
   constructor( private activatedRoute: ActivatedRoute, 
-    private tontineService: TontineService,
+    private mutualInvestmentService: MutualInvestmentService,
     private location: Location) { }
 
   ngOnInit(): void {
-    this.getTotineUser();
+    this.getMutualSecurityDeposit();
   }
 
   backBack(){this.location.back()}
 
-  getTotineUser(){
-    this.activatedRoute.queryParams.subscribe((params) => {
-      this.tontineService.getTontineUsers(params['id']).subscribe((res)=>{
-        this.idParticipant = params['id'];
-        this.users = res.data;
-      });
-    })
+  getMutualSecurityDeposit(){
+  this.activatedRoute.queryParams.subscribe((params) => {
+    this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
+      this.idInvestment = params['id'];
+      this.securityDeposits = res.data.securityDeposits;
+    });
+  })
   }
 
   activeHomeSider() {
@@ -50,11 +50,11 @@ export class ViewMoreParticipantComponent implements OnInit {
 
   }
 
-  onDeleteUser(idUser: number){
-    this.deleteMessage(idUser);
+  onDeleteSecurityDeposit(id: number){
+    this.deleteMessage(id);
   }
 
-  deleteMessage(id: number) {
+  deleteMessage(idDeposit: number) {
     const swalWithBootstrapButtons = Swal.mixin({
       buttonsStyling: true,
     });
@@ -78,12 +78,12 @@ export class ViewMoreParticipantComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.tontineService.removeParticipant(this.idParticipant, id).subscribe(
+          this.mutualInvestmentService.deleteSecurityDeposit(this.idInvestment, idDeposit).subscribe(
             () => {
-              this.getTotineUser();
+              this.getMutualSecurityDeposit();
               swalWithBootstrapButtons.fire({
                 title: 'Retiré !',
-                text: 'Participant a été retiré.',
+                text: 'Caution a été retiré.',
                 confirmButtonColor: '#198AE3',
               });
             },

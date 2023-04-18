@@ -15,6 +15,8 @@ import { ViewMoreDetailsSessionComponent } from './tontine/view-more-details-ses
 import { AllPenalityOfSessionComponent } from './tontine/all-penality-of-session/all-penality-of-session.component';
 import { MutualInvestmentComponent } from './mutual-investment/mutual-investment.component';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { ViewMoreSecurityDepositComponent } from './mutual-investment/view-more-security-deposit/view-more-security-deposit.component';
+import { ViewMoreSubscriptionOfferComponent } from './mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
 
 
 
@@ -30,6 +32,8 @@ import { TooltipModule } from 'ng2-tooltip-directive';
     ViewMoreDetailsSessionComponent,
     AllPenalityOfSessionComponent,
     MutualInvestmentComponent,
+    ViewMoreSecurityDepositComponent,
+    ViewMoreSubscriptionOfferComponent,
   ],
   imports: [
     CommonModule,

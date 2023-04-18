@@ -26,6 +26,8 @@ import { FamilySituationComponent } from './parameter/organisation/family-situat
 import { CivilityComponent } from './parameter/organisation/civility/civility.component';
 import { AllPenalityOfSessionComponent } from './operation/tontine/all-penality-of-session/all-penality-of-session.component';
 import { UserDetailsRoleComponent } from './organisation/user/user-details-role/user-details-role.component';
+import { ViewMoreSecurityDepositComponent } from './operation/mutual-investment/view-more-security-deposit/view-more-security-deposit.component';
+import { ViewMoreSubscriptionOfferComponent } from './operation/mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
 
 const routes: Routes = [
   {
@@ -85,6 +87,12 @@ const routes: Routes = [
       },
       {
         path:"view-more-participant", component: ViewMoreParticipantComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-more-subscription-offer", component: ViewMoreSubscriptionOfferComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-more-security-deposit", component: ViewMoreSecurityDepositComponent, canActivate: [EntityGuard]
       },
       {
         path:"view-more-sponsores", component: SponsoresComponent, canActivate: [EntityGuard]

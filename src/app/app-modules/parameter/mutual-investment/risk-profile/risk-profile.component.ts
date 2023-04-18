@@ -63,6 +63,7 @@ export class RiskProfileComponent implements OnInit {
     this.riskProfileService.createRiskProfile(this.riskProfile).subscribe((res)=>{
       this.isSaving = false;
       this.getAllRiskProfiles();
+      this.createRiskProfileForm.reset();
       this.closeRiskProfileModal();
       this.utilityService.showMessage(
         'success',
@@ -95,7 +96,7 @@ export class RiskProfileComponent implements OnInit {
     this.riskProfile.riskLevel =formValue.riskLevel;
     this.riskProfileService.updateRiskProfile(this.riskProfile, id).subscribe((res)=>{
       this.getAllRiskProfiles();
-      this.closeUpdateRiskProfileModal()
+      this.closeUpdateRiskProfileModal();
       this.isSaving = false;
       this.utilityService.showMessage(
         'success',
@@ -148,7 +149,7 @@ export class RiskProfileComponent implements OnInit {
               this.getAllRiskProfiles();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
-                text: 'Type de remboussement supprimé avec succès !',
+                text: 'Profile du risque supprimé avec succès !',
                 confirmButtonColor: '#198AE3',
               });
             },

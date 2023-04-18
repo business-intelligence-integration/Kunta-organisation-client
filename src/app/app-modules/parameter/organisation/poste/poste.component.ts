@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./poste.component.scss']
 })
 export class PosteComponent implements OnInit {
+  ngSelect1 = 0;
   ngSelect2 = 0;
   createPosteForm!: FormGroup
   updatePosteForm!: FormGroup

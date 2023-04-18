@@ -22,6 +22,8 @@ import { ProfitabilityTypeComponent } from './mutual-investment/profitability-ty
 import { RefundTypeComponent } from './mutual-investment/refund-type/refund-type.component';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-profile.component';
+import { SecurityDepositComponent } from './mutual-investment/security-deposit/security-deposit.component';
+import { SubscriptionOfferComponent } from './mutual-investment/subscription-offer/subscription-offer.component';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-prof
     ProfitabilityTypeComponent,
     RefundTypeComponent,
     RiskProfileComponent,
+    SecurityDepositComponent,
+    SubscriptionOfferComponent,
   ],
   imports: [
     CommonModule,

@@ -21,23 +21,23 @@ export class RiskProfileService {
   }
 
   findAllRiskProfiles():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'risk-profile', httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'risk-profiles', httpOptions);
   }
 
   createRiskProfile(riskProfile: RiskProfile):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'risk-profile', riskProfile, httpOptions);
+    return this.httpClient.post<any>(this.baseUrl + 'risk-profiles', riskProfile, httpOptions);
   }
 
   findRiskProfileById(idProfile: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'risk-profile/'+ idProfile, httpOptions);
+    return this.httpClient.get<any>(this.baseUrl + 'risk-profiles/'+ idProfile, httpOptions);
   }
 
   updateRiskProfile(riskProfile: RiskProfile, idProfile: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'risk-profile/'+ idProfile, riskProfile, httpOptions);
+    return this.httpClient.put<any>(this.baseUrl + 'risk-profiles/'+ idProfile, riskProfile, httpOptions);
   }
 
   deleteRiskProfile(idProfile: number):Observable<any>{
-    return this.httpClient.delete<any>(this.baseUrl + 'risk-profile/'+ idProfile, httpOptions);
+    return this.httpClient.delete<any>(this.baseUrl + 'risk-profiles/'+ idProfile, httpOptions);
   }
 
 }

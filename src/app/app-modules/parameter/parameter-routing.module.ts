@@ -19,6 +19,8 @@ import { SessionComponent } from './tontine/session/session.component';
 import { StatusComponent } from './tontine/status/status.component';
 import { TransversalityComponent } from './tontine/transversality/transversality.component';
 import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-profile.component';
+import { SecurityDepositComponent } from './mutual-investment/security-deposit/security-deposit.component';
+import { SubscriptionOfferComponent } from './mutual-investment/subscription-offer/subscription-offer.component';
 
 const routes: Routes = [
   {path:"", component: ParametersComponent, canActivate: [EntityGuard],
@@ -41,6 +43,8 @@ const routes: Routes = [
     {path:"profitability-type", component: ProfitabilityTypeComponent, canActivate: [EntityGuard]},
     {path:"refund-type", component: RefundTypeComponent, canActivate: [EntityGuard]},
     {path:"risk-profile", component: RiskProfileComponent, canActivate: [EntityGuard]},
+    {path:"security-deposit", component: SecurityDepositComponent, canActivate: [EntityGuard]},
+    {path:"subscription-offer", component: SubscriptionOfferComponent, canActivate: [EntityGuard]},
 
   ]
 }

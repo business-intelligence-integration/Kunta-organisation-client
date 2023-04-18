@@ -1,3 +1,9 @@
+import { Center } from "./center";
+import { ProfitabilityType } from "./profitabilityType";
+import { RiskProfile } from "./riskProfile";
+import { SecurityDeposit } from "./securityDeposit";
+import { SubscriptionOffer } from "./subscriptionOffer";
+
 export class MutualInvestment{
     echeanceDurationInMonths: number = 0;
     endDate: any;
@@ -8,5 +14,10 @@ export class MutualInvestment{
     profitabilityRate: number = 0;
     rating: number = 0;
     startDate: any;
+    profitabilityType: ProfitabilityType[] = [];
+    riskProfile: RiskProfile[] = [];
     profitabilityAmount: number = 0;
+    securityDeposits: SecurityDeposit[] = [];
+    offers: SubscriptionOffer[] = [];
+    centers: Center[] = [];
   }

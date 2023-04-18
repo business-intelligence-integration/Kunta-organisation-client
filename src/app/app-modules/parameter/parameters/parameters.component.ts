@@ -145,6 +145,14 @@ export class ParametersComponent implements OnInit {
     this.dynamicTitle = "Profil des risques"
   }
 
+  onSecurityDeposit(){
+    this.dynamicTitle = "Cautions"
+  }
+
+  onSubscriptionOffer(){
+    this.dynamicTitle = "Offres de souscription"
+  }
+
   onFamilySituation(){
     this.dynamicTitle = "Situation familiale"
   }

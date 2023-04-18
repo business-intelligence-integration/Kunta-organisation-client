@@ -184,21 +184,21 @@
                             <label>Participants *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
                                 <option value="0" disabled>--Selectionnez un participant--</option>
-                                <option *ngFor="let member of users" [value]="member.id"> <span> {{ member.firstName }}-{{ member.lastName }}  </span> </option>
+                                <option *ngFor="let member of users" [value]="member.id"> <span> {{ member.firstName }} {{ member.lastName }}  </span> </option>
                             </select><br><br>
-    
                         </div>
                        
                         <div class="field">
                             <label>Nombre de bras*</label><br>
                             <div class="control">
-                                <input type="text" class="input" placeholder="Nombre de bras" formControlName="planValue">
+                                <input type="number" class="input" placeholder="Nombre de bras" formControlName="planValue">
                             </div>
                             <div class="text-danger"
                                 *ngIf="addMemberForm.get('planValue')?.errors?.['required'] && addMemberForm.get('planValue')?.touched">
                                 <small class="text-police">veuillez entrer le nombre de bras du participant</small>
                              </div>
                         </div>
+
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addMemberForm.invalid || isSaving" >Enregistrer</button>
                         </div><br>

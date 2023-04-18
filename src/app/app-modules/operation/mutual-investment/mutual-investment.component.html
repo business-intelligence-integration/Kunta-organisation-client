@@ -41,9 +41,10 @@
                 <span>Montant minimal</span>
                 <span>Taux de rentabilité</span>
                 <span>Montant rentable</span>
-                <!-- <span>Evaluation</span> -->
-                <span>Date de début</span>
-                <span>Date de fin</span>
+                <span>Offres</span>
+                <span>Caution</span>
+                <!-- <span>Date de début</span>
+                <span>Date de fin</span> -->
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -65,12 +66,24 @@
                     <div class="flex-table-cell" data-th="Montant rentable">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityAmount }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Date de début">
+                    <div class="flex-table-cell" data-th="Offres">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
+                        <a class="pagination-previous has-chevron" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-more-subscription-offer']"
+                        [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details offre " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    </div>
+                    <div class="flex-table-cell" data-th="Caution">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.securityDeposits.length }}</span>
+                        <a class="pagination-previous has-chevron" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-more-security-deposit']"
+                        [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    </div>
+                    <!-- <div class="flex-table-cell" data-th="Date de début">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.startDate  }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Date de fin">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.endDate  }}</span>
-                    </div>
+                    </div> -->
 
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -165,6 +178,17 @@
                                 <div class="text-danger"
                                         *ngIf="createMutualInvestmentForm.get('idMutualist')?.errors?.['required'] && createMutualInvestmentForm.get('idMutualist')?.touched">
                                         <small class="text-police">veuillez sélectionner un mutualiste</small>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Liste des centres</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelect9">
+                                    <option value="0" disabled>--Selectionnez un centre--</option>
+                                    <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                        *ngIf="createMutualInvestmentForm.get('idCenter')?.errors?.['required'] && createMutualInvestmentForm.get('idCenter')?.touched">
+                                        <small class="text-police">veuillez sélectionner un center</small>
                                 </div>
                             </div>
                             <div class="field">
@@ -286,6 +310,121 @@
         </div>
     </div>
 </div>
+
+<!-- add Subscription Offer -->
+<div id="addMember" class="modal h-modal" [ngClass]="openOfferModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajout Offre</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionOfferModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addSubscriptionOfferForm" (ngSubmit)="onAddSubscriptionOffer()">
+                        <div class="field">
+                            <label>Niveau de risque *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfile" [(ngModel)]="ngSelect7">
+                                <option value="0" disabled>--Selectionnez un niveau de risque--</option>
+                                <option *ngFor="let risk of riskProfiles" [value]="risk.id"> <span> {{ risk.riskLevel }}  </span> </option>
+                            </select><br><br>
+                        </div>
+
+                        <div class="field">
+                            <label>Type de rentabilité *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect8" (ngModelChange)="onOfferProfitabilitySelected($event)">
+                                <option value="0" disabled>--Selectionnez un type de rentabilité--</option>
+                                <option *ngFor="let profitability of profitabilityTypes" [value]="profitability.id"> <span> {{ profitability.label }}  </span> </option>
+                            </select><br><br>
+                        </div>
+
+                        <!-- <div class="field">
+                            <label>Taux de rentabilité </label><br>
+                            <div class="control">
+                                <input readonly type="number" class="input" [(ngModel)]="mutualInvestment.profitabilityRate" placeholder="Taux de rentabilité" formControlName="profitabilityRate" >
+                            </div>
+                        </div><br> -->
+                        <div class="field" *ngIf="isOfferCertain">
+                            <label>Taux de rentabilité </label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" >
+                            </div>
+                        </div><br>
+                       
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSubscriptionOfferForm.invalid || isSaving" >Enregistrer</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeSubscriptionOfferModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add Security Deposit -->
+<div id="addMember" class="modal h-modal" [ngClass]="openDepositModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajout Caution</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSecurityDepositModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addSecurityDepositForm" (ngSubmit)="onAddSecurtiyDeposit()">
+                        <div class="field">
+                            <label>Participant *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect6">
+                                <option value="0" disabled>--Selectionnez un participant--</option>
+                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }}-{{ user.lastName }}  </span> </option>
+                            </select><br><br>
+    
+                        </div>
+                       
+                        <div class="field">
+                            <label>Montant de la caution *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant de la caution" formControlName="amount">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required'] && addSecurityDepositForm.get('amount')?.touched">
+                                <small class="text-police">veuillez entrer le montant de la caution</small>
+                             </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSecurityDepositForm.invalid || isSaving" >Enregistrer</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeSecurityDepositModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- update placement mutualisé -->
 <div id="updateMutualInvestment" class="modal h-modal" [ngClass]="openUpdateModal">

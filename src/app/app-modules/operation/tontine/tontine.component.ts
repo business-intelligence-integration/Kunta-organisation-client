@@ -296,6 +296,7 @@ export class TontineComponent implements OnInit {
   getAllUsers(){
     this.userService.getAllUsers().subscribe((res)=>{
       this.allUser = res.data;
+      console.log(this.allUser)
     })
   }
 
