@@ -68,6 +68,8 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
         this.idInvestment = params['id'];
         this.offers = res.data.offers;
+        console.log("offers:: ", res.data.offers);
+        
       });
     })
   }

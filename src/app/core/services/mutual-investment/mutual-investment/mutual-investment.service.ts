@@ -28,14 +28,6 @@ export class MutualInvestmentService {
   }
 
   createMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter: number, idFrequency: number, idMutualist: number):Observable<any>{
-    console.log('test idDraweeForm...', idDraweeForm);
-    console.log('test Center...', idCenter);
-    console.log('test idRefundType...', idRefundType);
-    console.log('test idProfitabilityType...', idProfitabilityType);
-    console.log('test idFrequency...', idFrequency);
-    console.log('test idMutualist...', idMutualist);
-    console.log('test mutualInvestment...', mutualInvestment);
-    
     return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '/center/' + idCenter + '?idFrequency=' + idFrequency + '&idMutualist=' + idMutualist+ '&token=' + this.utilityService.loadToken(), mutualInvestment);
   }
 

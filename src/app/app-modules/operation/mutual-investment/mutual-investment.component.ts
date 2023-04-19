@@ -64,9 +64,6 @@ export class MutualInvestmentComponent implements OnInit {
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   subscriptionOffer: SubscriptionOffer = new SubscriptionOffer();
   riskProfiles: RiskProfile[] = [];
-  // idProfile: number = 0;
-  // profitabilityTypeInfo: ProfitabilityType[] = [];
-  // profitabilityRate: number = 0;
   disabledInput: boolean = true;
   isOfferCertain: boolean = false;
   centers: Center[] = [];
@@ -74,7 +71,6 @@ export class MutualInvestmentComponent implements OnInit {
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
     private draweeFormService: DraweeFormService,
-    private userService: UserService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
     private profitabilityTypeService: ProfitabilityTypeService,
@@ -86,7 +82,6 @@ export class MutualInvestmentComponent implements OnInit {
     this.getAllMutualInvestments();
     this.getAllCenters();
     this.getAllDroweeForm();
-    this.getAllUsers();
     this.getAllProfitabilityTypes();
     this.getAllRiskProfiles();
     this.getAllRefundTypes();
@@ -114,9 +109,9 @@ export class MutualInvestmentComponent implements OnInit {
 
     this.updateMutualInvestmentForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
-      organism: new FormControl(null, Validators.required),
+      organism: new FormControl(null),
       minimumAmount: new FormControl(null, Validators.required),
-      profitabilityRate: new FormControl(null, Validators.required),
+      profitabilityRate: new FormControl(null),
     })
 
     this.addSubscriptionOfferForm = this.formBuilder.group({
@@ -147,12 +142,6 @@ export class MutualInvestmentComponent implements OnInit {
   getAllDroweeForm(){
     this.draweeFormService.findAllDraweeForm().subscribe((res)=>{
       this.draweeForms = res.data;
-    })
-  }
-
-  getAllUsers() {
-    this.userService.getAllUsers().subscribe((res)=> {
-      this.users = res.data;
     })
   }
 
@@ -242,7 +231,6 @@ export class MutualInvestmentComponent implements OnInit {
       this.getAllMutualInvestments();
       this.createMutualInvestmentForm.reset();
       this.cancelCreatingMutualInvestment();
-      console.log('resultat creation..', res)
       this.utilityService.showMessage(
         'success',
         'Placement mutualisé crée avec succès !',
@@ -291,14 +279,12 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   onAddSubscriptionOffer() {
+    let profitabilityRate: number = 0;
     const formValue = this.addSubscriptionOfferForm.value;
-    console.log('idInvestment ', this.idInvestment);
-    console.log('idProfile ', formValue.idProfile);
-    console.log('idProfitabilityType ', formValue.idProfitabilityType);
-    console.log('profitabilityRate ', formValue.profitabilityRate);
-
-
-    this.addSubscriptionOffer(this.idInvestment, formValue.idProfile, formValue.idProfitabilityType, formValue.profitabilityRate)
+    if(formValue.profitabilityRate != null){
+      profitabilityRate = formValue.profitabilityRate;
+    }
+    this.addSubscriptionOffer(this.idInvestment, formValue.idProfile, formValue.idProfitabilityType, profitabilityRate)
   }
 
   addSubscriptionOffer(idInvestment: number, idProfile: number, idProfitabilityType: number, profitabilityRate: number) {
@@ -340,6 +326,20 @@ export class MutualInvestmentComponent implements OnInit {
   onOpenAddSecurityDeposit(idInvestment: number){
     this.openDepositModal = "is-active";
     this.idInvestment = idInvestment;
+    this.getMutualInvestmentById(idInvestment);
+  }
+
+  getMutualInvestmentById(idInvestment: number){
+    this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
+      this.getAllUsersByIdCenter(res.data.mutualCenter.id);
+    });
+  }
+
+  getAllUsersByIdCenter(idMutualCenter: number){
+    this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
+      this.users = res.data;
+      console.log("Center Users:: ", res.data);
+    })
   }
 
   closeSecurityDepositModal() {
@@ -357,7 +357,7 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestmentService.addSecurityDeposit(idInvestment, idUser, securityDeposit).subscribe((res) => {
       this.isSaving = false;
       this.getAllMutualInvestments();
-      this.addSecurityDepositForm.reset();
+      // this.addSecurityDepositForm.reset();
       this.closeSecurityDepositModal();
       this.utilityService.showMessage(
         'success',
@@ -379,7 +379,7 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
-  ////////////////// Update Option
+  ////////////////// Update Mutual Investment
   onUpdateMutualInvestment(id: number) {
     this.mutualInvestmentService.findMutualInvestmentById(id).subscribe((res) => {
       this.openUpdateModal = "is-active"
@@ -421,7 +421,7 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
-  ////////////////// Delete Option
+  ////////////////// Delete Mutual Investment
   onDeleteMutualInvestment(id: number) {
     this.deleteMessage(id);
   }

@@ -109,5 +109,9 @@ export class CenterService {
   findCenterByIdArea(idArea: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'centers/findBy/' + idArea, httpOptions);
   }
+
+  findUsersByIdCenter(idCenter: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + `centers/users/${idCenter}`, httpOptions);
+  }
 }
 
