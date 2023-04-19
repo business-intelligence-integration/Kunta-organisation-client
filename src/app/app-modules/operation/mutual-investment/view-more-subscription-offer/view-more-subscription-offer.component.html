@@ -161,7 +161,7 @@
                                 <span class="light-text" data-filter-match="">{{ offer.riskProfile.riskLevel }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Souscriptions">
-                                <span class="light-text" data-filter-match="">{{ offer.subscription }}</span>
+                                <span class="light-text" data-filter-match="">{{ offer.subscriptions.length }}</span>
                                 <a class="pagination-previous has-chevron" tooltip=" Ajouter une souscription " theme='light' (click)="onOpenAddSubscription(offer.id)"><i class="lnir lnir-plus"></i></a>
                                 <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-subscription']"
                                 [queryParams]="{id: offer.id}" tooltip=" Voir details souscription " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -206,7 +206,7 @@
 </div>
 
 <!-- Update Subscription Offer -->
-<div id="createRiskForm" class="modal h-modal" [ngClass]="openUpdateModal">
+<div id="updateOfferForm" class="modal h-modal" [ngClass]="openUpdateModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -248,7 +248,7 @@
 </div>
 
 <!-- add Subscription -->
-<div id="addMember" class="modal h-modal" [ngClass]="openSubscriptionModal">
+<div id="addSubscription" class="modal h-modal" [ngClass]="openSubscriptionModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
@@ -278,7 +278,7 @@
                             <label>Souscriveur *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
                                 <option value="0" disabled>--Selectionnez un souscriveur--</option>
-                                <option *ngFor="let user of centers" [value]="user.id"> <span> {{ user.name }}  </span> </option>
+                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
                             </select><br><br>
                         </div>
 

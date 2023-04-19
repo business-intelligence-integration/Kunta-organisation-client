@@ -2,13 +2,15 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Center } from 'src/app/core/classes/center';
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
+import { Subscription } from 'src/app/core/classes/subscription';
 import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
+import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
 import { SubscriptionOfferService } from 'src/app/core/services/mutual-investment/subscription-offer/subscription-offer.service';
+import { SubscriptionService } from 'src/app/core/services/mutual-investment/subscription/subscription.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -33,7 +35,9 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   openUpdateModal: string = "";
   openSubscriptionModal: string = "";
   riskProfiles: RiskProfile[] = [];
-  centers: Center[] = [];
+  users: User[] =[];
+  subscription: Subscription = new Subscription();
+  idOffer: number = 0;
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -42,10 +46,13 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     private centerService: CenterService,
     private formBuilder: FormBuilder,
     private location: Location,
+    private subscriptionService: SubscriptionService,
     private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     this.getMutualSubscriptionOffer();
+    this.getAllRiskProfiles();
+    this.getMutualInvestment();
     this.formInit();
   }
 
@@ -68,8 +75,6 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
         this.idInvestment = params['id'];
         this.offers = res.data.offers;
-        console.log("offers:: ", res.data.offers);
-        
       });
     })
   }
@@ -80,9 +85,17 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     })
   }
 
-  getAllCenterUsers(id: number){
-    this.centerService.getAllCenterUsersId(id).subscribe((res)=>{
-      this.centers = res.data;
+  getMutualInvestment(){
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
+        this.getAllUsersByIdCenter(res.data.mutualCenter.id);
+      });
+    })
+    }
+
+  getAllUsersByIdCenter(idMutualCenter: number){
+    this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
+      this.users = res.data;
     })
   }
   
@@ -197,14 +210,47 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   ///////////////// Add Subscription
   onOpenAddSubscription(id: number){
     this.openSubscriptionModal = "is-active";
+    this.idOffer = id;
   }
+
+  // getSubscriptionOfferById(idOffer: number){
+  //   this.subscriptionOfferService.findSubscriptionOfferById(idOffer).subscribe((res)=>{
+
+  //   })
+  // }
 
   closeSubscriptionModal(){
     this.openSubscriptionModal = "";
   }
 
   onAddSubscription(){
+    const formValue = this.addSubscriptionForm.value;
+    this.subscription.amount = formValue.amount;
+    this.addSubscription(this.subscription, this.idOffer, formValue.idSubscriber, formValue.idRiskProfile);
+  }
 
+  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number){
+    this.isSaving = true;
+    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber, idRiskProfile).subscribe((res)=>{
+      console.log("subscription::", res.data);
+      this.isSaving = false;
+      this.getMutualSubscriptionOffer();
+      this.closeSubscriptionModal();
+      this.utilityService.showMessage(
+        'success',
+        'Souscription effectuee avec succes !',
+        '#06d6a0',
+        'white'
+      );
+    },()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
   }
 
 }

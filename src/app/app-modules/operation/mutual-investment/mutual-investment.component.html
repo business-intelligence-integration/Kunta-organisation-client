@@ -396,9 +396,8 @@
                             <label>Participant *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect6">
                                 <option value="0" disabled>--Selectionnez un participant--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }}-{{ user.lastName }}  </span> </option>
+                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
                             </select><br><br>
-    
                         </div>
                        
                         <div class="field">

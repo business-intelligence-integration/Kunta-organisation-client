@@ -338,7 +338,6 @@ export class MutualInvestmentComponent implements OnInit {
   getAllUsersByIdCenter(idMutualCenter: number){
     this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
       this.users = res.data;
-      console.log("Center Users:: ", res.data);
     })
   }
 

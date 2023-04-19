@@ -8,5 +8,5 @@ export class SubscriptionOffer {
     profitabilityType: ProfitabilityType = new ProfitabilityType();
     riskProfile: RiskProfile = new RiskProfile();
     profitabilityRate: number = 0;
-    subscription: Subscription = new Subscription();
+    subscriptions: [] = [];
 }
