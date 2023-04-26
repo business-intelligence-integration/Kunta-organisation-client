@@ -54,8 +54,8 @@
                 <span>Nom</span>
                 <span>Prenom</span>
                 <span>Numéro tél</span>
-                <span>Email</span>
-                <!-- <span>Ville</span> -->
+                <span>Club</span>
+                <!-- <span>Email</span> -->
                 <!-- <span>Filleuls</span> -->
                 <span>Ayants droit</span>
                 <span>Roles</span>
@@ -75,9 +75,9 @@
                     <div  class="flex-table-cell" data-th="Numéro tél">
                         <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
                     </div>
-                    <div  class="flex-table-cell" data-th="Email">
+                    <!-- <div  class="flex-table-cell" data-th="Email">
                         <span class="light-text" data-filter-match="">{{ user.email }}</span>
-                    </div>
+                    </div> -->
                     <!-- <div  class="flex-table-cell" data-th="Filleuls">
                         <span class="light-text" data-filter-match="">{{ user.sponsoredUsers.length }}</span>
                     </div> -->
@@ -131,10 +131,9 @@
         </nav>
     </div>
 </div>
-<!-- Create A User -->
 
+<!-- Create A User -->
 <div *ngIf="creatUser" class="page-content-inner">
-    
     <!--Form Layout 1-->
     <div class="form-layout">
         <a (click)="cancelCreatingUser()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron get-potition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br>
@@ -161,16 +160,16 @@
                             <form class="modal-form" [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
                                 <div class="field">
                                     <div class="mb-2">
-                                        <label>Types d'utilisateurs *</label><br>
-                                        <select class="input_comp" formControlName="userType" aria-label="Default select example" (ngModelChange)="onSelectUser($event)"   [(ngModel)]="ngSelect">
-                                            <option value="1" disabled>--Selectionner un type--</option>
+                                        <label>Roles d'utilisateurs *</label><br>
+                                        <select class="input_comp" formControlName="userRole" aria-label="Default select example" (ngModelChange)="onSelectUser($event)"   [(ngModel)]="ngSelect">
+                                            <option value="1" disabled>--selectionner un role--</option>
                                             <option *ngIf="adminIsConnected" value="ADMIN">ADMINISTRATEUR</option>
                                             <!-- <option value="MEMBER" >MEMBER</option> -->
                                             <option value="USER">UTILISATEUR</option>
                                             <option *ngIf="adminIsConnected" value="OPERATOR">OPERATEUR</option>
                                         </select>
                                         <div class="text-danger"
-                                        *ngIf="addUserForm.get('userType')?.errors?.['required'] && addUserForm.get('userType')?.touched">
+                                        *ngIf="addUserForm.get('userRole')?.errors?.['required'] && addUserForm.get('userRole')?.touched">
                                         <small class="text-police" translate>selectionner type d'utilisateur</small>
                                         </div>
                                     </div>
@@ -202,6 +201,32 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="field" *ngIf="!isAdminAndOperator && isSelectMutualist">
+                                    <div>
+                                        <label>Type d'utilisateur*</label><br>
+                                        <select class="input_comp" formControlName="idType" aria-label="Default select example"  [(ngModel)]="ngSelectUserType">
+                                            <option value="0" disabled>--selectionner un type d'utilisateur--</option>
+                                            <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                        *ngIf="addUserForm.get('idType')?.errors?.['required'] && addUserForm.get('idPType')?.touched">
+                                        <small class="text-police" translate>selectionner un type d'utilisateur</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field" *ngIf="!isAdminAndOperator && isSelectMutualist">
+                                    <div>
+                                        <label>Categorie d'utilisateur*</label><br>
+                                        <select class="input_comp" formControlName="idCategory" aria-label="Default select example"  [(ngModel)]="ngSelectUserCategory">
+                                            <option value="0" disabled>--selectionner une categorie d'utilisateur--</option>
+                                            <option *ngFor="let category of userCategories" [value]="category.id" >{{ category.name }}</option>
+                                        </select>
+                                        <div class="text-danger"
+                                        *ngIf="addUserForm.get('idCategory')?.errors?.['required'] && addUserForm.get('idCategory')?.touched">
+                                        <small class="text-police" translate>selectionner une categorie d'utilisateur</small>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div *ngIf="isAdminAndOperator || isUser">
                                     <div class="field">
                                         <div>
@@ -228,7 +253,7 @@
                                             </select>
                                             <div class="text-danger"
                                             *ngIf="addUserForm.get('idCivility')?.errors?.['required'] && addUserForm.get('idCivility')?.touched">
-                                            <small class="text-police" translate>selectionner la civilité</small>
+                                            <small class="text-police" translate>--selectionner la civilité--</small>
                                             </div>
                                         </div>
                                     </div>
@@ -357,7 +382,7 @@
                                             <div class="field">
                                                 <label>Adresse principale*</label>
                                                 <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Adresse principale" formControlName="mainAddress">
+                                                    <input type="text" class="input" placeholder="Adresse principale" formControlName="mainAddress">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
@@ -373,7 +398,7 @@
                                             <div class="field">
                                                 <label>Adresse secondaire</label>
                                                 <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Adresse secondaire" formControlName="secondaryAddress">
+                                                    <input type="text" class="input" placeholder="Adresse secondaire" formControlName="secondaryAddress">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
@@ -403,7 +428,7 @@
                                             <div class="field">
                                                 <label>Ville*</label>
                                                 <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Ville" formControlName="city">
+                                                    <input type="text" class="input" placeholder="Ville" formControlName="city">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
@@ -434,7 +459,7 @@
                                             <div class="field">
                                                 <label>Numéro identifiant nationale*</label>
                                                 <div class="control has-icon">
-                                                    <input type="email" class="input" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
+                                                    <input type="text" class="input" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                                     </div>
@@ -547,7 +572,7 @@
                                                 <label>Date de validité*</label><br>
                                                 <div class="card-header-widget datepicker-style">
                                                     <div class="input-daterange input-group align-items-center">
-                                                        <input class="champ" formControlName="dateOfValidity" type="date" min="{{ minValidityDate }}" max="{{ dateNow }}" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectValidityDate($event.timeStamp)">
+                                                        <input class="champ" formControlName="dateOfValidity" type="date" min="{{ minValidityDate }}" id="DOB2" name="DOB" [(ngModel)]="dateOfValidity" (input)="onSelectValidityDate($event.timeStamp)">
                                                     </div>
                                                </div>
                                                <div class="text-danger" *ngIf="addUserForm.get('dateOfValidity')?.errors?.['required'] && addUserForm.get('dateOfValidity')?.touched">
@@ -605,8 +630,8 @@
     </div>
 
 </div>
-<!-- Update User -->
 
+<!-- Update User -->
 <div *ngIf="updatUser" class="page-content-inner">
     <!--Form Layout 1-->
     <div class="form-layout">
@@ -680,7 +705,7 @@
                                     <div class="field">
                                         <label>Deuxième numéro de Tel.</label>
                                         <div class="control has-icon">
-                                            <input type="email" class="input" [(ngModel)]="user.secondPhoneNumber" placeholder="Deuxième numéro de Tel" formControlName="secondPhoneNumber">
+                                            <input type="number" class="input" [(ngModel)]="user.secondPhoneNumber" placeholder="Deuxième numéro de Tel" formControlName="secondPhoneNumber">
                                             <div class="form-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                             </div>
@@ -742,7 +767,7 @@
                                 <div class="field">
                                     <label>Adresse principale*</label>
                                     <div class="control has-icon">
-                                        <input type="email" class="input" [(ngModel)]="user.mainAddress" placeholder="Adresse principale" formControlName="mainAddress">
+                                        <input type="text" class="input" [(ngModel)]="user.mainAddress" placeholder="Adresse principale" formControlName="mainAddress">
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         </div>
@@ -758,7 +783,7 @@
                                 <div class="field">
                                     <label>Adresse secondaire</label>
                                     <div class="control has-icon">
-                                        <input type="email" class="input" [(ngModel)]="user.secondaryAddress" placeholder="Adresse secondaire" formControlName="secondaryAddress">
+                                        <input type="text" class="input" [(ngModel)]="user.secondaryAddress" placeholder="Adresse secondaire" formControlName="secondaryAddress">
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         </div>
@@ -774,14 +799,14 @@
                                 <div class="field">
                                     <label>Ville*</label>
                                     <div class="control has-icon">
-                                        <input type="email" class="input" [(ngModel)]="user.city" placeholder="Ville" formControlName="city">
+                                        <input type="text" class="input" [(ngModel)]="user.city" placeholder="Ville" formControlName="city">
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         </div>
                                         <div class="text-danger"
                                         *ngIf="updateUserForm.get('city')?.errors?.['required'] && updateUserForm.get('city')?.touched">
                                         <small class="text-police" translate>veuiller entre la ville</small>
-                                     </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -789,9 +814,13 @@
                                 <div class="field">
                                     <label>Pays de résidence*</label>
                                     <div class="control has-icon">
-                                        <input type="email" class="input" placeholder="Pays de résidence">
+                                        <input type="text" class="input" [(ngModel)]="user.country" placeholder="Pays de résidence">
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        </div>
+                                        <div class="text-danger"
+                                        *ngIf="updateUserForm.get('country')?.errors?.['required'] && updateUserForm.get('country')?.touched">
+                                        <small class="text-police" translate>veuiller entre le pays de residence</small>
                                         </div>
                                     </div>
                                 </div>
@@ -921,7 +950,7 @@
 
 </div>
 
-<!-- add sponsore -->
+<!-- Change status -->
 <div id="changerStatus" class="modal h-modal" [ngClass]="openStatusModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -967,6 +996,7 @@
     </div>
 </div>
 
+<!-- add ayant droit -->
 <div id="addBeneficiaryToMember" class="modal h-modal" [ngClass]="openBeneficiaryModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -1096,7 +1126,7 @@
 </div>
 
 <!-- add role to user -->
-<div id="changerStatus" class="modal h-modal" [ngClass]="openAddRoleModal">
+<div id="addRole" class="modal h-modal" [ngClass]="openAddRoleModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">

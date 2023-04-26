@@ -93,6 +93,14 @@ export class ParametersComponent implements OnInit {
     this.dynamicTitle = "Civilités"
   }
 
+  onUserType(){
+    this.dynamicTitle = "Type d'utilisateur"
+  }
+
+  onUserCategory(){
+    this.dynamicTitle = "Catégorie d'utilisateur"
+  }
+
   onFrequency(){
     this.dynamicTitle = "Frequences"
   }

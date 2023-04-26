@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export class AreaComponent implements OnInit {
   ngSelect = 0;
   ngSelectCenter = 0;
+  ngSelectClub = 0;
   Zones: string = "Zones";
   openAddArea: string = "";
   openUpdateArea: string = "";
@@ -57,7 +58,6 @@ export class AreaComponent implements OnInit {
       reference: new FormControl(null, Validators.required),
       creationDate: new FormControl(null, Validators.required),
       observation: new FormControl(null, Validators.required),
-      idCenter: new FormControl(null, Validators.required),
     })
 
     this.updateAreaForm = this.formBuilder.group({
@@ -68,10 +68,7 @@ export class AreaComponent implements OnInit {
     })
 
     this.addClubForm = this.formBuilder.group({
-      name: new FormControl(null, Validators.required),
-      creationDate: new FormControl(null, Validators.required),
-      reference: new FormControl(null, Validators.required),
-      observation: new FormControl(null, Validators.required),
+      idClub: new FormControl(null, Validators.required),
     })
 
     this.searchForm = this.formBuilder.group({
@@ -98,7 +95,7 @@ getAllCenters(){
     this.area.name = formValue.name;
     this.area.reference = formValue.reference;
     this.area.observation = formValue.observation;
-    this.areaService.createArea(this.area, formValue.idCenter).subscribe(()=>{
+    this.areaService.createArea(this.area).subscribe(()=>{
       this.onCloseAddModal();
       this.getAllAreas();
       this.utilityService.showMessage(
@@ -248,27 +245,31 @@ getAllCenters(){
 
   onSubmitClub(){
     const formValue = this.addClubForm.value;
-    this.club.name = formValue.name
-        this.club.reference = formValue.reference;
-    this.club.observation = formValue.observation;
-    let createDate = new Date(formValue.creationDate);
-    let moveDateFormated = new DatePipe('en-US').transform(createDate,'yyyy-MM-dd');
-    this.club.creationDate = moveDateFormated
-    this.createClub(this.club);
+    this.addClubToArea(this.idArea, formValue.idClub);
   }
 
-  createClub(club: Organism){
+  addClubToArea(idArea: number, idClub: number){
     this.isSaving = true;
-    this.clubService.createclub(club, this.idArea).subscribe(()=>{
+    this.areaService.addClubToArea(idArea, idClub).subscribe((res)=>{      
       this.isSaving = false;
-      this.getAllAreas();
-      this.closeClubModal();
-      this.utilityService.showMessage(
-        'success',
-        'Club ajouté à la Zone avec succès.',
-        '#06d6a0',
-        'white'
-      );
+      if(res.data == null){
+        this.utilityService.showMessage(
+          'warning',
+          'Un club ne peut appartenir à plusieurs zones',
+          '#e62965',
+          'white'
+        );
+      }else{
+        this.getAllAreas();
+        this.closeClubModal();
+        this.utilityService.showMessage(
+          'success',
+          'Club ajouté à la Zone avec succès.',
+          '#06d6a0',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

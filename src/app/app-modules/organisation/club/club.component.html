@@ -146,22 +146,7 @@
                              <small class="text-police" translate>selectionner la date de création</small>
                            </div>
                         </div>
-
-                        <div class="field">
-                            <label>Zone du club*</label><br>
-                            <select2
-                                    class="w-100 color-border"
-                                    [data]="areas"
-                                    id="area"
-                                    formControlName="idArea"
-                                    placeholder="--Selectionnez la zone du club--">
-                            </select2>
-                            <div class="text-danger"
-                            *ngIf="addClubForm.get('idSponsor')?.errors?.['required'] && addClubForm.get('idSponsor')?.touched">
-                            <small class="text-police" translate>--Selectionnez la zone du club--</small>
-                            </div>
-                        </div>
-
+                        
                         <div class="field">
                             <label>Observation</label>
                             <div class="control">

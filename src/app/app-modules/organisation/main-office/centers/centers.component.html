@@ -179,7 +179,6 @@
 </div>
 
 <!-- Update Center -->
-
 <div class="modal h-modal" [ngClass]="openUpdateCenter">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -243,13 +242,13 @@
     </div>
 </div>
 
-<!-- add new club -->
+<!-- add area -->
 <div class="modal h-modal" [ngClass]="openAreaModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Création d'une zone</h3>
+                <h3>Ajout d'une zone</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeAreaModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -263,48 +262,22 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addAreaForm" (ngSubmit)="onSubmitArea()">
                         <div class="field">
-                            <label>Appelation *</label><br>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Appelation" formControlName="name">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="addAreaForm.get('name')?.errors?.['required'] && addAreaForm.get('name')?.touched">
-                                <small class="text-police" translate>entrer l'appelation du centre</small>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label>Reférence *</label><br>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="addAreaForm.get('reference')?.errors?.['required'] && addAreaForm.get('reference')?.touched">
-                                <small class="text-police" translate>entrer la reférence du centre</small>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label>Date de creation *</label><br>
-                            <div class="card-header-widget datepicker-style">
-                                <div class="input-daterange input-group align-items-center">
-                                    <input class="champ" formControlName="creationDate" max="{{ maxCreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
+                            <div>
+                                <label>Zone *</label><br>
+                                <select class="input_comp" formControlName="idArea" aria-label="Default select example"  [(ngModel)]="ngSelectArea">
+                                    <option value="0" disabled>--selectionner une zone--</option>
+                                    <option *ngFor="let area of areas" [value]="area.id" >{{ area.name }}</option>
+                                </select>
+                                <div class="text-danger"
+                                *ngIf="addAreaForm.get('idArea')?.errors?.['required'] && addAreaForm.get('idArea')?.touched">
+                                <small class="text-police" translate>selectionner une zone</small>
                                 </div>
-                           </div>
-                           <div class="text-danger" *ngIf="addAreaForm.get('creationDate')?.errors?.['required'] && addAreaForm.get('creationDate')?.touched">
-                             <small class="text-police" translate>selectionner la date de création</small>
-                           </div>
-                        </div>
+                            </div><br>
 
-                        <div class="field">
-                            <label>Observation</label>
-                            <div class="control">
-                                <textarea class="textarea" rows="4"
-                                    formControlName="observation" placeholder="Observation..."></textarea>
+                            <div class="control login">
+                                <button [disabled]="addAreaForm.invalid || isSaving"
+                                    class="button h-button is-primary is-bold is-fullwidth is-raised">Ajouter</button>
                             </div>
-                        </div>
-                        <br>
-                        <div class="control login">
-                            <button [disabled]="addAreaForm.invalid"
-                                class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
                         </div>
                     </form>
                 </div>

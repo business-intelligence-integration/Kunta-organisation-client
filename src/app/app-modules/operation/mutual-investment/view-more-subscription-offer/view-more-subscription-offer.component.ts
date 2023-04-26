@@ -2,12 +2,14 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ProfitabilityType } from 'src/app/core/classes/profitabilityType';
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
 import { Subscription } from 'src/app/core/classes/subscription';
 import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
+import { ProfitabilityTypeService } from 'src/app/core/services/mutual-investment/profitability-type/profitability-type.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
 import { SubscriptionOfferService } from 'src/app/core/services/mutual-investment/subscription-offer/subscription-offer.service';
 import { SubscriptionService } from 'src/app/core/services/mutual-investment/subscription/subscription.service';
@@ -23,6 +25,8 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
 
   ngSelect1 = 0;
   ngSelect2 = 0;
+  ngSelect3 = 0;
+  ngSelect4 = 0;
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
@@ -38,10 +42,15 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   users: User[] =[];
   subscription: Subscription = new Subscription();
   idOffer: number = 0;
+  openOfferModal: string = "";
+  addSubscriptionOfferForm!: FormGroup;
+  profitabilityTypes: ProfitabilityType[] = [];
+  isOfferCertain: boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
     private subscriptionOfferService: SubscriptionOfferService,
+    private profitabilityTypeService: ProfitabilityTypeService,
     private riskProfileService: RiskProfileService,
     private centerService: CenterService,
     private formBuilder: FormBuilder,
@@ -52,6 +61,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   ngOnInit(): void {
     this.getMutualSubscriptionOffer();
     this.getAllRiskProfiles();
+    this.getAllProfitabilityTypes();
     this.getMutualInvestment();
     this.formInit();
   }
@@ -65,6 +75,12 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       idRiskProfile: new FormControl(null, Validators.required),
       idSubscriber: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
+    });
+
+    this.addSubscriptionOfferForm = this.formBuilder.group({
+      idProfile: new FormControl(null, Validators.required),
+      idProfitabilityType: new FormControl(null, Validators.required),
+      profitabilityRate: new FormControl(null),
     })
   }
 
@@ -82,6 +98,12 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   getAllRiskProfiles(){
     this.riskProfileService.findAllRiskProfiles().subscribe((res)=>{
       this.riskProfiles = res.data;
+    })
+  }
+
+  getAllProfitabilityTypes(){
+    this.profitabilityTypeService.findAllProfitabilityTypes().subscribe((res)=>{
+      this.profitabilityTypes = res.data;
     })
   }
 
@@ -251,6 +273,59 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  ///////////////////// Create Subscription Offer
+  onOpenAddSubscriptionOffer(){
+    this.openOfferModal = "is-active";
+  }
+
+  closeSubscriptionOfferModal(){
+    this.openOfferModal = "";
+  }
+
+  onAddSubscriptionOffer() {
+    let profitabilityRate: number = 0;
+    const formValue = this.addSubscriptionOfferForm.value;
+    if(formValue.profitabilityRate != null){
+      profitabilityRate = formValue.profitabilityRate;
+    }
+    this.addSubscriptionOffer(this.idInvestment, formValue.idProfile, formValue.idProfitabilityType, profitabilityRate)
+  }
+
+  addSubscriptionOffer(idInvestment: number, idProfile: number, idProfitabilityType: number, profitabilityRate: number) {
+    this.isSaving = true;
+    this.mutualInvestmentService.createSubscriptionOffer(idInvestment, idProfile, idProfitabilityType, profitabilityRate).subscribe((res) => {
+      this.isSaving = false;
+      this.getMutualSubscriptionOffer();
+      this.addSubscriptionOfferForm.reset();
+      this.closeSubscriptionOfferModal();
+      this.utilityService.showMessage(
+        'success',
+        'Offre ajoutée avec succès',
+        '#06d6a0',
+        'white'
+      );
+    }, (error) => {
+      console.log("error: ", error);
+      this.isSaving = false;
+      this.closeSubscriptionOfferModal();
+      this.addSubscriptionOfferForm.reset();
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  onOfferProfitabilitySelected(val: any) {
+    if(val == 1) {
+      this.isOfferCertain = true;
+    } else {
+      this.isOfferCertain = false;
+    }
   }
 
 }

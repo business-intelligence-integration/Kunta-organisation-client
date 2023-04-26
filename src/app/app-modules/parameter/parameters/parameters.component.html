@@ -120,6 +120,20 @@
                             <span>Civilité</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onUserType()" [routerLink]="['/parameters/user-type/']">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Type d'utilisateur</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="is-submenu" (click)="onUserCategory()" [routerLink]="['/parameters/user-category/']">
+                            <i class="lnil lnil-list-alt-1"></i>
+                            <span>Catégorie d'utilisateur</span>
+                        </a>
+                    </li>
                 </ul> 
             </li>
             <li class="has-children" [ngClass]="activeListTontine">

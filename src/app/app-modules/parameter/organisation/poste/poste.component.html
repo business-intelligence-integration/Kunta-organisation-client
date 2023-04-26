@@ -56,14 +56,14 @@
                 <div class="flex-table-cell" data-th="Appelation">
                     <span class="light-text" data-filter-match="">{{ post.name }}</span>
                 </div>
-                <div class="flex-table-cell" data-th="Appelation">
+                <div class="flex-table-cell" data-th="Nombre d'utilisateur maximal">
                     <span *ngIf="post.maxNumberOfUser != 0" class="light-text" data-filter-match="">{{ post.maxNumberOfUser }}</span>
                     <span *ngIf="post.maxNumberOfUser === 0" class="light-text" data-filter-match="">Illimité</span>
                 </div>
-                <div class="flex-table-cell" data-th="Appelation">
+                <div class="flex-table-cell" data-th="Description">
                     <span class="light-text" data-filter-match="">{{ post.description }}</span>
                 </div>
-                <div class="flex-table-cell" data-th="Appelation">
+                <div class="flex-table-cell" data-th="Niveau d'organisation">
                     <span class="light-text" data-filter-match="">{{ post.organisationLevelEnum }}</span>
                 </div>
                 <div class="flex-table-cell cell-end" data-th="Actions">
@@ -192,7 +192,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>modification du poste</h3>
+                <h3>Modification du poste</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

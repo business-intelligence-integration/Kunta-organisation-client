@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class CentersComponent implements OnInit {
   ngSelect = 0;
+  ngSelectArea = 0;
   openUpdateCenter: string = "";
   openAddCenter: string = "";
   createDate: string = "";
@@ -68,10 +69,7 @@ export class CentersComponent implements OnInit {
     })
 
     this.addAreaForm = this.formBuilder.group({
-      name: new FormControl(null, Validators.required),
-      reference: new FormControl(null, Validators.required),
-      creationDate: new FormControl(null, Validators.required),
-      observation: new FormControl(null, Validators.required),
+      idArea: new FormControl(null, Validators.required),
     })
 
     this.searchForm = this.formBuilder.group({
@@ -263,10 +261,7 @@ export class CentersComponent implements OnInit {
 
   onSubmitArea(){
     const formValue = this.addAreaForm.value;
-    this.area.name = formValue.name;
-    this.area.reference = formValue.reference;
-    this.area.observation = formValue.observation;
-    this.areaService.createArea(this.area, this.idCenter).subscribe(()=>{
+    this.centerService.addAreaToCenter(this.idCenter, formValue.idArea).subscribe(()=>{
       this.getAllCenters();
       this.closeAreaModal();
       this.addAreaForm.reset();
@@ -279,6 +274,13 @@ export class CentersComponent implements OnInit {
     }, (error)=>{
       console.log(error);
       
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreure s\'est produite',
+        '#e62965',
+        'white'
+      );
     })
   }
 
@@ -291,8 +293,6 @@ export class CentersComponent implements OnInit {
   
   searchCenters(){
     this.findCentersByName(this.searchForm.value.name);
-    
-    
   }
 
   findCentersByName(name: string){

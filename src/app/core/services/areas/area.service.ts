@@ -25,8 +25,8 @@ export class AreaService {
     return this.httpClient.get<any>(this.baseUrl + 'areas', httpOptions);
   }
 
-  createArea(area: Organism, idCenter: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'areas/center/' + idCenter, area, httpOptions);
+  createArea(area: Organism):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'areas', area, httpOptions);
   }
 
   getAreaById(id: number):Observable<any>{

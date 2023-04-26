@@ -149,9 +149,9 @@
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Formulaires de tirage au sort *</label>
+                                <label>Selection des tirés *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idDraweeForm" [(ngModel)]="ngSelect1" (ngModelChange)="onDraweeSelected($event)">
-                                    <option value="0" disabled>--Selectionnez un formulaire de tirage au sort--</option>
+                                    <option value="0" disabled>--Selectionnez un tiré--</option>
                                     <option *ngFor="let draweeForm of draweeForms" [value]="draweeForm.id"> <span> {{ draweeForm.description }}  </span> </option>
                                 </select>
                                 <div class="text-danger"

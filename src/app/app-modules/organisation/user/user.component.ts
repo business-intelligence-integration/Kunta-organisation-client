@@ -20,6 +20,10 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import { Role } from 'src/app/core/classes/role';
 import { RoleService } from 'src/app/core/services/roles/role.service';
+import { UserTypeService } from 'src/app/core/services/user-type/user-type.service';
+import { UserCategoryService } from 'src/app/core/services/user-category/user-category.service';
+import { UserType } from 'src/app/core/classes/userType';
+import { UserCategory } from 'src/app/core/classes/userCategory';
 
 @Component({
   selector: 'app-user',
@@ -36,6 +40,8 @@ export class UserComponent implements OnInit {
   ngSelectFamilySituation = 0;
   ngSelectTypePiece1 = 0;
   ngSelectTypePiece2 = 0;
+  ngSelectUserType = 0;
+  ngSelectUserCategory = 0;
   ngSelectStatus = 0;
   ngSelectRole = 0;
   openBeneficiaryModal: string = "";
@@ -84,6 +90,9 @@ export class UserComponent implements OnInit {
   selectedRoleS: string = "ALL"
   openAddRoleModal: string = "";
   roles: Role[] = [];
+  userTypes: UserType[] = [];
+  userCategories: UserCategory[] = [];
+  isMutualist: boolean = false;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -94,6 +103,8 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private utilityService: UtilityService,
     private pieceTypeService: PieceTypeService,
+    private userTypeService: UserTypeService,
+    private userCategoryService: UserCategoryService,
     private civilityService: CivilityService,
     private familySituationService: FamilySituationService,
     private statusService: StatusService,
@@ -109,6 +120,8 @@ export class UserComponent implements OnInit {
     this.getAllMembers();
     this.getConnectedUser();
     this.getAllPieceType();
+    this.getAllUserTypes();
+    this.getAllUserCategories();
     this.getAllcivilities();
     this.getAllFamilySituation();
     this.getAllStatus();
@@ -129,6 +142,7 @@ export class UserComponent implements OnInit {
       phoneNumber: new FormControl(null, Validators.required),
       userName: new FormControl(null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]),
       city: new FormControl(null, Validators.required),
+      userRole: new FormControl(null, Validators.required),
       userType: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       confPassword: new FormControl(null, Validators.required),
@@ -150,6 +164,8 @@ export class UserComponent implements OnInit {
       idFamilySituation: new FormControl(null, Validators.required),
       idPieceType: new FormControl(null, Validators.required),
       idCountry: new FormControl(null, Validators.required),
+      idType: new FormControl(null),
+      idCategory: new FormControl(null),
     })
 
     this.updateUserForm = this.formBuilder.group({
@@ -168,9 +184,9 @@ export class UserComponent implements OnInit {
       pieceId: new FormControl(null, Validators.required),
       placeOfIssue: new FormControl(null, Validators.required),
       postalBox: new FormControl(null, Validators.required),
-      secondPhoneNumber: new FormControl(null, Validators.required),
-      secondaryAddress: new FormControl(null, Validators.required),
-      secondaryEmail: new FormControl(null, Validators.required),
+      secondPhoneNumber: new FormControl(null),
+      secondaryAddress: new FormControl(null),
+      secondaryEmail: new FormControl(null),
       whatsappPhoneNumber:new FormControl(null, Validators.required),
     })
 
@@ -249,15 +265,15 @@ export class UserComponent implements OnInit {
       'white'
     );
    }else{
-    if(formValue.userType == "USER"){
+    if(formValue.userRole == "USER"){
       if(this.isSelectMember){
         this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
       }else{
-        this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+        this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry, formValue.idType, formValue.idCategory)
       }
-     }if(formValue.userType == "ADMIN"){
+     }if(formValue.userRole == "ADMIN"){
       this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
-    }else if(formValue.userType == "OPERATOR"){
+    }else if(formValue.userRole == "OPERATOR"){
       this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
      }
   
@@ -295,7 +311,7 @@ export class UserComponent implements OnInit {
     let users: User[] = [];
     this.userService.getAllUsers().subscribe({
       next: (res)=> res.data.map((user: any)=>{
-        this.userOfSelect = {value: user.id, label: user.firstName}
+        this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
         if(this.adminIsConnected){
           users.push(user)
@@ -316,12 +332,10 @@ export class UserComponent implements OnInit {
 
     this.userService.getAllUsers().subscribe((result)=>{
           if(result.data.length >0){
-            this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
+            this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
           }      
         })
 
-   
-    
   }
 
   getConnectedUser() {
@@ -329,7 +343,7 @@ export class UserComponent implements OnInit {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
       if(this.users.length <= 0){
-        this.userOfSelect = [{value: this.user.id, label: this.user.firstName}]
+        this.userOfSelect = [{value: this.user.id, label: this.user.firstName + " " + this.user.lastName}]
       }
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
@@ -451,9 +465,9 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number, idType: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry, idType, idCategory).subscribe((res)=>{
       this.isSaving = false;
       this.getAllUsers();
       this.utilityService.showMessage(
@@ -595,7 +609,19 @@ export class UserComponent implements OnInit {
 
   getAllPieceType(){
     this.pieceTypeService.findAllPieceTypes().subscribe((res)=>{
-      this.pieceTypes = res.data
+      this.pieceTypes = res.data;
+    })
+  }
+
+  getAllUserTypes(){
+    this.userTypeService.getAllUsersType().subscribe((res)=>{
+      this.userTypes = res.data;
+    })
+  }
+
+  getAllUserCategories(){
+    this.userCategoryService.getAllUsersCategory().subscribe((res)=>{
+      this.userCategories = res.data
     })
   }
 
@@ -815,4 +841,5 @@ export class UserComponent implements OnInit {
     );
   })
  }
+
 }

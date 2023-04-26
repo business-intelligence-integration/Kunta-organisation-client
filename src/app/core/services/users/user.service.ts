@@ -50,8 +50,8 @@ export class UserService {
     return this.httpClient.post<any>(this.baseUrl + 'users/member/sponsor/' + idSponsor + '/civility/' +idCivility + '/pieceType/'+ idPieceType + '/situation/' + idFamilySituation + '/country/' + idCountry, member, httpOptions);
   }
 
-  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/situation/' + idFamilySituation + '/country/' + idCountry, mutualist, httpOptions);
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number, idType: number, idCategory: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/situation/' + idFamilySituation + '/country/' + idCountry + '/type/' + idType + '/category/' + idCategory, mutualist, httpOptions);
   }
 
   createOperator(operator: User,  idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number):Observable<any>{

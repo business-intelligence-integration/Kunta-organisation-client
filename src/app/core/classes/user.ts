@@ -1,7 +1,9 @@
 import { Beneficiary } from "./beneficiary";
 import { Civility } from "./civility";
+import { Club } from "./club";
 import { Country } from "./country";
 import { FamilySituation } from "./familySituation";
+import { Organism } from "./organism";
 import { PieceType } from "./pieceType";
 import { Role } from "./role";
 import { Status } from "./status";
@@ -43,4 +45,5 @@ export class User{
     country: Country = new Country();
     function: Function = new Function();
     statusUserEnum: string = "";
+    club: Club = new Club();
 }

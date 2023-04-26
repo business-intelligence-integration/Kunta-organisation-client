@@ -24,6 +24,8 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-profile.component';
 import { SecurityDepositComponent } from './mutual-investment/security-deposit/security-deposit.component';
 import { SubscriptionOfferComponent } from './mutual-investment/subscription-offer/subscription-offer.component';
+import { UserTypeComponent } from './organisation/user-type/user-type.component';
+import { UserCategoryComponent } from './organisation/user-category/user-category.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { SubscriptionOfferComponent } from './mutual-investment/subscription-off
     RiskProfileComponent,
     SecurityDepositComponent,
     SubscriptionOfferComponent,
+    UserTypeComponent,
+    UserCategoryComponent,
   ],
   imports: [
     CommonModule,

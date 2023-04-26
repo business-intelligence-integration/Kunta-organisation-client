@@ -52,7 +52,6 @@ export class ClubComponent implements OnInit {
   formInit() {
     this.addClubForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
-      idArea: new FormControl(null, Validators.required),
       creationDate:new FormControl(null, Validators.required),
       reference:new FormControl(null, Validators.required),
       observation: new FormControl(null, Validators.required)
@@ -87,12 +86,12 @@ export class ClubComponent implements OnInit {
     this.club.name = formValue.name
     this.club.reference = formValue.reference;
     this.club.observation = formValue.observation;
-    this.createClub(this.club, formValue.idArea);
+    this.createClub(this.club);
   }
 
-  createClub(club: Organism, idArea: number){
+  createClub(club: Organism){
     this.isSaving = true;
-    this.clubService.createclub(club, idArea).subscribe((res)=>{
+    this.clubService.createclub(club).subscribe((res)=>{
       this.isSaving = false;
       this.getAllClubs()
       this.onCloseAddModal()
@@ -258,7 +257,7 @@ export class ClubComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllUsers().subscribe((res)=>{
-      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName}))
+      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName + "  " + member.lastName}))
     })
   }
 

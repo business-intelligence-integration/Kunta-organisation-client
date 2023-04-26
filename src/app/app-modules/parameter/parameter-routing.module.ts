@@ -21,6 +21,8 @@ import { TransversalityComponent } from './tontine/transversality/transversality
 import { RiskProfileComponent } from './mutual-investment/risk-profile/risk-profile.component';
 import { SecurityDepositComponent } from './mutual-investment/security-deposit/security-deposit.component';
 import { SubscriptionOfferComponent } from './mutual-investment/subscription-offer/subscription-offer.component';
+import { UserCategoryComponent } from './organisation/user-category/user-category.component';
+import { UserTypeComponent } from './organisation/user-type/user-type.component';
 
 const routes: Routes = [
   {path:"", component: ParametersComponent, canActivate: [EntityGuard],
@@ -30,6 +32,8 @@ const routes: Routes = [
     {path:"family-situation", component: FamilySituationComponent, canActivate: [EntityGuard]},
     {path:"piece-type", component: PieceTypeComponent, canActivate: [EntityGuard]},
     {path:"postes", component: PosteComponent, canActivate: [EntityGuard]},
+    {path:"user-type", component: UserTypeComponent, canActivate: [EntityGuard]},
+    {path:"user-category", component: UserCategoryComponent, canActivate: [EntityGuard]},
     {path:"cycles", component: CycleComponent, canActivate: [EntityGuard]},
     {path:"frequencies", component: FrequencyComponent, canActivate: [EntityGuard]},
     {path:"gains", component: GainComponent, canActivate: [EntityGuard]},
