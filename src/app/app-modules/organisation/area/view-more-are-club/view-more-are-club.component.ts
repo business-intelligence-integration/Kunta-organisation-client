@@ -29,7 +29,7 @@ export class ViewMoreAreClubComponent implements OnInit {
   idArea: number = 0;
   clubsOfArea: Organism [] = [];
   clubs: Organism [] = [];
-  clubName: string = "";
+  areaName: string = "";
   activeListClub: string = "";
   wrapdwonArea: string ="display-block";
   isListClubs: boolean = true;
@@ -40,6 +40,14 @@ export class ViewMoreAreClubComponent implements OnInit {
   communicationAgent: User;
   dataEntryAgent: User;
   posts: Post[] = [];
+  changeAreaForm!: FormGroup;
+  openChangeAreaModal: string = "";
+  isSaving: boolean = false;
+  areas: Organism [] = [];
+  idClub: number = 0; 
+  ngSelectChangeArea = 0;
+  adminIsConnected: boolean = true;
+
   constructor(private areaService: AreaService, 
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -54,6 +62,7 @@ export class ViewMoreAreClubComponent implements OnInit {
   ngOnInit(): void {
     this.getArea();
     this.getAllClubs();
+    this.getAllAreas();
     this.formInit();
     // this.finAllPostByIdArea();
   }
@@ -65,6 +74,10 @@ export class ViewMoreAreClubComponent implements OnInit {
 
     this.selectMenuForm = this.formBuilder.group({
       selectedMenu: new FormControl(null),
+    })
+
+    this.changeAreaForm = this.formBuilder.group({
+      idArea: new FormControl(null, Validators.required),
     })
   }
 
@@ -93,7 +106,7 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.areaService.getAreaById(params['id']).subscribe((res)=>{
         this.idArea = res.data.id;
-        this.clubName = res.data.name;
+        this.areaName = res.data.name;
         this.clubsOfArea = res.data.clubs;
         this.communicationAgent = res.data.communicationAgent;
         this.dataEntryAgent = res.data.dataEntryAgent;
@@ -239,4 +252,48 @@ export class ViewMoreAreClubComponent implements OnInit {
   //     });
    
   // }
+
+  //////////////    Change User's Club
+ closeChangeAreaModal(){
+  this.openChangeAreaModal = ""
+ }
+
+ onChangeArea(idClub: number){
+  this.openChangeAreaModal = "is-active";
+  this.idClub = idClub;
+
+ }
+
+ getAllAreas(){
+  this.areaService.findAllAreas().subscribe((res)=>{
+    this.areas = res.data;
+  })
+ }
+
+ onSubmitChangeArea(){
+  const formValue = this.changeAreaForm.value;
+  this.isSaving = true;
+  this.clubService.transferClubToAnotherArea(formValue.idArea, this.idClub).subscribe((res)=>{
+    console.log("ResponseT:: ", res);
+    
+    this.closeChangeAreaModal()
+    this.getArea();
+    this.isSaving = false;
+    this.utilityService.showMessage(
+      'success',
+      'L\'utilisateur a été transferé avec succès !',
+      '#06d6a0',
+      'white'
+    );
+    
+  },()=>{
+    this.isSaving = false;
+    this.utilityService.showMessage(
+      'warning',
+      'Une erreur s\'est produite !',
+      '#e62965',
+      'white'
+    );
+  })
+ }
 }

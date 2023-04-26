@@ -35,6 +35,7 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
+                <span>id</span>
                 <span>Appelation</span>
                 <span>Reference</span>
                 <span>Membre(s)</span>
@@ -46,6 +47,9 @@
             <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let club of clubs">
+                    <div class="flex-table-cell" data-th="id">
+                        <span class="light-text" data-filter-match="">{{ club.id }}</span>
+                    </div>
                     <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ club.name }}</span>
                     </div>
