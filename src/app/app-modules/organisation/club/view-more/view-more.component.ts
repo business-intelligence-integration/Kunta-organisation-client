@@ -422,7 +422,7 @@ export class ViewMoreComponent implements OnInit {
   this.isSaving = true;
   this.userService.addMember(formValue.idClub, this.idUser).subscribe((res)=>{
     this.closeChangeClubModal()
-    this.getAllMembers();
+    this.getClub();
     this.isSaving = false;
     this.utilityService.showMessage(
       'success',
