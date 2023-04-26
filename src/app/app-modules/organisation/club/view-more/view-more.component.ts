@@ -408,6 +408,7 @@ export class ViewMoreComponent implements OnInit {
  onChangeClub(idUser: number){
   this.openChangeClubModal = "is-active";
   this.idUser = idUser;
+
  }
 
  getAllClubs(){
@@ -419,25 +420,16 @@ export class ViewMoreComponent implements OnInit {
  onSubmitChangeClub(){
   const formValue = this.changeClubForm.value;
   this.isSaving = true;
-  this.clubService.transferClubToAnotherArea(this.idUser, formValue.idClub).subscribe((res)=>{
+  this.userService.addMember(formValue.idClub, this.idUser).subscribe((res)=>{
     this.closeChangeClubModal()
     this.getAllMembers();
     this.isSaving = false;
-    if(res.data == null){
-      this.utilityService.showMessage(
-        'warning',
-        'Vous ne pouvez pas transferer l\'utilisateur au même club !',
-        '#e62965',
-        'white'
-      );
-    }else{
-      this.utilityService.showMessage(
-        'success',
-        'L\'utilisateur a été transferé avec succès !',
-        '#06d6a0',
-        'white'
-      );
-    }
+    this.utilityService.showMessage(
+      'success',
+      'L\'utilisateur a été transferé avec succès !',
+      '#06d6a0',
+      'white'
+    );
     
   },()=>{
     this.isSaving = false;

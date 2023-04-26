@@ -95,7 +95,9 @@ getAllCenters(){
     this.area.name = formValue.name;
     this.area.reference = formValue.reference;
     this.area.observation = formValue.observation;
-    this.areaService.createArea(this.area).subscribe(()=>{
+    this.areaService.createArea(this.area).subscribe((res)=>{
+      console.log("Zone resp...", res);
+      
       this.onCloseAddModal();
       this.getAllAreas();
       this.utilityService.showMessage(

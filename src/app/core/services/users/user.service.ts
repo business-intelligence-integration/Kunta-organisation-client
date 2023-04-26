@@ -114,4 +114,8 @@ export class UserService {
   disableUser(idUser: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `users/disable/${idUser}`, {}, httpOptions);
   }
+
+  addMember(idClub: number, idMember: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `users/${idClub}/tranfer/${idMember}`, {}, httpOptions);
+  }
 }

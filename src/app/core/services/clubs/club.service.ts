@@ -64,6 +64,6 @@ export class ClubService {
   }
 
   transferClubToAnotherArea(idClub: number, idArea: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + `clubs/${idArea}/transfer-club/${idClub}`, httpOptions);
+    return this.httpClient.patch<any>(this.baseUrl + `clubs/${idArea}/transfer-club/${idClub}`, httpOptions);
   }
 }
