@@ -17,6 +17,7 @@ import { MutualInvestmentComponent } from './mutual-investment/mutual-investment
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { ViewMoreSecurityDepositComponent } from './mutual-investment/view-more-security-deposit/view-more-security-deposit.component';
 import { ViewMoreSubscriptionOfferComponent } from './mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
+import { ViewDetailSubscriptionComponent } from './mutual-investment/view-detail-subscription/view-detail-subscription.component';
 
 
 
@@ -34,6 +35,7 @@ import { ViewMoreSubscriptionOfferComponent } from './mutual-investment/view-mor
     MutualInvestmentComponent,
     ViewMoreSecurityDepositComponent,
     ViewMoreSubscriptionOfferComponent,
+    ViewDetailSubscriptionComponent,
   ],
   imports: [
     CommonModule,
