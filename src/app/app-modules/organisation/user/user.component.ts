@@ -311,6 +311,7 @@ export class UserComponent implements OnInit {
     let users: User[] = [];
     this.userService.getAllUsers().subscribe({
       next: (res)=> res.data.map((user: any)=>{
+        console.log("Account:::::", res)
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
         if(this.adminIsConnected){

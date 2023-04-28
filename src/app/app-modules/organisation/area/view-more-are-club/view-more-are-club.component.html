@@ -164,6 +164,7 @@
                             <span>Observation</span>
                             <span>Membre(s)</span>
                             <span>Date de création</span>
+                            <span>Zone</span>
                             <span class="cell-end">Actions</span>
                         </div>
 
@@ -192,6 +193,10 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Date de creation">
                                     <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
+                                </div>
+                                <div  class="flex-table-cell" data-th="Zone">
+                                    <span class="light-text" data-filter-match="">{{ areaName }}</span>
+                                    <a *ngIf="adminIsConnected" (click)="onChangeArea(club.id)" tooltip=" Changer le club " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -232,7 +237,7 @@
 
 </div>
 
-<!-- add memeber -->
+<!-- add member -->
 <div id="addClub" class="modal h-modal" [ngClass]="openClubModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -267,6 +272,52 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeClubModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- change club area -->
+<div id="changeArea" class="modal h-modal" [ngClass]="openChangeAreaModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Transfert d'un club</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeChangeAreaModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="changeAreaForm" (ngSubmit)="onSubmitChangeArea()">
+                       <div class="field">
+                            <div> 
+                                <label>Zone *</label><br>
+                                <select class="input_comp" formControlName="idArea" aria-label="Default select example"  [(ngModel)]="ngSelectChangeArea">
+                                    <option value="0" disabled>--selectionner une zone--</option>
+                                    <option *ngFor="let area of areas" [value]="area.id" >{{ area.name }}</option>
+                                </select>
+                                <div class="text-danger"
+                                *ngIf="changeAreaForm.get('idArea')?.errors?.['required'] && changeAreaForm.get('idArea')?.touched">
+                                <small class="text-police" translate>selectionner une zone</small>
+                                </div>
+                            </div>
+                        </div><br>
+                       
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeAreaForm.invalid || isSaving" >Transferer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeChangeAreaModal()">Annuler</a>
             </div>
         </div>
     </div>
