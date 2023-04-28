@@ -46,12 +46,12 @@ export class UserCategoryComponent implements OnInit {
   formInit() {
     this.createCategoryForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
+      description: new FormControl(null),
     })
 
     this.updateCategoryForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
+      description: new FormControl(null),
     })
   }
 

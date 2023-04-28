@@ -46,12 +46,12 @@ export class UserTypeComponent implements OnInit {
   formInit() {
     this.createTypeForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
+      description: new FormControl(null),
     })
 
     this.updateTypeForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
+      description: new FormControl(null),
     })
   }
 

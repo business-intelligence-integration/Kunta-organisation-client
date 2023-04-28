@@ -28,6 +28,7 @@ import { AllPenalityOfSessionComponent } from './operation/tontine/all-penality-
 import { UserDetailsRoleComponent } from './organisation/user/user-details-role/user-details-role.component';
 import { ViewMoreSecurityDepositComponent } from './operation/mutual-investment/view-more-security-deposit/view-more-security-deposit.component';
 import { ViewMoreSubscriptionOfferComponent } from './operation/mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
+import { ViewDetailSubscriptionComponent } from './operation/mutual-investment/view-detail-subscription/view-detail-subscription.component';
 
 const routes: Routes = [
   {
@@ -90,6 +91,9 @@ const routes: Routes = [
       },
       {
         path:"view-more-subscription-offer", component: ViewMoreSubscriptionOfferComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-detail-subscription", component: ViewDetailSubscriptionComponent, canActivate: [EntityGuard]
       },
       {
         path:"view-more-security-deposit", component: ViewMoreSecurityDepositComponent, canActivate: [EntityGuard]
