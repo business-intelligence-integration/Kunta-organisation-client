@@ -1,96 +1,101 @@
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProfitabilityType } from 'src/app/core/classes/profitabilityType';
+import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
 import { Subscription } from 'src/app/core/classes/subscription';
-import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
-import { ProfitabilityTypeService } from 'src/app/core/services/mutual-investment/profitability-type/profitability-type.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
 import { SubscriptionOfferService } from 'src/app/core/services/mutual-investment/subscription-offer/subscription-offer.service';
 import { SubscriptionService } from 'src/app/core/services/mutual-investment/subscription/subscription.service';
+import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-view-more-subscription-offer',
-  templateUrl: './view-more-subscription-offer.component.html',
-  styleUrls: ['./view-more-subscription-offer.component.scss']
+  selector: 'app-view-detail-subscription',
+  templateUrl: './view-detail-subscription.component.html',
+  styleUrls: ['./view-detail-subscription.component.scss']
 })
-export class ViewMoreSubscriptionOfferComponent implements OnInit {
+export class ViewDetailSubscriptionComponent implements OnInit {
 
   ngSelect1 = 0;
   ngSelect2 = 0;
   ngSelect3 = 0;
   ngSelect4 = 0;
+  ngSelectPaymentMethod = 0;
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
-  offer: SubscriptionOffer = new SubscriptionOffer();
-  offers: SubscriptionOffer[] = [];
+  subscription: Subscription = new Subscription();
+  subscriptions: Subscription[] = [];
+  idSubscriptionOffer: number = 0;
+  idSubscription: number = 0;
   idInvestment: number = 0;
-  updateOfferForm!: FormGroup;
+  updateSubscriptionForm!: FormGroup;
+  addPaymentForm!: FormGroup;
   addSubscriptionForm!: FormGroup;
   isSaving: boolean = false;
   openUpdateModal: string = "";
   openSubscriptionModal: string = "";
+  openPaymentModal: string = "";
   riskProfiles: RiskProfile[] = [];
+  geUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/money_f3bgzk.png";
   users: User[] =[];
-  subscription: Subscription = new Subscription();
-  idOffer: number = 0;
-  openOfferModal: string = "";
-  addSubscriptionOfferForm!: FormGroup;
-  profitabilityTypes: ProfitabilityType[] = [];
-  isOfferCertain: boolean = false;
+  paymentMethods: PaymentMethod[] = [];
+  date: any;
+  dateNow: any;
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
-    private subscriptionOfferService: SubscriptionOfferService,
-    private profitabilityTypeService: ProfitabilityTypeService,
-    private riskProfileService: RiskProfileService,
     private centerService: CenterService,
+    private subscriptionOfferService: SubscriptionOfferService,
+    private riskProfileService: RiskProfileService,
+    private subscriptionService: SubscriptionService,
+    private paymentMethodService: PaymentMethodService,
     private formBuilder: FormBuilder,
     private location: Location,
-    private subscriptionService: SubscriptionService,
     private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    this.getMutualSubscriptionOffer();
+    this.getOfferSubscription();
     this.getAllRiskProfiles();
-    this.getAllProfitabilityTypes();
     this.getMutualInvestment();
+    this.getPaymentMethod();
+    this.initDates();
     this.formInit();
   }
 
   formInit() {
-    this.updateOfferForm = this.formBuilder.group({
-      profitabilityRate: new FormControl(null, Validators.required),
+    this.updateSubscriptionForm = this.formBuilder.group({
+      amount: new FormControl(null, Validators.required),
+    });
+
+    this.addPaymentForm = this.formBuilder.group({
+      date: new FormControl(null),
+      proof: new FormControl(null),
+      paid: new FormControl(null),
+      idPaymentMethod: new FormControl(null, Validators.required),
+      // amount: new FormControl(null, Validators.required),
     });
 
     this.addSubscriptionForm = this.formBuilder.group({
       idRiskProfile: new FormControl(null, Validators.required),
       idSubscriber: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
-    });
-
-    this.addSubscriptionOfferForm = this.formBuilder.group({
-      idProfile: new FormControl(null, Validators.required),
-      idProfitabilityType: new FormControl(null, Validators.required),
-      profitabilityRate: new FormControl(null),
     })
   }
 
   backBack(){this.location.back()}
 
-  getMutualSubscriptionOffer(){
+  getOfferSubscription(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
-        this.idInvestment = params['id'];
-        this.offers = res.data.offers;
+      this.subscriptionOfferService.findSubscriptionOfferById(params['id']).subscribe((res)=>{
+        this.idSubscriptionOffer = params['id'];
+        this.subscriptions = res.data.subscriptions;
       });
     })
   }
@@ -101,15 +106,10 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     })
   }
 
-  getAllProfitabilityTypes(){
-    this.profitabilityTypeService.findAllProfitabilityTypes().subscribe((res)=>{
-      this.profitabilityTypes = res.data;
-    })
-  }
-
   getMutualInvestment(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
+      this.mutualInvestmentService.findMutualInvestmentById(params['idInvestment']).subscribe((res)=>{
+        this.idInvestment = params['idInvestment'];
         this.getAllUsersByIdCenter(res.data.mutualCenter.id);
       });
     })
@@ -120,7 +120,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       this.users = res.data;
     })
   }
-  
+
   activeHomeSider() {
     if (this.activeToggle == "") {
       this.activeToggle = "active";
@@ -133,33 +133,33 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     }
 
   }
-  
-  ///////////////// Update Offer
+
+  ///////////////// Update Subscription
   onOpenUpdateModal(id: number){
-    this.subscriptionOfferService.findSubscriptionOfferById(id).subscribe((res)=>{
-      console.log("offer:..", res.data);
-      this.offer = res.data;
+    this.subscriptionService.findPaymentSubscriptionPaymentById(id).subscribe((res)=>{
+      console.log("subscription:..", res.data);
+      this.subscription = res.data;
       this.openUpdateModal = "is-active";
     })
   }
 
-  onSubmitUpdateOfferForm(id: number){
+  onSubmitUpdateSubscriptionForm(id: number){
     this.isSaving = true;
-    const formValue = this.updateOfferForm.value;
-    this.offer.profitabilityRate =formValue.profitabilityRate;
-    this.subscriptionOfferService.updateSubscriptionOffer(this.offer, id).subscribe((res)=>{
-      this.getMutualSubscriptionOffer();
-      this.closeUpdateOfferModal();
+    const formValue = this.updateSubscriptionForm.value;
+    this.subscription.amount =formValue.amount;
+    this.subscriptionService.updateSubscriptionPayment(id, this.subscription).subscribe((res)=>{
+      this.getOfferSubscription();
+      this.closeUpdateSubscriptionModal();
       this.isSaving = false;
       this.utilityService.showMessage(
         'success',
-        'Offre de souscription modifiée avec succès !',
+        'Souscription modifiée avec succès !',
         '#06d6a0',
         'white'
       );
     },()=>{
       this.isSaving = false;
-      this.closeUpdateOfferModal()
+      this.closeUpdateSubscriptionModal()
       this.utilityService.showMessage(
         'warning',
         'Une erreur s\'est produite !',
@@ -169,7 +169,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     })
   }
 
-  closeUpdateOfferModal(){
+  closeUpdateSubscriptionModal(){
     this.openUpdateModal = "";
   }
 
@@ -202,12 +202,12 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.subscriptionOfferService.deleteSubscriptionOffer(id).subscribe(
-            () => {
-              this.getMutualSubscriptionOffer();
+          this.subscriptionService.deletePaymentSubscriptionPayment(id).subscribe(
+            (res) => {
+              this.getOfferSubscription();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
-                text: 'Offre supprimée avec succès !',
+                text: 'Souscription supprimée avec succès !',
                 confirmButtonColor: '#198AE3',
               });
             },
@@ -229,38 +229,58 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       });
   }
 
-  ///////////////// Add Subscription
-  onOpenAddSubscription(id: number){
-    this.openSubscriptionModal = "is-active";
-    this.idOffer = id;
+  ///////////////// Add Payment
+  onSelectDate(event: any){
+
   }
 
-  // getSubscriptionOfferById(idOffer: number){
-  //   this.subscriptionOfferService.findSubscriptionOfferById(idOffer).subscribe((res)=>{
-
-  //   })
-  // }
-
-  closeSubscriptionModal(){
-    this.openSubscriptionModal = "";
+  initDates(){
+    this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
-  onAddSubscription(){
-    const formValue = this.addSubscriptionForm.value;
+  getPaymentMethod(){
+    this.paymentMethodService.findAllPaymentMethods().subscribe((res)=>{
+      this.paymentMethods = res.data
+    })
+  }
+
+  onOpenAddPayment(id: number){
+    this.openPaymentModal = "is-active";
+    this.idSubscription = id;
+  }
+
+  closePaymentModal(){
+    this.openPaymentModal = "";
+  }
+
+  onAddPayment(){
+    const formValue = this.addPaymentForm.value;
     this.subscription.amount = formValue.amount;
-    this.addSubscription(this.subscription, this.idOffer, formValue.idSubscriber, formValue.idRiskProfile);
+    let date: any;
+    let proof: string = "";
+    let paid: number = 0;
+    if(formValue.date != null){
+      date = formValue.date;
+    }
+    if(formValue.proof != null){
+      proof = formValue.proof;
+    }
+    if(formValue.paid != null){
+      paid = formValue.paid;
+    }
+    this.addPayment(this.idSubscription, formValue.idPaymentMethod, date, paid, proof);
   }
 
-  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number){
+  addPayment( idSubscription: number, idPaymentMethod: number, date: any, paid: number, proof: string){
     this.isSaving = true;
-    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber, idRiskProfile).subscribe((res)=>{
+    this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, date, paid, proof).subscribe((res)=>{
       console.log("subscription::", res.data);
       this.isSaving = false;
-      this.getMutualSubscriptionOffer();
-      this.closeSubscriptionModal();
+      this.getOfferSubscription();
+      this.closePaymentModal();
       this.utilityService.showMessage(
         'success',
-        'Souscription effectuee avec succes !',
+        'Paiement effectue avec succes !',
         '#06d6a0',
         'white'
       );
@@ -275,31 +295,28 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     })
   }
 
-  ///////////////////// Create Subscription Offer
-  onOpenAddSubscriptionOffer(){
-    this.openOfferModal = "is-active";
+  ///////////////////// Create Subscription
+  onOpenAddSubscription(){
+    this.openSubscriptionModal = "is-active";
   }
 
-  closeSubscriptionOfferModal(){
-    this.openOfferModal = "";
+  closeSubscriptionModal(){
+    this.openSubscriptionModal = "";
   }
 
-  onAddSubscriptionOffer() {
-    let profitabilityRate: number = 0;
-    const formValue = this.addSubscriptionOfferForm.value;
-    if(formValue.profitabilityRate != null){
-      profitabilityRate = formValue.profitabilityRate;
-    }
-    this.addSubscriptionOffer(this.idInvestment, formValue.idProfile, formValue.idProfitabilityType, profitabilityRate)
+  onAddSubscription() {
+    const formValue = this.addSubscriptionForm.value;
+    this.subscription.amount = formValue.amount;
+    this.addSubscription(this.subscription, this.idSubscriptionOffer, formValue.idSubscriber, formValue.idRiskProfile)
   }
 
-  addSubscriptionOffer(idInvestment: number, idProfile: number, idProfitabilityType: number, profitabilityRate: number) {
+  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number) {
     this.isSaving = true;
-    this.mutualInvestmentService.createSubscriptionOffer(idInvestment, idProfile, idProfitabilityType, profitabilityRate).subscribe((res) => {
+    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber, idRiskProfile).subscribe((res) => {
       this.isSaving = false;
-      this.getMutualSubscriptionOffer();
-      this.addSubscriptionOfferForm.reset();
-      this.closeSubscriptionOfferModal();
+      this.getOfferSubscription();
+      this.addSubscriptionForm.reset();
+      this.closeSubscriptionModal();
       this.utilityService.showMessage(
         'success',
         'Offre ajoutée avec succès',
@@ -309,8 +326,8 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     }, (error) => {
       console.log("error: ", error);
       this.isSaving = false;
-      this.closeSubscriptionOfferModal();
-      this.addSubscriptionOfferForm.reset();
+      this.closeSubscriptionModal();
+      this.addSubscriptionForm.reset();
       this.utilityService.showMessage(
         'warning',
         'Une erreur s\'est produite',
@@ -320,12 +337,5 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     })
   }
 
-  onOfferProfitabilitySelected(val: any) {
-    if(val == 1) {
-      this.isOfferCertain = true;
-    } else {
-      this.isOfferCertain = false;
-    }
-  }
 
 }
