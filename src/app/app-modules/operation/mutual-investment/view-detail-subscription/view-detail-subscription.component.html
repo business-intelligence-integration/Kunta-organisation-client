@@ -149,7 +149,8 @@
                                     <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Statut">
-                                    <span class="light-text" data-filter-match="">{{subscription.status}}</span>
+                                    <!-- <span class="light-text" data-filter-match="">{{subscription.status}}</span> -->
+                                    <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': subscription?.status === 'UNPAID', 'is-success': subscription?.status === 'PAID'}">{{subscription?.status}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Payer">
                                     <span class="light-text" data-filter-match="">{{ subscription.payments.length }}</span>
@@ -220,9 +221,9 @@
                         </div>
 
                         <div class="field">
-                            <label>Souscriveur *</label>
+                            <label>Souscripteur *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un utilisateur--</option>
+                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
                                 <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }}   {{ user.lastName }} </span> </option>
                             </select><br><br>
                         </div>
@@ -314,7 +315,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addPaymentForm" (ngSubmit)="onAddPayment()">
                         <div class="field">
-                            <label>Méthode de paiement  *</label>
+                            <label>Méthode de paiement *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPaymentMethod">
                                 <option value="0" disabled>--Selectionnez une méthode de paiement--</option>
                                 <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }}</span> </option>

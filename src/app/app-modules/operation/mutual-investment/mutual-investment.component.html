@@ -171,7 +171,7 @@
                                 <label>Liste des mutualistes</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
                                     <option value="0" disabled>--Selectionnez un mutualiste--</option>
-                                    <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
+                                    <option *ngFor="let mutualist of mutualists" [value]="mutualist.id"> <span> {{ mutualist.firstName }} {{ mutualist.lastName }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
                                         *ngIf="createMutualInvestmentForm.get('idMutualist')?.errors?.['required'] && createMutualInvestmentForm.get('idMutualist')?.touched">
@@ -250,7 +250,7 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">
                                     <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
-                                 </div>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Evaluation *</label><br>
@@ -260,7 +260,7 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('rating')?.errors?.['required'] && createMutualInvestmentForm.get('rating')?.touched">
                                     <small class="text-police">veuillez entrer l'évaluation</small>
-                                 </div>
+                                </div>
                             </div>
                             <div class="columns is-multiline">
                                 <div class="column is-6">
@@ -270,10 +270,10 @@
                                             <div class="input-daterange input-group align-items-center">
                                                 <input class="champ" formControlName="startDate" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
                                             </div>
-                                       </div>
-                                       <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                         <small class="text-police" translate>veuillez selectionner la date de début</small>
-                                       </div>
+                                        </div>
+                                        <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
+                                            <small class="text-police" translate>veuillez selectionner la date de début</small>
+                                        </div>
                                     </div>
                                 </div>
     
@@ -282,12 +282,15 @@
                                         <label>Date de fin *</label><br>
                                         <div class="card-header-widget datepicker-style">
                                             <div class="input-daterange input-group align-items-center">
-                                                <input class="champ" formControlName="endDate" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
+                                                <input class="champ" formControlName="endDate" min="{{ minEndDate }}" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
                                             </div>
-                                       </div>
-                                       <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                         <small class="text-police" translate>veuillez selectionner la date de fin</small>
-                                       </div>
+                                        </div>
+                                        <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
+                                            <small class="text-police" translate>veuillez selectionner la date de fin</small>
+                                        </div>
+                                        <div class="text-danger" *ngIf="showErroMessage">
+                                            <small class="text-police" translate>veuillez au préalable sélectionner la date de début</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -394,7 +397,7 @@
                             <label>Participant *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect6">
                                 <option value="0" disabled>--Selectionnez un participant--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
+                                <option *ngFor="let user of centerUsers" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
                             </select><br><br>
                         </div>
                        

@@ -318,9 +318,9 @@
                         </div>
 
                         <div class="field">
-                            <label>Souscriveur *</label>
+                            <label>Souscripteur *</label>
                             <select *ngIf="users.length != 0" class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un souscriveur--</option>
+                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
                                 <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
                             </select>
                             <div class="text-danger"
