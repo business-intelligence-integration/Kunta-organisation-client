@@ -200,7 +200,7 @@
                                 </div>
                                 <div class="field" *ngIf="!isAdminAndOperator && isSelectMutualist">
                                     <div>
-                                        <label>Type d'utilisateur</label><br>
+                                        <label>Type d'utilisateur*</label><br>
                                         <select class="input_comp" formControlName="idType" aria-label="Default select example"  [(ngModel)]="ngSelectUserType">
                                             <option value="0" disabled>--selectionner un type d'utilisateur--</option>
                                             <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
@@ -213,7 +213,7 @@
                                 </div>
                                 <div class="field" *ngIf="!isAdminAndOperator && isSelectMutualist">
                                     <div>
-                                        <label>Categorie d'utilisateur</label><br>
+                                        <label>Categorie d'utilisateur*</label><br>
                                         <select class="input_comp" formControlName="idCategory" aria-label="Default select example"  [(ngModel)]="ngSelectUserCategory">
                                             <option value="0" disabled>--selectionner une categorie d'utilisateur--</option>
                                             <option *ngFor="let category of userCategories" [value]="category.id" >{{ category.name }}</option>
