@@ -67,4 +67,8 @@ export class MutualInvestmentService {
     return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/subscription-offers/new/risk-profile/" + idProfile + "/profitability-type/" + idProfitabilityType + '/' + '?profitabilityRate=' + profitabilityRate + '&token=' + this.utilityService.loadToken(), {});
   }
 
+  releaseOperation(idInvestment: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'mutual-investments/release/'+ idInvestment + "?token=" + this.utilityService.loadToken());
+  }
+
 }

@@ -2,6 +2,7 @@ import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Payment } from 'src/app/core/classes/payment';
 import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
 import { Subscription } from 'src/app/core/classes/subscription';
@@ -31,6 +32,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   homeSider: string = "";
   isPushed: string = "";
   subscription: Subscription = new Subscription();
+  payment: Payment = new Payment();
   subscriptions: Subscription[] = [];
   idSubscriptionOffer: number = 0;
   idSubscription: number = 0;
@@ -75,11 +77,10 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     });
 
     this.addPaymentForm = this.formBuilder.group({
-      date: new FormControl(null),
-      proof: new FormControl(null),
-      paid: new FormControl(null),
+      date: new FormControl(null, Validators.required),
+      proof: new FormControl(null, Validators.required),
+      paid: new FormControl(null, Validators.required),
       idPaymentMethod: new FormControl(null, Validators.required),
-      // amount: new FormControl(null, Validators.required),
     });
 
     this.addSubscriptionForm = this.formBuilder.group({
@@ -255,25 +256,15 @@ export class ViewDetailSubscriptionComponent implements OnInit {
 
   onAddPayment(){
     const formValue = this.addPaymentForm.value;
-    this.subscription.amount = formValue.amount;
-    let date: any;
-    let proof: string = "";
-    let paid: number = 0;
-    if(formValue.date != null){
-      date = formValue.date;
-    }
-    if(formValue.proof != null){
-      proof = formValue.proof;
-    }
-    if(formValue.paid != null){
-      paid = formValue.paid;
-    }
-    this.addPayment(this.idSubscription, formValue.idPaymentMethod, date, paid, proof);
+    this.payment.date = formValue.date;
+    this.payment.proof = formValue.proof;
+    this.payment.paid = formValue.paid;
+    this.addPayment(this.idSubscription, formValue.idPaymentMethod, this.payment);
   }
 
-  addPayment( idSubscription: number, idPaymentMethod: number, date: any, paid: number, proof: string){
+  addPayment( idSubscription: number, idPaymentMethod: number, payment: Payment){
     this.isSaving = true;
-    this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, date, paid, proof).subscribe((res)=>{
+    this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, payment).subscribe((res)=>{
       console.log("subscription::", res.data);
       this.isSaving = false;
       this.getOfferSubscription();
@@ -335,6 +326,62 @@ export class ViewDetailSubscriptionComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  /////////////////////// Release Payment
+  onRelease(id: number){
+    this.releaseMessage(id);
+  }
+
+  releaseMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, liberer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.subscriptionService.releaseSubscription(id).subscribe(
+            (res) => {
+              this.getOfferSubscription();
+              swalWithBootstrapButtons.fire({
+                title: 'Liberé !',
+                text: 'Souscription liberée avec succès !',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'Vous avez annulé la liberation de cette souscription',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 
 

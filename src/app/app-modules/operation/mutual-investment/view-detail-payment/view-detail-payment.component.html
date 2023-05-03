@@ -85,7 +85,7 @@
                     </span>
                 </div>
                 <div class="title-wrap">
-                    <h1 class="title is-4">Souscription(s)</h1>
+                    <h1 class="title is-4">Detail paiements</h1>
                 </div>
             </div>
             <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
@@ -98,12 +98,12 @@
                     </div>
                 </div>
 
-                <div class="buttons" (click)="onOpenAddSubscription()">
+                <div class="buttons" (click)="onOpenAddPayment()">
                     <button class="button h-button is-primary is-elevated">
                         <span class="icon">
                         <i aria-hidden="true" class="fas fa-plus"></i>
                     </span>
-                        <span>Créer une souscription</span>
+                        <span>Créer un payment</span>
                     </button>
                 </div>
             </div>
@@ -113,60 +113,51 @@
                 <div class="flex-list-wrapper flex-list-v1">
 
                     <!--List Empty Search Placeholder -->
-                    <div *ngIf="subscriptions.length == 0" class="page-placeholder custom-text-filter-placeholder">
+                    <div *ngIf="payments.length == 0" class="page-placeholder custom-text-filter-placeholder">
                         <div class="placeholder-content">
                             <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                             <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                             <h3>Désolé la liste est actuellement vide.</h3>
-                            <p class="is-larger">Veuillez creer/ajouter une subscription pour qu'elle soit afficher.</p>
+                            <p class="is-larger">Veuillez creer/ajouter un paiement pour qu'il soit afficher.</p>
                         </div>
                     </div>
                     
-                    <div *ngIf="subscriptions.length != 0" class="flex-table">
+                    <div *ngIf="payments.length != 0" class="flex-table">
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
-                            <span class="is-grow">Id</span>
-                            <span>Niveau de rique</span>
-                            <span>Montant</span>
-                            <span>Statut</span>
+                            <span>Id</span>
                             <span>Payer</span>
-                            <span>Liberer</span>
+                            <span>Methode de paiement</span>
+                            <span>Justificatif</span>
+                            <span>Date</span>
                             <span class="cell-end">Actions</span>
                         </div>
             
                         <div class="flex-list-inner">
                             <!--Table item-->
-                            <div class="flex-table-item" *ngFor="let subscription of subscriptions">
-                                <div class="flex-table-cell is-media is-grow">
+                            <div class="flex-table-item" *ngFor="let payment of payments">
+                                <div class="flex-table-cell is-media">
                                     <div>
-                                        <span class="item-name dark-inverted" data-filter-match="">{{subscription.id}}</span>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{payment.id}}</span>
                                     </div>
-                                </div>
-                                <div class="flex-table-cell" data-th="Niveau de risque">
-                                    <span class="light-text" data-filter-match="">{{subscription.riskProfile.riskLevel}}</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Montant">
-                                    <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Statut">
-                                    <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': subscription?.status === 'UNPAID', 'is-success': subscription?.status === 'PAID'}">{{subscription?.status}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Payer">
-                                    <span class="light-text" data-filter-match="">{{ subscription.payments.length }}</span>
-                                    <a class="pagination-previous has-chevron" tooltip=" Payer souscription " theme='light' (click)="onOpenAddPayment(subscription.id)"><img width="18" height="18" src="{{ geUrl }}" alt=""></a>
-                                    <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-payment']"
-                                    [queryParams]="{id: subscription.id, idSubscriptionOffer: idSubscriptionOffer, idInvestment: idInvestment}" tooltip=" Voir details paiement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    <span class="light-text" data-filter-match="">{{payment.paid}}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Liberer">
-                                    <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <button _ngcontent-nct-c62="" tooltip=" Liberer souscription " theme='light' [disabled]="subscription?.status === 'RELEASED' " (click)="onRelease(subscription.id)" class="pagination-previous has-chevron"><i class="lnil lnil-credit-card"></i></button>
-                                    </div>
+                                <div class="flex-table-cell" data-th="Methode de paiement">
+                                    <span class="light-text" data-filter-match="">{{payment.paymentMethod.label}}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Justificatif">
+                                    <span class="light-text" data-filter-match="">{{payment.proof}}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Date">
+                                    <span class="light-text" data-filter-match="">{{payment.date}}</span>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" tooltip=" Modifier souscription " theme='light' (click)="onOpenUpdateModal(subscription.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                    <a _ngcontent-nct-c62="" tooltip=" Supprimer souscription " theme='light' (click)="onDelete(subscription.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                    <a _ngcontent-nct-c62="" tooltip=" Modifier paiement " theme='light' (click)="onOpenUpdateModal(payment.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                                    <a _ngcontent-nct-c62="" tooltip=" Supprimer paiement " theme='light' (click)="onDelete(payment.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -198,14 +189,14 @@
 
 </div>
 
-<!-- create Subscription -->
-<div id="addSubscription" class="modal h-modal" [ngClass]="openSubscriptionModal">
+<!-- Update Payment -->
+<div id="updatePaymentForm" class="modal h-modal" [ngClass]="openUpdateModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout Souscription</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionModal()">
+                <h3>Modification d'un paiement</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdatePaymentModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-x">
@@ -216,85 +207,25 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="addSubscriptionForm" (ngSubmit)="onAddSubscription()">
+                    <form class="modal-form" [formGroup]="updatePaymentForm" (ngSubmit)="onSubmitUpdatePaymentForm(payment.id)">
                         <div class="field">
-                            <label>Niveau de risque *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idRiskProfile" [(ngModel)]="ngSelect1">
-                                <option value="0" disabled>--Selectionnez un niveau de risque--</option>
-                                <option *ngFor="let risk of riskProfiles" [value]="risk.id"> <span> {{ risk.riskLevel }}  </span> </option>
-                            </select><br><br>
-                        </div>
-
-                        <div class="field">
-                            <label>Souscripteur *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }}   {{ user.lastName }} </span> </option>
-                            </select><br><br>
-                        </div>
-
-                        <div class="field">
-                            <label>Montant *</label><br>
+                            <label>Justificatif * </label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount" >
+                                <input type="text" [ngModel]="payment.proof" class="input" placeholder="Justificatif" formControlName="proof" >
                             </div>
                             <div class="text-danger"
-                                *ngIf="addSubscriptionForm.get('amount')?.errors?.['required'] && addSubscriptionForm.get('amount')?.touched">
-                                <small class="text-police">Veuillez entrer le montant a souscrire</small>
-                            </div>
-                        </div><br>
-                       
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSubscriptionForm.invalid || isSaving" >Enregistrer</button>
-                        </div><br>
-                       
-                    </form>
-                </div>
-            </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeSubscriptionModal()">Annuler</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Update Subscription -->
-<div id="updateSubscriptionForm" class="modal h-modal" [ngClass]="openUpdateModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Modification d'une souscription</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateSubscriptionModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateSubscriptionForm" (ngSubmit)="onSubmitUpdateSubscriptionForm(subscription.id)">
-                        <div class="field">
-                            <label>Montant * </label><br>
-                            <div class="control">
-                                <input type="number" [ngModel]="subscription.amount" class="input" placeholder="Montant" formControlName="amount" >
-                            </div>
-                            <div class="text-danger"
-                                    *ngIf="updateSubscriptionForm.get('amount')?.errors?.['required'] && updateSubscriptionForm.get('amount')?.touched">
-                                    <small class="text-police">veuillez entrer le montant</small>
+                                    *ngIf="updatePaymentForm.get('proof')?.errors?.['required'] && updatePaymentForm.get('proof')?.touched">
+                                    <small class="text-police">veuillez entrer le justificatif </small>
                                  </div>
                         </div><br>
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateSubscriptionForm.invalid || isSaving">Modifer</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updatePaymentForm.invalid || isSaving">Modifer</button>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateSubscriptionModal()">Annuler</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdatePaymentModal()">Annuler</a>
             </div>
         </div>
     </div>

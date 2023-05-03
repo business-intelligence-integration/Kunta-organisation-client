@@ -135,6 +135,8 @@ export class MutualInvestmentComponent implements OnInit {
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
       this.mutualInvestments = res.data;
+      console.log("mutualInvestments:: ", res.data);
+      
     })
   }
 
@@ -472,6 +474,62 @@ export class MutualInvestmentComponent implements OnInit {
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
                 text: 'Le placement mutualisé a été supprimé avec succès !.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La supprission a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
+  //////////////////////// Deblocage Placement
+  onUnlock(id: number){
+    this.unlockMessage(id);
+  }
+
+  unlockMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, debloquer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.mutualInvestmentService.releaseOperation(id).subscribe(
+            () => {
+              this.getAllMutualInvestments();
+              swalWithBootstrapButtons.fire({
+                title: 'Debloqué !',
+                text: 'Le placement mutualisé a été debloqué avec succès !.',
                 confirmButtonColor: '#198AE3',
               });
             },
