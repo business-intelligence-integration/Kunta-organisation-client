@@ -35,14 +35,13 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span>Nom</span>
-                <span>Organisme</span>
+                <!-- <span>Organisme</span> -->
                 <span>Montant minimal</span>
-                <span>Taux de rentabilité</span>
+                <span>Taux rentabilité</span>
                 <span>Montant rentable</span>
                 <span>Offres</span>
                 <span>Caution</span>
-                <!-- <span>Date de début</span>
-                <span>Date de fin</span> -->
+                <span>Debloquer</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -52,37 +51,33 @@
                     <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Organisme">
+                    <!-- <div class="flex-table-cell" data-th="Organisme">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.organism }}</span>
-                    </div>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Montant minimal">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Taux de rentabilité">
+                    <div class="flex-table-cell" data-th="Taux rentabilité">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Montant rentable">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityAmount }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Offres">
+                    <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
                         <a class="pagination-previous has-chevron" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-subscription-offer']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details offre " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Caution">
+                    <div class="flex-table-cell" data-th="Caution(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.securityDeposits.length }}</span>
                         <a class="pagination-previous has-chevron" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-security-deposit']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
-                    <!-- <div class="flex-table-cell" data-th="Date de début">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.startDate  }}</span>
+                    <div class="flex-table-cell" data-th="Debloquer">
+                        <a _ngcontent-nct-c62="" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-1"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Date de fin">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.endDate  }}</span>
-                    </div> -->
-
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                         <a _ngcontent-nct-c62="" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
@@ -171,7 +166,7 @@
                                 <label>Liste des mutualistes</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
                                     <option value="0" disabled>--Selectionnez un mutualiste--</option>
-                                    <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
+                                    <option *ngFor="let mutualist of mutualists" [value]="mutualist.id"> <span> {{ mutualist.firstName }} {{ mutualist.lastName }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
                                         *ngIf="createMutualInvestmentForm.get('idMutualist')?.errors?.['required'] && createMutualInvestmentForm.get('idMutualist')?.touched">
@@ -250,7 +245,7 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">
                                     <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
-                                 </div>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Evaluation *</label><br>
@@ -260,7 +255,7 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('rating')?.errors?.['required'] && createMutualInvestmentForm.get('rating')?.touched">
                                     <small class="text-police">veuillez entrer l'évaluation</small>
-                                 </div>
+                                </div>
                             </div>
                             <div class="columns is-multiline">
                                 <div class="column is-6">
@@ -270,10 +265,10 @@
                                             <div class="input-daterange input-group align-items-center">
                                                 <input class="champ" formControlName="startDate" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
                                             </div>
-                                       </div>
-                                       <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                         <small class="text-police" translate>veuillez selectionner la date de début</small>
-                                       </div>
+                                        </div>
+                                        <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
+                                            <small class="text-police" translate>veuillez selectionner la date de début</small>
+                                        </div>
                                     </div>
                                 </div>
     
@@ -282,12 +277,15 @@
                                         <label>Date de fin *</label><br>
                                         <div class="card-header-widget datepicker-style">
                                             <div class="input-daterange input-group align-items-center">
-                                                <input class="champ" formControlName="endDate" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
+                                                <input class="champ" formControlName="endDate" min="{{ minEndDate }}" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
                                             </div>
-                                       </div>
-                                       <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                         <small class="text-police" translate>veuillez selectionner la date de fin</small>
-                                       </div>
+                                        </div>
+                                        <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
+                                            <small class="text-police" translate>veuillez selectionner la date de fin</small>
+                                        </div>
+                                        <div class="text-danger" *ngIf="showErroMessage">
+                                            <small class="text-police" translate>veuillez au préalable sélectionner la date de début</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -394,7 +392,7 @@
                             <label>Participant *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect6">
                                 <option value="0" disabled>--Selectionnez un participant--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
+                                <option *ngFor="let user of centerUsers" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
                             </select><br><br>
                         </div>
                        

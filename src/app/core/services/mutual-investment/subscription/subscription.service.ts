@@ -4,15 +4,18 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UtilityService } from '../../utility/utility.service';
 import { Subscription } from 'src/app/core/classes/subscription';
+import { Payment } from 'src/app/core/classes/payment';
 
 const httpOptions ={
   headers: new HttpHeaders({
     'content-type':'application/json'
   })
 }
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class SubscriptionService {
   private baseUrl = environment.baseUrlApiActivity
   constructor(private httpClient: HttpClient, private utilityService: UtilityService){
@@ -23,12 +26,18 @@ export class SubscriptionService {
     return this.httpClient.post<any>(this.baseUrl + 'subscriptions/subscription-offer/' + idSubscriptionOffer + "/subscriber/" + idSubscriber + "/risk-profile/" + idRiskProfile + '?token=' + this.utilityService.loadToken(), subscription);
   }
 
-  createPaymentForSubscription( idSubscription: number, idPaymentMethod: number, date: any,paid: number, proof: string):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'subscriptions/subscription-payment/' + idSubscription + "/payment-method/" + idPaymentMethod + '?date=' + date + '&paid=' + paid + '&proof=' + proof, httpOptions);
+  createPaymentForSubscription( idSubscription: number, idPaymentMethod: number, payment: Payment):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'subscriptions/subscription-payment/' + idSubscription + "/payment-method/" + idPaymentMethod + '?token=' + this.utilityService.loadToken(), payment);
   }
 
   findPaymentSubscriptionPaymentById(idSubscription: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + `subscriptions/${idSubscription}`, httpOptions);
+  }
+
+  releaseSubscription(idSubscription: number):Observable<any>{
+    console.log("id to release:: ", idSubscription);
+    
+    return this.httpClient.get<any>(this.baseUrl + 'subscriptions/release/' + idSubscription + '?token=' + this.utilityService.loadToken(), httpOptions);
   }
 
   findAllSubscriptionsPayments():Observable<any>{

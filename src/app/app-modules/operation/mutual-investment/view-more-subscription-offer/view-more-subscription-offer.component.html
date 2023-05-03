@@ -85,7 +85,7 @@
                     </span>
                 </div>
                 <div class="title-wrap">
-                    <h1 class="title is-4">Offres de souscription du placement mutualisé</h1>
+                    <h1 class="title is-4">Offre(s) de souscription</h1>
                 </div>
             </div>
             <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
@@ -103,7 +103,7 @@
                         <span class="icon">
                         <i aria-hidden="true" class="fas fa-plus"></i>
                     </span>
-                        <span>Créer une offre de souscription</span>
+                        <span>Créer une offre</span>
                     </button>
                 </div>
             </div>
@@ -318,9 +318,9 @@
                         </div>
 
                         <div class="field">
-                            <label>Souscriveur *</label>
+                            <label>Souscripteur *</label>
                             <select *ngIf="users.length != 0" class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un souscriveur--</option>
+                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
                                 <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
                             </select>
                             <div class="text-danger"

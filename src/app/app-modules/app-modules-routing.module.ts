@@ -29,6 +29,7 @@ import { UserDetailsRoleComponent } from './organisation/user/user-details-role/
 import { ViewMoreSecurityDepositComponent } from './operation/mutual-investment/view-more-security-deposit/view-more-security-deposit.component';
 import { ViewMoreSubscriptionOfferComponent } from './operation/mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
 import { ViewDetailSubscriptionComponent } from './operation/mutual-investment/view-detail-subscription/view-detail-subscription.component';
+import { ViewDetailPaymentComponent } from './operation/mutual-investment/view-detail-payment/view-detail-payment.component';
 
 const routes: Routes = [
   {
@@ -94,6 +95,9 @@ const routes: Routes = [
       },
       {
         path:"view-detail-subscription", component: ViewDetailSubscriptionComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-detail-payment", component: ViewDetailPaymentComponent, canActivate: [EntityGuard]
       },
       {
         path:"view-more-security-deposit", component: ViewMoreSecurityDepositComponent, canActivate: [EntityGuard]

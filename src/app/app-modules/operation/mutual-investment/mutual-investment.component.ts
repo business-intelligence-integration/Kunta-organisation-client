@@ -47,12 +47,16 @@ export class MutualInvestmentComponent implements OnInit {
   refundTypes: RefundType[] = [];
   mutualInvestment: MutualInvestment = new MutualInvestment();
   mutualInvestments: MutualInvestment[] = [];
+  minEndDate: any;
+  date: any;
+  showErroMessage: boolean = false;
 
   isPhysical: boolean = false;
   isOthers: boolean = false;
   isCertain: boolean = false;
   isPeriod: boolean = false;
-  users: User[] =[];
+  mutualists: User[] =[];
+  centerUsers: User[] =[];
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
@@ -70,6 +74,7 @@ export class MutualInvestmentComponent implements OnInit {
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
+    private userService: UserService,
     private draweeFormService: DraweeFormService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
@@ -80,6 +85,7 @@ export class MutualInvestmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllMutualInvestments();
+    this.getAllMutualists();
     this.getAllCenters();
     this.getAllDroweeForm();
     this.getAllProfitabilityTypes();
@@ -102,7 +108,7 @@ export class MutualInvestmentComponent implements OnInit {
       idFrequency: new FormControl(null),
       profitabilityRate: new FormControl(null),
       echeanceDurationInMonths: new FormControl(null),
-      rating: new FormControl(null, Validators.required),
+      rating: new FormControl(null),
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
     })
@@ -131,6 +137,12 @@ export class MutualInvestmentComponent implements OnInit {
       this.mutualInvestments = res.data;
       console.log("mutualInvestments:: ", res.data);
       
+    })
+  }
+
+  getAllMutualists(){
+    this.userService.getAllMutualists().subscribe((res)=>{
+      this.mutualists = res.data;
     })
   }
 
@@ -258,11 +270,17 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   onSelectIsstartDate(event: any){
-
+    this.minEndDate = this.startDate;
+    this.endDate = null;
   }
 
   onSelectIsendDate(event: any){
-
+    if(this.startDate == undefined || this.startDate == null){
+      this.showErroMessage = true;
+      this.endDate = null;
+    }else{
+      this.showErroMessage = false;
+    }
   }
 
   onOpenCreateMutualInvestment(){
@@ -338,7 +356,7 @@ export class MutualInvestmentComponent implements OnInit {
 
   getAllUsersByIdCenter(idMutualCenter: number){
     this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.users = res.data;
+      this.centerUsers = res.data;
     })
   }
 
@@ -456,6 +474,62 @@ export class MutualInvestmentComponent implements OnInit {
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
                 text: 'Le placement mutualisé a été supprimé avec succès !.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La supprission a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
+  //////////////////////// Deblocage Placement
+  onUnlock(id: number){
+    this.unlockMessage(id);
+  }
+
+  unlockMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, debloquer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.mutualInvestmentService.releaseOperation(id).subscribe(
+            () => {
+              this.getAllMutualInvestments();
+              swalWithBootstrapButtons.fire({
+                title: 'Debloqué !',
+                text: 'Le placement mutualisé a été debloqué avec succès !.',
                 confirmButtonColor: '#198AE3',
               });
             },
