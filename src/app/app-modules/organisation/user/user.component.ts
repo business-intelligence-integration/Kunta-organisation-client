@@ -143,7 +143,7 @@ export class UserComponent implements OnInit {
       userName: new FormControl(null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]),
       city: new FormControl(null, Validators.required),
       userRole: new FormControl(null, Validators.required),
-      userType: new FormControl(null, Validators.required),
+      // userType: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       confPassword: new FormControl(null, Validators.required),
       idSponsor: new FormControl(null, Validators.required),

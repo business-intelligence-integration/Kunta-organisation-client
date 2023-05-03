@@ -19,5 +19,5 @@ export class MutualInvestment{
     profitabilityAmount: number = 0;
     securityDeposits: SecurityDeposit[] = [];
     offers: SubscriptionOffer[] = [];
-    mutualCenter: Center[] = [];
+    mutualCenter: Center = new Center();
   }
