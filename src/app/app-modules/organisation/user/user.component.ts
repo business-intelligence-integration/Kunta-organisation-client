@@ -328,7 +328,7 @@ export class UserComponent implements OnInit {
         }
       })
     })
-
+ 
     this.users = users;
 
     this.userService.getAllUsers().subscribe((result)=>{

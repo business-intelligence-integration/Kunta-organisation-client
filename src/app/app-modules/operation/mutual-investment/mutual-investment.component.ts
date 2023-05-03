@@ -129,6 +129,8 @@ export class MutualInvestmentComponent implements OnInit {
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
       this.mutualInvestments = res.data;
+      console.log("mutualInvestments:: ", res.data);
+      
     })
   }
 
