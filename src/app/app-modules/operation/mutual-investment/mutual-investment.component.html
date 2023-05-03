@@ -38,7 +38,7 @@
                 <!-- <span>Organisme</span> -->
                 <span>Montant minimal</span>
                 <span>Taux rentabilité</span>
-                <span>Montant rentable</span>
+                <span>Centre</span>
                 <span>Offres</span>
                 <span>Caution</span>
                 <span>Debloquer</span>
@@ -60,8 +60,8 @@
                     <div class="flex-table-cell" data-th="Taux rentabilité">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Montant rentable">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityAmount }}</span>
+                    <div class="flex-table-cell" data-th="Centre">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.mutualCenter.name }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>

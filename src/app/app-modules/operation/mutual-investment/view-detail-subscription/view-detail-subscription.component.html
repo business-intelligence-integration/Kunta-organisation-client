@@ -150,17 +150,21 @@
                                     <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Statut">
-                                    <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': subscription?.status === 'UNPAID', 'is-success': subscription?.status === 'PAID'}">{{subscription?.status}}</span>
+                                    <!-- <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': subscription?.status === 'UNPAID', 'is-success': subscription?.status === 'PAID'}">{{subscription?.status}}</span> -->
+                                    <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="subscription.status === 'UNPAID'">Non-payé</span>
+                                    <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="subscription.status === 'PAID'">Payé</span>
+                                    <span class="tag is-rounded is-cliquable" data-filter-match="" *ngIf="subscription.status === 'NOTCOMPLETE'">Incomplet</span>
+                                    <span class="tag is-rounded is-cliquable" data-filter-match="" *ngIf="subscription.status === 'RELEASED'">Liberé</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Payer">
                                     <span class="light-text" data-filter-match="">{{ subscription.payments.length }}</span>
-                                    <a class="pagination-previous has-chevron" tooltip=" Payer souscription " theme='light' (click)="onOpenAddPayment(subscription.id)"><img width="18" height="18" src="{{ geUrl }}" alt=""></a>
+                                    <a class="pagination-previous has-chevron" tooltip=" Payer souscription " theme='light' (click)="onOpenAddPayment(subscription.id)" [ngClass]="{'disabled': subscription.status === 'PAID' || subscription.status === 'RELEASED'}"><img width="18" height="18" src="{{ geUrl }}" alt=""></a>
                                     <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-payment']"
                                     [queryParams]="{id: subscription.id, idSubscriptionOffer: idSubscriptionOffer, idInvestment: idInvestment}" tooltip=" Voir details paiement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
                                 <div class="flex-table-cell" data-th="Liberer">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <button _ngcontent-nct-c62="" tooltip=" Liberer souscription " theme='light' [disabled]="subscription?.status === 'RELEASED' " (click)="onRelease(subscription.id)" class="pagination-previous has-chevron"><i class="lnil lnil-credit-card"></i></button>
+                                        <a _ngcontent-nct-c62="" tooltip=" Liberer souscription " theme='light' [ngClass]="{'disabled': subscription?.status === 'RELEASED' }" (click)="onRelease(subscription.id)" class="pagination-previous has-chevron"><i class="lnil lnil-credit-card"></i></a>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
