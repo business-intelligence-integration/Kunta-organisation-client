@@ -1,3 +1,4 @@
+import { Payment } from "./payment";
 import { RiskProfile } from "./riskProfile";
 
 export class Subscription {
@@ -7,6 +8,6 @@ export class Subscription {
     paid: boolean = false;
     proof: string = "";
     amount: number = 0;
-    payments: [] = [];
+    payments: Payment[] = [];
     status: string = "";
 }

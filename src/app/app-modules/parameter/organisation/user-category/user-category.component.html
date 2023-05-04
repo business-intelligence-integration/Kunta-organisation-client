@@ -102,9 +102,9 @@
                 <div class="inner-content">
                         <form class="modal-form" [formGroup]="createCategoryForm" (ngSubmit)="onCreateCategory()">
                             <div class="field">
-                                <label> Nom de la categorie*</label>
+                                <label>Nom de la categorie*</label>
                                 <div class="control">
-                                    <input type="text" formControlName="name" class="input" placeholder="poste">
+                                    <input type="text" formControlName="name" class="input" placeholder="Nom de la categorie">
                                 </div>
                                 <div class="text-danger"
                                 *ngIf="createCategoryForm.get('name')?.errors?.['required'] && createCategoryForm.get('name')?.touched">

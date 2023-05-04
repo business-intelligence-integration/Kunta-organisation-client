@@ -20,6 +20,10 @@ import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
 import { Center } from 'src/app/core/classes/center';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
+import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
+import { Payment } from 'src/app/core/classes/payment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -36,6 +40,7 @@ export class MutualInvestmentComponent implements OnInit {
   ngSelect7 = 0;
   ngSelect8 = 0;
   ngSelect9 = 0;
+  ngSelect10 = 0;
   openCreateModal: string = ""
   createMutualInvestmentForm!: FormGroup
   endDate: any;
@@ -59,18 +64,23 @@ export class MutualInvestmentComponent implements OnInit {
   centerUsers: User[] =[];
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
+  openRefundModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
   idInvestment: number = 0;
   openDepositModal: string = "";
   openOfferModal: string = "";
   addSecurityDepositForm!: FormGroup;
   addSubscriptionOfferForm!: FormGroup;
+  refundForm!: FormGroup;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   subscriptionOffer: SubscriptionOffer = new SubscriptionOffer();
   riskProfiles: RiskProfile[] = [];
   disabledInput: boolean = true;
   isOfferCertain: boolean = false;
   centers: Center[] = [];
+  paymentMethods: PaymentMethod[] = [];
+  payment: Payment = new Payment();
+  dateNow: any;
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -80,6 +90,7 @@ export class MutualInvestmentComponent implements OnInit {
     private utilityService: UtilityService,
     private profitabilityTypeService: ProfitabilityTypeService,
     private riskProfileService: RiskProfileService,
+    private paymentMethodService: PaymentMethodService,
     private refundTypeService: RefundTypeService,
     private frequencyService: FrequencyService,) { }
 
@@ -90,8 +101,10 @@ export class MutualInvestmentComponent implements OnInit {
     this.getAllDroweeForm();
     this.getAllProfitabilityTypes();
     this.getAllRiskProfiles();
+    this.getAllPaymentMethod();
     this.getAllRefundTypes();
     this.getAllFrequency();
+    this.initDates();
     this.formInit();
   }
 
@@ -129,6 +142,13 @@ export class MutualInvestmentComponent implements OnInit {
     this.addSecurityDepositForm = this.formBuilder.group({
       idUser: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
+    })
+
+    this.refundForm = this.formBuilder.group({
+      paid: new FormControl(null, Validators.required),
+      proof: new FormControl(null, Validators.required),
+      date: new FormControl(null, Validators.required),
+      idPaymentMethod: new FormControl(null, Validators.required),
     })
   }
 
@@ -179,6 +199,12 @@ export class MutualInvestmentComponent implements OnInit {
   getAllFrequency(){
     this.frequencyService.findAllFrequencies().subscribe((res)=>{
       this.frequencies = res.data;
+    })
+  }
+
+  getAllPaymentMethod(){
+    this.paymentMethodService.findAllPaymentMethods().subscribe((res)=>{
+      this.paymentMethods = res.data;
     })
   }
 
@@ -551,4 +577,53 @@ export class MutualInvestmentComponent implements OnInit {
       });
   }
 
+  //////////////////////////////// onRefund User
+  onSelectDate(event: any){
+
+  }
+
+  initDates(){
+    this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
+  }
+
+  onRefund(idInvestment: number){
+    this.openRefundModal = "is-active";
+    this.idInvestment = idInvestment;
+  }
+
+  onCloseRefundModal(){
+    this.openRefundModal = "";
+  }
+
+  onSubmitRefund(){
+    // let idPaymentMethod: number = 0;
+    this.isSaving = true;
+    const formValue = this.refundForm.value;
+    this.payment.paid = formValue.paid;
+    this.payment.proof = formValue.proof;
+    this.payment.date = formValue.date;
+    this.mutualInvestmentService.refundOfAmountsCollected(this.idInvestment, formValue.idPaymentMethod, this.payment).subscribe((res)=>{
+      this.isSaving = false;
+      console.log("refund:: ", res);
+      
+      this.getAllMutualInvestments();
+      this.refundForm.reset();
+      this.onCloseRefundModal();
+      this.utilityService.showMessage(
+        'success',
+        'Placement remboursé avec succès',
+        '#06d6a0',
+        'white'
+      );
+    },()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+  
 }

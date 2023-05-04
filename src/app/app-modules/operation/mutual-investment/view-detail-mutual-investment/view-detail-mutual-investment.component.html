@@ -1,0 +1,188 @@
+<div class="page-content-inner">
+    <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron return-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+    <!--Pronotion Page-->
+    <div class="promotion-page-wrapper">
+        
+        <div class="wrapper-outer">
+
+            <div class="wrapper-inner">
+                <div class="action-box">
+                    <div class="box-content">
+                        <div class="page-content-inner all-projects">
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ mutualInvestment.minimumAmount }} FCFA</span>
+                                        <p>Montant Minimal</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ mutualInvestment.profitabilityRate }} </span>
+                                        <p>Taux de rentabilité</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ mutualInvestment.profitabilityAmount }} FCFA</span>
+                                        <p>Montant Rentable </p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ mutualInvestment.mutualInvestmentAccount.balance }} FCFA</span>
+                                        <p>Montant dans le compte du placement</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ mutualInvestment.collectedAmount }} FCFA</span>
+                                        <p>Montant collecté</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ mutualInvestment.amountRefunded }} FCFA</span>
+                                        <p>Montant Remboursé</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-pie-chart-alt"></i>
+                                        <span>{{ mutualInvestment.amountToBeRefunded }} FCFA</span>
+                                        <p>Montant a Remboursé</p>
+                                    </div>
+                                </div>
+                                <!-- <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-leaf"></i>
+                                        <span>{{ totalContributionReceived - totalGainMade }} FCFA</span>
+                                        <p>Totale marge actuelle</p>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item style-session-margin">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ mutualInvestment.offers.length }}</span>
+                                        <p>Nombre d'offre</p>
+                                    </div>
+                                </div>
+
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ mutualInvestment.securityDeposits.length }}</span>
+                                        <p>Nombre de caution</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+  
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-wrapper">
+                <div class="side-inner">
+                    <div class="side-title">
+                        <h3 class="dark-inverted">Details du placement mutualisé: {{mutualInvestment.name}}</h3>
+                    </div>
+
+                    <div class="action-list">
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Date début:</span><br>
+                                <p>{{ mutualInvestment.startDate }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Date fin:</span><br>
+                                <p>{{ mutualInvestment.endDate }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Centre: </span><br>
+                                <p>{{ mutualInvestment.mutualCenter.name }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Organisme:</span><br>
+                                <p>{{ mutualInvestment.organism }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Type de remboursement:</span><br>
+                                <p>{{ mutualInvestment.refundType.type }}</p>
+                            </div>
+                        </div>
+                        <!-- <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Fréquence de remboursement:</span><br>
+                                <p>{{ mutualInvestment.refundFrequency.label }}</p>
+                            </div>
+                        </div> -->
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Mutualiste:</span><br>
+                                <p> {{ mutualInvestment.mutualist.firstName }}  {{ mutualInvestment.mutualist.lastName }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Statut:</span><br>
+                                <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': mutualInvestment.status === 'FERMÉ', 'is-success': mutualInvestment.status === 'OUVERT'}">{{ mutualInvestment.status }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

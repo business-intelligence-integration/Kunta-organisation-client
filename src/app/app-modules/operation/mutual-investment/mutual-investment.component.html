@@ -39,9 +39,11 @@
                 <span>Montant minimal</span>
                 <span>Taux rentabilité</span>
                 <span>Centre</span>
+                <!-- <span>Statut</span> -->
                 <span>Offres</span>
                 <span>Caution</span>
                 <span>Debloquer</span>
+                <span>Rembourser</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -63,6 +65,9 @@
                     <div class="flex-table-cell" data-th="Centre">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.mutualCenter.name }}</span>
                     </div>
+                    <!-- <div class="flex-table-cell" data-th="Statut">
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.status }}</span>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
                         <a class="pagination-previous has-chevron" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
@@ -78,10 +83,14 @@
                     <div class="flex-table-cell" data-th="Debloquer">
                         <a _ngcontent-nct-c62="" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-1"></i></a>
                     </div>
+                    <div class="flex-table-cell" data-th="Rembourser">
+                        <a _ngcontent-nct-c62="" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                    </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                         <a _ngcontent-nct-c62="" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
+                        [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                         <a _ngcontent-nct-c62="" (click)="onDeleteMutualInvestment(mutualInvestment.id)" tooltip=" Retirer le placement " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
@@ -420,7 +429,6 @@
     </div>
 </div>
 
-
 <!-- update placement mutualisé -->
 <div id="updateMutualInvestment" class="modal h-modal" [ngClass]="openUpdateModal">
     <div class="modal-background h-modal-close"></div>
@@ -492,6 +500,82 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="onCloseUpdateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- refund placement mutualisé -->
+<div id="refundMutualInvestment" class="modal h-modal" [ngClass]="openRefundModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Rembourser le placement mutualisé</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseRefundModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="refundForm" (ngSubmit)="onSubmitRefund()">
+                        <div class="field">
+                            <label>Methodes de paiement *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelect10">
+                                <option value="0" disabled>--Selectionnez une methode de paiement --</option>
+                                <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }} </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                    *ngIf="refundForm.get('idPaymentMethod')?.errors?.['required'] && refundForm.get('idPaymentMethod')?.touched">
+                                    <small class="text-police">veuillez sélectionner une methode de paiement</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Montant *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateMutualInvestmentForm.get('paid')?.errors?.['required'] && updateMutualInvestmentForm.get('paid')?.touched">
+                                <small class="text-police" translate>Entrer le montant</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <label>Justificatif *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="justificatif" formControlName="proof">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundForm.get('proof')?.errors?.['required'] && refundForm.get('proof')?.touched">
+                                <small class="text-police" translate>Entrer le justificatif</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <label>Date *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="date" class="champ" type="date" max="{{ dateNow }}" id="DOB" [(ngModel)]="dateNow" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                            <div class="text-danger"
+                                *ngIf="refundForm.get('date')?.errors?.['required'] && refundForm.get('date')?.touched">
+                                <small class="text-police" translate>Entrer la date du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="refundForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Rembourser</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseRefundModal()">Annuler</a>
             </div>
         </div>
     </div>

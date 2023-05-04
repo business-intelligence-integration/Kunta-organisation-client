@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { UtilityService } from '../../utility/utility.service';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
 import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
+import { Payment } from 'src/app/core/classes/payment';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -69,6 +70,10 @@ export class MutualInvestmentService {
 
   releaseOperation(idInvestment: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'mutual-investments/release/'+ idInvestment + "?token=" + this.utilityService.loadToken());
+  }
+
+  refundOfAmountsCollected(idInvestment: number, idPaymentMethod: number, payment: Payment):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/refund/'+ idInvestment + '/idPaymentMethod/' + idPaymentMethod + "?token=" + this.utilityService.loadToken(), payment);
   }
 
 }

@@ -50,6 +50,8 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
   date: any;
   dateNow: any;
+  totalPaid: number = 0;
+  amountToPay: number = 0;
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -93,10 +95,23 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   backBack(){this.location.back()}
 
   getOfferSubscription(){
+    let totalPaid: number = 0;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.subscriptionOfferService.findSubscriptionOfferById(params['id']).subscribe((res)=>{
         this.idSubscriptionOffer = params['id'];
         this.subscriptions = res.data.subscriptions;
+        console.log("Subsciptions:: ", res.data.subscriptions);
+
+        this.subscriptions.forEach((element)=>{
+          console.log("element: ", element.payments);
+          element.payments.forEach((el)=>{
+            console.log("paid:: ", el.paid);
+            totalPaid = totalPaid + el.paid;
+          })
+          
+        })
+
+        this.totalPaid = totalPaid;
       });
     })
   }

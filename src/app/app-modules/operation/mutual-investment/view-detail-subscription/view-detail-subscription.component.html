@@ -129,6 +129,7 @@
                             <span class="is-grow">Id</span>
                             <span>Niveau de rique</span>
                             <span>Montant</span>
+                            <span>Total payé</span>
                             <span>Statut</span>
                             <span>Payer</span>
                             <span>Liberer</span>
@@ -148,6 +149,9 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant">
                                     <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Total Payé">
+                                    <span class="light-text" data-filter-match="">{{totalPaid}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Statut">
                                     <!-- <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': subscription?.status === 'UNPAID', 'is-success': subscription?.status === 'PAID'}">{{subscription?.status}}</span> -->
@@ -348,7 +352,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Payé *</label><br>
+                            <label>Montant *</label><br>
                             <div class="control">
                                 <input type="number" class="input" placeholder="Payé" formControlName="paid">
                             </div>
