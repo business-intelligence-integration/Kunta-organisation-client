@@ -35,11 +35,8 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span>Nom</span>
-                <!-- <span>Organisme</span> -->
                 <span>Montant minimal</span>
                 <span>Taux rentabilité</span>
-                <span>Centre</span>
-                <!-- <span>Statut</span> -->
                 <span>Offres</span>
                 <span>Caution</span>
                 <span>Debloquer</span>
@@ -53,21 +50,12 @@
                     <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}</span>
                     </div>
-                    <!-- <div class="flex-table-cell" data-th="Organisme">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.organism }}</span>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Montant minimal">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Taux rentabilité">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Centre">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.mutualCenter.name }}</span>
-                    </div>
-                    <!-- <div class="flex-table-cell" data-th="Statut">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.status }}</span>
-                    </div> -->
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
                         <a class="pagination-previous has-chevron" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
@@ -81,10 +69,16 @@
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Debloquer">
-                        <a _ngcontent-nct-c62="" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-1"></i></a>
+                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable" data-filter-match="">Debloqué </span>
+                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED' " class="tag is-rounded is-cliquable" data-filter-match="">Bloqué </span>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " (click)="onUnlock(mutualInvestment.id)" tooltip=" Placement debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
-                        <a _ngcontent-nct-c62="" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                        <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-payé </span>
+                        <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Payé </span>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'UNPAID' " tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron disabled">$</a>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -254,16 +248,6 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('echeanceDurationInMonths')?.errors?.['required'] && createMutualInvestmentForm.get('echeanceDurationInMonths')?.touched">
                                     <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label>Evaluation *</label><br>
-                                <div class="control">
-                                    <input type="number" class="input" placeholder="évaluation" formControlName="rating">
-                                </div>
-                                <div class="text-danger"
-                                    *ngIf="createMutualInvestmentForm.get('rating')?.errors?.['required'] && createMutualInvestmentForm.get('rating')?.touched">
-                                    <small class="text-police">veuillez entrer l'évaluation</small>
                                 </div>
                             </div>
                             <div class="columns is-multiline">
@@ -538,7 +522,7 @@
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="text" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
+                                <input type="number" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateMutualInvestmentForm.get('paid')?.errors?.['required'] && updateMutualInvestmentForm.get('paid')?.touched">

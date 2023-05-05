@@ -121,7 +121,6 @@ export class MutualInvestmentComponent implements OnInit {
       idFrequency: new FormControl(null),
       profitabilityRate: new FormControl(null),
       echeanceDurationInMonths: new FormControl(null),
-      rating: new FormControl(null),
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
     })
@@ -254,7 +253,6 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestment.startDate = formValue.startDate;
     this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
-    this.mutualInvestment.rating = formValue.rating;
     if(formValue.idFrequency != null){
        idFrequency = formValue.idFrequency
     }if(formValue.idMutualist != null){

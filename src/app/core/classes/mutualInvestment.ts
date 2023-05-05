@@ -31,4 +31,6 @@ export class MutualInvestment{
     refundType: RefundType = new RefundType();
     // refundFrequency: RefundFrequency = new RefundFrequency();
     mutualist: User = new User();
+    mutualInvesmentStatus: string = "";
+    refundStatus: string = "";
   }
