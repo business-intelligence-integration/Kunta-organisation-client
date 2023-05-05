@@ -265,7 +265,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   addPayment( idSubscription: number, idPaymentMethod: number, payment: Payment){
     this.isSaving = true;
     this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, payment).subscribe((res)=>{
-      console.log("subscription::", res.data);
+      console.log("subscription:: ", res);
       this.isSaving = false;
       this.getOfferSubscription();
       this.closePaymentModal();
