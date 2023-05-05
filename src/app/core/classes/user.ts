@@ -1,3 +1,4 @@
+import { Account } from "./account";
 import { Beneficiary } from "./beneficiary";
 import { Civility } from "./civility";
 import { Club } from "./club";
@@ -46,4 +47,5 @@ export class User{
     function: Function = new Function();
     statusUserEnum: string = "";
     club: Club = new Club();
+    accounts: Account[] = [];
 }

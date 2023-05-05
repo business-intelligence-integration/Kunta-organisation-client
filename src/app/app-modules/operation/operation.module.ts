@@ -19,6 +19,7 @@ import { ViewMoreSecurityDepositComponent } from './mutual-investment/view-more-
 import { ViewMoreSubscriptionOfferComponent } from './mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
 import { ViewDetailSubscriptionComponent } from './mutual-investment/view-detail-subscription/view-detail-subscription.component';
 import { ViewDetailPaymentComponent } from './mutual-investment/view-detail-payment/view-detail-payment.component';
+import { ViewDetailMutualInvestmentComponent } from './mutual-investment/view-detail-mutual-investment/view-detail-mutual-investment.component';
 
 
 
@@ -38,6 +39,7 @@ import { ViewDetailPaymentComponent } from './mutual-investment/view-detail-paym
     ViewMoreSubscriptionOfferComponent,
     ViewDetailSubscriptionComponent,
     ViewDetailPaymentComponent,
+    ViewDetailMutualInvestmentComponent,
   ],
   imports: [
     CommonModule,

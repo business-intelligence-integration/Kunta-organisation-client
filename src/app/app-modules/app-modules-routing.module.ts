@@ -30,6 +30,7 @@ import { ViewMoreSecurityDepositComponent } from './operation/mutual-investment/
 import { ViewMoreSubscriptionOfferComponent } from './operation/mutual-investment/view-more-subscription-offer/view-more-subscription-offer.component';
 import { ViewDetailSubscriptionComponent } from './operation/mutual-investment/view-detail-subscription/view-detail-subscription.component';
 import { ViewDetailPaymentComponent } from './operation/mutual-investment/view-detail-payment/view-detail-payment.component';
+import { ViewDetailMutualInvestmentComponent } from './operation/mutual-investment/view-detail-mutual-investment/view-detail-mutual-investment.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,9 @@ const routes: Routes = [
       },
       {
         path:"view-more-security-deposit", component: ViewMoreSecurityDepositComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-detail-mutual-investment", component: ViewDetailMutualInvestmentComponent, canActivate: [EntityGuard]
       },
       {
         path:"view-more-sponsores", component: SponsoresComponent, canActivate: [EntityGuard]

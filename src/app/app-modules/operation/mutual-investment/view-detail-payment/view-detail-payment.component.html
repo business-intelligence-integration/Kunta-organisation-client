@@ -127,7 +127,7 @@
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
                             <span>Id</span>
-                            <span>Payer</span>
+                            <span>Montant</span>
                             <span>Methode de paiement</span>
                             <span>Justificatif</span>
                             <span>Date</span>
@@ -142,7 +142,7 @@
                                         <span class="item-name dark-inverted" data-filter-match="">{{payment.id}}</span>
                                     </div>
                                 </div>
-                                <div class="flex-table-cell" data-th="Payer">
+                                <div class="flex-table-cell" data-th="Montant">
                                     <span class="light-text" data-filter-match="">{{payment.paid}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Methode de paiement">
@@ -275,7 +275,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Payé *</label><br>
+                            <label>Montant *</label><br>
                             <div class="control">
                                 <input type="number" class="input" placeholder="Payé" formControlName="paid">
                             </div>

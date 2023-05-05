@@ -52,8 +52,6 @@
                 <span>Nom</span>
                 <span>Prenom</span>
                 <span>Numéro tél</span>
-                <!-- <span>Email</span> -->
-                <!-- <span>Filleuls</span> -->
                 <span>Ayants droit</span>
                 <span>Roles</span>
                 <span>Statut</span>
@@ -72,19 +70,12 @@
                     <div  class="flex-table-cell" data-th="Numéro tél">
                         <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
                     </div>
-                    <!-- <div  class="flex-table-cell" data-th="Email">
-                        <span class="light-text" data-filter-match="">{{ user.email }}</span>
-                    </div> -->
-                    <!-- <div  class="flex-table-cell" data-th="Filleuls">
-                        <span class="light-text" data-filter-match="">{{ user.sponsoredUsers.length }}</span>
-                    </div> -->
-
                     <div  class="flex-table-cell" data-th="Ayants droit">
                         <span class="light-text" data-filter-match="">{{ user.beneficiaries.length }}</span>
                         <a *ngIf="adminIsConnected || operatorIsConnected" (click)="onOpenBeneficiaryModal(user.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
 
-                    <div  class="flex-table-cell" data-th="Ayants droit">
+                    <div  class="flex-table-cell" data-th="Roles">
                         <span class="light-text" data-filter-match="">{{ user.roles.length }}</span>
                         <a *ngIf="adminIsConnected" (click)="onAddRoleTOUser(user.id)" tooltip=" Ajouter un role " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""  [routerLink]="['/user-details-role']"
@@ -98,10 +89,11 @@
                     
                     <div  class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                            <a *ngIf="adminIsConnected" _ngcontent-nct-c62="" (click)="onViewAccount(user.userName)" tooltip=" Voir les comptes " theme='light' class="pagination-previous has-chevron" style="color: blue"><i class="lnir lnir-eye"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="adminIsConnected || operatorIsConnected" (click)="onUpdateUser(user.id)" tooltip=" Modifier utilisateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                             <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']"
                             [queryParams]="{id: user.id}" tooltip=" Voir détails utilisateur " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" *ngIf="adminIsConnected || operatorIsConnected" (click)="onUpdateUser(user.id)" tooltip=" Modifier utilisateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                        <a _ngcontent-nct-c62="" *ngIf="adminIsConnected || operatorIsConnected" (click)="onDeleteUser(user.id)" tooltip=" Supprimer utilisateur " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="adminIsConnected || operatorIsConnected" (click)="onDeleteUser(user.id)" tooltip=" Supprimer utilisateur " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                    </div>
@@ -243,7 +235,7 @@
                                     </div>
                                     <div class="field">
                                         <div>
-                                            <label> Civilité*</label><br>
+                                            <label>Civilité *</label><br>
                                             <select class="input_comp" formControlName="idCivility" aria-label="Default select example"  [(ngModel)]="ngSelectCivility">
                                                 <option value="0" disabled>--selectionner une  civilité--</option>
                                                 <option *ngFor="let cyvility of cyvilities" [value]="cyvility.id" >{{ cyvility.label }}</option>
@@ -1164,6 +1156,44 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeAddRoleModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- view account -->
+<div id="viewAccount" class="modal h-modal" [ngClass]="openViewAccountModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Comptes de l'utilisateur</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeViewAccountModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content" *ngFor="let account of userAccounts">
+                    <div class="field">
+                        <div> 
+                            <label> <b>{{account.id}}.</b> {{account.label}}</label><br>
+                            <label *ngIf="account.accountNumber !== null"> <b>No.</b> {{account.accountNumber}}</label><br *ngIf="account.accountNumber !== null">
+                            <div class="control">
+                                <label> <b>Montant:</b>  {{account.balance}} FCFA</label>
+                                <!-- <input readonly type="number" class="input" [(ngModel)]="account.balance" placeholder="Montant" > -->
+                            </div>
+                            <hr>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeViewAccountModal()">Fermer</a>
             </div>
         </div>
     </div>

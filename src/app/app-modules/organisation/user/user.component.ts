@@ -24,6 +24,7 @@ import { UserTypeService } from 'src/app/core/services/user-type/user-type.servi
 import { UserCategoryService } from 'src/app/core/services/user-category/user-category.service';
 import { UserType } from 'src/app/core/classes/userType';
 import { UserCategory } from 'src/app/core/classes/userCategory';
+import { Account } from 'src/app/core/classes/account';
 
 @Component({
   selector: 'app-user',
@@ -46,6 +47,7 @@ export class UserComponent implements OnInit {
   ngSelectRole = 0;
   openBeneficiaryModal: string = "";
   openUpdateModal: string = "";
+  openViewAccountModal: string = "";
   openSponsoreModal: string = "";
   addUserForm!: FormGroup;
   updateUserForm!: FormGroup;
@@ -93,6 +95,8 @@ export class UserComponent implements OnInit {
   userTypes: UserType[] = [];
   userCategories: UserCategory[] = [];
   isMutualist: boolean = false;
+  email: string = "";
+  userAccounts: Account[] = [];
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -846,4 +850,22 @@ export class UserComponent implements OnInit {
   })
  }
 
+ //////////////////////////////View Account
+ onViewAccount(email: string){
+  this.openViewAccountModal = "is-active";
+  this.email = email;
+  this.onView(this.email);
+ }
+
+ onView(email: string){
+  this.userService.getUserByEmail(email).subscribe((res)=>{
+    this.userAccounts = res.data.accounts;    
+  },(error)=>{
+    console.log("Erreur:: ", error);
+  })
+ }
+
+ closeViewAccountModal(){
+  this.openViewAccountModal = "";
+ }
 }
