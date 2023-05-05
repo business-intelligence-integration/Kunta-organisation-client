@@ -8,6 +8,7 @@ export class Subscription {
     paid: boolean = false;
     proof: string = "";
     amount: number = 0;
+    amountPaid: number = 0;
     payments: Payment[] = [];
     status: string = "";
 }
