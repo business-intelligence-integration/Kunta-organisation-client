@@ -280,8 +280,6 @@ export class UserComponent implements OnInit {
     }else if(formValue.userRole == "OPERATOR"){
       this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
      }
-  
-     this.addUserForm.reset();
    }
   }
 
@@ -315,6 +313,7 @@ export class UserComponent implements OnInit {
     let users: User[] = [];
     this.userService.getAllUsers().subscribe({
       next: (res)=> res.data.map((user: any)=>{
+         console.log("users:::::", res)
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
         if(this.adminIsConnected){
@@ -331,7 +330,7 @@ export class UserComponent implements OnInit {
         }
       })
     })
-
+ 
     this.users = users;
 
     this.userService.getAllUsers().subscribe((result)=>{
@@ -430,6 +429,7 @@ export class UserComponent implements OnInit {
     this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
       this.isSaving = false;
       this.getAllUsers();
+      this.addUserForm.reset();
       this.utilityService.showMessage(
         'success',
         'Admin crée avec succès !',
@@ -452,6 +452,7 @@ export class UserComponent implements OnInit {
     this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe(()=>{
       this.isSaving = false;
       this.getAllUsers();
+      this.addUserForm.reset();
       this.utilityService.showMessage(
         'success',
         'Membre crée avec succès !',
@@ -472,8 +473,10 @@ export class UserComponent implements OnInit {
   createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number, idType: number, idCategory: number){
     this.isSaving = true;
     this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry, idType, idCategory).subscribe((res)=>{
+      console.log("users:::::", res)
       this.isSaving = false;
       this.getAllUsers();
+      this.addUserForm.reset();
       this.utilityService.showMessage(
         'success',
         'Mutualiste crée avec succès !',
@@ -496,6 +499,7 @@ export class UserComponent implements OnInit {
     this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
       this.isSaving = false;
       this.getAllUsers();
+      this.addUserForm.reset();
       this.utilityService.showMessage(
         'success',
         'Operator crée avec succès !',

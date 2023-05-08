@@ -69,16 +69,17 @@
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Debloquer">
-                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable" data-filter-match="">Debloqué </span>
-                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED' " class="tag is-rounded is-cliquable" data-filter-match="">Bloqué </span>
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " (click)="onUnlock(mutualInvestment.id)" tooltip=" Placement debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a>
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
+                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Debloqué </span>
+                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Bloqué </span>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " tooltip=" Placement debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-payé </span>
                         <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Payé </span>
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'UNPAID' " tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron disabled">$</a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' }" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                        <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'PAID'"  tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron disabled">$</a> -->
+                        <a _ngcontent-nct-c62="" (click)="onViewRefunds(mutualInvestment.id)" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -560,6 +561,45 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="onCloseRefundModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- view collected refunds -->
+<div id="viewAccount" class="modal h-modal" [ngClass]="openViewRefundsModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Remboursement(s) collecté(s)</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeViewRefundsModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content" *ngFor="let collected of amountCollecteds">
+                    <div class="field">
+                        <div> 
+                            <label> <b>{{collected.id}}.</b> </label><br>
+                            <div class="control">
+                                <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
+                            </div>
+                            <div class="control">
+                                <label> <b>Date:</b>  {{collected.date}} </label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeViewRefundsModal()">Fermer</a>
             </div>
         </div>
     </div>

@@ -65,6 +65,7 @@ export class MutualInvestmentComponent implements OnInit {
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
   openRefundModal: string = "";
+  openViewRefundsModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
   idInvestment: number = 0;
   openDepositModal: string = "";
@@ -81,6 +82,7 @@ export class MutualInvestmentComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
   payment: Payment = new Payment();
   dateNow: any;
+  amountCollecteds: Payment[] = [];
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -375,6 +377,7 @@ export class MutualInvestmentComponent implements OnInit {
   getMutualInvestmentById(idInvestment: number){
     this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
       this.getAllUsersByIdCenter(res.data.mutualCenter.id);
+      this.amountCollecteds = res.data.amountCollecteds;
     });
   }
 
@@ -623,5 +626,18 @@ export class MutualInvestmentComponent implements OnInit {
       );
     })
   }
+
+  ////////////////////////////// View Collected Refunds
+  onViewRefunds(idInvestment: number){
+    this.openViewRefundsModal = "is-active";
+    this.idInvestment = idInvestment;
+    this.getMutualInvestmentById(idInvestment);
+  }
+
+  closeViewRefundsModal(){
+    this.openViewRefundsModal = "";
+  }
+
+  
   
 }

@@ -69,6 +69,8 @@ export class MutualInvestmentService {
   }
 
   releaseOperation(idInvestment: number):Observable<any>{
+    console.log("idInvestment::", idInvestment);
+    
     return this.httpClient.get<any>(this.baseUrl + 'mutual-investments/release/'+ idInvestment + "?token=" + this.utilityService.loadToken());
   }
 

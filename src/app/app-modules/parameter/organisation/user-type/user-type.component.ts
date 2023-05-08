@@ -115,7 +115,7 @@ export class UserTypeComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.userTypeService.deleteUserType(id).subscribe(
-            () => {
+            (res) => {
               this.finAllUsersType();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',

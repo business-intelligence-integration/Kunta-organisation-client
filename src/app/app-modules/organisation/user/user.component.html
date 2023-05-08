@@ -480,7 +480,7 @@
                                             <div class="field">
                                                 <label>Nombre d’enfants*</label>
                                                 <div class="control">
-                                                    <input type="number" class="input" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
+                                                    <input type="number" class="input" min="0" step="1" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
                                                 </div>
                                                 <div class="text-danger"
                                                     *ngIf="addUserForm.get('numberOfChildren')?.errors?.['required'] && addUserForm.get('numberOfChildren')?.touched">

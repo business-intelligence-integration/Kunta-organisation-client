@@ -254,7 +254,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number){
     this.isSaving = true;
     this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber, idRiskProfile).subscribe((res)=>{
-      console.log("subscription::", res.data);
+      console.log("subscription::", res);
       this.isSaving = false;
       this.getMutualSubscriptionOffer();
       this.closeSubscriptionModal();
