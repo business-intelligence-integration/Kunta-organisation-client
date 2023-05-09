@@ -20,6 +20,7 @@ import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-all-payment-of-session',
@@ -27,6 +28,7 @@ import { MainOfficeService } from 'src/app/core/services/main-offices/main-offic
   styleUrls: ['./all-payment-of-session.component.scss']
 })
 export class AllPaymentOfSessionComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   activeToggle: string = "";
   homeSider: string = "";
@@ -64,9 +66,11 @@ export class AllPaymentOfSessionComponent implements OnInit {
     private userService: UserService,
     private centerService:CenterService,
     private mainService: MainOfficeService,
+    private loaderService: LoaderService,
     private location: Location) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.findAllPaymentsOfASession();
     this.formInit();
     this.getAllPaymentStaus();
@@ -106,6 +110,10 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findAllPaymentsOfASession(params['id']).subscribe((res)=>{   
       this.payments = res.data;
+      if ( this.payments.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
       })
 
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{

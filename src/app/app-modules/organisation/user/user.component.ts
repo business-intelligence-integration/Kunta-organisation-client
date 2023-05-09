@@ -25,6 +25,7 @@ import { UserCategoryService } from 'src/app/core/services/user-category/user-ca
 import { UserType } from 'src/app/core/classes/userType';
 import { UserCategory } from 'src/app/core/classes/userCategory';
 import { Account } from 'src/app/core/classes/account';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-user',
@@ -32,6 +33,7 @@ import { Account } from 'src/app/core/classes/account';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  show: boolean = false;
   disabledUserAction: string="disabled";
   ngSelect: any = "1";
   ngSelectRoleUser = 0
@@ -114,10 +116,12 @@ export class UserComponent implements OnInit {
     private statusService: StatusService,
     private location: Location,
     private roleService: RoleService,
-    private countryService: CountryService) { 
+    private countryService: CountryService,
+    private loaderService: LoaderService) { 
   }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllUsers();
     this.formInit();
     this.management();
@@ -313,7 +317,7 @@ export class UserComponent implements OnInit {
     let users: User[] = [];
     this.userService.getAllUsers().subscribe({
       next: (res)=> res.data.map((user: any)=>{
-         console.log("users:::::", res)
+        console.log("users:::::", res)
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
         if(this.adminIsConnected){
@@ -334,10 +338,14 @@ export class UserComponent implements OnInit {
     this.users = users;
 
     this.userService.getAllUsers().subscribe((result)=>{
-          if(result.data.length >0){
-            this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
-          }      
-        })
+      if(result.data.length >0){
+        this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
+      }else{
+        this.show = true;  
+      }
+      this.loaderService.hideLoader();
+
+    })
 
   }
 

@@ -26,6 +26,7 @@ import { PostsOfAreaComponent } from './area/posts-of-area/posts-of-area.compone
 import { PostsOfClubComponent } from './club/posts-of-club/posts-of-club.component';
 import { PostsOfMainOfficeComponent } from './main-office/posts-of-main-office/posts-of-main-office.component';
 import { UserDetailsRoleComponent } from './user/user-details-role/user-details-role.component';
+import { UiModule } from 'src/app/ui/ui.module';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { UserDetailsRoleComponent } from './user/user-details-role/user-details-
     FormsModule,
     ReactiveFormsModule,
     Select2Module,
-    TooltipModule
+    TooltipModule,
+    UiModule
   ],
   exports: [
     OrganismComponent,

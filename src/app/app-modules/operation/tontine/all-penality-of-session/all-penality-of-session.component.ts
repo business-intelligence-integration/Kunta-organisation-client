@@ -11,6 +11,7 @@ import { SessionService } from 'src/app/core/services/session/session.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-all-penality-of-session',
@@ -18,6 +19,7 @@ import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-t
   styleUrls: ['./all-penality-of-session.component.scss']
 })
 export class AllPenalityOfSessionComponent implements OnInit {
+  show: boolean = false;
   ngSelectPaymentMethod = 0;
   paymentForm!: FormGroup;
   activeToggle: string = "";
@@ -44,9 +46,11 @@ export class AllPenalityOfSessionComponent implements OnInit {
     private penalityService: PenaltyService,
     private utilityService: UtilityService,
     private location: Location,
+    private loaderService: LoaderService,
     private penalityTypeService: PenaltyTypeService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllPanalities();
     this.getSession();
     this.formInit();
@@ -92,6 +96,10 @@ export class AllPenalityOfSessionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findPenaltiesOfASession(params['id']).subscribe((res)=>{
         this.penalities = res.data;
+        if ( this.penalities.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       })
     })
   }

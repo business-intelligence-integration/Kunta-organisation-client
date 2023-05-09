@@ -24,7 +24,7 @@
     <div class="flex-list-wrapper flex-list-v1">
 
         <!--List Empty Search Placeholder -->
-        <div *ngIf="tontines.length == 0" class="page-placeholder custom-text-filter-placeholder">
+        <div *ngIf="tontines.length == 0 && show" class="page-placeholder custom-text-filter-placeholder">
             <div class="placeholder-content">
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
@@ -267,8 +267,8 @@
     </div>
 </div>
 
+<!-- create tontine -->
 <div *ngIf="creatTontine" class="page-content-inner">
-
     <!--Form Layout 1-->
     <div class="form-layout">
         <a (click)="cancelCreatingTontine()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron get-potition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br>

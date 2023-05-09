@@ -10,6 +10,7 @@ import {Location} from "@angular/common";
 import { StatusService } from 'src/app/core/services/organisation/status/status.service';
 import { Status } from 'src/app/core/classes/status';
 import { Organism } from 'src/app/core/classes/organism';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-view-more',
@@ -17,6 +18,7 @@ import { Organism } from 'src/app/core/classes/organism';
   styleUrls: ['./view-more.component.scss']
 })
 export class ViewMoreComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   ngSelectStatus = 0;
   isSaving: boolean = false;
@@ -66,12 +68,14 @@ export class ViewMoreComponent implements OnInit {
     private userService: UserService,
     private statusService: StatusService,
     private utilityService: UtilityService,
+    private loaderService: LoaderService,
     private location: Location) {
       this.user = new User();
       this.pilot = new User();
      }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getClub();
     this.formInit();
     this.getAllMembers();
@@ -144,6 +148,11 @@ export class ViewMoreComponent implements OnInit {
         }else{
           this.pilotIsNull = false
         }
+
+        if ( this.clubMembers.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

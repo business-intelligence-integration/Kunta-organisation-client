@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cycle } from 'src/app/core/classes/cycle';
 import { CycleService } from 'src/app/core/services/cycle/cycle.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-cycle',
@@ -9,19 +10,25 @@ import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 })
 export class CycleComponent implements OnInit {
 
+  show: boolean = false;
   cycle: Cycle = new Cycle()
   cycles: Cycle[]=[];
 
-  constructor(private cycleService: CycleService) { }
+  constructor(private cycleService: CycleService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllCycles();
   }
 
   getAllCycles(){
     this.cycleService.findAllCycles().subscribe((res)=>{
       this.cycles = res.data;
+      if ( this.cycles.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
-
 }

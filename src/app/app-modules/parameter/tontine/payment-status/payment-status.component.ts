@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaymentStatus } from 'src/app/core/classes/PaymentStatus';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PaymentStatusService } from 'src/app/core/services/payment-status/payment-status.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class PaymentStatusComponent implements OnInit {
 
+  show: boolean = false;
   paymentStatus: PaymentStatus[] = [];
   openStatusModal: string = "";
   openUpdateStatusModal: string = "";
@@ -21,9 +23,11 @@ export class PaymentStatusComponent implements OnInit {
 
   constructor(private paymentStatusService: PaymentStatusService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllPaymentStaus();
     this.formInit();
   }
@@ -39,7 +43,11 @@ export class PaymentStatusComponent implements OnInit {
   }
   getAllPaymentStaus(){
     this.paymentStatusService.findAllPaymentStatus().subscribe((res)=>{
-      this.paymentStatus = res.data
+      this.paymentStatus = res.data;
+      if ( this.paymentStatus.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

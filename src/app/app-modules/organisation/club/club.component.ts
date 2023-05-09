@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Organism } from 'src/app/core/classes/organism';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./club.component.scss']
 })
 export class ClubComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   ngSelect5 = 0;
   Clubs: string = "Clubs";
@@ -37,11 +39,13 @@ export class ClubComponent implements OnInit {
     private clubService: ClubService,
     private userService: UserService,
     private utilityService: UtilityService,
+    private loaderService: LoaderService,
     private areaService: AreaService) {
       this.club = new Organism();
      }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.getAllClubs();
     this.getAllMembers();
@@ -116,7 +120,11 @@ export class ClubComponent implements OnInit {
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((result)=>{
-      this.clubs = result.data
+      this.clubs = result.data;
+      if ( this.clubs.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

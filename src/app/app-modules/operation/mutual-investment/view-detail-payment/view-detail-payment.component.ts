@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Payment } from 'src/app/core/classes/payment';
 import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { SubscriptionPaymentService } from 'src/app/core/services/mutual-investment/subscription-payment/subscription-payment.service';
 import { SubscriptionService } from 'src/app/core/services/mutual-investment/subscription/subscription.service';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
@@ -18,6 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class ViewDetailPaymentComponent implements OnInit {
 
+  show: boolean = false;
   ngSelectPaymentMethod = 0;
   activeToggle: string = "";
   homeSider: string = "";
@@ -44,9 +46,11 @@ export class ViewDetailPaymentComponent implements OnInit {
     private subscriptionService: SubscriptionService,
     private formBuilder: FormBuilder,
     private location: Location,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
   
     ngOnInit(): void {
+      this.loaderService.showLoader();
       this.getSubscriptionPayment();
       this.getPaymentMethod();
       this.initDates();
@@ -85,11 +89,11 @@ export class ViewDetailPaymentComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.subscriptionService.findPaymentSubscriptionPaymentById(params['id']).subscribe((res)=>{
         this.idSubscription = params['id'];
-        console.log("idSubscription:: ", params['id']);
-        
         this.payments = res.data.payments;
-        console.log("data:: ", res.data.payments);
-        
+        if ( this.payments.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }
@@ -252,6 +256,5 @@ export class ViewDetailPaymentComponent implements OnInit {
       );
     })
   }
-
 
 }

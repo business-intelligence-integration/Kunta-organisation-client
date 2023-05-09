@@ -4,6 +4,7 @@ import { User } from 'src/app/core/classes/user';
 import { TontineService } from 'src/app/core/services/tontine/tontine.service';
 import Swal from 'sweetalert2';
 import {Location} from "@angular/common";
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-view-more-participant',
@@ -12,6 +13,7 @@ import {Location} from "@angular/common";
 })
 export class ViewMoreParticipantComponent implements OnInit {
 
+  show: boolean = false;
   users: User[] = [];
   activeToggle: string = "";
   homeSider: string = "";
@@ -20,9 +22,11 @@ export class ViewMoreParticipantComponent implements OnInit {
 
   constructor( private activatedRoute: ActivatedRoute, 
     private tontineService: TontineService,
+    private loaderService: LoaderService,
     private location: Location) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getTotineUser();
   }
 
@@ -33,6 +37,10 @@ export class ViewMoreParticipantComponent implements OnInit {
       this.tontineService.getTontineUsers(params['id']).subscribe((res)=>{
         this.idParticipant = params['id'];
         this.users = res.data;
+        if ( this.users.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

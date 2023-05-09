@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PieceType } from 'src/app/core/classes/pieceType';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PieceTypeService } from 'src/app/core/services/piece-type/piece-type.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class PieceTypeComponent implements OnInit {
 
+  show: boolean = false;
   openCreateModal: string = "";
   openUpdateModal: string = "";
   createPieceTypeForm!: FormGroup;
@@ -21,9 +23,11 @@ export class PieceTypeComponent implements OnInit {
   isSaving: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private pieceTypeService: PieceTypeService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.getAllPieceType();
   }
@@ -49,6 +53,10 @@ export class PieceTypeComponent implements OnInit {
   getAllPieceType(){
     this.pieceTypeService.findAllPieceTypes().subscribe((res)=>{
       this.pieceTypes = res.data;
+      if ( this.pieceTypes.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
   

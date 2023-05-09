@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserType } from 'src/app/core/classes/userType';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UserTypeService } from 'src/app/core/services/user-type/user-type.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class UserTypeComponent implements OnInit {
 
+  show: boolean = false;
   createTypeForm!: FormGroup
   updateTypeForm!: FormGroup
   openCreateModal: string = "";
@@ -22,9 +24,11 @@ export class UserTypeComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, 
     private userTypeService: UserTypeService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.finAllUsersType();
   }
@@ -39,7 +43,11 @@ export class UserTypeComponent implements OnInit {
 
   finAllUsersType(){
     this.userTypeService.getAllUsersType().subscribe((res)=>{
-      this.types = res.data;      
+      this.types = res.data;
+      if ( this.types.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

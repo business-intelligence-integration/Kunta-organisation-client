@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Civility } from 'src/app/core/classes/civility';
 import { CivilityService } from 'src/app/core/services/civility/civility.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 
 export class CivilityComponent implements OnInit {
+  show: boolean = false;
   openCreateModal: string = "";
   openUpdateModal: string = "";
   civilities: Civility[] = [];
@@ -22,9 +24,11 @@ export class CivilityComponent implements OnInit {
   constructor(
     private civilityService: CivilityService,  
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllCivilities();
     this.formInit();
   }
@@ -52,6 +56,10 @@ export class CivilityComponent implements OnInit {
   getAllCivilities(){
     this.civilityService.findAllCivilities().subscribe((res)=>{
       this.civilities = res.data;
+      if ( this.civilities.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

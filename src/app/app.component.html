@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<router-outlet>
+    <div *ngIf="showLoader$ | async as showLoader">
+        <app-loading *ngIf="showLoader"></app-loading>
+      </div>
+</router-outlet>

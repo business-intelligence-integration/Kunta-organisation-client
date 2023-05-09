@@ -24,6 +24,7 @@ import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { Payment } from 'src/app/core/classes/payment';
 import { DatePipe } from '@angular/common';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -31,6 +32,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./mutual-investment.component.scss']
 })
 export class MutualInvestmentComponent implements OnInit {
+  show: boolean = false;
   ngSelect1 = 0;
   ngSelect2 = 0;
   ngSelect3 = 0;
@@ -94,9 +96,11 @@ export class MutualInvestmentComponent implements OnInit {
     private riskProfileService: RiskProfileService,
     private paymentMethodService: PaymentMethodService,
     private refundTypeService: RefundTypeService,
-    private frequencyService: FrequencyService,) { }
+    private frequencyService: FrequencyService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllMutualInvestments();
     this.getAllMutualists();
     this.getAllCenters();
@@ -156,8 +160,10 @@ export class MutualInvestmentComponent implements OnInit {
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
       this.mutualInvestments = res.data;
-      console.log("mutualInvestments:: ", res.data);
-      
+      if ( this.mutualInvestments.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 
@@ -638,6 +644,4 @@ export class MutualInvestmentComponent implements OnInit {
     this.openViewRefundsModal = "";
   }
 
-  
-  
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { SubscriptionOfferService } from 'src/app/core/services/mutual-investment/subscription-offer/subscription-offer.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class SubscriptionOfferComponent implements OnInit {
 
+  show: boolean = false;
   offer: SubscriptionOffer = new SubscriptionOffer();
   offers: SubscriptionOffer[] = [];
   openUpdateModal: string = "";
@@ -20,9 +22,11 @@ export class SubscriptionOfferComponent implements OnInit {
   
   constructor(private subscriptionOfferService: SubscriptionOfferService,
     private formBuilder: FormBuilder,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllSubscriptionOffers();
     this.formInit();
   }
@@ -36,7 +40,10 @@ export class SubscriptionOfferComponent implements OnInit {
   getAllSubscriptionOffers() {
     this.subscriptionOfferService.findAll().subscribe((res)=>{
       this.offers = res.data;
-      console.log("res..", res.data);
+      if ( this.offers.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 
@@ -44,7 +51,6 @@ export class SubscriptionOfferComponent implements OnInit {
   ///////////////// Update Offer
   onOpenUpdateModal(id: number){
     this.subscriptionOfferService.findSubscriptionOfferById(id).subscribe((res)=>{
-      console.log("offer:..", res.data);
       this.offer = res.data;
       this.openUpdateModal = "is-active";
     })

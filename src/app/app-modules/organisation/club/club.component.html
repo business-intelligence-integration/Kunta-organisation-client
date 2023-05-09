@@ -21,7 +21,7 @@
 
 <div class="page-content-inner">
     <div class="flex-list-wrapper flex-list-v1">
-        <div *ngIf="clubs.length == 0" class="page-placeholder custom-text-filter-placeholder">
+        <div *ngIf="clubs.length == 0 && show" class="page-placeholder custom-text-filter-placeholder">
             <div class="placeholder-content">
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
@@ -241,6 +241,7 @@
         </div>
     </div>
 </div>
+
 <!-- Ajouter un membre dans un club -->
 <div id="addMemeber" class="modal h-modal" [ngClass]="openMemberModal">
     <div class="modal-background h-modal-close"></div>

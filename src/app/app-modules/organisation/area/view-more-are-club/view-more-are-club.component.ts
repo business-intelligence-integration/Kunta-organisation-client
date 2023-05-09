@@ -10,6 +10,7 @@ import {Location} from "@angular/common";
 import Swal from 'sweetalert2';
 import { Post } from 'src/app/core/classes/post';
 import { PostService } from 'src/app/core/services/post/post.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-view-more-are-club',
@@ -17,6 +18,7 @@ import { PostService } from 'src/app/core/services/post/post.service';
   styleUrls: ['./view-more-are-club.component.scss']
 })
 export class ViewMoreAreClubComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   selectMenuForm!: FormGroup;
   ngSelectMenu = 0;
@@ -53,13 +55,14 @@ export class ViewMoreAreClubComponent implements OnInit {
     private formBuilder: FormBuilder,
     private clubService: ClubService,
     private location: Location,
-    private postService: PostService,
+    private loaderService: LoaderService,
     private utilityService: UtilityService) {
       this.communicationAgent = new User();
       this.dataEntryAgent = new User();
      }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getArea();
     this.getAllClubs();
     this.getAllAreas();
@@ -110,6 +113,10 @@ export class ViewMoreAreClubComponent implements OnInit {
         this.clubsOfArea = res.data.clubs;
         this.communicationAgent = res.data.communicationAgent;
         this.dataEntryAgent = res.data.dataEntryAgent;
+        if ( this.clubsOfArea.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

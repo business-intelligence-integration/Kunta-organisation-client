@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FamilySituation } from 'src/app/core/classes/familySituation';
 import { FamilySituationService } from 'src/app/core/services/family-situation/family-situation.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class FamilySituationComponent implements OnInit {
 
+  show: boolean = false;
   openCreateModal: string = "";
   openUpdateModal: string = "";
   familySituation: FamilySituation = new FamilySituation();
@@ -23,9 +25,11 @@ export class FamilySituationComponent implements OnInit {
 
   constructor(private familySituationService: FamilySituationService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllSituationFamily();
     this.formInit();
   }
@@ -55,6 +59,10 @@ export class FamilySituationComponent implements OnInit {
   getAllSituationFamily(){
     this.familySituationService.findAllFamilySituations().subscribe((res)=> {
       this.familySituations = res.data;
+      if ( this.familySituations.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     }) 
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DroweeForm } from 'src/app/core/classes/droweeForm';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { DraweeFormService } from 'src/app/core/services/mutual-investment/drawee-form/drawee-form.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class DraweeFormComponent implements OnInit {
 
+  show: boolean = false;
   draweeForm: DroweeForm = new DroweeForm();
   draweeForms: DroweeForm[] = [];
   openCreateModal: string = "";
@@ -21,9 +23,11 @@ export class DraweeFormComponent implements OnInit {
   isSaving: boolean = false;
   constructor(private draweeFormService: DraweeFormService,
     private formBuilder: FormBuilder,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllDroweeForm();
     this.formInit();  
   }
@@ -41,6 +45,10 @@ export class DraweeFormComponent implements OnInit {
   getAllDroweeForm(){
     this.draweeFormService.findAllDraweeForm().subscribe((res)=>{
       this.draweeForms = res.data;
+      if ( this.draweeForms.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

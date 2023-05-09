@@ -3,6 +3,7 @@ import { User } from 'src/app/core/classes/user';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-mutulist',
@@ -10,12 +11,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./mutulist.component.scss']
 })
 export class MutulistComponent implements OnInit {
+  show: boolean = false;
   Mutulistes: string = "Mutulistes";
   disabledUserAction: string="disabled";
   users: User[] = [];
-  constructor(private userService:UserService, private utilityService: UtilityService) { }
+  constructor(private userService:UserService, 
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllMembers();
     this.getConnectedUser();
   }
@@ -23,6 +28,10 @@ export class MutulistComponent implements OnInit {
   getAllMembers(){
     this.userService.getAllMutualists().subscribe((res)=>{
       this.users = res.data;  
+      if (this.users.length <= 0) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 
