@@ -36,10 +36,10 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span>Nom</span>
                 <span>Montant minimal</span>
-                <span>Taux rentabilité</span>
+                <span>Taux rentabilité (%)</span>
                 <span>Offres</span>
                 <span>Caution</span>
-                <span>Debloquer</span>
+                <span>Débloquer</span>
                 <span>Rembourser</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -54,7 +54,7 @@
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Taux rentabilité">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }}</span>
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }} %</span>
                     </div>
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
