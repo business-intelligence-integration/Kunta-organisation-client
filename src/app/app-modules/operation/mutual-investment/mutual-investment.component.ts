@@ -25,6 +25,7 @@ import { PaymentMethodService } from 'src/app/core/services/payment-method/payme
 import { Payment } from 'src/app/core/classes/payment';
 import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { Organism } from 'src/app/core/classes/organism';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -86,6 +87,8 @@ export class MutualInvestmentComponent implements OnInit {
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
+  organism: Organism = new Organism();
+  physicalPerson: User = new User();
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -279,20 +282,22 @@ export class MutualInvestmentComponent implements OnInit {
     }if(formValue.idMutualist != null){
       idMutualist = formValue.idMutualist
     }if(this.isOthers == true){
-      this.mutualInvestment.organism.email = formValue.email;
-      this.mutualInvestment.organism.city = formValue.city;
-      this.mutualInvestment.organism.name = formValue.name2;
-      this.mutualInvestment.organism.firstName = formValue.firstName;
-      this.mutualInvestment.organism.lastName = formValue.lastName;
-      this.mutualInvestment.organism.userName = formValue.userName;
-      this.mutualInvestment.organism.phoneNumber = formValue.phoneNumber;
+      this.organism.email = formValue.email;
+      this.organism.city = formValue.city;
+      this.organism.name = formValue.name2;
+      this.organism.firstName = formValue.firstName;
+      this.organism.lastName = formValue.lastName;
+      this.organism.userName = formValue.userName;
+      this.organism.phoneNumber = formValue.phoneNumber;
+      this.mutualInvestment.organism = this.organism;
     }if(this.isPhysical == true){
-      this.mutualInvestment.physicalPerson.email = formValue.email;
-      this.mutualInvestment.physicalPerson.city = formValue.city;
-      this.mutualInvestment.physicalPerson.firstName = formValue.firstName;
-      this.mutualInvestment.physicalPerson.lastName = formValue.lastName;
-      this.mutualInvestment.physicalPerson.userName = formValue.userName;
-      this.mutualInvestment.physicalPerson.phoneNumber = formValue.phoneNumber;
+      this.physicalPerson.email = formValue.email;
+      this.physicalPerson.city = formValue.city;
+      this.physicalPerson.firstName = formValue.firstName;
+      this.physicalPerson.lastName = formValue.lastName;
+      this.physicalPerson.userName = formValue.userName;
+      this.physicalPerson.phoneNumber = formValue.phoneNumber;
+      this.mutualInvestment.physicalPerson = this.physicalPerson;
     }
 
     this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, formValue.idCenter, idFrequency, idMutualist);
