@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class RiskProfileComponent implements OnInit {
 
+  show: boolean = false;
   riskProfile: RiskProfile = new RiskProfile();
   riskProfiles: RiskProfile[] = [];
   openCreateModal: string = "";
@@ -22,9 +24,11 @@ export class RiskProfileComponent implements OnInit {
 
   constructor(private riskProfileService: RiskProfileService,
     private formBuilder: FormBuilder,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllRiskProfiles();
     this.formInit();
   }
@@ -41,6 +45,10 @@ export class RiskProfileComponent implements OnInit {
   getAllRiskProfiles(){
     this.riskProfileService.findAllRiskProfiles().subscribe((res)=>{
       this.riskProfiles = res.data;
+      if ( this.riskProfiles.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

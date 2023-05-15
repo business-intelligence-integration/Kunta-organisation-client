@@ -7,6 +7,7 @@ import { CenterService } from 'src/app/core/services/centers/center.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import {Location} from "@angular/common";
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-view-more-area',
@@ -14,6 +15,7 @@ import {Location} from "@angular/common";
   styleUrls: ['./view-more-area.component.scss']
 })
 export class ViewMoreAreaComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   activeRightMenu: string = "";
   activeToggle: string = "";
@@ -49,9 +51,11 @@ export class ViewMoreAreaComponent implements OnInit {
     private centerService: CenterService,
     private activatedRoute: ActivatedRoute,
     private utilityService: UtilityService,
+    private loaderService: LoaderService,
     private location: Location) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllArea();
     this.formInit();
     this.getCenter();
@@ -73,8 +77,12 @@ export class ViewMoreAreaComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
         this.areasOfCenter = res.data.areas;
-        this.centerName = res.data.name
-        this.idCenter = res.data.id
+        this.centerName = res.data.name;
+        this.idCenter = res.data.id;
+        if ( this.areasOfCenter.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

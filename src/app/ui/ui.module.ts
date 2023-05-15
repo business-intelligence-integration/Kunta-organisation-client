@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { NavbarMobileComponent } from './navbar-mobile/navbar-mobile.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NavbarMobileComponent } from './navbar-mobile/navbar-mobile.component';
     FooterComponent,
     HeaderComponent,
     MenuComponent,
-    NavbarMobileComponent
+    NavbarMobileComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { NavbarMobileComponent } from './navbar-mobile/navbar-mobile.component';
     MenuComponent,
     HeaderComponent,
     FooterComponent,
-    NavbarMobileComponent
+    NavbarMobileComponent,
+    LoadingComponent
   ]
 })
 export class UiModule { }

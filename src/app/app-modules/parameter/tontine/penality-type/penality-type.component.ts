@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PenalityType } from 'src/app/core/classes/penalityType';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
@@ -11,6 +12,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 })
 export class PenalityTypeComponent implements OnInit {
 
+  show: boolean = false;
   penaltyTypes: PenalityType[] = [];
   penaltyType: PenalityType = new PenalityType();
   openPenaltyTypeModal: string = "";
@@ -18,9 +20,11 @@ export class PenalityTypeComponent implements OnInit {
 
   constructor(private penaltyTypeService: PenaltyTypeService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllPenalType();
     this.formInit();
   }
@@ -35,6 +39,10 @@ export class PenalityTypeComponent implements OnInit {
   getAllPenalType(){
     this.penaltyTypeService.findAllPenaltyTypes().subscribe((res)=>{
       this.penaltyTypes = res.data;
+      if ( this.penaltyTypes.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

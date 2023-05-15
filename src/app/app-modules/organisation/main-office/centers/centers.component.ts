@@ -7,6 +7,7 @@ import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -16,6 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./centers.component.scss']
 })
 export class CentersComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   ngSelectArea = 0;
   openUpdateCenter: string = "";
@@ -40,12 +42,14 @@ export class CentersComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private centerService: CenterService,
     private areaService: AreaService,
+    private loaderService: LoaderService,
     private utilityService: UtilityService) { 
       this.center = new Organism();
       this.area = new Organism();
     }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllCenters();
     this.formInit();
     this.getAllArea();
@@ -109,6 +113,10 @@ export class CentersComponent implements OnInit {
       }),
     });
     this.newListcenters = tabCenter;
+    if ( this.newListcenters.length <= 0 ) {
+      this.show = true;
+    }
+    this.loaderService.hideLoader();
   }
 
   getAllArea(){

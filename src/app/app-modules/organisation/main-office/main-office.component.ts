@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./main-office.component.scss']
 })
 export class MainOfficeComponent implements OnInit {
+  show: boolean = false;
   bureau = "Bureau principale";
   openAddMainOffice: string = "";
   addMainOfficeForm!: FormGroup;
@@ -20,11 +22,13 @@ export class MainOfficeComponent implements OnInit {
   openUpdateMainOffice: string =""
   constructor(private formBuilder: FormBuilder,  
     private mainofficeService: MainOfficeService,
+    private loaderService: LoaderService,
     private utilityService: UtilityService) {
       this.mainOffice = new Organism();
     }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.getAllMainOffice();
   }
@@ -67,6 +71,10 @@ export class MainOfficeComponent implements OnInit {
  getAllMainOffice(){
     this.mainofficeService.findAllOffices().subscribe((res)=>{
       this.mainOffices = res.data;
+      if (this.mainOffices.length <= 0) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

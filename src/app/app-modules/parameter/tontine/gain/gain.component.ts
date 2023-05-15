@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Gain } from 'src/app/core/classes/gain';
 import { GainService } from 'src/app/core/services/gains/gain.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class GainComponent implements OnInit {
 
+  show: boolean = false;
   openCreateModal: string = "";
   openUpdateModal: string = "";
   createGainForm!: FormGroup;
@@ -20,9 +22,11 @@ export class GainComponent implements OnInit {
   gain: Gain = new Gain();
   constructor(private gainService: GainService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllGains();
     this.formInit();
   }
@@ -62,6 +66,10 @@ export class GainComponent implements OnInit {
   getAllGains(){
     this.gainService.findAllGainModes().subscribe((res)=>{
       this.gains = res.data;
+      if ( this.gains.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

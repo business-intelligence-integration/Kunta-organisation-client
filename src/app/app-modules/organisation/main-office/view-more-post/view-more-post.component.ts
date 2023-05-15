@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Organism } from 'src/app/core/classes/organism';
 import { Post } from 'src/app/core/classes/post';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-more-post.component.scss']
 })
 export class ViewMorePostComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   mainOffice: Organism
   activeRightMenu: string = "";
@@ -37,12 +39,14 @@ export class ViewMorePostComponent implements OnInit {
     private formBuilder: FormBuilder,
     private centerService: CenterService,
     private utilityService: UtilityService,
+    private loaderService: LoaderService,
     private postService: PostService) {
     this.mainOffice = new Organism();
     this.center = new Organism();
    }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getMainOffice();
     this.getAllCenters();
     this.formInit();
@@ -64,6 +68,10 @@ export class ViewMorePostComponent implements OnInit {
         this.mainOffice = res;
         this.centersOfMainOffice = res.data.centers;
         this.idMainOffice = res.data.id;
+        if ( this.centersOfMainOffice.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

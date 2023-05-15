@@ -8,6 +8,7 @@ import { RiskProfile } from 'src/app/core/classes/riskProfile';
 import { Subscription } from 'src/app/core/classes/subscription';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
 import { SubscriptionOfferService } from 'src/app/core/services/mutual-investment/subscription-offer/subscription-offer.service';
@@ -23,6 +24,7 @@ import Swal from 'sweetalert2';
 })
 export class ViewDetailSubscriptionComponent implements OnInit {
 
+  show: boolean = false;
   ngSelect1 = 0;
   ngSelect2 = 0;
   ngSelect3 = 0;
@@ -62,9 +64,11 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     private paymentMethodService: PaymentMethodService,
     private formBuilder: FormBuilder,
     private location: Location,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getOfferSubscription();
     this.getAllRiskProfiles();
     this.getMutualInvestment();
@@ -100,18 +104,16 @@ export class ViewDetailSubscriptionComponent implements OnInit {
       this.subscriptionOfferService.findSubscriptionOfferById(params['id']).subscribe((res)=>{
         this.idSubscriptionOffer = params['id'];
         this.subscriptions = res.data.subscriptions;
-        console.log("Subsciptions:: ", res.data.subscriptions);
-
         this.subscriptions.forEach((element)=>{
-          console.log("element: ", element.payments);
           element.payments.forEach((el)=>{
-            console.log("paid:: ", el.paid);
             totalPaid = totalPaid + el.paid;
           })
-          
         })
-
         this.totalPaid = totalPaid;
+        if ( this.subscriptions.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

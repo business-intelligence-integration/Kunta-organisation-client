@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { SecurityDepositService } from 'src/app/core/services/security-deposit/security-deposit.service';
-import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-security-deposit',
@@ -10,19 +10,24 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 })
 export class SecurityDepositComponent implements OnInit {
 
+  show: boolean = false;
   securityDeposits: SecurityDeposit[] = [];
 
   constructor(private securityDepositService: SecurityDepositService,
-    private utilityService: UtilityService) { }
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllSecurityDeposits();
   }
 
   getAllSecurityDeposits() {
     this.securityDepositService.findAll().subscribe((res) => {
-      console.log("res.. ", res);
       this.securityDeposits = res.data;
+      if ( this.securityDeposits.length <= 0) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/core/classes/post';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./poste.component.scss']
 })
 export class PosteComponent implements OnInit {
+  show: boolean = false;
   ngSelect1 = 0;
   ngSelect2 = 0;
   createPosteForm!: FormGroup
@@ -23,9 +25,11 @@ export class PosteComponent implements OnInit {
   post: Post = new Post();
   constructor(private formBuilder: FormBuilder, 
     private postService: PostService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.finAllPosts();
   }
@@ -67,7 +71,10 @@ export class PosteComponent implements OnInit {
   finAllPosts(){
     this.postService.findAllPosts().subscribe((res)=>{
       this.posts = res.data;
-      
+      if ( this.posts.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

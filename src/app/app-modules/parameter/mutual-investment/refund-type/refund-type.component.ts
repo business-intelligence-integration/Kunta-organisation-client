@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RefundType } from 'src/app/core/classes/refundType';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { RefundTypeService } from 'src/app/core/services/mutual-investment/refund-type/refund-type.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class RefundTypeComponent implements OnInit {
 
+  show: boolean = false;
   refundType: RefundType = new RefundType();
   refundTypes: RefundType[] = [];
   openCreateModal: string = "";
@@ -21,9 +23,11 @@ export class RefundTypeComponent implements OnInit {
   isSaving: boolean = false;
   constructor(private refundTypeService: RefundTypeService,
     private formBuilder: FormBuilder,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllRefundTypes();
     this.formInit();
   }
@@ -40,6 +44,10 @@ export class RefundTypeComponent implements OnInit {
   getAllRefundTypes(){
     this.refundTypeService.findAllRefundTypes().subscribe((res)=>{
       this.refundTypes = res.data;
+      if ( this.refundTypes.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

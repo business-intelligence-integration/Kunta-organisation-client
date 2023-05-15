@@ -5,6 +5,7 @@ import { Function } from 'src/app/core/classes/function';
 import { Post } from 'src/app/core/classes/post';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -16,6 +17,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 })
 export class PostsOfAreaComponent implements OnInit {
 
+  show: boolean = false;
   ngSelectFunction = 0;
   posts: Post[] = [];
   addOperatorForm!: FormGroup;
@@ -26,14 +28,17 @@ export class PostsOfAreaComponent implements OnInit {
   functions: Function [] = [];
 
   constructor( private activatedRoute: ActivatedRoute,
-    private areaService: AreaService, private postService: PostService,
+    private areaService: AreaService, 
+    private postService: PostService,
     private userService: UserService,
     private utilityService: UtilityService,
     private fonctionService: FonctionService,
+    private loaderService: LoaderService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     // this.getArea();
+    this.loaderService.showLoader();
     this.finAllPostByIdArea();
     this.formInit();
     this.getAllOperators();
@@ -61,8 +66,11 @@ export class PostsOfAreaComponent implements OnInit {
   finAllPostByIdArea(){
     this.activatedRoute.queryParams.subscribe((params) => {
         this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
-          this.posts = res.data
-          console.log("posts::", this.posts);
+          this.posts = res.data;
+          if ( this.posts.length <= 0 ) {
+            this.show = true;
+          }
+          this.loaderService.hideLoader();
         })
       });
    

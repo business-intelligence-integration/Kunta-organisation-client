@@ -23,6 +23,7 @@ import { CycleService } from 'src/app/core/services/cycle/cycle.service';
 import { CycleDto } from 'src/app/core/classes/cycleDto';
 import { TontineMembers } from 'src/app/core/classes/tontineMembers';
 import { PostService } from 'src/app/core/services/post/post.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-tontine',
@@ -30,6 +31,7 @@ import { PostService } from 'src/app/core/services/post/post.service';
   styleUrls: ['./tontine.component.scss']
 })
 export class TontineComponent implements OnInit {
+  show: boolean = false;
   ngSelect2 = 0; 
   ngSelect3 = 0;
   ngSelect4 = 0;
@@ -84,9 +86,11 @@ export class TontineComponent implements OnInit {
     private centerSeervice: CenterService,
     private postService: PostService,
     private gainService: GainService,
+    private loaderService: LoaderService,
     private cycleService: CycleService,) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllTontine();
     this.formInit();
     this.getAllClubs();
@@ -145,12 +149,15 @@ export class TontineComponent implements OnInit {
     this.tontineService.findAllTontines().subscribe((res)=>{
       if(res.data != null){
         this.tontines = res.data;
+        if ( this.tontines.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       }
     })
   }
 
   getMaxDateOfTontineList(){
-    
     
   }
 

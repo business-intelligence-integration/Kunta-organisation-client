@@ -171,7 +171,7 @@
                 <div class="flex-list-wrapper flex-list-v1">
 
                     <!--List Empty Search Placeholder -->
-                    <div *ngIf="clubMembers.length == 0" class="page-placeholder custom-text-filter-placeholder is-hidden">
+                    <div *ngIf="clubMembers.length == 0 && show" class="page-placeholder custom-text-filter-placeholder is-hidden">
                         <div class="placeholder-content">
                             <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                             <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
@@ -223,7 +223,7 @@
                                 </div>
                                 
                                 <div  class="flex-table-cell cell-end" data-th="Action">
-                                    <a *ngIf="adminIsConnected" (click)="onChangeClub(member.id)" tooltip=" Changer le club du membre " theme='light' class="pagination-previous has-chevron"><i class="fas fa-arrow-right"></i></a>
+                                    <a *ngIf="adminIsConnected" (click)="onChangeClub(member.id)" tooltip=" Transferer le membre " theme='light' class="pagination-previous has-chevron"><i class="fas fa-arrow-right"></i></a>
                                 </div>
                                 <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

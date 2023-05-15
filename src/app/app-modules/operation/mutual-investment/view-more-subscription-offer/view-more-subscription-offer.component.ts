@@ -8,6 +8,7 @@ import { Subscription } from 'src/app/core/classes/subscription';
 import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { ProfitabilityTypeService } from 'src/app/core/services/mutual-investment/profitability-type/profitability-type.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
@@ -23,6 +24,7 @@ import Swal from 'sweetalert2';
 })
 export class ViewMoreSubscriptionOfferComponent implements OnInit {
 
+  show: boolean = false;
   ngSelect1 = 0;
   ngSelect2 = 0;
   ngSelect3 = 0;
@@ -56,9 +58,11 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private subscriptionService: SubscriptionService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getMutualSubscriptionOffer();
     this.getAllRiskProfiles();
     this.getAllProfitabilityTypes();
@@ -91,6 +95,10 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
         this.idInvestment = params['id'];
         this.offers = res.data.offers;
+        if ( this.offers.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

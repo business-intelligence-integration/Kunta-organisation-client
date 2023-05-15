@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Location} from "@angular/common";
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { MutualInvestment } from 'src/app/core/classes/mutualInvestment';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-view-detail-mutual-investment',
@@ -15,9 +16,11 @@ export class ViewDetailMutualInvestmentComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
-    private location: Location) { }
+    private location: Location,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getMutualInvestment();
   }
 
@@ -28,6 +31,7 @@ export class ViewDetailMutualInvestmentComponent implements OnInit {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res) => {
         this.mutualInvestment = res.data;
       })
+      this.loaderService.hideLoader();
     })
   }
 

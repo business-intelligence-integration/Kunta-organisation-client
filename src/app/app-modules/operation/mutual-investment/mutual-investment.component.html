@@ -21,7 +21,7 @@
     <div class="flex-list-wrapper flex-list-v1">
 
         <!--List Empty Search Placeholder -->
-        <div *ngIf="mutualInvestments.length == 0" class="page-placeholder custom-text-filter-placeholder">
+        <div *ngIf="mutualInvestments.length == 0 && show" class="page-placeholder custom-text-filter-placeholder">
             <div class="placeholder-content">
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
@@ -36,10 +36,10 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span>Nom</span>
                 <span>Montant minimal</span>
-                <span>Taux rentabilité</span>
+                <span>Taux rentabilité (%)</span>
                 <span>Offres</span>
                 <span>Caution</span>
-                <span>Debloquer</span>
+                <span>Débloquer</span>
                 <span>Rembourser</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -54,7 +54,7 @@
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Taux rentabilité">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }}</span>
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }} %</span>
                     </div>
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
@@ -75,8 +75,8 @@
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
-                        <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-payé </span>
-                        <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Payé </span>
+                        <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-remboursé </span>
+                        <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Remboursé </span>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' }" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
                         <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'PAID'"  tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron disabled">$</a> -->
                         <a _ngcontent-nct-c62="" (click)="onViewRefunds(mutualInvestment.id)" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -136,7 +136,7 @@
                         </div>
                         <form class="modal-form" [formGroup]="createMutualInvestmentForm" (ngSubmit)="onSubmitMutualInvestment()">
                             <div class="field">
-                                <label>Nom *</label><br>
+                                <label>Nom du placement *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="nom du placement mutualisé" formControlName="name">
                                 </div>
@@ -157,16 +157,76 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isOthers">
-                                <label>Organisme</label><br>
+                                <label>Appelation de l'organisme</label><br>
                                 <div class="control">
-                                    <input type="text" class="input" placeholder="organisme" formControlName="organism">
+                                    <input type="text" class="input" placeholder="organisme" formControlName="name2">
                                 </div>
                                 <div class="text-danger"
-                                    *ngIf="createMutualInvestmentForm.get('organism')?.errors?.['required'] && createMutualInvestmentForm.get('organism')?.touched">
-                                    <small class="text-police">veuillez entrer l'organisme</small>
+                                    *ngIf="createMutualInvestmentForm.get('name2')?.errors?.['required'] && createMutualInvestmentForm.get('name2')?.touched">
+                                    <small class="text-police">veuillez entrer le nom</small>
                                  </div>
                             </div>
-                            <div class="field" *ngIf="isPhysical">
+                            <div class="field" *ngIf="isOthers || isPhysical">
+                                <label>Nom <span *ngIf="isOthers">du représentant</span> </label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="nom" formControlName="firstName">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('firstName')?.errors?.['required'] && createMutualInvestmentForm.get('firstName')?.touched">
+                                    <small class="text-police">veuillez entrer le nom</small>
+                                 </div>
+                            </div>
+                            <div class="field" *ngIf="isOthers || isPhysical">
+                                <label>Prenom <span *ngIf="isOthers">du représentant</span> </label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="prenom" formControlName="lastName">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('lastName')?.errors?.['required'] && createMutualInvestmentForm.get('lastName')?.touched">
+                                    <small class="text-police">veuillez entrer le prenom</small>
+                                 </div>
+                            </div>
+                            <div class="field" *ngIf="isOthers || isPhysical">
+                                <label>Username</label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="username" formControlName="userName">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('userName')?.errors?.['required'] && createMutualInvestmentForm.get('userName')?.touched">
+                                    <small class="text-police">veuillez entrer l'username</small>
+                                 </div>
+                            </div>
+                            <div class="field" *ngIf="isOthers || isPhysical">
+                                <label>Email</label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="email" formControlName="email">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('email')?.errors?.['required'] && createMutualInvestmentForm.get('email')?.touched">
+                                    <small class="text-police">veuillez entrer l'email</small>
+                                 </div>
+                            </div>
+                            <div class="field" *ngIf="isOthers || isPhysical">
+                                <label>Numéro de téléphone </label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="numéro de téléphone" formControlName="phoneNumber">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('phoneNumber')?.errors?.['required'] && createMutualInvestmentForm.get('phoneNumber')?.touched">
+                                    <small class="text-police">veuillez entrer le numéro</small>
+                                 </div>
+                            </div>
+                            <div class="field" *ngIf="isOthers || isPhysical">
+                                <label>Ville</label><br>
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="ville" formControlName="city">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('city')?.errors?.['required'] && createMutualInvestmentForm.get('city')?.touched">
+                                    <small class="text-police">veuillez entrer la ville</small>
+                                 </div>
+                            </div>
+                            <div class="field" *ngIf="isMutualist">
                                 <label>Liste des mutualistes</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
                                     <option value="0" disabled>--Selectionnez un mutualiste--</option>

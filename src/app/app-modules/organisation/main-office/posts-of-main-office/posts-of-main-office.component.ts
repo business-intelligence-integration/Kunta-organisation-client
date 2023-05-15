@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Function } from 'src/app/core/classes/function';
 import { Post } from 'src/app/core/classes/post';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
@@ -16,6 +17,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 })
 export class PostsOfMainOfficeComponent implements OnInit {
 
+  show: boolean = false;
   posts: Post[] = []
   operators: any;
   openOperatorModal: string = "";
@@ -31,10 +33,12 @@ export class PostsOfMainOfficeComponent implements OnInit {
     private userService: UserService,
     private formBuilder: FormBuilder,
     private fonctionService: FonctionService,
+    private loaderService: LoaderService,
     private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     // this.getAllPostsOfMainOffice();
+    this.loaderService.showLoader();
     this.getAllMainOffices();
     this.getAllOperators(); 
     this.formInit();
@@ -58,6 +62,10 @@ export class PostsOfMainOfficeComponent implements OnInit {
   getAllPostByIdMainOffice(id: number){
     this.postService.finAllPostByIdMainOffice(id).subscribe((res)=>{
       this.posts = res.data;
+      if ( this.posts.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     });
   }
 

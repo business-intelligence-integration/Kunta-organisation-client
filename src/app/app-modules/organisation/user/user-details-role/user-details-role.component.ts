@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { User } from 'src/app/core/classes/user';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-user-details-role',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./user-details-role.component.scss']
 })
 export class UserDetailsRoleComponent implements OnInit {
-
+  show: boolean = false;
   activeRightMenu: string = "";
   activeToggle: string = "";
   homeSider: string = "";
@@ -22,9 +23,11 @@ export class UserDetailsRoleComponent implements OnInit {
   idUser: number = 0;
   constructor(private location: Location,
     private activatedRoute: ActivatedRoute,
+    private loaderService: LoaderService,
     private userService: UserService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getUser();
   }
 
@@ -52,6 +55,10 @@ export class UserDetailsRoleComponent implements OnInit {
         this.idUser = params['id']
         this.user = res.data;
         this.roles = res.data.roles;
+        if (this.roles.length <= 0) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       });
     })
   }

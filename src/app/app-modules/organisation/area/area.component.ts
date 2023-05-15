@@ -8,6 +8,7 @@ import { CenterService } from 'src/app/core/services/centers/center.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-area',
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./area.component.scss']
 })
 export class AreaComponent implements OnInit {
+  show: boolean = false;
   ngSelect = 0;
   ngSelectCenter = 0;
   ngSelectClub = 0;
@@ -39,12 +41,14 @@ export class AreaComponent implements OnInit {
     private areaService: AreaService,
     private utilityService: UtilityService,
     private clubService: ClubService,
-    private centerService: CenterService) { 
+    private loaderService: LoaderService,
+    private centerService: CenterService,) { 
       this.area = new Organism();
       this.club = new Organism();
     }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.getAllAreas();
     this.getAllClubs();
@@ -127,12 +131,16 @@ getAllCenters(){
               }) 
             }
             clubs.push(club)
-        })}  
+        })} else {
+          this.show = true;
+        }
         uniqArea = { ...area, clubs, members}
         tabArea.push(uniqArea);
       })
     })
     this.areas = tabArea;
+    this.loaderService.hideLoader();
+
   }
 
   onUpdateArea(id: number){

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/core/classes/user';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -10,19 +11,27 @@ import Swal from 'sweetalert2';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  show: boolean = false;
   Admins: string = "Admins";
   disabledUserAction: string="disabled";
   users: User[] = [];
-  constructor(private userService:UserService, private utilityService: UtilityService) { }
+  constructor(private userService:UserService, 
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllAmins();
     this.getConnectedUser();
   }
 
   getAllAmins(){
     this.userService.getAllAdmins().subscribe((res)=>{
-      this.users = res.data  
+      this.users = res.data  ;
+      if ( this.users.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

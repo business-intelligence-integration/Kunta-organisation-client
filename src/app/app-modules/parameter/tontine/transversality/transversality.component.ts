@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Level } from 'src/app/core/classes/level';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { TransversalityLevelService } from 'src/app/core/services/transversality-level/transversality-level.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class TransversalityComponent implements OnInit {
 
+  show: boolean = false;
   levels: Level[] = [];
   level: Level = new Level();
   openUpdateModal: string = "";
@@ -20,9 +22,11 @@ export class TransversalityComponent implements OnInit {
   createLevelForm!: FormGroup;
   constructor(private transversalityService: TransversalityLevelService,
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllLevel();
     this.formInit();
   }
@@ -44,6 +48,10 @@ export class TransversalityComponent implements OnInit {
   getAllLevel(){
     this.transversalityService.findAllLevels().subscribe((res)=>{
       this.levels = res.data;
+      if ( this.levels.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

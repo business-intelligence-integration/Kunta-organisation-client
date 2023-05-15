@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Frequency } from 'src/app/core/classes/frequency';
 import { FrequencyService } from 'src/app/core/services/frequencies/frequency.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class FrequencyComponent implements OnInit {
 
- 
+  show: boolean = false;
   frequencies: Frequency[] = [];
   frequency: Frequency = new Frequency();
   openUpdateModal: string = "";
@@ -21,9 +22,11 @@ export class FrequencyComponent implements OnInit {
   createFrequenceForm!: FormGroup;
   constructor(private frequencyService: FrequencyService, 
     private formBuilder: FormBuilder, 
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllFrequency();
     this.formInit();
   }
@@ -44,6 +47,10 @@ export class FrequencyComponent implements OnInit {
   getAllFrequency(){
     this.frequencyService.findAllFrequencies().subscribe((res)=>{
       this.frequencies = res.data;
+      if ( this.frequencies.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

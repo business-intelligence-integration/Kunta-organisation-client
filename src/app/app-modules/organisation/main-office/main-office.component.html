@@ -16,7 +16,7 @@
             <div class="card-grid card-grid-v1">
 
                 <!--List Empty Search Placeholder -->
-                <div *ngIf="mainOffices.length == 0" class="page-placeholder custom-text-filter-placeholder is-hidden">
+                <div *ngIf="mainOffices.length == 0 && show" class="page-placeholder custom-text-filter-placeholder is-hidden">
                     <div class="placeholder-content">
                         <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                         <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
@@ -70,7 +70,7 @@
 </div>
 
 
-<!-- add new club -->
+<!-- Add Main Office -->
 <div class="modal h-modal" [ngClass]="openAddMainOffice">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
@@ -113,7 +113,7 @@
     </div>
 </div>
 
-<!-- add new club -->
+<!-- Update Main Office -->
 <div class="modal h-modal" [ngClass]="openUpdateMainOffice">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">

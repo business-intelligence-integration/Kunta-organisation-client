@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserCategory } from 'src/app/core/classes/userCategory';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { UserCategoryService } from 'src/app/core/services/user-category/user-category.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class UserCategoryComponent implements OnInit {
 
+  show: boolean = false;
   createCategoryForm!: FormGroup
   updateCategoryForm!: FormGroup
   openCreateModal: string = "";
@@ -22,9 +24,11 @@ export class UserCategoryComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, 
     private userCategoryService: UserCategoryService,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.formInit();
     this.finAllUsersCategory();
   }
@@ -40,6 +44,10 @@ export class UserCategoryComponent implements OnInit {
   finAllUsersCategory(){
     this.userCategoryService.getAllUsersCategory().subscribe((res)=>{
       this.categories = res.data;
+      if ( this.categories.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

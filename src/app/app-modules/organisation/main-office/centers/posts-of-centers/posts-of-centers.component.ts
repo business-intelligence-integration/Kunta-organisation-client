@@ -6,6 +6,7 @@ import { Post } from 'src/app/core/classes/post';
 import { User } from 'src/app/core/classes/user';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -17,6 +18,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 })
 export class PostsOfCentersComponent implements OnInit {
 
+  show: boolean = false;
   posts: Post[] = [];
   ngSelectFunction = 0;
   operators: any;
@@ -32,10 +34,12 @@ export class PostsOfCentersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private fonctionService: FonctionService,
     private utilityService: UtilityService,
+    private loaderService: LoaderService,
     private userService: UserService) { }
 
   ngOnInit(): void {
    // this.getCenter()
+   this.loaderService.showLoader();
     this.getAllPostByIdCenter();
     this.formInit();
     this.getAllFunctions();
@@ -60,12 +64,14 @@ export class PostsOfCentersComponent implements OnInit {
 
   getAllPostByIdCenter(){
     this.activatedRoute.queryParams.subscribe((params) => {
-        this.postService.finAllPostByIdCenter(params['id']).subscribe((res)=>{
-          this.posts = res.data;
-          
-        })
-      });
-   
+      this.postService.finAllPostByIdCenter(params['id']).subscribe((res)=>{
+        this.posts = res.data;
+        if ( this.posts.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
+      })
+    });
   }
 
   onOpenAddOperatorModal(id: number){

@@ -12,6 +12,7 @@ import { Penality } from 'src/app/core/classes/penality';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-detail-cycle',
@@ -20,6 +21,7 @@ import { UserService } from 'src/app/core/services/users/user.service';
 })
 export class DetailCycleComponent implements OnInit {
 
+  show: boolean = false;
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
@@ -42,9 +44,11 @@ export class DetailCycleComponent implements OnInit {
     private areaService: AreaService,
     private postService: PostService,
     private userService: UserService,
+    private loaderService: LoaderService,
     private location: Location) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.findAllCyclesOfTontine();
     this.formInit();
   }
@@ -77,6 +81,10 @@ export class DetailCycleComponent implements OnInit {
         this.idTontine = params['id']
         this.cycles = res.data;
         this.getTontine(params['id']);
+        if ( this.cycles.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
       })
     })
     

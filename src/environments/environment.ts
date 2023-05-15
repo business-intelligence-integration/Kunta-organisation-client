@@ -20,7 +20,7 @@ export const environment = {
   baseUrlApiActivity: 'http://localhost:8084/'
 
   //serveur ngrok
-  // baseUrlApi: 'https://2801-129-0-99-212.eu.ngrok.io/',
+  // baseUrlApi: 'https://df60-154-73-203-132.ngrok-free.app/',
   // baseUrlApiActivity: 'http://localhost:8084/'
 
 };

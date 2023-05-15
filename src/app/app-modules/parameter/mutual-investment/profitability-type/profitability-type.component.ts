@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfitabilityType } from 'src/app/core/classes/profitabilityType';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { ProfitabilityTypeService } from 'src/app/core/services/mutual-investment/profitability-type/profitability-type.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class ProfitabilityTypeComponent implements OnInit {
 
+  show: boolean = false;
   profitabilityType: ProfitabilityType = new ProfitabilityType();
   profitabilityTypes: ProfitabilityType[] = [];
   openCreateModal: string = "";
@@ -21,9 +23,11 @@ export class ProfitabilityTypeComponent implements OnInit {
   isSaving: boolean = false;
   constructor(private profitabilityTypeService: ProfitabilityTypeService,
     private formBuilder: FormBuilder,
-    private utilityService: UtilityService) { }
+    private utilityService: UtilityService,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getAllProfitabilityType();
     this.formInit();
   }
@@ -39,6 +43,10 @@ export class ProfitabilityTypeComponent implements OnInit {
   getAllProfitabilityType(){
     this.profitabilityTypeService.findAllProfitabilityTypes().subscribe((res)=>{
       this.profitabilityTypes = res.data;
+      if ( this.profitabilityTypes.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     })
   }
 

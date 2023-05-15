@@ -5,6 +5,7 @@ import { Function } from 'src/app/core/classes/function';
 import { Post } from 'src/app/core/classes/post';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -16,6 +17,7 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 })
 export class PostsOfClubComponent implements OnInit {
 
+  show: boolean = false;
   ngSelectFunction = 0;
   posts: Post[] = [];
   addOperatorForm!: FormGroup;
@@ -30,10 +32,12 @@ export class PostsOfClubComponent implements OnInit {
     private utilityService: UtilityService,
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private loaderService: LoaderService,
     private clubService: ClubService) { }
 
   ngOnInit(): void {
     // this.getClub();
+    this.loaderService.showLoader();
     this.finAllPostByIdClub();
     this.formInit();
     this.getAllFunctions();
@@ -112,11 +116,14 @@ export class PostsOfClubComponent implements OnInit {
 
   finAllPostByIdClub(){
     this.activatedRoute.queryParams.subscribe((params) => {
-        this.postService.finAllPostByIdClub(params['id']).subscribe((res)=>{
-          this.posts = res.data
-        })
-      });
-   
+      this.postService.finAllPostByIdClub(params['id']).subscribe((res)=>{
+        this.posts = res.data;
+        if ( this.posts.length <= 0 ) {
+          this.show = true;
+        }
+        this.loaderService.hideLoader();
+      })
+    });
   }
 
   getAllFunctions(){

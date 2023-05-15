@@ -8,6 +8,7 @@ import { CenterService } from 'src/app/core/services/centers/center.service';
 import { User } from 'src/app/core/classes/user';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
 
 @Component({
   selector: 'app-view-more-security-deposit',
@@ -16,6 +17,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ViewMoreSecurityDepositComponent implements OnInit {
 
+  show: boolean = false;
   ngSelect1 = 0;
   activeToggle: string = "";
   homeSider: string = "";
@@ -33,9 +35,11 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     private centerService: CenterService,
     private formBuilder: FormBuilder,
     private utilityService: UtilityService,
-    private location: Location) { }
+    private location: Location,
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     this.getMutualSecurityDeposit();
     this.formInit();
   }
@@ -54,6 +58,10 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
       this.idInvestment = params['id'];
       this.securityDeposits = res.data.securityDeposits;
+      if ( this.securityDeposits.length <= 0 ) {
+        this.show = true;
+      }
+      this.loaderService.hideLoader();
     });
   })
   }
