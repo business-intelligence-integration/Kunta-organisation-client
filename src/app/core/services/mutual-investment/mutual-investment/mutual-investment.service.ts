@@ -52,12 +52,12 @@ export class MutualInvestmentService {
     return this.httpClient.delete<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + '?token=' + this.utilityService.loadToken());
   }
 
-  generateRefundDates(idInvestment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/generate-refund-dates", {}, httpOptions);
+  generateRefundDates(idInvestment: number, firstRefundDate: string):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/generate-refund-dates" + '?firstRefundDate=' + firstRefundDate, {}, httpOptions);
   }
 
-  setRefundDatesManually(idInvestment: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/set-refund-dates-manually", {}, httpOptions);
+  setRefundDatesManually(mutualInvestment: MutualInvestment, idInvestment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/set-refund-dates-manually", mutualInvestment);
   }
 
   updateInvestmentAllocationKey(idInvestment: number, idAllocationKey: number):Observable<any>{

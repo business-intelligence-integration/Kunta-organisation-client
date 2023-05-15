@@ -68,6 +68,7 @@ export class MutualInvestmentComponent implements OnInit {
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
   openRefundModal: string = "";
+  openGenerateModal: string = "";
   openViewRefundsModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
   idInvestment: number = 0;
@@ -76,6 +77,7 @@ export class MutualInvestmentComponent implements OnInit {
   addSecurityDepositForm!: FormGroup;
   addSubscriptionOfferForm!: FormGroup;
   refundForm!: FormGroup;
+  generateForm!: FormGroup;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   subscriptionOffer: SubscriptionOffer = new SubscriptionOffer();
   riskProfiles: RiskProfile[] = [];
@@ -86,6 +88,8 @@ export class MutualInvestmentComponent implements OnInit {
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
+  idRefundType: number = 0;
+  firstRefundDate: any;
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -119,7 +123,6 @@ export class MutualInvestmentComponent implements OnInit {
     this.createMutualInvestmentForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
       name2: new FormControl(null),
-      userName: new FormControl(null),
       firstName: new FormControl(null),
       lastName: new FormControl(null),
       city: new FormControl(null),
@@ -161,6 +164,12 @@ export class MutualInvestmentComponent implements OnInit {
       proof: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
       idPaymentMethod: new FormControl(null, Validators.required),
+    })
+
+    this.generateForm = this.formBuilder.group({
+      firstRefundDate: new FormControl(null),
+      amountToBeRefunded: new FormControl(null),
+      refundDate: new FormControl(null),
     })
   }
 
@@ -284,14 +293,14 @@ export class MutualInvestmentComponent implements OnInit {
       this.mutualInvestment.organism.name = formValue.name2;
       this.mutualInvestment.organism.firstName = formValue.firstName;
       this.mutualInvestment.organism.lastName = formValue.lastName;
-      this.mutualInvestment.organism.userName = formValue.userName;
+      this.mutualInvestment.organism.userName = formValue.email;
       this.mutualInvestment.organism.phoneNumber = formValue.phoneNumber;
     }if(this.isPhysical == true){
       this.mutualInvestment.physicalPerson.email = formValue.email;
       this.mutualInvestment.physicalPerson.city = formValue.city;
       this.mutualInvestment.physicalPerson.firstName = formValue.firstName;
       this.mutualInvestment.physicalPerson.lastName = formValue.lastName;
-      this.mutualInvestment.physicalPerson.userName = formValue.userName;
+      this.mutualInvestment.physicalPerson.userName = formValue.email;
       this.mutualInvestment.physicalPerson.phoneNumber = formValue.phoneNumber;
     }
 
@@ -410,6 +419,8 @@ export class MutualInvestmentComponent implements OnInit {
 
   getMutualInvestmentById(idInvestment: number){
     this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
+      console.log("Resultat::", res.data);
+      this.idRefundType = res.data.refundType.id;
       this.getAllUsersByIdCenter(res.data.mutualCenter.id);
       this.amountCollecteds = res.data.amountCollecteds;
     });
@@ -639,8 +650,6 @@ export class MutualInvestmentComponent implements OnInit {
     this.payment.date = formValue.date;
     this.mutualInvestmentService.refundOfAmountsCollected(this.idInvestment, formValue.idPaymentMethod, this.payment).subscribe((res)=>{
       this.isSaving = false;
-      console.log("refund:: ", res);
-      
       this.getAllMutualInvestments();
       this.refundForm.reset();
       this.onCloseRefundModal();
@@ -670,6 +679,68 @@ export class MutualInvestmentComponent implements OnInit {
 
   closeViewRefundsModal(){
     this.openViewRefundsModal = "";
+  }
+
+  //////////////////////////////////////Generate Dates
+  onGenerate(idInvestment: number){
+    this.openGenerateModal = "is-active";
+    this.idInvestment = idInvestment;
+    this.getMutualInvestmentById(idInvestment);
+  }
+
+  onCloseGenerateModal(){
+    this.openGenerateModal = "";
+  }
+
+  onSubmitGenerate(){
+    this.isSaving = true;
+    const formValue = this.generateForm.value;
+    if ( formValue.firstRefundDate != null ) {
+      this.firstRefundDate = formValue.firstRefundDate;
+      this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
+        this.isSaving = false;
+        this.getAllMutualInvestments();
+        this.generateForm.reset();
+        this.onCloseGenerateModal();
+        this.utilityService.showMessage(
+          'success',
+          'Date(s) generée(s) avec succès',
+          '#06d6a0',
+          'white'
+        );
+      },()=>{
+        this.isSaving = false;
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      })
+    } if ( formValue.amountToBeRefunded != null && formValue.refundDate != null ) {
+      this.mutualInvestment.amountToBeRefunded = formValue.amountToBeRefunded;
+      this.mutualInvestment.refundDate = formValue.refundDate;
+      this.mutualInvestmentService.setRefundDatesManually(this.mutualInvestment, this.idInvestment).subscribe((res)=>{
+        this.isSaving = false;
+        this.getAllMutualInvestments();
+        this.generateForm.reset();
+        this.onCloseGenerateModal();
+        this.utilityService.showMessage(
+          'success',
+          'Date(s) generée(s) avec succès',
+          '#06d6a0',
+          'white'
+        );
+      },()=>{
+        this.isSaving = false;
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      })
+    } 
   }
 
 }

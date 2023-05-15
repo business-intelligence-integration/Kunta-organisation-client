@@ -78,7 +78,7 @@
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-remboursé </span>
                         <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Remboursé </span>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' }" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
-                        <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'PAID'"  tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron disabled">$</a> -->
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
                         <a _ngcontent-nct-c62="" (click)="onViewRefunds(mutualInvestment.id)" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
@@ -184,16 +184,6 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('lastName')?.errors?.['required'] && createMutualInvestmentForm.get('lastName')?.touched">
                                     <small class="text-police">veuillez entrer le prenom</small>
-                                 </div>
-                            </div>
-                            <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Username</label><br>
-                                <div class="control">
-                                    <input type="text" class="input" placeholder="username" formControlName="userName">
-                                </div>
-                                <div class="text-danger"
-                                    *ngIf="createMutualInvestmentForm.get('userName')?.errors?.['required'] && createMutualInvestmentForm.get('userName')?.touched">
-                                    <small class="text-police">veuillez entrer l'username</small>
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
@@ -660,6 +650,73 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeViewRefundsModal()">Fermer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generate Refund Dates -->
+<div id="refundMutualInvestment" class="modal h-modal" [ngClass]="openGenerateModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Generer date(s) de remboursement du placement mutualisé</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseGenerateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="generateForm" (ngSubmit)="onSubmitGenerate()">
+                        <div class="field">
+                            <label>1ere date de remboursement: </label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="firstRefundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" [(ngModel)]="dateNow" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                            <div class="text-danger"
+                                *ngIf="generateForm.get('firstRefundDate')?.errors?.['required'] && generateForm.get('firstRefundDate')?.touched">
+                                <small class="text-police" translate>Entrer la 1ere date du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div>
+                            <label>Montant a rembourser: </label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant a rembourser" formControlName="amountToBeRefunded">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required'] && generateForm.get('amountToBeRefunded')?.touched">
+                                <small class="text-police" translate>Entrer le montant du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div>
+                            <label>Date de remboursement: </label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="refundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" [(ngModel)]="dateNow" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                            <div class="text-danger"
+                                *ngIf="generateForm.get('refundDate')?.errors?.['required'] && generateForm.get('refundDate')?.touched">
+                                <small class="text-police" translate>Entrer la date du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="generateForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Generer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseGenerateModal()">Annuler</a>
             </div>
         </div>
     </div>

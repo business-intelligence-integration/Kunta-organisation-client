@@ -34,4 +34,5 @@ export class MutualInvestment{
     physicalPerson: User = new User();
     mutualInvesmentStatus: string = "";
     refundStatus: string = "";
+    refundDate: string = "";
   }
