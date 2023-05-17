@@ -76,13 +76,21 @@ export class ViewMoreAreaComponent implements OnInit {
   getCenter(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.centerService.getCenterById(params['id']).subscribe((res)=>{
-        this.areasOfCenter = res.data.areas;
-        this.centerName = res.data.name;
-        this.idCenter = res.data.id;
-        if ( this.areasOfCenter.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.areasOfCenter = res.data.areas;
+          this.centerName = res.data.name;
+          this.idCenter = res.data.id;
+          if( this.areasOfCenter.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       });
     })
   }

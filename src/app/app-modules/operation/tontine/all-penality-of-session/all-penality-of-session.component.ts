@@ -95,11 +95,19 @@ export class AllPenalityOfSessionComponent implements OnInit {
   getAllPanalities(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findPenaltiesOfASession(params['id']).subscribe((res)=>{
-        this.penalities = res.data;
-        if ( this.penalities.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.penalities = res.data;
+          if( this.penalities.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       })
     })
   }

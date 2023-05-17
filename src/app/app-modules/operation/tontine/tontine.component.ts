@@ -147,12 +147,18 @@ export class TontineComponent implements OnInit {
 
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
-      if(res.data != null){
-        this.tontines = res.data;
-        if ( this.tontines.length <= 0 ) {
-          this.show = true;
-        }
+      if ( res == null ) {
+        this.show = true;
         this.loaderService.hideLoader();
+      } else {
+        this.tontines = res.data;
+        if( this.tontines.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
     })
   }

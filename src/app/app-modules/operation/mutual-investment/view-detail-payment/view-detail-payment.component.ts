@@ -89,11 +89,19 @@ export class ViewDetailPaymentComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.subscriptionService.findPaymentSubscriptionPaymentById(params['id']).subscribe((res)=>{
         this.idSubscription = params['id'];
-        this.payments = res.data.payments;
-        if ( this.payments.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.payments = res.data.payments;
+          if( this.payments.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       });
     })
   }
@@ -113,7 +121,6 @@ export class ViewDetailPaymentComponent implements OnInit {
 
   onOpenUpdateModal(id: number){
     this.subscriptionPaymentService.findPaymentSubscriptionPaymentById(id).subscribe((res)=>{
-      console.log("Payment:..", res.data);
       this.payment = res.data;
       this.openUpdateModal = "is-active";
     })
@@ -236,7 +243,6 @@ export class ViewDetailPaymentComponent implements OnInit {
   addPayment( idSubscription: number, idPaymentMethod: number, payment: Payment){
     this.isSaving = true;
     this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, payment).subscribe((res)=>{
-      console.log("subscription::", res.data);
       this.isSaving = false;
       this.getSubscriptionPayment();
       this.closePaymentModal();

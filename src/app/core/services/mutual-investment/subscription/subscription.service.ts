@@ -22,8 +22,8 @@ export class SubscriptionService {
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
 
-  createSubscription( subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'subscriptions/subscription-offer/' + idSubscriptionOffer + "/subscriber/" + idSubscriber + "/risk-profile/" + idRiskProfile + '?token=' + this.utilityService.loadToken(), subscription);
+  createSubscription( subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'subscriptions/subscription-offer/' + idSubscriptionOffer + "/subscriber/" + idSubscriber + '?token=' + this.utilityService.loadToken(), subscription);
   }
 
   createPaymentForSubscription( idSubscription: number, idPaymentMethod: number, payment: Payment):Observable<any>{

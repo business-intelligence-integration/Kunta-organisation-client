@@ -317,7 +317,6 @@ export class UserComponent implements OnInit {
     let users: User[] = [];
     this.userService.getAllUsers().subscribe({
       next: (res)=> res.data.map((user: any)=>{
-        console.log("users:::::", res)
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
         if(this.adminIsConnected){
@@ -331,6 +330,10 @@ export class UserComponent implements OnInit {
           if(isSimpleUser){
             users.push(user)
           }
+        }
+        if ( res == null ) {
+          this.show = true;
+          this.loaderService.hideLoader();
         }
       })
     })
@@ -481,7 +484,6 @@ export class UserComponent implements OnInit {
   createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number, idType: number, idCategory: number){
     this.isSaving = true;
     this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry, idType, idCategory).subscribe((res)=>{
-      console.log("users:::::", res)
       this.isSaving = false;
       this.getAllUsers();
       this.addUserForm.reset();

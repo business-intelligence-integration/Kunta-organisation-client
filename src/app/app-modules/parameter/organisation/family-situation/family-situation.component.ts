@@ -58,11 +58,19 @@ export class FamilySituationComponent implements OnInit {
 
   getAllSituationFamily(){
     this.familySituationService.findAllFamilySituations().subscribe((res)=> {
-      this.familySituations = res.data;
-      if ( this.familySituations.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.familySituations = res.data;
+        if( this.familySituations.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     }) 
   }
 

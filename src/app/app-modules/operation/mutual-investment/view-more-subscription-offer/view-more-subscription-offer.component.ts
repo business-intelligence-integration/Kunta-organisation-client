@@ -76,7 +76,6 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     });
 
     this.addSubscriptionForm = this.formBuilder.group({
-      idRiskProfile: new FormControl(null, Validators.required),
       idSubscriber: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
     });
@@ -94,11 +93,19 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
         this.idInvestment = params['id'];
-        this.offers = res.data.offers;
-        if ( this.offers.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.offers = res.data.offers;
+          if( this.offers.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       });
     })
   }
@@ -139,13 +146,11 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       this.homeSider = "";
       this.isPushed = "";
     }
-
   }
   
   ///////////////// Update Offer
   onOpenUpdateModal(id: number){
     this.subscriptionOfferService.findSubscriptionOfferById(id).subscribe((res)=>{
-      console.log("offer:..", res.data);
       this.offer = res.data;
       this.openUpdateModal = "is-active";
     })
@@ -256,13 +261,12 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   onAddSubscription(){
     const formValue = this.addSubscriptionForm.value;
     this.subscription.amount = formValue.amount;
-    this.addSubscription(this.subscription, this.idOffer, formValue.idSubscriber, formValue.idRiskProfile);
+    this.addSubscription(this.subscription, this.idOffer, formValue.idSubscriber);
   }
 
-  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number){
+  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number){
     this.isSaving = true;
-    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber, idRiskProfile).subscribe((res)=>{
-      console.log("subscription::", res);
+    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber).subscribe((res)=>{
       this.isSaving = false;
       this.getMutualSubscriptionOffer();
       this.closeSubscriptionModal();

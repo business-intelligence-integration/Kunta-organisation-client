@@ -2,6 +2,7 @@ import { Account } from "./account";
 import { Center } from "./center";
 import { Organism } from "./organism";
 import { ProfitabilityType } from "./profitabilityType";
+import { Refund } from "./refund";
 import { RefundType } from "./refundType";
 import { RiskProfile } from "./riskProfile";
 import { SecurityDeposit } from "./securityDeposit";
@@ -34,5 +35,11 @@ export class MutualInvestment{
     physicalPerson: User = new User();
     mutualInvesmentStatus: string = "";
     refundStatus: string = "";
+    // firstRefundDate: string = "";
     refundDate: string = "";
+    percentageMutual: number = 0;
+    percentageOfFunders: number = 0;
+    percentageOfGuarantees: number = 0;
+    percentageOfPassiveIncomeFund: number = 0;
+    refunds: Refund[] = [];
   }

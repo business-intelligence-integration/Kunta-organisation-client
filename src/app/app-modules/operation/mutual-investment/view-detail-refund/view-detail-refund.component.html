@@ -85,7 +85,7 @@
                     </span>
                 </div>
                 <div class="title-wrap">
-                    <h1 class="title is-4">Offre(s) de souscription</h1>
+                    <h1 class="title is-4">Plan de remboursement</h1>
                 </div>
             </div>
             <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
@@ -98,14 +98,14 @@
                     </div>
                 </div>
 
-                <div class="buttons" (click)="onOpenAddSubscriptionOffer()">
+                <!-- <div class="buttons" (click)="onOpenAddRefund()">
                     <button class="button h-button is-primary is-elevated">
                         <span class="icon">
                         <i aria-hidden="true" class="fas fa-plus"></i>
                     </span>
-                        <span>Créer une offre</span>
+                        <span>Créer un remboursement</span>
                     </button>
-                </div>
+                </div> -->
             </div>
 
             <div class="page-content-inner">
@@ -113,56 +113,60 @@
                 <div class="flex-list-wrapper flex-list-v1">
 
                     <!--List Empty Search Placeholder -->
-                    <div *ngIf="offers.length == 0 && show" class="page-placeholder custom-text-filter-placeholder">
+                    <div *ngIf="refunds.length == 0 && show" class="page-placeholder custom-text-filter-placeholder">
                         <div class="placeholder-content">
                             <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                             <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                             <h3>Désolé la liste est actuellement vide.</h3>
-                            <p class="is-larger">Veuillez creer/ajouter une offre pour qu'elle soit afficher.</p>
+                            <p class="is-larger">Veuillez creer/ajouter un remboursement pour qu'il soit afficher.</p>
                         </div>
                     </div>
                     
-                    <div *ngIf="offers.length != 0" class="flex-table">
+                    <div *ngIf="refunds.length != 0" class="flex-table">
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
-                            <span>Type de rentabilité</span>
-                            <span>Taux de rentabilité</span>
-                            <span>Niveau de risque</span>
-                            <span>Souscriptions</span>
-                            <span class="cell-end">Actions</span>
+                            <span>Montant A Remboursé</span>
+                            <span>Montant Remboursé</span>
+                            <span>Statut</span>
+                            <span>Montant Collecté(s)</span>
+                            <span class="cell-end">Date(s)</span>
+                            <!-- <span class="cell-end">Actions</span> -->
                         </div>
             
                         <div class="flex-list-inner">
                             <!--Table item-->
-                            <div class="flex-table-item" *ngFor="let offer of offers">
+                            <div class="flex-table-item" *ngFor="let refund of refunds">
                                 <div class="flex-table-cell is-media is-grow">
                                     <div>
-                                        <span class="item-name dark-inverted" data-filter-match="">{{offer.id}}</span>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{refund.id}}</span>
                                     </div>
                                 </div>
-                                <div class="flex-table-cell" data-th="Type de rentabilité">
-                                    <span class="light-text" data-filter-match="">{{offer.profitabilityType.label}}</span>
+                                <div class="flex-table-cell" data-th="Montant A Remboursé">
+                                    <span class="light-text" data-filter-match="">{{refund.amountToBeRefunded}}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Taux de rentabilité">
-                                    <span class="light-text" data-filter-match="">{{offer.profitabilityRate}}</span>
+                                <div class="flex-table-cell" data-th="Montant Remboursé">
+                                    <span class="light-text" data-filter-match="">{{refund.amountRefunded}}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Niveau de risque">
-                                    <span class="light-text" data-filter-match="">{{ offer.riskProfile.riskLevel }}</span>
+                                <div class="flex-table-cell" data-th="Statut">
+                                    <span *ngIf="refund.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Payé</span>
+                                    <span *ngIf="refund.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-payé</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Souscriptions">
-                                    <span class="light-text" data-filter-match="">{{ offer.subscriptions.length }}</span>
-                                    <a class="pagination-previous has-chevron" tooltip=" Ajouter une souscription " theme='light' (click)="onOpenAddSubscription(offer.id)"><i class="lnir lnir-plus"></i></a>
-                                    <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-subscription']"
-                                    [queryParams]="{id: offer.id, idInvestment: idInvestment}" tooltip=" Voir details souscription " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                <div class="flex-table-cell" data-th="Montant Collecté(s)">
+                                    <span class="light-text" data-filter-match="">{{refund.amountCollecteds.length}}</span>
+                                    <a _ngcontent-nct-c62="" (click)="onRefund()" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                                    <a _ngcontent-nct-c62="" (click)="onViewRefunds()" tooltip=" Voir les montants " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
-                                <div class="flex-table-cell cell-end" data-th="Actions">
+                                <div class="flex-table-cell cell-end" data-th="Date(s)">
+                                    <span class="light-text" data-filter-match="">{{ refund.refundDate }}</span>
+                                </div>
+                                <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                     <a _ngcontent-nct-c62="" tooltip=" Modifier offre " theme='light' (click)="onOpenUpdateModal(offer.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                                     <a _ngcontent-nct-c62="" tooltip=" Supprimer offre" theme='light' (click)="onDelete(offer.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
             
@@ -192,14 +196,14 @@
 
 </div>
 
-<!-- add Subscription Offer -->
-<div id="addSubscriptionOffer" class="modal h-modal" [ngClass]="openOfferModal">
+<!-- refund placement mutualisé -->
+<div id="refundMutualInvestment" class="modal h-modal" [ngClass]="openRefundModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout Offre</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionOfferModal()">
+                <h3>Rembourser le placement mutualisé</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseRefundModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-x">
@@ -210,137 +214,103 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="addSubscriptionOfferForm" (ngSubmit)="onAddSubscriptionOffer()">
+                    <form class="modal-form" [formGroup]="refundForm" (ngSubmit)="onSubmitRefund()">
                         <div class="field">
-                            <label>Niveau de risque *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfile" [(ngModel)]="ngSelect3">
-                                <option value="0" disabled>--Selectionnez un niveau de risque--</option>
-                                <option *ngFor="let risk of riskProfiles" [value]="risk.id"> <span> {{ risk.riskLevel }}  </span> </option>
-                            </select><br><br>
-                        </div>
-
-                        <div class="field">
-                            <label>Type de rentabilité *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect4" (ngModelChange)="onOfferProfitabilitySelected($event)">
-                                <option value="0" disabled>--Selectionnez un type de rentabilité--</option>
-                                <option *ngFor="let profitability of profitabilityTypes" [value]="profitability.id"> <span> {{ profitability.label }}  </span> </option>
-                            </select><br><br>
-                        </div>
-
-                        <div class="field" *ngIf="isOfferCertain">
-                            <label>Taux de rentabilité </label><br>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" >
-                            </div>
-                        </div><br>
-                       
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSubscriptionOfferForm.invalid || isSaving" >Enregistrer</button>
-                        </div><br>
-                       
-                    </form>
-                </div>
-            </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeSubscriptionOfferModal()">Annuler</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Update Subscription Offer -->
-<div id="updateOfferForm" class="modal h-modal" [ngClass]="openUpdateModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Modification d'une offre de souscription</h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateOfferModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateOfferForm" (ngSubmit)="onSubmitUpdateOfferForm(offer.id)">
-                        <div class="field" *ngIf="offer.profitabilityRate">
-                            <label>Taux de rentabilité </label>
-                            <div class="control">
-                                <input type="number" class="input" [(ngModel)]="offer.profitabilityRate" placeholder="Taux de rentabilité" formControlName="profitabilityRate">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="updateOfferForm.get('profitabilityRate')?.errors?.['required'] && updateOfferForm.get('profitabilityRate')?.touched">
-                                <small class="text-police" translate>veuillez entrer le taux de rentabilité </small>
-                             </div>
-                        </div>
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateOfferForm.invalid || isSaving">Modifer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeUpdateOfferModal()">Annuler</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- add Subscription -->
-<div id="addSubscription" class="modal h-modal" [ngClass]="openSubscriptionModal">
-    <div class="modal-background h-modal-close"></div>
-    <div class="modal-content">
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <h3>Ajout Souscription </h3>
-                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </header>
-            <div class="modal-card-body">
-                <div class="inner-content">
-                    <form class="modal-form" [formGroup]="addSubscriptionForm" (ngSubmit)="onAddSubscription()">
-                        <div class="field">
-                            <label>Souscripteur *</label>
-                            <select *ngIf="users.length != 0" class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
+                            <label>Méthodes de paiement *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelect1">
+                                <option value="0" disabled>--Sélectionnez une méthode de paiement --</option>
+                                <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }} </span> </option>
                             </select>
                             <div class="text-danger"
-                            *ngIf="users.length == 0">
-                            <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la souscription.</small>
-                            </div><br><br>
+                                    *ngIf="refundForm.get('idPaymentMethod')?.errors?.['required'] && refundForm.get('idPaymentMethod')?.touched">
+                                    <small class="text-police">veuillez sélectionner une méthode de paiement</small>
+                            </div>
                         </div>
-
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount" >
-                                <div class="text-danger"
-                                *ngIf="addSubscriptionForm.get('amount')?.errors?.['required'] && addSubscriptionForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant a souscrire</small>
-                                </div>
+                                <input type="number" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundForm.get('paid')?.errors?.['required'] && refundForm.get('paid')?.touched">
+                                <small class="text-police" translate>Entrer le montant</small>
                             </div>
                         </div><br>
-                       
-                        <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSubscriptionForm.invalid || isSaving" >Enregistrer</button>
+                        <div class="field">
+                            <label>Justificatif *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="justificatif" formControlName="proof">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundForm.get('proof')?.errors?.['required'] && refundForm.get('proof')?.touched">
+                                <small class="text-police" translate>Entrer le justificatif</small>
+                            </div>
                         </div><br>
-                       
+                        <div class="field">
+                            <label>Date *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="date" class="champ" type="date" max="{{ dateNow }}" id="DOB" [(ngModel)]="dateNow" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                            <div class="text-danger"
+                                *ngIf="refundForm.get('date')?.errors?.['required'] && refundForm.get('date')?.touched">
+                                <small class="text-police" translate>Entrer la date du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="refundForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Rembourser</button>
+                        </div>
                     </form>
                 </div>
             </div>
             <div class="modal-card-foot is-end">
-                <a class="button h-button is-rounded h-modal-close" (click)="closeSubscriptionModal()">Annuler</a>
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseRefundModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- view collected refunds -->
+<div id="viewAccount" class="modal h-modal" [ngClass]="openViewRefundsModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Remboursement(s) collecté(s)</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeViewRefundsModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <!-- <div class="inner-content" *ngIf="amountCollecteds.length == 0">
+                    <div class="field">
+                        Aucun payement visible! Veuillez ajouter un payement.
+                    </div>
+                </div> -->
+                <div class="inner-content" *ngFor="let collected of amountCollecteds">
+                    <div class="field">
+                        <div> 
+                            <label> <b>{{collected.id}}.</b> </label><br>
+                            <div class="control">
+                                <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
+                            </div>
+                            <div class="control">
+                                <label> <b>Date:</b>  {{collected.date}} </label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeViewRefundsModal()">Fermer</a>
             </div>
         </div>
     </div>

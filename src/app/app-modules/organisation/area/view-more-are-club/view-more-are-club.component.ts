@@ -108,15 +108,23 @@ export class ViewMoreAreClubComponent implements OnInit {
   getArea(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.areaService.getAreaById(params['id']).subscribe((res)=>{
-        this.idArea = res.data.id;
-        this.areaName = res.data.name;
-        this.clubsOfArea = res.data.clubs;
-        this.communicationAgent = res.data.communicationAgent;
-        this.dataEntryAgent = res.data.dataEntryAgent;
-        if ( this.clubsOfArea.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.idArea = res.data.id;
+          this.areaName = res.data.name;
+          this.clubsOfArea = res.data.clubs;
+          this.communicationAgent = res.data.communicationAgent;
+          this.dataEntryAgent = res.data.dataEntryAgent;
+          if( this.clubsOfArea.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       });
     })
   }

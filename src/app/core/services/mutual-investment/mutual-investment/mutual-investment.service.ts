@@ -7,6 +7,7 @@ import { UtilityService } from '../../utility/utility.service';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
 import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { Payment } from 'src/app/core/classes/payment';
+import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -29,14 +30,6 @@ export class MutualInvestmentService {
   }
 
   createMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter: number, idFrequency: number, idMutualist: number):Observable<any>{
-    console.log("Placement:: ", mutualInvestment);
-    console.log("idDraweeForm:: ", idDraweeForm);
-    console.log("idRefundType:: ", idRefundType);
-    console.log("idProfitabilityType:: ", idProfitabilityType);
-    console.log("idCenter:: ", idCenter);
-    console.log("idFrequency:: ", idFrequency);
-    console.log("idMutualist:: ", idMutualist);
-    
     return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '/center/' + idCenter + '?idFrequency=' + idFrequency + '&idMutualist=' + idMutualist+ '&token=' + this.utilityService.loadToken(), mutualInvestment);
   }
 
@@ -52,8 +45,8 @@ export class MutualInvestmentService {
     return this.httpClient.delete<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + '?token=' + this.utilityService.loadToken());
   }
 
-  generateRefundDates(idInvestment: number, firstRefundDate: string):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/generate-refund-dates" + '?firstRefundDate=' + firstRefundDate, {}, httpOptions);
+  generateRefundDates(idInvestment: number, firstRefundDate: FirstRefundDate):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + "/generate-refund-dates", firstRefundDate, httpOptions);
   }
 
   setRefundDatesManually(mutualInvestment: MutualInvestment, idInvestment: number):Observable<any>{
@@ -77,9 +70,7 @@ export class MutualInvestmentService {
   }
 
   releaseOperation(idInvestment: number):Observable<any>{
-    console.log("idInvestment::", idInvestment);
-    
-    return this.httpClient.get<any>(this.baseUrl + 'mutual-investments/release/'+ idInvestment + "?token=" + this.utilityService.loadToken());
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/release/'+ idInvestment + "?token=" + this.utilityService.loadToken(), {});
   }
 
   refundOfAmountsCollected(idInvestment: number, idPaymentMethod: number, payment: Payment):Observable<any>{

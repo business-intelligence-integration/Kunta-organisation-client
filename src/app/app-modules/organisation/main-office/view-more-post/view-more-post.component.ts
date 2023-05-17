@@ -65,13 +65,21 @@ export class ViewMorePostComponent implements OnInit {
   getMainOffice(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mainOfficeService.getById(params['id']).subscribe((res)=>{
-        this.mainOffice = res;
-        this.centersOfMainOffice = res.data.centers;
-        this.idMainOffice = res.data.id;
-        if ( this.centersOfMainOffice.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
-        }
-        this.loaderService.hideLoader();
+          this.loaderService.hideLoader();
+        } else {
+          this.centersOfMainOffice = res.data.centers;
+          this.mainOffice = res;
+          this.idMainOffice = res.data.id;
+          if( this.centersOfMainOffice.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
+        } 
       });
     })
   }

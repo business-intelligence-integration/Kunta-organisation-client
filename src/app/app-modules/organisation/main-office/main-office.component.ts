@@ -70,11 +70,19 @@ export class MainOfficeComponent implements OnInit {
 
  getAllMainOffice(){
     this.mainofficeService.findAllOffices().subscribe((res)=>{
-      this.mainOffices = res.data;
-      if (this.mainOffices.length <= 0) {
+      if ( res == null ) {
         this.show = true;
-      }
-      this.loaderService.hideLoader();
+        this.loaderService.hideLoader();
+      } else {
+        this.mainOffices = res.data;
+        if( this.mainOffices.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
+      } 
     })
   }
 

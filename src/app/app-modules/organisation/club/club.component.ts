@@ -119,12 +119,20 @@ export class ClubComponent implements OnInit {
 
 
   getAllClubs(){
-    this.clubService.findAllClubs().subscribe((result)=>{
-      this.clubs = result.data;
-      if ( this.clubs.length <= 0 ) {
+    this.clubService.findAllClubs().subscribe((res)=>{
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.clubs = res.data;
+        if( this.clubs.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

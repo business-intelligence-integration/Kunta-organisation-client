@@ -136,6 +136,18 @@ getAllCenters(){
         }
         uniqArea = { ...area, clubs, members}
         tabArea.push(uniqArea);
+        if ( res == null ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          if( tabArea.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
+        }
       })
     })
     this.areas = tabArea;

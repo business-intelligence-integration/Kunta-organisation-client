@@ -44,11 +44,19 @@ export class RiskProfileComponent implements OnInit {
 
   getAllRiskProfiles(){
     this.riskProfileService.findAllRiskProfiles().subscribe((res)=>{
-      this.riskProfiles = res.data;
-      if ( this.riskProfiles.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.riskProfiles = res.data;
+        if( this.riskProfiles.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

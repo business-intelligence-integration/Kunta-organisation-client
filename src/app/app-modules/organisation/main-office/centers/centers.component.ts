@@ -87,7 +87,7 @@ export class CentersComponent implements OnInit {
     let area:Organism
     this.centerService.findAllCenters()
     .subscribe({
-      next: (result) => result.data.map((center: any) => {
+      next: (res) => res.data.map((center: any) => {
         let clubs:Organism[] = []
         let members: User[] = [];
         let uniqCenter: Organism;
@@ -110,12 +110,21 @@ export class CentersComponent implements OnInit {
         }
         uniqCenter = { ...center, clubs, members}
         tabCenter.push(uniqCenter);
+        if ( res == null ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          if( tabCenter.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
+        }
       }),
     });
     this.newListcenters = tabCenter;
-    if ( this.newListcenters.length <= 0 ) {
-      this.show = true;
-    }
     this.loaderService.hideLoader();
   }
 

@@ -79,12 +79,20 @@ export class DetailCycleComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.tontineService.findAllCyclesOfTontine(params['id']).subscribe((res)=>{
         this.idTontine = params['id']
-        this.cycles = res.data;
         this.getTontine(params['id']);
-        if ( this.cycles.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.cycles = res.data;
+          if( this.cycles.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       })
     })
     

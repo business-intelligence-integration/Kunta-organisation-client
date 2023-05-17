@@ -43,11 +43,19 @@ export class UserTypeComponent implements OnInit {
 
   finAllUsersType(){
     this.userTypeService.getAllUsersType().subscribe((res)=>{
-      this.types = res.data;
-      if ( this.types.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.types = res.data;
+        if( this.types.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

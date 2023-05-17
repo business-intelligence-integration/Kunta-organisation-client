@@ -70,11 +70,19 @@ export class PosteComponent implements OnInit {
 
   finAllPosts(){
     this.postService.findAllPosts().subscribe((res)=>{
-      this.posts = res.data;
-      if ( this.posts.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
-      }
-      this.loaderService.hideLoader();
+        this.loaderService.hideLoader();
+      } else {
+        this.posts = res.data;
+        if( this.posts.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
+      } 
     })
   }
 

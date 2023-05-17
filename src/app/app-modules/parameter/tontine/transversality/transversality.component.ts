@@ -47,11 +47,19 @@ export class TransversalityComponent implements OnInit {
 
   getAllLevel(){
     this.transversalityService.findAllLevels().subscribe((res)=>{
-      this.levels = res.data;
-      if ( this.levels.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.levels = res.data;
+        if( this.levels.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

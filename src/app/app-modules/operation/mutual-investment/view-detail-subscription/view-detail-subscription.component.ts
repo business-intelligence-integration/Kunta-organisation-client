@@ -54,6 +54,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   dateNow: any;
   totalPaid: number = 0;
   amountToPay: number = 0;
+  riskLevel: number = 0;
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -90,7 +91,6 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     });
 
     this.addSubscriptionForm = this.formBuilder.group({
-      idRiskProfile: new FormControl(null, Validators.required),
       idSubscriber: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
     })
@@ -102,18 +102,27 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     let totalPaid: number = 0;
     this.activatedRoute.queryParams.subscribe((params) => {
       this.subscriptionOfferService.findSubscriptionOfferById(params['id']).subscribe((res)=>{
-        this.idSubscriptionOffer = params['id'];
-        this.subscriptions = res.data.subscriptions;
-        this.subscriptions.forEach((element)=>{
-          element.payments.forEach((el)=>{
-            totalPaid = totalPaid + el.paid;
-          })
-        })
-        this.totalPaid = totalPaid;
-        if ( this.subscriptions.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.idSubscriptionOffer = params['id'];
+          this.riskLevel = res.data.riskProfile.riskLevel;
+          this.subscriptions = res.data.subscriptions;
+          this.subscriptions.forEach((element)=>{
+            element.payments.forEach((el)=>{
+              totalPaid = totalPaid + el.paid;
+            })
+          })
+          this.totalPaid = totalPaid;
+          if( this.subscriptions.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       });
     })
   }
@@ -155,7 +164,6 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   ///////////////// Update Subscription
   onOpenUpdateModal(id: number){
     this.subscriptionService.findPaymentSubscriptionPaymentById(id).subscribe((res)=>{
-      console.log("subscription:..", res.data);
       this.subscription = res.data;
       this.openUpdateModal = "is-active";
     })
@@ -282,7 +290,6 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   addPayment( idSubscription: number, idPaymentMethod: number, payment: Payment){
     this.isSaving = true;
     this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, payment).subscribe((res)=>{
-      console.log("subscription:: ", res);
       this.isSaving = false;
       this.getOfferSubscription();
       this.closePaymentModal();
@@ -315,24 +322,23 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   onAddSubscription() {
     const formValue = this.addSubscriptionForm.value;
     this.subscription.amount = formValue.amount;
-    this.addSubscription(this.subscription, this.idSubscriptionOffer, formValue.idSubscriber, formValue.idRiskProfile)
+    this.addSubscription(this.subscription, this.idSubscriptionOffer, formValue.idSubscriber)
   }
 
-  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number, idRiskProfile: number) {
+  addSubscription(subscription: Subscription, idSubscriptionOffer: number, idSubscriber: number) {
     this.isSaving = true;
-    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber, idRiskProfile).subscribe((res) => {
+    this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber).subscribe((res) => {
       this.isSaving = false;
       this.getOfferSubscription();
       this.addSubscriptionForm.reset();
       this.closeSubscriptionModal();
       this.utilityService.showMessage(
         'success',
-        'Offre ajoutée avec succès',
+        'Souscription ajoutée avec succès',
         '#06d6a0',
         'white'
       );
     }, (error) => {
-      console.log("error: ", error);
       this.isSaving = false;
       this.closeSubscriptionModal();
       this.addSubscriptionForm.reset();

@@ -44,11 +44,19 @@ export class DraweeFormComponent implements OnInit {
   }
   getAllDroweeForm(){
     this.draweeFormService.findAllDraweeForm().subscribe((res)=>{
-      this.draweeForms = res.data;
-      if ( this.draweeForms.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.draweeForms = res.data;
+        if( this.draweeForms.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

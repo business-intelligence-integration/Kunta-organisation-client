@@ -52,11 +52,19 @@ export class PieceTypeComponent implements OnInit {
   
   getAllPieceType(){
     this.pieceTypeService.findAllPieceTypes().subscribe((res)=>{
-      this.pieceTypes = res.data;
-      if ( this.pieceTypes.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.pieceTypes = res.data;
+        if( this.pieceTypes.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
   

@@ -24,11 +24,19 @@ export class StatusComponent implements OnInit {
 
   getAllStatus(){
     this.statusService.findAllStatus().subscribe((res)=>{
-      this.statusArray = res.data;
-      if ( this.statusArray.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.statusArray = res.data;
+        if( this.statusArray.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 }

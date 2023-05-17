@@ -46,11 +46,19 @@ export class FrequencyComponent implements OnInit {
 
   getAllFrequency(){
     this.frequencyService.findAllFrequencies().subscribe((res)=>{
-      this.frequencies = res.data;
-      if ( this.frequencies.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.frequencies = res.data;
+        if( this.frequencies.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

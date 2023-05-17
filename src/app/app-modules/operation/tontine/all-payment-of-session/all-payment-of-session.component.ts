@@ -109,11 +109,19 @@ export class AllPaymentOfSessionComponent implements OnInit {
   findAllPaymentsOfASession(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.sessionService.findAllPaymentsOfASession(params['id']).subscribe((res)=>{   
-      this.payments = res.data;
-      if ( this.payments.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.payments = res.data;
+        if( this.payments.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
       })
 
       this.sessionService.findSessionById(params['id']).subscribe((res)=>{

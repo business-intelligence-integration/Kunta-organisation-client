@@ -138,21 +138,28 @@ export class ViewMoreComponent implements OnInit {
   getClub(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.clubService.getclubById(params['id']).subscribe((res)=>{
-        this.clubMembers = res.data.members;
-        this.pilots = res.data.pilots;
-        this.idClub = res.data.id;
-        this.clubName = res.data.name;
-        this.pilot = res.data.pilot;
-        if(this.pilot == null || this.pilot == undefined){
-          this.pilotIsNull = true
-        }else{
-          this.pilotIsNull = false
-        }
-
-        if ( this.clubMembers.length <= 0 ) {
+        if ( res == null ) {
           this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.clubMembers = res.data.members;
+          this.pilots = res.data.pilots;
+          this.idClub = res.data.id;
+          this.clubName = res.data.name;
+          this.pilot = res.data.pilot;
+          if(this.pilot == null || this.pilot == undefined){
+            this.pilotIsNull = true
+          }else{
+            this.pilotIsNull = false
+          }
+          if( this.clubMembers.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-        this.loaderService.hideLoader();
       });
     })
   }

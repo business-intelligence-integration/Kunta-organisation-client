@@ -53,12 +53,20 @@ export class UserDetailsRoleComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.userService.getMemberById(params['id']).subscribe((res)=>{
         this.idUser = params['id']
-        this.user = res.data;
-        this.roles = res.data.roles;
-        if (this.roles.length <= 0) {
+        if ( res == null ) {
           this.show = true;
-        }
-        this.loaderService.hideLoader();
+          this.loaderService.hideLoader();
+        } else {
+          this.roles = res.data.roles;
+          this.user = res.data;
+          if( this.roles.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
+        } 
       });
     })
   }

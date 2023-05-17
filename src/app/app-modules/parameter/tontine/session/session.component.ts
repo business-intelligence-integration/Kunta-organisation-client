@@ -24,11 +24,19 @@ export class SessionComponent implements OnInit {
 
   getAllSession(){
     this.sessionService.findAllSessions().subscribe((res)=>{
-      this.sessions = res.data
-      if ( this.sessions.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.sessions = res.data;
+        if( this.sessions.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 

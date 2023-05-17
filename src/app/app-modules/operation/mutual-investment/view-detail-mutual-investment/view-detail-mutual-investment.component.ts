@@ -33,6 +33,7 @@ export class ViewDetailMutualInvestmentComponent implements OnInit {
       })
       this.loaderService.hideLoader();
     })
+    this.loaderService.hideLoader();
   }
 
 }

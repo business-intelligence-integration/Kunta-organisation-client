@@ -65,15 +65,22 @@ export class PostsOfAreaComponent implements OnInit {
 
   finAllPostByIdArea(){
     this.activatedRoute.queryParams.subscribe((params) => {
-        this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
-          this.posts = res.data;
-          if ( this.posts.length <= 0 ) {
-            this.show = true;
-          }
+      this.postService.finAllPostByIdArea(params['id']).subscribe((res)=>{
+        this.posts = res.data;
+        if ( res == null ) {
+          this.show = true;
           this.loaderService.hideLoader();
-        })
-      });
-   
+        } else {
+          if( this.posts.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
+        }
+      })
+    });
   }
 
   onOpenAddOperatorModal(id: number){

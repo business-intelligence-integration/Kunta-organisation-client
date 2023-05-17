@@ -24,11 +24,19 @@ export class CycleComponent implements OnInit {
 
   getAllCycles(){
     this.cycleService.findAllCycles().subscribe((res)=>{
-      this.cycles = res.data;
-      if ( this.cycles.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.cycles = res.data;
+        if( this.cycles.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 }

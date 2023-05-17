@@ -25,6 +25,8 @@ import { PaymentMethodService } from 'src/app/core/services/payment-method/payme
 import { Payment } from 'src/app/core/classes/payment';
 import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { Organism } from 'src/app/core/classes/organism';
+import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -88,8 +90,12 @@ export class MutualInvestmentComponent implements OnInit {
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
-  idRefundType: number = 0;
-  firstRefundDate: any;
+  organism: Organism = new Organism();
+  physicalPerson: User = new User();
+  refundType: string = "";
+  // firstRefundDate: any;
+  isPaid: boolean = true;
+  firstRefundDate: FirstRefundDate = new FirstRefundDate();
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -139,6 +145,10 @@ export class MutualInvestmentComponent implements OnInit {
       echeanceDurationInMonths: new FormControl(null),
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
+      percentageMutual: new FormControl(null, Validators.required),
+      percentageOfFunders: new FormControl(null, Validators.required),
+      percentageOfGuarantees: new FormControl(null, Validators.required),
+      percentageOfPassiveIncomeFund: new FormControl(null, Validators.required),
     })
 
     this.updateMutualInvestmentForm = this.formBuilder.group({
@@ -175,11 +185,30 @@ export class MutualInvestmentComponent implements OnInit {
 
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
-      this.mutualInvestments = res.data;
-      if ( this.mutualInvestments.length <= 0 ) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        console.log("Mutuelles:: ", res);
+        
+        this.mutualInvestments = res.data;
+        this.mutualInvestments.forEach((element) => {
+          element.offers.forEach((element) => {
+            element.subscriptions.forEach((element) => {
+              if (element.status != 'RELEASED') {
+                this.isPaid = false;
+              }
+            })
+          })
+        })
+        if( this.mutualInvestments.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 
@@ -281,6 +310,10 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestment.name = formValue.name;
     this.mutualInvestment.endDate = formValue.endDate;
     this.mutualInvestment.startDate = formValue.startDate;
+    this.mutualInvestment.percentageMutual = formValue.percentageMutual;
+    this.mutualInvestment.percentageOfFunders = formValue.percentageOfFunders;
+    this.mutualInvestment.percentageOfGuarantees = formValue.percentageOfGuarantees;
+    this.mutualInvestment.percentageOfPassiveIncomeFund = formValue.percentageOfPassiveIncomeFund;
     // this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
     if(formValue.idFrequency != null){
@@ -288,20 +321,22 @@ export class MutualInvestmentComponent implements OnInit {
     }if(formValue.idMutualist != null){
       idMutualist = formValue.idMutualist
     }if(this.isOthers == true){
-      this.mutualInvestment.organism.email = formValue.email;
-      this.mutualInvestment.organism.city = formValue.city;
-      this.mutualInvestment.organism.name = formValue.name2;
-      this.mutualInvestment.organism.firstName = formValue.firstName;
-      this.mutualInvestment.organism.lastName = formValue.lastName;
-      this.mutualInvestment.organism.userName = formValue.email;
-      this.mutualInvestment.organism.phoneNumber = formValue.phoneNumber;
+      this.organism.email = formValue.email;
+      this.organism.city = formValue.city;
+      this.organism.name = formValue.name2;
+      this.organism.firstName = formValue.firstName;
+      this.organism.lastName = formValue.lastName;
+      this.organism.userName = formValue.userName;
+      this.organism.phoneNumber = formValue.phoneNumber;
+      this.mutualInvestment.organism = this.organism;
     }if(this.isPhysical == true){
-      this.mutualInvestment.physicalPerson.email = formValue.email;
-      this.mutualInvestment.physicalPerson.city = formValue.city;
-      this.mutualInvestment.physicalPerson.firstName = formValue.firstName;
-      this.mutualInvestment.physicalPerson.lastName = formValue.lastName;
-      this.mutualInvestment.physicalPerson.userName = formValue.email;
-      this.mutualInvestment.physicalPerson.phoneNumber = formValue.phoneNumber;
+      this.physicalPerson.email = formValue.email;
+      this.physicalPerson.city = formValue.city;
+      this.physicalPerson.firstName = formValue.firstName;
+      this.physicalPerson.lastName = formValue.lastName;
+      this.physicalPerson.userName = formValue.userName;
+      this.physicalPerson.phoneNumber = formValue.phoneNumber;
+      this.mutualInvestment.physicalPerson = this.physicalPerson;
     }
 
     this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, formValue.idCenter, idFrequency, idMutualist);
@@ -420,7 +455,7 @@ export class MutualInvestmentComponent implements OnInit {
   getMutualInvestmentById(idInvestment: number){
     this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
       console.log("Resultat::", res.data);
-      this.idRefundType = res.data.refundType.id;
+      this.refundType = res.data.refundType.type;
       this.getAllUsersByIdCenter(res.data.mutualCenter.id);
       this.amountCollecteds = res.data.amountCollecteds;
     });
@@ -695,9 +730,13 @@ export class MutualInvestmentComponent implements OnInit {
   onSubmitGenerate(){
     this.isSaving = true;
     const formValue = this.generateForm.value;
-    if ( formValue.firstRefundDate != null ) {
-      this.firstRefundDate = formValue.firstRefundDate;
+    if ( this.refundType == "PÉRIODIQUEMENT" ) {
+      // this.firstRefundDate = formValue.firstRefundDate;
+      let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
+      this.firstRefundDate.date = firstRefundDate
       this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
+        console.log("Generate::", res);
+        
         this.isSaving = false;
         this.getAllMutualInvestments();
         this.generateForm.reset();
@@ -717,7 +756,7 @@ export class MutualInvestmentComponent implements OnInit {
           'white'
         );
       })
-    } if ( formValue.amountToBeRefunded != null && formValue.refundDate != null ) {
+    } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
       this.mutualInvestment.amountToBeRefunded = formValue.amountToBeRefunded;
       this.mutualInvestment.refundDate = formValue.refundDate;
       this.mutualInvestmentService.setRefundDatesManually(this.mutualInvestment, this.idInvestment).subscribe((res)=>{
@@ -742,5 +781,4 @@ export class MutualInvestmentComponent implements OnInit {
       })
     } 
   }
-
 }

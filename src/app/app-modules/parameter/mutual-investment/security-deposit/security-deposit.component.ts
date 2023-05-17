@@ -23,11 +23,19 @@ export class SecurityDepositComponent implements OnInit {
 
   getAllSecurityDeposits() {
     this.securityDepositService.findAll().subscribe((res) => {
-      this.securityDeposits = res.data;
-      if ( this.securityDeposits.length <= 0) {
+      if ( res == null ) {
         this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        this.securityDeposits = res.data;
+        if( this.securityDeposits.length <= 0 ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        } else {
+          this.show = false;
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
     })
   }
 
