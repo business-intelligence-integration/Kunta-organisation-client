@@ -345,6 +345,10 @@ export class MutualInvestmentComponent implements OnInit {
 
   createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter:number, idFrequency: number, idMutualist: number){
     this.mutualInvestmentService.createMutualInvestment(mutualInvestment, idDraweeForm, idRefundType, idProfitabilityType, idCenter, idFrequency, idMutualist).subscribe((res)=>{
+      console.log("creation:: ", res);
+      console.log("idDraweeForm: ", idDraweeForm,"idRefundType: ", idRefundType,"idProfitabilityType: ", "idProfitabilityType: ", idProfitabilityType, "idCenter: ", idCenter, "idFrequency: ", idFrequency,"idMutualist: ", idMutualist);
+      console.log("backend:: ", mutualInvestment);
+      
       this.isSaving = false;
       this.getAllMutualInvestments();
       this.createMutualInvestmentForm.reset();
@@ -424,8 +428,7 @@ export class MutualInvestmentComponent implements OnInit {
         '#06d6a0',
         'white'
       );
-    }, (error) => {
-      console.log("error: ", error);
+    }, () => {
       this.isSaving = false;
       this.closeSubscriptionOfferModal();
       this.addSubscriptionOfferForm.reset();
@@ -455,10 +458,9 @@ export class MutualInvestmentComponent implements OnInit {
 
   getMutualInvestmentById(idInvestment: number){
     this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
-      console.log("Resultat::", res.data);
       this.refundType = res.data.refundType.type;
       this.getAllUsersByIdCenter(res.data.mutualCenter.id);
-      this.amountCollecteds = res.data.amountCollecteds;
+      // this.amountCollecteds = res.data.amountCollecteds;
     });
   }
 
@@ -491,8 +493,7 @@ export class MutualInvestmentComponent implements OnInit {
         '#06d6a0',
         'white'
       );
-    }, (error) => {
-      console.log("error: ", error);
+    }, () => {
       this.isSaving = false;
       this.closeSecurityDepositModal();
       this.addSecurityDepositForm.reset();
@@ -736,8 +737,6 @@ export class MutualInvestmentComponent implements OnInit {
       let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
       this.firstRefundDate.date = firstRefundDate
       this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
-        console.log("Generate::", res);
-        
         this.isSaving = false;
         this.getAllMutualInvestments();
         this.generateForm.reset();

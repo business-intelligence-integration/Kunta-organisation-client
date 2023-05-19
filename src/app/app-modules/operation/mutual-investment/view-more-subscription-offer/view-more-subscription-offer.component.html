@@ -128,7 +128,7 @@
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
                             <span>Type de rentabilité</span>
-                            <span>Taux de rentabilité</span>
+                            <span>Taux de rentabilité (%)</span>
                             <span>Niveau de risque</span>
                             <span>Souscriptions</span>
                             <span class="cell-end">Actions</span>
@@ -145,7 +145,7 @@
                                 <div class="flex-table-cell" data-th="Type de rentabilité">
                                     <span class="light-text" data-filter-match="">{{offer.profitabilityType.label}}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Taux de rentabilité">
+                                <div class="flex-table-cell" data-th="Taux de rentabilité (%)">
                                     <span class="light-text" data-filter-match="">{{offer.profitabilityRate}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Niveau de risque">
@@ -228,7 +228,7 @@
                         </div>
 
                         <div class="field" *ngIf="isOfferCertain">
-                            <label>Taux de rentabilité </label><br>
+                            <label>Taux de rentabilité (%)</label><br>
                             <div class="control">
                                 <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" >
                             </div>
@@ -268,7 +268,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updateOfferForm" (ngSubmit)="onSubmitUpdateOfferForm(offer.id)">
                         <div class="field" *ngIf="offer.profitabilityRate">
-                            <label>Taux de rentabilité </label>
+                            <label>Taux de rentabilité (%)</label>
                             <div class="control">
                                 <input type="number" class="input" [(ngModel)]="offer.profitabilityRate" placeholder="Taux de rentabilité" formControlName="profitabilityRate">
                             </div>
