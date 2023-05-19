@@ -96,6 +96,7 @@ export class MutualInvestmentComponent implements OnInit {
   // firstRefundDate: any;
   isPaid: boolean = true;
   firstRefundDate: FirstRefundDate = new FirstRefundDate();
+  openDistributionModal: string = ""
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -780,5 +781,67 @@ export class MutualInvestmentComponent implements OnInit {
         );
       })
     } 
+  }
+
+  //////////////////////// Make Distribution
+  onMakeDistribution(idInvestment: number) {
+    // this.openDistributionModal = "is-active";
+    // this.idInvestment = idInvestment;
+    this.distributionMessage(idInvestment);
+  }
+
+  onCloseDistributionModal(){
+    this.openDistributionModal = "";
+  }
+
+  distributionMessage(idInvestment: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, distribuer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.mutualInvestmentService.makeDistribution(idInvestment).subscribe(
+            () => {
+              this.getAllMutualInvestments();
+              swalWithBootstrapButtons.fire({
+                title: 'Debloqué !',
+                text: 'La distribution a été effectué avec succès !.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La distribution a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 }
