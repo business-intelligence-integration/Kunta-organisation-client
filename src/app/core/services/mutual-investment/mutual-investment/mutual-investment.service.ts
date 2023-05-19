@@ -73,8 +73,12 @@ export class MutualInvestmentService {
     return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/release/'+ idInvestment + "?token=" + this.utilityService.loadToken(), {});
   }
 
-  refundOfAmountsCollected(idInvestment: number, idPaymentMethod: number, payment: Payment):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/refund/'+ idInvestment + '/idPaymentMethod/' + idPaymentMethod + "?token=" + this.utilityService.loadToken(), payment);
+  refundOfAmountsCollected(idRefund: number, idPaymentMethod: number, payment: Payment):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/refund/'+ idRefund + '/idPaymentMethod/' + idPaymentMethod + "?token=" + this.utilityService.loadToken(), payment);
+  }
+
+  makeDistribution(idInvestment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + '/make-the-distribution' + "?token=" + this.utilityService.loadToken(), {});
   }
 
 }

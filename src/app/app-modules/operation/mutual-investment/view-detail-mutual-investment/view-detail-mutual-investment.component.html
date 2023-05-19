@@ -134,7 +134,7 @@
                                 <p>{{ mutualInvestment.mutualCenter.name }}</p>
                             </div>
                         </div>
-                        <div class="media-flex">
+                        <div class="media-flex" *ngIf="mutualInvestment.organism != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -166,8 +166,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Mutualiste:</span><br>
-                                <p> {{ mutualInvestment.physicalPerson.firstName }}  {{ mutualInvestment.physicalPerson.lastName }}</p>
+                                <span>Statut Placement:</span><br>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'">Bloqué</span>
+                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED'">Debloqué</span>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -175,8 +176,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut:</span><br>
-                                <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': mutualInvestment.status === 'FERMÉ', 'is-success': mutualInvestment.status === 'OUVERT'}">{{ mutualInvestment.status }}</span>
+                                <span>Statut Remboursement:</span><br>
+                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'PAID'">Remboursé</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'UNPAID'">Non-remboursé</span>
                             </div>
                         </div>
                     </div>

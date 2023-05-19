@@ -155,8 +155,8 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant Collecté(s)">
                                     <span class="light-text" data-filter-match="">{{refund.amountCollecteds.length}}</span>
-                                    <a _ngcontent-nct-c62="" (click)="onRefund()" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
-                                    <a _ngcontent-nct-c62="" (click)="onViewRefunds()" tooltip=" Voir les montants " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    <a _ngcontent-nct-c62="" (click)="onRefund(refund.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                                    <a _ngcontent-nct-c62="" (click)="onViewRefunds(refund.id)" tooltip=" Voir les montants " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Date(s)">
                                     <span class="light-text" data-filter-match="">{{ refund.refundDate }}</span>

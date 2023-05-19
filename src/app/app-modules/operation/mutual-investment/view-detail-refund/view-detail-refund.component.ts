@@ -10,6 +10,7 @@ import { Payment } from 'src/app/core/classes/payment';
 import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { RefundService } from 'src/app/core/services/refund/refund.service';
 
 @Component({
   selector: 'app-view-detail-refund',
@@ -25,6 +26,7 @@ export class ViewDetailRefundComponent implements OnInit {
   refunds: Refund[] = [];
   mutualInvestment: MutualInvestment = new MutualInvestment();
   idInvestment: number = 0;
+  idRefund: number = 0;
   refundForm!: FormGroup;
   isSaving: boolean = false;
   openRefundModal: string = "";
@@ -37,6 +39,7 @@ export class ViewDetailRefundComponent implements OnInit {
   constructor(private location: Location,
     private activatedRoute: ActivatedRoute,
     private mutualInvestmentService: MutualInvestmentService,
+    private refundService: RefundService,
     private paymentMethodService: PaymentMethodService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
@@ -82,7 +85,6 @@ export class ViewDetailRefundComponent implements OnInit {
           this.mutualInvestment = res.data;
           this.refunds = res.data.refunds;
           this.idInvestment = params['id'];
-          this.amountCollecteds = res.data.refunds.amountCollecteds;
           if( this.refunds.length <= 0 ) {
             this.show = true;
             this.loaderService.hideLoader();
@@ -111,8 +113,9 @@ export class ViewDetailRefundComponent implements OnInit {
     this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
-  onRefund(){
+  onRefund(idRefund: number){
     this.openRefundModal = "is-active";
+    this.idRefund = idRefund;
   }
 
   onCloseRefundModal(){
@@ -126,14 +129,14 @@ export class ViewDetailRefundComponent implements OnInit {
     this.payment.paid = formValue.paid;
     this.payment.proof = formValue.proof;
     this.payment.date = formValue.date;
-    this.mutualInvestmentService.refundOfAmountsCollected(this.idInvestment, formValue.idPaymentMethod, this.payment).subscribe((res)=>{
+    this.mutualInvestmentService.refundOfAmountsCollected(this.idRefund, formValue.idPaymentMethod, this.payment).subscribe((res)=>{
       this.isSaving = false;
       this.getMutualInvestment();
       this.refundForm.reset();
       this.onCloseRefundModal();
       this.utilityService.showMessage(
         'success',
-        'Placement remboursé avec succès',
+        'Remboursement payé avec succès',
         '#06d6a0',
         'white'
       );
@@ -149,8 +152,16 @@ export class ViewDetailRefundComponent implements OnInit {
   }
 
   ////////////////////////////// View Collected Refunds
-  onViewRefunds(){
+  onViewRefunds(idRefund: number){
     this.openViewRefundsModal = "is-active";
+    this.idRefund = idRefund;
+    this.findRefundById();
+  }
+
+  findRefundById() {
+    this.refundService.findRefundById(this.idRefund).subscribe((res) => {
+      this.amountCollecteds = res.data.amountCollecteds;
+    })
   }
 
   closeViewRefundsModal(){
