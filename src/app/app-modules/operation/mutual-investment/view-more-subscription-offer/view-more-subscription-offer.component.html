@@ -216,7 +216,11 @@
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfile" [(ngModel)]="ngSelect3">
                                 <option value="0" disabled>--Selectionnez un niveau de risque--</option>
                                 <option *ngFor="let risk of riskProfiles" [value]="risk.id"> <span> {{ risk.riskLevel }}  </span> </option>
-                            </select><br><br>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="addSubscriptionOfferForm.get('idProfile')?.errors?.['required'] && addSubscriptionOfferForm.get('idProfile')?.touched">
+                                <small class="text-police">Veuillez entrer le niveau de risque</small>
+                            </div><br><br>
                         </div>
 
                         <div class="field">
@@ -224,14 +228,22 @@
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect4" (ngModelChange)="onOfferProfitabilitySelected($event)">
                                 <option value="0" disabled>--Selectionnez un type de rentabilité--</option>
                                 <option *ngFor="let profitability of profitabilityTypes" [value]="profitability.id"> <span> {{ profitability.label }}  </span> </option>
-                            </select><br><br>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="addSubscriptionOfferForm.get('idProfitabilityType')?.errors?.['required'] && addSubscriptionOfferForm.get('idProfitabilityType')?.touched">
+                                <small class="text-police">Veuillez entrer le type de rentabilité</small>
+                            </div><br><br><br><br>
                         </div>
 
                         <div class="field" *ngIf="isOfferCertain">
                             <label>Taux de rentabilité (%)</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" >
+                                <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" [(ngModel)]="profitabilityRate" (ngModelChange)="onProfitabilityRateSelected($event)" >
                             </div>
+                            <div class="text-danger"
+                                    *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
+                                    <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{percentageOfFunders}}%).</small>
+                                </div>
                         </div><br>
                        
                         <div class="control login">

@@ -143,9 +143,9 @@
                     <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
-                        <span>Cautioneur(s)</span>
-                        <span>Montant</span>
-                        <span class="cell-end">Actions</span>
+                        <span>Cautionneur(s)</span>
+                        <span class="cell-end">Montant</span>
+                        <!-- <span class="cell-end">Actions</span> -->
                     </div>
         
                     <div class="flex-list-inner">
@@ -159,17 +159,17 @@
                                     </span> -->
                                 </div>
                             </div>
-                            <div class="flex-table-cell" data-th="Cautioneur(s)">
+                            <div class="flex-table-cell" data-th="Cautionneur(s)">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.depositUser.firstName}}  {{securityDeposit.depositUser.lastName}}</span>
                             </div>
-                            <div class="flex-table-cell" data-th="Montant">
+                            <div class="flex-table-cell cell-end" data-th="Montant">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.amount}}</span>
                             </div>
-                            <div class="flex-table-cell cell-end" data-th="Actions">
+                            <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                 <a _ngcontent-nct-c62="" (click)="onDeleteSecurityDeposit(securityDeposit.id)" tooltip=" Retirer la caution " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
         

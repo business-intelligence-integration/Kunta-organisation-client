@@ -48,6 +48,9 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   addSubscriptionOfferForm!: FormGroup;
   profitabilityTypes: ProfitabilityType[] = [];
   isOfferCertain: boolean = false;
+  profitabilityRate: number = 0;
+  percentageOfFunders: number = 0;
+  percentageOkay: boolean = false;
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -97,6 +100,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
           this.show = true;
           this.loaderService.hideLoader();
         } else {
+          this.percentageOfFunders = res.data.percentageOfFunders;
           this.offers = res.data.offers;
           if( this.offers.length <= 0 ) {
             this.show = true;
@@ -331,6 +335,15 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
 
   closeSubscriptionOfferModal(){
     this.openOfferModal = "";
+  }
+
+  onProfitabilityRateSelected(val: any){
+    this.profitabilityRate = val;
+    if(this.profitabilityRate <= this.percentageOfFunders ){
+      this.percentageOkay = true;
+    } else {
+      this.percentageOkay = false;
+    }
   }
 
   onAddSubscriptionOffer() {

@@ -909,6 +909,40 @@ export class MutualInvestmentComponent implements OnInit {
           'white'
         );
       })
+    } else if ( this.refundType == 'A L\'ÉCHÉANCE' ) {
+      let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
+      this.mutualInvestmentService.generateRefundDates(this.idInvestment, firstRefundDate).subscribe((res)=>{
+        this.isSaving = false;
+        console.log("Echeance:: ", res);
+        
+        if(res) {
+          if (res.data == null ) {
+            this.utilityService.showMessage(
+              'warning',
+              res.message,
+              '#e62965',
+              'white'
+            );
+          } else {
+            this.getAllMutualInvestments();
+            this.generateForm.reset();
+            this.onCloseGenerateModal();
+            this.utilityService.showMessage(
+              'success',
+              'Date(s) generée(s) avec succès',
+              '#06d6a0',
+              'white'
+            );
+          }
+        } else {
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite, verifier votre saisis',
+            '#e62965',
+            'white'
+          );
+        }
+      })
     } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
       this.mutualInvestment.amountToBeRefunded = formValue.amountToBeRefunded;
       this.mutualInvestment.refundDate = formValue.refundDate;
@@ -950,7 +984,7 @@ export class MutualInvestmentComponent implements OnInit {
           'white'
         );
       })
-    } 
+    }
   }
 
   //////////////////////// Make Distribution

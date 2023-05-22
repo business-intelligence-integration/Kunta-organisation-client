@@ -42,4 +42,5 @@ export class MutualInvestment{
     percentageOfGuarantees: number = 0;
     percentageOfPassiveIncomeFund: number = 0;
     refunds: Refund[] = [];
+    distributionStatus: string = "";
   }

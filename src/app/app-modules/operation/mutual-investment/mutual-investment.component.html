@@ -58,7 +58,7 @@
                     </div>
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
-                        <a class="pagination-previous has-chevron" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-subscription-offer']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details offre " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
                         <a _ngcontent-nct-c62="" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -249,7 +249,7 @@
                                 <div class="text-danger"              
                                     *ngIf="createMutualInvestmentForm.get('minimumAmount')?.errors?.['required'] && createMutualInvestmentForm.get('minimumAmount')?.touched">
                                     <small class="text-police">veuillez entrer le montant minimal</small>
-                                 </div>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Pourcentage de la mutuelle (%) *</label><br>
@@ -259,11 +259,11 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('percentageMutual')?.errors?.['required'] && createMutualInvestmentForm.get('percentageMutual')?.touched">
                                     <small class="text-police">veuillez entrer le pourcentage de la mutuelle %</small>
-                                 </div>
+                                </div>
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('percentageMutual')?.touched">
                                     <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
-                                 </div>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Pourcentage des pouvoyeurs de fond (%) *</label><br>
@@ -280,13 +280,13 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Pourcentage des garants (%) *</label><br>
+                                <label>Pourcentage des cautionneurs (%) *</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="Pourcentage des garants" formControlName="percentageOfGuarantees" [(ngModel)]="percentageOfGuarantees" (ngModelChange)="onPercentageGuaranteesSelected($event)">
+                                    <input type="number" class="input" placeholder="Pourcentage des cautionneurs" formControlName="percentageOfGuarantees" [(ngModel)]="percentageOfGuarantees" (ngModelChange)="onPercentageGuaranteesSelected($event)">
                                 </div>
                                 <div class="text-danger"              
                                     *ngIf="createMutualInvestmentForm.get('percentageOfGuarantees')?.errors?.['required'] && createMutualInvestmentForm.get('percentageOfGuarantees')?.touched">
-                                    <small class="text-police">veuillez entrer le pourcentage des garants % </small>
+                                    <small class="text-police">veuillez entrer le pourcentage des cautionneurs % </small>
                                 </div>
                                 <div class="text-danger"              
                                     *ngIf="createMutualInvestmentForm.get('percentageOfGuarantees')?.touched">
@@ -720,7 +720,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Generer date(s) de remboursement du placement mutualisé</h3>
+                <h3>Générer date(s) de remboursement du placement mutualisé</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseGenerateModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -769,7 +769,7 @@
                         </div><br>
                         <div class="control login">
                             <button [disabled]="generateForm.invalid || isSaving"
-                                class="button h-button is-primary is-bold is-fullwidth is-raised">Generer</button>
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Générer</button>
                         </div>
                     </form>
                 </div>

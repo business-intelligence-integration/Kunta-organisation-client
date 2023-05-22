@@ -11,4 +11,6 @@ export class Subscription {
     amountPaid: number = 0;
     payments: Payment[] = [];
     status: string = "";
+    amountOfProfitability: number = 0;
+    totalAmountReceivable: number = 0;
 }
