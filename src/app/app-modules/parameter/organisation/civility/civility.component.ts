@@ -81,16 +81,33 @@ export class CivilityComponent implements OnInit {
   createCivility(civlity: Civility){
     this.isSaving = true;
     this.civilityService.createCivility(civlity).subscribe((res)=>{
-
       this.isSaving = false;
-      this.closeCreateModal()
-      this.getAllCivilities();
-      this.utilityService.showMessage(
-        'success',
-        'Civilité crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeCreateModal()
+          this.getAllCivilities();
+          this.utilityService.showMessage(
+            'success',
+            'Civilité crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -122,16 +139,34 @@ export class CivilityComponent implements OnInit {
 
   updateCivility(idCivility: number, civility: Civility){
     this.isSaving = true;
-    this.civilityService.updateCivility(idCivility, civility).subscribe(()=>{
+    this.civilityService.updateCivility(idCivility, civility).subscribe((res)=>{
       this.isSaving = false;
-      this.closeUpdateModal();
-      this.getAllCivilities();
-      this.utilityService.showMessage(
-        'success',
-        'Civilité modifiée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeUpdateModal();
+          this.getAllCivilities();
+          this.utilityService.showMessage(
+            'success',
+            'Civilité modifiée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

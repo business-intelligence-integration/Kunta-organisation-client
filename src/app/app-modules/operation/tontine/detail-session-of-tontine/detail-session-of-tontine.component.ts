@@ -170,12 +170,12 @@ export class DetailSessionOfTontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible !",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -186,23 +186,23 @@ export class DetailSessionOfTontineComponent implements OnInit {
             () => {
               this.getAllSessionsOfCycle();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Session has been deleted.',
+                title: 'Supprimé !',
+                text: 'Session supprimée avec succès.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'La suppression a été annulé.',
             confirmButtonColor: '#d33',
           });
         }
@@ -239,16 +239,35 @@ export class DetailSessionOfTontineComponent implements OnInit {
   }
 
   createPaymentForSession(payment: Payment, idSession: number, idMember: number, idPaymentMethod: number){
-    this.sessionService.createPaymentForSession(payment, idSession, idMember, idPaymentMethod).subscribe(()=>{
+    this.sessionService.createPaymentForSession(payment, idSession, idMember, idPaymentMethod).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllSessionsOfCycle();
-      this.closePaymentModal();
-      this.utilityService.showMessage(
-        'success',
-        'Payment made successffully !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllSessionsOfCycle();
+          this.closePaymentModal();
+          this.utilityService.showMessage(
+            'success',
+            'Payment made successffully !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -270,16 +289,34 @@ export class DetailSessionOfTontineComponent implements OnInit {
   }
 
   makePenality(penalityType: Penality, idSession: number, idPenalityType: number, idUser: number ){
-    this.sessionService.createPenaltyForSession(penalityType, idSession, idPenalityType, idUser).subscribe(()=>{
+    this.sessionService.createPenaltyForSession(penalityType, idSession, idPenalityType, idUser).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllSessionsOfCycle();
-      this.closePenalityModal()
-      this.utilityService.showMessage(
-        'success',
-        'Pénalité appliquée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllSessionsOfCycle();
+          this.closePenalityModal()
+          this.utilityService.showMessage(
+            'success',
+            'Pénalité appliquée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

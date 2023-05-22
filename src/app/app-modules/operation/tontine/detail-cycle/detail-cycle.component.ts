@@ -136,21 +136,40 @@ export class DetailCycleComponent implements OnInit {
 
   updateCycle(id: number, cycle: Cycle){
     this.isSaving = true;
-    this.cycleService.updateCycle(id, cycle).subscribe(()=>{
+    this.cycleService.updateCycle(id, cycle).subscribe((res)=>{
       this.isSaving = false;
-      this.findAllCyclesOfTontine();
-      this.closeCycleModal()
-      this.utilityService.showMessage(
-        'success',
-        'Cycle successfully updated',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.findAllCyclesOfTontine();
+          this.closeCycleModal()
+          this.utilityService.showMessage(
+            'success',
+            'Cycle successfully updated',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite',
         '#e62965',
         'white'
       );

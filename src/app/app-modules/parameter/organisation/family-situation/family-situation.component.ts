@@ -143,16 +143,37 @@ export class FamilySituationComponent implements OnInit {
   }
 
   createFamilySituation(familySituation: FamilySituation){
-    this.familySituationService.createFamilySituation(familySituation).subscribe(()=>{
-      this.getAllSituationFamily();
-      this.closeCreateModal();
-      this.utilityService.showMessage(
-        'success',
-        'Situation familiale crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.isSaving = true;
+    this.familySituationService.createFamilySituation(familySituation).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllSituationFamily();
+          this.closeCreateModal();
+          this.utilityService.showMessage(
+            'success',
+            'Situation familiale crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
+      this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
         'Une erreur d\'est produites',
@@ -170,16 +191,34 @@ export class FamilySituationComponent implements OnInit {
 
   updateFamilySituation(id: number, famlilySituation: FamilySituation){
     this.isSaving = true;
-    this.familySituationService.updateFamilySituation(id, famlilySituation).subscribe(()=>{
+    this.familySituationService.updateFamilySituation(id, famlilySituation).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllSituationFamily();
-      this.closeUpdateModal();
-      this.utilityService.showMessage(
-        'success',
-        'Situation familiale modifiée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllSituationFamily();
+          this.closeUpdateModal();
+          this.utilityService.showMessage(
+            'success',
+            'Situation familiale modifiée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

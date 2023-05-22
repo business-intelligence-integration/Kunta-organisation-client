@@ -252,44 +252,60 @@
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Pourcentage de la mutuelle % *</label><br>
+                                <label>Pourcentage de la mutuelle (%) *</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="pourcentage de mutuelle" formControlName="percentageMutual">
+                                    <input type="number" class="input" placeholder="pourcentage de mutuelle" formControlName="percentageMutual" [(ngModel)]="percentageMutual" (ngModelChange)="onPercentageMutualSelected($event)">
                                 </div>
-                                <div class="text-danger"              
+                                <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('percentageMutual')?.errors?.['required'] && createMutualInvestmentForm.get('percentageMutual')?.touched">
                                     <small class="text-police">veuillez entrer le pourcentage de la mutuelle %</small>
                                  </div>
-                            </div>
-                            <div class="field">
-                                <label>Pourcentage des fondateurs % *</label><br>
-                                <div class="control">
-                                    <input type="number" class="input" placeholder="pourcentage des fondateurs" formControlName="percentageOfFunders">
-                                </div>
-                                <div class="text-danger"              
-                                    *ngIf="createMutualInvestmentForm.get('percentageOfFunders')?.errors?.['required'] && createMutualInvestmentForm.get('percentageOfFunders')?.touched">
-                                    <small class="text-police">veuillez entrer le pourcentage des fondateurs %</small>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('percentageMutual')?.touched">
+                                    <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Pourcentage des garants % *</label><br>
+                                <label>Pourcentage des pouvoyeurs de fond (%) *</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="Pourcentage des garants" formControlName="percentageOfGuarantees">
+                                    <input type="number" class="input" placeholder="pourcentage des pouvoyeurs de fond" formControlName="percentageOfFunders" [(ngModel)]="percentageOfFunders" (ngModelChange)="onPercentageFundersSelected($event)">
+                                </div>
+                                <div class="text-danger"              
+                                    *ngIf="createMutualInvestmentForm.get('percentageOfFunders')?.errors?.['required'] && createMutualInvestmentForm.get('percentageOfFunders')?.touched">
+                                    <small class="text-police">veuillez entrer le pourcentage des pouvoyeurs de fond %</small>
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createMutualInvestmentForm.get('percentageOfFunders')?.touched">
+                                    <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Pourcentage des garants (%) *</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="Pourcentage des garants" formControlName="percentageOfGuarantees" [(ngModel)]="percentageOfGuarantees" (ngModelChange)="onPercentageGuaranteesSelected($event)">
                                 </div>
                                 <div class="text-danger"              
                                     *ngIf="createMutualInvestmentForm.get('percentageOfGuarantees')?.errors?.['required'] && createMutualInvestmentForm.get('percentageOfGuarantees')?.touched">
                                     <small class="text-police">veuillez entrer le pourcentage des garants % </small>
-                                 </div>
+                                </div>
+                                <div class="text-danger"              
+                                    *ngIf="createMutualInvestmentForm.get('percentageOfGuarantees')?.touched">
+                                    <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100. </small>
+                                </div>
                             </div>
                             <div class="field">
-                                <label>Pourcentage des entrées passives % *</label><br>
+                                <label>Pourcentage des entrées passives (%) *</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="pourcentage des entrées" formControlName="percentageOfPassiveIncomeFund">
+                                    <input type="number" class="input" placeholder="pourcentage des entrées" formControlName="percentageOfPassiveIncomeFund" [(ngModel)]="percentageOfPassiveIncomeFund" (ngModelChange)="onPercentageIncomeSelected($event)">
                                 </div>
                                 <div class="text-danger"              
                                     *ngIf="createMutualInvestmentForm.get('percentageOfPassiveIncomeFund')?.errors?.['required'] && createMutualInvestmentForm.get('percentageOfPassiveIncomeFund')?.touched">
                                     <small class="text-police">veuillez entrer le pourcentage des entrées passives % </small>
-                                 </div>
+                                </div>
+                                <div class="text-danger"              
+                                    *ngIf="createMutualInvestmentForm.get('percentageOfPassiveIncomeFund')?.touched">
+                                    <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100. </small>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Types de rentabilités  *</label>
@@ -298,8 +314,8 @@
                                     <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idProfitabilityType')?.errors?.['required'] && createMutualInvestmentForm.get('idProfitabilityType')?.touched">
-                                        <small class="text-police">veuillez sélectionner un types de rentabilité</small>
+                                    *ngIf="createMutualInvestmentForm.get('idProfitabilityType')?.errors?.['required'] && createMutualInvestmentForm.get('idProfitabilityType')?.touched">
+                                    <small class="text-police">veuillez sélectionner un types de rentabilité</small>
                                 </div>
                             </div>
                             <div class="field" *ngIf="isCertain">
@@ -310,7 +326,7 @@
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('profitabilityRate')?.errors?.['required'] && createMutualInvestmentForm.get('profitabilityRate')?.touched">
                                     <small class="text-police">veuillez entrer le taux de rentabilité</small>
-                                 </div>
+                                </div>
                             </div>    
                             <div class="field">
                                 <label>Types de remboursements *</label>
@@ -324,14 +340,14 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isPeriod">
-                                <label>Frequence de remboursement</label>
+                                <label>Fréquence de remboursement</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelect5">
-                                    <option value="0" disabled>--Selectionnez une frequence de remboursement--</option>
+                                    <option value="0" disabled>--Sélectionnez une fréquence de remboursement--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
                                 </select>
                                 <div class="text-danger"
                                         *ngIf="createMutualInvestmentForm.get('idFrequency')?.errors?.['required'] && createMutualInvestmentForm.get('idFrequency')?.touched">
-                                        <small class="text-police">veuillez sélectionner une frequence de remboursement</small>
+                                        <small class="text-police">veuillez sélectionner une fréquence de remboursement</small>
                                 </div>
                             </div>
                             <div class="field" *ngIf="isPeriod">
@@ -354,7 +370,7 @@
                                             </div>
                                         </div>
                                         <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                            <small class="text-police" translate>veuillez selectionner la date de début</small>
+                                            <small class="text-police" translate>veuillez sélectionner la date de début</small>
                                         </div>
                                     </div>
                                 </div>
@@ -368,7 +384,7 @@
                                             </div>
                                         </div>
                                         <div class="text-danger" *ngIf="createMutualInvestmentForm.get('endDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
-                                            <small class="text-police" translate>veuillez selectionner la date de fin</small>
+                                            <small class="text-police" translate>veuillez sélectionner la date de fin</small>
                                         </div>
                                         <div class="text-danger" *ngIf="showErroMessage">
                                             <small class="text-police" translate>veuillez au préalable sélectionner la date de début</small>

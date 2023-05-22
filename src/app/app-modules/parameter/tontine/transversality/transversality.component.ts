@@ -115,15 +115,33 @@ export class TransversalityComponent implements OnInit {
   }
 
   crateLevel(level: Level){
-    this.transversalityService.createLevel(level).subscribe(()=>{
-      this.getAllLevel();
-      this.closeCreateLevelModal();
-      this.utilityService.showMessage(
-        'success',
-        'Niveau crée avec succès',
-        '#06d6a0',
-        'white'
-      );
+    this.transversalityService.createLevel(level).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllLevel();
+          this.closeCreateLevelModal();
+          this.utilityService.showMessage(
+            'success',
+            'Niveau crée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.utilityService.showMessage(
         'warning',

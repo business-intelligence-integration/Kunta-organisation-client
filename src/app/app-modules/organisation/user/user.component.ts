@@ -372,19 +372,37 @@ export class UserComponent implements OnInit {
   }
 
   updateUser(user: User, id: number){
-    this.userService.updateMemberById(user, id).subscribe(()=>{
+    this.userService.updateMemberById(user, id).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllUsers();
-      this.closeUpdateUserModal();
-      this.utilityService.showMessage(
-        'success',
-        'Utilisateur mis a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
-      this.isList = true
-      this.updatUser = false
-      this.creatUser = false
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllUsers();
+          this.closeUpdateUserModal();
+          this.utilityService.showMessage(
+            'success',
+            'Utilisateur mis a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+          this.isList = true
+          this.updatUser = false
+          this.creatUser = false
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -439,37 +457,74 @@ export class UserComponent implements OnInit {
     this.isSaving = true;
     this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllUsers();
-      this.addUserForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Admin crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
-    }, ()=>{
-      this.isSaving = false;
-      this.utilityService.showMessage(
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
             'warning',
-            'Une erreur s\'est produite !',
+            res.message,
             '#e62965',
             'white'
           );
+        } else {
+          this.getAllUsers();
+          this.addUserForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Admin crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
     })
   }
 
   createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
-    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe(()=>{
+    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllUsers();
-      this.addUserForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Membre crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllUsers();
+          this.addUserForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Membre crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -485,14 +540,32 @@ export class UserComponent implements OnInit {
     this.isSaving = true;
     this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry, idType, idCategory).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllUsers();
-      this.addUserForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Mutualiste crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllUsers();
+          this.addUserForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Mutualiste crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -508,14 +581,32 @@ export class UserComponent implements OnInit {
     this.isSaving = true;
     this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllUsers();
-      this.addUserForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Operator crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllUsers();
+          this.addUserForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Operator crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -661,16 +752,35 @@ export class UserComponent implements OnInit {
 
   createBeneficiary(idUser: number, idPieceType: number, beneficiary: Beneficiary){
     this.isSaving = true;
-    this.userService.addBeneficiary(idUser, idPieceType, beneficiary).subscribe(()=>{
+    this.userService.addBeneficiary(idUser, idPieceType, beneficiary).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllUsers();
-      this.closeBeneficiaryModal()
-      this.utilityService.showMessage(
-        'success',
-        'L\'ayant droit a été crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllUsers();
+          this.closeBeneficiaryModal()
+          this.utilityService.showMessage(
+            'success',
+            'L\'ayant droit a été crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -735,16 +845,34 @@ export class UserComponent implements OnInit {
 
   updateStatusUser(idUser: number, idStatus: number){
     this.isSaving = true;
-    this.userService.changeUserStatus(idUser, idStatus).subscribe(()=>{
+    this.userService.changeUserStatus(idUser, idStatus).subscribe((res)=>{
       this.isSaving = false;
-      this.closeStatusModal();
-      this.getAllUsers();
-      this.utilityService.showMessage(
-        'success',
-        'Le status de l\'utilisateur a été modifié avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllUsers();
+          this.utilityService.showMessage(
+            'success',
+            'Le status de l\'utilisateur a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
        this.isSaving = false;
       this.utilityService.showMessage(
@@ -848,7 +976,6 @@ export class UserComponent implements OnInit {
         'white'
       );
     }
-    
   },()=>{
     this.isSaving = false;
     this.utilityService.showMessage(

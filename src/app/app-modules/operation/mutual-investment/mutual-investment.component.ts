@@ -97,6 +97,11 @@ export class MutualInvestmentComponent implements OnInit {
   isPaid: boolean = true;
   firstRefundDate: FirstRefundDate = new FirstRefundDate();
   openDistributionModal: string = ""
+  percentageMutual: number = 0;
+  percentageOfFunders: number = 0;
+  percentageOfGuarantees: number = 0;
+  percentageOfPassiveIncomeFund: number = 0;
+  percentageCompleted: boolean = false;
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -261,6 +266,42 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
+  onPercentageMutualSelected(val: any) {
+    this.percentageMutual = val;
+    if(this.percentageMutual + this.percentageOfFunders + this.percentageOfGuarantees + this.percentageOfPassiveIncomeFund == 100){
+      this.percentageCompleted = true;
+    }else {
+      this.percentageCompleted = false;
+    }
+  }
+
+  onPercentageFundersSelected(val: any) {
+    this.percentageOfFunders = val;
+    if(this.percentageMutual + this.percentageOfFunders + this.percentageOfGuarantees + this.percentageOfPassiveIncomeFund == 100){
+      this.percentageCompleted = true;
+    }else {
+      this.percentageCompleted = false;
+    }
+  }
+
+  onPercentageGuaranteesSelected(val: any) {
+    this.percentageOfGuarantees = val;
+    if(this.percentageMutual + this.percentageOfFunders + this.percentageOfGuarantees + this.percentageOfPassiveIncomeFund == 100){
+      this.percentageCompleted = true;
+    }else {
+      this.percentageCompleted = false;
+    }
+  }
+
+  onPercentageIncomeSelected(val: any) {
+    this.percentageOfPassiveIncomeFund = val;
+    if(this.percentageMutual + this.percentageOfFunders + this.percentageOfGuarantees + this.percentageOfPassiveIncomeFund == 100){
+      this.percentageCompleted = true;
+    }else {
+      this.percentageCompleted = false;
+    }
+  }
+
   onDraweeSelected(val: any) {
     if(val == 2) {
       this.isPhysical = true;
@@ -350,15 +391,33 @@ export class MutualInvestmentComponent implements OnInit {
       console.log("backend:: ", mutualInvestment);
       
       this.isSaving = false;
-      this.getAllMutualInvestments();
-      this.createMutualInvestmentForm.reset();
-      this.cancelCreatingMutualInvestment();
-      this.utilityService.showMessage(
-        'success',
-        'Placement mutualisé crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.createMutualInvestmentForm.reset();
+          this.cancelCreatingMutualInvestment();
+          this.utilityService.showMessage(
+            'success',
+            'Placement mutualisé crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },(error)=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -419,15 +478,35 @@ export class MutualInvestmentComponent implements OnInit {
     this.isSaving = true;
     this.mutualInvestmentService.createSubscriptionOffer(idInvestment, idProfile, idProfitabilityType, profitabilityRate).subscribe((res) => {
       this.isSaving = false;
-      this.getAllMutualInvestments();
-      this.addSubscriptionOfferForm.reset();
-      this.closeSubscriptionOfferModal();
-      this.utilityService.showMessage(
-        'success',
-        'Offre ajoutée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.addSubscriptionOfferForm.reset();
+          this.closeSubscriptionOfferModal();
+          this.utilityService.showMessage(
+            'success',
+            'Offre ajoutée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeSubscriptionOfferModal();
+        this.addSubscriptionOfferForm.reset();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite, verifier votre saisis',
+          '#e62965',
+          'white'
+        );
+      }
     }, () => {
       this.isSaving = false;
       this.closeSubscriptionOfferModal();
@@ -484,15 +563,35 @@ export class MutualInvestmentComponent implements OnInit {
     this.isSaving = true;
     this.mutualInvestmentService.addSecurityDeposit(idInvestment, idUser, securityDeposit).subscribe((res) => {
       this.isSaving = false;
-      this.getAllMutualInvestments();
-      // this.addSecurityDepositForm.reset();
-      this.closeSecurityDepositModal();
-      this.utilityService.showMessage(
-        'success',
-        'Caution ajoutée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.closeSecurityDepositModal();
+          this.addSecurityDepositForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Caution ajoutée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeSecurityDepositModal();
+        this.addSecurityDepositForm.reset();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite, verifier votre saisis',
+          '#e62965',
+          'white'
+        );
+      }
     }, () => {
       this.isSaving = false;
       this.closeSecurityDepositModal();
@@ -527,16 +626,34 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.minimumAmount = formValue.minimumAmount;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
-    this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, formValue.id).subscribe(() => {
+    this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, formValue.id).subscribe((res) => {
       this.isSaving = false;
-      this.getAllMutualInvestments();
-      this.onCloseUpdateModal();
-      this.utilityService.showMessage(
-        'success',
-        'Placement mis a jour avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.onCloseUpdateModal();
+          this.utilityService.showMessage(
+            'success',
+            'Placement mis a jour avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite, verifier votre saisis',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -687,15 +804,33 @@ export class MutualInvestmentComponent implements OnInit {
     this.payment.date = formValue.date;
     this.mutualInvestmentService.refundOfAmountsCollected(this.idInvestment, formValue.idPaymentMethod, this.payment).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllMutualInvestments();
-      this.refundForm.reset();
-      this.onCloseRefundModal();
-      this.utilityService.showMessage(
-        'success',
-        'Placement remboursé avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.refundForm.reset();
+          this.onCloseRefundModal();
+          this.utilityService.showMessage(
+            'success',
+            'Placement remboursé avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite, verifier votre saisis',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -738,15 +873,33 @@ export class MutualInvestmentComponent implements OnInit {
       this.firstRefundDate.date = firstRefundDate
       this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
         this.isSaving = false;
-        this.getAllMutualInvestments();
-        this.generateForm.reset();
-        this.onCloseGenerateModal();
-        this.utilityService.showMessage(
-          'success',
-          'Date(s) generée(s) avec succès',
-          '#06d6a0',
-          'white'
-        );
+        if(res) {
+          if (res.data == null ) {
+            this.utilityService.showMessage(
+              'warning',
+              res.message,
+              '#e62965',
+              'white'
+            );
+          } else {
+            this.getAllMutualInvestments();
+            this.generateForm.reset();
+            this.onCloseGenerateModal();
+            this.utilityService.showMessage(
+              'success',
+              'Date(s) generée(s) avec succès',
+              '#06d6a0',
+              'white'
+            );
+          }
+        } else {
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite, verifier votre saisis',
+            '#e62965',
+            'white'
+          );
+        }
       },()=>{
         this.isSaving = false;
         this.utilityService.showMessage(
@@ -761,15 +914,33 @@ export class MutualInvestmentComponent implements OnInit {
       this.mutualInvestment.refundDate = formValue.refundDate;
       this.mutualInvestmentService.setRefundDatesManually(this.mutualInvestment, this.idInvestment).subscribe((res)=>{
         this.isSaving = false;
-        this.getAllMutualInvestments();
-        this.generateForm.reset();
-        this.onCloseGenerateModal();
-        this.utilityService.showMessage(
-          'success',
-          'Date(s) generée(s) avec succès',
-          '#06d6a0',
-          'white'
-        );
+        if(res) {
+          if (res.data == null ) {
+            this.utilityService.showMessage(
+              'warning',
+              res.message,
+              '#e62965',
+              'white'
+            );
+          } else {
+            this.getAllMutualInvestments();
+            this.generateForm.reset();
+            this.onCloseGenerateModal();
+            this.utilityService.showMessage(
+              'success',
+              'Date(s) generée(s) avec succès',
+              '#06d6a0',
+              'white'
+            );
+          }
+        } else {
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite, verifier votre saisis',
+            '#e62965',
+            'white'
+          );
+        }
       },()=>{
         this.isSaving = false;
         this.utilityService.showMessage(

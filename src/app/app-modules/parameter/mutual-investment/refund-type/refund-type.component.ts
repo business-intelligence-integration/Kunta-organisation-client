@@ -78,14 +78,33 @@ export class RefundTypeComponent implements OnInit {
     this.refundType.type =formValue.type;
     this.refundTypeService.createRefundType(this.refundType).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllRefundTypes();
-      this.closeRefundTypeFormModal();
-      this.utilityService.showMessage(
-        'success',
-        'Type de remboussement crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllRefundTypes();
+          this.closeRefundTypeFormModal();
+          this.utilityService.showMessage(
+            'success',
+            'Type de remboussement crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeRefundTypeFormModal()
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.closeRefundTypeFormModal();
       this.isSaving = false;
@@ -110,15 +129,34 @@ export class RefundTypeComponent implements OnInit {
     const formValue = this.updateRefundTypeForm.value;
     this.refundType.type =formValue.type;
     this.refundTypeService.updateRefundType(this.refundType, id).subscribe((res)=>{
-      this.getAllRefundTypes();
-      this.closeUpdateRefundTypeFormModal()
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Type de remboussement modifié avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllRefundTypes();
+          this.closeUpdateRefundTypeFormModal()
+          this.utilityService.showMessage(
+            'success',
+            'Type de remboussement modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeUpdateRefundTypeFormModal()
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.closeUpdateRefundTypeFormModal()

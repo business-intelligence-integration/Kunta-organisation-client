@@ -130,15 +130,34 @@ export class ViewMoreAreaComponent implements OnInit {
   }
 
   addArea(idCenter: number, idArea: number){
-    this.centerService.addAreaToCenter(idCenter, idArea).subscribe(()=>{
-      this.getCenter();
-      this.closeAreaModal();
-      this.utilityService.showMessage(
-        'success',
-        'Zone ajoutée avec succès au Centre!',
-        '#06d6a0',
-        'white'
-      );
+    this.centerService.addAreaToCenter(idCenter, idArea).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getCenter();
+          this.closeAreaModal();
+          this.utilityService.showMessage(
+            'success',
+            'Zone ajoutée avec succès au Centre!',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     })
   }
 

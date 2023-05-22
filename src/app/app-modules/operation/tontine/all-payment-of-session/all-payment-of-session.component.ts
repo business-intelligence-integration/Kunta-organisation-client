@@ -188,12 +188,12 @@ export class AllPaymentOfSessionComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Are you sure ?',
-        text: "You won't be able to revert this!",
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
         reverseButtons: true,
@@ -204,23 +204,23 @@ export class AllPaymentOfSessionComponent implements OnInit {
             () => {
               this.findAllPaymentsOfASession();
               swalWithBootstrapButtons.fire({
-                title: 'Deleted !',
-                text: 'Payment has been deleted.',
+                title: 'Supprimé !',
+                text: 'Payment a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },
             () => {
               swalWithBootstrapButtons.fire({
-                title: 'Cancelled',
-                text: 'An error has occurred',
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: 'Cancelled',
-            text: 'you have cancelled the deletion',
+            title: 'Annulé',
+            text: 'Vous avez annulé la suppression',
             confirmButtonColor: '#d33',
           });
         }
@@ -253,16 +253,34 @@ export class AllPaymentOfSessionComponent implements OnInit {
 
   checkPayment(idPayment: number){
     this.isSaving = true;
-    this.paymentService.checkPayment(idPayment).subscribe(()=>{
+    this.paymentService.checkPayment(idPayment).subscribe((res)=>{
       this.isSaving = false;
-      this.closeUpdatePaymentStatusModal();
-      this.findAllPaymentsOfASession();
-      this.utilityService.showMessage(
-        'success',
-        'Le paiement a bien été vérifié !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeUpdatePaymentStatusModal();
+          this.findAllPaymentsOfASession();
+          this.utilityService.showMessage(
+            'success',
+            'Le paiement a bien été vérifié !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -278,14 +296,32 @@ export class AllPaymentOfSessionComponent implements OnInit {
     this.isSaving = true;
     this.paymentService.validatePayment(idPayment).subscribe((res)=>{
       this.isSaving = false;
-      this.closeUpdatePaymentStatusModal();
-      this.findAllPaymentsOfASession();
-      this.utilityService.showMessage(
-        'success',
-        'Le paiement a bien été validé !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeUpdatePaymentStatusModal();
+          this.findAllPaymentsOfASession();
+          this.utilityService.showMessage(
+            'success',
+            'Le paiement a bien été validé !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

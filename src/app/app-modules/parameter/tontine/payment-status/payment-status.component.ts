@@ -76,15 +76,33 @@ export class PaymentStatusComponent implements OnInit {
 
   createPaymentStatus(paymentStatus: PaymentStatus){
     console.log("paymentStatus", paymentStatus);
-    this.paymentStatusService.createPaymentStatus(paymentStatus).subscribe(()=>{
-      this.getAllPaymentStaus()
-      this.closePaymentStatuspeModal()
-      this.utilityService.showMessage(
-        'success',
-        'Le status a été crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.paymentStatusService.createPaymentStatus(paymentStatus).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllPaymentStaus()
+          this.closePaymentStatuspeModal()
+          this.utilityService.showMessage(
+            'success',
+            'Le status a été crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
@@ -100,7 +118,6 @@ export class PaymentStatusComponent implements OnInit {
       this.pStatus = res.data;
       this.openUpdateStatusModal = "is-active"
     })
-   
   }
 
   closeUpdatePaymentStatuspeModal(){
@@ -114,15 +131,33 @@ export class PaymentStatusComponent implements OnInit {
   }
 
   updatePaymentStatus(paymentStatus: PaymentStatus, id: number){
-    this.paymentStatusService.updatePaymentStatus(paymentStatus, id).subscribe(()=>{
-      this.closeUpdatePaymentStatuspeModal();
-      this.getAllPaymentStaus();
-      this.utilityService.showMessage(
-        'success',
-        'Le status a été modifié avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.paymentStatusService.updatePaymentStatus(paymentStatus, id).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeUpdatePaymentStatuspeModal();
+          this.getAllPaymentStaus();
+          this.utilityService.showMessage(
+            'success',
+            'Le status a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.utilityService.showMessage(
         'warning',

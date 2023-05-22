@@ -14,7 +14,7 @@
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ mutualInvestment.minimumAmount }} FCFA</span>
-                                        <p>Montant Minimal</p>
+                                        <p>Montant minimal</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
@@ -31,7 +31,7 @@
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ mutualInvestment.profitabilityAmount }} FCFA</span>
-                                        <p>Montant Rentable </p>
+                                        <p>Montant rentable </p>
                                     </div>
                                 </div>
                                 <div class="header-item">
@@ -55,7 +55,7 @@
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
                                         <span>{{ mutualInvestment.amountToBeRefunded }} FCFA</span>
-                                        <p>Montant a Remboursé</p>
+                                        <p>Montant à rembourser</p>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
                                         <span>{{ mutualInvestment.amountRefunded }} FCFA</span>
-                                        <p>Montant Remboursé</p>
+                                        <p>Montant remboursé</p>
                                     </div>
                                 </div>
                                 <!-- <div class="header-item">
@@ -166,7 +166,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut Placement:</span><br>
+                                <span>Statut placement:</span><br>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'">Bloqué</span>
                                 <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED'">Debloqué</span>
                             </div>
@@ -176,7 +176,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut Remboursement:</span><br>
+                                <span>Statut remboursement:</span><br>
                                 <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'PAID'">Remboursé</span>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'UNPAID'">Non-remboursé</span>
                             </div>

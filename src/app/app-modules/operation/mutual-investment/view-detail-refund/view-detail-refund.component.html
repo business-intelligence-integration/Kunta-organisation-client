@@ -127,10 +127,10 @@
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
-                            <span>Montant A Remboursé</span>
-                            <span>Montant Remboursé</span>
+                            <span>Montant à rembourser</span>
+                            <span>Montant remboursé</span>
                             <span>Statut</span>
-                            <span>Montant Collecté(s)</span>
+                            <span>Montant collecté(s)</span>
                             <span class="cell-end">Date(s)</span>
                             <!-- <span class="cell-end">Actions</span> -->
                         </div>
@@ -143,19 +143,19 @@
                                         <span class="item-name dark-inverted" data-filter-match="">{{refund.id}}</span>
                                     </div>
                                 </div>
-                                <div class="flex-table-cell" data-th="Montant A Remboursé">
+                                <div class="flex-table-cell" data-th="Montant à rembourser">
                                     <span class="light-text" data-filter-match="">{{refund.amountToBeRefunded}}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Montant Remboursé">
+                                <div class="flex-table-cell" data-th="Montant remboursé">
                                     <span class="light-text" data-filter-match="">{{refund.amountRefunded}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Statut">
                                     <span *ngIf="refund.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Payé</span>
                                     <span *ngIf="refund.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" data-filter-match="">Non-payé</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Montant Collecté(s)">
+                                <div class="flex-table-cell" data-th="Montant collecté(s)">
                                     <span class="light-text" data-filter-match="">{{refund.amountCollecteds.length}}</span>
-                                    <a _ngcontent-nct-c62="" (click)="onRefund(refund.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': refund.refundStatus === 'PAID' }" (click)="onRefund(refund.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
                                     <a _ngcontent-nct-c62="" (click)="onViewRefunds(refund.id)" tooltip=" Voir les montants " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Date(s)">

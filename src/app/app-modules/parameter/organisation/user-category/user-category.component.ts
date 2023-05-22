@@ -81,16 +81,34 @@ export class UserCategoryComponent implements OnInit {
 
   createCategory(category: UserCategory){
     this.userCategoryService.createUserCategory(category).subscribe((res)=>{
-      this.closeCreateModal();
-      this.finAllUsersCategory();
       this.isSaving = false;
-      this.createCategoryForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Categorie crée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeCreateModal();
+          this.finAllUsersCategory();
+          this.createCategoryForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Categorie crée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false
       this.utilityService.showMessage(
@@ -182,15 +200,33 @@ export class UserCategoryComponent implements OnInit {
 
   updateCategory(category: UserCategory, idCategory: number){
     this.userCategoryService.updateUserCategory(category, idCategory).subscribe((res)=>{
-      this.finAllUsersCategory();
-      this.closeUpdateModal()
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Categorie modifiée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.finAllUsersCategory();
+          this.closeUpdateModal()
+          this.utilityService.showMessage(
+            'success',
+            'Categorie modifiée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false
       this.utilityService.showMessage(

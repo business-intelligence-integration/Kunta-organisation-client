@@ -123,15 +123,33 @@ export class ViewMorePostComponent implements OnInit {
   }
 
   addCenterToMainOffice(idMainOffice: number, idCenter: number){
-    this.mainOfficeService.addCenterToMainOffice(idMainOffice, idCenter).subscribe(()=>{
-      this.getMainOffice();
-      this.onCloseAddModal();
-      this.utilityService.showMessage(
-        'success',
-        'Centre ajouté avec succès au Bureau Principal !',
-        '#06d6a0',
-        'white'
-      );
+    this.mainOfficeService.addCenterToMainOffice(idMainOffice, idCenter).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMainOffice();
+          this.onCloseAddModal();
+          this.utilityService.showMessage(
+            'success',
+            'Centre ajouté avec succès au Bureau Principal !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     })
   }
 
@@ -199,15 +217,33 @@ export class ViewMorePostComponent implements OnInit {
   }
 
   updateCenter(center: Organism, id: number){
-    this.centerService.updateCenterById(this.center, id).subscribe(()=>{
-      this.getMainOffice();
-      this.onCloseUpdateModal();
-      this.utilityService.showMessage(
-        'success',
-        'Centre du Bureau Principal mis a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.centerService.updateCenterById(this.center, id).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMainOffice();
+          this.onCloseUpdateModal();
+          this.utilityService.showMessage(
+            'success',
+            'Centre du Bureau Principal mis a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     })
   }
 

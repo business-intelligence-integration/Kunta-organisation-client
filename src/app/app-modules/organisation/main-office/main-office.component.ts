@@ -55,16 +55,34 @@ export class MainOfficeComponent implements OnInit {
  onSubmitMainOffice(){
     const formValue = this.addMainOfficeForm.value;
     this.mainOffice.name = formValue.name
-    this.mainofficeService.createMainOffice(this.mainOffice).subscribe(()=>{
-      this.getAllMainOffice();
-      this.onCloseAddModal();
-      this.addMainOfficeForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Bureau Principal crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.mainofficeService.createMainOffice(this.mainOffice).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMainOffice();
+          this.onCloseAddModal();
+          this.addMainOfficeForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Bureau Principal crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     });
  }
 
@@ -100,15 +118,34 @@ export class MainOfficeComponent implements OnInit {
   }
 
   updateMainOffice(mainOffice: Organism, id: number){
-    this.mainofficeService.updateOffice(mainOffice, id).subscribe(()=>{
-      this.getAllMainOffice();
-      this.onCloseUpdateModal()
-      this.utilityService.showMessage(
-        'success',
-        'Bureau Principal mis a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.mainofficeService.updateOffice(mainOffice, id).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMainOffice();
+          this.onCloseUpdateModal()
+          this.utilityService.showMessage(
+            'success',
+            'Bureau Principal mis a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     })
   }
 

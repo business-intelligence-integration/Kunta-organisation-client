@@ -81,16 +81,34 @@ export class UserTypeComponent implements OnInit {
 
   createType(type: UserType){
     this.userTypeService.createUserType(type).subscribe((res)=>{
-      this.closeCreateModal();
-      this.finAllUsersType();
-      this.createTypeForm.reset();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Type crée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeCreateModal();
+          this.finAllUsersType();
+          this.createTypeForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Type crée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false
       this.utilityService.showMessage(
@@ -180,15 +198,33 @@ export class UserTypeComponent implements OnInit {
 
   updateType(Type: UserType, idType: number){
     this.userTypeService.updateUserType(Type, idType).subscribe((res)=>{
-      this.finAllUsersType();
-      this.closeUpdateModal()
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Type modifié avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.finAllUsersType();
+          this.closeUpdateModal()
+          this.utilityService.showMessage(
+            'success',
+            'Type modifié avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false
       this.utilityService.showMessage(

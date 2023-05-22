@@ -98,15 +98,33 @@ export class PosteComponent implements OnInit {
 
   createPost(post: Post){
     this.postService.createPost(post).subscribe((res)=>{
-      this.closeCreateModal();
-      this.finAllPosts();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Poste crée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeCreateModal();
+          this.finAllPosts();
+          this.utilityService.showMessage(
+            'success',
+            'Poste crée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false
       this.utilityService.showMessage(
@@ -219,15 +237,33 @@ export class PosteComponent implements OnInit {
 
   updatePost(post: Post, id: number){
     this.postService.updatePost(post, id).subscribe((res)=>{
-      this.finAllPosts();
-      this.closeUpdateModal()
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Poste modifié avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.finAllPosts();
+          this.closeUpdateModal()
+          this.utilityService.showMessage(
+            'success',
+            'Poste modifié avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false
       this.utilityService.showMessage(

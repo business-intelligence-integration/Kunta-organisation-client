@@ -131,15 +131,33 @@ export class ViewDetailRefundComponent implements OnInit {
     this.payment.date = formValue.date;
     this.mutualInvestmentService.refundOfAmountsCollected(this.idRefund, formValue.idPaymentMethod, this.payment).subscribe((res)=>{
       this.isSaving = false;
-      this.getMutualInvestment();
-      this.refundForm.reset();
-      this.onCloseRefundModal();
-      this.utilityService.showMessage(
-        'success',
-        'Remboursement payé avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMutualInvestment();
+          this.refundForm.reset();
+          this.onCloseRefundModal();
+          this.utilityService.showMessage(
+            'success',
+            'Remboursement payé avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

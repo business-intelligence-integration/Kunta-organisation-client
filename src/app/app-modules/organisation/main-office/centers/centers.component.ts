@@ -162,7 +162,7 @@ export class CentersComponent implements OnInit {
            popup: 'animate__animated animate__fadeOutUp',
          },
          title: 'Êtes-vous sûre ?',
-         text: "Cet action est irreversible!",
+         text: "Cette action est irreversible!",
          icon: 'warning',
          showCancelButton: true,
          confirmButtonText: 'Oui, supprimer!',
@@ -221,16 +221,34 @@ export class CentersComponent implements OnInit {
     this.isSaving = true;
     this.centerService.createCenter(center).subscribe((res)=>{
       this.isSaving = false;
-      this.center = res.data
-      this.onCloseAddModal();
-      this.getAllCenters();
-      this.addCenterForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Centre crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.center = res.data;
+          this.onCloseAddModal();
+          this.getAllCenters();
+          this.addCenterForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Centre crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, (error)=>{
       console.log(error);
       this.isSaving = false;
@@ -251,16 +269,34 @@ export class CentersComponent implements OnInit {
 
   updateCenter(center: Organism, id: number){
     this.isSaving = true;
-    this.centerService.updateCenterById(center, id).subscribe(()=>{
+    this.centerService.updateCenterById(center, id).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllCenters();
-      this.onCloseUpdateModale();
-      this.utilityService.showMessage(
-        'success',
-        'Centre mis a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllCenters();
+          this.onCloseUpdateModale();
+          this.utilityService.showMessage(
+            'success',
+            'Centre mis a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, (error)=>{
       this.isSaving = false;
       console.log(error);
@@ -278,16 +314,35 @@ export class CentersComponent implements OnInit {
 
   onSubmitArea(){
     const formValue = this.addAreaForm.value;
-    this.centerService.addAreaToCenter(this.idCenter, formValue.idArea).subscribe(()=>{
-      this.getAllCenters();
-      this.closeAreaModal();
-      this.addAreaForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Zone ajoutée au Centre avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.centerService.addAreaToCenter(this.idCenter, formValue.idArea).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllCenters();
+          this.closeAreaModal();
+          this.addAreaForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Zone ajoutée au Centre avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, (error)=>{
       console.log(error);
       

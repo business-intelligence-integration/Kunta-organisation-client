@@ -77,16 +77,35 @@ export class DraweeFormComponent implements OnInit {
     const formValue = this.createDraweeFormForm.value;
     this.draweeForm.label =formValue.label;
     this.draweeForm.description =formValue.description;
-    this.draweeFormService.createDraweeForm(this.draweeForm).subscribe(()=>{
+    this.draweeFormService.createDraweeForm(this.draweeForm).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllDroweeForm();
-      this.closeCreateDraweeFormModal();
-      this.utilityService.showMessage(
-        'success',
-        'Formulaire de tirage au sort crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllDroweeForm();
+          this.closeCreateDraweeFormModal();
+          this.utilityService.showMessage(
+            'success',
+            'Formulaire de tirage au sort crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeCreateDraweeFormModal();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.closeCreateDraweeFormModal();
       this.isSaving = false;
@@ -114,14 +133,33 @@ export class DraweeFormComponent implements OnInit {
     this.draweeForm.description =formValue.description;
     this.draweeFormService.updateDraweeForm(this.draweeForm, id).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllDroweeForm();
-      this.closeUpdateDraweeFormModal();
-      this.utilityService.showMessage(
-        'success',
-        'Formulaire de tirage au sort modifié avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllDroweeForm();
+          this.closeUpdateDraweeFormModal();
+          this.utilityService.showMessage(
+            'success',
+            'Formulaire de tirage au sort modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeUpdateDraweeFormModal();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.closeUpdateDraweeFormModal();

@@ -73,15 +73,34 @@ export class PenalityTypeComponent implements OnInit {
   }
 
   makePenalty(penaltyType: PenalityType, idPenaltyType: number){
-    this.penaltyTypeService.updatePenaltyType(penaltyType, idPenaltyType).subscribe(()=>{
-      this.getAllPenalType()
-      this.closePenaltyTypeModal();
-      this.utilityService.showMessage(
-        'success',
-        'Le type de pénalité a été modifier avec succès',
-        '#06d6a0',
-        'white'
-      );
+    this.penaltyTypeService.updatePenaltyType(penaltyType, idPenaltyType).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllPenalType()
+          this.closePenaltyTypeModal();
+          this.utilityService.showMessage(
+            'success',
+            'Le type de pénalité a été modifier avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.utilityService.showMessage(
         'warning',

@@ -174,15 +174,34 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.isSaving = true;
     this.mutualInvestmentService.addSecurityDeposit(idInvestment, idUser, securityDeposit).subscribe((res) => {
       this.isSaving = false;
-      this.getMutualSecurityDeposit();
-      // this.addSecurityDepositForm.reset();
-      this.closeSecurityDepositModal();
-      this.utilityService.showMessage(
-        'success',
-        'Caution ajoutée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMutualSecurityDeposit();
+          this.closeSecurityDepositModal();
+          this.utilityService.showMessage(
+            'success',
+            'Caution ajoutée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeSecurityDepositModal();
+        this.addSecurityDepositForm.reset();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, (error) => {
       console.log("error: ", error);
       this.isSaving = false;

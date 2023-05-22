@@ -109,12 +109,12 @@ export class ViewDetailSubscriptionComponent implements OnInit {
           this.idSubscriptionOffer = params['id'];
           this.riskLevel = res.data.riskProfile.riskLevel;
           this.subscriptions = res.data.subscriptions;
-          this.subscriptions.forEach((element)=>{
-            element.payments.forEach((el)=>{
-              totalPaid = totalPaid + el.paid;
-            })
-          })
-          this.totalPaid = totalPaid;
+          // this.subscriptions.forEach((element)=>{
+          //   element.payments.forEach((el)=>{
+          //     totalPaid = totalPaid + el.paid;
+          //   })
+          // })
+          // this.totalPaid = totalPaid;
           if( this.subscriptions.length <= 0 ) {
             this.show = true;
             this.loaderService.hideLoader();
@@ -174,15 +174,34 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     const formValue = this.updateSubscriptionForm.value;
     this.subscription.amount =formValue.amount;
     this.subscriptionService.updateSubscriptionPayment(id, this.subscription).subscribe((res)=>{
-      this.getOfferSubscription();
-      this.closeUpdateSubscriptionModal();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Souscription modifiée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getOfferSubscription();
+          this.closeUpdateSubscriptionModal();
+          this.utilityService.showMessage(
+            'success',
+            'Souscription modifiée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeUpdateSubscriptionModal()
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.closeUpdateSubscriptionModal()
@@ -291,14 +310,32 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     this.isSaving = true;
     this.subscriptionService.createPaymentForSubscription(idSubscription, idPaymentMethod, payment).subscribe((res)=>{
       this.isSaving = false;
-      this.getOfferSubscription();
-      this.closePaymentModal();
-      this.utilityService.showMessage(
-        'success',
-        'Paiement effectue avec succes !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getOfferSubscription();
+          this.closePaymentModal();
+          this.utilityService.showMessage(
+            'success',
+            'Paiement effectue avec succes !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -329,15 +366,35 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     this.isSaving = true;
     this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber).subscribe((res) => {
       this.isSaving = false;
-      this.getOfferSubscription();
-      this.addSubscriptionForm.reset();
-      this.closeSubscriptionModal();
-      this.utilityService.showMessage(
-        'success',
-        'Souscription ajoutée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getOfferSubscription();
+          this.addSubscriptionForm.reset();
+          this.closeSubscriptionModal();
+          this.utilityService.showMessage(
+            'success',
+            'Souscription ajoutée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeSubscriptionModal();
+        this.addSubscriptionForm.reset();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, (error) => {
       this.isSaving = false;
       this.closeSubscriptionModal();

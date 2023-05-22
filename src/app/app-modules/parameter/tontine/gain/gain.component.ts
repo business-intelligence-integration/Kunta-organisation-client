@@ -89,19 +89,38 @@ export class GainComponent implements OnInit {
     const formValue = this.createGainForm.value;
     this.gain.label =formValue.label;
     this.gain.description = formValue.description;
-    this.crateGain(this.gain);
+    this.createGain(this.gain);
   }
 
-  crateGain(gain: Gain){
-    this.gainService.createGainMode(gain).subscribe(()=>{
-      this.getAllGains();
-      this.closeCreateGainModal();
-      this.utilityService.showMessage(
-        'success',
-        'Gain crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+  createGain(gain: Gain){
+    this.gainService.createGainMode(gain).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllGains();
+          this.closeCreateGainModal();
+          this.utilityService.showMessage(
+            'success',
+            'Gain crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
@@ -171,15 +190,33 @@ export class GainComponent implements OnInit {
   }
 
   updateGain(gain: Gain, id: number){
-    this.gainService.updateGainMode(gain, id).subscribe(()=>{
-      this.getAllGains();
-      this.closeUpdateGainModal();
-      this.utilityService.showMessage(
-        'success',
-        'Gain mis a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.gainService.updateGainMode(gain, id).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllGains();
+          this.closeUpdateGainModal();
+          this.utilityService.showMessage(
+            'success',
+            'Gain mis a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.utilityService.showMessage(
         'warning',

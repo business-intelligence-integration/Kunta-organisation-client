@@ -196,16 +196,35 @@ export class TontineComponent implements OnInit {
   }
 
   createTontine(tontine: Tontine, idClub: number, idLevel: number, idContributionFrequency: number, idSessionFrequency: number, idGain: number){
-    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe((tontine)=>{
+    this.tontineService.createNewTontine(tontine, idClub, idLevel, idContributionFrequency, idSessionFrequency, idGain).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllTontine();
-      this.createTontineForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Tontine créé avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllTontine();
+          this.createTontineForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Tontine créé avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -464,14 +483,33 @@ export class TontineComponent implements OnInit {
     this.isSaving = true;
     this.tontineService.updateTontine(tontine, idTontine).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllTontine();
-      this.closeUpdateTontineModal();
-      this.utilityService.showMessage(
-        'success',
-        'Tontine mis a jour avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllTontine();
+          this.closeUpdateTontineModal();
+          this.utilityService.showMessage(
+            'success',
+            'Tontine mis a jour avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -518,7 +556,6 @@ export class TontineComponent implements OnInit {
 
   createCycle(idTontine: number, cycle: CycleDto){
     this.tontineService.createCycleForTontine(idTontine, cycle).subscribe((cycleDb)=>{
-  
       this.isSaving = false;
       this.closeCycleModal();
       this.getAllTontine();

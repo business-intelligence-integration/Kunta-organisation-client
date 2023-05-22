@@ -69,15 +69,33 @@ export class SubscriptionOfferComponent implements OnInit {
     const formValue = this.updateOfferForm.value;
     this.offer.profitabilityRate =formValue.profitabilityRate;
     this.subscriptionOfferService.updateSubscriptionOffer(this.offer, id).subscribe((res)=>{
-      this.getAllSubscriptionOffers();
-      this.closeUpdateOfferModal();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Offre de souscription modifiée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllSubscriptionOffers();
+          this.closeUpdateOfferModal();
+          this.utilityService.showMessage(
+            'success',
+            'Offre de souscription modifiée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.closeUpdateOfferModal()

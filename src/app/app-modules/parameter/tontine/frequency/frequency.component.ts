@@ -84,15 +84,33 @@ export class FrequencyComponent implements OnInit {
   }
 
   updateFrequency(frequency: Frequency, id: number){
-    this.frequencyService.updateFrequency(frequency, id).subscribe(()=>{
-      this.getAllFrequency();
-      this.closeUpdateFrequenceModal();
-      this.utilityService.showMessage(
-        'success',
-        'Frenquence mis a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.frequencyService.updateFrequency(frequency, id).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllFrequency();
+          this.closeUpdateFrequenceModal();
+          this.utilityService.showMessage(
+            'success',
+            'Frenquence mis a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.utilityService.showMessage(
         'warning',
@@ -111,19 +129,37 @@ export class FrequencyComponent implements OnInit {
     const formValue = this.createFrequenceForm.value;
     this.frequency.label =formValue.label;
     this.frequency.description = formValue.description;
-    this.crateFrequency(this.frequency);
+    this.createFrequency(this.frequency);
   }
 
-  crateFrequency(frequency: Frequency){
-    this.frequencyService.createFrequency(frequency).subscribe(()=>{
-      this.getAllFrequency();
-      this.closeCreateFrequenceModal();
-      this.utilityService.showMessage(
-        'success',
-        'Frenquence crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+  createFrequency(frequency: Frequency){
+    this.frequencyService.createFrequency(frequency).subscribe((res)=>{
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllFrequency();
+          this.closeCreateFrequenceModal();
+          this.utilityService.showMessage(
+            'success',
+            'Frenquence crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.utilityService.showMessage(
         'warning',

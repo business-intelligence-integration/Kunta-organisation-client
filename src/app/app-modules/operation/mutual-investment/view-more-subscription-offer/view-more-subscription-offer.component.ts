@@ -161,15 +161,34 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     const formValue = this.updateOfferForm.value;
     this.offer.profitabilityRate =formValue.profitabilityRate;
     this.subscriptionOfferService.updateSubscriptionOffer(this.offer, id).subscribe((res)=>{
-      this.getMutualSubscriptionOffer();
-      this.closeUpdateOfferModal();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Offre de souscription modifiée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMutualSubscriptionOffer();
+          this.closeUpdateOfferModal();
+          this.utilityService.showMessage(
+            'success',
+            'Offre de souscription modifiée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeUpdateOfferModal();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.closeUpdateOfferModal()
@@ -268,14 +287,32 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     this.isSaving = true;
     this.subscriptionService.createSubscription(subscription, idSubscriptionOffer, idSubscriber).subscribe((res)=>{
       this.isSaving = false;
-      this.getMutualSubscriptionOffer();
-      this.closeSubscriptionModal();
-      this.utilityService.showMessage(
-        'success',
-        'Souscription effectuee avec succes !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMutualSubscriptionOffer();
+          this.closeSubscriptionModal();
+          this.utilityService.showMessage(
+            'success',
+            'Souscription effectuee avec succes !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -309,15 +346,35 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     this.isSaving = true;
     this.mutualInvestmentService.createSubscriptionOffer(idInvestment, idProfile, idProfitabilityType, profitabilityRate).subscribe((res) => {
       this.isSaving = false;
-      this.getMutualSubscriptionOffer();
-      this.addSubscriptionOfferForm.reset();
-      this.closeSubscriptionOfferModal();
-      this.utilityService.showMessage(
-        'success',
-        'Offre ajoutée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMutualSubscriptionOffer();
+          this.addSubscriptionOfferForm.reset();
+          this.closeSubscriptionOfferModal();
+          this.utilityService.showMessage(
+            'success',
+            'Offre ajoutée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.closeSubscriptionOfferModal();
+        this.addSubscriptionOfferForm.reset();
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, (error) => {
       console.log("error: ", error);
       this.isSaving = false;

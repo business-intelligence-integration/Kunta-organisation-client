@@ -95,22 +95,42 @@ getAllCenters(){
   }
 
   onSubmitArea(){
+    this.isSaving = true;
     const formValue = this.addAreaForm.value;
     this.area.name = formValue.name;
     this.area.reference = formValue.reference;
     this.area.observation = formValue.observation;
     this.areaService.createArea(this.area).subscribe((res)=>{
-      this.onCloseAddModal();
-      this.getAllAreas();
-      this.utilityService.showMessage(
-        'success',
-        'Zone crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.onCloseAddModal();
+          this.getAllAreas();
+          this.utilityService.showMessage(
+            'success',
+            'Zone crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, (error)=>{
       console.log(error);
-      
+      this.isSaving = false;
     })
   }
 
@@ -166,16 +186,35 @@ getAllCenters(){
 
   updateAre(area: Organism, id: number){
     this.isSaving = true;
-    this.areaService.updateAreaById(area, id).subscribe(()=>{
+    this.areaService.updateAreaById(area, id).subscribe((res)=>{
       this.isSaving = false;
-      this.onCloseUpdateModal();
-      this.getAllAreas();
-      this.utilityService.showMessage(
-        'success',
-        'Zone mise a jour avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.onCloseUpdateModal();
+          this.getAllAreas();
+          this.utilityService.showMessage(
+            'success',
+            'Zone mise a jour avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     },()=>{
       this.isSaving = false;
     })

@@ -30,7 +30,6 @@ export class ViewDetailMutualInvestmentComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res) => {
         console.log("Details::", res.data);
-        
         this.mutualInvestment = res.data;
       })
       this.loaderService.hideLoader();

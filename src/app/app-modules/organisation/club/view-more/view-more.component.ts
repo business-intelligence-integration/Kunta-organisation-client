@@ -214,17 +214,36 @@ export class ViewMoreComponent implements OnInit {
 
   addMemberToClub(idClub: number, idMember: number){
     this.isSaving = true;
-    this.clubService.addMemberToClub(idClub, idMember).subscribe(()=>{
-        this.isSaving = false;
-      this.getClub();
-      this.closeMemberModal();
-      this.addMemberForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Membre ajouté avec succès !',
-        '#06d6a0',
-        'white'
-      );
+    this.clubService.addMemberToClub(idClub, idMember).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getClub();
+          this.closeMemberModal();
+          this.addMemberForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Membre ajouté avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+      
     },()=>{
       this.isSaving = false;
     })

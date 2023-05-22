@@ -143,15 +143,37 @@ export class ViewMoreAreClubComponent implements OnInit {
   }
 
   addClubToArea(idArea: number, idClub: number){
-    this.areaService.addClubToArea(idArea, idClub).subscribe(()=>{
-      this.getArea();
-      this.closeClubModal();
-      this.utilityService.showMessage(
-        'success',
-        'Club ajouté avec succès a la Zone !',
-        '#06d6a0',
-        'white'
-      );
+    this.isSaving = true;
+    this.areaService.addClubToArea(idArea, idClub).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getArea();
+          this.closeClubModal();
+          this.utilityService.showMessage(
+            'success',
+            'Club ajouté avec succès a la Zone !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, () => {
+      this.isSaving = false;
     })
   }
 
@@ -290,17 +312,34 @@ export class ViewMoreAreClubComponent implements OnInit {
   this.isSaving = true;
   this.clubService.transferClubToAnotherArea(formValue.idArea, this.idClub).subscribe((res)=>{
     console.log("ResponseT:: ", res);
-    
-    this.closeChangeAreaModal()
-    this.getArea();
+
     this.isSaving = false;
-    this.utilityService.showMessage(
-      'success',
-      'L\'utilisateur a été transferé avec succès !',
-      '#06d6a0',
-      'white'
-    );
-    
+    if(res) {
+      if (res.data == null ) {
+        this.utilityService.showMessage(
+          'warning',
+          res.message,
+          '#e62965',
+          'white'
+        );
+      } else {
+        this.closeChangeAreaModal()
+        this.getArea();
+        this.utilityService.showMessage(
+          'success',
+          'L\'utilisateur a été transferé avec succès !',
+          '#06d6a0',
+          'white'
+        );
+      }
+    } else {
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    }    
   },()=>{
     this.isSaving = false;
     this.utilityService.showMessage(

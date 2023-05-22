@@ -79,15 +79,33 @@ export class ProfitabilityTypeComponent implements OnInit {
     const formValue = this.createProfitabilityForm.value;
     this.profitabilityType.label =formValue.label;
     this.profitabilityTypeService.updateProfitabilityType(this.profitabilityType, idType).subscribe((res)=>{
-      this.getAllProfitabilityType();
-      this.closeUpdateProfitabilityModal();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Le type de rentabilité a été modifié avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllProfitabilityType();
+          this.closeUpdateProfitabilityModal();
+          this.utilityService.showMessage(
+            'success',
+            'Le type de rentabilité a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

@@ -97,15 +97,33 @@ export class ClubComponent implements OnInit {
     this.isSaving = true;
     this.clubService.createclub(club).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllClubs()
-      this.onCloseAddModal()
-      this.addClubForm.reset();
-      this.utilityService.showMessage(
-        'success',
-        'Club crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllClubs()
+          this.onCloseAddModal()
+          this.addClubForm.reset();
+          this.utilityService.showMessage(
+            'success',
+            'Club crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -116,7 +134,6 @@ export class ClubComponent implements OnInit {
       );
     })
   }
-
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((res)=>{
@@ -211,21 +228,37 @@ export class ClubComponent implements OnInit {
     this.club.name = formValue.name;
     this.club.reference = formValue.reference;
     this.club.observation = formValue.observation;
-    this.clubService.updateclubById(this.club, formValue.id).subscribe(()=>{
+    this.clubService.updateclubById(this.club, formValue.id).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllClubs();
-      this.onCloseUpdateModal();
-      this.utilityService.showMessage(
-        'success',
-        'Club mis a jour avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllClubs();
+          this.onCloseUpdateModal();
+          this.utilityService.showMessage(
+            'success',
+            'Club mis a jour avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
     })
-
-    
   }
 
   onAddMember(idClub: number){
@@ -258,8 +291,6 @@ export class ClubComponent implements OnInit {
           'white'
         );
       }
-      
-      
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(

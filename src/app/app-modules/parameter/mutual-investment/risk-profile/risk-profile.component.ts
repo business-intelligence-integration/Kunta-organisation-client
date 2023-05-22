@@ -78,15 +78,33 @@ export class RiskProfileComponent implements OnInit {
     this.riskProfile.riskLevel =formValue.riskLevel;
     this.riskProfileService.createRiskProfile(this.riskProfile).subscribe((res)=>{
       this.isSaving = false;
-      this.getAllRiskProfiles();
-      this.createRiskProfileForm.reset();
-      this.closeRiskProfileModal();
-      this.utilityService.showMessage(
-        'success',
-        'Profile de risque crée avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllRiskProfiles();
+          this.createRiskProfileForm.reset();
+          this.closeRiskProfileModal();
+          this.utilityService.showMessage(
+            'success',
+            'Profile de risque crée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.closeRiskProfileModal();
       this.isSaving = false;
@@ -111,15 +129,33 @@ export class RiskProfileComponent implements OnInit {
     const formValue = this.updateRiskProfileForm.value;
     this.riskProfile.riskLevel =formValue.riskLevel;
     this.riskProfileService.updateRiskProfile(this.riskProfile, id).subscribe((res)=>{
-      this.getAllRiskProfiles();
-      this.closeUpdateRiskProfileModal();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Profile de risque modifié avec succès !',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllRiskProfiles();
+          this.closeUpdateRiskProfileModal();
+          this.utilityService.showMessage(
+            'success',
+            'Profile de risque modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     },()=>{
       this.isSaving = false;
       this.closeUpdateRiskProfileModal()

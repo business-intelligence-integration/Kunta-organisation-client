@@ -70,21 +70,39 @@ export class PieceTypeComponent implements OnInit {
   
   onSubmitCreateTypePiece(){
     const formValue = this.createPieceTypeForm.value;
-    this.cratePieceType(formValue.label);
+    this.createPieceType(formValue.label);
   }
 
-  cratePieceType(label: string){
+  createPieceType(label: string){
     this.isSaving = true;
     this.pieceTypeService.createPieceType(label).subscribe((res)=>{
-      this.closeCreateModal();
-      this.getAllPieceType();
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Type de pièce crée avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeCreateModal();
+          this.getAllPieceType();
+          this.utilityService.showMessage(
+            'success',
+            'Type de pièce crée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -119,16 +137,34 @@ export class PieceTypeComponent implements OnInit {
 
   updatePieceType(id: number, pieceType: PieceType){
     this.isSaving = true;
-    this.pieceTypeService.updatePieceType(id, pieceType).subscribe(()=>{
-      this.closeUpdateModal();
-      this.getAllPieceType();
+    this.pieceTypeService.updatePieceType(id, pieceType).subscribe((res)=>{
       this.isSaving = false;
-      this.utilityService.showMessage(
-        'success',
-        'Type de pièce modifié avec succès',
-        '#06d6a0',
-        'white'
-      );
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeUpdateModal();
+          this.getAllPieceType();
+          this.utilityService.showMessage(
+            'success',
+            'Type de pièce modifié avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
     }, ()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
