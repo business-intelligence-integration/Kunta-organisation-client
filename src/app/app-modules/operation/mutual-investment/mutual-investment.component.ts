@@ -102,6 +102,8 @@ export class MutualInvestmentComponent implements OnInit {
   percentageOfGuarantees: number = 0;
   percentageOfPassiveIncomeFund: number = 0;
   percentageCompleted: boolean = false;
+  profitabilityRate: number = 0;
+  percentageOkay: boolean = false;
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -459,6 +461,16 @@ export class MutualInvestmentComponent implements OnInit {
   onOpenAddSubscriptionOffer(idInvestment: number){
     this.openOfferModal = "is-active";
     this.idInvestment = idInvestment;
+    this.getMutualInvestmentById(idInvestment);
+  }
+
+  onProfitabilityRateSelected(val: any){
+    this.profitabilityRate = val;
+    if(this.profitabilityRate <= this.percentageOfFunders ){
+      this.percentageOkay = true;
+    } else {
+      this.percentageOkay = false;
+    }
   }
 
   closeSubscriptionOfferModal() {
@@ -538,6 +550,7 @@ export class MutualInvestmentComponent implements OnInit {
   getMutualInvestmentById(idInvestment: number){
     this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
       this.refundType = res.data.refundType.type;
+      this.profitabilityRate = res.data.profitabilityRate;
       this.getAllUsersByIdCenter(res.data.mutualCenter.id);
       // this.amountCollecteds = res.data.amountCollecteds;
     });

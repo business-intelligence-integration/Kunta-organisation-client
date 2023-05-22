@@ -232,7 +232,7 @@
                             <div class="text-danger"
                                 *ngIf="addSubscriptionOfferForm.get('idProfitabilityType')?.errors?.['required'] && addSubscriptionOfferForm.get('idProfitabilityType')?.touched">
                                 <small class="text-police">Veuillez entrer le type de rentabilité</small>
-                            </div><br><br><br><br>
+                            </div><br><br>
                         </div>
 
                         <div class="field" *ngIf="isOfferCertain">
@@ -241,9 +241,9 @@
                                 <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" [(ngModel)]="profitabilityRate" (ngModelChange)="onProfitabilityRateSelected($event)" >
                             </div>
                             <div class="text-danger"
-                                    *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
-                                    <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{percentageOfFunders}}%).</small>
-                                </div>
+                                *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
+                                <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{percentageOfFunders}}%).</small>
+                            </div>
                         </div><br>
                        
                         <div class="control login">
@@ -279,15 +279,23 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="updateOfferForm" (ngSubmit)="onSubmitUpdateOfferForm(offer.id)">
+                        <div class="text-danger"
+                            *ngIf="offer.profitabilityType.label == 'INCERTAIN' ">
+                            <small class="text-police" *ngIf="!percentageOkay" >Aucune mise a jour possible sur cet offre.</small>
+                        </div>
                         <div class="field" *ngIf="offer.profitabilityRate">
                             <label>Taux de rentabilité (%)</label>
                             <div class="control">
-                                <input type="number" class="input" [(ngModel)]="offer.profitabilityRate" placeholder="Taux de rentabilité" formControlName="profitabilityRate">
+                                <input type="number" class="input" [(ngModel)]="offer.profitabilityRate" placeholder="Taux de rentabilité" formControlName="profitabilityRate" (ngModelChange)="onProfitabilityRateSelected($event)" >
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateOfferForm.get('profitabilityRate')?.errors?.['required'] && updateOfferForm.get('profitabilityRate')?.touched">
                                 <small class="text-police" translate>veuillez entrer le taux de rentabilité </small>
-                             </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updateOfferForm.get('profitabilityRate')?.touched">
+                                <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{percentageOfFunders}}%).</small>
+                            </div>
                         </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateOfferForm.invalid || isSaving">Modifer</button>

@@ -13,4 +13,5 @@ export class Subscription {
     status: string = "";
     amountOfProfitability: number = 0;
     totalAmountReceivable: number = 0;
+    totalAmountReceived: number = 0;
 }

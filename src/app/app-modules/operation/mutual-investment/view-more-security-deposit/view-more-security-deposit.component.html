@@ -144,7 +144,9 @@
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
                         <span>Cautionneur(s)</span>
-                        <span class="cell-end">Montant</span>
+                        <span>Montant</span>
+                        <span>Montant payé</span>
+                        <span class="cell-end">Montant recu</span>
                         <!-- <span class="cell-end">Actions</span> -->
                     </div>
         
@@ -162,8 +164,14 @@
                             <div class="flex-table-cell" data-th="Cautionneur(s)">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.depositUser.firstName}}  {{securityDeposit.depositUser.lastName}}</span>
                             </div>
-                            <div class="flex-table-cell cell-end" data-th="Montant">
+                            <div class="flex-table-cell" data-th="Montant">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.amount}}</span>
+                            </div>
+                            <div class="flex-table-cell" data-th="Montant payé">
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid}}</span>
+                            </div>
+                            <div class="flex-table-cell cell-end" data-th="Montant recu">
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountReceived}}</span>
                             </div>
                             <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

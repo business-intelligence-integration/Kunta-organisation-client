@@ -156,6 +156,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   onOpenUpdateModal(id: number){
     this.subscriptionOfferService.findSubscriptionOfferById(id).subscribe((res)=>{
       this.offer = res.data;
+      this.profitabilityRate = this.offer.profitabilityRate;
       this.openUpdateModal = "is-active";
     })
   }

@@ -129,9 +129,10 @@
                             <span class="is-grow">Id</span>
                             <span>Niveau de rique</span>
                             <span>Montant à payé</span>
-                            <span>Montant profitable</span>
-                            <span>Montant recevable</span>
                             <span>Total payé</span>
+                            <span>Montant rentable</span>
+                            <span>Montant à recevoir</span>
+                            <span>Montant recu</span>
                             <span>Statut</span>
                             <span>Payer</span>
                             <span>Liberer</span>
@@ -152,14 +153,17 @@
                                 <div class="flex-table-cell" data-th="Montant à payé">
                                     <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Montant profitable">
-                                    <span class="light-text" data-filter-match="">{{subscription.amountOfProfitability}}</span>
-                                </div>
-                                <div class="flex-table-cell" data-th="Montant recevable">
-                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceivable}}</span>
-                                </div>
                                 <div class="flex-table-cell" data-th="Total payé">
                                     <span class="light-text" data-filter-match="">{{subscription.amountPaid}}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Montant rentable">
+                                    <span class="light-text" data-filter-match="">{{subscription.amountOfProfitability}}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Montant à recevoir">
+                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceivable}}</span>
+                                </div>
+                                <div class="flex-table-cell" data-th="Montant recu">
+                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceived}}</span>
                                 </div>
                                 <!-- <div class="flex-table-cell" data-th="Total Payé">
                                     <span class="light-text" data-filter-match="">{{totalPaid}}</span>
