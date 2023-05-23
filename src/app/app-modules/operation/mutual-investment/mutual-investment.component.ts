@@ -924,7 +924,8 @@ export class MutualInvestmentComponent implements OnInit {
       })
     } else if ( this.refundType == 'A L\'ÉCHÉANCE' ) {
       let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
-      this.mutualInvestmentService.generateRefundDates(this.idInvestment, firstRefundDate).subscribe((res)=>{
+      this.firstRefundDate.date = firstRefundDate
+      this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
         this.isSaving = false;
         console.log("Echeance:: ", res);
         
@@ -1039,7 +1040,7 @@ export class MutualInvestmentComponent implements OnInit {
             () => {
               this.getAllMutualInvestments();
               swalWithBootstrapButtons.fire({
-                title: 'Debloqué !',
+                title: 'Distribué !',
                 text: 'La distribution a été effectué avec succès !.',
                 confirmButtonColor: '#198AE3',
               });
