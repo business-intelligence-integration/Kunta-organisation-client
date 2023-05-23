@@ -891,7 +891,11 @@ export class MutualInvestmentComponent implements OnInit {
       // this.firstRefundDate = formValue.firstRefundDate;
       let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
       this.firstRefundDate.date = firstRefundDate
+      console.log("this.firstRefundDate:: ", this.firstRefundDate);
+      
       this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
+        console.log("res::"), res;
+        
         this.isSaving = false;
         if(res) {
           if (res.data == null ) {

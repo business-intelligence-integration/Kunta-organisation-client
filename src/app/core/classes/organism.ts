@@ -2,7 +2,7 @@ import { User } from "./user";
 
 export class Organism{
     id: number = 0;
-    // name: string = "";
+    name: string = "";
     organismName: string = "";
     creationDate: any;
     center: any;
