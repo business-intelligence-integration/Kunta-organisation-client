@@ -51,6 +51,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   profitabilityRate: number = 0;
   percentageOfFunders: number = 0;
   percentageOkay: boolean = false;
+  mutualInvesmentStatus: string = "";
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -100,6 +101,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
           this.show = true;
           this.loaderService.hideLoader();
         } else {
+          this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
           this.percentageOfFunders = res.data.percentageOfFunders;
           this.offers = res.data.offers;
           if( this.offers.length <= 0 ) {

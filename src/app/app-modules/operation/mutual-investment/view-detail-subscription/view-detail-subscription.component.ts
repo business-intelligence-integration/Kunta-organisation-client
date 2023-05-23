@@ -55,6 +55,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   totalPaid: number = 0;
   amountToPay: number = 0;
   riskLevel: number = 0;
+  mutualInvesmentStatus: string = "";
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -139,6 +140,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mutualInvestmentService.findMutualInvestmentById(params['idInvestment']).subscribe((res)=>{
         this.idInvestment = params['idInvestment'];
+        this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
         this.getAllUsersByIdCenter(res.data.mutualCenter.id);
       });
     })

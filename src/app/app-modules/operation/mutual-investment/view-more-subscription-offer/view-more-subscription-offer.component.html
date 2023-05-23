@@ -98,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="buttons" (click)="onOpenAddSubscriptionOffer()">
+                <div class="buttons" (click)="onOpenAddSubscriptionOffer()" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" >
                     <button class="button h-button is-primary is-elevated">
                         <span class="icon">
                         <i aria-hidden="true" class="fas fa-plus"></i>
@@ -153,14 +153,14 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Souscriptions">
                                     <span class="light-text" data-filter-match="">{{ offer.subscriptions.length }}</span>
-                                    <a class="pagination-previous has-chevron" tooltip=" Ajouter une souscription " theme='light' (click)="onOpenAddSubscription(offer.id)"><i class="lnir lnir-plus"></i></a>
+                                    <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" tooltip=" Ajouter une souscription " theme='light' (click)="onOpenAddSubscription(offer.id)"><i class="lnir lnir-plus"></i></a>
                                     <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-subscription']"
                                     [queryParams]="{id: offer.id, idInvestment: idInvestment}" tooltip=" Voir details souscription " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" tooltip=" Modifier offre " theme='light' (click)="onOpenUpdateModal(offer.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                    <a _ngcontent-nct-c62="" tooltip=" Supprimer offre" theme='light' (click)="onDelete(offer.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" tooltip=" Modifier offre " theme='light' (click)="onOpenUpdateModal(offer.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" tooltip=" Supprimer offre" theme='light' (click)="onDelete(offer.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>

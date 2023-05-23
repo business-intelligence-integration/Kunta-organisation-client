@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Payment } from 'src/app/core/classes/payment';
 import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { SubscriptionPaymentService } from 'src/app/core/services/mutual-investment/subscription-payment/subscription-payment.service';
 import { SubscriptionService } from 'src/app/core/services/mutual-investment/subscription/subscription.service';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
@@ -39,8 +40,10 @@ export class ViewDetailPaymentComponent implements OnInit {
   dateNow: any;
   date: any;
   paymentMethods: PaymentMethod[] = [];
+  mutualInvesmentStatus: string = ""
 
   constructor( private activatedRoute: ActivatedRoute, 
+    private mutualInvestmentService: MutualInvestmentService,
     private subscriptionPaymentService: SubscriptionPaymentService,
     private paymentMethodService: PaymentMethodService,
     private subscriptionService: SubscriptionService,
@@ -51,6 +54,7 @@ export class ViewDetailPaymentComponent implements OnInit {
   
     ngOnInit(): void {
       this.loaderService.showLoader();
+      this.getMutualInvestment();
       this.getSubscriptionPayment();
       this.getPaymentMethod();
       this.initDates();
@@ -106,13 +110,14 @@ export class ViewDetailPaymentComponent implements OnInit {
     })
   }
 
-  // getAllSubscriptionPayments(){
-  //   this.subscriptionPaymentService.findAllSubscriptionsPayments().subscribe((res) => {
-  //     this.payments = res.data;
-  //     console.log("payments:: ", res.data);
-      
-  //   })
-  // }
+  getMutualInvestment(){
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.mutualInvestmentService.findMutualInvestmentById(params['idInvestment']).subscribe((res)=>{
+        this.idInvestment = params['idInvestment'];
+        this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
+      });
+    })
+  }
 
   ///////////////// Update Payment
   onSelectDate(event: any){
