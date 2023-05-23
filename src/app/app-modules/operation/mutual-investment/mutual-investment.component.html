@@ -78,8 +78,8 @@
                     <div class="flex-table-cell" data-th="Rembourser">
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
                         <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
-                        <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || mutualInvestment.refunds.length >= 1 }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a> -->
-                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundDateStatus === 'COMPLETE'}" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || mutualInvestment.refunds.length >= 1 }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundType.type == 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': mutualInvestment.refundDateStatus === 'COMPLETE'}" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">+</a>
                         <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || !mutualInvestment.refunds }" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a> -->
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-refund']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -150,9 +150,9 @@
                                  </div>
                             </div>
                             <div class="field">
-                                <label>Selection des tirés *</label>
+                                <label>Sélection des tirés *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idDraweeForm" [(ngModel)]="ngSelect1" (ngModelChange)="onDraweeSelected($event)">
-                                    <option value="0" disabled>--Selectionnez un tiré--</option>
+                                    <option value="0" disabled>--Sélectionner un tiré--</option>
                                     <option *ngFor="let draweeForm of draweeForms" [value]="draweeForm.id"> <span> {{ draweeForm.description }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('organismName')?.errors?.['required'] && createMutualInvestmentForm.get('organismName')?.touched">
-                                    <small class="text-police">veuillez entrer le nom</small>
+                                    <small class="text-police">veuillez entrer l'appelation</small>
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
@@ -181,13 +181,13 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Prenom <span *ngIf="isOthers">du représentant</span> </label><br>
+                                <label>Prénom <span *ngIf="isOthers">du représentant</span> </label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="prenom" formControlName="firstName">
                                 </div>
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('firstName')?.errors?.['required'] && createMutualInvestmentForm.get('firstName')?.touched">
-                                    <small class="text-police">veuillez entrer le prenom</small>
+                                    <small class="text-police">veuillez entrer le prénom</small>
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
@@ -223,7 +223,7 @@
                             <div class="field" *ngIf="isMutualist">
                                 <label>Liste des mutualistes</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
-                                    <option value="0" disabled>--Selectionnez un mutualiste--</option>
+                                    <option value="0" disabled>--Sélectionner un mutualiste--</option>
                                     <option *ngFor="let mutualist of mutualists" [value]="mutualist.id"> <span> {{ mutualist.firstName }} {{ mutualist.lastName }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -234,7 +234,7 @@
                             <div class="field">
                                 <label>Liste des centres</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelect9">
-                                    <option value="0" disabled>--Selectionnez un centre--</option>
+                                    <option value="0" disabled>--Sélectionner un centre--</option>
                                     <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -309,9 +309,9 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Types de rentabilités  *</label>
+                                <label>Types de rentabilités *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect3" (ngModelChange)="onProfitabilitySelected($event)">
-                                    <option value="0" disabled>--Selectionnez un types de rentabilité--</option>
+                                    <option value="0" disabled>--Sélectionner un types de rentabilité--</option>
                                     <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -320,7 +320,7 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isCertain">
-                                <label>Taux de rentabilité (%) </label><br>
+                                <label>Taux de rentabilité (%)</label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
                                 </div>
@@ -332,7 +332,7 @@
                             <div class="field">
                                 <label>Types de remboursements *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelect4" (ngModelChange)="onRefundSelected($event)">
-                                    <option value="0" disabled>--Selectionnez un type de remboursement--</option>
+                                    <option value="0" disabled>--Sélectionner un type de remboursement--</option>
                                     <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -343,7 +343,7 @@
                             <div class="field" *ngIf="isPeriod">
                                 <label>Fréquence de remboursement</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelect5">
-                                    <option value="0" disabled>--Sélectionnez une fréquence de remboursement--</option>
+                                    <option value="0" disabled>--Sélectionner une fréquence de remboursement--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
                                 </select>
                                 <div class="text-danger"
