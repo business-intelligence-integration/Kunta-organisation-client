@@ -43,4 +43,5 @@ export class MutualInvestment{
     percentageOfPassiveIncomeFund: number = 0;
     refunds: Refund[] = [];
     distributionStatus: string = "";
+    refundDateStatus: string = "";
   }

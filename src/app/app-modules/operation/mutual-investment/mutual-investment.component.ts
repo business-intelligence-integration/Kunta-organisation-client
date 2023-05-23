@@ -27,6 +27,7 @@ import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Organism } from 'src/app/core/classes/organism';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
+import { Refund } from 'src/app/core/classes/refund';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -56,6 +57,7 @@ export class MutualInvestmentComponent implements OnInit {
   refundTypes: RefundType[] = [];
   mutualInvestment: MutualInvestment = new MutualInvestment();
   mutualInvestments: MutualInvestment[] = [];
+  refund: Refund = new Refund();
   minEndDate: any;
   date: any;
   showErroMessage: boolean = false;
@@ -96,7 +98,6 @@ export class MutualInvestmentComponent implements OnInit {
   // firstRefundDate: any;
   isPaid: boolean = true;
   firstRefundDate: FirstRefundDate = new FirstRefundDate();
-  openDistributionModal: string = ""
   percentageMutual: number = 0;
   percentageOfFunders: number = 0;
   percentageOfGuarantees: number = 0;
@@ -104,6 +105,8 @@ export class MutualInvestmentComponent implements OnInit {
   percentageCompleted: boolean = false;
   profitabilityRate: number = 0;
   percentageOkay: boolean = false;
+  amountToBeRefunded: number = 0;
+  totalRefunded: number = 0;
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -136,7 +139,7 @@ export class MutualInvestmentComponent implements OnInit {
   formInit() {
     this.createMutualInvestmentForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
-      name2: new FormControl(null),
+      organismName: new FormControl(null),
       firstName: new FormControl(null),
       lastName: new FormControl(null),
       city: new FormControl(null),
@@ -161,7 +164,7 @@ export class MutualInvestmentComponent implements OnInit {
 
     this.updateMutualInvestmentForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
-      organism: new FormControl(null),
+      // organismName: new FormControl(null),
       minimumAmount: new FormControl(null, Validators.required),
       profitabilityRate: new FormControl(null),
     })
@@ -197,7 +200,7 @@ export class MutualInvestmentComponent implements OnInit {
         this.show = true;
         this.loaderService.hideLoader();
       } else {
-        console.log("Mutuelles:: ", res);
+        console.log("Mutuelles test:: ", res);
         
         this.mutualInvestments = res.data;
         this.mutualInvestments.forEach((element) => {
@@ -367,7 +370,7 @@ export class MutualInvestmentComponent implements OnInit {
     }if(this.isOthers == true){
       this.organism.email = formValue.email;
       this.organism.city = formValue.city;
-      this.organism.name = formValue.name2;
+      this.organism.organismName = formValue.organismName;
       this.organism.firstName = formValue.firstName;
       this.organism.lastName = formValue.lastName;
       this.organism.userName = formValue.userName;
@@ -551,6 +554,10 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
       this.refundType = res.data.refundType.type;
       this.profitabilityRate = res.data.profitabilityRate;
+      this.amountToBeRefunded = res.data.amountToBeRefunded;
+      res.data.refunds.forEach((element: any) => {
+        this.totalRefunded = this.totalRefunded + element.amountToBeRefunded;
+      })
       this.getAllUsersByIdCenter(res.data.mutualCenter.id);
       // this.amountCollecteds = res.data.amountCollecteds;
     });
@@ -636,7 +643,7 @@ export class MutualInvestmentComponent implements OnInit {
     this.isSaving = true;
     const formValue = this.updateMutualInvestmentForm.value;
     this.mutualInvestment.name = formValue.name;
-    this.mutualInvestment.organism = formValue.organism;
+    // this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.minimumAmount = formValue.minimumAmount;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
     this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, formValue.id).subscribe((res) => {
@@ -755,7 +762,7 @@ export class MutualInvestmentComponent implements OnInit {
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Oui, debloquer!',
+        confirmButtonText: 'Oui, débloquer!',
         cancelButtonText: 'Non, annuler!',
         confirmButtonColor: '#198AE3',
         cancelButtonColor: '#d33',
@@ -767,7 +774,7 @@ export class MutualInvestmentComponent implements OnInit {
             () => {
               this.getAllMutualInvestments();
               swalWithBootstrapButtons.fire({
-                title: 'Debloqué !',
+                title: 'Débloqué !',
                 text: 'Le placement mutualisé a été debloqué avec succès !.',
                 confirmButtonColor: '#198AE3',
               });
@@ -927,7 +934,7 @@ export class MutualInvestmentComponent implements OnInit {
       this.firstRefundDate.date = firstRefundDate
       this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
         this.isSaving = false;
-        console.log("Echeance:: ", res);
+        console.log("Echéance:: ", res);
         
         if(res) {
           if (res.data == null ) {
@@ -958,10 +965,12 @@ export class MutualInvestmentComponent implements OnInit {
         }
       })
     } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
-      this.mutualInvestment.amountToBeRefunded = formValue.amountToBeRefunded;
-      this.mutualInvestment.refundDate = formValue.refundDate;
-      this.mutualInvestmentService.setRefundDatesManually(this.mutualInvestment, this.idInvestment).subscribe((res)=>{
+      this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
+      this.refund.refundDate = formValue.refundDate;
+      this.mutualInvestmentService.setRefundDatesManually(this.refund, this.idInvestment).subscribe((res)=>{
         this.isSaving = false;
+        console.log("Refund differer:: ", res);
+        
         if(res) {
           if (res.data == null ) {
             this.utilityService.showMessage(
@@ -1003,13 +1012,7 @@ export class MutualInvestmentComponent implements OnInit {
 
   //////////////////////// Make Distribution
   onMakeDistribution(idInvestment: number) {
-    // this.openDistributionModal = "is-active";
-    // this.idInvestment = idInvestment;
     this.distributionMessage(idInvestment);
-  }
-
-  onCloseDistributionModal(){
-    this.openDistributionModal = "";
   }
 
   distributionMessage(idInvestment: number) {

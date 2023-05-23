@@ -35,6 +35,7 @@ export class ViewDetailRefundComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
   dateNow: any;
   amountCollecteds: Payment[] = [];
+  dateStatus: string = "";
 
   constructor(private location: Location,
     private activatedRoute: ActivatedRoute,
@@ -83,6 +84,7 @@ export class ViewDetailRefundComponent implements OnInit {
           this.loaderService.hideLoader();
         } else {
           this.mutualInvestment = res.data;
+          this.dateStatus = res.data.refundDateStatus;
           this.refunds = res.data.refunds;
           this.idInvestment = params['id'];
           if( this.refunds.length <= 0 ) {

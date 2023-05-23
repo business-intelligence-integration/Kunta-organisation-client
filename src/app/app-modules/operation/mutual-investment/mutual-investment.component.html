@@ -64,21 +64,22 @@
                     </div>
                     <div class="flex-table-cell" data-th="Caution(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.securityDeposits.length }}</span>
-                        <a class="pagination-previous has-chevron" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-security-deposit']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir details caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Debloquer">
-                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable is-success" tooltip=" Debloqué " theme='light' data-filter-match="">D </span>
+                    <div class="flex-table-cell" data-th="Débloquer">
+                        <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable is-success" tooltip=" Débloqué " theme='light' data-filter-match="">D </span>
                         <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B </span>
                         <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' || subscriptionStatus != 'RELEASED'" tooltip=" Placement debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a> -->
                         <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a> -->
-                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' || !isPaid }" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' || !isPaid }" (click)="onUnlock(mutualInvestment.id)" tooltip=" Débloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
                         <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
-                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || mutualInvestment.refunds.length >= 1 }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
+                        <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || mutualInvestment.refunds.length >= 1 }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a> -->
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundDateStatus === 'COMPLETE'}" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
                         <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || !mutualInvestment.refunds }" (click)="onRefund(mutualInvestment.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a> -->
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-refund']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -162,10 +163,10 @@
                             <div class="field" *ngIf="isOthers">
                                 <label>Appelation de l'organisme</label><br>
                                 <div class="control">
-                                    <input type="text" class="input" placeholder="organisme" formControlName="name2">
+                                    <input type="text" class="input" placeholder="organisme" formControlName="organismName">
                                 </div>
                                 <div class="text-danger"
-                                    *ngIf="createMutualInvestmentForm.get('name2')?.errors?.['required'] && createMutualInvestmentForm.get('name2')?.touched">
+                                    *ngIf="createMutualInvestmentForm.get('organismName')?.errors?.['required'] && createMutualInvestmentForm.get('organismName')?.touched">
                                     <small class="text-police">veuillez entrer le nom</small>
                                  </div>
                             </div>
@@ -366,7 +367,7 @@
                                         <label>Date de début *</label><br>
                                         <div class="card-header-widget datepicker-style">
                                             <div class="input-daterange input-group align-items-center">
-                                                <input class="champ" formControlName="startDate" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
+                                                <input class="champ" formControlName="startDate" min="{{ dateNow }}" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
                                             </div>
                                         </div>
                                         <div class="text-danger" *ngIf="createMutualInvestmentForm.get('startDate')?.errors?.['required'] && createMutualInvestmentForm.get('endDate')?.touched">
@@ -567,16 +568,16 @@
                                 <small class="text-police" translate>Entrer le nom du placement</small>
                             </div>
                         </div><br>
-                        <div class="field" *ngIf="mutualInvestment.organism">
+                        <!-- <div class="field" *ngIf="mutualInvestment.organism.organismName">
                             <label>Organisme </label><br>
                             <div class="control">
-                                <input type="text" class="input" [(ngModel)]="mutualInvestment.organism" placeholder="organisme" formControlName="organism">
+                                <input type="text" class="input" [(ngModel)]="mutualInvestment.organism.organismName" placeholder="organisme" formControlName="organism">
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateMutualInvestmentForm.get('organism')?.errors?.['required'] && updateMutualInvestmentForm.get('reference')?.touched">
                                 <small class="text-police" translate>Entrer l'organisme du placement</small>
                             </div>
-                        </div><br>
+                        </div><br> -->
                         <div class="field">
                             <label>Montant minimal *</label><br>
                             <div class="control">
@@ -749,7 +750,7 @@
                             <label>1ere date de remboursement: </label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="firstRefundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" [(ngModel)]="dateNow" (input)="onSelectDate($event.timeStamp)">
+                                    <input formControlName="firstRefundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" (input)="onSelectDate($event.timeStamp)">
                                 </div>
                            </div>
                             <div class="text-danger"
@@ -757,10 +758,15 @@
                                 <small class="text-police" translate>Entrer la 1ere date du remboursement</small>
                             </div>
                         </div><br>
+                        <div *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
+                            <label>Montant total à rembourser: <b>{{amountToBeRefunded}} FCFA</b> </label><br>
+                            <label>Montant total enregistré: <b>{{totalRefunded}} FCFA</b> </label><br><br>
+                            <label class="red">Montant restant à enregistrer: <b>{{amountToBeRefunded - totalRefunded}} FCFA</b> </label><br>
+                        </div><br>
                         <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
-                            <label>Montant a rembourser: </label><br>
+                            <label>Montant à rembourser: </label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant a rembourser" formControlName="amountToBeRefunded">
+                                <input type="number" class="input" placeholder="Montant à rembourser" formControlName="amountToBeRefunded">
                             </div>
                             <div class="text-danger"
                                 *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required'] && generateForm.get('amountToBeRefunded')?.touched">
@@ -771,7 +777,7 @@
                             <label>Date de remboursement: </label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="refundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" [(ngModel)]="dateNow" (input)="onSelectDate($event.timeStamp)">
+                                    <input formControlName="refundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" (input)="onSelectDate($event.timeStamp)">
                                 </div>
                            </div>
                             <div class="text-danger"

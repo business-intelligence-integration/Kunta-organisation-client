@@ -98,6 +98,13 @@
                     </div>
                 </div>
 
+                <div class="control" *ngIf="dateStatus == 'COMPLETE'">
+                    <label> Statut des dates: <b>COMPLET</b> </label>
+                </div>
+                <div class="control" *ngIf="dateStatus == 'NOTCOMPLETE'">
+                    <label> Statut des dates: <b>INCOMPLET</b> </label>
+                </div>
+
                 <!-- <div class="buttons" (click)="onOpenAddRefund()">
                     <button class="button h-button is-primary is-elevated">
                         <span class="icon">

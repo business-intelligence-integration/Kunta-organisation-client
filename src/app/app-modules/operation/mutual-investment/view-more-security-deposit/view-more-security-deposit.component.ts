@@ -29,6 +29,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   addSecurityDepositForm!: FormGroup;
   isSaving: boolean = false;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
+  mutualInvesmentStatus: string = "";
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -61,6 +62,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
         this.show = true;
         this.loaderService.hideLoader();
       } else {
+        this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
         this.securityDeposits = res.data.securityDeposits;
         if( this.securityDeposits.length <= 0 ) {
           this.show = true;
