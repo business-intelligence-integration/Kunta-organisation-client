@@ -45,4 +45,8 @@ export class CycleService {
     return this.httpClient.patch<any>(this.baseUrl + 'cycles/'+ idCycle + "/close", {});
   }
 
+  findCycleByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'cycles/search?name=' + name, httpOptions);
+  }
+
 }

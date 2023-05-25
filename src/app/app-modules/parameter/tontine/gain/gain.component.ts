@@ -18,6 +18,7 @@ export class GainComponent implements OnInit {
   openUpdateModal: string = "";
   createGainForm!: FormGroup;
   updateGainForm!: FormGroup;
+  searchForm!: FormGroup;
   gains: Gain[] = [];
   gain: Gain = new Gain();
   constructor(private gainService: GainService,
@@ -41,6 +42,21 @@ export class GainComponent implements OnInit {
     this.createGainForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      label: new FormControl(null),
+    })
+  }
+
+  searchGains(){
+    this.findGainModeByLabel(this.searchForm.value.label);
+  }
+
+  findGainModeByLabel(label: string){
+    this.gainService.findGainModeByLabel(label).subscribe((res)=>{
+      this.gains = [];
+      this.gains = res?.data;
     })
   }
 

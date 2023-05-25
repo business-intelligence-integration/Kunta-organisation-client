@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Club } from 'src/app/core/classes/club';
+import { Organism } from 'src/app/core/classes/organism';
 import { Post } from 'src/app/core/classes/post';
+import { AreaService } from 'src/app/core/services/areas/area.service';
+import { CenterService } from 'src/app/core/services/centers/center.service';
+import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { MainOfficeService } from 'src/app/core/services/main-offices/main-office.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -13,28 +19,49 @@ import Swal from 'sweetalert2';
 })
 export class PosteComponent implements OnInit {
   show: boolean = false;
-  ngSelect1 = 0;
-  ngSelect2 = 0;
+  ngSelectLevelCreate: any = 0;
+  ngSelectLevelUpdate = 0;
+  ngSelectClub = 0;
+  ngSelectArea = 0;
+  ngSelectCenter = 0;
+  ngSelectMainOffice = 0;
   createPosteForm!: FormGroup
   updatePosteForm!: FormGroup
+  searchForm!: FormGroup
   openCreateModal: string = ""
   openUpdateModal: string = ""
   isTheNumberOfUsersLimited: boolean = false;
   isSaving: boolean = false;
   posts: Post[] = [];
   post: Post = new Post();
+  idClub: number = 0;
+  idArea: number = 0;
+  idCenter: number = 0;
+  idMainOffice: number = 0;
+  clubs: Organism[] = [];
+  areas: Organism[] = [];
+  centers: Organism[] = [];
+  mainOffices: Organism[] = [];
+  isClub: boolean = false;
+
   constructor(private formBuilder: FormBuilder, 
     private postService: PostService,
+    private clubService: ClubService,
+    private areaService: AreaService,
+    private centerService: CenterService,
+    private mainOfficeService: MainOfficeService,
     private utilityService: UtilityService,
     private loaderService: LoaderService) { }
 
   ngOnInit(): void {
     this.loaderService.showLoader();
+    this.findAllPosts();
+    this.findAllClubs();
+    this.findAllAreas();
+    this.findAllCenters();
+    this.findAllMainOffices();
     this.formInit();
-    this.finAllPosts();
   }
-
-
 
   onOpenCreateModal(){
     this.openCreateModal = "is-active"
@@ -50,6 +77,10 @@ export class PosteComponent implements OnInit {
       organisationLevel: new FormControl(null, Validators.required),
       description: new FormControl(null),
       maxNumberOfUser: new FormControl(null),
+      idClub: new FormControl(null),
+      idArea: new FormControl(null),
+      idCenter: new FormControl(null),
+      idMainOffice: new FormControl(null),
     })
 
     this.updatePosteForm = this.formBuilder.group({
@@ -57,6 +88,21 @@ export class PosteComponent implements OnInit {
       organisationLevel: new FormControl(null, Validators.required),
       description: new FormControl(null),
       maxNumberOfUser: new FormControl(null),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null),
+    })
+  }
+
+  searchPosts(){
+    this.findPostByName(this.searchForm.value.name);
+  }
+
+  findPostByName(name: string){
+    this.postService.findPostByName(name).subscribe((res)=>{
+      this.posts = [];
+      this.posts = res?.data;
     })
   }
 
@@ -68,7 +114,7 @@ export class PosteComponent implements OnInit {
     this.isTheNumberOfUsersLimited = false;
   }
 
-  finAllPosts(){
+  findAllPosts(){
     this.postService.findAllPosts().subscribe((res)=>{
       if ( res == null ) {
         this.show = true;
@@ -86,6 +132,34 @@ export class PosteComponent implements OnInit {
     })
   }
 
+  findAllClubs(){
+    this.clubService.findAllClubs().subscribe((res)=>{
+      this.clubs = res.data;
+    })
+  }
+
+  findAllAreas(){
+    this.areaService.findAllAreas().subscribe((res)=>{
+      this.areas = res.data;
+    })
+  }
+
+  findAllCenters(){
+    this.centerService.findAllCenters().subscribe((res)=>{
+      this.centers = res.data;
+    })
+  }
+
+  findAllMainOffices(){
+    this.mainOfficeService.findAllOffices().subscribe((res)=>{
+      this.mainOffices = res.data;
+    })
+  }
+
+  levelSelected(val: any) {
+    this.ngSelectLevelCreate = val;
+  }
+
   onCreatePoste(){
     this.isSaving = true
     const formValue = this.createPosteForm.value;
@@ -93,11 +167,20 @@ export class PosteComponent implements OnInit {
     this.post.maxNumberOfUser = formValue.maxNumberOfUser;
     this.post.organisationLevelEnum = formValue.organisationLevel;
     this.post.description = formValue.description;
+    if(this.ngSelectLevelCreate == 'CLUB') {
+      this.idClub = formValue.idClub;
+    } else if(this.ngSelectLevelCreate == 'AREA') {
+      this.idArea = formValue.idArea;
+    } else if(this.ngSelectLevelCreate == 'CENTER') {
+      this.idCenter = formValue.idCenter;
+    } else if(this.ngSelectLevelCreate == 'MAINOFFICE') {
+      this.idMainOffice = formValue.idMainOffice;
+    }
     this.createPost(this.post);
   }
 
   createPost(post: Post){
-    this.postService.createPost(post).subscribe((res)=>{
+    this.postService.createPost(post, this.idClub, this.idArea, this.idCenter, this.idMainOffice).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -109,7 +192,7 @@ export class PosteComponent implements OnInit {
           );
         } else {
           this.closeCreateModal();
-          this.finAllPosts();
+          this.findAllPosts();
           this.utilityService.showMessage(
             'success',
             'Poste crée avec succès',
@@ -166,7 +249,7 @@ export class PosteComponent implements OnInit {
         if (result.isConfirmed) {
           this.postService.deletePost(id).subscribe(
             () => {
-              this.finAllPosts();
+              this.findAllPosts();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
                 text: 'Le poste a bien été supprimé !.',
@@ -247,7 +330,7 @@ export class PosteComponent implements OnInit {
             'white'
           );
         } else {
-          this.finAllPosts();
+          this.findAllPosts();
           this.closeUpdateModal()
           this.utilityService.showMessage(
             'success',

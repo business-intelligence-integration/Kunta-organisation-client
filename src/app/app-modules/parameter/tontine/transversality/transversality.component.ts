@@ -20,6 +20,7 @@ export class TransversalityComponent implements OnInit {
   openCreateModal: string = "";
   updateLevelForm!: FormGroup;
   createLevelForm!: FormGroup;
+  searchForm!: FormGroup;
   constructor(private transversalityService: TransversalityLevelService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
@@ -43,6 +44,20 @@ export class TransversalityComponent implements OnInit {
       description: new FormControl(null, Validators.required),
     })
 
+    this.searchForm = this.formBuilder.group({
+      label: new FormControl(null),
+    })
+  }
+  
+  searchLevels(){
+    this.findTransversalityLevelByLabel(this.searchForm.value.label);
+  }
+
+  findTransversalityLevelByLabel(label: string){
+    this.transversalityService.findTransversalityLevelByLabel(label).subscribe((res)=>{
+      this.levels = [];
+      this.levels = res?.data;
+    })
   }
 
   getAllLevel(){
@@ -103,7 +118,7 @@ export class TransversalityComponent implements OnInit {
     })
   }
 
-  onCtreateLevel(){
+  onCreateLevel(){
     this.openCreateModal = "is-active";
   }
 
@@ -111,10 +126,10 @@ export class TransversalityComponent implements OnInit {
     const formValue = this.createLevelForm.value;
     this.level.label =formValue.label;
     this.level.description = formValue.description;
-    this.crateLevel(this.level)
+    this.createLevel(this.level)
   }
 
-  crateLevel(level: Level){
+  createLevel(level: Level){
     this.transversalityService.createLevel(level).subscribe((res)=>{
       if(res) {
         if (res.data == null ) {

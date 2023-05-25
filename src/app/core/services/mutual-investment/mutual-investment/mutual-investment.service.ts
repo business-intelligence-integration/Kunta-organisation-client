@@ -9,6 +9,7 @@ import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { Payment } from 'src/app/core/classes/payment';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
+import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -81,6 +82,10 @@ export class MutualInvestmentService {
 
   makeDistribution(idInvestment: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment + '/make-the-distribution' + "?token=" + this.utilityService.loadToken(), {});
+  }
+
+  getDistributionPercentage(distributionPercentage: DistributionPercentage, idInvestment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/get-distribution-percentage/'+ idInvestment, distributionPercentage);
   }
 
 }

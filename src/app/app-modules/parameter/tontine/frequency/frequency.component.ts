@@ -20,6 +20,7 @@ export class FrequencyComponent implements OnInit {
   openCreateModal: string = "";
   updateFrequenceForm!: FormGroup;
   createFrequenceForm!: FormGroup;
+  searchForm!: FormGroup;
   constructor(private frequencyService: FrequencyService, 
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
@@ -42,6 +43,10 @@ export class FrequencyComponent implements OnInit {
       label: new FormControl(null, Validators.required),
       description: new FormControl(null, Validators.required),
     })
+
+    this.searchForm = this.formBuilder.group({
+      label: new FormControl(null),
+    })
   }
 
   getAllFrequency(){
@@ -59,6 +64,17 @@ export class FrequencyComponent implements OnInit {
           this.loaderService.hideLoader();
         }
       }
+    })
+  }
+
+  searchFrequencies(){
+    this.findCycleByName(this.searchForm.value.label);
+  }
+
+  findCycleByName(label: string){
+    this.frequencyService.findFrequencyByLabel(label).subscribe((res)=>{
+      this.frequencies = [];
+      this.frequencies = res?.data;
     })
   }
 

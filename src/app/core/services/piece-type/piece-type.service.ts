@@ -41,4 +41,8 @@ export class PieceTypeService {
   deletePieceType(idPieceType: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'piece-types/'+ idPieceType, httpOptions);
   }
+  
+  findPieceTypeByLabel(label: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'piece-types/search?label=' + label, httpOptions);
+  }
 }

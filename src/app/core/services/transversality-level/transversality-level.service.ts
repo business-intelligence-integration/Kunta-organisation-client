@@ -21,7 +21,6 @@ export class TransversalityLevelService {
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
 
-  
   findAllLevels():Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'transversality-levels', httpOptions);
   }
@@ -40,6 +39,10 @@ export class TransversalityLevelService {
 
   deleteLevel(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'transversality-levels/'+ id, httpOptions);
+  }
+
+  findTransversalityLevelByLabel(label: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'transversality-levels/search?label=' + label, httpOptions);
   }
 
 }

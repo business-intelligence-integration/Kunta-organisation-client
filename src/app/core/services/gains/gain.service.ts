@@ -40,4 +40,8 @@ export class GainService {
   deleteGainMode(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'gain-modes/'+ id, httpOptions);
   }
+  
+  findGainModeByLabel(label: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'gain-modes/search?label=' + label, httpOptions);
+  }
 }

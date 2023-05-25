@@ -243,7 +243,7 @@
                         <div class="field">
                             <label>Souscripteur *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
+                                <option value="0" disabled>--Sélectionner un souscripteur--</option>
                                 <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }}   {{ user.lastName }} </span> </option>
                             </select><br><br>
                         </div>
@@ -255,7 +255,7 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="addSubscriptionForm.get('amount')?.errors?.['required'] && addSubscriptionForm.get('amount')?.touched">
-                                <small class="text-police">Veuillez entrer le montant a souscrire</small>
+                                <small class="text-police">Veuiller entrer le montant à souscrire</small>
                             </div>
                         </div><br>
                        
@@ -299,7 +299,7 @@
                             </div>
                             <div class="text-danger"
                                     *ngIf="updateSubscriptionForm.get('amount')?.errors?.['required'] && updateSubscriptionForm.get('amount')?.touched">
-                                    <small class="text-police">veuillez entrer le montant</small>
+                                    <small class="text-police">veuiller entrer le montant</small>
                                  </div>
                         </div><br>
                         <div class="control login">
@@ -373,7 +373,7 @@
                             <label>Date de paiement *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="date" class="champ" type="date" max="{{ dateNow }}" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                    <input formControlName="date" class="champ2" type="date" max="{{ dateNow }}" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
                                 </div>
                            </div>
                            <!-- <div class="text-danger" *ngIf="addPaymentForm.get('date')?.errors?.['required'] && addPaymentForm.get('date')?.touched">

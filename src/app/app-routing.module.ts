@@ -6,7 +6,7 @@ const routes: Routes = [
     path : '',
     redirectTo: '/login',
     pathMatch: 'full'
-},
+  },
   {
     path: 'app-modules',
     loadChildren: () => import('./app-modules/app-modules.module').then(m => m.AppModulesModule)

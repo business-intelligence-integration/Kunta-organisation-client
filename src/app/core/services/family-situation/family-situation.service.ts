@@ -40,4 +40,8 @@ export class FamilySituationService {
   deleteFamilySituation(idFamilySituation: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'family-situations/'+ idFamilySituation, httpOptions);
   }
+
+  findFamilySituationByLabel(label: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'family-situations/search?label=' + label, httpOptions);
+  }
 }
