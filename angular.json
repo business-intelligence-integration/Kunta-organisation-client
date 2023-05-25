@@ -28,9 +28,21 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/css/app.css",
+              "src/assets/css/main.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/app.js",
+              "src/assets/js/functions.js",
+              "src/assets/js/main.js",
+              "src/assets/js/components.js",
+              "src/assets/js/popover.js",
+              "src/assets/js/widgets.js",
+              "src/assets/js/touch.js",
+              "src/assets/js/datatables.js",
+              "src/assets/js/syntax.js"
+            ]
           },
           "configurations": {
             "production": {
