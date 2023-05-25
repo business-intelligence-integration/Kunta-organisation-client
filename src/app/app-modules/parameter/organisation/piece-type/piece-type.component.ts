@@ -18,6 +18,7 @@ export class PieceTypeComponent implements OnInit {
   openUpdateModal: string = "";
   createPieceTypeForm!: FormGroup;
   updatePieceTypeForm!: FormGroup;
+  searchForm!: FormGroup;
   pieceType: PieceType = new PieceType();
   pieceTypes: PieceType[] = [];
   isSaving: boolean = false;
@@ -40,7 +41,23 @@ export class PieceTypeComponent implements OnInit {
     this.updatePieceTypeForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
     })
+
+    this.searchForm = this.formBuilder.group({
+      label: new FormControl(null),
+    })
   }
+  
+  searchPieceTypes(){
+    this.findPieceTypeByLabel(this.searchForm.value.label);
+  }
+
+  findPieceTypeByLabel(label: string){
+    this.pieceTypeService.findPieceTypeByLabel(label).subscribe((res)=>{
+      this.pieceTypes = [];
+      this.pieceTypes = res?.data;
+    })
+  }
+
 
   onOpenCreateModal(){
     this.openCreateModal = "is-active";

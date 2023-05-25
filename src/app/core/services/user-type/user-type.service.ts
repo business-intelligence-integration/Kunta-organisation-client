@@ -42,5 +42,9 @@ export class UserTypeService {
   deleteUserType(idType: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'user-types/' + idType, httpOptions);
   }
+  
+  findUserTypeByLabel(label: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'user-types/search?label=' + label, httpOptions);
+  }
 
 }

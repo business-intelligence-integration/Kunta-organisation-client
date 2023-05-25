@@ -16,6 +16,7 @@ export class UserCategoryComponent implements OnInit {
   show: boolean = false;
   createCategoryForm!: FormGroup
   updateCategoryForm!: FormGroup
+  searchForm!: FormGroup
   openCreateModal: string = "";
   openUpdateModal: string = "";
   isSaving: boolean = false;
@@ -69,7 +70,23 @@ export class UserCategoryComponent implements OnInit {
       name: new FormControl(null, Validators.required),
       description: new FormControl(null),
     })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null),
+    })
   }
+
+  searchCategories(){
+    this.findUserCategoryByName(this.searchForm.value.name);
+  }
+
+  findUserCategoryByName(name: string){
+    this.userCategoryService.findUserCategoryByName(name).subscribe((res)=>{
+      this.categories = [];
+      this.categories = res?.data;
+    })
+  }
+
 
   onCreateCategory(){
     this.isSaving = true
@@ -150,8 +167,6 @@ export class UserCategoryComponent implements OnInit {
         if (result.isConfirmed) {
           this.userCategoryService.deleteUserCategory(id).subscribe(
             (res) => {
-              console.log("response...", res);
-              
               this.finAllUsersCategory();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',

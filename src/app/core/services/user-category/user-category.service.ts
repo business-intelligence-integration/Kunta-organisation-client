@@ -41,5 +41,9 @@ export class UserCategoryService {
   deleteUserCategory(idCategory: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'user-categories/' + idCategory, httpOptions);
   }
+  
+  findUserCategoryByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'user-categories/search?name=' + name, httpOptions);
+  }
 
 }

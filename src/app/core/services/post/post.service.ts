@@ -33,8 +33,10 @@ export class PostService {
     return this.httpClient.put<any>(this.baseUrl + 'posts/'+ id, post, httpOptions);
   }
 
-  createPost(post: Post):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'posts', post, httpOptions);
+  createPost(post: Post, idClub: number, idArea: number, idCenter: number, idMainOffice: number):Observable<any>{
+    console.log("Back Post:", post,"Back idClub:", idClub,"Back idArea:", idArea,"Back idCenter:", idCenter,"Back idMainOffice:", idMainOffice);
+    
+    return this.httpClient.post<any>(this.baseUrl + 'posts' + '?idClub=' + idClub + '&idArea=' + idArea + '&idCenter=' + idCenter + '&idMainOffice=' + idMainOffice, post, httpOptions);
   } 
 
   deletePost(idPost: number):Observable<any>{
@@ -63,5 +65,13 @@ export class PostService {
 
   addOperatorToPost(idOperator: number, idPost: number, idFunction: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + "posts/add-operator?idOperator=" + idOperator + "&idPost=" + idPost + "&idFunction=" + idFunction, {}, httpOptions);
+  }
+
+  removeAnOperatorFromAPost(idOperator: number, idPost: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + "posts/remove-operator?idOperator=" + idOperator + "&idPost=" + idPost, {}, httpOptions);
+  }
+
+  findPostByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'posts/search?name='+ name, httpOptions);
   }
 }

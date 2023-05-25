@@ -40,4 +40,8 @@ export class FrequencyService {
   deleteFrequency(id: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'frequencies/'+ id, httpOptions);
   }
+  
+  findFrequencyByLabel(label: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'frequencies/search?label=' + label, httpOptions);
+  }
 }

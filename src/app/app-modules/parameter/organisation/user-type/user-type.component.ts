@@ -16,6 +16,7 @@ export class UserTypeComponent implements OnInit {
   show: boolean = false;
   createTypeForm!: FormGroup
   updateTypeForm!: FormGroup
+  searchForm!: FormGroup
   openCreateModal: string = "";
   openUpdateModal: string = "";
   isSaving: boolean = false;
@@ -68,6 +69,21 @@ export class UserTypeComponent implements OnInit {
     this.updateTypeForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
       description: new FormControl(null),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      label: new FormControl(null),
+    })
+  }
+  
+  searchTypes(){
+    this.findUserTypeByLabel(this.searchForm.value.label);
+  }
+
+  findUserTypeByLabel(label: string){
+    this.userTypeService.findUserTypeByLabel(label).subscribe((res)=>{
+      this.types = [];
+      this.types = res?.data;
     })
   }
 
@@ -179,8 +195,6 @@ export class UserTypeComponent implements OnInit {
     this.userTypeService.findUsersTypeById(id).subscribe((res)=>{
       this.openUpdateModal = "is-active";
       this.type = res.data;
-      console.log("Open update...", res.data);
-      
     })
   }
 

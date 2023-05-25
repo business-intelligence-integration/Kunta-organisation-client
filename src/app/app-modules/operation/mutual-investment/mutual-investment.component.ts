@@ -28,6 +28,7 @@ import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { Organism } from 'src/app/core/classes/organism';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
+import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -74,6 +75,7 @@ export class MutualInvestmentComponent implements OnInit {
   openRefundModal: string = "";
   openGenerateModal: string = "";
   openViewRefundsModal: string = "";
+  openPercentageModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
   idInvestment: number = 0;
   openDepositModal: string = "";
@@ -107,6 +109,8 @@ export class MutualInvestmentComponent implements OnInit {
   percentageOkay: boolean = false;
   amountToBeRefunded: number = 0;
   totalRefunded: number = 0;
+  addPercentageForm!: FormGroup;
+  distributionPercentage: DistributionPercentage = new DistributionPercentage();
 
   constructor(private mutualInvestmentService: MutualInvestmentService,
     private centerService: CenterService,
@@ -156,10 +160,6 @@ export class MutualInvestmentComponent implements OnInit {
       echeanceDurationInMonths: new FormControl(null),
       startDate: new FormControl(null, Validators.required),
       endDate: new FormControl(null, Validators.required),
-      percentageMutual: new FormControl(null, Validators.required),
-      percentageOfFunders: new FormControl(null, Validators.required),
-      percentageOfGuarantees: new FormControl(null, Validators.required),
-      percentageOfPassiveIncomeFund: new FormControl(null, Validators.required),
     })
 
     this.updateMutualInvestmentForm = this.formBuilder.group({
@@ -191,6 +191,13 @@ export class MutualInvestmentComponent implements OnInit {
       firstRefundDate: new FormControl(null),
       amountToBeRefunded: new FormControl(null),
       refundDate: new FormControl(null),
+    })
+
+    this.addPercentageForm = this.formBuilder.group({
+      percentageMutual: new FormControl(null, Validators.required),
+      percentageOfFunders: new FormControl(null, Validators.required),
+      percentageOfGuarantees: new FormControl(null, Validators.required),
+      percentageOfPassiveIncomeFund: new FormControl(null, Validators.required),
     })
   }
 
@@ -357,10 +364,6 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestment.name = formValue.name;
     this.mutualInvestment.endDate = formValue.endDate;
     this.mutualInvestment.startDate = formValue.startDate;
-    this.mutualInvestment.percentageMutual = formValue.percentageMutual;
-    this.mutualInvestment.percentageOfFunders = formValue.percentageOfFunders;
-    this.mutualInvestment.percentageOfGuarantees = formValue.percentageOfGuarantees;
-    this.mutualInvestment.percentageOfPassiveIncomeFund = formValue.percentageOfPassiveIncomeFund;
     // this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
     if(formValue.idFrequency != null){
@@ -1064,5 +1067,69 @@ export class MutualInvestmentComponent implements OnInit {
           });
         }
       });
+  }
+
+  //////////////////////////////// Distribution Percentages 
+  onOpenPercentage(idInvestment: number) {
+    this.openPercentageModal = "is-active";
+    this.idInvestment = idInvestment;
+  }
+
+  onClosePercentage() {
+    this.openPercentageModal = "";
+  }
+
+  onSubmitPercentages() {
+    this.isSaving = true;
+    const formValue = this.addPercentageForm.value;
+    this.distributionPercentage.percentageMutual = formValue.percentageMutual;
+    this.distributionPercentage.percentageOfFunders = formValue.percentageOfFunders;
+    this.distributionPercentage.percentageOfGuarantees = formValue.percentageOfGuarantees;
+    this.distributionPercentage.percentageOfPassiveIncomeFund = formValue.percentageOfPassiveIncomeFund;
+    this.createPercentages(this.distributionPercentage, this.idInvestment)
+  }
+
+  createPercentages(distributionPercentage: DistributionPercentage, idMutualInvestment: number){
+    this.mutualInvestmentService.getDistributionPercentage(distributionPercentage, idMutualInvestment).subscribe((res)=>{
+      console.log("% res:: ", res);
+      console.log("Pourcentages:: ", distributionPercentage);
+      
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.addPercentageForm.reset();
+          this.onClosePercentage();
+          this.utilityService.showMessage(
+            'success',
+            'Pourcentages créés avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    },(error)=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
   }
 }

@@ -41,4 +41,8 @@ export class CivilityService {
   deleteCivility(idCivility: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'civilities/'+ idCivility, httpOptions);
   }
+  
+  findCivilityByName(name: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'civilities/search?name='+ name, httpOptions);
+  }
 }

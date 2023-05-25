@@ -22,6 +22,7 @@ export class FamilySituationComponent implements OnInit {
 
   createFamilySituationForm!: FormGroup;
   updateFamilySituationForm!: FormGroup;
+  searchForm!: FormGroup;
 
   constructor(private familySituationService: FamilySituationService,
     private formBuilder: FormBuilder, 
@@ -41,6 +42,21 @@ export class FamilySituationComponent implements OnInit {
 
     this.updateFamilySituationForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      label: new FormControl(null),
+    })
+  }
+  
+  searchFamilySituations(){
+    this.findFamilySituationByLabel(this.searchForm.value.label);
+  }
+
+  findFamilySituationByLabel(label: string){
+    this.familySituationService.findFamilySituationByLabel(label).subscribe((res)=>{
+      this.familySituations = [];
+      this.familySituations = res?.data;
     })
   }
 

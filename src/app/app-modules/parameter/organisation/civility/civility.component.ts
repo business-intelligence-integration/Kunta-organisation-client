@@ -20,6 +20,7 @@ export class CivilityComponent implements OnInit {
   civility: Civility = new Civility();
   createCivilityForm!: FormGroup;
   updateCivilityForm!: FormGroup;
+  searchForm!: FormGroup;
   isSaving: boolean = false;
   constructor(
     private civilityService: CivilityService,  
@@ -42,6 +43,21 @@ export class CivilityComponent implements OnInit {
     this.updateCivilityForm = this.formBuilder.group({
       label: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+    })
+
+    this.searchForm = this.formBuilder.group({
+      name: new FormControl(null),
+    })
+  }
+  
+  searchCivilities(){
+    this.findCivilityByName(this.searchForm.value.name);
+  }
+
+  findCivilityByName(name: string){
+    this.civilityService.findCivilityByName(name).subscribe((res)=>{
+      this.civilities = [];
+      this.civilities = res?.data;
     })
   }
 

@@ -1,10 +1,12 @@
 <div class="list-flex-toolbar">
-    <!-- <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
-        <div class="form-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <form [formGroup]="searchForm">
+        <div class="control has-icon">
+            <input class="input custom-text-filter" (ngModelChange)="searchPosts()" formControlName="name" placeholder="Search..." data-filter-target=".flex-table-item">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
         </div>
-    </div> -->
+    </form>
 
     <div class="buttons">
         <button  (click)="onOpenCreateModal()" class="button h-button is-primary is-elevated">
@@ -124,8 +126,8 @@
 
                         <div class="field">
                             <label>Niveau d'organisation *</label>
-                            <select class="input_comp" formControlName="organisationLevel" aria-label="Default select example" [(ngModel)]="ngSelect1">
-                                <option value="0" disabled>--Selectionnez le niveau où le poste sera créé--</option>
+                            <select class="input_comp" formControlName="organisationLevel" aria-label="Default select example" [(ngModel)]="ngSelectLevelCreate" (ngModelChange)="levelSelected($event)">
+                                <option value="0" disabled>--Selectionner le niveau où le poste sera créé--</option>
                                 <option value="CLUB"> <span>CLUB </span> </option>
                                 <option value="AREA"> <span>ZONE </span> </option>
                                 <option value="CENTER"> <span>CENTRE </span> </option>
@@ -135,6 +137,50 @@
                                 *ngIf="createPosteForm.get('organisationLevel')?.errors?.['required'] && createPosteForm.get('organisationLevel')?.touched">
                                 <small class="text-police" translate>Veuillez sélectionner le niveau d'organisation</small>
                            </div>
+                        </div>
+                        <div class="field" *ngIf="ngSelectLevelCreate == 'CLUB'">
+                            <label>Sélection du Club</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelectClub">
+                                <option value="0" disabled>--Sélectionner un club--</option>
+                                <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }}  </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="createPosteForm.get('idClub')?.errors?.['required'] && createPosteForm.get('idClub')?.touched">
+                                <small class="text-police">veuillez sélectionner un club</small>
+                            </div>
+                        </div>
+                        <div class="field" *ngIf="ngSelectLevelCreate == 'AREA'">
+                            <label>Sélection de la zone</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idArea" [(ngModel)]="ngSelectArea">
+                                <option value="0" disabled>--Sélectionner une zone--</option>
+                                <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }}  </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="createPosteForm.get('idArea')?.errors?.['required'] && createPosteForm.get('idArea')?.touched">
+                                <small class="text-police">veuillez sélectionner une zone</small>
+                            </div>
+                        </div>
+                        <div class="field" *ngIf="ngSelectLevelCreate == 'CENTER'">
+                            <label>Sélection du centre</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelectCenter">
+                                <option value="0" disabled>--Sélectionner un centre--</option>
+                                <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }}  </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="createPosteForm.get('idCenter')?.errors?.['required'] && createPosteForm.get('idCenter')?.touched">
+                                <small class="text-police">veuillez sélectionner un centre</small>
+                            </div>
+                        </div>
+                        <div class="field" *ngIf="ngSelectLevelCreate == 'MAINOFFICE'">
+                            <label>Sélection du bureau principal</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idMainOffice" [(ngModel)]="ngSelectMainOffice">
+                                <option value="0" disabled>--Sélectionner un bureau principal--</option>
+                                <option *ngFor="let office of mainOffices" [value]="office.id"> <span> {{ office.name }}  </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                *ngIf="createPosteForm.get('idMainOffice')?.errors?.['required'] && createPosteForm.get('idMainOffice')?.touched">
+                                <small class="text-police">veuillez sélectionner un bureau principal</small>
+                            </div>
                         </div>
                         <div class="field demo-select">
                             <label>Le nombre d'utilisateur pour le poste est-il limité ?</label>
@@ -217,7 +263,7 @@
 
                         <div class="field">
                             <label>Niveau d'organisation *</label>
-                            <select class="input_comp" formControlName="organisationLevel" [(ngModel)]="post.organisationLevelEnum" aria-label="Default select example" [(ngModel)]="ngSelect2">
+                            <select class="input_comp" formControlName="organisationLevel" [(ngModel)]="post.organisationLevelEnum" aria-label="Default select example" [(ngModel)]="ngSelectLevelUpdate">
                                 <option value="0" disabled>--Selectionnez le niveau où le poste sera créé--</option>
                                 <option value="CLUB"> <span>CLUB </span> </option>
                                 <option value="AREA"> <span>ZONE </span> </option>

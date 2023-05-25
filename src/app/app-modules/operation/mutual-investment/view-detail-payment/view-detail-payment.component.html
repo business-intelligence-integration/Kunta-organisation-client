@@ -289,7 +289,7 @@
                             <label>Date de paiement *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
-                                    <input formControlName="date" class="champ" type="date" max="{{ dateNow }}" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
+                                    <input formControlName="date" class="champ2" type="date" max="{{ dateNow }}" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
                                 </div>
                            </div>
                            <!-- <div class="text-danger" *ngIf="addPaymentForm.get('date')?.errors?.['required'] && addPaymentForm.get('date')?.touched">
