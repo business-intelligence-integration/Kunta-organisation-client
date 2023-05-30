@@ -10,6 +10,7 @@ import { Payment } from 'src/app/core/classes/payment';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
+import { ClosingDate } from 'src/app/core/classes/closingDate';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -32,7 +33,6 @@ export class MutualInvestmentService {
   }
 
   createMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter: number, idFrequency: number, idMutualist: number):Observable<any>{
-    console.log("mutualInvestment Orga:: ", mutualInvestment)
     return this.httpClient.post<any>(this.baseUrl + 'mutual-investments/drawee-form/' + idDraweeForm + '/refund-type/' + idRefundType + '/profitability-type/' + idProfitabilityType + '/center/' + idCenter + '?idFrequency=' + idFrequency + '&idMutualist=' + idMutualist+ '&token=' + this.utilityService.loadToken(), mutualInvestment);
   }
 
@@ -86,6 +86,10 @@ export class MutualInvestmentService {
 
   getDistributionPercentage(distributionPercentage: DistributionPercentage, idInvestment: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/get-distribution-percentage/'+ idInvestment, distributionPercentage);
+  }
+
+  createAClosingDate(idInvestment: number, closingDate: ClosingDate):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/create-closing-date/'+ idInvestment, closingDate, httpOptions);
   }
 
 }

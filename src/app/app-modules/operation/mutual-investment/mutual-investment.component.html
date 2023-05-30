@@ -73,7 +73,7 @@
                         <span *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B </span>
                         <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' || subscriptionStatus != 'RELEASED'" tooltip=" Placement debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a> -->
                         <!-- <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'" (click)="onUnlock(mutualInvestment.id)" tooltip=" Debloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a> -->
-                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' || !isPaid }" (click)="onUnlock(mutualInvestment.id)" tooltip=" Débloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' || mutualInvestment.offers.length <= 0 }" (click)="onUnlock(mutualInvestment.id)" tooltip=" Débloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
@@ -86,8 +86,9 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' && mutualInvestment.refundStatus === 'UNPAID' " (click)="onClosingDate(mutualInvestment.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.offers.length == 0" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Distribuer Pourcentages " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.percentageOfFunders || mutualInvestment.percentageOfFunders == 0}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
                         <a _ngcontent-nct-c62="" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -828,6 +829,51 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="onClosePercentage()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Closing Date -->
+<div id="closingDate" class="modal h-modal" [ngClass]="openClosingDateModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Créer la date de fermeture</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseClosingDate()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="closingDateForm" (ngSubmit)="onSubmitClosingDate()">
+                        <div class="field">
+                            <label>Date de fermeture *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input class="champ2" formControlName="closingDate" min="{{ dateNow }}" type="date" id="DOB1" name="DOB">
+                                </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="closingDateForm.get('closingDate')?.errors?.['required'] && closingDateForm.get('closingDate')?.touched">
+                                <small class="text-police">veuillez entrer une date de fermeture</small>
+                            </div>
+                        </div><br><br>
+                        <div class="control login">
+                            <button [disabled]="closingDateForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Créer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseClosingDate()">Annuler</a>
             </div>
         </div>
     </div>
