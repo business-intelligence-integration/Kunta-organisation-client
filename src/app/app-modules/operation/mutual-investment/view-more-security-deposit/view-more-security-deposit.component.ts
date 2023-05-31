@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import {Location} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
 import { CenterService } from 'src/app/core/services/centers/center.service';
@@ -9,6 +9,10 @@ import { User } from 'src/app/core/classes/user';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
+import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
+import { Payment } from 'src/app/core/classes/payment';
+import { SecurityDepositService } from 'src/app/core/services/security-deposit/security-deposit.service';
 
 @Component({
   selector: 'app-view-more-security-deposit',
@@ -19,20 +23,30 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
   show: boolean = false;
   ngSelect1 = 0;
+  ngSelectPayment = 0;
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
   securityDeposits: SecurityDeposit[] = [];
+  idDeposit: number = 0;
   idInvestment: number = 0;
   openDepositModal: string = "";
+  openRefundDepositModal: string = "";
   users: User[] =[];
   addSecurityDepositForm!: FormGroup;
+  refundDepositForm!: FormGroup;
   isSaving: boolean = false;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   mutualInvesmentStatus: string = "";
+  refundStatus: string = "";
+  dateNow: any;
+  paymentMethods: PaymentMethod[] = [];
+  payment: Payment = new Payment();
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
+    private securityDepositService: SecurityDepositService,
+    private paymentMethodService: PaymentMethodService,
     private centerService: CenterService,
     private formBuilder: FormBuilder,
     private utilityService: UtilityService,
@@ -42,6 +56,8 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.showLoader();
     this.getMutualSecurityDeposit();
+    this.getAllPaymentMethod();
+    this.initDates();
     this.formInit();
   }
 
@@ -50,30 +66,42 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
       idUser: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
     })
+
+    this.refundDepositForm = this.formBuilder.group({
+      idPaymentMethod: new FormControl(null, Validators.required),
+      date: new FormControl(null, Validators.required),
+      paid: new FormControl(null, Validators.required),
+      proof: new FormControl(null, Validators.required),
+    })
   }
 
   backBack(){this.location.back()}
 
   getMutualSecurityDeposit(){
-  this.activatedRoute.queryParams.subscribe((params) => {
-    this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
-      this.idInvestment = params['id'];
-      if ( res == null ) {
-        this.show = true;
-        this.loaderService.hideLoader();
-      } else {
-        this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
-        this.securityDeposits = res.data.securityDeposits;
-        if( this.securityDeposits.length <= 0 ) {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
+        this.idInvestment = params['id'];
+        if ( res == null ) {
           this.show = true;
           this.loaderService.hideLoader();
         } else {
-          this.show = false;
-          this.loaderService.hideLoader();
+          this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
+          this.refundStatus = res.data.refundStatus;
+          this.securityDeposits = res.data.securityDeposits;
+          if( this.securityDeposits.length <= 0 ) {
+            this.show = true;
+            this.loaderService.hideLoader();
+          } else {
+            this.show = false;
+            this.loaderService.hideLoader();
+          }
         }
-      }
-    });
-  })
+      });
+    })
+  }
+
+  initDates(){
+    this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
 
   activeHomeSider() {
@@ -86,7 +114,12 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
       this.homeSider = "";
       this.isPushed = "";
     }
+  }
 
+  getAllPaymentMethod(){
+    this.paymentMethodService.findAllPaymentMethods().subscribe((res)=>{
+      this.paymentMethods = res.data;
+    })
   }
 
   onDeleteSecurityDeposit(id: number){
@@ -217,5 +250,62 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
       );
     })
   }
+  
+  /////////////////////////////// Refunds Funders
+  onRefundDeposit(idDeposit: number){
+    this.idDeposit = idDeposit;
+    this.openRefundDepositModal = "is-active";
+  }
 
+  closeRefundDepositModal() {
+    this.openRefundDepositModal = "";
+  }
+
+  onSubmitRefundDeposit() {
+    this.isSaving = true;
+    const formValue = this.refundDepositForm.value;
+    this.payment.paid = formValue.paid;
+    this.payment.proof = formValue.proof;
+    this.payment.date = formValue.date;
+    this.securityDepositService.refundAmountSecutityDeposit(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
+      this.isSaving = false;
+      console.log("Refund Deposit:: ", res);
+      
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getMutualSecurityDeposit();
+          this.refundDepositForm.reset();
+          this.closeRefundDepositModal();
+          this.utilityService.showMessage(
+            'success',
+            'Caution remboursée avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite, verifier votre saisis',
+          '#e62965',
+          'white'
+        );
+      }
+    },()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
 }

@@ -29,6 +29,7 @@ import { Organism } from 'src/app/core/classes/organism';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
+import { ClosingDate } from 'src/app/core/classes/closingDate';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -74,6 +75,7 @@ export class MutualInvestmentComponent implements OnInit {
   openUpdateModal: string = "";
   openRefundModal: string = "";
   openGenerateModal: string = "";
+  openClosingDateModal: string = "";
   openViewRefundsModal: string = "";
   openPercentageModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
@@ -84,6 +86,7 @@ export class MutualInvestmentComponent implements OnInit {
   addSubscriptionOfferForm!: FormGroup;
   refundForm!: FormGroup;
   generateForm!: FormGroup;
+  closingDateForm!: FormGroup;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   subscriptionOffer: SubscriptionOffer = new SubscriptionOffer();
   riskProfiles: RiskProfile[] = [];
@@ -98,8 +101,9 @@ export class MutualInvestmentComponent implements OnInit {
   physicalPerson: User = new User();
   refundType: string = "";
   // firstRefundDate: any;
-  isPaid: boolean = true;
+  isReleased: boolean = true;
   firstRefundDate: FirstRefundDate = new FirstRefundDate();
+  closingDate: ClosingDate = new ClosingDate();
   percentageMutual: number = 0;
   percentageOfFunders: number = 0;
   percentageOfGuarantees: number = 0;
@@ -199,6 +203,10 @@ export class MutualInvestmentComponent implements OnInit {
       percentageOfGuarantees: new FormControl(null, Validators.required),
       percentageOfPassiveIncomeFund: new FormControl(null, Validators.required),
     })
+
+    this.closingDateForm = this.formBuilder.group({
+      closingDate: new FormControl(null, Validators.required),
+    })
   }
 
   getAllMutualInvestments(){
@@ -214,7 +222,7 @@ export class MutualInvestmentComponent implements OnInit {
           element.offers.forEach((element) => {
             element.subscriptions.forEach((element) => {
               if (element.status != 'RELEASED') {
-                this.isPaid = false;
+                this.isReleased = false;
               }
             })
           })
@@ -775,8 +783,7 @@ export class MutualInvestmentComponent implements OnInit {
         if (result.isConfirmed) {
           this.mutualInvestmentService.releaseOperation(id).subscribe(
             (res) => {
-              console.log("release:: ", res)
-              this.getAllMutualInvestments();
+             this.getAllMutualInvestments();
               swalWithBootstrapButtons.fire({
                 title: 'Débloqué !',
                 text: 'Le placement mutualisé a été debloqué avec succès !.',
@@ -1115,6 +1122,62 @@ export class MutualInvestmentComponent implements OnInit {
           this.utilityService.showMessage(
             'success',
             'Pourcentages créés avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    },(error)=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  ////////////////////////////////////////Create Closing Date
+  onClosingDate(idInvestment: number) {
+    this.idInvestment = idInvestment;
+    this.openClosingDateModal = "is-active";
+  }
+
+  onCloseClosingDate() {
+    this.openClosingDateModal = "";
+  }
+
+  onSubmitClosingDate(){
+    this.isSaving = true;
+    const formValue = this.closingDateForm.value;
+    this.closingDate.date = formValue.closingDate;
+    this.mutualInvestmentService.createAClosingDate(this.idInvestment, this.closingDate).subscribe((res)=>{
+      console.log("Closing Date:: ", res);
+      
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllMutualInvestments();
+          this.closingDateForm.reset();
+          this.onCloseClosingDate();
+          this.utilityService.showMessage(
+            'success',
+            'Date de fermeture créé avec succès !',
             '#06d6a0',
             'white'
           );

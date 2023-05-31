@@ -20,7 +20,8 @@ export class MutualInvestment{
     rating: number = 0;
     startDate: any;
     status: string = "";
-    profitabilityType: ProfitabilityType[] = [];
+    profitabilityTypes: ProfitabilityType[] = [];
+    profitabilityType: ProfitabilityType = new ProfitabilityType();
     riskProfile: RiskProfile[] = [];
     profitabilityAmount: number = 0;
     securityDeposits: SecurityDeposit[] = [];
@@ -38,6 +39,10 @@ export class MutualInvestment{
     // firstRefundDate: string = "";
     refundDate: string = "";
     refunds: Refund[] = [];
+    percentageMutual: number = 0;
+    percentageOfFunders: number = 0;
+    percentageOfGuarantees: number = 0;
+    percentageOfPassiveIncomeFund: number = 0;
     distributionStatus: string = "";
     refundDateStatus: string = "";
   }

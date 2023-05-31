@@ -146,8 +146,8 @@
                         <span>Cautionneur(s)</span>
                         <span>Montant</span>
                         <span>Montant payé</span>
-                        <span class="cell-end">Montant recu</span>
-                        <!-- <span class="cell-end">Actions</span> -->
+                        <span>Montant recu</span>
+                        <span class="cell-end">Actions</span>
                     </div>
         
                     <div class="flex-list-inner">
@@ -170,14 +170,15 @@
                             <div class="flex-table-cell" data-th="Montant payé">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid}}</span>
                             </div>
-                            <div class="flex-table-cell cell-end" data-th="Montant recu">
+                            <div class="flex-table-cell" data-th="Montant recu">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.amountReceived}}</span>
                             </div>
-                            <!-- <div class="flex-table-cell cell-end" data-th="Actions">
+                            <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" (click)="onDeleteSecurityDeposit(securityDeposit.id)" tooltip=" Retirer la caution " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                <a _ngcontent-nct-c62="" [ngClass]="{'disabled': refundStatus === 'UNPAID' }" (click)="onRefundDeposit(securityDeposit.id)" tooltip=" Rembourser le cautionneur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
+                                <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" (click)="onDeleteSecurityDeposit(securityDeposit.id)" tooltip=" Retirer la caution " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
         
@@ -250,6 +251,82 @@
                         </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSecurityDepositForm.invalid || isSaving" >Enregistrer</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeSecurityDepositModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- refund Security Deposit -->
+<div id="refundDeposit" class="modal h-modal" [ngClass]="openRefundDepositModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Rembourser Caution</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeRefundDepositModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="refundDepositForm" (ngSubmit)="onSubmitRefundDeposit()">
+                        <div class="field">
+                            <label>Methodes de paiement *</label>
+                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPayment">
+                                <option value="0" disabled>--Selectionnez une methode de paiement --</option>
+                                <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }} </span> </option>
+                            </select>
+                            <div class="text-danger"
+                                    *ngIf="refundDepositForm.get('idPaymentMethod')?.errors?.['required'] && refundDepositForm.get('idPaymentMethod')?.touched">
+                                    <small class="text-police">veuillez sélectionner une methode de paiement</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Montant du remboursement *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant du remboursement" formControlName="paid">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundDepositForm.get('paid')?.errors?.['required'] && refundDepositForm.get('paid')?.touched">
+                                <small class="text-police">veuillez entrer le montant du remboursement</small>
+                             </div>
+                        </div>
+                        <div class="field">
+                            <label>Justificatif *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Justificatif" formControlName="proof">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundDepositForm.get('proof')?.errors?.['required'] && refundDepositForm.get('proof')?.touched">
+                                <small class="text-police">veuillez entrer le justificatif</small>
+                             </div>
+                        </div>
+                        <div class="field">
+                            <label>Date *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input class="champ2" formControlName="date" max="{{ dateNow }}" type="date" id="DOB1" name="DOB">
+                                </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundDepositForm.get('date')?.errors?.['required'] && refundDepositForm.get('date')?.touched">
+                                <small class="text-police">veuillez entrer une date</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="refundDepositForm.invalid || isSaving" >Rembourser</button>
                         </div><br>
                        
                     </form>
