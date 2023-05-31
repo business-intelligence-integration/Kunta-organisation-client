@@ -379,13 +379,13 @@ export class MutualInvestmentComponent implements OnInit {
     }if(formValue.idMutualist != null){
       idMutualist = formValue.idMutualist
     }if(this.isOthers == true){
-      this.organism.email = formValue.email;
-      this.organism.city = formValue.city;
+      this.organism.emailRepre = formValue.email;
+      this.organism.cityRepre = formValue.city;
       this.organism.organismName = formValue.organismName;
-      this.organism.firstName = formValue.firstName;
-      this.organism.lastName = formValue.lastName;
-      this.organism.userName = formValue.userName;
-      this.organism.phoneNumber = formValue.phoneNumber;
+      this.organism.firstNameRepre = formValue.firstName;
+      this.organism.lastNameRepre = formValue.lastName;
+      this.organism.userNameRepre = formValue.userName;
+      this.organism.phoneNumberRepre = formValue.phoneNumber;
       this.mutualInvestment.organism = this.organism;
     }if(this.isPhysical == true){
       this.physicalPerson.email = formValue.email;
@@ -783,12 +783,20 @@ export class MutualInvestmentComponent implements OnInit {
         if (result.isConfirmed) {
           this.mutualInvestmentService.releaseOperation(id).subscribe(
             (res) => {
-              this.getAllMutualInvestments();
-              swalWithBootstrapButtons.fire({
-                title: 'Débloqué !',
-                text: 'Le placement mutualisé a été debloqué avec succès !.',
-                confirmButtonColor: '#198AE3',
-              });
+              if( res == null ) {
+                swalWithBootstrapButtons.fire({
+                  title: 'Annulé',
+                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions ont été crées.',
+                  confirmButtonColor: '#d33',
+                });
+              } else {
+                this.getAllMutualInvestments();
+                swalWithBootstrapButtons.fire({
+                  title: 'Débloqué !',
+                  text: 'Le placement mutualisé a été debloqué avec succès !.',
+                  confirmButtonColor: '#198AE3',
+                });
+              }
             },
             () => {
               swalWithBootstrapButtons.fire({

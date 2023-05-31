@@ -14,11 +14,11 @@ export class Organism{
     member: User = new User();
     members: User[] = [];
     clubs: Organism[] = [];
-    city: string = "";
+    cityRepre: string = "";
 
-    email: string = "";
-    firstName: string = "";
-    lastName: string = "";
-    phoneNumber: string = "";
-    userName: string = "";
+    emailRepre: string = "";
+    firstNameRepre: string = "";
+    lastNameRepre: string = "";
+    phoneNumberRepre: string = "";
+    userNameRepre: string = "";
 }
