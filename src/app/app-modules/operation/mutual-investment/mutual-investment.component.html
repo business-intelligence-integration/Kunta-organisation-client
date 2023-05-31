@@ -76,6 +76,7 @@
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' || mutualInvestment.offers.length <= 0 }" (click)="onUnlock(mutualInvestment.id)" tooltip=" Débloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
+                        <span *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Expiré " theme='light' data-filter-match="">Exp</span>
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
                         <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || mutualInvestment.refunds.length >= 1 }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
@@ -86,9 +87,9 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED' && mutualInvestment.refundStatus === 'UNPAID' " (click)="onClosingDate(mutualInvestment.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " (click)="onClosingDate(mutualInvestment.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.percentageOfFunders || mutualInvestment.percentageOfFunders == 0}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.offers.length > 0}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
                         <a _ngcontent-nct-c62="" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -751,7 +752,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Distribuer les pourcentages du placement mutualisé</h3>
+                <h3>Créer les pourcentages du placement mutualisé</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onClosePercentage()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -822,7 +823,7 @@
                         </div><br><br>
                         <div class="control login">
                             <button [disabled]="addPercentageForm.invalid || isSaving"
-                                class="button h-button is-primary is-bold is-fullwidth is-raised">Distribuer</button>
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Créer</button>
                         </div>
                     </form>
                 </div>
