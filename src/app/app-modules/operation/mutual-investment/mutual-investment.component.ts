@@ -774,7 +774,8 @@ export class MutualInvestmentComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.mutualInvestmentService.releaseOperation(id).subscribe(
-            () => {
+            (res) => {
+              console.log("release:: ", res)
               this.getAllMutualInvestments();
               swalWithBootstrapButtons.fire({
                 title: 'Débloqué !',
