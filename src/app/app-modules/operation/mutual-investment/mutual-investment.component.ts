@@ -386,6 +386,7 @@ export class MutualInvestmentComponent implements OnInit {
       this.organism.lastNameRepre = formValue.lastName;
       this.organism.userNameRepre = formValue.userName;
       this.organism.phoneNumberRepre = formValue.phoneNumber;
+      console.log("this.organism:: ", this.organism);
       this.mutualInvestment.organism = this.organism;
     }if(this.isPhysical == true){
       this.physicalPerson.email = formValue.email;
