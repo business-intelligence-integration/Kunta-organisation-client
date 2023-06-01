@@ -48,7 +48,11 @@
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let mutualInvestment of mutualInvestments">
                     <div class="flex-table-cell" data-th="Nom">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}</span>
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}  </span><br>
+                        <span class="item-name">
+                            <span *ngIf="mutualInvestment.status === 'OPEN' " class="tag is-rounded is-cliquable is-success" tooltip=" Ouvert " theme='light' data-filter-match=""> O</span>
+                            <span *ngIf="mutualInvestment.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> F </span>    
+                        </span>
                     </div>
                     <div class="flex-table-cell" data-th="Montant minimal">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
@@ -76,7 +80,9 @@
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' || mutualInvestment.offers.length <= 0 }" (click)="onUnlock(mutualInvestment.id)" tooltip=" Débloquer le placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Rembourser">
-                        <span *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Expiré " theme='light' data-filter-match="">Exp</span>
+                        <span *ngIf="mutualInvestment.refundStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B</span>
+                        <span *ngIf="mutualInvestment.refundStatus === 'RELAUNCHED' " class="tag is-rounded is-cliquable" tooltip=" Relancé " theme='light' data-filter-match="">Re</span>
+                        <span *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " class="tag is-rounded is-cliquable is-warning" tooltip=" Expiré " theme='light' data-filter-match="">Exp</span>
                         <span *ngIf="mutualInvestment.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
                         <span *ngIf="mutualInvestment.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': mutualInvestment.refundStatus === 'PAID' || mutualInvestment.mutualInvesmentStatus === 'BLOCKED' || mutualInvestment.refunds.length >= 1 }" (click)="onGenerate(mutualInvestment.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
@@ -87,13 +93,14 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.distributionStatus == 'DISTRIBUTED' " [ngClass]="{'disabled': mutualInvestment.status == 'CLOSE'}" (click)="onCloseInvestment(mutualInvestment.id)" tooltip=" Fermer Placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-power-switch"></i></a>
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " (click)="onClosingDate(mutualInvestment.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.offers.length > 0}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                        <a _ngcontent-nct-c62="" (click)="onDeleteMutualInvestment(mutualInvestment.id)" tooltip=" Retirer le placement " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" (click)="onDeleteMutualInvestment(mutualInvestment.id)" tooltip=" Retirer le placement " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -746,8 +753,8 @@
     </div>
 </div>
 
-<!-- Distribute Percentages -->
-<div id="distributePercentage" class="modal h-modal" [ngClass]="openPercentageModal">
+<!-- Create Percentages -->
+<div id="createPercentage" class="modal h-modal" [ngClass]="openPercentageModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">

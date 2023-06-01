@@ -144,7 +144,9 @@
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
                         <span>Cautionneur(s)</span>
+                        <span>Statut</span>
                         <span>Montant</span>
+                        <span>Montant a payé</span>
                         <span>Montant payé</span>
                         <span>Montant recu</span>
                         <span class="cell-end">Actions</span>
@@ -164,8 +166,15 @@
                             <div class="flex-table-cell" data-th="Cautionneur(s)">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.depositUser.firstName}}  {{securityDeposit.depositUser.lastName}}</span>
                             </div>
+                            <div class="flex-table-cell" data-th="Statut">
+                                <span *ngIf="securityDeposit.refundStatus == 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Payé " theme='light' data-filter-match="">Payé </span>
+                                <span *ngIf="securityDeposit.refundStatus == 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-Payé " theme='light' data-filter-match="">Non-Payé </span>
+                            </div>
                             <div class="flex-table-cell" data-th="Montant">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.amount}}</span>
+                            </div>
+                            <div class="flex-table-cell" data-th="Montant a payer">
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountToPay}}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant payé">
                                 <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid}}</span>
@@ -175,7 +184,7 @@
                             </div>
                             <div class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                <a _ngcontent-nct-c62="" [ngClass]="{'disabled': refundStatus === 'UNPAID' }" (click)="onRefundDeposit(securityDeposit.id)" tooltip=" Rembourser le cautionneur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
+                                <a _ngcontent-nct-c62="" [ngClass]="{'disabled': refundStatus === 'UNPAID' }" (click)="onRefundDeposit(securityDeposit.id)" tooltip=" Payer " theme='light' class="pagination-previous has-chevron">$</a>
                                 <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" (click)="onDeleteSecurityDeposit(securityDeposit.id)" tooltip=" Retirer la caution " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
                                 </div>
                             </div>

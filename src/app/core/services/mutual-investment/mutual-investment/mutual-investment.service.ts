@@ -92,4 +92,8 @@ export class MutualInvestmentService {
     return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/create-closing-date/'+ idInvestment, closingDate, httpOptions);
   }
 
+  closeMutualInvestment(idInvestment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
+  }
+
 }

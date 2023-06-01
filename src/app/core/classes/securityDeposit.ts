@@ -6,4 +6,6 @@ export class SecurityDeposit {
     depositUser: User = new User();
     amountPaid: number = 0;
     amountReceived: number = 0;
+    amountToPay: number = 0;
+    refundStatus: string = "";
 }

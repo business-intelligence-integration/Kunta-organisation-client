@@ -134,49 +134,49 @@
                                 <p>{{ mutualInvestment.mutualCenter.name }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.organism.organismName != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.organismName != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Organisme:</span><br>
-                                <p>{{ mutualInvestment.organism.organismName }}</p>
+                                <p>{{ mutualInvestment.mutorganism.organismName }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.organism.firstNameRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.firstNameRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Nom du représentant:</span><br>
-                                <p>{{ mutualInvestment.organism.firstNameRepre }} {{ mutualInvestment.organism.lastNameRepre }}</p>
+                                <p>{{ mutualInvestment.mutorganism.firstNameRepre }} {{ mutualInvestment.mutorganism.lastNameRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.organism.emailRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.emailRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Email du représentant :</span><br>
-                                <p>{{ mutualInvestment.organism.emailRepre }}</p>
+                                <p>{{ mutualInvestment.mutorganism.emailRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.organism.cityRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.cityRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Ville:</span><br>
-                                <p>{{ mutualInvestment.organism.cityRepre }}</p>
+                                <p>{{ mutualInvestment.mutorganism.cityRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.organism.phoneNumberRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.phoneNumberRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Numéro du représentant:</span><br>
-                                <p>{{ mutualInvestment.organism.phoneNumberRepre }}</p>
+                                <p>{{ mutualInvestment.mutorganism.phoneNumberRepre }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -241,7 +241,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut pourcentages:</span><br>
+                                <span>Statut distribution:</span><br>
                                 <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.distributionStatus === 'DISTRIBUTED'">Distribué</span>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span>
                             </div>

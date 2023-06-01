@@ -154,7 +154,8 @@
                                     <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Total payé">
-                                    <span class="light-text" data-filter-match="">{{subscription.amountPaid}}</span>
+                                    <span *ngIf="subscription.amountPaid != null"class="light-text" data-filter-match="">{{subscription.amountPaid}}</span>
+                                    <span *ngIf="subscription.amountPaid == null" class="light-text" data-filter-match="">0</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant rentable">
                                     <span class="light-text" data-filter-match="">{{subscription.amountOfProfitability}}</span>
@@ -188,8 +189,8 @@
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" tooltip=" Modifier souscription " theme='light' (click)="onOpenUpdateModal(subscription.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
-                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" tooltip=" Supprimer souscription " theme='light' (click)="onDelete(subscription.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED' || subscription.status === 'PAID' || subscription.status === 'RELEASED'}" tooltip=" Modifier souscription " theme='light' (click)="onOpenUpdateModal(subscription.id)" class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED' || subscription.status === 'PAID' || subscription.status === 'RELEASED'}" tooltip=" Supprimer souscription " theme='light' (click)="onDelete(subscription.id)" class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                                     </div>
                                 </div>
                             </div>

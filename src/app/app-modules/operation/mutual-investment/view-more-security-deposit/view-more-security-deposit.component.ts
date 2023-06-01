@@ -81,6 +81,8 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
         this.idInvestment = params['id'];
+        console.log("Caution list:: ", res);
+        
         if ( res == null ) {
           this.show = true;
           this.loaderService.hideLoader();
