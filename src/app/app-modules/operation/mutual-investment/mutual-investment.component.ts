@@ -30,6 +30,7 @@ import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 import { ClosingDate } from 'src/app/core/classes/closingDate';
+import { Mutorganism } from 'src/app/core/classes/mutorganism';
 
 @Component({
   selector: 'app-mutual-investment',
@@ -97,7 +98,7 @@ export class MutualInvestmentComponent implements OnInit {
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
-  organism: Organism = new Organism();
+  mutorganism: Mutorganism = new Mutorganism();
   physicalPerson: User = new User();
   refundType: string = "";
   // firstRefundDate: any;
@@ -379,15 +380,14 @@ export class MutualInvestmentComponent implements OnInit {
     }if(formValue.idMutualist != null){
       idMutualist = formValue.idMutualist
     }if(this.isOthers == true){
-      this.organism.emailRepre = formValue.email;
-      this.organism.cityRepre = formValue.city;
-      this.organism.organismName = formValue.organismName;
-      this.organism.firstNameRepre = formValue.firstName;
-      this.organism.lastNameRepre = formValue.lastName;
-      this.organism.userNameRepre = formValue.userName;
-      this.organism.phoneNumberRepre = formValue.phoneNumber;
-      console.log("this.organism:: ", this.organism);
-      this.mutualInvestment.organism = this.organism;
+      this.mutorganism.emailRepre = formValue.email;
+      this.mutorganism.cityRepre = formValue.city;
+      this.mutorganism.organismName = formValue.organismName;
+      this.mutorganism.firstNameRepre = formValue.firstName;
+      this.mutorganism.lastNameRepre = formValue.lastName;
+      this.mutorganism.userNameRepre = formValue.userName;
+      this.mutorganism.phoneNumberRepre = formValue.phoneNumber;
+      this.mutualInvestment.mutorganism = this.mutorganism;
     }if(this.isPhysical == true){
       this.physicalPerson.email = formValue.email;
       this.physicalPerson.city = formValue.city;
@@ -509,7 +509,7 @@ export class MutualInvestmentComponent implements OnInit {
         if (res.data == null ) {
           this.utilityService.showMessage(
             'warning',
-            res.message,
+            'Souci de création de l\'offre, rassurez-vous d\'avoir créer les pourcentages de distribution au préalable.',
             '#e62965',
             'white'
           );
@@ -567,6 +567,7 @@ export class MutualInvestmentComponent implements OnInit {
       this.refundType = res.data.refundType.type;
       this.profitabilityRate = res.data.profitabilityRate;
       this.amountToBeRefunded = res.data.amountToBeRefunded;
+      this.percentageOfFunders = res.data.percentageOfFunders;
       res.data.refunds.forEach((element: any) => {
         this.totalRefunded = this.totalRefunded + element.amountToBeRefunded;
       })
@@ -651,14 +652,15 @@ export class MutualInvestmentComponent implements OnInit {
     this.openUpdateModal = ""
   }
 
-  onSubmitUpdateMutualInvestment() {
+  onSubmitUpdateMutualInvestment(id: number) {
     this.isSaving = true;
     const formValue = this.updateMutualInvestmentForm.value;
     this.mutualInvestment.name = formValue.name;
     // this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.minimumAmount = formValue.minimumAmount;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
-    this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, formValue.id).subscribe((res) => {
+    this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, id).subscribe((res) => {
+      console.log("updateRes:: ", res)
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -787,7 +789,7 @@ export class MutualInvestmentComponent implements OnInit {
               if( res == null ) {
                 swalWithBootstrapButtons.fire({
                   title: 'Annulé',
-                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions ont été crées.',
+                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions ont été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour le placement',
                   confirmButtonColor: '#d33',
                 });
               } else {
@@ -1090,10 +1092,11 @@ export class MutualInvestmentComponent implements OnInit {
       });
   }
 
-  //////////////////////////////// Distribution Percentages 
+  //////////////////////////////// Create Percentages 
   onOpenPercentage(idInvestment: number) {
     this.openPercentageModal = "is-active";
     this.idInvestment = idInvestment;
+    this.getMutualInvestmentById(idInvestment);
   }
 
   onClosePercentage() {
@@ -1208,5 +1211,69 @@ export class MutualInvestmentComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  /////////////////////////////////////// Close Mutual Investment
+  onCloseInvestment(idInvestment: number){
+    this.closeInvestmentMessage(idInvestment);
+  }
+
+  closeInvestmentMessage(idInvestment: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, fermer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.mutualInvestmentService.closeMutualInvestment(idInvestment).subscribe(
+            (res) => {
+              if( res == null ) {
+                swalWithBootstrapButtons.fire({
+                  title: 'Annulé',
+                  text: 'Une erreur s\'est produite, veuillez verifier que le placement est pret pour la fermeture',
+                  confirmButtonColor: '#d33',
+                });
+              } else {
+                this.getAllMutualInvestments();
+                swalWithBootstrapButtons.fire({
+                  title: 'Fermé !',
+                  text: 'La fermeture a été effectué avec succès !.',
+                  confirmButtonColor: '#198AE3',
+                });
+              }
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La fermeture a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 }

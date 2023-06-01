@@ -40,8 +40,11 @@ export class MutualInvestmentService {
     return this.httpClient.get<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
   }
 
-  updateMutualInvestment(mutualInvestment: MutualInvestment, idType: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'mutual-investments/'+ idType, mutualInvestment, httpOptions);
+  updateMutualInvestment(mutualInvestment: MutualInvestment, idInvestment: number):Observable<any>{
+    console.log("idInvestment:: ", idInvestment);
+    console.log("mutualInvestment:: ", mutualInvestment);
+    
+    return this.httpClient.put<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, mutualInvestment, httpOptions);
   }
 
   deleteMutualInvestment(idInvestment: number):Observable<any>{
@@ -90,6 +93,10 @@ export class MutualInvestmentService {
 
   createAClosingDate(idInvestment: number, closingDate: ClosingDate):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/create-closing-date/'+ idInvestment, closingDate, httpOptions);
+  }
+
+  closeMutualInvestment(idInvestment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
   }
 
 }

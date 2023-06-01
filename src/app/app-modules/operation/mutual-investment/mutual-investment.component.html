@@ -501,7 +501,7 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateMutualInvestmentForm" (ngSubmit)="onSubmitUpdateMutualInvestment()">
+                    <form class="modal-form" [formGroup]="updateMutualInvestmentForm" (ngSubmit)="onSubmitUpdateMutualInvestment(mutualInvestment.id)">
                         <!-- <div class="control">
                             <input type="hidden" class="input" [(ngModel)]="mutualInvestment.id" hidden formControlName="id">
                         </div> -->
