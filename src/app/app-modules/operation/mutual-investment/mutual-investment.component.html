@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isOthers">
-                                <label>Appelation de l'organisme</label><br>
+                                <label>Appelation de l'organisme *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="organisme" formControlName="organismName">
                                 </div>
@@ -174,7 +174,7 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Nom <span *ngIf="isOthers">du représentant</span> </label><br>
+                                <label>Nom <span *ngIf="isOthers">du représentant</span> *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="nom" formControlName="lastName">
                                 </div>
@@ -184,7 +184,7 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Prénom <span *ngIf="isOthers">du représentant</span> </label><br>
+                                <label>Prénom *<span *ngIf="isOthers">du représentant</span> </label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="prenom" formControlName="firstName">
                                 </div>
@@ -194,7 +194,7 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Email</label><br>
+                                <label>Email *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="email" formControlName="email">
                                 </div>
@@ -204,7 +204,7 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Numéro de téléphone </label><br>
+                                <label>Numéro de téléphone *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="numéro de téléphone" formControlName="phoneNumber">
                                 </div>
@@ -214,7 +214,7 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isOthers || isPhysical">
-                                <label>Ville</label><br>
+                                <label>Ville *</label><br>
                                 <div class="control">
                                     <input type="text" class="input" placeholder="ville" formControlName="city">
                                 </div>
@@ -224,7 +224,7 @@
                                  </div>
                             </div>
                             <div class="field" *ngIf="isMutualist">
-                                <label>Liste des mutualistes</label>
+                                <label>Liste des mutualistes *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
                                     <option value="0" disabled>--Sélectionner un mutualiste--</option>
                                     <option *ngFor="let mutualist of mutualists" [value]="mutualist.id"> <span> {{ mutualist.firstName }} {{ mutualist.lastName }}  </span> </option>
@@ -235,7 +235,7 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <label>Liste des centres</label>
+                                <label>Liste des centres *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelect9">
                                     <option value="0" disabled>--Sélectionner un centre--</option>
                                     <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
@@ -267,7 +267,7 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isCertain">
-                                <label>Taux de rentabilité (%)</label><br>
+                                <label>Taux de rentabilité (%) *</label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
                                 </div>
@@ -288,7 +288,7 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isPeriod">
-                                <label>Fréquence de remboursement</label>
+                                <label>Fréquence de remboursement *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelect5">
                                     <option value="0" disabled>--Sélectionner une fréquence de remboursement--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
@@ -299,7 +299,7 @@
                                 </div>
                             </div>
                             <div class="field" *ngIf="isPeriod">
-                                <label>Durée de l'échéance en mois</label><br>
+                                <label>Durée de l'échéance en mois *</label><br>
                                 <div class="control">
                                     <input type="number" class="input" placeholder="durée de l'échéance en mois" formControlName="echeanceDurationInMonths">
                                 </div>
