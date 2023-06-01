@@ -184,7 +184,7 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Liberer">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                                        <a _ngcontent-nct-c62="" tooltip=" Liberer souscription " theme='light' [ngClass]="{'disabled': subscription?.status === 'RELEASED' }" (click)="onRelease(subscription.id)" class="pagination-previous has-chevron"><i class="lnil lnil-credit-card"></i></a>
+                                        <a _ngcontent-nct-c62="" tooltip=" Liberer souscription " theme='light' [ngClass]="{'disabled': subscription.status === 'UNPAID' || subscription.status === 'RELEASED' }" (click)="onRelease(subscription.id)" class="pagination-previous has-chevron"><i class="lnil lnil-credit-card"></i></a>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">

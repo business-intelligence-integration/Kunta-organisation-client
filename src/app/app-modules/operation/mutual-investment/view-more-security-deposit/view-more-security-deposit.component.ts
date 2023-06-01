@@ -13,6 +13,7 @@ import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { Payment } from 'src/app/core/classes/payment';
 import { SecurityDepositService } from 'src/app/core/services/security-deposit/security-deposit.service';
+import { MutualInvestment } from 'src/app/core/classes/mutualInvestment';
 
 @Component({
   selector: 'app-view-more-security-deposit',
@@ -32,16 +33,17 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   idInvestment: number = 0;
   openDepositModal: string = "";
   openRefundDepositModal: string = "";
+  openViewAmountsModal: string = "";
   users: User[] =[];
   addSecurityDepositForm!: FormGroup;
   refundDepositForm!: FormGroup;
   isSaving: boolean = false;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
-  mutualInvesmentStatus: string = "";
-  refundStatus: string = "";
+  mutualInvestment: MutualInvestment = new MutualInvestment();
   dateNow: any;
   paymentMethods: PaymentMethod[] = [];
   payment: Payment = new Payment();
+  amountCollecteds: Payment[] = [];
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -87,8 +89,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
           this.show = true;
           this.loaderService.hideLoader();
         } else {
-          this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
-          this.refundStatus = res.data.refundStatus;
+          this.mutualInvestment = res.data;
           this.securityDeposits = res.data.securityDeposits;
           if( this.securityDeposits.length <= 0 ) {
             this.show = true;
@@ -309,5 +310,24 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  ////////////////////////////// View Collected Amounts
+  onViewPayments(idDeposit: number){
+    this.openViewAmountsModal = "is-active";
+    this.idDeposit = idDeposit;
+    this.findDepositById();
+  }
+
+  findDepositById() {
+    this.securityDepositService.findSecurityDepositById(this.idDeposit).subscribe((res) => {
+      console.log("View Amounts:: ", res.data.refundAmounts);
+      
+      this.amountCollecteds = res.data.refundAmounts;
+    })
+  }
+
+  closeViewAmountsModal(){
+    this.openViewAmountsModal = "";
   }
 }

@@ -49,10 +49,6 @@
                 <div class="flex-table-item" *ngFor="let mutualInvestment of mutualInvestments">
                     <div class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}  </span><br>
-                        <span class="item-name">
-                            <span *ngIf="mutualInvestment.status === 'OPEN' " class="tag is-rounded is-cliquable is-success" tooltip=" Ouvert " theme='light' data-filter-match=""> O</span>
-                            <span *ngIf="mutualInvestment.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> F </span>    
-                        </span>
                     </div>
                     <div class="flex-table-cell" data-th="Montant minimal">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
@@ -92,16 +88,15 @@
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
-                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.distributionStatus == 'DISTRIBUTED' " [ngClass]="{'disabled': mutualInvestment.status == 'CLOSE'}" (click)="onCloseInvestment(mutualInvestment.id)" tooltip=" Fermer Placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-power-switch"></i></a>
+                        <span *ngIf="mutualInvestment.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé </span>    
+                        <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.distributionStatus == 'DISTRIBUTED' " [ngClass]="{'disabled is-hidden': mutualInvestment.status == 'CLOSE'}" (click)="onCloseInvestment(mutualInvestment.id)" tooltip=" Fermer Placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-power-switch"></i></a>
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " (click)="onClosingDate(mutualInvestment.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
-                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled is-hidden': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
                         <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.offers.length > 0}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                         <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" (click)="onDeleteMutualInvestment(mutualInvestment.id)" tooltip=" Retirer le placement " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>
