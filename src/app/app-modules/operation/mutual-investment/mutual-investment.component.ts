@@ -398,7 +398,35 @@ export class MutualInvestmentComponent implements OnInit {
       this.mutualInvestment.physicalPerson = this.physicalPerson;
     }
 
-    this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, formValue.idCenter, idFrequency, idMutualist);
+    if(formValue.idProfitabilityType == 1 && !formValue.profitabilityRate){
+      this.utilityService.showMessage(
+        'warning',
+        'Veuillez entrer un taux de rentabilité',
+        '#e62965',
+        'white'
+      );
+      this.isSaving = false;
+    // }else if(formValue.idProfitabilityType == 2){
+    //   this.mutualInvestment.profitabilityRate = 0;
+    }else if(formValue.idRefundType == 2 && !formValue.idFrequency ){
+      this.utilityService.showMessage(
+        'warning',
+        'Entrer la fréquence',
+        '#e62965',
+        'white'
+      );
+      this.isSaving = false;
+    }else if(formValue.idRefundType == 2 && !formValue.echeanceDurationInMonths ){
+      this.utilityService.showMessage(
+        'warning',
+        'Entrer la durée de l\'échéance ',
+        '#e62965',
+        'white'
+      );
+      this.isSaving = false;
+    } else {
+      this.createAMutualInvestment(this.mutualInvestment, formValue.idDraweeForm, formValue.idRefundType, formValue.idProfitabilityType, formValue.idCenter, idFrequency, idMutualist);
+    }
   }
 
   createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter:number, idFrequency: number, idMutualist: number){
@@ -912,48 +940,56 @@ export class MutualInvestmentComponent implements OnInit {
       // this.firstRefundDate = formValue.firstRefundDate;
       let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
       this.firstRefundDate.date = firstRefundDate
-      console.log("this.firstRefundDate:: ", this.firstRefundDate);
-      
-      this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
-        console.log("res::"), res;
-        
-        this.isSaving = false;
-        if(res) {
-          if (res.data == null ) {
-            this.utilityService.showMessage(
-              'warning',
-              res.message,
-              '#e62965',
-              'white'
-            );
-          } else {
-            this.getAllMutualInvestments();
-            this.generateForm.reset();
-            this.onCloseGenerateModal();
-            this.utilityService.showMessage(
-              'success',
-              'Date(s) generée(s) avec succès',
-              '#06d6a0',
-              'white'
-            );
-          }
-        } else {
-          this.utilityService.showMessage(
-            'warning',
-            'Une erreur s\'est produite, verifier votre saisis',
-            '#e62965',
-            'white'
-          );
-        }
-      },()=>{
-        this.isSaving = false;
+      if(!firstRefundDate){
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite',
+          'Entrer la 1ere date de remboursement',
           '#e62965',
           'white'
         );
-      })
+      } else {
+        this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
+          console.log("res::"), res;
+          
+          this.isSaving = false;
+          if(res) {
+            if (res.data == null ) {
+              this.utilityService.showMessage(
+                'warning',
+                res.message,
+                '#e62965',
+                'white'
+              );
+            } else {
+              this.getAllMutualInvestments();
+              this.generateForm.reset();
+              this.onCloseGenerateModal();
+              this.utilityService.showMessage(
+                'success',
+                'Date(s) generée(s) avec succès',
+                '#06d6a0',
+                'white'
+              );
+            }
+          } else {
+            this.utilityService.showMessage(
+              'warning',
+              'Une erreur s\'est produite, verifier votre saisis',
+              '#e62965',
+              'white'
+            );
+          }
+        },()=>{
+          this.isSaving = false;
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite',
+            '#e62965',
+            'white'
+          );
+        })
+      }
+      
     } else if ( this.refundType == 'A L\'ÉCHÉANCE' ) {
       let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
       this.firstRefundDate.date = firstRefundDate
@@ -992,46 +1028,63 @@ export class MutualInvestmentComponent implements OnInit {
     } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
       this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
       this.refund.refundDate = formValue.refundDate;
-      this.mutualInvestmentService.setRefundDatesManually(this.refund, this.idInvestment).subscribe((res)=>{
-        this.isSaving = false;
-        console.log("Refund differer:: ", res);
-        
-        if(res) {
-          if (res.data == null ) {
-            this.utilityService.showMessage(
-              'warning',
-              res.message,
-              '#e62965',
-              'white'
-            );
-          } else {
-            this.getAllMutualInvestments();
-            this.generateForm.reset();
-            this.onCloseGenerateModal();
-            this.utilityService.showMessage(
-              'success',
-              'Date(s) generée(s) avec succès',
-              '#06d6a0',
-              'white'
-            );
-          }
-        } else {
-          this.utilityService.showMessage(
-            'warning',
-            'Une erreur s\'est produite, verifier votre saisis',
-            '#e62965',
-            'white'
-          );
-        }
-      },()=>{
-        this.isSaving = false;
+      if(!formValue.amountToBeRefunded) {
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite',
+          'Entrer le montant à rembourser',
           '#e62965',
           'white'
         );
-      })
+      } else if (!formValue.refundDate){
+        this.utilityService.showMessage(
+          'warning',
+          'Entrer la date de remboursement',
+          '#e62965',
+          'white'
+        );
+      } else {
+        this.mutualInvestmentService.setRefundDatesManually(this.refund, this.idInvestment).subscribe((res)=>{
+          this.isSaving = false;
+          console.log("Refund differer:: ", res);
+          
+          if(res) {
+            if (res.data == null ) {
+              this.utilityService.showMessage(
+                'warning',
+                res.message,
+                '#e62965',
+                'white'
+              );
+            } else {
+              this.getAllMutualInvestments();
+              this.generateForm.reset();
+              this.onCloseGenerateModal();
+              this.utilityService.showMessage(
+                'success',
+                'Date(s) generée(s) avec succès',
+                '#06d6a0',
+                'white'
+              );
+            }
+          } else {
+            this.utilityService.showMessage(
+              'warning',
+              'Une erreur s\'est produite, verifier votre saisis',
+              '#e62965',
+              'white'
+            );
+          }
+        },()=>{
+          this.isSaving = false;
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite',
+            '#e62965',
+            'white'
+          );
+        })
+      }
+      
     }
   }
 
