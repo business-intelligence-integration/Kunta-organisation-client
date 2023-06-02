@@ -1,6 +1,6 @@
 import { Account } from "./account";
 import { Center } from "./center";
-import { Mutorganism } from "./mutorganism";
+import { MutOrganism } from "./mutOrganism";
 import { Organism } from "./organism";
 import { ProfitabilityType } from "./profitabilityType";
 import { Refund } from "./refund";
@@ -16,7 +16,7 @@ export class MutualInvestment{
     id: number = 0;
     minimumAmount: number = 0;
     name: string = ""
-    mutorganism: Mutorganism = new Mutorganism();
+    mutOrganism: MutOrganism = new MutOrganism();
     // organism: Organism = new Organism();
     profitabilityRate: number = 0;
     rating: number = 0;
