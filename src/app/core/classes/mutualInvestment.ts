@@ -16,7 +16,7 @@ export class MutualInvestment{
     id: number = 0;
     minimumAmount: number = 0;
     name: string = ""
-    mutorganism: Mutorganism = new Mutorganism();
+    mutOrganism: Mutorganism = new Mutorganism();
     // organism: Organism = new Organism();
     profitabilityRate: number = 0;
     rating: number = 0;

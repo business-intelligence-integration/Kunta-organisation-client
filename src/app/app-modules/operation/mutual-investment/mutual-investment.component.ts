@@ -98,7 +98,7 @@ export class MutualInvestmentComponent implements OnInit {
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
-  mutorganism: Mutorganism = new Mutorganism();
+  mutOrganism: Mutorganism = new Mutorganism();
   physicalPerson: User = new User();
   refundType: string = "";
   // firstRefundDate: any;
@@ -380,14 +380,14 @@ export class MutualInvestmentComponent implements OnInit {
     }if(formValue.idMutualist != null){
       idMutualist = formValue.idMutualist
     }if(this.isOthers == true){
-      this.mutorganism.emailRepre = formValue.email;
-      this.mutorganism.cityRepre = formValue.city;
-      this.mutorganism.organismName = formValue.organismName;
-      this.mutorganism.firstNameRepre = formValue.firstName;
-      this.mutorganism.lastNameRepre = formValue.lastName;
-      this.mutorganism.userNameRepre = formValue.userName;
-      this.mutorganism.phoneNumberRepre = formValue.phoneNumber;
-      this.mutualInvestment.mutorganism = this.mutorganism;
+      this.mutOrganism.email = formValue.email;
+      this.mutOrganism.city = formValue.city;
+      this.mutOrganism.organismName = formValue.organismName;
+      this.mutOrganism.firstName = formValue.firstName;
+      this.mutOrganism.lastName = formValue.lastName;
+      this.mutOrganism.userName = formValue.userName;
+      this.mutOrganism.phoneNumber = formValue.phoneNumber;
+      this.mutualInvestment.mutOrganism = this.mutOrganism;
     }if(this.isPhysical == true){
       this.physicalPerson.email = formValue.email;
       this.physicalPerson.city = formValue.city;

@@ -144,49 +144,49 @@
                                 <p>{{ mutualInvestment.mutualCenter.name }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.organismName != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.organismName != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Organisme:</span><br>
-                                <p>{{ mutualInvestment.mutorganism.organismName }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.organismName }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.firstNameRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.firstNameRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Nom du représentant:</span><br>
-                                <p>{{ mutualInvestment.mutorganism.firstNameRepre }} {{ mutualInvestment.mutorganism.lastNameRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.firstNameRepre }} {{ mutualInvestment?.mutOrganism?.lastNameRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.emailRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.emailRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Email du représentant :</span><br>
-                                <p>{{ mutualInvestment.mutorganism.emailRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.emailRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.cityRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.cityRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Ville:</span><br>
-                                <p>{{ mutualInvestment.mutorganism.cityRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.cityRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutorganism.phoneNumberRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.phoneNumberRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Numéro du représentant:</span><br>
-                                <p>{{ mutualInvestment.mutorganism.phoneNumberRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.phoneNumberRepre }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -195,7 +195,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Type de rentabilité:</span><br>
-                                <p>{{ mutualInvestment.profitabilityType.label }}</p>
+                                <p>{{ mutualInvestment?.profitabilityType?.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -204,7 +204,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Type de remboursement:</span><br>
-                                <p>{{ mutualInvestment.refundType.type }}</p>
+                                <p>{{ mutualInvestment?.refundType?.type }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="mutualInvestment.refundFrequency != null">
