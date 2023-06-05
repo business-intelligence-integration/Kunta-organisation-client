@@ -50,6 +50,7 @@ export class ViewDetailRefundComponent implements OnInit {
     this.loaderService.showLoader();
     this.getMutualInvestment();
     this.getAllPaymentMethod();
+    this.initDates();
     this.formInit();
   }
 

@@ -221,11 +221,11 @@
                                         <div>
                                             <label>Parain *</label><br>
                                             <select2
-                                                    class="w-100 color-border"
-                                                    [data]="userOfSelect"
-                                                    id="user"
-                                                    formControlName="idSponsor"
-                                                    placeholder="--selectionner un parain--">
+                                                class="w-100 color-border"
+                                                [data]="userOfSelect"
+                                                id="user"
+                                                formControlName="idSponsor"
+                                                placeholder="--selectionner un parain--">
                                             </select2>
                                             <div class="text-danger"
                                             *ngIf="addUserForm.get('idSponsor')?.errors?.['required'] && addUserForm.get('idSponsor')?.touched">

@@ -36,6 +36,7 @@ export class MutualInvestment{
     refundType: RefundType = new RefundType();
     // refundFrequency: RefundFrequency = new RefundFrequency();
     physicalPerson: User = new User();
+    user: User = new User();
     mutualInvesmentStatus: string = "";
     refundStatus: string = "";
     // firstRefundDate: string = "";

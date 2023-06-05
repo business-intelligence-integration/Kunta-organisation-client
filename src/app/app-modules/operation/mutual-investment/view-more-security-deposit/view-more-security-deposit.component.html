@@ -293,14 +293,24 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="refundDepositForm" (ngSubmit)="onSubmitRefundDeposit()">
                         <div class="field">
-                            <label>Methodes de paiement *</label>
+                            <label>Méthodes de paiement *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPayment">
-                                <option value="0" disabled>--Selectionnez une methode de paiement --</option>
+                                <option value="0" disabled>--Sélectionnez une méthode de paiement --</option>
                                 <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }} </span> </option>
                             </select>
                             <div class="text-danger"
-                                    *ngIf="refundDepositForm.get('idPaymentMethod')?.errors?.['required'] && refundDepositForm.get('idPaymentMethod')?.touched">
-                                    <small class="text-police">veuillez sélectionner une methode de paiement</small>
+                                *ngIf="refundDepositForm.get('idPaymentMethod')?.errors?.['required'] && refundDepositForm.get('idPaymentMethod')?.touched">
+                                <small class="text-police">veuillez sélectionner une méthode de paiement</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Justificatif *</label><br>
+                            <div class="control">
+                                <input type="text" class="input" placeholder="Justificatif" formControlName="proof">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundDepositForm.get('proof')?.errors?.['required'] && refundDepositForm.get('proof')?.touched">
+                                <small class="text-police">veuillez entrer le justificatif</small>
                             </div>
                         </div>
                         <div class="field">
@@ -311,17 +321,7 @@
                             <div class="text-danger"
                                 *ngIf="refundDepositForm.get('paid')?.errors?.['required'] && refundDepositForm.get('paid')?.touched">
                                 <small class="text-police">veuillez entrer le montant du remboursement</small>
-                             </div>
-                        </div>
-                        <div class="field">
-                            <label>Justificatif *</label><br>
-                            <div class="control">
-                                <input type="text" class="input" placeholder="Justificatif" formControlName="proof">
                             </div>
-                            <div class="text-danger"
-                                *ngIf="refundDepositForm.get('proof')?.errors?.['required'] && refundDepositForm.get('proof')?.touched">
-                                <small class="text-police">veuillez entrer le justificatif</small>
-                             </div>
                         </div>
                         <div class="field">
                             <label>Date *</label><br>
@@ -355,7 +355,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Payement(s) collecté(s)</h3>
+                <h3>Paiement(s) collecté(s)</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeViewAmountsModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
