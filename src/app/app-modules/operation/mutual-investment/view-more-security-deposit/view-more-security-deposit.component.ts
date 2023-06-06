@@ -34,7 +34,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   openDepositModal: string = "";
   openRefundDepositModal: string = "";
   openViewAmountsModal: string = "";
-  users: User[] =[];
+  centerUserOfSelect: any;
   addSecurityDepositForm!: FormGroup;
   refundDepositForm!: FormGroup;
   isSaving: boolean = false;
@@ -194,7 +194,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
   getAllUsersByIdCenter(idMutualCenter: number){
     this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.users = res.data;
+      this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
     })
   }
 

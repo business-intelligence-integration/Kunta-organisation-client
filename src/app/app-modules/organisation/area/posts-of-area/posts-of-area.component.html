@@ -39,7 +39,7 @@
                 <span>Nombre d'utilisateur maximal</span>
                 <span>Description</span>
                 <span>Nombre d'opérateur actuel</span>
-                <!-- <span>Actions</span> -->
+                <span class="cell-end">Actions</span>
             </div>
 
             <div class="flex-table-item" *ngFor="let post of posts">
@@ -65,10 +65,9 @@
                     <span class="light-text" data-filter-match="">{{ post.operators.length }}</span>
                         <a (click)="onOpenAddOperatorModal(post.id)" tooltip=" Ajouter un operateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                 </div>
-                <!-- <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                    <a _ngcontent-nct-c62=""  [routerLink]="['/view-details-post']"
-                            [queryParams]="{id: post.id}" tooltip=" Voir détails utilisateur " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                </div> -->
+                <div class="flex-table-cell cell-end" data-th="Actions">
+                    <a _ngcontent-nct-c62="" (click)="onDeletePost(post.id)" tooltip=" Supprimer le post " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                </div>
             </div>
         </div>
         <!--Table Pagination-->
@@ -115,23 +114,23 @@
                                     [data]="operators"
                                     id="operator"
                                     formControlName="idOperator"
-                                    placeholder="--Selectionnez un operateur--">
+                                    placeholder="--sélectionner un membre--">
                             </select2>
                             <div class="text-danger"
                             *ngIf="addOperatorForm.get('idOperator')?.errors?.['required'] && addOperatorForm.get('idOperator')?.touched">
-                            <small class="text-police" translate>Selectionnez un membre</small>
+                            <small class="text-police" translate>sélectionner un membre</small>
                             </div>
                         </div><br>
                         <div class="field">
                             <div>
-                                <label> Functions*</label><br>
+                                <label>Fonctions *</label><br>
                                 <select class="input_comp" formControlName="idFunction" aria-label="Default select example"  [(ngModel)]="ngSelectFunction">
-                                    <option value="0" disabled>--selectionner une  fonction--</option>
+                                    <option value="0" disabled>--sélectionner une fonction--</option>
                                     <option *ngFor="let function of functions" [value]="function.id" >{{ function.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="addOperatorForm.get('idFunction')?.errors?.['required'] && addOperatorForm.get('idFunction')?.touched">
-                                <small class="text-police" translate>selectionner la function</small>
+                                <small class="text-police" translate>selectionner une fonction</small>
                                 </div>
                             </div>
                         </div><br>
@@ -147,7 +146,4 @@
         </div>
     </div>
 </div>
-
-
-
 

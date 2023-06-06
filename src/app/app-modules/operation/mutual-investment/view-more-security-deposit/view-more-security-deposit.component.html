@@ -243,10 +243,13 @@
                     <form class="modal-form" [formGroup]="addSecurityDepositForm" (ngSubmit)="onAddSecurtiyDeposit()">
                         <div class="field">
                             <label>Participant *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect1">
-                                <option value="0" disabled>--Selectionnez un participant--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
-                            </select><br><br>
+                            <select2
+                                class="w-100 color-border"
+                                [data]="centerUserOfSelect"
+                                id="idUser"
+                                formControlName="idUser"
+                                placeholder="--Sélectionner un participant--">
+                            </select2><br><br>
                         </div>
                        
                         <div class="field">

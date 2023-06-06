@@ -1,4 +1,5 @@
 import { Account } from "./account";
+import { AllocationKey } from "./allocationKey";
 import { Center } from "./center";
 import { MutOrganism } from "./mutOrganism";
 import { Organism } from "./organism";
@@ -18,6 +19,7 @@ export class MutualInvestment{
     name: string = ""
     mutOrganism: MutOrganism = new MutOrganism();
     // organism: Organism = new Organism();
+    allocationKeys: AllocationKey[] = [];
     profitabilityRate: number = 0;
     rating: number = 0;
     startDate: any;

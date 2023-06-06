@@ -462,10 +462,17 @@
                     <form class="modal-form" [formGroup]="addSecurityDepositForm" (ngSubmit)="onAddSecurtiyDeposit()">
                         <div class="field">
                             <label>Participant *</label>
-                            <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect6">
-                                <option value="0" disabled>--Selectionnez un participant--</option>
+                            <!-- <select class="input_comp color-border" aria-label="Default select example" formControlName="idUser" [(ngModel)]="ngSelect6">
+                                <option value="0" disabled>--Sélectionner un participant--</option>
                                 <option *ngFor="let user of centerUsers" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
-                            </select><br><br>
+                            </select> -->
+                            <select2
+                                class="w-100 color-border"
+                                [data]="centerUserOfSelect"
+                                id="idUser"
+                                formControlName="idUser"
+                                placeholder="--Sélectionner un participant--">
+                            </select2><br><br>
                         </div>
                        
                         <div class="field">
@@ -914,113 +921,85 @@
                             <div class="column is-12">
                                 <div class="field">
                                     <label>Nom du placement: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder=" {{mutualInvestment.name}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.name}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Date de debut: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.startDate}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.startDate}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Date de fin: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.endDate}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.endDate}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Montant Initial (CFA): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.minimumAmount}} CFA">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.minimumAmount}} CFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Montant profitable (CFA): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.profitabilityAmount}} CFA">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.profitabilityAmount}} CFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Taux de rentabilité (%): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.profitabilityRate}} %">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.profitabilityRate}} %</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Type de rentabilité: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.profitabilityType.label}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.profitabilityType.label}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">
                                 <div class="field">
                                     <label>Nom de l'organisme: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.mutOrganism.organismName}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.mutOrganism.organismName}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">
                                 <div class="field">
                                     <label>Nom du representant: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.mutOrganism.firstNameRepre}} {{mutualInvestment.mutOrganism.lastNameRepre}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.mutOrganism.firstNameRepre}} {{mutualInvestment.mutOrganism.lastNameRepre}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.user != null">
                                 <div class="field">
                                     <label>Nom de la personne physique: </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.user.firstName}} {{mutualInvestment.user.firstName}}">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.user.firstName}} {{mutualInvestment.user.lastName}}</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.percentageMutual != null">
                                 <div class="field">
                                     <label>Pourcentage de la mutuelle (%): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageMutual}} %">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.percentageMutual}} %</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.percentageOfGuarantees != null">
                                 <div class="field">
                                     <label>Pourcentage des cautionneurs (%): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageOfGuarantees}} %">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.percentageOfGuarantees}} %</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.percentageOfFunders != null">
                                 <div class="field">
                                     <label>Pourcentage des pourvoyeurs de fonds (%): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageOfFunders}} %">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.percentageOfFunders}} %</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.percentageOfPassiveIncomeFund != null">
                                 <div class="field">
                                     <label>Pourcentage des entrées passives (%): </label>
-                                    <div class="control">
-                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageOfPassiveIncomeFund}} %">
-                                    </div>
+                                    <label> <b>{{mutualInvestment.percentageOfPassiveIncomeFund}} %</b> </label>
                                 </div>
                             </div>
                         </div>

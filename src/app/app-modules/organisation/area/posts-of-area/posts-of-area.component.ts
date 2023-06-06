@@ -9,6 +9,7 @@ import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-posts-of-area',
@@ -150,5 +151,62 @@ export class PostsOfAreaComponent implements OnInit {
       this.functions = res.data;
     })
   }
+
+  ////////////////// Delete Mutual Investment
+  onDeletePost(id: number) {
+    this.deleteMessage(id);
+  }
+
+  deleteMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Etes-vous sure ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.postService.deletePost(id).subscribe(
+            () => {
+              this.finAllPostByIdArea();
+              swalWithBootstrapButtons.fire({
+                title: 'Supprimé !',
+                text: 'Le post a été supprimé avec succès !.',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La supprission a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
 
 }

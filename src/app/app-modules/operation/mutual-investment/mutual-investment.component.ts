@@ -72,6 +72,7 @@ export class MutualInvestmentComponent implements OnInit {
   isPeriod: boolean = false;
   mutualists: User[] =[];
   mutualistOfSelect: any;
+  centerUserOfSelect: any;
   centerUsers: User[] =[];
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
@@ -246,11 +247,11 @@ export class MutualInvestmentComponent implements OnInit {
     // this.userService.getAllMutualists().subscribe((res)=>{
     //   this.mutualists = res.data;
     // })
-    this.userService.getAllMutualists().subscribe({
-      next: (res)=> res.data.map((user: any)=>{
-        this.mutualistOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
-      })
-    })
+    // this.userService.getAllMutualists().subscribe({
+    //   next: (res)=> res.data.map((user: any)=>{
+    //     this.mutualistOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
+    //   })
+    // })
     this.userService.getAllMutualists().subscribe((res)=>{
       this.mutualistOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
     })
@@ -618,7 +619,8 @@ export class MutualInvestmentComponent implements OnInit {
 
   getAllUsersByIdCenter(idMutualCenter: number){
     this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.centerUsers = res.data;
+      // this.centerUsers = res.data;
+      this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
     })
   }
 
@@ -1109,7 +1111,7 @@ export class MutualInvestmentComponent implements OnInit {
   closeDistributionModal(){
     this.openDistributionModal = "";
   }
-  
+
   onSubmitDistribution(idInvestment: number){
     this.mutualInvestmentService.makeDistribution(idInvestment).subscribe((res)=>{
       console.log("reponse distribution ::", res);
