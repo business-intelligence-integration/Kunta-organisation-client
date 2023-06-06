@@ -5,7 +5,6 @@ import { MutualInvestment } from 'src/app/core/classes/mutualInvestment';
 import { environment } from 'src/environments/environment';
 import { UtilityService } from '../../utility/utility.service';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
-import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { Payment } from 'src/app/core/classes/payment';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';

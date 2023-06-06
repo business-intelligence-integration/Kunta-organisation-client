@@ -230,20 +230,10 @@
                                 <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }} </span> </option>
                             </select>
                             <div class="text-danger"
-                                    *ngIf="refundForm.get('idPaymentMethod')?.errors?.['required'] && refundForm.get('idPaymentMethod')?.touched">
-                                    <small class="text-police">veuillez sélectionner une méthode de paiement</small>
+                                *ngIf="refundForm.get('idPaymentMethod')?.errors?.['required'] && refundForm.get('idPaymentMethod')?.touched">
+                                <small class="text-police">veuillez sélectionner une méthode de paiement</small>
                             </div>
                         </div>
-                        <div class="field">
-                            <label>Montant *</label><br>
-                            <div class="control">
-                                <input type="number" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="refundForm.get('paid')?.errors?.['required'] && refundForm.get('paid')?.touched">
-                                <small class="text-police" translate>Entrer le montant</small>
-                            </div>
-                        </div><br>
                         <div class="field">
                             <label>Justificatif *</label><br>
                             <div class="control">
@@ -252,6 +242,16 @@
                             <div class="text-danger"
                                 *ngIf="refundForm.get('proof')?.errors?.['required'] && refundForm.get('proof')?.touched">
                                 <small class="text-police" translate>Entrer le justificatif</small>
+                            </div>
+                        </div><br>
+                        <div class="field">
+                            <label>Montant *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="refundForm.get('paid')?.errors?.['required'] && refundForm.get('paid')?.touched">
+                                <small class="text-police" translate>Entrer le montant</small>
                             </div>
                         </div><br>
                         <div class="field">

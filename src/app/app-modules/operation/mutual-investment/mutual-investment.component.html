@@ -227,13 +227,20 @@
                             </div>
                             <div class="field" *ngIf="isMutualist">
                                 <label>Liste des mutualistes *</label>
-                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
+                                <!-- <select class="input_comp color-border" aria-label="Default select example" formControlName="idMutualist" [(ngModel)]="ngSelect2">
                                     <option value="0" disabled>--Sélectionner un mutualiste--</option>
                                     <option *ngFor="let mutualist of mutualists" [value]="mutualist.id"> <span> {{ mutualist.firstName }} {{ mutualist.lastName }}  </span> </option>
-                                </select>
+                                </select> -->
+                                <select2
+                                    class="w-100 color-border"
+                                    [data]="mutualistOfSelect"
+                                    id="idMutualist"
+                                    formControlName="idMutualist"
+                                    placeholder="--Sélectionner un mutualiste--">
+                                </select2>
                                 <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idMutualist')?.errors?.['required'] && createMutualInvestmentForm.get('idMutualist')?.touched">
-                                        <small class="text-police">veuillez sélectionner un mutualiste</small>
+                                    *ngIf="createMutualInvestmentForm.get('idMutualist')?.errors?.['required'] && createMutualInvestmentForm.get('idMutualist')?.touched">
+                                    <small class="text-police">veuillez sélectionner un mutualiste</small>
                                 </div>
                             </div>
                             <div class="field">
@@ -243,8 +250,8 @@
                                     <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
                                 </select>
                                 <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idCenter')?.errors?.['required'] && createMutualInvestmentForm.get('idCenter')?.touched">
-                                        <small class="text-police">veuillez sélectionner un center</small>
+                                    *ngIf="createMutualInvestmentForm.get('idCenter')?.errors?.['required'] && createMutualInvestmentForm.get('idCenter')?.touched">
+                                    <small class="text-police">veuillez sélectionner un centre</small>
                                 </div>
                             </div>
                             <div class="field">
@@ -285,8 +292,8 @@
                                     <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idRefundType')?.errors?.['required'] && createMutualInvestmentForm.get('idRefundType')?.touched">
-                                        <small class="text-police">veuillez sélectionner un type de remboursement</small>
+                                    *ngIf="createMutualInvestmentForm.get('idRefundType')?.errors?.['required'] && createMutualInvestmentForm.get('idRefundType')?.touched">
+                                    <small class="text-police">veuillez sélectionner un type de remboursement</small>
                                 </div>
                             </div>
                             <div class="field" *ngIf="isPeriod">
@@ -296,8 +303,8 @@
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
                                 </select>
                                 <div class="text-danger"
-                                        *ngIf="createMutualInvestmentForm.get('idFrequency')?.errors?.['required'] && createMutualInvestmentForm.get('idFrequency')?.touched">
-                                        <small class="text-police">veuillez sélectionner une fréquence de remboursement</small>
+                                    *ngIf="createMutualInvestmentForm.get('idFrequency')?.errors?.['required'] && createMutualInvestmentForm.get('idFrequency')?.touched">
+                                    <small class="text-police">veuillez sélectionner une fréquence de remboursement</small>
                                 </div>
                             </div>
                             <div class="field" *ngIf="isPeriod">
@@ -416,7 +423,7 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
-                                <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{percentageOfFunders}}%).</small>
+                                <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{mutualInvestment.percentageOfFunders}}%).</small>
                             </div>
                         </div><br>
                        
@@ -754,7 +761,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Création des pourcentages de distribution du placement mutualisé</h3>
+                <h3>Créer les pourcentages du placement mutualisé relatif aux taux de rentabilité ({{profitabilityRate}}%)</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onClosePercentage()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -776,10 +783,10 @@
                                 *ngIf="addPercentageForm.get('percentageMutual')?.errors?.['required'] && addPercentageForm.get('percentageMutual')?.touched">
                                 <small class="text-police">veuillez entrer le pourcentage de la mutuelle %</small>
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="addPercentageForm.get('percentageMutual')?.touched">
                                 <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="field">
                             <label>Pourcentage des pouvoyeurs de fond (%) *</label><br>
@@ -790,10 +797,10 @@
                                 *ngIf="addPercentageForm.get('percentageOfFunders')?.errors?.['required'] && addPercentageForm.get('percentageOfFunders')?.touched">
                                 <small class="text-police">veuillez entrer le pourcentage des pouvoyeurs de fond %</small>
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="addPercentageForm.get('percentageOfFunders')?.touched">
                                 <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="field">
                             <label>Pourcentage des cautionneurs (%) *</label><br>
@@ -804,10 +811,10 @@
                                 *ngIf="addPercentageForm.get('percentageOfGuarantees')?.errors?.['required'] && addPercentageForm.get('percentageOfGuarantees')?.touched">
                                 <small class="text-police">veuillez entrer le pourcentage des cautionneurs % </small>
                             </div>
-                            <div class="text-danger"              
+                            <!-- <div class="text-danger"              
                                 *ngIf="addPercentageForm.get('percentageOfGuarantees')?.touched">
                                 <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100. </small>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="field">
                             <label>Pourcentage des entrées passives (%) *</label><br>
@@ -818,14 +825,18 @@
                                 *ngIf="addPercentageForm.get('percentageOfPassiveIncomeFund')?.errors?.['required'] && addPercentageForm.get('percentageOfPassiveIncomeFund')?.touched">
                                 <small class="text-police">veuillez entrer le pourcentage des entrées passives % </small>
                             </div>
-                            <div class="text-danger"              
+                            <!-- <div class="text-danger"              
                                 *ngIf="addPercentageForm.get('percentageOfPassiveIncomeFund')?.touched">
                                 <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100. </small>
-                            </div>
+                            </div> -->
                         </div><br><br>
                         <div class="control login">
                             <button [disabled]="addPercentageForm.invalid || isSaving"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Créer</button>
+                            <div class="text-danger"
+                            *ngIf="addPercentageForm.get('percentageMutual')?.touched || addPercentageForm.get('percentageOfFunders')?.touched || addPercentageForm.get('percentageOfGuarantees')?.touched || addPercentageForm.get('percentageOfPassiveIncomeFund')?.touched">
+                                <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -877,6 +888,148 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="onCloseClosingDate()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Make Distribution -->
+<div id="demo-large-form-modal" class="modal h-modal is-large" [ngClass]="openDistributionModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Distribution</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeDistributionModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="modal-form">
+                        <div class="columns is-multiline">
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>Nom du placement: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder=" {{mutualInvestment.name}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de debut: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.startDate}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de fin: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.endDate}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Montant Initial (CFA): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.minimumAmount}} CFA">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Montant profitable (CFA): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.profitabilityAmount}} CFA">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Taux de rentabilité (%): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.profitabilityRate}} %">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Type de rentabilité: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.profitabilityType.label}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">
+                                <div class="field">
+                                    <label>Nom de l'organisme: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.mutOrganism.organismName}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">
+                                <div class="field">
+                                    <label>Nom du representant: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.mutOrganism.firstNameRepre}} {{mutualInvestment.mutOrganism.lastNameRepre}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.user != null">
+                                <div class="field">
+                                    <label>Nom de la personne physique: </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.user.firstName}} {{mutualInvestment.user.firstName}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.percentageMutual != null">
+                                <div class="field">
+                                    <label>Pourcentage de la mutuelle (%): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageMutual}} %">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.percentageOfGuarantees != null">
+                                <div class="field">
+                                    <label>Pourcentage des cautionneurs (%): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageOfGuarantees}} %">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.percentageOfFunders != null">
+                                <div class="field">
+                                    <label>Pourcentage des pourvoyeurs de fonds (%): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageOfFunders}} %">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-6" *ngIf="mutualInvestment.percentageOfPassiveIncomeFund != null">
+                                <div class="field">
+                                    <label>Pourcentage des entrées passives (%): </label>
+                                    <div class="control">
+                                        <input readonly type="text" class="input" placeholder="{{mutualInvestment.percentageOfPassiveIncomeFund}} %">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeDistributionModal()">Annuler</a>
+                <a class="button h-button is-primary is-raised is-rounded" (click)="onSubmitDistribution(mutualInvestment.id)">Distribuer</a>
             </div>
         </div>
     </div>

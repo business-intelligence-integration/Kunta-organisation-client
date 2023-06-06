@@ -1,5 +1,5 @@
 
-export class Mutorganism{
+export class MutOrganism{
     id: number = 0;
     name: string = "";
     organismName: string = "";

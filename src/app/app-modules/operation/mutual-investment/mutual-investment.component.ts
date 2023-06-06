@@ -30,7 +30,8 @@ import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 import { ClosingDate } from 'src/app/core/classes/closingDate';
-import { Mutorganism } from 'src/app/core/classes/mutorganism';
+import { MutOrganism } from 'src/app/core/classes/mutOrganism';
+
 
 @Component({
   selector: 'app-mutual-investment',
@@ -71,6 +72,7 @@ export class MutualInvestmentComponent implements OnInit {
   isCertain: boolean = false;
   isPeriod: boolean = false;
   mutualists: User[] =[];
+  mutualistOfSelect: any;
   centerUsers: User[] =[];
   frequencies: Frequency[] = [];
   openUpdateModal: string = "";
@@ -79,6 +81,7 @@ export class MutualInvestmentComponent implements OnInit {
   openClosingDateModal: string = "";
   openViewRefundsModal: string = "";
   openPercentageModal: string = "";
+  openDistributionModal: string = "";
   updateMutualInvestmentForm!: FormGroup;
   idInvestment: number = 0;
   openDepositModal: string = "";
@@ -98,7 +101,7 @@ export class MutualInvestmentComponent implements OnInit {
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
-  mutOrganism: Mutorganism = new Mutorganism();
+  mutOrganism: MutOrganism = new MutOrganism();
   physicalPerson: User = new User();
   refundType: string = "";
   // firstRefundDate: any;
@@ -240,8 +243,17 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   getAllMutualists(){
+    let users: User[] = [];
+    // this.userService.getAllMutualists().subscribe((res)=>{
+    //   this.mutualists = res.data;
+    // })
+    this.userService.getAllMutualists().subscribe({
+      next: (res)=> res.data.map((user: any)=>{
+        this.mutualistOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
+      })
+    })
     this.userService.getAllMutualists().subscribe((res)=>{
-      this.mutualists = res.data;
+      this.mutualistOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
     })
   }
 
@@ -595,7 +607,8 @@ export class MutualInvestmentComponent implements OnInit {
       this.refundType = res.data.refundType.type;
       this.profitabilityRate = res.data.profitabilityRate;
       this.amountToBeRefunded = res.data.amountToBeRefunded;
-      this.percentageOfFunders = res.data.percentageOfFunders;
+      this.mutualInvestment = res.data;
+      // this.percentageOfFunders = res.data.percentageOfFunders;
       res.data.refunds.forEach((element: any) => {
         this.totalRefunded = this.totalRefunded + element.amountToBeRefunded;
       })
@@ -1091,58 +1104,53 @@ export class MutualInvestmentComponent implements OnInit {
 
   //////////////////////// Make Distribution
   onMakeDistribution(idInvestment: number) {
-    this.distributionMessage(idInvestment);
+    this.openDistributionModal = "is-active";
+    this.getMutualInvestmentById(idInvestment);
   }
 
-  distributionMessage(idInvestment: number) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      buttonsStyling: true,
-    });
-    swalWithBootstrapButtons
-      .fire({
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp',
-        },
-        title: 'Etes-vous sure ?',
-        text: "Cette action est irreversible!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Oui, distribuer!',
-        cancelButtonText: 'Non, annuler!',
-        confirmButtonColor: '#198AE3',
-        cancelButtonColor: '#d33',
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.mutualInvestmentService.makeDistribution(idInvestment).subscribe(
-            () => {
-              this.getAllMutualInvestments();
-              swalWithBootstrapButtons.fire({
-                title: 'Distribué !',
-                text: 'La distribution a été effectué avec succès !.',
-                confirmButtonColor: '#198AE3',
-              });
-            },
-            () => {
-              swalWithBootstrapButtons.fire({
-                title: 'Annulé',
-                text: 'Une erreur s\'est produite',
-                confirmButtonColor: '#d33',
-              });
-            }
+  closeDistributionModal(){
+    this.openDistributionModal = "";
+  }
+  
+  onSubmitDistribution(idInvestment: number){
+    this.mutualInvestmentService.makeDistribution(idInvestment).subscribe((res)=>{
+      console.log("reponse distribution ::", res);
+      
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
           );
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire({
-            title: 'Annulé',
-            text: 'La distribution a été annulé',
-            confirmButtonColor: '#d33',
-          });
+        } else {
+          this.closeDistributionModal();
+          this.getAllMutualInvestments();
+          this.utilityService.showMessage(
+            'success',
+            'La distribution a été effectué avec succès !',
+            '#06d6a0',
+            'white'
+          );
         }
-      });
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    },(error)=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
   }
 
   //////////////////////////////// Create Percentages 
