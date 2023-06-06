@@ -44,7 +44,7 @@
                 <span class="cell-end">Actions</span>
             </div>
 
-            <div class="flex-list-inner">
+  <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let mutualInvestment of mutualInvestments">
                     <div class="flex-table-cell" data-th="Nom">
@@ -517,7 +517,7 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content">
-                    <form class="modal-form" [formGroup]="updateMutualInvestmentForm" (ngSubmit)="onSubmitUpdateMutualInvestment()">
+                    <form class="modal-form" [formGroup]="updateMutualInvestmentForm" (ngSubmit)="onSubmitUpdateMutualInvestment(mutualInvestment.id)">
                         <!-- <div class="control">
                             <input type="hidden" class="input" [(ngModel)]="mutualInvestment.id" hidden formControlName="id">
                         </div> -->
@@ -762,8 +762,8 @@
     </div>
 </div>
 
-<!-- Create Percentages -->
-<div id="createPercentage" class="modal h-modal" [ngClass]="openPercentageModal">
+<!-- Distribute Percentages -->
+<div id="distributePercentage" class="modal h-modal" [ngClass]="openPercentageModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">

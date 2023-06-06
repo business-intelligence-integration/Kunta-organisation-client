@@ -150,7 +150,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Organisme:</span><br>
-                                <p>{{ mutualInvestment.mutOrganism.organismName }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.organismName }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.firstNameRepre != null" >
@@ -159,7 +159,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Nom du représentant:</span><br>
-                                <p>{{ mutualInvestment.mutOrganism.firstNameRepre }} {{ mutualInvestment.mutOrganism.lastNameRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.firstNameRepre }} {{ mutualInvestment?.mutOrganism?.lastNameRepre }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.emailRepre != null" >
@@ -168,7 +168,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Email du représentant :</span><br>
-                                <p>{{ mutualInvestment.mutOrganism.emailRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.emailRepre }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.cityRepre != null" >
@@ -177,7 +177,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Ville:</span><br>
-                                <p>{{ mutualInvestment.mutOrganism.cityRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.cityRepre }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.phoneNumberRepre != null" >
@@ -186,7 +186,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Numéro du représentant:</span><br>
-                                <p>{{ mutualInvestment.mutOrganism.phoneNumberRepre }}</p>
+                                <p>{{ mutualInvestment?.mutOrganism?.phoneNumberRepre }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -195,7 +195,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Type de rentabilité:</span><br>
-                                <p>{{ mutualInvestment.profitabilityType.label }}</p>
+                                <p>{{ mutualInvestment?.profitabilityType?.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -204,7 +204,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Type de remboursement:</span><br>
-                                <p>{{ mutualInvestment.refundType.type }}</p>
+                                <p>{{ mutualInvestment?.refundType?.type }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="mutualInvestment.refundFrequency != null">

@@ -2,7 +2,6 @@ import { Account } from "./account";
 import { AllocationKey } from "./allocationKey";
 import { Center } from "./center";
 import { MutOrganism } from "./mutOrganism";
-import { Organism } from "./organism";
 import { ProfitabilityType } from "./profitabilityType";
 import { Refund } from "./refund";
 import { RefundType } from "./refundType";

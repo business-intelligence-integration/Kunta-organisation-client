@@ -32,6 +32,7 @@ import { DistributionPercentage } from 'src/app/core/classes/distributionPercent
 import { ClosingDate } from 'src/app/core/classes/closingDate';
 import { MutOrganism } from 'src/app/core/classes/mutOrganism';
 
+
 @Component({
   selector: 'app-mutual-investment',
   templateUrl: './mutual-investment.component.html',
@@ -549,7 +550,7 @@ export class MutualInvestmentComponent implements OnInit {
         if (res.data == null ) {
           this.utilityService.showMessage(
             'warning',
-            res.message,
+            'Souci de création de l\'offre, rassurez-vous d\'avoir créer les pourcentages de distribution au préalable.',
             '#e62965',
             'white'
           );
@@ -694,14 +695,15 @@ export class MutualInvestmentComponent implements OnInit {
     this.openUpdateModal = ""
   }
 
-  onSubmitUpdateMutualInvestment() {
+  onSubmitUpdateMutualInvestment(id: number) {
     this.isSaving = true;
     const formValue = this.updateMutualInvestmentForm.value;
     this.mutualInvestment.name = formValue.name;
     // this.mutualInvestment.organism = formValue.organism;
     this.mutualInvestment.minimumAmount = formValue.minimumAmount;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
-    this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, formValue.id).subscribe((res) => {
+    this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, id).subscribe((res) => {
+      console.log("updateRes:: ", res)
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -830,7 +832,7 @@ export class MutualInvestmentComponent implements OnInit {
               if( res == null ) {
                 swalWithBootstrapButtons.fire({
                   title: 'Annulé',
-                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions ont été crées.',
+                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions ont été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour le placement',
                   confirmButtonColor: '#d33',
                 });
               } else {

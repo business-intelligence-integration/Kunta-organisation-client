@@ -5,7 +5,6 @@ import { MutualInvestment } from 'src/app/core/classes/mutualInvestment';
 import { environment } from 'src/environments/environment';
 import { UtilityService } from '../../utility/utility.service';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
-import { SubscriptionOffer } from 'src/app/core/classes/subscriptionOffer';
 import { Payment } from 'src/app/core/classes/payment';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
@@ -40,8 +39,11 @@ export class MutualInvestmentService {
     return this.httpClient.get<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
   }
 
-  updateMutualInvestment(mutualInvestment: MutualInvestment, idType: number):Observable<any>{
-    return this.httpClient.put<any>(this.baseUrl + 'mutual-investments/'+ idType, mutualInvestment, httpOptions);
+  updateMutualInvestment(mutualInvestment: MutualInvestment, idInvestment: number):Observable<any>{
+    console.log("idInvestment:: ", idInvestment);
+    console.log("mutualInvestment:: ", mutualInvestment);
+    
+    return this.httpClient.put<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, mutualInvestment, httpOptions);
   }
 
   deleteMutualInvestment(idInvestment: number):Observable<any>{
