@@ -25,12 +25,12 @@ import { PaymentMethodService } from 'src/app/core/services/payment-method/payme
 import { Payment } from 'src/app/core/classes/payment';
 import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
-import { Organism } from 'src/app/core/classes/organism';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 import { ClosingDate } from 'src/app/core/classes/closingDate';
 import { MutOrganism } from 'src/app/core/classes/mutOrganism';
+
 
 
 @Component({
