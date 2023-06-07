@@ -417,7 +417,7 @@
                             </div>
                         </div><br> -->
                         <div class="field" *ngIf="isOfferCertain">
-                            <label>Taux de rentabilité (%) </label><br>
+                            <label>Taux de rentabilité relatif au taux de rentabilité des pourvoyeurs de fonds ( {{mutualInvestment.percentageOfFunders}}% )  </label><br>
                             <div class="control">
                                 <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" [(ngModel)]="profitabilityRate" (ngModelChange)="onProfitabilityRateSelected($event)" >
                             </div>
@@ -936,6 +936,20 @@
                                     <label> <b>{{mutualInvestment.endDate}}</b> </label>
                                 </div>
                             </div>
+                           
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Type de rentabilité: </label>
+                                    <label> <b>{{mutualInvestment.profitabilityType.label}}</b> </label>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Taux de rentabilité (%): </label>
+                                    <label> <b>{{mutualInvestment.profitabilityRate}} %</b> </label>
+                                </div>
+                            </div>
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Montant Initial (CFA): </label>
@@ -948,18 +962,20 @@
                                     <label> <b>{{mutualInvestment.profitabilityAmount}} CFA</b> </label>
                                 </div>
                             </div>
+
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Taux de rentabilité (%): </label>
-                                    <label> <b>{{mutualInvestment.profitabilityRate}} %</b> </label>
+                                    <label>Montant Collecté (CFA): </label>
+                                    <label> <b>{{mutualInvestment.collectedAmount}} CFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Type de rentabilité: </label>
-                                    <label> <b>{{mutualInvestment.profitabilityType.label}}</b> </label>
+                                    <label>Montant profitable (CFA): </label>
+                                    <label> <b>{{mutualInvestment.collectedAmount * mutualInvestment.profitabilityRate / 100 }} CFA</b> </label>
                                 </div>
                             </div>
+                           
                             <!-- <div class="column is-6" *ngIf="mutualInvestment.allocationKeys != null">
                                 <div class="field">
                                     <label>Pourcentage de la mutuelle (%): </label>
@@ -988,7 +1004,7 @@
                                 <div class="column is-6">
                                     <div class="field">
                                         <label>{{key.receivingParty.label}}: <b>{{key.percentage}} %</b></label> <br>
-                                        <label>Montant a recevoir: <b>{{key.receivingAmount}} CFA </b> </label>
+                                        <!-- <label>Montant a recevoir: <b>{{key.receivingAmount}} CFA </b> </label> -->
                                     </div>
                                 </div>
                             </div>
