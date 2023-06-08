@@ -99,6 +99,7 @@ export class UserComponent implements OnInit {
   isMutualist: boolean = false;
   email: string = "";
   userAccounts: Account[] = [];
+  numberOfChildrenIsNegatif: boolean = false;;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -1004,5 +1005,17 @@ export class UserComponent implements OnInit {
 
  closeViewAccountModal(){
   this.openViewAccountModal = "";
+ }
+
+ checkNumberOfChildren(number: any){
+  console.log("number1:: ", number.value);
+  console.log("number2:: ", number.value);
+  
+  if(number.value < 0){
+    this.numberOfChildrenIsNegatif = true;
+  }else{
+    this.numberOfChildrenIsNegatif = false;
+  }
+  
  }
 }

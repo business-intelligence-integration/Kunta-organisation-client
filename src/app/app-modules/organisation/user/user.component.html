@@ -475,11 +475,14 @@
                                             <div class="field">
                                                 <label>Nombre d’enfants*</label>
                                                 <div class="control">
-                                                    <input type="number" class="input" min="0" step="1" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
+                                                    <input type="number" (keyup)="checkNumberOfChildren($event.target)" class="input" min="0" step="1" placeholder="Nombre d’enfants" formControlName="numberOfChildren">
                                                 </div>
                                                 <div class="text-danger"
                                                     *ngIf="addUserForm.get('numberOfChildren')?.errors?.['required'] && addUserForm.get('numberOfChildren')?.touched">
                                                     <small class="text-police" translate>veuillez entrer le nombre d'enfant</small>
+                                                </div>
+                                                <div class="text-danger" *ngIf="numberOfChildrenIsNegatif">
+                                                    <small class="text-police" translate>ne nombre d'enfant ne peux pas être négatif</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -600,7 +603,7 @@
                                 <div class="buttons">
                                   
                                     <button (click)="cancelCreatingUser()" id="save-button" class="button h-button is-light is-dark-outlined">Retour</button>
-                                    <button  [disabled]="addUserForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Enregistrer</button>
+                                    <button  [disabled]="addUserForm.invalid || isSaving || numberOfChildrenIsNegatif" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Enregistrer</button>
                                 </div>
                             </div>
                         </div>

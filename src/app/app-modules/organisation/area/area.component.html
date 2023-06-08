@@ -162,7 +162,7 @@
                             </div>
                         </div><br>
                         <div class="control login">
-                            <button [disabled]="addAreaForm.invalid"
+                            <button [disabled]="addAreaForm.invalid || isSaving"
                                 class="button h-button is-primary is-bold is-fullwidth is-raised">Enregistrer</button>
                         </div>
                     </form>

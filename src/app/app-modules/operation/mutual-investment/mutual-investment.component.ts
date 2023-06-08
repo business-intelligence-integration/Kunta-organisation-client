@@ -521,11 +521,12 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   onProfitabilityRateSelected(val: any){
-    this.profitabilityRate = val;
-    if(this.profitabilityRate <= this.percentageOfFunders ){
+    if(val > this.mutualInvestment.percentageOfFunders ){
       this.percentageOkay = true;
+      console.log("percentageOkay::", this.percentageOkay)
     } else {
       this.percentageOkay = false;
+      console.log("percentageOkay::", this.percentageOkay)
     }
   }
 
@@ -832,7 +833,7 @@ export class MutualInvestmentComponent implements OnInit {
               if( res == null ) {
                 swalWithBootstrapButtons.fire({
                   title: 'Annulé',
-                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions ont été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour le placement',
+                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour le placement ou alors que tous les souscription aient été payé',
                   confirmButtonColor: '#d33',
                 });
               } else {
