@@ -938,7 +938,6 @@
                                     <label> <b>{{mutualInvestment.endDate}}</b> </label>
                                 </div>
                             </div>
-                           
                             <div class="column is-6">
                                 <div class="field">
                                     <label>Type de rentabilité: </label>
@@ -960,13 +959,6 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Montant profitable (CFA): </label>
-                                    <label> <b>{{mutualInvestment.profitabilityAmount}} CFA</b> </label>
-                                </div>
-                            </div>
-
-                            <div class="column is-6">
-                                <div class="field">
                                     <label>Montant Collecté (CFA): </label>
                                     <label> <b>{{mutualInvestment.collectedAmount}} CFA</b> </label>
                                 </div>
@@ -977,37 +969,10 @@
                                     <label> <b>{{mutualInvestment.collectedAmount * mutualInvestment.profitabilityRate / 100 }} CFA</b> </label>
                                 </div>
                             </div>
-                           
-                            <!-- <div class="column is-6" *ngIf="mutualInvestment.allocationKeys != null">
+                            <div class="column is-6" *ngFor="let key of mutualInvestment.allocationKeys">
                                 <div class="field">
-                                    <label>Pourcentage de la mutuelle (%): </label>
-                                    <label> <b>{{mutualInvestment.allocationKeys[0].percentage}} %</b> </label>
-                                </div>
-                            </div>
-                            <div class="column is-6" *ngIf="mutualInvestment.allocationKeys != null">
-                                <div class="field">
-                                    <label>Pourcentage des cautionneurs (%): </label>
-                                    <label> <b>{{mutualInvestment.allocationKeys[1].percentage}} %</b> </label>
-                                </div>
-                            </div>
-                            <div class="column is-6" *ngIf="mutualInvestment.allocationKeys != null">
-                                <div class="field">
-                                    <label>Pourcentage des pourvoyeurs de fonds (%): </label>
-                                    <label> <b>{{mutualInvestment.allocationKeys[2].percentage}} %</b> </label>
-                                </div>
-                            </div>
-                            <div class="column is-6" *ngIf="mutualInvestment.allocationKeys != null">
-                                <div class="field">
-                                    <label>Pourcentage des entrées passives (%): </label>
-                                    <label> <b>{{mutualInvestment.allocationKeys[3].percentage}} %</b> </label>
-                                </div>
-                            </div> -->
-                            <div *ngFor="let key of mutualInvestment.allocationKeys">
-                                <div class="column is-6">
-                                    <div class="field">
-                                        <label>{{key.receivingParty.label}}: <b>{{key.percentage}} %</b></label> <br>
-                                        <!-- <label>Montant a recevoir: <b>{{key.receivingAmount}} CFA </b> </label> -->
-                                    </div>
+                                    <label>{{key.receivingParty.label}}: <b>{{key.percentage}} %</b></label> <br>
+                                    <label>Montant à recevoir: <b>{{key.receivingAmount}} CFA </b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">

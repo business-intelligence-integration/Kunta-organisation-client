@@ -49,6 +49,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   riskProfiles: RiskProfile[] = [];
   geUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/money_f3bgzk.png";
   users: User[] =[];
+  centerUserOfSelect: any;
   paymentMethods: PaymentMethod[] = [];
   date: any;
   dateNow: any;
@@ -141,14 +142,14 @@ export class ViewDetailSubscriptionComponent implements OnInit {
       this.mutualInvestmentService.findMutualInvestmentById(params['idInvestment']).subscribe((res)=>{
         this.idInvestment = params['idInvestment'];
         this.mutualInvesmentStatus = res.data.mutualInvesmentStatus;
-        this.getAllUsersByIdCenter(res.data.mutualCenter.id);
+        this.getAllMutualistsByIdCenter(res.data.mutualCenter.id);
       });
     })
   }
 
-  getAllUsersByIdCenter(idMutualCenter: number){
-    this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.users = res.data;
+  getAllMutualistsByIdCenter(idMutualCenter: number){
+    this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
+      this.centerUserOfSelect = res.data;
     })
   }
 

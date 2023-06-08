@@ -320,6 +320,10 @@ export class UserComponent implements OnInit {
       next: (res)=> res.data.map((user: any)=>{
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
+        if ( res == null ) {
+          this.show = true;
+          this.loaderService.hideLoader();
+        }
         if(this.adminIsConnected){
           users.push(user)
         }else if(this.operatorIsConnected){
@@ -332,23 +336,24 @@ export class UserComponent implements OnInit {
             users.push(user)
           }
         }
-        if ( res == null ) {
-          this.show = true;
-          this.loaderService.hideLoader();
-        }
       })
     })
  
     this.users = users;
 
-    this.userService.getAllUsers().subscribe((result)=>{
-      if(result.data.length >0){
-        this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
-      }else{
-        this.show = true;  
+    this.userService.getAllUsers().subscribe((res)=>{
+      if (res == null) {
+        this.show = true;
+        this.loaderService.hideLoader();
+      } else {
+        if(res.data.length >0){
+          this.userOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
+          this.loaderService.hideLoader();
+        }else{
+          this.show = true;  
+          this.loaderService.hideLoader();
+        }
       }
-      this.loaderService.hideLoader();
-
     })
 
   }

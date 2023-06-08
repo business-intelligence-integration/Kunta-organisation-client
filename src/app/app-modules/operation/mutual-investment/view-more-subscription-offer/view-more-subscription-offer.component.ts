@@ -42,6 +42,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   openSubscriptionModal: string = "";
   riskProfiles: RiskProfile[] = [];
   users: User[] =[];
+  centerUserOfSelect: any;
   subscription: Subscription = new Subscription();
   idOffer: number = 0;
   openOfferModal: string = "";
@@ -131,14 +132,14 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
   getMutualInvestment(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
-        this.getAllUsersByIdCenter(res.data.mutualCenter.id);
+        this.getAllMutualistsByIdCenter(res.data.mutualCenter.id);
       });
     })
   }
 
-  getAllUsersByIdCenter(idMutualCenter: number){
-    this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.users = res.data;
+  getAllMutualistsByIdCenter(idMutualCenter: number){
+    this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
+      this.centerUserOfSelect = res.data;
     })
   }
   

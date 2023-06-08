@@ -331,10 +331,13 @@
                     <form class="modal-form" [formGroup]="addSubscriptionForm" (ngSubmit)="onAddSubscription()">
                         <div class="field">
                             <label>Souscripteur *</label>
-                            <select *ngIf="users.length != 0" class="input_comp color-border" aria-label="Default select example" formControlName="idSubscriber" [(ngModel)]="ngSelect2">
-                                <option value="0" disabled>--Selectionnez un souscripteur--</option>
-                                <option *ngFor="let user of users" [value]="user.id"> <span> {{ user.firstName }} {{ user.lastName }}  </span> </option>
-                            </select>
+                            <select2
+                                class="w-100 color-border"
+                                [data]="centerUserOfSelect"
+                                id="idSubscriber"
+                                formControlName="idSubscriber"
+                                placeholder="--Sélectionner un souscripteur--">
+                            </select2>
                             <div class="text-danger"
                             *ngIf="users.length == 0">
                             <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la souscription.</small>
