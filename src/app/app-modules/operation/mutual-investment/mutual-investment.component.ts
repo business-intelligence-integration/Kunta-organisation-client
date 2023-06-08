@@ -25,12 +25,12 @@ import { PaymentMethodService } from 'src/app/core/services/payment-method/payme
 import { Payment } from 'src/app/core/classes/payment';
 import { DatePipe } from '@angular/common';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
-import { Organism } from 'src/app/core/classes/organism';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 import { ClosingDate } from 'src/app/core/classes/closingDate';
 import { MutOrganism } from 'src/app/core/classes/mutOrganism';
+
 
 
 @Component({
@@ -245,9 +245,6 @@ export class MutualInvestmentComponent implements OnInit {
 
   getAllMutualists(){
     let users: User[] = [];
-    // this.userService.getAllMutualists().subscribe((res)=>{
-    //   this.mutualists = res.data;
-    // })
     // this.userService.getAllMutualists().subscribe({
     //   next: (res)=> res.data.map((user: any)=>{
     //     this.mutualistOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
@@ -619,7 +616,7 @@ export class MutualInvestmentComponent implements OnInit {
   }
 
   getAllUsersByIdCenter(idMutualCenter: number){
-    this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
+    this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
       // this.centerUsers = res.data;
       this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
     })

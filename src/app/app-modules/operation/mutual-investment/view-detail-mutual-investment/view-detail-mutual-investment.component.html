@@ -256,7 +256,7 @@
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.percentageMutual != null">
+                        <!-- <div class="media-flex" *ngIf="mutualInvestment.percentageMutual != null">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -290,6 +290,26 @@
                             <div class="flex-meta">
                                 <span>Pourcentage des entrées passives:</span><br>
                                 <p>{{ mutualInvestment.percentageOfPassiveIncomeFund }}%</p>
+                            </div>
+                        </div> -->
+                        <div *ngFor="let key of mutualInvestment.allocationKeys">
+                            <div class="media-flex">
+                                <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                                <div class="flex-meta">
+                                    <span>{{key.receivingParty.label}}: </span><br>
+                                    <p>{{key.percentage}} %</p>
+                                </div>
+                            </div>
+                            <div class="media-flex">
+                                <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                                <div class="flex-meta">
+                                    <span>Montant a recevoir: </span><br>
+                                    <p>{{key.receivingAmount}} CFA </p>
+                                </div>
                             </div>
                         </div>
                     </div>

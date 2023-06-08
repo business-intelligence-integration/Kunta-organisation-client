@@ -193,7 +193,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   }
 
   getAllUsersByIdCenter(idMutualCenter: number){
-    this.centerService.findUsersByIdCenter(idMutualCenter).subscribe((res)=>{
+    this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
       this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
     })
   }

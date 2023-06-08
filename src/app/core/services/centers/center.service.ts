@@ -113,5 +113,9 @@ export class CenterService {
   findUsersByIdCenter(idCenter: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + `centers/users/${idCenter}`, httpOptions);
   }
+
+  findMutualistsByIdCenter(idCenter: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + `centers/mutualists/${idCenter}`, httpOptions);
+  }
 }
 
