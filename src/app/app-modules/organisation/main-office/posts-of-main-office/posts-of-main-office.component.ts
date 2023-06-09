@@ -66,6 +66,8 @@ export class PostsOfMainOfficeComponent implements OnInit {
         this.show = true;
         this.loaderService.hideLoader();
       } else {
+        console.log("Liste de posts:: ", res.data);
+        
         this.posts = res.data;
         if( this.posts.length <= 0 ) {
           this.show = true;
@@ -94,7 +96,7 @@ export class PostsOfMainOfficeComponent implements OnInit {
 
   getAllOperators(){
     this.userService.findUsersByRoleName('OPERATOR').subscribe((res)=>{
-      this.operators = res.data.map((operator: any)=>({value: operator.id, label: operator.firstName}))
+      this.operators = res.data.map((operator: any)=>({value: operator.id, label: operator.firstName + " " + operator.lastName}))
     })
   }
 
@@ -107,9 +109,9 @@ export class PostsOfMainOfficeComponent implements OnInit {
   addOperatorToMainOffice(idOperator: number, idFunction: number){
     this.isSaving = true;
     this.postService.addOperatorToPost(idOperator, this.idPost, idFunction).subscribe((res)=>{
-      this.getAllMainOffices();
+      console.log("Add Operator:: ", res);
+      
       this.isSaving = false;
-      this.closeOperatorModal();
       if(res.data == null){
         this.utilityService.showMessage(
           'warning',
@@ -118,6 +120,8 @@ export class PostsOfMainOfficeComponent implements OnInit {
           'white'
         );
       }else{
+        this.getAllMainOffices();
+        this.closeOperatorModal();
         this.utilityService.showMessage(
           'success',
           'Operateur ajouté au poste avec succès !',
@@ -125,7 +129,6 @@ export class PostsOfMainOfficeComponent implements OnInit {
           'white'
         );
       }
-     
     },(res)=>{
       if(res.error.status == "BAD_REQUEST"){
         this.isSaving = false;

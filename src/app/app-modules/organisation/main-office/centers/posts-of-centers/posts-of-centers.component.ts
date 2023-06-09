@@ -99,7 +99,7 @@ export class PostsOfCentersComponent implements OnInit {
 
   getAllOperators(){
     this.userService.findUsersByRoleName('OPERATOR').subscribe((res)=>{
-      this.operators = res.data.map((operator: any)=>({value: operator.id, label: operator.firstName}))
+      this.operators = res.data.map((operator: any)=>({value: operator.id, label: operator.firstName + " " + operator.lastName}))
     })
   }
 

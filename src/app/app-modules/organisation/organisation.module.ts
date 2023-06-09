@@ -51,7 +51,7 @@ import { UiModule } from 'src/app/ui/ui.module';
     PostsOfCentersComponent,
     PostsOfAreaComponent,
     PostsOfClubComponent,
-    UserDetailsRoleComponent
+    UserDetailsRoleComponent,
   ],
   imports: [
     CommonModule,

@@ -26,6 +26,7 @@ import { SecurityDepositComponent } from './mutual-investment/security-deposit/s
 import { SubscriptionOfferComponent } from './mutual-investment/subscription-offer/subscription-offer.component';
 import { UserTypeComponent } from './organisation/user-type/user-type.component';
 import { UserCategoryComponent } from './organisation/user-category/user-category.component';
+import { ViewPostMembersComponent } from './organisation/poste/view-post-members/view-post-members.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { UserCategoryComponent } from './organisation/user-category/user-categor
     SubscriptionOfferComponent,
     UserTypeComponent,
     UserCategoryComponent,
+    ViewPostMembersComponent,
   ],
   imports: [
     CommonModule,

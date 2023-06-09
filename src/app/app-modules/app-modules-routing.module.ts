@@ -32,6 +32,7 @@ import { ViewDetailSubscriptionComponent } from './operation/mutual-investment/v
 import { ViewDetailPaymentComponent } from './operation/mutual-investment/view-detail-payment/view-detail-payment.component';
 import { ViewDetailMutualInvestmentComponent } from './operation/mutual-investment/view-detail-mutual-investment/view-detail-mutual-investment.component';
 import { ViewDetailRefundComponent } from './operation/mutual-investment/view-detail-refund/view-detail-refund.component';
+import { ViewPostMembersComponent } from './parameter/organisation/poste/view-post-members/view-post-members.component';
 
 const routes: Routes = [
   {
@@ -127,6 +128,9 @@ const routes: Routes = [
       },
       {
         path:"view-posts", component: ViewMorePostComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-post-members", component: ViewPostMembersComponent, canActivate: [EntityGuard]
       },
       {
         path : 'parameters',
