@@ -83,8 +83,6 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
         this.idInvestment = params['id'];
-        console.log("Caution list:: ", res);
-        
         if ( res == null ) {
           this.show = true;
           this.loaderService.hideLoader();
@@ -272,8 +270,6 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.payment.date = formValue.date;
     this.securityDepositService.refundAmountSecutityDeposit(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
       this.isSaving = false;
-      console.log("Refund Deposit:: ", res);
-      
       if(res) {
         if (res.data == null ) {
           this.utilityService.showMessage(
@@ -321,8 +317,6 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
   findDepositById() {
     this.securityDepositService.findSecurityDepositById(this.idDeposit).subscribe((res) => {
-      console.log("View Amounts:: ", res.data.refundAmounts);
-      
       this.amountCollecteds = res.data.refundAmounts;
     })
   }

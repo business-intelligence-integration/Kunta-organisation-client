@@ -220,8 +220,6 @@ export class MutualInvestmentComponent implements OnInit {
         this.show = true;
         this.loaderService.hideLoader();
       } else {
-        console.log("Mutuelles test:: ", res);
-        
         this.mutualInvestments = res.data;
         this.mutualInvestments.forEach((element) => {
           element.offers.forEach((element) => {
@@ -441,10 +439,6 @@ export class MutualInvestmentComponent implements OnInit {
 
   createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter:number, idFrequency: number, idMutualist: number){
     this.mutualInvestmentService.createMutualInvestment(mutualInvestment, idDraweeForm, idRefundType, idProfitabilityType, idCenter, idFrequency, idMutualist).subscribe((res)=>{
-      console.log("creation:: ", res);
-      console.log("idDraweeForm: ", idDraweeForm,"idRefundType: ", idRefundType,"idProfitabilityType: ", "idProfitabilityType: ", idProfitabilityType, "idCenter: ", idCenter, "idFrequency: ", idFrequency,"idMutualist: ", idMutualist);
-      console.log("backend:: ", mutualInvestment);
-      
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -520,10 +514,8 @@ export class MutualInvestmentComponent implements OnInit {
   onProfitabilityRateSelected(val: any){
     if(val > this.mutualInvestment.percentageOfFunders ){
       this.percentageOkay = true;
-      console.log("percentageOkay::", this.percentageOkay)
     } else {
       this.percentageOkay = false;
-      console.log("percentageOkay::", this.percentageOkay)
     }
   }
 
@@ -701,7 +693,6 @@ export class MutualInvestmentComponent implements OnInit {
     this.mutualInvestment.minimumAmount = formValue.minimumAmount;
     this.mutualInvestment.profitabilityRate = formValue.profitabilityRate;
     this.mutualInvestmentService.updateMutualInvestment(this.mutualInvestment, id).subscribe((res) => {
-      console.log("updateRes:: ", res)
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -963,8 +954,6 @@ export class MutualInvestmentComponent implements OnInit {
         );
       } else {
         this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
-          console.log("res::"), res;
-          
           this.isSaving = false;
           if(res) {
             if (res.data == null ) {
@@ -1009,8 +998,6 @@ export class MutualInvestmentComponent implements OnInit {
       this.firstRefundDate.date = firstRefundDate
       this.mutualInvestmentService.generateRefundDates(this.idInvestment, this.firstRefundDate).subscribe((res)=>{
         this.isSaving = false;
-        console.log("Echéance:: ", res);
-        
         if(res) {
           if (res.data == null ) {
             this.utilityService.showMessage(
@@ -1059,8 +1046,6 @@ export class MutualInvestmentComponent implements OnInit {
       } else {
         this.mutualInvestmentService.setRefundDatesManually(this.refund, this.idInvestment).subscribe((res)=>{
           this.isSaving = false;
-          console.log("Refund differer:: ", res);
-          
           if(res) {
             if (res.data == null ) {
               this.utilityService.showMessage(
@@ -1114,7 +1099,6 @@ export class MutualInvestmentComponent implements OnInit {
 
   onSubmitDistribution(idInvestment: number){
     this.mutualInvestmentService.makeDistribution(idInvestment).subscribe((res)=>{
-      console.log("reponse distribution ::", res);
       
       if(res) {
         if (res.data == null ) {
@@ -1176,9 +1160,6 @@ export class MutualInvestmentComponent implements OnInit {
 
   createPercentages(distributionPercentage: DistributionPercentage, idMutualInvestment: number){
     this.mutualInvestmentService.getDistributionPercentage(distributionPercentage, idMutualInvestment).subscribe((res)=>{
-      console.log("% res:: ", res);
-      console.log("Pourcentages:: ", distributionPercentage);
-      
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -1233,8 +1214,6 @@ export class MutualInvestmentComponent implements OnInit {
     const formValue = this.closingDateForm.value;
     this.closingDate.date = formValue.closingDate;
     this.mutualInvestmentService.createAClosingDate(this.idInvestment, this.closingDate).subscribe((res)=>{
-      console.log("Closing Date:: ", res);
-      
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
