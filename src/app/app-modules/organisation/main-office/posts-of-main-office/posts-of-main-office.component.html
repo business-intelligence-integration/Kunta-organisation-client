@@ -65,6 +65,8 @@
                 <div class="flex-table-cell" data-th="Nbre d'opérateur actuel">
                     <span class="light-text" data-filter-match="">{{ post.operators.length }}</span>
                         <a (click)="onOpenAddOperatorModal(post.id)" tooltip=" Ajouter un opérateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-post-members']"
+                        [queryParams]="{id: post.id}" tooltip=" Voir details " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                 </div>
                 <div class="flex-table-cell cell-end" data-th="Actions">
                     <a _ngcontent-nct-c62="" (click)="onDeletePost(post.id)" tooltip=" Supprimer le post " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
