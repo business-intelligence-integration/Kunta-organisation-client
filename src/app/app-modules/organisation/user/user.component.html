@@ -12,12 +12,28 @@
     <div class="select">
         <form class="modal-form" [formGroup]="selectRoleForm">
             <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" [(ngModel)]="ngSelectRole">
-                <option value="0" disabled>Selection par rôle</option>
+                <option value="0" disabled>Sélection par rôle</option>
                 <option value="ALL">Tous les utilisateurs</option>
                 <option value="ADMIN" *ngIf="adminIsConnected">Admin</option>
                 <option value="OPERATOR" *ngIf="adminIsConnected">Opérateur</option>
                 <option value="MEMBER">Membre</option>
                 <option value="MUTUALIST">Mutualiste</option>
+            </select>
+        </form>
+    </div>
+    <div class="select">
+        <form class="modal-form" [formGroup]="selectCategoryForm">
+            <select formControlName="idCategory" (ngModelChange)="onSelectUserCategory($event)" [(ngModel)]="ngSelectUserCategory">
+                <option value="0" disabled>Sélection par catégorie</option>
+                <option *ngFor="let category of userCategories" [value]="category.id" >{{ category.name }}</option>
+            </select>
+        </form>
+    </div>
+    <div class="select">
+        <form class="modal-form" [formGroup]="selectTypeForm">
+            <select formControlName="idType" (ngModelChange)="onSelectUserType($event)" [(ngModel)]="ngSelectUserType">
+                <option value="0" disabled>Sélection par type</option>
+                <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
             </select>
         </form>
     </div>

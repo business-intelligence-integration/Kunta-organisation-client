@@ -95,12 +95,20 @@ export class UserService {
     return this.httpClient.patch<any>(this.baseUrl + `users/${idUser}/status/${idStatus}`, {}, httpOptions);
   }
 
-  findUsersByLastName(lastName: string):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'users/search?lastName='+ lastName, httpOptions);
+  findUsersByLastNameOrFirstNameOrPhoneNumber(firstName: string, lastName: string, phoneNumber: string):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'users/search?firstName='+ firstName + '&lastName=' + lastName + '&phoneNumber=' + phoneNumber, httpOptions);
   }
 
   findUsersByRoleName(name: string):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'users/filter-by-role-name?name='+ name, httpOptions);
+  }
+
+  findUsersByIdCategory(idCategory: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'users/user-category/'+ idCategory, httpOptions);
+  }
+
+  findUsersByIdType(idType: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'users/user-type/'+ idType, httpOptions);
   }
 
   addRole(idUser: number, idRole: number):Observable<any>{

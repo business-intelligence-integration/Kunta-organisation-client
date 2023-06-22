@@ -57,6 +57,8 @@ export class UserComponent implements OnInit {
   beneficiaryForm!: FormGroup;
   changeStatusForm!: FormGroup;
   selectRoleForm!: FormGroup;
+  selectCategoryForm!: FormGroup;
+  selectTypeForm!: FormGroup;
   searchForm!: FormGroup;
   addRoleToUserForm!: FormGroup;
   pieceTypes: PieceType[] = [];
@@ -206,8 +208,18 @@ export class UserComponent implements OnInit {
       selectedRole: new FormControl(null),
     })
 
+    this.selectCategoryForm = this.formBuilder.group({
+      idCategory: new FormControl(null),
+    })
+
+    this.selectTypeForm = this.formBuilder.group({
+      idType: new FormControl(null),
+    })
+
     this.searchForm = this.formBuilder.group({
+      firstName: new FormControl(null),
       lastName: new FormControl(null),
+      phoneNumber: new FormControl(null),
     })
 
     this.beneficiaryForm = this.formBuilder.group({
@@ -455,8 +467,6 @@ export class UserComponent implements OnInit {
       
   //   })
   // }
-
-
 
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
     this.isSaving = true;
@@ -904,110 +914,212 @@ export class UserComponent implements OnInit {
   }
 
 
- onSelectIssueDate(event: any){
+  onSelectIssueDate(event: any){
   this.minValidityDate = this.dateOfIssue;
   this.dateOfValidity = null;
- }
-
- onSelectValidityDate(event: any){
-  if(this.dateOfIssue == undefined || this.dateOfIssue == null){
-    this.showErroMessage = true;
-    this.dateOfValidity = null;
-  }else{
-    this.showErroMessage = false;
   }
- }
 
- onSelectUserRole(roleName: any){
+  onSelectValidityDate(event: any){
+    if(this.dateOfIssue == undefined || this.dateOfIssue == null){
+      this.showErroMessage = true;
+      this.dateOfValidity = null;
+    }else{
+      this.showErroMessage = false;
+    }
+  }
+
+  onSelectUserRole(roleName: any){
     if(roleName == "ALL" || roleName == "0"){
       this.getAllUsers();
     }else{
       this.findUsersByRoleName(roleName);
     }
- }
+  }
 
- searchUsers(){
-    this.findUsersByLastName(this.searchForm.value.lastName);
- }
+  onSelectUserCategory(idCategory: number){
+    if(idCategory == 0){
+      this.getAllUsers();
+    }else{
+      this.findUsersByIdCategory(idCategory);
+    }
+  }
 
- findUsersByLastName(lastName: string){
-  this.userService.findUsersByLastName(lastName).subscribe((res)=>{
-    this.users = [];
-    this.users = res?.data;
-  })
- }
+  onSelectUserType(idType: number){
+    if(idType == 0){
+      this.getAllUsers();
+    }else{
+      this.findUsersByIdType(idType);
+    }
+  }
 
- findUsersByRoleName(name: string){
-  this.userService.findUsersByRoleName(name).subscribe((res)=>{
-    this.users = [];
-    this.users = res.data;
-  })
- }
+  searchUsers(){
+    this.findUsersByLastNameOrFirstNameOrPhoneNumber(this.searchForm.value.firstName, this.searchForm.value.lastName, this.searchForm.value.phoneNumber);
+  }
 
- closeAddRoleModal(){
-  this.openAddRoleModal = ""
- }
+  findUsersByLastNameOrFirstNameOrPhoneNumber(firstName: string, lastName: string, phoneNumber: string){
+    this.userService.findUsersByLastNameOrFirstNameOrPhoneNumber(firstName, lastName, phoneNumber).subscribe((res)=>{
+      this.users = [];
+      this.users = res?.data;
+    })
+  }
 
- onAddRoleTOUser(idUser: number){
-  this.openAddRoleModal = "is-active";
-  this.idUser = idUser;
- }
-
- getAllRoles(){
-  this.roleService.findAllRoles().subscribe((res)=>{
-    this.roles = res.data;
-  })
- }
-
- onSubmitAddRoleTOUser(){
-  const formValue = this.addRoleToUserForm.value;
-  this.isSaving = true;
-  this.userService.addRole(this.idUser, formValue.idRole).subscribe((res)=>{
-    this.closeAddRoleModal()
-    this.getAllUsers();
-    this.isSaving = false;
-    if(res.data == null){
+  findUsersByRoleName(name: string){
+    this.loaderService.showLoader();
+    this.userService.findUsersByRoleName(name).subscribe((res)=>{
+      this.loaderService.hideLoader();
+      if (res == null) {
+        this.show == true;
+        this.utilityService.showMessage(
+          'warning',
+          'Aucun utilisateur retrouvé !',
+          '#e62965',
+          'white'
+        );
+      } else {
+        if (res.data.length > 0) {
+          this.users = [];
+          this.users = res.data;
+        } else {
+          this.show == true;
+        }
+      }
+    }, (err) => {
+      this.loaderService.hideLoader();
       this.utilityService.showMessage(
         'warning',
-        'Vous ne pouvez pas ajouter 2 fois le même role à l\'utilisateur !',
+        'Une erreur s\'est produite !',
         '#e62965',
         'white'
       );
-    }else{
+    })
+  }
+
+  findUsersByIdCategory(id: number){
+    this.loaderService.showLoader();
+    this.userService.findUsersByIdCategory(id).subscribe((res)=>{
+      this.loaderService.hideLoader();
+      if (res == null) {
+        this.show == true;
+        this.utilityService.showMessage(
+          'warning',
+          'Aucun utilisateur retrouvé !',
+          '#e62965',
+          'white'
+        );
+      } else {
+        if (res.data.length > 0) {
+          this.users = [];
+          this.users = res.data;
+        } else {
+          this.show == true;
+        }
+      }
+    }, (err) => {
+      this.loaderService.hideLoader();
       this.utilityService.showMessage(
-        'success',
-        'Le role a été ajouté à l\'utilisateur avec succès !',
-        '#06d6a0',
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
         'white'
       );
-    }
-  },()=>{
-    this.isSaving = false;
-    this.utilityService.showMessage(
-      'warning',
-      'Une erreur s\'est produite !',
-      '#e62965',
-      'white'
-    );
-  })
- }
+    })
+  }
+
+  findUsersByIdType(id: number){
+    this.loaderService.showLoader();
+    this.userService.findUsersByIdType(id).subscribe((res)=>{
+      this.loaderService.hideLoader();
+      if (res == null) {
+        this.show == true;
+        this.utilityService.showMessage(
+          'warning',
+          'Aucun utilisateur retrouvé !',
+          '#e62965',
+          'white'
+        );
+      } else {
+        if (res.data.length > 0) {
+          this.users = [];
+          this.users = res.data;
+        } else {
+          this.show == true;
+        }
+      }
+    }, (err) => {
+      this.loaderService.hideLoader();
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  closeAddRoleModal(){
+    this.openAddRoleModal = ""
+  }
+
+  onAddRoleTOUser(idUser: number){
+    this.openAddRoleModal = "is-active";
+    this.idUser = idUser;
+  }
+
+  getAllRoles(){
+    this.roleService.findAllRoles().subscribe((res)=>{
+      this.roles = res.data;
+    })
+  }
+
+  onSubmitAddRoleTOUser(){
+    const formValue = this.addRoleToUserForm.value;
+    this.isSaving = true;
+    this.userService.addRole(this.idUser, formValue.idRole).subscribe((res)=>{
+      this.closeAddRoleModal()
+      this.getAllUsers();
+      this.isSaving = false;
+      if(res.data == null){
+        this.utilityService.showMessage(
+          'warning',
+          'Vous ne pouvez pas ajouter 2 fois le même role à l\'utilisateur !',
+          '#e62965',
+          'white'
+        );
+      }else{
+        this.utilityService.showMessage(
+          'success',
+          'Le role a été ajouté à l\'utilisateur avec succès !',
+          '#06d6a0',
+          'white'
+        );
+      }
+    },()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
 
  //////////////////////////////View Account
- onViewAccount(email: string){
-  this.openViewAccountModal = "is-active";
-  this.email = email;
-  this.onView(this.email);
- }
+  onViewAccount(email: string){
+    this.openViewAccountModal = "is-active";
+    this.email = email;
+    this.onView(this.email);
+  }
 
- onView(email: string){
-  this.userService.getUserByEmail(email).subscribe((res)=>{
-    this.userAccounts = res.data.accounts;    
-  },(error)=>{
-    console.log("Erreur:: ", error);
-  })
- }
+  onView(email: string){
+    this.userService.getUserByEmail(email).subscribe((res)=>{
+      this.userAccounts = res.data.accounts;    
+    },(error)=>{
+      console.log("Erreur:: ", error);
+    })
+  }
 
- closeViewAccountModal(){
-  this.openViewAccountModal = "";
- }
+  closeViewAccountModal(){
+    this.openViewAccountModal = "";
+  }
 }
