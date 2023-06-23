@@ -254,7 +254,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
           this.closePaymentModal();
           this.utilityService.showMessage(
             'success',
-            'Payment made successffully !',
+            'Paiement effectué avec succès !',
             '#06d6a0',
             'white'
           );
@@ -272,7 +272,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'An error has occurred',
+        'Une erreur s\'est produite',
         '#e62965',
         'white'
       );
@@ -424,7 +424,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'êtes-vous sûr de vouloir génrer le gagant maintenant ?',
+        title: 'êtes-vous sûr de vouloir générer le gagnant maintenant ?',
         text: "Vous ne pourrez pas revenir en arrière !",
         icon: 'warning',
         showCancelButton: true,
