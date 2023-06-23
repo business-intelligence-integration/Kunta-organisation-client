@@ -1013,9 +1013,6 @@ export class UserComponent implements OnInit {
  }
 
  checkNumberOfChildren(number: any){
-  console.log("number1:: ", number.value);
-  console.log("number2:: ", number.value);
-  
   if(number.value < 0){
     this.numberOfChildrenIsNegatif = true;
   }else{
