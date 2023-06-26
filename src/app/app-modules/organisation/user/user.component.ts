@@ -101,6 +101,7 @@ export class UserComponent implements OnInit {
   isMutualist: boolean = false;
   email: string = "";
   userAccounts: Account[] = [];
+  numberOfChildrenIsNegatif: boolean = false;;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -937,6 +938,7 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserCategory(idCategory: number){
+    console.log('idCategory:: ', idCategory)
     if(idCategory == 0){
       this.getAllUsers();
     }else{
@@ -1156,7 +1158,16 @@ export class UserComponent implements OnInit {
     })
   }
 
-  closeViewAccountModal(){
-    this.openViewAccountModal = "";
+ closeViewAccountModal(){
+  this.openViewAccountModal = "";
+ }
+
+ checkNumberOfChildren(number: any){
+  if(number.value < 0){
+    this.numberOfChildrenIsNegatif = true;
+  }else{
+    this.numberOfChildrenIsNegatif = false;
   }
+  
+ }
 }

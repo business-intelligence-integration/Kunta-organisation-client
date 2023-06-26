@@ -139,7 +139,7 @@
                            </div>
                         </div>
                         <div class="field" *ngIf="ngSelectLevelCreate == 'CLUB'">
-                            <label>Sélection du Club</label>
+                            <label>Sélectionner un Club spécifique ?</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelectClub">
                                 <option value="0" disabled>--Sélectionner un club--</option>
                                 <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }}  </span> </option>
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="field" *ngIf="ngSelectLevelCreate == 'AREA'">
-                            <label>Sélection de la zone</label>
+                            <label>Sélectionner une zone spécifique ?</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idArea" [(ngModel)]="ngSelectArea">
                                 <option value="0" disabled>--Sélectionner une zone--</option>
                                 <option *ngFor="let area of areas" [value]="area.id"> <span> {{ area.name }}  </span> </option>
@@ -161,7 +161,7 @@
                             </div>
                         </div>
                         <div class="field" *ngIf="ngSelectLevelCreate == 'CENTER'">
-                            <label>Sélection du centre</label>
+                            <label>Sélectionner un centre spécifique ?</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelectCenter">
                                 <option value="0" disabled>--Sélectionner un centre--</option>
                                 <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }}  </span> </option>
@@ -172,7 +172,7 @@
                             </div>
                         </div>
                         <div class="field" *ngIf="ngSelectLevelCreate == 'MAINOFFICE'">
-                            <label>Sélection du bureau principal</label>
+                            <label>Sélectionner le bureau principal ?</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idMainOffice" [(ngModel)]="ngSelectMainOffice">
                                 <option value="0" disabled>--Sélectionner un bureau principal--</option>
                                 <option *ngFor="let office of mainOffices" [value]="office.id"> <span> {{ office.name }}  </span> </option>

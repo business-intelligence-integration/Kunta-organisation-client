@@ -155,7 +155,7 @@
                                     <span class="light-text" data-filter-match="">{{ offer.subscriptions.length }}</span>
                                     <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvesmentStatus === 'UNLOCKED'}" tooltip=" Ajouter une souscription " theme='light' (click)="onOpenAddSubscription(offer.id)"><i class="lnir lnir-plus"></i></a>
                                     <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-subscription']"
-                                    [queryParams]="{id: offer.id, idInvestment: idInvestment}" tooltip=" Voir details souscription " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                                    [queryParams]="{id: offer.id, idInvestment: idInvestment}" tooltip=" Voir liste souscription " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -339,7 +339,7 @@
                                 placeholder="--Sélectionner un souscripteur--">
                             </select2>
                             <div class="text-danger"
-                            *ngIf="users.length == 0">
+                            *ngIf="centerUserOfSelect.length == 0">
                             <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la souscription.</small>
                             </div><br><br>
                         </div>

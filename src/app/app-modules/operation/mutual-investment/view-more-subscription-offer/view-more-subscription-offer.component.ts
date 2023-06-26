@@ -137,9 +137,15 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
     })
   }
 
+  // getAllMutualistsByIdCenter(idMutualCenter: number){
+  //   this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
+  //     this.centerUserOfSelect = res.data;
+  //   })
+  // }
+
   getAllMutualistsByIdCenter(idMutualCenter: number){
     this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.centerUserOfSelect = res.data;
+      this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
     })
   }
   

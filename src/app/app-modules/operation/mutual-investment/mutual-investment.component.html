@@ -421,14 +421,16 @@
                             <div class="control">
                                 <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" [(ngModel)]="profitabilityRate" (ngModelChange)="onProfitabilityRateSelected($event)" >
                             </div>
-                            <div class="text-danger"
-                                *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
-                                <small class="text-police" *ngIf="!percentageOkay" >Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{mutualInvestment.percentageOfFunders}}%).</small>
+                            <div class="text-danger" *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
+                                <small class="text-police">veuillez entrer le pourcentage des pouvoyeurs de fond.</small>
+                            </div>
+                            <div class="text-danger" *ngIf="percentageOkay">
+                                <small class="text-police">Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{mutualInvestment.percentageOfFunders}}%).</small>
                             </div>
                         </div><br>
                        
                         <div class="control login">
-                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSubscriptionOfferForm.invalid || isSaving" >Enregistrer</button>
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSubscriptionOfferForm.invalid || isSaving || percentageOkay" >Enregistrer</button>
                         </div><br>
                        
                     </form>

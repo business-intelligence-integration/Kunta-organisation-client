@@ -412,7 +412,7 @@ export class ViewMoreComponent implements OnInit {
     this.userService.changeUserStatus(idUser, idStatus).subscribe(()=>{
       this.isSaving = false;
       this.closeStatusModal();
-      this.getAllMembers();
+      this.getClub();
       this.utilityService.showMessage(
         'success',
         'Le statut de l\'utilisateur a été modifié avec succès !',
