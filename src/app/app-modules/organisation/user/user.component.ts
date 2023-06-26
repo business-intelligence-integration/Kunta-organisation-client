@@ -938,8 +938,7 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserCategory(idCategory: number){
-    console.log('idCategory:: ', idCategory)
-    if(idCategory == 0){
+    if(idCategory == 0 || idCategory == 9999){
       this.getAllUsers();
     }else{
       this.findUsersByIdCategory(idCategory);
@@ -947,7 +946,7 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserType(idType: number){
-    if(idType == 0){
+    if(idType == 0 || idType == 9999){
       this.getAllUsers();
     }else{
       this.findUsersByIdType(idType);

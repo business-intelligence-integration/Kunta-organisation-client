@@ -1,6 +1,6 @@
 <div *ngIf="isList" class="list-flex-toolbar">
     
-    <form [formGroup]="searchForm">
+    <form [formGroup]="searchForm" class="search-inputs">
         <div class="control has-icon">
             <input class="input custom-text-filter" (ngModelChange)="searchUsers()" formControlName="lastName" placeholder="Nom..." data-filter-target=".flex-table-item">
             <div class="form-icon">
@@ -13,18 +13,18 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </div>
         </div>
-        <div class="control has-icon">
+        <!-- <div class="control has-icon">
             <input class="input custom-text-filter" (ngModelChange)="searchUsers()" formControlName="phoneNumber" placeholder="Téléphone..." data-filter-target=".flex-table-item">
             <div class="form-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </div>
-        </div>
+        </div> -->
     </form>
     <div class="select">
         <form class="modal-form" [formGroup]="selectRoleForm">
             <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" [(ngModel)]="ngSelectRole">
-                <option value="0" disabled>Sélection par rôle</option>
-                <option value="ALL">Tous les utilisateurs</option>
+                <option value="0" disabled>Rôle</option>
+                <option value="ALL">Tous</option>
                 <option value="ADMIN" *ngIf="adminIsConnected">Admin</option>
                 <option value="OPERATOR" *ngIf="adminIsConnected">Opérateur</option>
                 <option value="MEMBER">Membre</option>
@@ -35,7 +35,8 @@
     <div class="select">
         <form class="modal-form" [formGroup]="selectCategoryForm">
             <select formControlName="idCategory" (ngModelChange)="onSelectUserCategory($event)" [(ngModel)]="ngSelectUserCategory">
-                <option value="0" disabled>Sélection par catégorie</option>
+                <option value="0" disabled>Catégorie</option>
+                <option value="9999">Tous</option>
                 <option *ngFor="let category of userCategories" [value]="category.id" >{{ category.name }}</option>
             </select>
         </form>
@@ -43,7 +44,8 @@
     <div class="select">
         <form class="modal-form" [formGroup]="selectTypeForm">
             <select formControlName="idType" (ngModelChange)="onSelectUserType($event)" [(ngModel)]="ngSelectUserType">
-                <option value="0" disabled>Sélection par type</option>
+                <option value="0" disabled>Type</option>
+                <option value="9999">Tous</option>
                 <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
             </select>
         </form>
@@ -52,7 +54,7 @@
         <button *ngIf="adminIsConnected || operatorIsConnected" class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
-          </span>
+            </span>
             <span (click) = "onOpenAddUser()">Créer utilisateur</span>
         </button>
     </div>
