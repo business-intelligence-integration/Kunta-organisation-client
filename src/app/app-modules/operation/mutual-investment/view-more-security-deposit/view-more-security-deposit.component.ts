@@ -141,7 +141,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes vous sure? ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -272,8 +272,6 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.payment.date = formValue.date;
     this.securityDepositService.refundAmountSecutityDeposit(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
       this.isSaving = false;
-      console.log("Refund Deposit:: ", res);
-      
       if(res) {
         if (res.data == null ) {
           this.utilityService.showMessage(
@@ -321,8 +319,6 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
   findDepositById() {
     this.securityDepositService.findSecurityDepositById(this.idDeposit).subscribe((res) => {
-      console.log("View Amounts:: ", res.data.refundAmounts);
-      
       this.amountCollecteds = res.data.refundAmounts;
     })
   }

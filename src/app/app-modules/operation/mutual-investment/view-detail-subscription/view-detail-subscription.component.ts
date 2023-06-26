@@ -108,8 +108,6 @@ export class ViewDetailSubscriptionComponent implements OnInit {
           this.show = true;
           this.loaderService.hideLoader();
         } else {
-          console.log("Souscriptions:: ", res.data.subscriptions);
-          
           this.idSubscriptionOffer = params['id'];
           this.riskLevel = res.data.riskProfile.riskLevel;
           this.subscriptions = res.data.subscriptions;
@@ -328,7 +326,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
           this.closePaymentModal();
           this.utilityService.showMessage(
             'success',
-            'Paiement effectue avec succes !',
+            'Paiement effectué avec succès !',
             '#06d6a0',
             'white'
           );
@@ -468,6 +466,5 @@ export class ViewDetailSubscriptionComponent implements OnInit {
         }
       });
   }
-
 
 }

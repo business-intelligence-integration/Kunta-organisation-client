@@ -29,7 +29,7 @@
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                 <h3>Désolé la liste est actuellement vide.</h3>
-                <p class="is-larger">Veuillez creer une zone pour qu'elle soit afficher.</p>
+                <p class="is-larger">Veuillez créer une zone pour qu'elle soit afficher.</p>
             </div>
         </div>
 
@@ -37,9 +37,9 @@
 
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
-                <span>ID</span>
+                <span>Id</span>
                 <span>Appelation</span>
-                <span>Reference</span>
+                <span>Référence</span>
                 <span>Club(s)</span>
                 <span>Membre(s)</span>
                 <span>Observation</span>
@@ -55,7 +55,7 @@
                     <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ area.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Prenom">
+                    <div class="flex-table-cell" data-th="Référence">
                         <span class="light-text" data-filter-match="">{{ area.reference }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Club(s)">
@@ -133,24 +133,24 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label>Reférence*</label><br>
+                            <label>Référence*</label><br>
                             <div class="control">
-                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                                <input type="text" class="input" placeholder="Référence" formControlName="reference">
                             </div>
                             <div class="text-danger"
                                 *ngIf="addAreaForm.get('reference')?.errors?.['required'] && addAreaForm.get('reference')?.touched">
-                                <small class="text-police" translate>entrer la reférence du centre</small>
+                                <small class="text-police" translate>entrer la référence du centre</small>
                             </div>
                         </div> 
                         <div class="field">
-                            <label>Date de creation*</label><br>
+                            <label>Date de création*</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="creationDate" max="{{ CreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addAreaForm.get('creationDate')?.errors?.['required'] && addAreaForm.get('creationDate')?.touched">
-                             <small class="text-police" translate>selectionner la date de création</small>
+                             <small class="text-police" translate>sélectionner la date de création</small>
                            </div>
                         </div>
 
@@ -204,13 +204,13 @@
                                 *ngIf="updateAreaForm.get('name')?.errors?.['required'] && updateAreaForm.get('name')?.touched">
                                 <small class="text-police" translate>Entrer l'appelation du centre</small>
                             </div>
-                            <label>Reference *</label><br>
+                            <label>Référence *</label><br>
                             <div class="control">
-                                <input type="text" [(ngModel)]="area.reference" class="input" placeholder="Reference" formControlName="reference">
+                                <input type="text" [(ngModel)]="area.reference" class="input" placeholder="Référence" formControlName="reference">
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateAreaForm.get('reference')?.errors?.['required'] && updateAreaForm.get('reference')?.touched">
-                                <small class="text-police" translate>Entrer la reference du centre</small>
+                                <small class="text-police" translate>Entrer la référence du centre</small>
                             </div>
                             <label>Observation *</label><br>
                             <div class="control">
@@ -315,7 +315,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout club a la zone</h3>
+                <h3>Ajouter un club à la zone</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeClubModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -332,12 +332,12 @@
                             <div>
                                 <label>Club *</label><br>
                                 <select class="input_comp" formControlName="idClub" aria-label="Default select example"  [(ngModel)]="ngSelectClub">
-                                    <option value="0" disabled>--selectionner un club--</option>
+                                    <option value="0" disabled>--sélectionner un club--</option>
                                     <option *ngFor="let club of clubs" [value]="club.id" >{{ club.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="addClubForm.get('idClub')?.errors?.['required'] && addClubForm.get('idClub')?.touched">
-                                <small class="text-police" translate>selectionner un club</small>
+                                <small class="text-police" translate>sélectionner un club</small>
                                 </div>
                             </div><br>
 

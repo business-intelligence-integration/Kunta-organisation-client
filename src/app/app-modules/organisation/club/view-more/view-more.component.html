@@ -176,7 +176,7 @@
                             <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                             <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                             <h3>Désolé la liste est actuellement vide.</h3>
-                            <p class="is-larger">Veuillez creer/ajouter un element pour qu'il soit afficher.</p>
+                            <p class="is-larger">Veuillez créer/ajouter un élément pour qu'il soit afficher.</p>
                         </div>
                     </div>
 
@@ -186,7 +186,7 @@
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
                             <span>Nom</span>
-                            <span>Prenom</span>
+                            <span>Prénom</span>
                             <span>Numéro tél</span>
                             <span>Email</span>
                             <!-- <span class="cell-end">Actions</span> -->
@@ -208,7 +208,7 @@
                                 <div class="flex-table-cell" data-th="Nom">
                                     <span class="light-text" data-filter-match="">{{ member.lastName }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Prenom">
+                                <div class="flex-table-cell" data-th="Prénom">
                                     <span class="light-text" data-filter-match="">{{ member.firstName }}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Numéro Tel">
@@ -223,7 +223,7 @@
                                 </div>
                                 
                                 <div  class="flex-table-cell cell-end" data-th="Action">
-                                    <a *ngIf="adminIsConnected" (click)="onChangeClub(member.id)" tooltip=" Transferer le membre " theme='light' class="pagination-previous has-chevron"><i class="fas fa-arrow-right"></i></a>
+                                    <a *ngIf="adminIsConnected" (click)="onChangeClub(member.id)" tooltip=" Transférer le membre " theme='light' class="pagination-previous has-chevron"><i class="fas fa-arrow-right"></i></a>
                                 </div>
                                 <!-- <div class="flex-table-cell cell-end" data-th="Actions">
                                     <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -379,12 +379,12 @@
                             <div> 
                                 <label>Statut *</label><br>
                                 <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
-                                    <option value="0" disabled>--selectionner un statut--</option>
+                                    <option value="0" disabled>--sélectionner un statut--</option>
                                     <option *ngFor="let st of status" [value]="st.id" >{{ st.label }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="changeStatusForm.get('idStatus')?.errors?.['required'] && changeStatusForm.get('idStatus')?.touched">
-                                <small class="text-police" translate>selectionner un statut</small>
+                                <small class="text-police" translate>sélectionner un statut</small>
                                 </div>
                             </div>
                         </div><br>
@@ -401,7 +401,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- change user club -->
 <div id="changeClub" class="modal h-modal" [ngClass]="openChangeClubModal">
@@ -426,12 +425,12 @@
                             <div> 
                                 <label>Club *</label><br>
                                 <select class="input_comp" formControlName="idClub" aria-label="Default select example"  [(ngModel)]="ngSelectChangeClub">
-                                    <option value="0" disabled>--selectionner un club--</option>
+                                    <option value="0" disabled>--sélectionner un club--</option>
                                     <option *ngFor="let club of clubs" [value]="club.id" >{{ club.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="changeClubForm.get('idClub')?.errors?.['required'] && changeClubForm.get('idClub')?.touched">
-                                <small class="text-police" translate>selectionner un club</small>
+                                <small class="text-police" translate>sélectionner un club</small>
                                 </div>
                             </div>
                         </div><br>

@@ -89,7 +89,7 @@ export class PostsOfClubComponent implements OnInit {
       }else{
         this.utilityService.showMessage(
           'success',
-          'Operateur ajouté au poste avec succès !',
+          'Opérateur ajouté au poste avec succès !',
           '#06d6a0',
           'white'
         );
@@ -107,7 +107,7 @@ export class PostsOfClubComponent implements OnInit {
       }else{
         this.utilityService.showMessage(
           'warning',
-          'Une erreure s\'est produite',
+          'Une erreur s\'est produite',
           '#e62965',
           'white'
         );
@@ -164,7 +164,7 @@ export class PostsOfClubComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,

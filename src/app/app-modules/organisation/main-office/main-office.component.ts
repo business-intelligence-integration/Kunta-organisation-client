@@ -132,7 +132,7 @@ export class MainOfficeComponent implements OnInit {
           this.onCloseUpdateModal()
           this.utilityService.showMessage(
             'success',
-            'Bureau Principal mis a jour avec succès !',
+            'Bureau Principal mis à jour avec succès !',
             '#06d6a0',
             'white'
           );
@@ -207,6 +207,5 @@ export class MainOfficeComponent implements OnInit {
   onCloseUpdateModal(){
     this.openUpdateMainOffice = "";
   }
-
 
 }

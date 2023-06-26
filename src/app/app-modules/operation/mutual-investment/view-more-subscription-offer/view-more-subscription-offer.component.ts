@@ -308,7 +308,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
           this.closeSubscriptionModal();
           this.utilityService.showMessage(
             'success',
-            'Souscription effectuee avec succes !',
+            'Souscription effectuée avec succès !',
             '#06d6a0',
             'white'
           );

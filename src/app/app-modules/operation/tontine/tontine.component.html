@@ -1,7 +1,7 @@
 <div class="list-flex-toolbar" *ngIf="isList">
     <form [formGroup]="searchForm">
         <div class="control has-icon">
-            <input class="input custom-text-filter" (ngModelChange)="searchTontines()" formControlName="name" placeholder="Nom..." data-filter-target=".flex-table-item">
+            <input class="input custom-text-filter" (ngModelChange)="searchTontines()" formControlName="name" placeholder="Rechercher..." data-filter-target=".flex-table-item">
             <div class="form-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </div>
@@ -29,7 +29,7 @@
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                 <h3>Désolé la liste est actuellement vide.</h3>
-                <p class="is-larger">Veuillez creer/ajouter une tontine pour qu'elle soit afficher.</p>
+                <p class="is-larger">Veuillez créer/ajouter une tontine pour qu'elle soit afficher.</p>
             </div>
         </div>
         
@@ -181,7 +181,7 @@
                         <div class="field">
                             <label>Participants *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                                <option value="0" disabled>--Selectionnez un participant--</option>
+                                <option value="0" disabled>--Sélectionnez un participant--</option>
                                 <option *ngFor="let member of users" [value]="member.id"> <span> {{ member.firstName }} {{ member.lastName }}  </span> </option>
                             </select><br><br>
                         </div>
@@ -243,14 +243,14 @@
                         </div>
 
                         <div class="field">
-                            <label>Date de debut *</label><br> 
+                            <label>Date de début *</label><br> 
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="startDate" type="date" id="DOB" name="DOB" min="{{ maxDateOfTontineList }}"  [(ngModel)]="startDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="createCycleForm.get('startDate')?.errors?.['required'] && createCycleForm.get('startDate')?.touched">
-                             <small class="text-police" translate>selectionner la date de début du cycle</small>
+                             <small class="text-police" translate>sélectionner la date de début du cycle</small>
                            </div>
                         </div>
                         <div class="control login">
@@ -331,14 +331,14 @@
                                 </select2>
                                 <div class="text-danger"
                                         *ngIf="createTontineForm.get('idClub')?.errors?.['required'] && createTontineForm.get('idClub')?.touched">
-                                        <small class="text-police">veuillez selectionner un club</small>
+                                        <small class="text-police">veuillez sélectionner un club</small>
                                 </div>
                             </div>
                             
                             <div class="field">
                                 <label>Fréquence de cotisation  *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceCot" [(ngModel)]="ngSelect3">
-                                    <option value="0" disabled>--Selectionnez une fréquence de cotisation--</option>
+                                    <option value="0" disabled>--Sélectionnez une fréquence de cotisation--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}</span> </option>
                                 </select>
 
@@ -350,7 +350,7 @@
                             <div class="field">
                                 <label>Fréquence des séances de tontine  *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequenceSea" [(ngModel)]="ngSelect4">
-                                    <option value="0" disabled>--Selectionnez une fréquence des séances de tontine--</option>
+                                    <option value="0" disabled>--Sélectionnez une fréquence des séances de tontine--</option>
                                     <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }}  </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -361,7 +361,7 @@
                             <div class="field">
                                 <label>Niveau de transversalité *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idTransv" [(ngModel)]="ngSelect5">
-                                    <option value="0" disabled>--Selectionnez le niveau de transversalité--</option>
+                                    <option value="0" disabled>--Sélectionnez le niveau de transversalité--</option>
                                     <option *ngFor="let level of levels" [value]="level.id"> <span> {{ level.label }} </span> </option>
                                 </select>
                                 <div class="text-danger"
@@ -372,7 +372,7 @@
                             <div class="field">
                                 <label>Mode de gain *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idGain" [(ngModel)]="ngSelect6">
-                                    <option value="0" disabled>--Selectionnez le mode de gain--</option>
+                                    <option value="0" disabled>--Sélectionnez le mode de gain--</option>
                                     <option *ngFor="let gain of gains" [value]="gain.id"  [ngClass]="{'d-none': gain.label === 'ENCHÈRES'}"> <span> {{ gain.label }} </span> </option>
                                 </select>
                                 <div class="text-danger"

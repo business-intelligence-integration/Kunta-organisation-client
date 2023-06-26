@@ -141,7 +141,7 @@
                         <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                         <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                         <h3>Désolé la liste est actuellement vide.</h3>
-                        <p class="is-larger">Veuillez creer/ajouter un element pour qu'il soit afficher.</p>
+                        <p class="is-larger">Veuillez créer/ajouter un élément pour qu'il soit afficher.</p>
                     </div>
                 </div>
                 
@@ -248,9 +248,9 @@
                     <div class="flex-table-header" data-filter-hide="">
                         <span class="is-grow">Id</span>
                         <span>Utilisateur</span>
-                        <span>Total de penalité(FCFA)</span>
+                        <span>Total de pénalité(FCFA)</span>
                         <span>Reste à payer(FCFA)</span>
-                        <span>A jour</span>
+                        <span>À jour</span>
                         <!-- <span>Action</span> -->
                     </div>
                     <div class="flex-list-inner">
@@ -268,7 +268,7 @@
                                 <span class="light-text" data-filter-match="">{{ user.userName }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Total de penalité(FCFA)">
+                            <div class="flex-table-cell" data-th="Total de pénalité(FCFA)">
                                 <span class="light-text" data-filter-match="">{{ user.penaltiesToPay }}</span>
                             </div>
 
@@ -276,7 +276,7 @@
                                 <span class="light-text" data-filter-match="">{{ user.remainingToPay }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="A Jour">
+                            <div class="flex-table-cell" data-th="À jour">
                                 <span class="tag is-rounded is-cliquable is-danger" *ngIf="user.upToDate === false">non</span>
                                 <span class="tag is-rounded is-cliquable is-success" *ngIf="user.upToDate === true">oui</span>
                             </div>
@@ -342,13 +342,13 @@
                         <div class="field">
                             <label>Méthode de paiement  *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPaymentMethod">
-                                <option value="0" disabled>--Selectionnez une méthode de paiement--</option>
+                                <option value="0" disabled>--Sélectionnez une méthode de paiement--</option>
                                 <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }}</span> </option>
                             </select>
 
                             <div class="text-danger"
                                 *ngIf="paymentForm.get('idPaymentMethod')?.errors?.['required'] && paymentForm.get('idPaymentMethod')?.touched">
-                                <small class="text-police">veuillez selectionner une méthode de paiement</small>
+                                <small class="text-police">veuillez sélectionner une méthode de paiement</small>
                              </div>
                         </div>
                         
@@ -371,7 +371,7 @@
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="paymentForm.get('date')?.errors?.['required'] && paymentForm.get('date')?.touched">
-                             <small class="text-police" translate>selectionner la date de paiement</small>
+                             <small class="text-police" translate>sélectionner la date de paiement</small>
                            </div>
                         </div>
                         <div class="control login">

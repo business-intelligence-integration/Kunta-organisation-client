@@ -6,7 +6,18 @@
             <div class="form-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </div>
-            
+        </div>
+        <div class="control has-icon">
+            <input class="input custom-text-filter" (ngModelChange)="searchUsers()" formControlName="firstName" placeholder="Prénom..." data-filter-target=".flex-table-item">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+        </div>
+        <div class="control has-icon">
+            <input class="input custom-text-filter" (ngModelChange)="searchUsers()" formControlName="phoneNumber" placeholder="Téléphone..." data-filter-target=".flex-table-item">
+            <div class="form-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
         </div>
     </form>
     <div class="select">
@@ -66,10 +77,10 @@
             <!--Table header-->
             <div class="flex-table-header" data-filter-hide="">
                 <span>Nom</span>
-                <span>Prenom</span>
+                <span>Prénom</span>
                 <span>Numéro tél</span>
                 <span>Ayants droit</span>
-                <span>Roles</span>
+                <span>Rôles</span>
                 <span>Statut</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -80,7 +91,7 @@
                     <div  class="flex-table-cell" data-th="Nom">
                         <span class="light-text" data-filter-match="">{{ user.lastName }}</span>
                     </div>
-                    <div  class="flex-table-cell" data-th="Prenom">
+                    <div  class="flex-table-cell" data-th="Prénom">
                         <span class="light-text" data-filter-match="">{{ user.firstName }}</span>
                     </div>
                     <div  class="flex-table-cell" data-th="Numéro tél">
@@ -91,11 +102,11 @@
                         <a *ngIf="adminIsConnected || operatorIsConnected" (click)="onOpenBeneficiaryModal(user.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
 
-                    <div  class="flex-table-cell" data-th="Roles">
+                    <div  class="flex-table-cell" data-th="Rôles">
                         <span class="light-text" data-filter-match="">{{ user.roles.length }}</span>
-                        <a *ngIf="adminIsConnected" (click)="onAddRoleTOUser(user.id)" tooltip=" Ajouter un role " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a *ngIf="adminIsConnected" (click)="onAddRoleTOUser(user.id)" tooltip=" Ajouter un rôle " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""  [routerLink]="['/user-details-role']"
-                        [queryParams]="{id: user.id}" tooltip=" Voir détails roles " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                        [queryParams]="{id: user.id}" tooltip=" Voir détails rôles " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
 
                     <div  class="flex-table-cell" data-th="Statut">
@@ -280,9 +291,9 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Prenom*</label>
+                                                <label>Prénom*</label>
                                                 <div class="control has-icon">
-                                                    <input type="text" class="input" placeholder="Prenom" formControlName="firstName">
+                                                    <input type="text" class="input" placeholder="Prénom" formControlName="firstName">
                                                     <div class="form-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                                     </div>
@@ -673,7 +684,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Prenom*</label>
+                                    <label>Prénom*</label>
                                     <div class="control has-icon">
                                         <input type="text" class="input" [(ngModel)]="user.firstName" placeholder="FirstName" formControlName="firstName">
                                         <div class="form-icon">
@@ -972,12 +983,12 @@
                             <div> 
                                 <label>Statut *</label><br>
                                 <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
-                                    <option value="0" disabled>--selectionner un statut--</option>
+                                    <option value="0" disabled>--sélectionner un statut--</option>
                                     <option *ngFor="let st of status" [value]="st.id" >{{ st.label }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="changeStatusForm.get('idStatus')?.errors?.['required'] && changeStatusForm.get('idStatus')?.touched">
-                                <small class="text-police" translate>selectionner un statut</small>
+                                <small class="text-police" translate>sélectionner un statut</small>
                                 </div>
                             </div>
                         </div><br>
@@ -1019,7 +1030,7 @@
                                 <div class="field">
                                     <label>Nom *</label>
                                     <div class="control has-icon">
-                                        <input type="text" class="input" placeholder="LastName" formControlName="lastName">
+                                        <input type="text" class="input" placeholder="Nom" formControlName="lastName">
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         </div>
@@ -1032,9 +1043,9 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Prenom *</label>
+                                    <label>Prénom *</label>
                                     <div class="control has-icon">
-                                        <input type="text" class="input" placeholder="FirstName" formControlName="firstName">
+                                        <input type="text" class="input" placeholder="Prénom" formControlName="firstName">
                                         <div class="form-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         </div>
@@ -1054,7 +1065,7 @@
                                         </div>
                                    </div>
                                    <div class="text-danger" *ngIf="beneficiaryForm.get('birthDate')?.errors?.['required'] && beneficiaryForm.get('birthDate')?.touched">
-                                     <small class="text-police" translate>veuillez selectionner la date de naissance de l'ayant droit</small>
+                                     <small class="text-police" translate>veuillez sélectionner la date de naissance de l'ayant droit</small>
                                    </div>
                                 </div>
                             </div>
@@ -1064,7 +1075,7 @@
                                     <div>
                                         <label>Types de pièces *</label><br>
                                         <select class="input_comp" formControlName="idPieceType" aria-label="Default select example"  [(ngModel)]="ngSelectTypePiece2">
-                                            <option value="0" disabled>--selectionner un type de pièce--</option>
+                                            <option value="0" disabled>--sélectionner un type de pièce--</option>
                                             <option *ngFor="let pieceType of pieceTypes" [value]="pieceType.id" >{{ pieceType.label }}</option>
                                         </select>
                                         <div class="text-danger"
@@ -1145,15 +1156,15 @@
                     <form class="modal-form" [formGroup]="addRoleToUserForm" (ngSubmit)="onSubmitAddRoleTOUser()">
                        <div class="field">
                             <div> 
-                                <label>Role *</label><br>
+                                <label>Rôle *</label><br>
                                 <select class="input_comp" formControlName="idRole" aria-label="Default select example"  [(ngModel)]="ngSelectRoleUser">
-                                    <option value="0" disabled>--selectionner un statut--</option>
+                                    <option value="0" disabled>--sélectionner un rôle--</option>
                                     <option *ngFor="let role of roles" [value]="role.id" 
                                     [ngClass]="{'d-none': role.name === 'ACTUATOR'}">{{ role.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="addRoleToUserForm.get('idRole')?.errors?.['required'] && addRoleToUserForm.get('idRole')?.touched">
-                                <small class="text-police" translate>selectionner un role</small>
+                                <small class="text-police" translate>sélectionner un rôle</small>
                                 </div>
                             </div>
                         </div><br>

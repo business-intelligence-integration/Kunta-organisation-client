@@ -109,7 +109,7 @@
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <input class="input custom-text-filter" placeholder="Rechercher..." data-filter-target=".flex-table-item">
         <div class="form-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
@@ -143,7 +143,7 @@
                         <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                         <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                         <h3>Désolé la liste est actuellement vide.</h3>
-                        <p class="is-larger">Veuillez creer/ajouter un paiement pour qu'il soit afficher.</p>
+                        <p class="is-larger">Veuillez créer/ajouter un paiement pour qu'il soit afficher.</p>
                     </div>
                 </div>
                 
@@ -156,7 +156,7 @@
                         <span>Preuve</span>
                         <span>Membre</span>
                         <span>Date</span>
-                        <span>Methode de paiement</span>
+                        <span>Méthode de paiement</span>
                         <span>Statut</span>
                         <!-- <span>Action</span> -->
                     </div>
@@ -179,7 +179,7 @@
                                 <span class="light-text" data-filter-match="">{{ payment.date }}</span>
                             </div>
 
-                            <div class="flex-table-cell" data-th="Methode de paiement">
+                            <div class="flex-table-cell" data-th="Méthode de paiement">
                                 <span class="light-text" data-filter-match="">{{ payment.paymentMethod.label }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Statut">
@@ -258,7 +258,7 @@
                         <span>Utilisateur</span>
                         <span>Montant payé(FCFA)</span>
                         <span>Reste à payer(FCFA)</span>
-                        <span>A jour</span>
+                        <span>À jour</span>
                         <!-- <span>Action</span> -->
                     </div>
                     <div class="flex-list-inner">
@@ -283,7 +283,7 @@
                                 <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
                             </div>
      
-                            <div class="flex-table-cell" data-th="A jour">
+                            <div class="flex-table-cell" data-th="À jour">
                                 <span class="tag is-rounded is-danger" *ngIf="user.upToDate === false">non</span>
                                 <span class="tag is-rounded is-success" *ngIf="user.upToDate === true">oui</span>
                             </div>
@@ -351,7 +351,7 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="paymentUpdateForm.get('proof')?.errors?.['required'] && paymentUpdateForm.get('proof')?.touched">
-                                <small class="text-police">veuillez entrer la raison de la cotisation</small>
+                                <small class="text-police">veuillez entrer la preuve de la cotisation</small>
                              </div>
                         </div>
                         <div class="control login">
@@ -373,7 +373,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modification du statut de payment</h3>
+                <h3>Modification du statut de paiement</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdatePaymentStatusModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -387,7 +387,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="paymentUpdateStatusForm" (ngSubmit)="onSubmitUpdatePaymentStatus()">
                         <div class="field">
-                            <label>Participants *</label>
+                            <label>Statut *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="status" [(ngModel)]="ngSelect">
                                 <option value="0" disabled>--Selectionnez un statut de paiement--</option>
                                 <option *ngIf="isController" value="CONTROLE"> <span> CONTROLÉ </span> </option>

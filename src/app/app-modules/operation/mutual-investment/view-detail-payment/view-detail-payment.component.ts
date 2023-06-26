@@ -282,7 +282,7 @@ export class ViewDetailPaymentComponent implements OnInit {
           this.closePaymentModal();
           this.utilityService.showMessage(
             'success',
-            'Paiement effectue avec succes !',
+            'Paiement effectué avec succès !',
             '#06d6a0',
             'white'
           );

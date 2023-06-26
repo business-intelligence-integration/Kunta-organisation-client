@@ -441,10 +441,6 @@ export class MutualInvestmentComponent implements OnInit {
 
   createAMutualInvestment(mutualInvestment: MutualInvestment, idDraweeForm: number, idRefundType: number, idProfitabilityType: number, idCenter:number, idFrequency: number, idMutualist: number){
     this.mutualInvestmentService.createMutualInvestment(mutualInvestment, idDraweeForm, idRefundType, idProfitabilityType, idCenter, idFrequency, idMutualist).subscribe((res)=>{
-      console.log("creation:: ", res);
-      console.log("idDraweeForm: ", idDraweeForm,"idRefundType: ", idRefundType,"idProfitabilityType: ", "idProfitabilityType: ", idProfitabilityType, "idCenter: ", idCenter, "idFrequency: ", idFrequency,"idMutualist: ", idMutualist);
-      console.log("backend:: ", mutualInvestment);
-      
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -460,7 +456,7 @@ export class MutualInvestmentComponent implements OnInit {
           this.cancelCreatingMutualInvestment();
           this.utilityService.showMessage(
             'success',
-            'Placement mutualisé crée avec succès !',
+            'Placement mutualisé créé avec succès !',
             '#06d6a0',
             'white'
           );
@@ -715,7 +711,7 @@ export class MutualInvestmentComponent implements OnInit {
           this.onCloseUpdateModal();
           this.utilityService.showMessage(
             'success',
-            'Placement mis a jour avec succès',
+            'Placement mis à jour avec succès',
             '#06d6a0',
             'white'
           );
@@ -723,7 +719,7 @@ export class MutualInvestmentComponent implements OnInit {
       } else {
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite, verifier votre saisis',
+          'Une erreur s\'est produite, verifiez votre saisis',
           '#e62965',
           'white'
         );
@@ -756,7 +752,7 @@ export class MutualInvestmentComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -812,7 +808,7 @@ export class MutualInvestmentComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -1024,7 +1020,7 @@ export class MutualInvestmentComponent implements OnInit {
             this.onCloseGenerateModal();
             this.utilityService.showMessage(
               'success',
-              'Date(s) generée(s) avec succès',
+              'Date(s) générée(s) avec succès',
               '#06d6a0',
               'white'
             );
@@ -1058,8 +1054,6 @@ export class MutualInvestmentComponent implements OnInit {
       } else {
         this.mutualInvestmentService.setRefundDatesManually(this.refund, this.idInvestment).subscribe((res)=>{
           this.isSaving = false;
-          console.log("Refund differer:: ", res);
-          
           if(res) {
             if (res.data == null ) {
               this.utilityService.showMessage(
@@ -1175,9 +1169,6 @@ export class MutualInvestmentComponent implements OnInit {
 
   createPercentages(distributionPercentage: DistributionPercentage, idMutualInvestment: number){
     this.mutualInvestmentService.getDistributionPercentage(distributionPercentage, idMutualInvestment).subscribe((res)=>{
-      console.log("% res:: ", res);
-      console.log("Pourcentages:: ", distributionPercentage);
-      
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -1290,7 +1281,7 @@ export class MutualInvestmentComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
