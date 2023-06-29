@@ -26,7 +26,7 @@
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                 <h3>Désolé la liste est actuellement vide.</h3>
-                <p class="is-larger">Veuillez creer un club pour qu'il soit afficher.</p>
+                <p class="is-larger">Veuillez créer un club pour qu'il soit afficher.</p>
             </div>
         </div>
 
@@ -36,9 +36,9 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span>id</span>
                 <span>Appelation</span>
-                <span>Reference</span>
+                <span>Référence</span>
                 <span>Membre(s)</span>
-                <span>Date de creation</span>
+                <span>Date de création</span>
                 <span>Observation</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -52,14 +52,14 @@
                     <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ club.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Reference">
+                    <div class="flex-table-cell" data-th="Référence">
                         <span class="light-text" data-filter-match="">{{ club.reference }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Membre(s)">
                         <span class="light-text" data-filter-match="">{{ club.members.length }}</span>
                         <a (click)="onAddMember(club.id)" tooltip=" Ajouter un membre " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Date de creation">
+                    <div class="flex-table-cell" data-th="Date de création">
                         <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Observation">
@@ -129,24 +129,24 @@
                         </div>
 
                         <div class="field">
-                            <label>Reférence *</label><br>
+                            <label>Référence *</label><br>
                             <div class="control">
-                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                                <input type="text" class="input" placeholder="Référence" formControlName="reference">
                             </div>
                             <div class="text-danger"
                                 *ngIf="addClubForm.get('reference')?.errors?.['required'] && addClubForm.get('reference')?.touched">
-                                <small class="text-police" translate>entrer la reférence du centre</small>
+                                <small class="text-police" translate>entrer la référence du centre</small>
                             </div>
                         </div>
                         <div class="field">
-                            <label>Date de creation *</label><br>
+                            <label>Date de création *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="creationDate" type="date" id="DOB" name="DOB" max="{{ maxCreationClubDate }}"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addClubForm.get('creationDate')?.errors?.['required'] && addClubForm.get('creationDate')?.touched">
-                             <small class="text-police" translate>selectionner la date de création</small>
+                             <small class="text-police" translate>sélectionner la date de création</small>
                            </div>
                         </div>
                         
@@ -209,13 +209,13 @@
                             </div>
                         </div><br>
                         <div class="field">
-                            <label>Reference *</label><br>
+                            <label>Référence *</label><br>
                             <div class="control">
-                                <input type="text" class="input" [(ngModel)]="club.reference" placeholder="Reference" formControlName="reference">
+                                <input type="text" class="input" [(ngModel)]="club.reference" placeholder="Référence" formControlName="reference">
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateClubForm.get('reference')?.errors?.['required'] && updateClubForm.get('reference')?.touched">
-                                <small class="text-police" translate>Entrer la reference du centre</small>
+                                <small class="text-police" translate>Entrer la référence du centre</small>
                             </div>
                         </div><br>
                         <div class="field">
@@ -268,11 +268,11 @@
                                     [data]="members"
                                     id="member"
                                     formControlName="id"
-                                    placeholder="--Selectionnez un membre--">
+                                    placeholder="--Sélectionnez un membre--">
                             </select2>
                             <div class="text-danger"
                             *ngIf="addMemberForm.get('id')?.errors?.['required'] && addMemberForm.get('id')?.touched">
-                            <small class="text-police" translate>Selectionnez un membre</small>
+                            <small class="text-police" translate>Sélectionnez un membre</small>
                             </div>
                         </div><br>
                         <div class="control login">

@@ -415,7 +415,7 @@ export class ViewMoreComponent implements OnInit {
       this.getClub();
       this.utilityService.showMessage(
         'success',
-        'Le status de l\'utilisateur a été modifié avec succès !',
+        'Le statut de l\'utilisateur a été modifié avec succès !',
         '#06d6a0',
         'white'
       );

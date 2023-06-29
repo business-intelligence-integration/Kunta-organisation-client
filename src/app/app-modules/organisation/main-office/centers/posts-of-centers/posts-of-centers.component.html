@@ -1,6 +1,6 @@
 <div class="list-flex-toolbar">
     <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <input class="input custom-text-filter" placeholder="Rechercher..." data-filter-target=".flex-table-item">
         <div class="form-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
@@ -26,7 +26,7 @@
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                 <h3>Désolé la liste est actuellement vide.</h3>
-                <p class="is-larger">Veuillez creer/ajouter un element pour qu'il soit afficher.</p>
+                <p class="is-larger">Veuillez créer/ajouter un élément pour qu'il soit afficher.</p>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
                 </div>
                 <div class="flex-table-cell" data-th="Nbre d'opérateur actuel">
                     <span class="light-text" data-filter-match="">{{ post.operators.length }}</span>
-                    <a (click)="onOpenAddOperatorModal(post.id)" tooltip=" Ajouter un operateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                    <a (click)="onOpenAddOperatorModal(post.id)" tooltip=" Ajouter un opérateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     <a _ngcontent-nct-c62="" [routerLink]="['/view-post-members']"
                     [queryParams]="{id: post.id}" tooltip=" Voir details " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                 </div>
@@ -97,7 +97,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout d'un operateur</h3>
+                <h3>Ajout d'un opérateur</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeOperatorModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

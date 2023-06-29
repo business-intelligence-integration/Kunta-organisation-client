@@ -188,7 +188,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -205,7 +205,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
               this.findAllPaymentsOfASession();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
-                text: 'Payment a été supprimé.',
+                text: 'Paiement a été supprimé.',
                 confirmButtonColor: '#198AE3',
               });
             },

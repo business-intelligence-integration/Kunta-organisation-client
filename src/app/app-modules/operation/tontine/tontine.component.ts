@@ -211,7 +211,7 @@ export class TontineComponent implements OnInit {
           this.createTontineForm.reset();
           this.utilityService.showMessage(
             'success',
-            'Tontine créé avec succès',
+            'Tontine créée avec succès',
             '#06d6a0',
             'white'
           );
@@ -253,7 +253,7 @@ export class TontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -496,7 +496,7 @@ export class TontineComponent implements OnInit {
           this.closeUpdateTontineModal();
           this.utilityService.showMessage(
             'success',
-            'Tontine mis a jour avec succès',
+            'Tontine mis à jour avec succès',
             '#06d6a0',
             'white'
           );
@@ -649,14 +649,14 @@ export class TontineComponent implements OnInit {
       if(res.data.status.label == "FERMÉ"){
         this.utilityService.showMessage(
           'success',
-          'Fermeture réussie de la Tontine',
+          'Fermeture réussie de la tontine',
           '#06d6a0',
           'white'
         );
       }else if(res.data.status.label == "OUVERT"){
         this.utilityService.showMessage(
           'success',
-          'Ouverture réussie de la Tontine',
+          'Ouverture réussie de la tontine',
           '#06d6a0',
           'white'
         );

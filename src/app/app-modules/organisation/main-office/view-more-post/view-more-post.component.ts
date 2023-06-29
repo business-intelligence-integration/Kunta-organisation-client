@@ -231,7 +231,7 @@ export class ViewMorePostComponent implements OnInit {
           this.onCloseUpdateModal();
           this.utilityService.showMessage(
             'success',
-            'Centre du Bureau Principal mis a jour avec succès !',
+            'Centre du Bureau Principal mis à jour avec succès !',
             '#06d6a0',
             'white'
           );

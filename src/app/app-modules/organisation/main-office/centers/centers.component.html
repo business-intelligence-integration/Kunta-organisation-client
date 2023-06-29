@@ -1,7 +1,7 @@
 <div class="list-flex-toolbar">
     <form [formGroup]="searchForm">
         <div class="control has-icon">
-            <input class="input custom-text-filter" (ngModelChange)="searchCenters()" formControlName="name" placeholder="Appelation..." data-filter-target=".flex-table-item">
+            <input class="input custom-text-filter" (ngModelChange)="searchCenters()" formControlName="name" placeholder="Rechercher..." data-filter-target=".flex-table-item">
             <div class="form-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </div>
@@ -30,7 +30,7 @@
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                 <h3>Désolé la liste est actuellement vide.</h3>
-                <p class="is-larger">Veuillez creer un centre pour qu'il soit afficher.</p>
+                <p class="is-larger">Veuillez créer un centre pour qu'il soit afficher.</p>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
             <div class="flex-table-header" data-filter-hide="">
                 <!-- <span class="is-grow">Id</span> -->
                 <span>Appelation</span>
-                <span>Reference</span>
+                <span>Référence</span>
                 <span>Zone(s)</span>
                 <span>Club(s)</span>
                 <span>Membre(s)</span>
@@ -54,7 +54,7 @@
                     <div class="flex-table-cell" data-th="Appelation">
                         <span class="light-text" data-filter-match="">{{ center?.name }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Reference">
+                    <div class="flex-table-cell" data-th="Référence">
                         <span class="light-text" data-filter-match="">{{ center?.reference }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Zone(s)">
@@ -134,24 +134,24 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label>Reférence *</label><br>
+                            <label>Référence *</label><br>
                             <div class="control">
-                                <input type="text" class="input" placeholder="Reférence" formControlName="reference">
+                                <input type="text" class="input" placeholder="Référence" formControlName="reference">
                             </div>
                             <div class="text-danger"
                                 *ngIf="addCenterForm.get('reference')?.errors?.['required'] && addCenterForm.get('reference')?.touched">
-                                <small class="text-police" translate>entrer la reférence du centre</small>
+                                <small class="text-police" translate>entrer la référence du centre</small>
                             </div>
                         </div>
                         <div class="field">
-                            <label>Date de creation *</label><br>
+                            <label>Date de création *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="creationDate" max="{{ maxCreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="addCenterForm.get('creationDate')?.errors?.['required'] && addCenterForm.get('creationDate')?.touched">
-                             <small class="text-police" translate>selectionner la date de création</small>
+                             <small class="text-police" translate>sélectionnez la date de création</small>
                            </div>
                         </div>
 
@@ -208,13 +208,13 @@
                             </div>
                         </div><br>
                         <div class="field">
-                            <label>Reference *</label><br>
+                            <label>Référence *</label><br>
                             <div class="control">
-                                <input type="text" class="input" [(ngModel)]="center.reference" placeholder="Reference" formControlName="reference">
+                                <input type="text" class="input" [(ngModel)]="center.reference" placeholder="Référence" formControlName="reference">
                             </div>
                             <div class="text-danger"
                                 *ngIf="updateCenterForm.get('reference')?.errors?.['required'] && updateCenterForm.get('reference')?.touched">
-                                <small class="text-police">Entrer la reference du centre</small>
+                                <small class="text-police">Entrer la référence du centre</small>
                             </div>
                         </div><br>
                         <div class="field">
@@ -264,12 +264,12 @@
                             <div>
                                 <label>Zone *</label><br>
                                 <select class="input_comp" formControlName="idArea" aria-label="Default select example"  [(ngModel)]="ngSelectArea">
-                                    <option value="0" disabled>--selectionner une zone--</option>
+                                    <option value="0" disabled>--sélectionner une zone--</option>
                                     <option *ngFor="let area of areas" [value]="area.id" >{{ area.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="addAreaForm.get('idArea')?.errors?.['required'] && addAreaForm.get('idArea')?.touched">
-                                <small class="text-police" translate>selectionner une zone</small>
+                                <small class="text-police" translate>sélectionner une zone</small>
                                 </div>
                             </div><br>
 

@@ -201,7 +201,7 @@ getAllCenters(){
           this.getAllAreas();
           this.utilityService.showMessage(
             'success',
-            'Zone mise a jour avec succès !',
+            'Zone mise à jour avec succès !',
             '#06d6a0',
             'white'
           );
@@ -268,7 +268,7 @@ getAllCenters(){
             () => {
               swalWithBootstrapButtons.fire({
                 title: 'Annulé',
-                text: 'Une erreure s\'est produite',
+                text: 'Une erreur s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
@@ -333,7 +333,7 @@ getAllCenters(){
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'Une erreure s\'est produite',
+        'Une erreur s\'est produite',
         '#e62965',
         'white'
       );

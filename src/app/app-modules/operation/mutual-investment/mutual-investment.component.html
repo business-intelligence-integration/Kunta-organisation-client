@@ -1,6 +1,6 @@
 <div class="list-flex-toolbar" *ngIf="!createMutualInvestment">
     <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <input class="input custom-text-filter" placeholder="Rechercher..." data-filter-target=".flex-table-item">
         <div class="form-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
@@ -26,7 +26,7 @@
                 <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                 <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                 <h3>Désolé la liste est actuellement vide.</h3>
-                <p class="is-larger">Veuillez creer/ajouter un placement pour qu'il soit afficher.</p>
+                <p class="is-larger">Veuillez créer/ajouter un placement pour qu'il soit afficher.</p>
             </div>
         </div>
         
@@ -373,7 +373,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout Offre</h3>
+                <h3>Ajouter une offre</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionOfferModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -389,7 +389,7 @@
                         <div class="field">
                             <label>Niveau de risque *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfile" [(ngModel)]="ngSelect7">
-                                <option value="0" disabled>--Selectionnez un niveau de risque--</option>
+                                <option value="0" disabled>--Sélectionnez un niveau de risque--</option>
                                 <option *ngFor="let risk of riskProfiles" [value]="risk.id"> <span> {{ risk.riskLevel }}  </span> </option>
                             </select>
                             <div class="text-danger"
@@ -401,7 +401,7 @@
                         <div class="field">
                             <label>Type de rentabilité *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect8" (ngModelChange)="onOfferProfitabilitySelected($event)">
-                                <option value="0" disabled>--Selectionnez un type de rentabilité--</option>
+                                <option value="0" disabled>--Sélectionnez un type de rentabilité--</option>
                                 <option *ngFor="let profitability of profitabilityTypes" [value]="profitability.id"> <span> {{ profitability.label }}  </span> </option>
                             </select>
                             <div class="text-danger"
@@ -449,7 +449,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout Caution</h3>
+                <h3>Ajouter une caution</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSecurityDepositModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -597,14 +597,14 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="refundForm" (ngSubmit)="onSubmitRefund()">
                         <div class="field">
-                            <label>Methodes de paiement *</label>
+                            <label>Méthodes de paiement *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelect10">
-                                <option value="0" disabled>--Selectionnez une methode de paiement --</option>
+                                <option value="0" disabled>--Sélectionnez une méthode de paiement --</option>
                                 <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }} </span> </option>
                             </select>
                             <div class="text-danger"
                                     *ngIf="refundForm.get('idPaymentMethod')?.errors?.['required'] && refundForm.get('idPaymentMethod')?.touched">
-                                    <small class="text-police">veuillez sélectionner une methode de paiement</small>
+                                    <small class="text-police">veuillez sélectionner une méthode de paiement</small>
                             </div>
                         </div>
                         <div class="field">
@@ -928,7 +928,7 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Date de debut: </label>
+                                    <label>Date de début: </label>
                                     <label> <b>{{mutualInvestment.startDate}}</b> </label>
                                 </div>
                             </div>
@@ -953,13 +953,13 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Montant Initial (CFA): </label>
+                                    <label>Montant initial (CFA): </label>
                                     <label> <b>{{mutualInvestment.minimumAmount}} CFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Montant Collecté (CFA): </label>
+                                    <label>Montant collecté (CFA): </label>
                                     <label> <b>{{mutualInvestment.collectedAmount}} CFA</b> </label>
                                 </div>
                             </div>
@@ -983,7 +983,7 @@
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">
                                 <div class="field">
-                                    <label>Nom du representant: </label>
+                                    <label>Nom du répresentant: </label>
                                     <label> <b>{{mutualInvestment.mutOrganism.firstNameRepre}} {{mutualInvestment.mutOrganism.lastNameRepre}}</b> </label>
                                 </div>
                             </div>

@@ -178,14 +178,14 @@ export class CentersComponent implements OnInit {
                this.getAllCenters();
                swalWithBootstrapButtons.fire({
                  title: 'Supprimé !',
-                 text: 'Centre a été supprimé.',
+                 text: 'Le centre a été supprimé!',
                  confirmButtonColor: '#198AE3',
                });
              },
              () => {
                swalWithBootstrapButtons.fire({
                  title: 'Annulé',
-                 text: 'Une erreure s\'est produite',
+                 text: 'Une erreur s\'est produite',
                  confirmButtonColor: '#d33',
                });
              }
@@ -284,7 +284,7 @@ export class CentersComponent implements OnInit {
           this.onCloseUpdateModale();
           this.utilityService.showMessage(
             'success',
-            'Centre mis a jour avec succès !',
+            'Centre mis à jour avec succès !',
             '#06d6a0',
             'white'
           );
@@ -349,7 +349,7 @@ export class CentersComponent implements OnInit {
       this.isSaving = false;
       this.utilityService.showMessage(
         'warning',
-        'Une erreure s\'est produite',
+        'Une erreur s\'est produite',
         '#e62965',
         'white'
       );

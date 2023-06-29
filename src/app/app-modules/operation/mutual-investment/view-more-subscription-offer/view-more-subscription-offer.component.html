@@ -92,7 +92,7 @@
             
             <div class="list-flex-toolbar">
                 <div class="control has-icon">
-                    <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+                    <input class="input custom-text-filter" placeholder="Rechercher..." data-filter-target=".flex-table-item">
                     <div class="form-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </div>
@@ -118,7 +118,7 @@
                             <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                             <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                             <h3>Désolé la liste est actuellement vide.</h3>
-                            <p class="is-larger">Veuillez creer/ajouter une offre pour qu'elle soit afficher.</p>
+                            <p class="is-larger">Veuillez créer/ajouter une offre pour qu'elle soit afficher.</p>
                         </div>
                     </div>
                     
@@ -198,7 +198,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout Offre</h3>
+                <h3>Ajouter une offre</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionOfferModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -214,7 +214,7 @@
                         <div class="field">
                             <label>Niveau de risque *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfile" [(ngModel)]="ngSelect3">
-                                <option value="0" disabled>--Selectionnez un niveau de risque--</option>
+                                <option value="0" disabled>--Sélectionnez un niveau de risque--</option>
                                 <option *ngFor="let risk of riskProfiles" [value]="risk.id"> <span> {{ risk.riskLevel }}  </span> </option>
                             </select>
                             <div class="text-danger"
@@ -226,7 +226,7 @@
                         <div class="field">
                             <label>Type de rentabilité *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelect4" (ngModelChange)="onOfferProfitabilitySelected($event)">
-                                <option value="0" disabled>--Selectionnez un type de rentabilité--</option>
+                                <option value="0" disabled>--Sélectionnez un type de rentabilité--</option>
                                 <option *ngFor="let profitability of profitabilityTypes" [value]="profitability.id"> <span> {{ profitability.label }}  </span> </option>
                             </select>
                             <div class="text-danger"
@@ -281,7 +281,7 @@
                     <form class="modal-form" [formGroup]="updateOfferForm" (ngSubmit)="onSubmitUpdateOfferForm(offer.id)">
                         <div class="text-danger"
                             *ngIf="offer.profitabilityType.label == 'INCERTAIN' ">
-                            <small class="text-police" *ngIf="!percentageOkay" >Aucune mise a jour possible sur cet offre.</small>
+                            <small class="text-police" *ngIf="!percentageOkay" >Aucune mise à jour possible sur cet offre car le type de rentabilité est Incertain.</small>
                         </div>
                         <div class="field" *ngIf="offer.profitabilityRate">
                             <label>Taux de rentabilité (%)</label>
@@ -316,7 +316,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Ajout Souscription </h3>
+                <h3>Ajouter une souscription </h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSubscriptionModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

@@ -454,7 +454,7 @@ export class MutualInvestmentComponent implements OnInit {
           this.cancelCreatingMutualInvestment();
           this.utilityService.showMessage(
             'success',
-            'Placement mutualisé crée avec succès !',
+            'Placement mutualisé créé avec succès !',
             '#06d6a0',
             'white'
           );
@@ -707,7 +707,7 @@ export class MutualInvestmentComponent implements OnInit {
           this.onCloseUpdateModal();
           this.utilityService.showMessage(
             'success',
-            'Placement mis a jour avec succès',
+            'Placement mis à jour avec succès',
             '#06d6a0',
             'white'
           );
@@ -715,7 +715,7 @@ export class MutualInvestmentComponent implements OnInit {
       } else {
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite, verifier votre saisis',
+          'Une erreur s\'est produite, verifiez votre saisis',
           '#e62965',
           'white'
         );
@@ -748,7 +748,7 @@ export class MutualInvestmentComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -804,7 +804,7 @@ export class MutualInvestmentComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -1012,7 +1012,7 @@ export class MutualInvestmentComponent implements OnInit {
             this.onCloseGenerateModal();
             this.utilityService.showMessage(
               'success',
-              'Date(s) generée(s) avec succès',
+              'Date(s) générée(s) avec succès',
               '#06d6a0',
               'white'
             );
@@ -1270,7 +1270,7 @@ export class MutualInvestmentComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,

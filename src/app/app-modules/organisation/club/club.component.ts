@@ -205,7 +205,7 @@ export class ClubComponent implements OnInit {
             () => {
               swalWithBootstrapButtons.fire({
                 title: 'Annulé',
-                text: 'Une erreure s\'est produite',
+                text: 'Une erreur s\'est produite',
                 confirmButtonColor: '#d33',
               });
             }
@@ -245,7 +245,7 @@ export class ClubComponent implements OnInit {
           this.onCloseUpdateModal();
           this.utilityService.showMessage(
             'success',
-            'Club mis a jour avec succès',
+            'Club mis à jour avec succès',
             '#06d6a0',
             'white'
           );

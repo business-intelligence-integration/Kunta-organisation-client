@@ -72,7 +72,6 @@ export class DetailCycleComponent implements OnInit {
       this.homeSider = "";
       this.isPushed = "";
     }
-
   }
 
   findAllCyclesOfTontine(){
@@ -95,8 +94,6 @@ export class DetailCycleComponent implements OnInit {
         }
       })
     })
-    
-    
   }
 
   getTontine(id: number){
@@ -111,7 +108,7 @@ export class DetailCycleComponent implements OnInit {
        })
      })
    });
- }
+  }
 
   onUpdateCycle(id: number){
     this.cycleService.findCycleById(id).subscribe((res)=>{
@@ -151,7 +148,7 @@ export class DetailCycleComponent implements OnInit {
           this.closeCycleModal()
           this.utilityService.showMessage(
             'success',
-            'Cycle successfully updated',
+            'Cycle mis à jour avec succès !',
             '#06d6a0',
             'white'
           );
@@ -193,25 +190,24 @@ export class DetailCycleComponent implements OnInit {
         }
       })
 
-     if(!paymentIsOkay){
-      this.utilityService.showMessage(
-        'warning',
-        'Désolé vous ne pouvez pas fermer ce cycle car il y a encore des séances en cours !',
-        '#e62965',
-        'white'
-      );
-     }else{
-      this.cycleService.closeCycleById(idCycle).subscribe(()=>{
-        this.findAllCyclesOfTontine();
+      if(!paymentIsOkay){
         this.utilityService.showMessage(
-          'success',
-          'Le cycle a bien été fermé et ne poura plus être ouvert !',
-          '#06d6a0',
+          'warning',
+          'Désolé vous ne pouvez pas fermer ce cycle car il y a encore des séances en cours !',
+          '#e62965',
           'white'
         );
-      })
-     }
-      
+      }else{
+        this.cycleService.closeCycleById(idCycle).subscribe(()=>{
+          this.findAllCyclesOfTontine();
+          this.utilityService.showMessage(
+            'success',
+            'Le cycle a bien été fermé et ne poura plus être ouvert !',
+            '#06d6a0',
+            'white'
+          );
+        })
+      }
     })
   }
 }

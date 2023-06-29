@@ -149,7 +149,7 @@
                             <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
                             <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
                             <h3>Désolé la liste est actuellement vide.</h3>
-                            <p class="is-larger">Veuillez creer/ajouter un element pour qu'il soit afficher.</p>
+                            <p class="is-larger">Veuillez créer/ajouter un élément pour qu'il soit afficher.</p>
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@
                         <div class="flex-table-header" data-filter-hide="">
                             <span class="is-grow">Id</span>
                             <span>Appelation</span>
-                            <span>Reference</span>
+                            <span>Référence</span>
                             <span>Observation</span>
                             <span>Membre(s)</span>
                             <span>Date de création</span>
@@ -180,7 +180,7 @@
                                 <div class="flex-table-cell" data-th="Appelation">
                                     <span class="light-text" data-filter-match="">{{ club.name }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Reference">
+                                <div class="flex-table-cell" data-th="Référence">
                                     <span class="light-text" data-filter-match="">{{ club.reference }}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Observation">
@@ -189,7 +189,7 @@
                                 <div class="flex-table-cell" data-th="Membre(s)">
                                     <span class="light-text" data-filter-match="">{{ club.members.length }}</span>
                                 </div>
-                                <div class="flex-table-cell" data-th="Date de creation">
+                                <div class="flex-table-cell" data-th="Date de création">
                                     <span class="light-text" data-filter-match="">{{ club.creationDate }}</span>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Actions">
@@ -253,7 +253,7 @@
                     <form class="modal-form" [formGroup]="addClubForm" (ngSubmit)="onSubmitclub()">
                         <label>Clubs *</label>
                         <select class="input_comp" aria-label="Default select example" formControlName="id" [(ngModel)]="ngSelect">
-                            <option value="0" disabled>--Selectionnez un club--</option>
+                            <option value="0" disabled>--Sélectionnez un club--</option>
                             <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
                         </select><br><br>
                
@@ -295,12 +295,12 @@
                             <div> 
                                 <label>Zone *</label><br>
                                 <select class="input_comp" formControlName="idArea" aria-label="Default select example"  [(ngModel)]="ngSelectChangeArea">
-                                    <option value="0" disabled>--selectionner une zone--</option>
+                                    <option value="0" disabled>--sélectionner une zone--</option>
                                     <option *ngFor="let area of areas" [value]="area.id" >{{ area.name }}</option>
                                 </select>
                                 <div class="text-danger"
                                 *ngIf="changeAreaForm.get('idArea')?.errors?.['required'] && changeAreaForm.get('idArea')?.touched">
-                                <small class="text-police" translate>selectionner une zone</small>
+                                <small class="text-police" translate>sélectionner une zone</small>
                                 </div>
                             </div>
                         </div><br>

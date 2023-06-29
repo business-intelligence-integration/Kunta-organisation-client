@@ -405,7 +405,7 @@ export class UserComponent implements OnInit {
           this.closeUpdateUserModal();
           this.utilityService.showMessage(
             'success',
-            'Utilisateur mis a jour avec succès !',
+            'Utilisateur mis à jour avec succès !',
             '#06d6a0',
             'white'
           );
@@ -610,7 +610,7 @@ export class UserComponent implements OnInit {
           this.addUserForm.reset();
           this.utilityService.showMessage(
             'success',
-            'Operator crée avec succès !',
+            'Opérateur crée avec succès !',
             '#06d6a0',
             'white'
           );
@@ -938,8 +938,7 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserCategory(idCategory: number){
-    console.log('idCategory:: ', idCategory)
-    if(idCategory == 0){
+    if(idCategory == 0 || idCategory == 9999){
       this.getAllUsers();
     }else{
       this.findUsersByIdCategory(idCategory);
@@ -947,7 +946,7 @@ export class UserComponent implements OnInit {
   }
 
   onSelectUserType(idType: number){
-    if(idType == 0){
+    if(idType == 0 || idType == 9999){
       this.getAllUsers();
     }else{
       this.findUsersByIdType(idType);
@@ -955,13 +954,50 @@ export class UserComponent implements OnInit {
   }
 
   searchUsers(){
-    this.findUsersByLastNameOrFirstNameOrPhoneNumber(this.searchForm.value.firstName, this.searchForm.value.lastName, this.searchForm.value.phoneNumber);
+    if(this.searchForm.value.firstName) {
+      this.findUsersByLastNameOrFirstNameOrPhoneNumber(this.searchForm.value.firstName, "", "");
+    } else if(this.searchForm.value.lastName) {
+      this.findUsersByLastNameOrFirstNameOrPhoneNumber("", this.searchForm.value.lastName, "");
+    } else if(this.searchForm.value.phoneNumber) {
+      this.findUsersByLastNameOrFirstNameOrPhoneNumber("", "", this.searchForm.value.phoneNumber);
+    } else {
+      this.getAllUsers();
+    }
+    // this.findUsersByLastNameOrFirstNameOrPhoneNumber(this.searchForm.value.firstName, this.searchForm.value.lastName, this.searchForm.value.phoneNumber);
   }
 
   findUsersByLastNameOrFirstNameOrPhoneNumber(firstName: string, lastName: string, phoneNumber: string){
+    this.loaderService.showLoader();
     this.userService.findUsersByLastNameOrFirstNameOrPhoneNumber(firstName, lastName, phoneNumber).subscribe((res)=>{
-      this.users = [];
-      this.users = res?.data;
+      this.loaderService.hideLoader();
+      if(res == null) {
+        this.utilityService.showMessage(
+          'warning',
+          'Aucun utilisateur retrouvé !',
+          '#e62965',
+          'white'
+        );
+      } else {
+        if(res.data.length > 0) {
+          this.users = [];
+          this.users = res?.data;
+        } else {
+          this.utilityService.showMessage(
+            'warning',
+            'Aucun utilisateur retrouvé !',
+            '#e62965',
+            'white'
+          );
+        }
+      }
+    }, (err) => {
+      this.loaderService.hideLoader();
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
     })
   }
 
@@ -1083,14 +1119,14 @@ export class UserComponent implements OnInit {
       if(res.data == null){
         this.utilityService.showMessage(
           'warning',
-          'Vous ne pouvez pas ajouter 2 fois le même role à l\'utilisateur !',
+          'Vous ne pouvez pas ajouter 2 fois le même rôle à l\'utilisateur !',
           '#e62965',
           'white'
         );
       }else{
         this.utilityService.showMessage(
           'success',
-          'Le role a été ajouté à l\'utilisateur avec succès !',
+          'Le rôle a été ajouté à l\'utilisateur avec succès !',
           '#06d6a0',
           'white'
         );

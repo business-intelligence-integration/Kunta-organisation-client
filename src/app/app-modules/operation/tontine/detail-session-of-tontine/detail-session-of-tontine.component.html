@@ -171,7 +171,7 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        Date de cloture
+                                        Date de clôture
                                     </label>
                                     <div class="control-end">
                                         <span class="tag is-rounded">{{ cycle.endDate }}</span>
@@ -209,7 +209,7 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        Nombre de séances passée
+                                        Nombre de séances passées
                                     </label>
                                     <div class="control-end">
                                         <span class="tag is-rounded">{{ cycle.numberOfSessionPassed }}</span>
@@ -337,7 +337,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Cotisation</h3>
+                <h3>Côtisation</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closePaymentModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -367,23 +367,23 @@
                         <div class="field">
                             <label>Méthode de paiement*</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPaymentMethod" [(ngModel)]="ngSelectPaymentMethod">
-                                <option value="0" disabled>--Selectionnez une méthode de paiement--</option>
+                                <option value="0" disabled>--Sélectionner une méthode de paiement--</option>
                                 <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"> <span> {{ paymentMethod.label }}</span> </option>
                             </select>
 
                             <div class="text-danger"
                                 *ngIf="paymentForm.get('idPaymentMethod')?.errors?.['required'] && paymentForm.get('idPaymentMethod')?.touched">
-                                <small class="text-police">veuillez selectionner une méthode de paiement</small>
+                                <small class="text-police">veuillez sélectionner une méthode de paiement</small>
                              </div>
                         </div>
                         <div class="field">
-                            <label>Montant cotisé*</label><br>
+                            <label>Montant côtisé*</label><br>
                             <div class="control">
                                 <input type="number" class="input" placeholder="Montant" formControlName="amount">
                             </div>
                             <div class="text-danger"
                                 *ngIf="paymentForm.get('amount')?.errors?.['required'] && paymentForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant cotisé</small>
+                                <small class="text-police">veuillez entrer le montant côtisé</small>
                              </div>
                         </div>
                         
@@ -394,19 +394,19 @@
                             </div>
                             <div class="text-danger"
                                 *ngIf="paymentForm.get('proof')?.errors?.['required'] && paymentForm.get('proof')?.touched">
-                                <small class="text-police">veuillez entrer la preuve de la cotisation</small>
+                                <small class="text-police">veuillez entrer la preuve de la côtisation</small>
                              </div>
                         </div>
 
                         <div class="field">
-                            <label>Date de cotisation *</label><br>
+                            <label>Date de côtisation *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input formControlName="date" class="champ" type="date" id="DOB" name="DOB" [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="paymentForm.get('date')?.errors?.['required'] && paymentForm.get('date')?.touched">
-                             <small class="text-police" translate>selectionner la date de paiement</small>
+                             <small class="text-police" translate>sélectionner la date de paiement</small>
                            </div>
                         </div>
                         <div class="control login">
@@ -459,7 +459,7 @@
                         <div class="field">
                             <label>Pénalité à appliquer  *</label>
                             <select class="input_comp color-border" aria-label="Default select example" formControlName="idPenaltyType" [(ngModel)]="ngSelect3">
-                                <option value="0" disabled>--Selectionnez pénalité--</option>
+                                <option value="0" disabled>--Sélectionnez pénalité--</option>
                                 <option *ngFor="let penalityType of penalityTypes" [value]="penalityType.id"> <span> {{ penalityType.label }} - {{ penalityType.amount }} FCFA</span> </option>
                             </select>
                         </div>
@@ -472,7 +472,7 @@
                                 </div>
                            </div>
                            <div class="text-danger" *ngIf="penalityForm.get('date')?.errors?.['required'] && penalityForm.get('date')?.touched">
-                             <small class="text-police" translate>selectionner la date de paiement</small>
+                             <small class="text-police" translate>sélectionner la date de paiement</small>
                            </div>
                         </div>
                         <div class="control login">
@@ -494,7 +494,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Modification de la date limite de cotisation</h3>
+                <h3>Modification de la date limite de côtisation</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="closeUpdateContributionDeadlineModalModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -517,7 +517,7 @@
                                         </div>
                                    </div>
                                    <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('contributionDeadline')?.errors?.['required'] && updateContributionDeadlineForm.get('contributionDeadline')?.touched">
-                                     <small class="text-police">selectionner la date limite de cotisation</small>
+                                     <small class="text-police">sélectionner la date limite de côtisation</small>
                                    </div>
                                 </div>
                                 <div class="col-md-6">
@@ -528,7 +528,7 @@
                                         </div>
                                    </div>
                                    <div class="text-danger" *ngIf="updateContributionDeadlineForm.get('date')?.errors?.['required'] && updateContributionDeadlineForm.get('date')?.touched">
-                                     <small class="text-police">selectionner la date</small>
+                                     <small class="text-police">sélectionner la date</small>
                                    </div>
                                 </div>
                             </div>

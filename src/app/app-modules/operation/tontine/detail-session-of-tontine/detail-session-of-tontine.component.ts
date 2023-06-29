@@ -170,7 +170,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Etes-vous sure ?',
+        title: 'Êtes-vous sûre ?',
         text: "Cette action est irreversible !",
         icon: 'warning',
         showCancelButton: true,
@@ -424,8 +424,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'êtes-vous sûr de vouloir générer le gagnant maintenant ?',
-        text: "Vous ne pourrez pas revenir en arrière !",
+        title: 'Êtes-vous sûre de vouloir générer le gagnant maintenant ?',
+        text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Oui, générer !',

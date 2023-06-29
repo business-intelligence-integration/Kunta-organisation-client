@@ -103,7 +103,7 @@
             <div class="side-wrapper">
                 <div class="side-inner">
                     <div class="side-title">
-                        <h3 class="dark-inverted">Details du placement mutualisé: {{mutualInvestment.name}}</h3>
+                        <h3 class="dark-inverted">Détails du placement mutualisé: {{mutualInvestment.name}}</h3>
                     </div>
 
                     <div class="action-list">
@@ -122,7 +122,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Date début:</span><br>
+                                <span>Date de début:</span><br>
                                 <p>{{ mutualInvestment.startDate }}</p>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Date fin:</span><br>
+                                <span>Date de fin:</span><br>
                                 <p>{{ mutualInvestment.endDate }}</p>
                             </div>
                         </div>
@@ -212,7 +212,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Frequence de remboursement:</span><br>
+                                <span>Fréquence de remboursement:</span><br>
                                 <p>{{ mutualInvestment.refundFrequency }}</p>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut placement:</span><br>
+                                <span>Statut du placement:</span><br>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'BLOCKED'">Bloqué</span>
                                 <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.mutualInvesmentStatus === 'UNLOCKED'">Debloqué</span>
                             </div>
@@ -240,7 +240,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut remboursement:</span><br>
+                                <span>Statut de remboursement:</span><br>
                                 <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'PAID'">Remboursé</span>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'UNPAID'">Non-remboursé</span>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.refundStatus === 'EXPIRED'">Expiré</span>
@@ -251,7 +251,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut distribution:</span><br>
+                                <span>Statut de distribution:</span><br>
                                 <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="mutualInvestment.distributionStatus === 'DISTRIBUTED'">Distribué</span>
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="mutualInvestment.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span>
                             </div>
@@ -307,7 +307,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 </div>
                                 <div class="flex-meta">
-                                    <span>Montant a recevoir: </span><br>
+                                    <span>Montant à recevoir: </span><br>
                                     <p>{{key.receivingAmount}} CFA </p>
                                 </div>
                             </div>
