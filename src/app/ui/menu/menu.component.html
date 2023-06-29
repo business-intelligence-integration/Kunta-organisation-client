@@ -16,7 +16,8 @@
                         <a [routerLink]="['/dashboards/']" (click)="onActiveDashboard()" [ngClass]="activeDashboard" tooltip=" DASHBOARD " theme='light' id="home-sidebar-menu" data-content="Dashboards">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity sidebar-svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                         </a>
-                    </li> <!-- Layouts -->
+                    </li> 
+                    <!-- Layouts -->
                     <li [routerLinkActive]="['active']">
                         <a [routerLink]="['/organization/users/']" (click)="onActiveOrganism()" [ngClass]="activeOrganism" tooltip=" ORGANISATION " theme='light' id="layouts-sidebar-menu" data-content="Layouts">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid sidebar-svg"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
