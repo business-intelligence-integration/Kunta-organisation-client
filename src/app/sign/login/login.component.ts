@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     this.authentificationSerice.signin(this.login).subscribe((result: any)=>{
       if(result.status == "OK"){
         this.utilityService.saveToken(result.data);
-        this.router.navigateByUrl('dashboards');
+        this.router.navigateByUrl('organization');
         this.isNotLogin = false;
         this.isProgressing = false
       }else{

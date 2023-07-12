@@ -55,7 +55,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
 
   constructor(private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
-    private paymentService: PaymentService,
+    public paymentService: PaymentService,
     private penalityTypeService: PenaltyTypeService,
     private paymentStatusService: PaymentStatusService,
     private formBuilder: FormBuilder, 

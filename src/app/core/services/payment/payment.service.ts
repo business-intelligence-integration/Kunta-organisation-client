@@ -16,7 +16,7 @@ const httpOptions ={
 })
 export class PaymentService {
 
-  private baseUrl = environment.baseUrlApiActivity
+  public baseUrl = environment.baseUrlApiActivity
   constructor(private httpClient: HttpClient, private utilityService: UtilityService){
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
@@ -45,5 +45,8 @@ export class PaymentService {
     return this.httpClient.patch<any>(this.baseUrl + `payments/${idPayment}/validate-payment`, {});
   }
 
+  uploadPicture(picture: FormData, idPayment: number): Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `payments/upload-picture?idPayment=` + idPayment, picture);
+  }
 
 }

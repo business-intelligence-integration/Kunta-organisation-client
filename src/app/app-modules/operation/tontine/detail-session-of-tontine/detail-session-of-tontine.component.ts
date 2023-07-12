@@ -20,6 +20,9 @@ import { AreaService } from 'src/app/core/services/areas/area.service';
 import { Organism } from 'src/app/core/classes/organism';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { UserService } from 'src/app/core/services/users/user.service';
+import { Picture } from 'src/app/core/classes/picture';
+import { DomSanitizer } from '@angular/platform-browser';
+import { PaymentService } from 'src/app/core/services/payment/payment.service';
 
 @Component({
   selector: 'app-detail-session-of-tontine',
@@ -58,6 +61,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   penality: Penality = new Penality();
   isEntryAgent: boolean = false;
   isTontine: number = 0;
+  picture = new Picture();
 
   constructor(private cycleService: CycleService,  
     private activatedRoute: ActivatedRoute,
@@ -67,9 +71,11 @@ export class DetailSessionOfTontineComponent implements OnInit {
     private utilityService: UtilityService,
     private penalityTypeService: PenaltyTypeService,
     private paymentMethodService: PaymentMethodService,
+    private paymentService: PaymentService,
     private areaService: AreaService,
     private postService: PostService,
     private userService: UserService,
+    private sanitizer: DomSanitizer,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -258,6 +264,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
             '#06d6a0',
             'white'
           );
+          this.onSavePicture(res.data.id)
         }
       } else {
         this.utilityService.showMessage(
@@ -510,4 +517,39 @@ getAreaByIdClub(idClub: number){
     })
   }
 
+  onSelectPicture(event: any){
+   
+    if(!event.target.files[0] || event.target.files.length == 0){
+      return;
+    }
+
+    let mimeType = event.target.files[0].type;
+    if(mimeType.match(/image\/*/) == null){
+      return;
+    }
+
+    if(event.target.files.length){
+      const picture: Picture = {
+        file: event.target.files[0],
+        url: this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(event.target.files[0])
+        ),
+      };
+      this.picture = picture;
+    }
+  }
+
+
+  onSavePicture(idPayment: number){
+    const photoFormData = this.prepareFormData(this.picture);
+    this.paymentService.uploadPicture(photoFormData, idPayment).subscribe((res: any)=>{
+      console.log("res:: ", res);
+    })
+  }
+
+  prepareFormData(picture: Picture): FormData {
+    const formData = new FormData();
+    formData.append('file', picture.file, picture.file.name);
+    return formData;
+  }
 }
