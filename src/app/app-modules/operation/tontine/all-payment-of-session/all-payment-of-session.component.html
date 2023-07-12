@@ -152,6 +152,7 @@
                     <!--Table header-->
                     <div class="flex-table-header" data-filter-hide="">
                         <!-- <span class="is-grow">Id</span> -->
+                        <span>Image</span>
                         <span>Versé</span>
                         <span>Preuve</span>
                         <span>Membre</span>
@@ -162,7 +163,11 @@
                     </div>
                     <div class="flex-list-inner">
                         <!--Table item-->
+                        
                         <div class="flex-table-item" *ngFor="let payment of payments">
+                            <div class="flex-table-cell" data-th="Image">
+                                <img src="{{ paymentService.baseUrl+'payments/find-payment-picture?idPayment='+ payment.id }}" width="24" height="24" alt="">
+                            </div>
                             <div class="flex-table-cell" data-th="Versé">
                                 <span class="light-text" data-filter-match="">{{ payment.paid }}</span>
                             </div>
