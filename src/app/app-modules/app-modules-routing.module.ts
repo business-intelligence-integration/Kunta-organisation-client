@@ -149,7 +149,7 @@ const routes: Routes = [
         loadChildren: () => import('./organisation/organisation.module').then(m => m.OrganisationModule)
       },
     ]
-   },
+  },
 ]
 
 @NgModule({
