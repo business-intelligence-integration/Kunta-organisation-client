@@ -1,9 +1,11 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Payment } from 'src/app/core/classes/payment';
 import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
+import { Picture } from 'src/app/core/classes/picture';
 import { RiskProfile } from 'src/app/core/classes/riskProfile';
 import { Subscription } from 'src/app/core/classes/subscription';
 import { User } from 'src/app/core/classes/user';
@@ -12,6 +14,7 @@ import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
 import { RiskProfileService } from 'src/app/core/services/mutual-investment/risk-profile/risk-profile.service';
 import { SubscriptionOfferService } from 'src/app/core/services/mutual-investment/subscription-offer/subscription-offer.service';
+import { SubscriptionPaymentService } from 'src/app/core/services/mutual-investment/subscription-payment/subscription-payment.service';
 import { SubscriptionService } from 'src/app/core/services/mutual-investment/subscription/subscription.service';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
@@ -57,6 +60,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   amountToPay: number = 0;
   riskLevel: number = 0;
   mutualInvesmentStatus: string = "";
+  picture = new Picture();
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
@@ -64,10 +68,12 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     private subscriptionOfferService: SubscriptionOfferService,
     private riskProfileService: RiskProfileService,
     private subscriptionService: SubscriptionService,
+    private subscriptionPaymentService: SubscriptionPaymentService,
     private paymentMethodService: PaymentMethodService,
     private formBuilder: FormBuilder,
     private location: Location,
     private utilityService: UtilityService,
+    private sanitizer: DomSanitizer,
     private loaderService: LoaderService) { }
 
   ngOnInit(): void {
@@ -330,6 +336,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
             '#06d6a0',
             'white'
           );
+          this.onSavePicture(res.data.id)
         }
       } else {
         this.utilityService.showMessage(
@@ -465,6 +472,41 @@ export class ViewDetailSubscriptionComponent implements OnInit {
           });
         }
       });
+  }
+
+  onSelectPicture(event: any){
+   
+    if(!event.target.files[0] || event.target.files.length == 0){
+      return;
+    }
+
+    let mimeType = event.target.files[0].type;
+    if(mimeType.match(/image\/*/) == null){
+      return;
+    }
+
+    if(event.target.files.length){
+      const picture: Picture = {
+        file: event.target.files[0],
+        url: this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(event.target.files[0])
+        ),
+      };
+      this.picture = picture;
+    }
+  }
+
+  onSavePicture(idSubscriptionPayment: number){
+    const photoFormData = this.prepareFormData(this.picture);
+    this.subscriptionPaymentService.uploadSubscriptionPaymentPicture(photoFormData, idSubscriptionPayment).subscribe((res: any)=>{
+      console.log("res:: ", res);
+    })
+  }
+
+  prepareFormData(picture: Picture): FormData {
+    const formData = new FormData();
+    formData.append('file', picture.file, picture.file.name);
+    return formData;
   }
 
 }

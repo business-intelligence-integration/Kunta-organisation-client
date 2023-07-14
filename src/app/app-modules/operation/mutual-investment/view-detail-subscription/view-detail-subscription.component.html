@@ -374,6 +374,14 @@
                         </div>
 
                         <div class="field">
+                            <label>Image *</label>
+                            <div class="control">
+                                <input type="file" value="select" #selectFile
+                                    (change)="onSelectPicture($event)">
+                            </div>
+                        </div>
+
+                        <div class="field">
                             <label>Date de paiement *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">

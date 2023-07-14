@@ -327,6 +327,13 @@
                             </div>
                         </div>
                         <div class="field">
+                            <label>Image *</label>
+                            <div class="control">
+                                <input type="file" value="select" #selectFile
+                                    (change)="onSelectPicture($event)">
+                            </div>
+                        </div>
+                        <div class="field">
                             <label>Date *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
@@ -380,6 +387,10 @@
                             <label> <b>{{collected.id}}.</b> </label><br>
                             <div class="control">
                                 <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
+                            </div>
+                            <div class="control">
+                                <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refunt-amount-picture?idRefundAmound='+ collected.id }}" width="24" height="24" alt="">
+                                <label> <b>Justificatif:</b>  {{collected.proof}} </label>
                             </div>
                             <div class="control">
                                 <label> <b>Date:</b>  {{collected.date}} </label>

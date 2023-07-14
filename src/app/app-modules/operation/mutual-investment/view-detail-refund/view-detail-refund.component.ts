@@ -11,6 +11,9 @@ import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
 import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
 import { RefundService } from 'src/app/core/services/refund/refund.service';
+import { Picture } from 'src/app/core/classes/picture';
+import { DomSanitizer } from '@angular/platform-browser';
+import { AmountCollectedService } from 'src/app/core/services/mutual-investment/amount-collected/amount-collected.service';
 
 @Component({
   selector: 'app-view-detail-refund',
@@ -27,8 +30,10 @@ export class ViewDetailRefundComponent implements OnInit {
   mutualInvestment: MutualInvestment = new MutualInvestment();
   idInvestment: number = 0;
   idRefund: number = 0;
+  idAmountCollected: number = 0;
   refundForm!: FormGroup;
   isSaving: boolean = false;
+  openImageModal: string = "";
   openRefundModal: string = "";
   openViewRefundsModal: string = "";
   payment: Payment = new Payment();
@@ -36,14 +41,17 @@ export class ViewDetailRefundComponent implements OnInit {
   dateNow: any;
   amountCollecteds: Payment[] = [];
   dateStatus: string = "";
+  picture = new Picture();
 
   constructor(private location: Location,
     private activatedRoute: ActivatedRoute,
     private mutualInvestmentService: MutualInvestmentService,
     private refundService: RefundService,
     private paymentMethodService: PaymentMethodService,
+    public amountCollectedService: AmountCollectedService,
     private formBuilder: FormBuilder, 
     private utilityService: UtilityService,
+    private sanitizer: DomSanitizer,
     private loaderService: LoaderService) { }
 
   ngOnInit(): void {
@@ -152,6 +160,7 @@ export class ViewDetailRefundComponent implements OnInit {
             '#06d6a0',
             'white'
           );
+          this.onSavePicture(res.data.id);
         }
       } else {
         this.utilityService.showMessage(
@@ -189,4 +198,49 @@ export class ViewDetailRefundComponent implements OnInit {
     this.openViewRefundsModal = "";
   }
 
+  ////////////////////// Upload Image
+  onSelectPicture(event: any){
+   
+    if(!event.target.files[0] || event.target.files.length == 0){
+      return;
+    }
+
+    let mimeType = event.target.files[0].type;
+    if(mimeType.match(/image\/*/) == null){
+      return;
+    }
+
+    if(event.target.files.length){
+      const picture: Picture = {
+        file: event.target.files[0],
+        url: this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(event.target.files[0])
+        ),
+      };
+      this.picture = picture;
+    }
+  }
+
+  onSavePicture(idAmountCollected: number){
+    const photoFormData = this.prepareFormData(this.picture);
+    this.amountCollectedService.uploadAmountCollectedPicture(photoFormData, idAmountCollected).subscribe((res: any)=>{
+      console.log("res:: ", res);
+    })
+  }
+
+  prepareFormData(picture: Picture): FormData {
+    const formData = new FormData();
+    formData.append('file', picture.file, picture.file.name);
+    return formData;
+  }
+
+  ////////////////////// Image Modal Box
+  onImageModalBox(id: number) {
+    this.idAmountCollected = id;
+    this.openImageModal = "is-active";
+  }
+
+  closeImageModal() {
+    this.openImageModal = "";
+  }
 }

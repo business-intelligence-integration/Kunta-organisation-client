@@ -98,7 +98,7 @@
             
 <div class="list-flex-toolbar">
     <div class="control has-icon">
-        <input class="input custom-text-filter" placeholder="Search..." data-filter-target=".flex-table-item">
+        <input class="input custom-text-filter" placeholder="Rechercher..." data-filter-target=".flex-table-item">
         <div class="form-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
@@ -278,7 +278,7 @@
         
                                     <div class="flex-table-cell" data-th="Pénaliser">
                                         <span class="light-text" data-filter-match="">{{ session.penalties.length }}</span>
-                                        <a *ngIf="isEntryAgent" class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Appliquer une pénalité " theme='light' (click)="onOpenPanalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
+                                        <a *ngIf="isEntryAgent" class="pagination-previous has-chevron" [ngClass]="{'disabled': session.status.label === 'FERMÉ'}" tooltip=" Appliquer une pénalité " theme='light' (click)="onOpenPenalityModal(session.id)"> <img width="20" height="20" src="{{ geUrl_penality }}" alt=""></a>
                                         <a _ngcontent-nct-c62="" [routerLink]="['/all-penality-of-session']" [queryParams]="{id: session.id, tontine: isTontine}" tooltip=" Voir details pénalité " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                     </div>
                                     <div class="flex-table-cell" data-th="Statut">
@@ -324,7 +324,6 @@
     </div>
 
 </div>
-
 
     </div>
     </div>
@@ -376,16 +375,6 @@
                                 <small class="text-police">veuillez sélectionner une méthode de paiement</small>
                              </div>
                         </div>
-                        <div class="field">
-                            <label>Montant côtisé*</label><br>
-                            <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount">
-                            </div>
-                            <div class="text-danger"
-                                *ngIf="paymentForm.get('amount')?.errors?.['required'] && paymentForm.get('amount')?.touched">
-                                <small class="text-police">veuillez entrer le montant côtisé</small>
-                             </div>
-                        </div>
                         
                         <div class="field">
                             <label>Justificatif*</label><br>
@@ -399,11 +388,22 @@
                         </div>
 
                         <div class="field">
-                            <label>Photo *</label>
+                            <label>Image *</label>
                             <div class="control">
                                 <input type="file" value="select" #selectFile
                                     (change)="onSelectPicture($event)">
                             </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Montant côtisé*</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant" formControlName="amount">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="paymentForm.get('amount')?.errors?.['required'] && paymentForm.get('amount')?.touched">
+                                <small class="text-police">veuillez entrer le montant côtisé</small>
+                             </div>
                         </div>
 
                         <div class="field">
@@ -474,11 +474,12 @@
 
                         <div class="field">
                             <label>Date*</label><br>
-                            <div class="card-header-widget datepicker-style">
+                            <!-- <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input formControlName="date" class="champ" type="date" id="DOB" name="DOB"  [(ngModel)]="date" (input)="onSelectDate($event.timeStamp)">
                                 </div>
-                           </div>
+                           </div> -->
+                           <div class="text-police"> {{ session.date }} </div>
                            <div class="text-danger" *ngIf="penalityForm.get('date')?.errors?.['required'] && penalityForm.get('date')?.touched">
                              <small class="text-police" translate>sélectionner la date de paiement</small>
                            </div>

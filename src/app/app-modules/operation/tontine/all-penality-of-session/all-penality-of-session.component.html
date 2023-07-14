@@ -315,7 +315,6 @@
 
 </div> 
 
-
     </div>
     </div>
 
@@ -361,6 +360,14 @@
                                 *ngIf="paymentForm.get('proof')?.errors?.['required'] && paymentForm.get('proof')?.touched">
                                 <small class="text-police">veuillez entrer la preuve de la cotisation</small>
                              </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Image *</label>
+                            <div class="control">
+                                <input type="file" value="select" #selectFile
+                                    (change)="onSelectPicture($event)">
+                            </div>
                         </div>
 
                         <div class="field">

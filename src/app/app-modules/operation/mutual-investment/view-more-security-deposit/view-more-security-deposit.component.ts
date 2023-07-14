@@ -14,6 +14,9 @@ import { PaymentMethodService } from 'src/app/core/services/payment-method/payme
 import { Payment } from 'src/app/core/classes/payment';
 import { SecurityDepositService } from 'src/app/core/services/security-deposit/security-deposit.service';
 import { MutualInvestment } from 'src/app/core/classes/mutualInvestment';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Picture } from 'src/app/core/classes/picture';
+import { RefundAmountService } from 'src/app/core/services/refund-amount/refund-amount.service';
 
 @Component({
   selector: 'app-view-more-security-deposit',
@@ -44,15 +47,18 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
   payment: Payment = new Payment();
   amountCollecteds: Payment[] = [];
+  picture = new Picture();
 
   constructor( private activatedRoute: ActivatedRoute, 
     private mutualInvestmentService: MutualInvestmentService,
     private securityDepositService: SecurityDepositService,
     private paymentMethodService: PaymentMethodService,
+    public refundAmountService: RefundAmountService,
     private centerService: CenterService,
     private formBuilder: FormBuilder,
     private utilityService: UtilityService,
     private location: Location,
+    private sanitizer: DomSanitizer,
     private loaderService: LoaderService) { }
 
   ngOnInit(): void {
@@ -288,6 +294,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
             '#06d6a0',
             'white'
           );
+          this.onSavePicture(res.data.id)
         }
       } else {
         this.utilityService.showMessage(
@@ -324,4 +331,41 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   closeViewAmountsModal(){
     this.openViewAmountsModal = "";
   }
+
+  //////////////////////////// Upload Picture
+  onSelectPicture(event: any){
+   
+    if(!event.target.files[0] || event.target.files.length == 0){
+      return;
+    }
+
+    let mimeType = event.target.files[0].type;
+    if(mimeType.match(/image\/*/) == null){
+      return;
+    }
+
+    if(event.target.files.length){
+      const picture: Picture = {
+        file: event.target.files[0],
+        url: this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(event.target.files[0])
+        ),
+      };
+      this.picture = picture;
+    }
+  }
+
+  onSavePicture(idPayment: number){
+    const photoFormData = this.prepareFormData(this.picture);
+    this.refundAmountService.uploadRefundAmountPicture(photoFormData, idPayment).subscribe((res: any)=>{
+      console.log("res:: ", res);
+    })
+  }
+
+  prepareFormData(picture: Picture): FormData {
+    const formData = new FormData();
+    formData.append('file', picture.file, picture.file.name);
+    return formData;
+  }
+
 }

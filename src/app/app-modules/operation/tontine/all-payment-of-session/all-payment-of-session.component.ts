@@ -33,6 +33,7 @@ export class AllPaymentOfSessionComponent implements OnInit {
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
+  openImageModal: string = "";
   openUpdatePaymntModal: string = "";
   openUpdatePaymntStatusModal: string = "";
   payments: Payment[] = [];
@@ -388,5 +389,15 @@ export class AllPaymentOfSessionComponent implements OnInit {
         })
       })
     })
+  }
+
+  ////////////////////// Image Modal Box
+  onImageModalBox(id: number) {
+    this.idPayment = id;
+    this.openImageModal = "is-active";
+  }
+
+  closeImageModal() {
+    this.openImageModal = "";
   }
 }
