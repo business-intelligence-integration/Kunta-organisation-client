@@ -406,3 +406,33 @@
         </div>
     </div>
 </div>
+
+<!-- Image Modal Box -->
+<div id="imageModalBox" class="modal h-modal" [ngClass]="openImageModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <!-- <h3>Modification du statut de paiement</h3> -->
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeImageModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="payment-proof">
+                        <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refunt-amount-picture?idRefundAmound='+ idRefundAmound }}" width="70%" height="100%" alt="">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeImageModal()">Annuler</a>
+            </div> -->
+        </div>
+    </div>
+</div>
