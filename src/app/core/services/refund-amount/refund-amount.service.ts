@@ -29,6 +29,8 @@ export class RefundAmountService {
   }
 
   uploadRefundAmountPicture(picture: FormData, idRefundAmount: number):Observable<any>{
+    console.log("idRefundAmount:: ", idRefundAmount);
+    
     return this.httpClient.patch<any>(this.baseUrl + 'refund-amount/upload-picture?idRefundAmount=' + idRefundAmount, picture);
   }
 }
