@@ -319,7 +319,9 @@
                                 <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
                             </div>
                             <div class="control">
-                                <img src="{{ amountCollectedService.baseUrl+'amount-collected/find-amount-collected-picture?idAmountCollected='+ collected.id }}" width="24" height="24" alt="" (click)="onImageModalBox(collected.id)" >
+                                <a>
+                                    <img src="{{ amountCollectedService.baseUrl+'amount-collected/find-amount-collected-picture?idAmountCollected='+ collected.id }}" width="24" height="24" alt="" (click)="onImageModalBox(collected.id)" > 
+                                </a>
                                 <label> <b>Justificatif:</b>  {{collected.proof}} </label>
                             </div>
                             <div class="control">
