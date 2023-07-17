@@ -149,7 +149,9 @@
                                     <span class="light-text" data-filter-match="">{{payment.paymentMethod.label}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Justificatif">
-                                    <img src="{{ subscriptionPaymentService.baseUrl+'subscription-payments/find-subscription-payment-picture?idSubscriptionPayment='+ payment.id }}" width="24" height="24" alt="" (click)="onImageModalBox(payment.id)" >
+                                    <a>
+                                        <img src="{{ subscriptionPaymentService.baseUrl+'subscription-payments/find-subscription-payment-picture?idSubscriptionPayment='+ payment.id }}" width="24" height="24" alt="" (click)="onImageModalBox(payment.id)" >
+                                    </a>
                                     <span class="light-text" data-filter-match="">{{payment.proof}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Date">
