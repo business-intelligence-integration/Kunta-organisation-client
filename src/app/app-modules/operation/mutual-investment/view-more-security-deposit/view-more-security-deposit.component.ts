@@ -96,9 +96,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
           this.loaderService.hideLoader();
         } else {
           this.mutualInvestment = res.data;
-          this.securityDeposits = res.data.securityDeposits;
-          console.log("securityDeposits:: ", res.data.securityDeposits);
-          
+          this.securityDeposits = res.data.securityDeposits;          
           if( this.securityDeposits.length <= 0 ) {
             this.show = true;
             this.loaderService.hideLoader();

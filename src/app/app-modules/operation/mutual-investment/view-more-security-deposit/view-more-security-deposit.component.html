@@ -243,14 +243,18 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addSecurityDepositForm" (ngSubmit)="onAddSecurtiyDeposit()">
                         <div class="field">
-                            <label>Participant *</label>
+                            <label>Cautionneur *</label>
                             <select2
                                 class="w-100 color-border"
                                 [data]="centerUserOfSelect"
                                 id="idUser"
                                 formControlName="idUser"
                                 placeholder="--Sélectionner un participant--">
-                            </select2><br><br>
+                            </select2>
+                            <div class="text-danger"
+                            *ngIf="centerUserOfSelect.length == 0">
+                            <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la caution.</small>
+                            </div><br>
                         </div>
                        
                         <div class="field">
