@@ -33,7 +33,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   isPushed: string = "";
   securityDeposits: SecurityDeposit[] = [];
   idDeposit: number = 0;
-  idRefundAmound: number = 0;
+  idRefundAmount: number = 0;
   idInvestment: number = 0;
   openImageModal: string = "";
   openDepositModal: string = "";
@@ -372,7 +372,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
     ////////////////////// Image Modal Box
     onImageModalBox(id: number) {
-      this.idRefundAmound = id;
+      this.idRefundAmount = id;
       this.openImageModal = "is-active";
     }
   

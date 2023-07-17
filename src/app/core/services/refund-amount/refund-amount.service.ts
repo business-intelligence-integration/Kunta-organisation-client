@@ -24,11 +24,11 @@ export class RefundAmountService {
     return this.httpClient.get<any>(this.baseUrl + 'refund-amount/'+ idRefundAmount, httpOptions);
   }
 
-  findPictureByIdRefundAmount(idRefundAmound: number):Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'refund-amount/find-refunt-amount-picture?idRefundAmound=' + idRefundAmound);
+  findPictureByIdRefundAmount(idRefundAmount: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'refund-amount/find-refund-amount-picture?idRefundAmount=' + idRefundAmount);
   }
 
-  uploadRefundAmountPicture(picture: FormData, idRefundAmound: number):Observable<any>{
-    return this.httpClient.patch<any>(this.baseUrl + 'refund-amount/upload-picture?idRefundAmound=' + idRefundAmound, picture);
+  uploadRefundAmountPicture(picture: FormData, idRefundAmount: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'refund-amount/upload-picture?idRefundAmount=' + idRefundAmount, picture);
   }
 }

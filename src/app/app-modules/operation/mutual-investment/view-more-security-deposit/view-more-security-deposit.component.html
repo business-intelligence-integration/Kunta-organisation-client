@@ -389,7 +389,7 @@
                                 <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
                             </div>
                             <div class="control">
-                                <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refunt-amount-picture?idRefundAmound='+ collected.id }}" width="24" height="24" alt="">
+                                <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refund-amount-picture?idRefundAmount='+ collected.id }}" width="24" height="24" alt="" (click)="onImageModalBox(collected.id)" >
                                 <label> <b>Justificatif:</b>  {{collected.proof}} </label>
                             </div>
                             <div class="control">
@@ -426,7 +426,7 @@
             <div class="modal-card-body">
                 <div class="inner-content">
                     <div class="payment-proof">
-                        <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refunt-amount-picture?idRefundAmound='+ idRefundAmound }}" width="70%" height="100%" alt="">
+                        <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refund-amount-picture?idRefundAmount='+ idRefundAmount }}" width="70%" height="100%" alt="">
                     </div>
                 </div>
             </div>
