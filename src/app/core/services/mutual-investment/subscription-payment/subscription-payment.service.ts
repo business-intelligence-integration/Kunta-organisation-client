@@ -17,7 +17,7 @@ const httpOptions ={
 
 export class SubscriptionPaymentService {
 
-  private baseUrl = environment.baseUrlApiActivity
+  public baseUrl = environment.baseUrlApiActivity
   constructor(private httpClient: HttpClient, private utilityService: UtilityService){
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
@@ -36,5 +36,13 @@ export class SubscriptionPaymentService {
 
   updateSubscriptionPayment(idSubscriptionPayment: number, payment: Payment):Observable<any>{
     return this.httpClient.put<any>(this.baseUrl + 'subscription-payments/' + idSubscriptionPayment, payment);
+  }
+
+  findPictureByIdSubscriptionPayment(idSubscriptionPayment: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'subscription-payments/find-subscription-payment-picture?idSubscriptionPayment=' + idSubscriptionPayment);
+  }
+
+  uploadSubscriptionPaymentPicture(picture: FormData, idSubscriptionPayment: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'subscription-payments/upload-picture?idSubscriptionPayment=' + idSubscriptionPayment, picture);
   }
 }

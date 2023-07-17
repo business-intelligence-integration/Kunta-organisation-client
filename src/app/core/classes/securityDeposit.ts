@@ -1,3 +1,4 @@
+import { Payment } from "./payment";
 import { User } from "./user";
 
 export class SecurityDeposit {
@@ -8,4 +9,5 @@ export class SecurityDeposit {
     amountReceived: number = 0;
     amountToPay: number = 0;
     refundStatus: string = "";
+    refundAmounts: Payment[] = [];
 }

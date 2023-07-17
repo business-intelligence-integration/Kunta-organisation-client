@@ -20,6 +20,18 @@
             </div>
         </div> -->
     </form>
+    
+    <div class="buttons">
+        <button *ngIf="adminIsConnected || operatorIsConnected" class="button h-button is-primary is-elevated">
+            <span class="icon">
+              <i aria-hidden="true" class="fas fa-plus"></i>
+            </span>
+            <span (click) = "onOpenAddUser()">Créer utilisateur</span>
+        </button>
+    </div>
+</div>
+
+<div *ngIf="isList" class="list-flex-toolbar">
     <div class="select">
         <form class="modal-form" [formGroup]="selectRoleForm">
             <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" [(ngModel)]="ngSelectRole">
@@ -49,14 +61,6 @@
                 <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
             </select>
         </form>
-    </div>
-    <div class="buttons">
-        <button *ngIf="adminIsConnected || operatorIsConnected" class="button h-button is-primary is-elevated">
-            <span class="icon">
-              <i aria-hidden="true" class="fas fa-plus"></i>
-            </span>
-            <span (click) = "onOpenAddUser()">Créer utilisateur</span>
-        </button>
     </div>
 </div>
 

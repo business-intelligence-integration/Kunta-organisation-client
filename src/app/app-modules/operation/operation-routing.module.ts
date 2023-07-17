@@ -16,7 +16,8 @@ const routes: Routes = [
 
       {path:"mutual-investment", component: MutualInvestmentComponent, canActivate: [EntityGuard]},
    
-    ]},
+    ]
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

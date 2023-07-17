@@ -39,8 +39,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
   sessions: Session[] = [];
   membersArray: any;
   payment: Payment = new Payment();
-  idCycle: number = 0;
   idSession: number = 0;
+  session: Session = new Session();
+  idCycle: number = 0;
   cycle: Cycle = new Cycle();
   geUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/money_f3bgzk.png";
   geUrl_aleatoire: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/fleches-aleatoires_jtbstk.png";
@@ -98,7 +99,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
     })
 
     this.penalityForm = this.formBuilder.group({
-      date: new FormControl(null, Validators.required),
+      // date: new FormControl(null, Validators.required),
+      date: new FormControl(null),
       idPenaltyType: new FormControl(null, Validators.required),
       idMember: new FormControl(null, Validators.required),
     })
@@ -146,16 +148,25 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.tontineService.findTontineById(params['tontine']).subscribe((res)=>{
         this.isTontine = params['tontine'];
         this.getAreaByIdClub(res.data.clubOwner.id)
-        this.membersArray = res.data.tontineMembers.map((tontineMember:any)=>({value:tontineMember.participant.id, label:tontineMember.participant.firstName }))
+        this.membersArray = res.data.tontineMembers.map((tontineMember:any)=>({value:tontineMember.participant.id, label:tontineMember.participant.firstName + " " + tontineMember.participant.lastName }))
       });
     })
   }
-    getAllSessionsOfCycle(){
+  
+  getAllSessionsOfCycle(){
     this.activatedRoute.queryParams.subscribe((params) => {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
         this.sessions = res.data;
       });
+    })
+  }
+
+  getSessionById(id: number){
+    this.sessionService.findSessionById(id).subscribe((res)=>{
+      // this.idSession = id;
+      console.log("Response from idSession:: ", res.data);
+      this.session = res.data;
     })
   }
 
@@ -220,8 +231,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.openPaymntModal = "is-active";
   }
 
-  onOpenPanalityModal(idSession: number){
+  onOpenPenalityModal(idSession: number){
     this.idSession = idSession;
+    this.getSessionById(idSession);
     this.openPenalityModal = "is-active";
   }
 
@@ -289,7 +301,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
   onSubmitPenality(){
     this.isSaving = true;
     const formValue = this.penalityForm.value;
-    let date = new Date(formValue.date);
+    // let date = new Date(formValue.date);
+    let date = new Date(this.session.date);
     let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');
     this.penality.date = dateFormated;
     this.makePenality(this.penality, this.idSession, formValue.idPenaltyType, formValue.idMember);
@@ -500,12 +513,12 @@ export class DetailSessionOfTontineComponent implements OnInit {
       });
   }
 
-getAreaByIdClub(idClub: number){
-  this.areaService.findAreaByIdClub(idClub).subscribe((res)=>{
-    this.area = res.data;
-    this.getPostsByIdArea(res.data.id);
-  })
-}
+  getAreaByIdClub(idClub: number){
+    this.areaService.findAreaByIdClub(idClub).subscribe((res)=>{
+      this.area = res.data;
+      this.getPostsByIdArea(res.data.id);
+    })
+  }
 
   getPostsByIdArea(idArea: number){
     this.postService.finAllPostByIdArea(idArea).subscribe((connectedRes)=>{
@@ -517,6 +530,7 @@ getAreaByIdClub(idClub: number){
     })
   }
 
+  //////////////////// Upload Picture
   onSelectPicture(event: any){
    
     if(!event.target.files[0] || event.target.files.length == 0){
@@ -538,7 +552,6 @@ getAreaByIdClub(idClub: number){
       this.picture = picture;
     }
   }
-
 
   onSavePicture(idPayment: number){
     const photoFormData = this.prepareFormData(this.picture);

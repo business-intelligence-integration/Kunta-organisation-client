@@ -540,7 +540,7 @@ export class MutualInvestmentComponent implements OnInit {
         if (res.data == null ) {
           this.utilityService.showMessage(
             'warning',
-            'Souci de création de l\'offre, rassurez-vous d\'avoir créer les pourcentages de distribution au préalable.',
+            'Soucis de création de l\'offre, rassurez-vous d\'avoir créer les pourcentages de distribution au préalable.',
             '#e62965',
             'white'
           );
@@ -560,7 +560,7 @@ export class MutualInvestmentComponent implements OnInit {
         this.addSubscriptionOfferForm.reset();
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite, verifier votre saisis',
+          'Une erreur s\'est produite, vérifier votre saisie',
           '#e62965',
           'white'
         );
@@ -653,7 +653,7 @@ export class MutualInvestmentComponent implements OnInit {
         this.addSecurityDepositForm.reset();
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite, verifier votre saisis',
+          'Une erreur s\'est produite, vérifier votre saisie',
           '#e62965',
           'white'
         );
@@ -715,7 +715,7 @@ export class MutualInvestmentComponent implements OnInit {
       } else {
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite, verifiez votre saisis',
+          'Une erreur s\'est produite, vérifiez votre saisie',
           '#e62965',
           'white'
         );
@@ -765,7 +765,7 @@ export class MutualInvestmentComponent implements OnInit {
               this.getAllMutualInvestments();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
-                text: 'Le placement mutualisé a été supprimé avec succès !.',
+                text: 'Le placement mutualisé a été supprimé avec succès !',
                 confirmButtonColor: '#198AE3',
               });
             },
@@ -780,7 +780,7 @@ export class MutualInvestmentComponent implements OnInit {
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: 'Annulé',
-            text: 'La supprission a été annulé',
+            text: 'La suppression a été annulé',
             confirmButtonColor: '#d33',
           });
         }
@@ -821,14 +821,14 @@ export class MutualInvestmentComponent implements OnInit {
               if( res == null ) {
                 swalWithBootstrapButtons.fire({
                   title: 'Annulé',
-                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour le placement ou alors que tous les souscription aient été payé',
+                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour le placement ou alors que tous les souscription aient été payées',
                   confirmButtonColor: '#d33',
                 });
               } else {
                 this.getAllMutualInvestments();
                 swalWithBootstrapButtons.fire({
                   title: 'Débloqué !',
-                  text: 'Le placement mutualisé a été debloqué avec succès !.',
+                  text: 'Le placement mutualisé a été débloqué avec succès !',
                   confirmButtonColor: '#198AE3',
                 });
               }
@@ -900,7 +900,7 @@ export class MutualInvestmentComponent implements OnInit {
       } else {
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite, verifier votre saisis',
+          'Une erreur s\'est produite, vérifier votre saisie',
           '#e62965',
           'white'
         );
@@ -948,7 +948,7 @@ export class MutualInvestmentComponent implements OnInit {
       if(!firstRefundDate){
         this.utilityService.showMessage(
           'warning',
-          'Entrer la 1ere date de remboursement',
+          'Entrer la 1ère date de remboursement',
           '#e62965',
           'white'
         );
@@ -977,7 +977,7 @@ export class MutualInvestmentComponent implements OnInit {
           } else {
             this.utilityService.showMessage(
               'warning',
-              'Une erreur s\'est produite, verifier votre saisis',
+              'Une erreur s\'est produite, vérifier votre saisie',
               '#e62965',
               'white'
             );
@@ -1020,7 +1020,7 @@ export class MutualInvestmentComponent implements OnInit {
         } else {
           this.utilityService.showMessage(
             'warning',
-            'Une erreur s\'est produite, verifier votre saisis',
+            'Une erreur s\'est produite, vérifier votre saisie',
             '#e62965',
             'white'
           );
@@ -1060,7 +1060,7 @@ export class MutualInvestmentComponent implements OnInit {
               this.onCloseGenerateModal();
               this.utilityService.showMessage(
                 'success',
-                'Date(s) generée(s) avec succès',
+                'Date(s) générée(s) avec succès',
                 '#06d6a0',
                 'white'
               );
@@ -1068,7 +1068,7 @@ export class MutualInvestmentComponent implements OnInit {
           } else {
             this.utilityService.showMessage(
               'warning',
-              'Une erreur s\'est produite, verifier votre saisis',
+              'Une erreur s\'est produite, vérifier votre saisie',
               '#e62965',
               'white'
             );
@@ -1229,7 +1229,7 @@ export class MutualInvestmentComponent implements OnInit {
           this.onCloseClosingDate();
           this.utilityService.showMessage(
             'success',
-            'Date de fermeture créé avec succès !',
+            'Date de fermeture créée avec succès !',
             '#06d6a0',
             'white'
           );
@@ -1287,7 +1287,7 @@ export class MutualInvestmentComponent implements OnInit {
               if( res == null ) {
                 swalWithBootstrapButtons.fire({
                   title: 'Annulé',
-                  text: 'Une erreur s\'est produite, veuillez verifier que le placement est pret pour la fermeture',
+                  text: 'Une erreur s\'est produite, veuillez vérifier que le placement est prêt pour la fermeture',
                   confirmButtonColor: '#d33',
                 });
               } else {

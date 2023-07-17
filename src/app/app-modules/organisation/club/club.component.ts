@@ -198,7 +198,7 @@ export class ClubComponent implements OnInit {
               this.getAllClubs();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimé !',
-                text: 'Club a été supprimé.',
+                text: 'Club a été supprimé',
                 confirmButtonColor: '#198AE3',
               });
             },

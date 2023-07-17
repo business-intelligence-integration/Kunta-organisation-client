@@ -15,7 +15,7 @@ const httpOptions ={
 })
 export class RefundAmountService {
 
-  private baseUrl = environment.baseUrlApiActivity
+  public baseUrl = environment.baseUrlApiActivity
   constructor(private httpClient: HttpClient, private utilityService: UtilityService){
     httpOptions.headers = httpOptions.headers.set('Authorization', "Bearer " + this.utilityService.loadToken())
   }
@@ -24,4 +24,13 @@ export class RefundAmountService {
     return this.httpClient.get<any>(this.baseUrl + 'refund-amount/'+ idRefundAmount, httpOptions);
   }
 
+  findPictureByIdRefundAmount(idRefundAmount: number):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'refund-amount/find-refund-amount-picture?idRefundAmount=' + idRefundAmount);
+  }
+
+  uploadRefundAmountPicture(picture: FormData, idRefundAmount: number):Observable<any>{
+    console.log("idRefundAmount:: ", idRefundAmount);
+    
+    return this.httpClient.patch<any>(this.baseUrl + 'refund-amount/upload-picture?idRefundAmount=' + idRefundAmount, picture);
+  }
 }

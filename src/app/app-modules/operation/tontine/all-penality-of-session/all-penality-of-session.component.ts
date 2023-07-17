@@ -12,6 +12,9 @@ import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import {Location} from "@angular/common";
 import { PenaltyTypeService } from 'src/app/core/services/penalty-type/penalty-type.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { PaymentService } from 'src/app/core/services/payment/payment.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Picture } from 'src/app/core/classes/picture';
 
 @Component({
   selector: 'app-all-penality-of-session',
@@ -39,14 +42,18 @@ export class AllPenalityOfSessionComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
   date: any;
   idPenalityType: number = 0;
+  picture = new Picture();
+
   constructor(private sessionService: SessionService,
     private activatedRoute: ActivatedRoute, 
     private formBuilder: FormBuilder, 
     private paymentMethodService: PaymentMethodService,
+    private paymentService: PaymentService,
     private penalityService: PenaltyService,
     private utilityService: UtilityService,
     private location: Location,
     private loaderService: LoaderService,
+    private sanitizer: DomSanitizer,
     private penalityTypeService: PenaltyTypeService) { }
 
   ngOnInit(): void {
@@ -149,13 +156,11 @@ export class AllPenalityOfSessionComponent implements OnInit {
       this.penality.proof = formValue.proof;
       this.makePayment(this.idPenality, this.idUser, formValue.idPaymentMethod, this.penality)
     })
-  
-    
   }
 
   makePayment(idPenality: number, idUser: number, idPaymentMethod: number, penality: Penality){
     this.isSaving = true;
-    this.penalityService.payPenalty(idPenality, idUser, idPaymentMethod, penality).subscribe(()=>{
+    this.penalityService.payPenalty(idPenality, idUser, idPaymentMethod, penality).subscribe((res)=>{
       this.paymentForm.reset();
       this.isSaving = false;
       this.getAllPanalities();
@@ -166,6 +171,7 @@ export class AllPenalityOfSessionComponent implements OnInit {
         '#06d6a0',
         'white'
       );
+      this.onSavePicture(res.data.id)
     },()=>{
       this.isSaving = false;
       this.utilityService.showMessage(
@@ -175,5 +181,40 @@ export class AllPenalityOfSessionComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  onSelectPicture(event: any){
+   
+    if(!event.target.files[0] || event.target.files.length == 0){
+      return;
+    }
+
+    let mimeType = event.target.files[0].type;
+    if(mimeType.match(/image\/*/) == null){
+      return;
+    }
+
+    if(event.target.files.length){
+      const picture: Picture = {
+        file: event.target.files[0],
+        url: this.sanitizer.bypassSecurityTrustUrl(
+          window.URL.createObjectURL(event.target.files[0])
+        ),
+      };
+      this.picture = picture;
+    }
+  }
+
+  onSavePicture(idPayment: number){
+    const photoFormData = this.prepareFormData(this.picture);
+    this.paymentService.uploadPicture(photoFormData, idPayment).subscribe((res: any)=>{
+      console.log("res:: ", res);
+    })
+  }
+
+  prepareFormData(picture: Picture): FormData {
+    const formData = new FormData();
+    formData.append('file', picture.file, picture.file.name);
+    return formData;
   }
 }
