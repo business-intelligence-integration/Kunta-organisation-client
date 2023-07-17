@@ -20,6 +20,36 @@
             </div>
         </div> -->
     </form>
+    <div class="select is-hidden-mobile">
+        <form class="modal-form" [formGroup]="selectRoleForm">
+            <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" [(ngModel)]="ngSelectRole">
+                <option value="0" disabled>Rôle</option>
+                <option value="ALL">Tous</option>
+                <option value="ADMIN" *ngIf="adminIsConnected">Admin</option>
+                <option value="OPERATOR" *ngIf="adminIsConnected">Opérateur</option>
+                <option value="MEMBER">Membre</option>
+                <option value="MUTUALIST">Mutualiste</option>
+            </select>
+        </form>
+    </div>
+    <div class="select is-hidden-mobile">
+        <form class="modal-form" [formGroup]="selectCategoryForm">
+            <select formControlName="idCategory" (ngModelChange)="onSelectUserCategory($event)" [(ngModel)]="ngSelectUserCategory">
+                <option value="0" disabled>Catégorie</option>
+                <option value="9999">Tous</option>
+                <option *ngFor="let category of userCategories" [value]="category.id" >{{ category.name }}</option>
+            </select>
+        </form>
+    </div>
+    <div class="select is-hidden-mobile">
+        <form class="modal-form" [formGroup]="selectTypeForm">
+            <select formControlName="idType" (ngModelChange)="onSelectUserType($event)" [(ngModel)]="ngSelectUserType">
+                <option value="0" disabled>Type</option>
+                <option value="9999">Tous</option>
+                <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
+            </select>
+        </form>
+    </div>
     
     <div class="buttons">
         <button *ngIf="adminIsConnected || operatorIsConnected" class="button h-button is-primary is-elevated">
@@ -31,7 +61,7 @@
     </div>
 </div>
 
-<div *ngIf="isList" class="list-flex-toolbar">
+<div *ngIf="isList" class="list-flex-toolbar is-hidden-desktop is-hidden-tablet">
     <div class="select">
         <form class="modal-form" [formGroup]="selectRoleForm">
             <select formControlName="selectedRole" (ngModelChange)="onSelectUserRole($event)" [(ngModel)]="ngSelectRole">
