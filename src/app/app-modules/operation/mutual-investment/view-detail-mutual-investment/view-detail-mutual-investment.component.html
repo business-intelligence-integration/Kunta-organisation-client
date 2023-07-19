@@ -10,7 +10,7 @@
                     <div class="box-content">
                         <div class="page-content-inner all-projects">
                             <div class="all-projects-header">
-                                <div class="header-item style-session-margin">
+                                <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ mutualInvestment.minimumAmount }} FCFA</span>
@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="all-projects-header">
-                                <div class="header-item style-session-margin">
+                                <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ mutualInvestment.profitabilityAmount }} FCFA</span>
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="all-projects-header">
-                                <div class="header-item style-session-margin">
+                                <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
                                         <span>{{ mutualInvestment.collectedAmount }} FCFA</span>
@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="all-projects-header">
-                                <div class="header-item style-session-margin">
+                                <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
                                         <span>{{ mutualInvestment.amountRefunded }} FCFA</span>
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="all-projects-header">
-                                <div class="header-item style-session-margin">
+                                <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
                                         <span>{{ mutualInvestment.offers.length }}</span>
@@ -144,7 +144,7 @@
                                 <p>{{ mutualInvestment.mutualCenter.name }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.organismName != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment?.mutOrganism?.organismName != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -153,7 +153,7 @@
                                 <p>{{ mutualInvestment?.mutOrganism?.organismName }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.firstNameRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment?.mutOrganism?.firstNameRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -162,7 +162,7 @@
                                 <p>{{ mutualInvestment?.mutOrganism?.firstNameRepre }} {{ mutualInvestment?.mutOrganism?.lastNameRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.emailRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment?.mutOrganism?.emailRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -171,7 +171,7 @@
                                 <p>{{ mutualInvestment?.mutOrganism?.emailRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.cityRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment?.mutOrganism?.cityRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -180,7 +180,7 @@
                                 <p>{{ mutualInvestment?.mutOrganism?.cityRepre }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.mutOrganism.phoneNumberRepre != null" >
+                        <div class="media-flex" *ngIf="mutualInvestment?.mutOrganism?.phoneNumberRepre != null" >
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -207,13 +207,13 @@
                                 <p>{{ mutualInvestment?.refundType?.type }}</p>
                             </div>
                         </div>
-                        <div class="media-flex" *ngIf="mutualInvestment.refundFrequency != null">
+                        <div class="media-flex" *ngIf="mutualInvestment?.refundFrequency != null">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Fréquence de remboursement:</span><br>
-                                <p>{{ mutualInvestment.refundFrequency }}</p>
+                                <p>{{ mutualInvestment?.refundFrequency }}</p>
                             </div>
                         </div>
                         <!-- <div class="media-flex">

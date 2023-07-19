@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-loading',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
 
+  timer: number = 0;
+
   constructor() { }
 
   ngOnInit(): void {
+    const obs$ = interval(1000);
+    obs$.subscribe((t) => {
+      // console.log(t);
+      this.timer = t;
+    })
   }
 
 }
