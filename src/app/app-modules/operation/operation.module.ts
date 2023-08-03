@@ -21,6 +21,8 @@ import { ViewDetailSubscriptionComponent } from './mutual-investment/view-detail
 import { ViewDetailPaymentComponent } from './mutual-investment/view-detail-payment/view-detail-payment.component';
 import { ViewDetailMutualInvestmentComponent } from './mutual-investment/view-detail-mutual-investment/view-detail-mutual-investment.component';
 import { ViewDetailRefundComponent } from './mutual-investment/view-detail-refund/view-detail-refund.component';
+import { AssistanceComponent } from './assistance/assistance.component';
+import { ViewDetailAssistanceComponent } from './assistance/view-detail-assistance/view-detail-assistance.component';
 
 
 
@@ -42,6 +44,8 @@ import { ViewDetailRefundComponent } from './mutual-investment/view-detail-refun
     ViewDetailPaymentComponent,
     ViewDetailMutualInvestmentComponent,
     ViewDetailRefundComponent,
+    AssistanceComponent,
+    ViewDetailAssistanceComponent,
   ],
   imports: [
     CommonModule,

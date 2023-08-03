@@ -1,0 +1,128 @@
+/* FORM INPUT PRIMARY COMP */
+.input_comp {
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 100%;
+    color: inherit;
+    border: 1px solid #9ca3af;
+    border-radius: var(--rounded-base);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background-color: transparent;
+  }
+  
+  .input_comp:hover {
+    border-color: var(--secondary-color);
+  }
+  
+  .input_comp:focus {
+    border-color: var(--secondary-color);
+  }
+  
+  .input_comp:focus-visible {
+    outline-offset: 0px;
+    outline-width: 0px;
+  }
+  
+  .input_comp svg {
+    position: absolute;
+    right: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-color-base);
+    cursor: pointer;
+    z-index: 0;
+  }
+  
+  .input_comp svg.number {
+    /* right: 2.5rem; */
+  }
+  
+  .input_comp:hover svg {
+    color: var(--primary-color-base);
+  }
+  
+  .input_comp .blue {
+    fill: var(--primary-color-base);
+  }
+  
+
+  .disabled{
+    cursor: default;
+    pointer-events: none;        
+    text-decoration: none;
+    opacity: 0.5;
+}
+
+.border-style{
+  border:1px solid #e5e5e5;
+  padding: 40px;
+  margin: -20px -40px 40px -40px;
+}
+// .border-style-content{
+//   border:1px solid #e5e5e5;
+//   padding: 4px;
+// }
+.champ {
+  width:178px;
+}
+
+.champ2 {
+  width:425px;
+}
+
+
+.datepicker-style input {
+  border: none;
+  font-size: 14px;
+  padding: 0px;
+  cursor: pointer;
+  box-shadow: none !important;
+  font-weight: 500;
+  color: #040404;
+}
+
+.datepicker-style i {
+  font-size: 14px;
+  min-width: 20px;
+}
+
+.datepicker-style i {
+  min-width: 20px;
+}
+
+.card-header-widget {
+  background: #fff;
+  border: 1px solid #EBEDED;
+  border-radius: 6px;
+  /* box-shadow: 0px 1px 4px rgb(199 199 199 / 35%); */
+  min-height: 48px;
+  padding: 5px 25px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.card-header-widget+.card-header-widget {
+  margin-left: 20%;
+}
+.but-style{
+  margin-top: 5%;
+}
+.create-but{
+  margin-left: 84%;
+  margin-top: -10%;
+}
+
+.update-but{
+  margin-left: 80%;
+  margin-top: -10%;
+}
+.get-potition{
+  margin: -20px 0 20px 0;
+}
+
+.dropdown{
+  display: flex;
+  align-items: center;
+}

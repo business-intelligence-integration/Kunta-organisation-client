@@ -50,5 +50,9 @@ export class OperationsComponent implements OnInit {
     this.dynamicTitle = "Liste des placements mutualisés"
   }
 
+  onShowAllAssistance(){
+    this.dynamicTitle = "Liste des assistances"
+  }
+
 
 }

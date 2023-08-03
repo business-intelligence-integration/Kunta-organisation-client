@@ -1,0 +1,219 @@
+<div class="page-content-inner">
+    <a (click)="backBack()" tooltip=" Retour " theme='light' class="pagination-previous has-chevron return-style"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br><br>
+    <!--Pronotion Page-->
+    <div class="promotion-page-wrapper">
+        
+        <div class="wrapper-outer">
+
+            <div class="wrapper-inner">
+                <div class="action-box">
+                    <div class="box-content">
+                        <div class="page-content-inner all-projects">
+                            <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ assistance.assistanceAmount }} FCFA</span>
+                                        <p>Montant minimal</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ assistance.profitabilityRate }} %</span>
+                                        <p>Taux de rentabilité</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ assistance.profitabilityAmount }} FCFA</span>
+                                        <p>Montant rentable </p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <!-- <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ assistance.collectedAmount }} FCFA</span>
+                                        <p>Montant collecté</p>
+                                    </div>
+                                </div>
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ assistance.amountToBeRefunded }} FCFA</span>
+                                        <p>Montant à rembourser</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-pie-chart-alt"></i>
+                                        <span>{{ assistance.amountRefunded }} FCFA</span>
+                                        <p>Montant remboursé</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-target-alt-1"></i>
+                                        <span>{{ assistance.offers.length }}</span>
+                                        <p>Nombre d'offre</p>
+                                    </div>
+                                </div>
+
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ assistance.securityDeposits.length }}</span>
+                                        <p>Nombre de caution</p>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+  
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-wrapper">
+                <div class="side-inner">
+                    <div class="side-title">
+                        <h3 class="dark-inverted">Détails du placement mutualisé: {{assistance.id}}</h3>
+                    </div>
+
+                    <div class="action-list">
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Statut général:</span><br>
+                                <!-- <span *ngIf="assistance.status === 'OPEN' " class="tag is-rounded is-cliquable is-success" tooltip=" Ouvert " theme='light' data-filter-match=""> Ouvert</span>
+                                <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé</span> -->
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Date de début:</span><br>
+                                <p>{{ assistance.startDate }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Date de fin:</span><br>
+                                <p>{{ assistance.endDate }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Club: </span><br>
+                                <p>{{ assistance.assistanceClub.name }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Type de rentabilité:</span><br>
+                                <p>{{ assistance?.profitabilityType?.label }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Type de remboursement:</span><br>
+                                <p>{{ assistance?.refundType?.type }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex" *ngIf="assistance?.refundFrequency != null">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Fréquence de remboursement:</span><br>
+                                <p>{{ assistance?.refundFrequency }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Statut de l'assistance:</span><br>
+                                <!-- <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.assistanceStatus === 'BLOCKED'">Bloqué</span>
+                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.assistanceStatus === 'UNLOCKED'">Debloqué</span> -->
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Statut de remboursement:</span><br>
+                                <!-- <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.refundStatus === 'PAID'">Remboursé</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.refundStatus === 'UNPAID'">Non-remboursé</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.refundStatus === 'EXPIRED'">Expiré</span> -->
+                            </div>
+                        </div>
+                        <div class="media-flex">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Statut de distribution:</span><br>
+                                <!-- <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.distributionStatus === 'DISTRIBUTED'">Distribué</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span> -->
+                            </div>
+                        </div>
+                        <div *ngFor="let key of assistance.allocationKeys">
+                            <div class="media-flex">
+                                <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                                <div class="flex-meta">
+                                    <span>{{key.receivingParty.label}}: </span><br>
+                                    <p>{{key.percentage}} %</p>
+                                </div>
+                            </div>
+                            <div class="media-flex">
+                                <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                                <div class="flex-meta">
+                                    <span>Montant à recevoir: </span><br>
+                                    <p>{{key.receivingAmount}} CFA </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

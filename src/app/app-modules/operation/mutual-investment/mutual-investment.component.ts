@@ -139,12 +139,12 @@ export class MutualInvestmentComponent implements OnInit {
     this.getAllMutualInvestments();
     this.getAllMutualists();
     this.getAllCenters();
-    this.getAllDroweeForm();
+    this.getAllDroweeForms();
     this.getAllProfitabilityTypes();
     this.getAllRiskProfiles();
-    this.getAllPaymentMethod();
+    this.getAllPaymentMethods();
     this.getAllRefundTypes();
-    this.getAllFrequency();
+    this.getAllFrequencies();
     this.initDates();
     this.formInit();
   }
@@ -259,7 +259,7 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
-  getAllDroweeForm(){
+  getAllDroweeForms(){
     this.draweeFormService.findAllDraweeForm().subscribe((res)=>{
       this.draweeForms = res.data;
     })
@@ -283,13 +283,13 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
-  getAllFrequency(){
+  getAllFrequencies(){
     this.frequencyService.findAllFrequencies().subscribe((res)=>{
       this.frequencies = res.data;
     })
   }
 
-  getAllPaymentMethod(){
+  getAllPaymentMethods(){
     this.paymentMethodService.findAllPaymentMethods().subscribe((res)=>{
       this.paymentMethods = res.data;
     })
