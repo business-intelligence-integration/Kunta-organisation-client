@@ -63,6 +63,8 @@ export class AssistanceComponent implements OnInit {
   idAssistance: number = 0;
   tontineMembers: any;
   isAware: boolean = false;
+  isClubSelected: boolean = false;
+  isDecisionSelected: boolean = false;
   openPercentageModal: string = "";
   distributionPercentage: DistributionPercentage = new DistributionPercentage();
   percentageMutual: number = 0;
@@ -185,8 +187,6 @@ export class AssistanceComponent implements OnInit {
 
   findAssistanceById(idAssistance: number) {
     this.assistanceService.findAssistanceById(idAssistance).subscribe((res)=>{
-      console.log("Assistance List:: ", res.data.assistanceClub);
-      
       this.getAllUsersByIdClub(res.data.assistanceClub.id);
     })
   }
@@ -202,17 +202,21 @@ export class AssistanceComponent implements OnInit {
 
   onClubSelected(val: any) {
     if ( val > 0 ) {
-      this.idClub = val;    
+      this.idClub = val;  
+      this.isClubSelected = true;  
       this.getAllUsersByIdClub(this.idClub);
+
     }
   }
 
   onMutualisteClub() {
     this.isAware = true;
+    this.isDecisionSelected = true
   }
 
   onMutualisteTontine() {
     this.isAware = false;
+    this.isDecisionSelected = true
   }
 
   onProfitabilitySelected(val: any) {

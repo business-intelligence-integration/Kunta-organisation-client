@@ -12,6 +12,7 @@ export class Assistance {
     profitabilityType: ProfitabilityType = new ProfitabilityType();
     refundType: RefundType = new RefundType();
     refundFrequency: string = "";
+    refundStatus: string = "";
     echeanceDurationInMonths: number = 0;
     assistanceClub: Club = new Club();
     endDate: any;
