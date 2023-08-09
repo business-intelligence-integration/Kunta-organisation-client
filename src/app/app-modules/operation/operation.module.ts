@@ -24,6 +24,7 @@ import { ViewDetailRefundComponent } from './mutual-investment/view-detail-refun
 import { AssistanceComponent } from './assistance/assistance.component';
 import { ViewDetailAssistanceComponent } from './assistance/view-detail-assistance/view-detail-assistance.component';
 import { ViewAssistSecurityDepositComponent } from './assistance/view-assist-security-deposit/view-assist-security-deposit.component';
+import { ViewAssistRefundComponent } from './assistance/view-assist-refund/view-assist-refund.component';
 
 
 
@@ -48,6 +49,7 @@ import { ViewAssistSecurityDepositComponent } from './assistance/view-assist-sec
     AssistanceComponent,
     ViewDetailAssistanceComponent,
     ViewAssistSecurityDepositComponent,
+    ViewAssistRefundComponent,
   ],
   imports: [
     CommonModule,
