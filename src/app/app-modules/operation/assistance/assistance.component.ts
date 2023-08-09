@@ -19,6 +19,8 @@ import { Tontine } from 'src/app/core/classes/tontine';
 import { User } from 'src/app/core/classes/user';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
+import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
+import { Refund } from 'src/app/core/classes/refund';
 
 
 @Component({
@@ -39,6 +41,7 @@ export class AssistanceComponent implements OnInit {
   updateAssistanceForm!: FormGroup;
   addPercentageForm!: FormGroup;
   addSecurityDepositForm!: FormGroup;
+  generateForm!: FormGroup;
   isCertain: boolean = false;
   isPeriod: boolean = false;
   endDate: any;
@@ -74,6 +77,12 @@ export class AssistanceComponent implements OnInit {
   percentageCompleted: boolean = false;
   openDepositModal: string = "";
   securityDeposit: SecurityDeposit = new SecurityDeposit();
+  openGenerateModal: string = "";
+  refundType: string = "";
+  firstRefundDate: FirstRefundDate = new FirstRefundDate();
+  refund: Refund = new Refund();
+  amountToBeRefunded: number = 0;
+  totalRefunded: number = 0;
 
   constructor(private assistanceService: AssistanceService,
     private formBuilder: FormBuilder, 
@@ -123,6 +132,12 @@ export class AssistanceComponent implements OnInit {
       idUser: new FormControl(null, Validators.required),
       amount: new FormControl(null, Validators.required),
     })
+    
+    this.generateForm = this.formBuilder.group({
+      firstRefundDate: new FormControl(null),
+      amountToBeRefunded: new FormControl(null),
+      refundDate: new FormControl(null),
+    })
   }
 
   getAllAssistances(){
@@ -132,6 +147,7 @@ export class AssistanceComponent implements OnInit {
         this.loaderService.hideLoader();
       } else {
         this.assistances = res.data;
+        console.log("Detail Assit:: ", res.data)
         if( this.assistances.length <= 0 ) {
           this.show = true;
           this.loaderService.hideLoader();
@@ -179,6 +195,10 @@ export class AssistanceComponent implements OnInit {
         
       })
     })
+  }
+
+  onSelectDate(event: any){
+
   }
 
   initDates(){
@@ -519,5 +539,166 @@ export class AssistanceComponent implements OnInit {
       );
     })
   }
+
+  //////////////////////////////////////Generate Dates
+  onGenerate(idAssistance: number){
+    this.openGenerateModal = "is-active";
+    this.idAssistance = idAssistance;
+    this.findAssistanceById(idAssistance);
+  }
+
+  onCloseGenerateModal(){
+    this.openGenerateModal = "";
+  }
+
+  onSubmitGenerate(){
+    this.isSaving = true;
+    const formValue = this.generateForm.value;
+    if ( this.refundType == "PÉRIODIQUEMENT" ) {
+      // this.firstRefundDate = formValue.firstRefundDate;
+      let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
+      this.firstRefundDate.date = firstRefundDate
+      if(!firstRefundDate){
+        this.utilityService.showMessage(
+          'warning',
+          'Entrer la 1ère date de remboursement',
+          '#e62965',
+          'white'
+        );
+      } else {
+        this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
+          this.isSaving = false;
+          if(res) {
+            if (res.data == null ) {
+              this.utilityService.showMessage(
+                'warning',
+                res.message,
+                '#e62965',
+                'white'
+              );
+            } else {
+              this.getAllAssistances();
+              this.generateForm.reset();
+              this.onCloseGenerateModal();
+              this.utilityService.showMessage(
+                'success',
+                'Date(s) generée(s) avec succès',
+                '#06d6a0',
+                'white'
+              );
+            }
+          } else {
+            this.utilityService.showMessage(
+              'warning',
+              'Une erreur s\'est produite, vérifier votre saisie',
+              '#e62965',
+              'white'
+            );
+          }
+        },()=>{
+          this.isSaving = false;
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite',
+            '#e62965',
+            'white'
+          );
+        })
+      }
+      
+    } else if ( this.refundType == 'A L\'ÉCHÉANCE' ) {
+      let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
+      this.firstRefundDate.date = firstRefundDate
+      this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
+        this.isSaving = false;
+        if(res) {
+          if (res.data == null ) {
+            this.utilityService.showMessage(
+              'warning',
+              res.message,
+              '#e62965',
+              'white'
+            );
+          } else {
+            this.getAllAssistances();
+            this.generateForm.reset();
+            this.onCloseGenerateModal();
+            this.utilityService.showMessage(
+              'success',
+              'Date(s) générée(s) avec succès',
+              '#06d6a0',
+              'white'
+            );
+          }
+        } else {
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite, vérifier votre saisie',
+            '#e62965',
+            'white'
+          );
+        }
+      })
+    } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
+      this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
+      this.refund.refundDate = formValue.refundDate;
+      if(!formValue.amountToBeRefunded) {
+        this.utilityService.showMessage(
+          'warning',
+          'Entrer le montant à rembourser',
+          '#e62965',
+          'white'
+        );
+      } else if (!formValue.refundDate){
+        this.utilityService.showMessage(
+          'warning',
+          'Entrer la date de remboursement',
+          '#e62965',
+          'white'
+        );
+      } else {
+        this.assistanceService.setRefundDatesManually(this.refund, this.idAssistance).subscribe((res)=>{
+          this.isSaving = false;
+          if(res) {
+            if (res.data == null ) {
+              this.utilityService.showMessage(
+                'warning',
+                res.message,
+                '#e62965',
+                'white'
+              );
+            } else {
+              this.getAllAssistances();
+              this.generateForm.reset();
+              this.onCloseGenerateModal();
+              this.utilityService.showMessage(
+                'success',
+                'Date(s) générée(s) avec succès',
+                '#06d6a0',
+                'white'
+              );
+            }
+          } else {
+            this.utilityService.showMessage(
+              'warning',
+              'Une erreur s\'est produite, vérifier votre saisie',
+              '#e62965',
+              'white'
+            );
+          }
+        },()=>{
+          this.isSaving = false;
+          this.utilityService.showMessage(
+            'warning',
+            'Une erreur s\'est produite',
+            '#e62965',
+            'white'
+          );
+        })
+      }
+      
+    }
+  }
+
 
 }

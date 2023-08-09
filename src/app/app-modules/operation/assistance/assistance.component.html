@@ -40,6 +40,7 @@
                 <span>Caution(s)</span>
                 <span>Date de Debut</span>
                 <span>Date de Fin</span>
+                <span>Rembourser</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -66,6 +67,18 @@
                     </div>
                     <div class="flex-table-cell" data-th="Date de Fin">
                         <span class="light-text" data-filter-match="">{{ assistance.endDate}}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Rembourser">
+                        <span *ngIf="assistance.refundStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B</span>
+                        <span *ngIf="assistance.refundStatus === 'RELAUNCHED' " class="tag is-rounded is-cliquable" tooltip=" Relancé " theme='light' data-filter-match="">Re</span>
+                        <span *ngIf="assistance.refundStatus === 'EXPIRED' " class="tag is-rounded is-cliquable is-warning" tooltip=" Expiré " theme='light' data-filter-match="">Exp</span>
+                        <span *ngIf="assistance.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
+                        <span *ngIf="assistance.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
+                        <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refunds.length >= 1 }" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
+                        <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type == 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refundDateStatus === 'COMPLETE'}" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">+</a>
+                        <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || !assistance.refunds }" (click)="onRefund(assistance.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a> -->
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-refund']"
+                        [queryParams]="{id: assistance.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -431,6 +444,78 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeSecurityDepositModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Generate Refund Dates -->
+<div id="refundassistance" class="modal h-modal" [ngClass]="openGenerateModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Générer date(s) de remboursement du placement mutualisé</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseGenerateModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="generateForm" (ngSubmit)="onSubmitGenerate()">
+                        <div class="field" *ngIf="refundType == 'PÉRIODIQUEMENT' ">
+                            <label>1ere date de remboursement: </label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="firstRefundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                            <div class="text-danger"
+                                *ngIf="generateForm.get('firstRefundDate')?.errors?.['required'] && generateForm.get('firstRefundDate')?.touched">
+                                <small class="text-police" translate>Entrer la 1ere date du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
+                            <label>Montant total à rembourser: <b>{{amountToBeRefunded}} FCFA</b> </label><br>
+                            <label>Montant total enregistré: <b>{{totalRefunded}} FCFA</b> </label><br><br>
+                            <label class="red">Montant restant à enregistrer: <b>{{amountToBeRefunded - totalRefunded}} FCFA</b> </label><br>
+                        </div><br>
+                        <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
+                            <label>Montant à rembourser: </label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant à rembourser" formControlName="amountToBeRefunded">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required'] && generateForm.get('amountToBeRefunded')?.touched">
+                                <small class="text-police" translate>Entrer le montant du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
+                            <label>Date de remboursement: </label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input formControlName="refundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" (input)="onSelectDate($event.timeStamp)">
+                                </div>
+                           </div>
+                            <div class="text-danger"
+                                *ngIf="generateForm.get('refundDate')?.errors?.['required'] && generateForm.get('refundDate')?.touched">
+                                <small class="text-police" translate>Entrer la date du remboursement</small>
+                            </div>
+                        </div><br>
+                        <div class="control login">
+                            <button [disabled]="generateForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Générer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseGenerateModal()">Annuler</a>
             </div>
         </div>
     </div>

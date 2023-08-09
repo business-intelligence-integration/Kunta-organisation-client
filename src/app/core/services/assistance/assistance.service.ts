@@ -6,6 +6,9 @@ import { UtilityService } from '../utility/utility.service';
 import { Assistance } from '../../classes/assistance';
 import { DistributionPercentage } from '../../classes/distributionPercentage';
 import { SecurityDeposit } from '../../classes/securityDeposit';
+import { Refund } from '../../classes/refund';
+import { FirstRefundDate } from '../../classes/firstRefundDate';
+import { Payment } from '../../classes/payment';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -47,6 +50,22 @@ export class AssistanceService {
 
   applyDistributionPercentage(distributionPercentage: DistributionPercentage, idAssistance: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + 'assistance/apply-distribution-percentage/' + idAssistance, distributionPercentage);
+  }
+
+  unlockingOperation(idAssistance: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/' + idAssistance + '/unlocking-the-operation' + "?token=" + this.utilityService.loadToken(), httpOptions);
+  }
+
+  setRefundDatesManually(refund: Refund, idAssistance: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/' + idAssistance + '/set-refund-dates-manually', refund);
+  }
+
+  generateRefundDates(idAssistance: number, firstRefundDate: FirstRefundDate):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/' + idAssistance + '/generate-refund-dates', firstRefundDate);
+  }
+
+  refundOfAmountsCollected(idRefund: number, idPaymentMethod: number, payment: Payment):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/refund/'+ idRefund + '/id-paymentMethod/' + idPaymentMethod + "?token=" + this.utilityService.loadToken(), payment);
   }
 
 }

@@ -35,6 +35,7 @@ import { ViewDetailRefundComponent } from './operation/mutual-investment/view-de
 import { ViewPostMembersComponent } from './parameter/organisation/poste/view-post-members/view-post-members.component';
 import { ViewDetailAssistanceComponent } from './operation/assistance/view-detail-assistance/view-detail-assistance.component';
 import { ViewAssistSecurityDepositComponent } from './operation/assistance/view-assist-security-deposit/view-assist-security-deposit.component';
+import { ViewAssistRefundComponent } from './operation/assistance/view-assist-refund/view-assist-refund.component';
 
 const routes: Routes = [
   {
@@ -139,6 +140,9 @@ const routes: Routes = [
       },
       {
         path:"view-assist-security-deposit", component: ViewAssistSecurityDepositComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-assist-refund", component: ViewAssistRefundComponent, canActivate: [EntityGuard]
       },
       {
         path : 'parameters',
