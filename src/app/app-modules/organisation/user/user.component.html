@@ -268,14 +268,14 @@
                                 </div>
                                 <div class="field" *ngIf="!isAdminAndOperator && isSelectMutualist">
                                     <div>
-                                        <label>Categorie d'utilisateur*</label><br>
+                                        <label>Catégorie d'utilisateur*</label><br>
                                         <select class="input_comp" formControlName="idCategory" aria-label="Default select example"  [(ngModel)]="ngSelectUserCategory">
-                                            <option value="0" disabled>--selectionner une categorie d'utilisateur--</option>
+                                            <option value="0" disabled>--selectionner une catégorie d'utilisateur--</option>
                                             <option *ngFor="let category of userCategories" [value]="category.id" >{{ category.name }}</option>
                                         </select>
                                         <div class="text-danger"
                                         *ngIf="addUserForm.get('idCategory')?.errors?.['required'] && addUserForm.get('idCategory')?.touched">
-                                        <small class="text-police" translate>selectionner une categorie d'utilisateur</small>
+                                        <small class="text-police" translate>selectionner une catégorie d'utilisateur</small>
                                         </div>
                                     </div>
                                 </div>

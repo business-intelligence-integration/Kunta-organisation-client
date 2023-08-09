@@ -66,8 +66,6 @@ export class PostsOfMainOfficeComponent implements OnInit {
         this.show = true;
         this.loaderService.hideLoader();
       } else {
-        console.log("Liste de posts:: ", res.data);
-        
         this.posts = res.data;
         if( this.posts.length <= 0 ) {
           this.show = true;

@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import {DatePipe, Location} from "@angular/common";
-import { MutualInvestmentService } from 'src/app/core/services/mutual-investment/mutual-investment/mutual-investment.service';
-import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
-import { CenterService } from 'src/app/core/services/centers/center.service';
-import { User } from 'src/app/core/classes/user';
-import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoaderService } from 'src/app/core/services/loader/loader.service';
-import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
-import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
-import { Payment } from 'src/app/core/classes/payment';
-import { SecurityDepositService } from 'src/app/core/services/security-deposit/security-deposit.service';
-import { MutualInvestment } from 'src/app/core/classes/mutualInvestment';
+import {DatePipe, Location} from "@angular/common";
 import { DomSanitizer } from '@angular/platform-browser';
+import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
+import { Assistance } from 'src/app/core/classes/assistance';
+import { PaymentMethod } from 'src/app/core/classes/paymentMethod';
+import { Payment } from 'src/app/core/classes/payment';
 import { Picture } from 'src/app/core/classes/picture';
+import { AssistanceService } from 'src/app/core/services/assistance/assistance.service';
+import { SecurityDepositService } from 'src/app/core/services/security-deposit/security-deposit.service';
+import { PaymentMethodService } from 'src/app/core/services/payment-method/payment-method.service';
 import { RefundAmountService } from 'src/app/core/services/refund-amount/refund-amount.service';
+import { ClubService } from 'src/app/core/services/clubs/club.service';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
+import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { User } from 'src/app/core/classes/user';
 
 @Component({
-  selector: 'app-view-more-security-deposit',
-  templateUrl: './view-more-security-deposit.component.html',
-  styleUrls: ['./view-more-security-deposit.component.scss']
+  selector: 'app-view-assist-security-deposit',
+  templateUrl: './view-assist-security-deposit.component.html',
+  styleUrls: ['./view-assist-security-deposit.component.scss']
 })
-export class ViewMoreSecurityDepositComponent implements OnInit {
+export class ViewAssistSecurityDepositComponent implements OnInit {
 
   show: boolean = false;
   ngSelectPayment = 0;
@@ -33,17 +33,17 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   securityDeposits: SecurityDeposit[] = [];
   idDeposit: number = 0;
   idRefundAmount: number = 0;
-  idInvestment: number = 0;
+  idAssistance: number = 0;
   openImageModal: string = "";
   openDepositModal: string = "";
   openRefundDepositModal: string = "";
   openViewAmountsModal: string = "";
-  centerUserOfSelect: any;
+  clubUserOfSelect: any;
   addSecurityDepositForm!: FormGroup;
   refundDepositForm!: FormGroup;
   isSaving: boolean = false;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
-  mutualInvestment: MutualInvestment = new MutualInvestment();
+  assistance: Assistance = new Assistance();
   dateNow: any;
   paymentMethods: PaymentMethod[] = [];
   payment: Payment = new Payment();
@@ -51,11 +51,11 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   picture = new Picture();
 
   constructor( private activatedRoute: ActivatedRoute, 
-    private mutualInvestmentService: MutualInvestmentService,
+    private assistanceService: AssistanceService,
     private securityDepositService: SecurityDepositService,
     private paymentMethodService: PaymentMethodService,
     public refundAmountService: RefundAmountService,
-    private centerService: CenterService,
+    private clubService: ClubService,
     private formBuilder: FormBuilder,
     private utilityService: UtilityService,
     private location: Location,
@@ -64,7 +64,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
   ngOnInit(): void {
     this.loaderService.showLoader();
-    this.getMutualSecurityDeposit();
+    this.getAssistanceSecurityDeposit();
     this.getAllPaymentMethod();
     this.initDates();
     this.formInit();
@@ -86,15 +86,15 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
 
   backBack(){this.location.back()}
 
-  getMutualSecurityDeposit(){
+  getAssistanceSecurityDeposit(){
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.mutualInvestmentService.findMutualInvestmentById(params['id']).subscribe((res)=>{
-        this.idInvestment = params['id'];
+      this.assistanceService.findAssistanceById(params['id']).subscribe((res)=>{
+        this.idAssistance = params['id'];
         if ( res == null ) {
           this.show = true;
           this.loaderService.hideLoader();
         } else {
-          this.mutualInvestment = res.data;
+          this.assistance = res.data;
           this.securityDeposits = res.data.securityDeposits;          
           if( this.securityDeposits.length <= 0 ) {
             this.show = true;
@@ -130,77 +130,22 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     })
   }
 
-  onDeleteSecurityDeposit(id: number){
-    this.deleteMessage(id);
+  findAssistanceById(idAssistance: number) {
+    this.assistanceService.findAssistanceById(idAssistance).subscribe((res)=>{
+      this.getAllUsersByIdClub(res.data.assistanceClub.id);
+    })
   }
 
-  deleteMessage(idDeposit: number) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      buttonsStyling: true,
-    });
-    swalWithBootstrapButtons
-      .fire({
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp',
-        },
-        title: 'Êtes-vous sûre ?',
-        text: "Cette action est irreversible!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Oui, retirer!',
-        cancelButtonText: 'Non, annuler!',
-        confirmButtonColor: '#198AE3',
-        cancelButtonColor: '#d33',
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.mutualInvestmentService.deleteSecurityDeposit(this.idInvestment, idDeposit).subscribe(
-            () => {
-              this.getMutualSecurityDeposit();
-              swalWithBootstrapButtons.fire({
-                title: 'Retiré !',
-                text: 'Caution a été retiré.',
-                confirmButtonColor: '#198AE3',
-              });
-            },
-            () => {
-              swalWithBootstrapButtons.fire({
-                title: 'Annulé',
-                text: 'Une erreur s\'est produite',
-                confirmButtonColor: '#d33',
-              });
-            }
-          );
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire({
-            title: 'Annulé',
-            text: 'La suppression a été annulé',
-            confirmButtonColor: '#d33',
-          });
-        }
-      });
+  getAllUsersByIdClub(idClub: number){
+    this.clubService.getclubById(idClub).subscribe((res)=>{
+      this.clubUserOfSelect = res.data.users.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
+    })
   }
 
   ///////////////// Add Security Deposit
   onOpenAddSecurityDeposit(){
     this.openDepositModal = "is-active";
-    this.getMutualInvestmentById(this.idInvestment);
-  }
-
-  getMutualInvestmentById(idInvestment: number){
-    this.mutualInvestmentService.findMutualInvestmentById(idInvestment).subscribe((res)=>{
-      this.getAllUsersByIdCenter(res.data.mutualCenter.id);
-    });
-  }
-
-  getAllUsersByIdCenter(idMutualCenter: number){
-    this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
-      this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
-    })
+    this.findAssistanceById(this.idAssistance);
   }
 
   closeSecurityDepositModal() {
@@ -210,12 +155,12 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   onAddSecurtiyDeposit() {
     const formValue = this.addSecurityDepositForm.value;
     this.securityDeposit.amount = formValue.amount;
-    this.addSecurityDeposit(this.idInvestment, formValue.idUser, this.securityDeposit)
+    this.addSecurityDeposit(this.idAssistance, formValue.idUser, this.securityDeposit)
   }
 
-  addSecurityDeposit(idInvestment: number, idUser: number, securityDeposit: SecurityDeposit) {
+  addSecurityDeposit(idAssistance: number, idUser: number, securityDeposit: SecurityDeposit) {
     this.isSaving = true;
-    this.mutualInvestmentService.addSecurityDeposit(idInvestment, idUser, securityDeposit).subscribe((res) => {
+    this.assistanceService.addSecurityDeposit(idAssistance, idUser, securityDeposit).subscribe((res) => {
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -226,8 +171,9 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
             'white'
           );
         } else {
-          this.getMutualSecurityDeposit();
+          this.getAssistanceSecurityDeposit();
           this.closeSecurityDepositModal();
+          this.addSecurityDepositForm.reset();
           this.utilityService.showMessage(
             'success',
             'Caution ajoutée avec succès',
@@ -240,13 +186,12 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
         this.addSecurityDepositForm.reset();
         this.utilityService.showMessage(
           'warning',
-          'Une erreur s\'est produite',
+          'Une erreur s\'est produite, vérifier votre saisie',
           '#e62965',
           'white'
         );
       }
-    }, (error) => {
-      console.log("error: ", error);
+    }, () => {
       this.isSaving = false;
       this.closeSecurityDepositModal();
       this.addSecurityDepositForm.reset();
@@ -258,7 +203,63 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
       );
     })
   }
-  
+
+  /////////////////////////////// Delete Security Deposit
+  onDeleteSecurityDeposit(id: number){
+    // this.deleteMessage(id);
+  }
+
+  // deleteMessage(idDeposit: number) {
+  //   const swalWithBootstrapButtons = Swal.mixin({
+  //     buttonsStyling: true,
+  //   });
+  //   swalWithBootstrapButtons
+  //     .fire({
+  //       showClass: {
+  //         popup: 'animate__animated animate__fadeInDown',
+  //       },
+  //       hideClass: {
+  //         popup: 'animate__animated animate__fadeOutUp',
+  //       },
+  //       title: 'Êtes-vous sûre ?',
+  //       text: "Cette action est irreversible!",
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       confirmButtonText: 'Oui, retirer!',
+  //       cancelButtonText: 'Non, annuler!',
+  //       confirmButtonColor: '#198AE3',
+  //       cancelButtonColor: '#d33',
+  //       reverseButtons: true,
+  //     })
+  //     .then((result) => {
+  //       if (result.isConfirmed) {
+  //         this.mutualInvestmentService.deleteSecurityDeposit(this.idInvestment, idDeposit).subscribe(
+  //           () => {
+  //             this.getMutualSecurityDeposit();
+  //             swalWithBootstrapButtons.fire({
+  //               title: 'Retiré !',
+  //               text: 'Caution a été retiré.',
+  //               confirmButtonColor: '#198AE3',
+  //             });
+  //           },
+  //           () => {
+  //             swalWithBootstrapButtons.fire({
+  //               title: 'Annulé',
+  //               text: 'Une erreur s\'est produite',
+  //               confirmButtonColor: '#d33',
+  //             });
+  //           }
+  //         );
+  //       } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //         swalWithBootstrapButtons.fire({
+  //           title: 'Annulé',
+  //           text: 'La suppression a été annulé',
+  //           confirmButtonColor: '#d33',
+  //         });
+  //       }
+  //     });
+  // }
+
   /////////////////////////////// Refunds Funders
   onRefundDeposit(idDeposit: number){
     this.idDeposit = idDeposit;
@@ -286,7 +287,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
             'white'
           );
         } else {
-          this.getMutualSecurityDeposit();
+          this.getAssistanceSecurityDeposit();
           this.refundDepositForm.reset();
           this.closeRefundDepositModal();
           this.utilityService.showMessage(
@@ -378,4 +379,5 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     closeImageModal() {
       this.openImageModal = "";
     }
+
 }

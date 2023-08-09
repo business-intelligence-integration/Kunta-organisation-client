@@ -44,7 +44,7 @@
                 <span class="cell-end">Actions</span>
             </div>
 
-  <div class="flex-list-inner">
+            <div class="flex-list-inner">
                 <!--Table item-->
                 <div class="flex-table-item" *ngFor="let mutualInvestment of mutualInvestments">
                     <div class="flex-table-cell" data-th="Nom">
@@ -423,9 +423,9 @@
                             <div class="control">
                                 <input type="number" class="input" placeholder="Taux de rentabilité" formControlName="profitabilityRate" [(ngModel)]="profitabilityRate" (ngModelChange)="onProfitabilityRateSelected($event)" >
                             </div>
-                            <div class="text-danger" *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
-                                <small class="text-police">veuillez entrer le pourcentage des pouvoyeurs de fond.</small>
-                            </div>
+                            <!-- <div class="text-danger" *ngIf="addSubscriptionOfferForm.get('profitabilityRate')?.touched">
+                                <small class="text-police">veuillez entrer le taux de rentabilité.</small>
+                            </div> -->
                             <div class="text-danger" *ngIf="percentageOkay">
                                 <small class="text-police">Ce taux ne doit être supérieur au pourcentage des pouvoyeurs de fond ({{mutualInvestment.percentageOfFunders}}%).</small>
                             </div>
@@ -476,7 +476,11 @@
                                 id="idUser"
                                 formControlName="idUser"
                                 placeholder="--Sélectionner un participant--">
-                            </select2><br><br>
+                            </select2>
+                            <div class="text-danger"
+                            *ngIf="centerUserOfSelect?.length == 0">
+                            <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la caution.</small>
+                            </div><br>
                         </div>
                        
                         <div class="field">

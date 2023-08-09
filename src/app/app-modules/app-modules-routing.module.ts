@@ -33,6 +33,8 @@ import { ViewDetailPaymentComponent } from './operation/mutual-investment/view-d
 import { ViewDetailMutualInvestmentComponent } from './operation/mutual-investment/view-detail-mutual-investment/view-detail-mutual-investment.component';
 import { ViewDetailRefundComponent } from './operation/mutual-investment/view-detail-refund/view-detail-refund.component';
 import { ViewPostMembersComponent } from './parameter/organisation/poste/view-post-members/view-post-members.component';
+import { ViewDetailAssistanceComponent } from './operation/assistance/view-detail-assistance/view-detail-assistance.component';
+import { ViewAssistSecurityDepositComponent } from './operation/assistance/view-assist-security-deposit/view-assist-security-deposit.component';
 
 const routes: Routes = [
   {
@@ -131,6 +133,12 @@ const routes: Routes = [
       },
       {
         path:"view-post-members", component: ViewPostMembersComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-detail-assistance", component: ViewDetailAssistanceComponent, canActivate: [EntityGuard]
+      },
+      {
+        path:"view-assist-security-deposit", component: ViewAssistSecurityDepositComponent, canActivate: [EntityGuard]
       },
       {
         path : 'parameters',

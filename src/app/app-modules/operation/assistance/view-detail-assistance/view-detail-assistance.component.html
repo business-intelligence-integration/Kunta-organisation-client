@@ -13,15 +13,15 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ totalExpectedContribution }} FCFA</span>
-                                        <p>Cotisation attentue</p>
+                                        <span>{{ assistance.assistanceAmount }} FCFA</span>
+                                        <p>Montant minimal</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ totalContributionReceived }} FCFA</span>
-                                        <p>Cotisation reçue</p>
+                                        <span>{{ assistance.profitabilityRate }} %</span>
+                                        <p>Taux de rentabilité</p>
                                     </div>
                                 </div>
                             </div>
@@ -30,32 +30,26 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ penaltyAfflicted }} FCFA</span>
-                                        <p>Pénalité affligée </p>
+                                        <span>{{ assistance.profitabilityAmount }} FCFA</span>
+                                        <p>Montant rentable </p>
                                     </div>
                                 </div>
-                                <div class="header-item">
-                                    <div class="item-inner">
-                                        <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ penaltyPaid }} FCFA</span>
-                                        <p>Pénalité payée</p>
-                                    </div>
-                                </div>
+                                
                             </div>
 
-                            <div class="all-projects-header">
+                            <!-- <div class="all-projects-header">
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ totalExpectedGain }} FCFA</span>
-                                        <p>Totale gain à effectuer</p>
+                                        <span>{{ assistance.collectedAmount }} FCFA</span>
+                                        <p>Montant collecté</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ totalGainMade }} FCFA</span>
-                                        <p>Totale gain effectué</p>
+                                        <span>{{ assistance.amountToBeRefunded }} FCFA</span>
+                                        <p>Montant à rembourser</p>
                                     </div>
                                 </div>
                             </div>
@@ -64,36 +58,30 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
-                                        <span>{{ totalExpectedContribution - totalExpectedGain }} FCFA</span>
-                                        <p>Totale marge attendue</p>
+                                        <span>{{ assistance.amountRefunded }} FCFA</span>
+                                        <p>Montant remboursé</p>
                                     </div>
                                 </div>
-                                <div class="header-item">
-                                    <div class="item-inner">
-                                        <i class="lnil lnil-leaf"></i>
-                                        <span>{{ totalContributionReceived - totalGainMade }} FCFA</span>
-                                        <p>Totale marge actuelle</p>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="all-projects-header">
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ numberOfCycle }}</span>
-                                        <p>Nombre de cycles</p>
+                                        <span>{{ assistance.offers.length }}</span>
+                                        <p>Nombre d'offre</p>
                                     </div>
                                 </div>
 
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ tontine.sessionsNumber }}</span>
-                                        <p>Nombre de séances par cycle</p>
+                                        <span>{{ assistance.securityDeposits.length }}</span>
+                                        <p>Nombre de caution</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
   
                     </div>
@@ -103,7 +91,7 @@
             <div class="side-wrapper">
                 <div class="side-inner">
                     <div class="side-title">
-                        <h3 class="dark-inverted">Détails de la tontine</h3>
+                        <h3 class="dark-inverted">Détails du placement mutualisé: {{assistance.id}}</h3>
                     </div>
 
                     <div class="action-list">
@@ -112,8 +100,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Date début:</span><br>
-                                <p>{{ startDate }}</p>
+                                <span>Statut général:</span><br>
+                                <!-- <span *ngIf="assistance.status === 'OPEN' " class="tag is-rounded is-cliquable is-success" tooltip=" Ouvert " theme='light' data-filter-match=""> Ouvert</span>
+                                <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé</span> -->
                             </div>
                         </div>
                         <div class="media-flex">
@@ -121,8 +110,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Date fin:</span><br>
-                                <p>{{ endDate }}</p>
+                                <span>Date de début:</span><br>
+                                <p>{{ assistance.startDate }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -130,8 +119,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Club propriétaire de la tontine:</span><br>
-                                <p>{{ tontine.clubOwner.name }}</p>
+                                <span>Date de fin:</span><br>
+                                <p>{{ assistance.endDate }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -139,8 +128,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Niveau de transversalité:</span><br>
-                                <p>{{ tontine.level.label }}</p>
+                                <span>Club: </span><br>
+                                <p>{{ assistance.assistanceClub.name }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -148,8 +137,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Fréquence de contribution:</span><br>
-                                <p>{{ tontine.contributionFrequency.label }}</p>
+                                <span>Type de rentabilité:</span><br>
+                                <p>{{ assistance?.profitabilityType?.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -157,8 +146,17 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Séance de tontine:</span><br>
-                                <p>{{ tontine.tontineSessionFrequency.label }}</p>
+                                <span>Type de remboursement:</span><br>
+                                <p>{{ assistance?.refundType?.type }}</p>
+                            </div>
+                        </div>
+                        <div class="media-flex" *ngIf="assistance?.refundFrequency != null">
+                            <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <div class="flex-meta">
+                                <span>Fréquence de remboursement:</span><br>
+                                <p>{{ assistance?.refundFrequency }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -166,8 +164,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Mode de gain:</span><br>
-                                <p> {{ tontine.gainMode.label }}</p>
+                                <span>Statut de l'assistance:</span><br>
+                                <!-- <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.assistanceStatus === 'BLOCKED'">Bloqué</span>
+                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.assistanceStatus === 'UNLOCKED'">Debloqué</span> -->
                             </div>
                         </div>
                         <div class="media-flex">
@@ -175,8 +174,10 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Observation:</span><br>
-                                <p> {{ tontine.observation }}</p>
+                                <span>Statut de remboursement:</span><br>
+                                <!-- <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.refundStatus === 'PAID'">Remboursé</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.refundStatus === 'UNPAID'">Non-remboursé</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.refundStatus === 'EXPIRED'">Expiré</span> -->
                             </div>
                         </div>
                         <div class="media-flex">
@@ -184,8 +185,29 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
-                                <span>Statut:</span><br>
-                                <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': tontine.status.label === 'FERMÉ', 'is-success': tontine.status.label === 'OUVERT'}">{{ tontine.status.label }}</span>
+                                <span>Statut de distribution:</span><br>
+                                <!-- <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.distributionStatus === 'DISTRIBUTED'">Distribué</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span> -->
+                            </div>
+                        </div>
+                        <div *ngFor="let key of assistance.allocationKeys">
+                            <div class="media-flex">
+                                <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                                <div class="flex-meta">
+                                    <span>{{key.receivingParty.label}}: </span><br>
+                                    <p>{{key.percentage}} %</p>
+                                </div>
+                            </div>
+                            <div class="media-flex">
+                                <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                                <div class="flex-meta">
+                                    <span>Montant à recevoir: </span><br>
+                                    <p>{{key.receivingAmount}} CFA </p>
+                                </div>
                             </div>
                         </div>
                     </div>

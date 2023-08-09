@@ -4,6 +4,7 @@ import { EntityGuard } from 'src/app/core/services/entity.guard';
 import { MutualInvestmentComponent } from './mutual-investment/mutual-investment.component';
 import { OperationsComponent } from './operations/operations.component';
 import { TontineComponent } from './tontine/tontine.component';
+import { AssistanceComponent } from './assistance/assistance.component';
 
 const routes: Routes = [
   {path:"", component: OperationsComponent, canActivate: [EntityGuard],
@@ -15,6 +16,8 @@ const routes: Routes = [
       {path:"tontines", component: TontineComponent, canActivate: [EntityGuard]},
 
       {path:"mutual-investment", component: MutualInvestmentComponent, canActivate: [EntityGuard]},
+
+      {path:"assistances", component: AssistanceComponent, canActivate: [EntityGuard]},
    
     ]
   },

@@ -720,7 +720,7 @@ export class UserComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllMambers().subscribe((res)=>{
-      this.membersArray = res.data.map((member:any)=>({value:member.id, label:member.firstName}));
+      this.membersArray = res?.data.map((member:any)=>({value:member.id, label:member.firstName}));
     })
   }
 

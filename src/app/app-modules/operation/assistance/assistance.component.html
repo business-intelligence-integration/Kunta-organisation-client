@@ -1,0 +1,437 @@
+<div class="list-flex-toolbar" *ngIf="!createAssistance">
+    <div class="control has-icon">
+        <input class="input custom-text-filter" placeholder="Rechercher..." data-filter-target=".flex-table-item">
+        <div class="form-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+    </div>
+
+    <div class="buttons" (click)="onOpenCreateAssistance()">
+        <button class="button h-button is-primary is-elevated">
+            <span class="icon">
+              <i aria-hidden="true" class="fas fa-plus"></i>
+          </span>
+            <span>Créer une assistance</span>
+        </button>
+    </div>
+</div>
+
+<div class="page-content-inner" *ngIf="!createAssistance">
+
+    <div class="flex-list-wrapper flex-list-v1">
+
+        <!--List Empty Search Placeholder -->
+        <div *ngIf="assistances.length == 0 && show" class="page-placeholder custom-text-filter-placeholder">
+            <div class="placeholder-content">
+                <img class="light-image" src="assets/img/illustrations/placeholders/search-7.svg" alt="">
+                <img class="dark-image" src="assets/img/illustrations/placeholders/search-7-dark.svg" alt="">
+                <h3>Désolé la liste est actuellement vide.</h3>
+                <p class="is-larger">Veuillez créer/ajouter une assistance pour qu'elle soit afficher.</p>
+            </div>
+        </div>
+        
+        <div *ngIf="assistances.length != 0" class="flex-table">
+
+            <!--Table header-->
+            <div class="flex-table-header" data-filter-hide="">
+                <span>ID</span>
+                <span>Montant minimal</span>
+                <span>Taux rentabilité (%)</span>
+                <span>Caution(s)</span>
+                <span>Date de Debut</span>
+                <span>Date de Fin</span>
+                <span class="cell-end">Actions</span>
+            </div>
+
+            <div class="flex-list-inner">
+                <!--Table item-->
+                <div class="flex-table-item" *ngFor="let assistance of assistances">
+                    <div class="flex-table-cell" data-th="id">
+                        <span class="light-text" data-filter-match="">{{ assistance.id }}  </span><br>
+                    </div>
+                    <div class="flex-table-cell" data-th="Montant">
+                        <span class="light-text" data-filter-match="">{{ assistance.assistanceAmount }}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Taux rentabilité(%)">
+                        <span class="light-text" data-filter-match="">{{ assistance.profitabilityRate }} %</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Caution(s)">
+                        <span class="light-text" data-filter-match="">{{ assistance.securityDeposits.length }}</span>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(assistance.id)"><i class="lnir lnir-plus"></i></a>
+                        <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-security-deposit']"
+                        [queryParams]="{id: assistance.id}" tooltip=" Voir détails caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    </div>
+                    <div class="flex-table-cell" data-th="Date de Debut">
+                        <span class="light-text" data-filter-match="">{{ assistance.startDate}}</span>
+                    </div>
+                    <div class="flex-table-cell" data-th="Date de Fin">
+                        <span class="light-text" data-filter-match="">{{ assistance.endDate}}</span>
+                    </div>
+                    <div class="flex-table-cell cell-end" data-th="Actions">
+                        <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
+                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                            <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-assistance']"
+                            [queryParams]="{id: assistance.id}" tooltip=" Voir l'assistance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                            <a _ngcontent-nct-c62="" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
+                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onDeleteAssistance(assistance.id)" tooltip=" Retirer le placement " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Table Pagination-->
+        <nav class="flex-pagination pagination is-rounded" aria-label="pagination" data-filter-hide="">
+            <a class="pagination-previous has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a>
+            <a class="pagination-next has-chevron"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+            <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                <li><span class="pagination-ellipsis">…</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
+                </li>
+                <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                <li><span class="pagination-ellipsis">…</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<!-- Création d'une assistance -->
+<div *ngIf="createAssistance" class="page-content-inner">
+    <!--Form Layout 1-->
+    <div class="form-layout">
+        <a (click)="cancelCreatingAssistance()" tooltip=" Retour " theme="light" class="pagination-previous has-chevron get-potition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></a><br>
+        <div class="form-outer">
+            <div class="form-header stuck-header is-stuck">
+                <div class="form-header-inner">
+                    <div class="left">
+                        <h3>Création d'une assistance</h3>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="form-body">
+                <!--Fieldset-->
+                <div class="border-style">
+                    <div class="form-fieldset">
+                        <div class="fieldset-heading">
+                            <h4>Informations de l'assistance </h4>
+                        </div>
+                        <form class="modal-form" [formGroup]="createAssistanceForm" (ngSubmit)="onSubmitAssistance()">
+                            <div class="field">
+                                <label>Liste des clubs *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelectClub" (ngModelChange)="onClubSelected($event)">
+                                    <option value="0" disabled>--Sélectionner un club--</option>
+                                    <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="createAssistanceForm.get('idClub')?.errors?.['required'] && createAssistanceForm.get('idClub')?.touched">
+                                    <small class="text-police">veuillez sélectionner un club</small>
+                                </div>
+                            </div>
+                            <div class="field" *ngIf="isClubSelected"  >
+                                <div class="columns">
+                                    <div class="column is-12">
+                                        <div class="demo-card">
+                                            <label>L'assistance est-elle se limitée au club? *</label>
+                                            <div class="card-inner">
+                                                <div class="field demo-select">
+                                                    <div class="control">
+                                                        <label class="radio is-outlined is-primary" (click)="onMutualisteClub()">
+                                                            <input type="radio" name="outlined_radio">
+                                                            <span></span>
+                                                            Oui
+                                                        </label>
+        
+                                                        <label class="radio is-outlined is-primary" (click)="onMutualisteTontine()">
+                                                            <input type="radio" name="outlined_radio">
+                                                            <span></span>
+                                                            Non
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="isDecisionSelected" >
+                                <div class="field" *ngIf="isAware">
+                                    <label>Liste des mutualistes *</label>
+                                    <select2
+                                        class="w-100 color-border"
+                                        [data]="clubUserOfSelect"
+                                        id="idApplicant"
+                                        formControlName="idApplicant"
+                                        placeholder="--Sélectionner un mutualiste--">
+                                    </select2>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('idApplicant')?.errors?.['required'] && createAssistanceForm.get('idApplicant')?.touched">
+                                        <small class="text-police">veuillez sélectionner un mutualiste</small>
+                                    </div>
+                                </div>
+                                <div class="field" *ngIf="!isAware">
+                                    <label>Liste des mutualistes avec tontine *</label>
+                                    <select2
+                                        class="w-100 color-border"
+                                        [data]="clubUserTontine"
+                                        id="idApplicant"
+                                        formControlName="idApplicant"
+                                        placeholder="--Sélectionner un mutualiste--">
+                                    </select2>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('idApplicant')?.errors?.['required'] && createAssistanceForm.get('idApplicant')?.touched">
+                                        <small class="text-police">veuillez sélectionner un mutualiste</small>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Montant *</label><br>
+                                    <div class="control">
+                                        <input type="number" class="input" placeholder="montant" formControlName="assistanceAmount">
+                                    </div>
+                                    <div class="text-danger"              
+                                        *ngIf="createAssistanceForm.get('assistanceAmount')?.errors?.['required'] && createAssistanceForm.get('assistanceAmount')?.touched">
+                                        <small class="text-police">veuillez entrer le montant</small>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Types de rentabilités *</label>
+                                    <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelectProfitability" (ngModelChange)="onProfitabilitySelected($event)">
+                                        <option value="0" disabled>--Sélectionner un types de rentabilité--</option>
+                                        <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
+                                    </select>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('idProfitabilityType')?.errors?.['required'] && createAssistanceForm.get('idProfitabilityType')?.touched">
+                                        <small class="text-police">veuillez sélectionner un types de rentabilité</small>
+                                    </div>
+                                </div>
+                                <div class="field" *ngIf="isCertain">
+                                    <label>Taux de rentabilité (%) *</label><br>
+                                    <div class="control">
+                                        <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('profitabilityRate')?.errors?.['required'] && createAssistanceForm.get('profitabilityRate')?.touched">
+                                        <small class="text-police">veuillez entrer le taux de rentabilité</small>
+                                    </div>
+                                </div>    
+                                <div class="field">
+                                    <label>Types de remboursements *</label>
+                                    <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelectRefund" (ngModelChange)="onRefundSelected($event)">
+                                        <option value="0" disabled>--Sélectionner un type de remboursement--</option>
+                                        <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
+                                    </select>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('idRefundType')?.errors?.['required'] && createAssistanceForm.get('idRefundType')?.touched">
+                                        <small class="text-police">veuillez sélectionner un type de remboursement</small>
+                                    </div>
+                                </div>
+                                <div class="field" *ngIf="isPeriod">
+                                    <label>Fréquence de remboursement *</label>
+                                    <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelectFrequency">
+                                        <option value="0" disabled>--Sélectionner une fréquence de remboursement--</option>
+                                        <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
+                                    </select>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('idFrequency')?.errors?.['required'] && createAssistanceForm.get('idFrequency')?.touched">
+                                        <small class="text-police">veuillez sélectionner une fréquence de remboursement</small>
+                                    </div>
+                                </div>
+                                <div class="field" *ngIf="isPeriod">
+                                    <label>Durée de l'échéance en mois *</label><br>
+                                    <div class="control">
+                                        <input type="number" class="input" placeholder="durée de l'échéance en mois" formControlName="echeanceDurationInMonths">
+                                    </div>
+                                    <div class="text-danger"
+                                        *ngIf="createAssistanceForm.get('echeanceDurationInMonths')?.errors?.['required'] && createAssistanceForm.get('echeanceDurationInMonths')?.touched">
+                                        <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
+                                    </div>
+                                </div>
+                                <div class="columns is-multiline">
+                                    <div class="column is-6">
+                                        <div class="field">
+                                            <label>Date de début *</label><br>
+                                            <div class="card-header-widget datepicker-style">
+                                                <div class="input-daterange input-group align-items-center">
+                                                    <input class="champ" formControlName="startDate" min="{{ dateNow }}" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
+                                                </div>
+                                            </div>
+                                            <div class="text-danger" *ngIf="createAssistanceForm.get('startDate')?.errors?.['required'] && createAssistanceForm.get('endDate')?.touched">
+                                                <small class="text-police" translate>veuillez sélectionner la date de début</small>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="column is-6">
+                                        <div class="field">
+                                            <label>Date de fin *</label><br>
+                                            <div class="card-header-widget datepicker-style">
+                                                <div class="input-daterange input-group align-items-center">
+                                                    <input class="champ" formControlName="endDate" min="{{ minEndDate }}" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
+                                                </div>
+                                            </div>
+                                            <div class="text-danger" *ngIf="createAssistanceForm.get('endDate')?.errors?.['required'] && createAssistanceForm.get('endDate')?.touched">
+                                                <small class="text-police" translate>veuillez sélectionner la date de fin</small>
+                                            </div>
+                                            <div class="text-danger" *ngIf="showErroMessage">
+                                                <small class="text-police" translate>veuillez au préalable sélectionner la date de début</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+    
+                                <div class="right but-style">
+                                    <div class="buttons">
+                                        <button (click)="cancelCreatingAssistance()" id="save-button" class="button h-button is-light is-dark-outlined">Retour</button>
+                                        <button [disabled]="createAssistanceForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Créer</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Distribute Percentages -->
+<div id="distributePercentage" class="modal h-modal" [ngClass]="openPercentageModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Créer les pourcentages de l'assistance </h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onClosePercentage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addPercentageForm" (ngSubmit)="onSubmitPercentages()">
+                        <div class="field">
+                            <label>Pourcentage de la mutuelle (%) *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="pourcentage de mutuelle" formControlName="percentageMutual" [(ngModel)]="percentageMutual" (ngModelChange)="onPercentageMutualSelected($event)">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addPercentageForm.get('percentageMutual')?.errors?.['required'] && addPercentageForm.get('percentageMutual')?.touched">
+                                <small class="text-police">veuillez entrer le pourcentage de la mutuelle %</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Pourcentage des pouvoyeurs de fond (%) *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="pourcentage des pouvoyeurs de fond" formControlName="percentageOfFunders" [(ngModel)]="percentageOfFunders" (ngModelChange)="onPercentageFundersSelected($event)">
+                            </div>
+                            <div class="text-danger"              
+                                *ngIf="addPercentageForm.get('percentageOfFunders')?.errors?.['required'] && addPercentageForm.get('percentageOfFunders')?.touched">
+                                <small class="text-police">veuillez entrer le pourcentage des pouvoyeurs de fond %</small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Pourcentage des cautionneurs (%) *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Pourcentage des cautionneurs" formControlName="percentageOfGuarantees" [(ngModel)]="percentageOfGuarantees" (ngModelChange)="onPercentageGuaranteesSelected($event)">
+                            </div>
+                            <div class="text-danger"              
+                                *ngIf="addPercentageForm.get('percentageOfGuarantees')?.errors?.['required'] && addPercentageForm.get('percentageOfGuarantees')?.touched">
+                                <small class="text-police">veuillez entrer le pourcentage des cautionneurs % </small>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Pourcentage des entrées passives (%) *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="pourcentage des entrées" formControlName="percentageOfPassiveIncomeFund" [(ngModel)]="percentageOfPassiveIncomeFund" (ngModelChange)="onPercentageIncomeSelected($event)">
+                            </div>
+                            <div class="text-danger"              
+                                *ngIf="addPercentageForm.get('percentageOfPassiveIncomeFund')?.errors?.['required'] && addPercentageForm.get('percentageOfPassiveIncomeFund')?.touched">
+                                <small class="text-police">veuillez entrer le pourcentage des entrées passives % </small>
+                            </div>
+                        </div><br><br>
+                        <div class="control login">
+                            <button [disabled]="addPercentageForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Créer</button>
+                            <div class="text-danger"
+                            *ngIf="addPercentageForm.get('percentageMutual')?.touched || addPercentageForm.get('percentageOfFunders')?.touched || addPercentageForm.get('percentageOfGuarantees')?.touched || addPercentageForm.get('percentageOfPassiveIncomeFund')?.touched">
+                                <small class="text-police" *ngIf="!percentageCompleted" >Le total des pourcentages de la mutuelle, des pouvoyeurs de fond, des garants et des entrées passives doit être 100.</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onClosePercentage()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add Security Deposit -->
+<div id="addMember" class="modal h-modal" [ngClass]="openDepositModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Ajouter une caution</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeSecurityDepositModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="addSecurityDepositForm" (ngSubmit)="onAddSecurtiyDeposit()">
+                        <div class="field">
+                            <label>Cautionneur *</label>
+                            <select2
+                                class="w-100 color-border"
+                                [data]="clubUserOfSelect"
+                                id="idUser"
+                                formControlName="idUser"
+                                placeholder="--Sélectionner un cautionneur--">
+                            </select2>
+                            <div class="text-danger"
+                            *ngIf="clubUserOfSelect?.length == 0">
+                            <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la caution.</small>
+                            </div><br>
+                        </div>
+                       
+                        <div class="field">
+                            <label>Montant de la caution *</label><br>
+                            <div class="control">
+                                <input type="number" class="input" placeholder="Montant de la caution" formControlName="amount">
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required'] && addSecurityDepositForm.get('amount')?.touched">
+                                <small class="text-police">veuillez entrer le montant de la caution</small>
+                             </div>
+                        </div>
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSecurityDepositForm.invalid || isSaving" >Enregistrer</button>
+                        </div><br>
+                       
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeSecurityDepositModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
