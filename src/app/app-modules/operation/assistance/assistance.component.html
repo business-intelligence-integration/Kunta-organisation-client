@@ -86,7 +86,7 @@
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-assistance']"
                             [queryParams]="{id: assistance.id}" tooltip=" Voir l'assistance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                             <a _ngcontent-nct-c62="" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
-                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onDeleteAssistance(assistance.id)" tooltip=" Retirer le placement " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
+                            <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onDeleteAssistance(assistance.id)" tooltip=" Retirer l'assistance" theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                                 <div class="columns">
                                     <div class="column is-12">
                                         <div class="demo-card">
-                                            <label>L'assistance est-elle se limitée au club? *</label>
+                                            <label>L'assistance est-elle limitée au club? *</label>
                                             <div class="card-inner">
                                                 <div class="field demo-select">
                                                     <div class="control">
@@ -186,7 +186,7 @@
                                         *ngIf="createAssistanceForm.get('idApplicant')?.errors?.['required'] && createAssistanceForm.get('idApplicant')?.touched">
                                         <small class="text-police">veuillez sélectionner un mutualiste</small>
                                     </div>
-                                </div>
+                                </div> <br>
                                 <div class="field" *ngIf="!isAware">
                                     <label>Liste des mutualistes avec tontine *</label>
                                     <select2
@@ -201,108 +201,109 @@
                                         <small class="text-police">veuillez sélectionner un mutualiste</small>
                                     </div>
                                 </div>
-                                <div class="field">
-                                    <label>Montant *</label><br>
-                                    <div class="control">
-                                        <input type="number" class="input" placeholder="montant" formControlName="assistanceAmount">
-                                    </div>
-                                    <div class="text-danger"              
-                                        *ngIf="createAssistanceForm.get('assistanceAmount')?.errors?.['required'] && createAssistanceForm.get('assistanceAmount')?.touched">
-                                        <small class="text-police">veuillez entrer le montant</small>
-                                    </div>
+                            </div>
+
+                            <div class="field">
+                                <label>Montant *</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="montant" formControlName="assistanceAmount">
                                 </div>
-                                <div class="field">
-                                    <label>Types de rentabilités *</label>
-                                    <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelectProfitability" (ngModelChange)="onProfitabilitySelected($event)">
-                                        <option value="0" disabled>--Sélectionner un types de rentabilité--</option>
-                                        <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
-                                    </select>
-                                    <div class="text-danger"
-                                        *ngIf="createAssistanceForm.get('idProfitabilityType')?.errors?.['required'] && createAssistanceForm.get('idProfitabilityType')?.touched">
-                                        <small class="text-police">veuillez sélectionner un types de rentabilité</small>
-                                    </div>
+                                <div class="text-danger"              
+                                    *ngIf="createAssistanceForm.get('assistanceAmount')?.errors?.['required'] && createAssistanceForm.get('assistanceAmount')?.touched">
+                                    <small class="text-police">veuillez entrer le montant</small>
                                 </div>
-                                <div class="field" *ngIf="isCertain">
-                                    <label>Taux de rentabilité (%) *</label><br>
-                                    <div class="control">
-                                        <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="createAssistanceForm.get('profitabilityRate')?.errors?.['required'] && createAssistanceForm.get('profitabilityRate')?.touched">
-                                        <small class="text-police">veuillez entrer le taux de rentabilité</small>
-                                    </div>
-                                </div>    
-                                <div class="field">
-                                    <label>Types de remboursements *</label>
-                                    <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelectRefund" (ngModelChange)="onRefundSelected($event)">
-                                        <option value="0" disabled>--Sélectionner un type de remboursement--</option>
-                                        <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
-                                    </select>
-                                    <div class="text-danger"
-                                        *ngIf="createAssistanceForm.get('idRefundType')?.errors?.['required'] && createAssistanceForm.get('idRefundType')?.touched">
-                                        <small class="text-police">veuillez sélectionner un type de remboursement</small>
-                                    </div>
+                            </div>
+                            <div class="field">
+                                <label>Types de rentabilités *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idProfitabilityType" [(ngModel)]="ngSelectProfitability" (ngModelChange)="onProfitabilitySelected($event)">
+                                    <option value="0" disabled>--Sélectionner un types de rentabilité--</option>
+                                    <option *ngFor="let profitabilityType of profitabilityTypes" [value]="profitabilityType.id"> <span> {{ profitabilityType.label }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="createAssistanceForm.get('idProfitabilityType')?.errors?.['required'] && createAssistanceForm.get('idProfitabilityType')?.touched">
+                                    <small class="text-police">veuillez sélectionner un types de rentabilité</small>
                                 </div>
-                                <div class="field" *ngIf="isPeriod">
-                                    <label>Fréquence de remboursement *</label>
-                                    <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelectFrequency">
-                                        <option value="0" disabled>--Sélectionner une fréquence de remboursement--</option>
-                                        <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
-                                    </select>
-                                    <div class="text-danger"
-                                        *ngIf="createAssistanceForm.get('idFrequency')?.errors?.['required'] && createAssistanceForm.get('idFrequency')?.touched">
-                                        <small class="text-police">veuillez sélectionner une fréquence de remboursement</small>
-                                    </div>
+                            </div>
+                            <div class="field" *ngIf="isCertain">
+                                <label>Taux de rentabilité (%) *</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="taux de rentabilité" formControlName="profitabilityRate">
                                 </div>
-                                <div class="field" *ngIf="isPeriod">
-                                    <label>Durée de l'échéance en mois *</label><br>
-                                    <div class="control">
-                                        <input type="number" class="input" placeholder="durée de l'échéance en mois" formControlName="echeanceDurationInMonths">
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="createAssistanceForm.get('echeanceDurationInMonths')?.errors?.['required'] && createAssistanceForm.get('echeanceDurationInMonths')?.touched">
-                                        <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
-                                    </div>
+                                <div class="text-danger"
+                                    *ngIf="createAssistanceForm.get('profitabilityRate')?.errors?.['required'] && createAssistanceForm.get('profitabilityRate')?.touched">
+                                    <small class="text-police">veuillez entrer le taux de rentabilité</small>
                                 </div>
-                                <div class="columns is-multiline">
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Date de début *</label><br>
-                                            <div class="card-header-widget datepicker-style">
-                                                <div class="input-daterange input-group align-items-center">
-                                                    <input class="champ" formControlName="startDate" min="{{ dateNow }}" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
-                                                </div>
-                                            </div>
-                                            <div class="text-danger" *ngIf="createAssistanceForm.get('startDate')?.errors?.['required'] && createAssistanceForm.get('endDate')?.touched">
-                                                <small class="text-police" translate>veuillez sélectionner la date de début</small>
+                            </div>    
+                            <div class="field">
+                                <label>Types de remboursements *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idRefundType" [(ngModel)]="ngSelectRefund" (ngModelChange)="onRefundSelected($event)">
+                                    <option value="0" disabled>--Sélectionner un type de remboursement--</option>
+                                    <option *ngFor="let refundType of refundTypes" [value]="refundType.id"> <span> {{ refundType.type }}  </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="createAssistanceForm.get('idRefundType')?.errors?.['required'] && createAssistanceForm.get('idRefundType')?.touched">
+                                    <small class="text-police">veuillez sélectionner un type de remboursement</small>
+                                </div>
+                            </div>
+                            <div class="field" *ngIf="isPeriod">
+                                <label>Fréquence de remboursement *</label>
+                                <select class="input_comp color-border" aria-label="Default select example" formControlName="idFrequency" [(ngModel)]="ngSelectFrequency">
+                                    <option value="0" disabled>--Sélectionner une fréquence de remboursement--</option>
+                                    <option *ngFor="let frequency of frequencies" [value]="frequency.id"> <span> {{ frequency.label }} </span> </option>
+                                </select>
+                                <div class="text-danger"
+                                    *ngIf="createAssistanceForm.get('idFrequency')?.errors?.['required'] && createAssistanceForm.get('idFrequency')?.touched">
+                                    <small class="text-police">veuillez sélectionner une fréquence de remboursement</small>
+                                </div>
+                            </div>
+                            <div class="field" *ngIf="isPeriod">
+                                <label>Durée de l'échéance en mois *</label><br>
+                                <div class="control">
+                                    <input type="number" class="input" placeholder="durée de l'échéance en mois" formControlName="echeanceDurationInMonths">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="createAssistanceForm.get('echeanceDurationInMonths')?.errors?.['required'] && createAssistanceForm.get('echeanceDurationInMonths')?.touched">
+                                    <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
+                                </div>
+                            </div>
+                            <div class="columns is-multiline">
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label>Date de début *</label><br>
+                                        <div class="card-header-widget datepicker-style">
+                                            <div class="input-daterange input-group align-items-center">
+                                                <input class="champ" formControlName="startDate" min="{{ dateNow }}" type="date" id="DOB1" name="DOB" [(ngModel)]="startDate" (input)="onSelectIsstartDate($event.timeStamp)">
                                             </div>
                                         </div>
-                                    </div>
-        
-                                    <div class="column is-6">
-                                        <div class="field">
-                                            <label>Date de fin *</label><br>
-                                            <div class="card-header-widget datepicker-style">
-                                                <div class="input-daterange input-group align-items-center">
-                                                    <input class="champ" formControlName="endDate" min="{{ minEndDate }}" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
-                                                </div>
-                                            </div>
-                                            <div class="text-danger" *ngIf="createAssistanceForm.get('endDate')?.errors?.['required'] && createAssistanceForm.get('endDate')?.touched">
-                                                <small class="text-police" translate>veuillez sélectionner la date de fin</small>
-                                            </div>
-                                            <div class="text-danger" *ngIf="showErroMessage">
-                                                <small class="text-police" translate>veuillez au préalable sélectionner la date de début</small>
-                                            </div>
+                                        <div class="text-danger" *ngIf="createAssistanceForm.get('startDate')?.errors?.['required'] && createAssistanceForm.get('endDate')?.touched">
+                                            <small class="text-police" translate>veuillez sélectionner la date de début</small>
                                         </div>
                                     </div>
                                 </div>
-                                <br>
     
-                                <div class="right but-style">
-                                    <div class="buttons">
-                                        <button (click)="cancelCreatingAssistance()" id="save-button" class="button h-button is-light is-dark-outlined">Retour</button>
-                                        <button [disabled]="createAssistanceForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Créer</button>
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label>Date de fin *</label><br>
+                                        <div class="card-header-widget datepicker-style">
+                                            <div class="input-daterange input-group align-items-center">
+                                                <input class="champ" formControlName="endDate" min="{{ minEndDate }}" type="date" id="DOB1" name="DOB" [(ngModel)]="endDate" (input)="onSelectIsendDate($event.timeStamp)">
+                                            </div>
+                                        </div>
+                                        <div class="text-danger" *ngIf="createAssistanceForm.get('endDate')?.errors?.['required'] && createAssistanceForm.get('endDate')?.touched">
+                                            <small class="text-police" translate>veuillez sélectionner la date de fin</small>
+                                        </div>
+                                        <div class="text-danger" *ngIf="showErroMessage">
+                                            <small class="text-police" translate>veuillez au préalable sélectionner la date de début</small>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="right but-style">
+                                <div class="buttons">
+                                    <button (click)="cancelCreatingAssistance()" id="save-button" class="button h-button is-light is-dark-outlined">Retour</button>
+                                    <button [disabled]="createAssistanceForm.invalid || isSaving" (click)="onCreate()" id="save-button" class="button h-button is-primary is-raised create-but">Créer</button>
                                 </div>
                             </div>
 

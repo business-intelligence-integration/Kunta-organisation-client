@@ -207,6 +207,9 @@ export class AssistanceComponent implements OnInit {
 
   findAssistanceById(idAssistance: number) {
     this.assistanceService.findAssistanceById(idAssistance).subscribe((res)=>{
+      this.refundType = res.data.refundType.type;
+      // this.profitabilityRate = res.data.profitabilityRate;
+      this.amountToBeRefunded = res.data.amountToBeRefunded;
       this.getAllUsersByIdClub(res.data.assistanceClub.id);
     })
   }
@@ -376,6 +379,62 @@ export class AssistanceComponent implements OnInit {
 
   onCreate(){
     this.onSubmitAssistance();
+  }
+
+  ////////////////// Delete Assistance
+  onDeleteAssistance(id: number) {
+    this.deleteMessage(id);
+  }
+
+  deleteMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.assistanceService.deleteAssistance(id).subscribe(
+            () => {
+              this.getAllAssistances();
+              swalWithBootstrapButtons.fire({
+                title: 'Supprimé !',
+                text: 'L\'assistance a été supprimé avec succès !',
+                confirmButtonColor: '#198AE3',
+              });
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La suppression a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 
   //////////////////////////////// Create Percentages 
@@ -569,6 +628,8 @@ export class AssistanceComponent implements OnInit {
         this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
           this.isSaving = false;
           if(res) {
+            console.log("Res Periodiquement:: ", res);
+            
             if (res.data == null ) {
               this.utilityService.showMessage(
                 'warning',
@@ -612,6 +673,8 @@ export class AssistanceComponent implements OnInit {
       this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
         this.isSaving = false;
         if(res) {
+          console.log("Res Echeance:: ", res);
+          
           if (res.data == null ) {
             this.utilityService.showMessage(
               'warning',
@@ -660,6 +723,8 @@ export class AssistanceComponent implements OnInit {
         this.assistanceService.setRefundDatesManually(this.refund, this.idAssistance).subscribe((res)=>{
           this.isSaving = false;
           if(res) {
+            console.log("Res differe:: ", res);
+            
             if (res.data == null ) {
               this.utilityService.showMessage(
                 'warning',
