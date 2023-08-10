@@ -75,6 +75,7 @@ export class AssistanceComponent implements OnInit {
   percentageOfGuarantees: number = 0;
   percentageOfPassiveIncomeFund: number = 0;
   percentageCompleted: boolean = false;
+  profitabilityRate: number = 0;
   openDepositModal: string = "";
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   openGenerateModal: string = "";
@@ -208,8 +209,11 @@ export class AssistanceComponent implements OnInit {
   findAssistanceById(idAssistance: number) {
     this.assistanceService.findAssistanceById(idAssistance).subscribe((res)=>{
       this.refundType = res.data.refundType.type;
-      // this.profitabilityRate = res.data.profitabilityRate;
+      this.profitabilityRate = res.data.profitabilityRate;
       this.amountToBeRefunded = res.data.amountToBeRefunded;
+      res.data.refunds.forEach((element: any) => {
+        this.totalRefunded = this.totalRefunded + element.amountToBeRefunded;
+      })
       this.getAllUsersByIdClub(res.data.assistanceClub.id);
     })
   }
