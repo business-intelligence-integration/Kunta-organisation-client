@@ -844,7 +844,7 @@ export class MutualInvestmentComponent implements OnInit {
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: 'Annulé',
-            text: 'La supprission a été annulé',
+            text: 'Le deblocage a été annulé',
             confirmButtonColor: '#d33',
           });
         }

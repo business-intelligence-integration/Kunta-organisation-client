@@ -163,7 +163,7 @@
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant collecté(s)">
                                     <span class="light-text" data-filter-match="">{{refund.amountCollecteds.length}}</span>
-                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': refund.refundStatus === 'PAID' || refund.refundStatus === 'EXPIRED'}" (click)="onRefund(refund.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a>
+                                    <a _ngcontent-nct-c62="" [ngClass]="{'disabled': refund.refundStatus === 'PAID' || refund.refundStatus === 'EXPIRED'}" (click)="onRefund(refund.id)" tooltip=" Rembourser le assistance " theme='light' class="pagination-previous has-chevron">$</a>
                                     <a _ngcontent-nct-c62="" (click)="onViewRefunds(refund.id)" tooltip=" Voir les montants " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                                 </div>
                                 <div class="flex-table-cell cell-end" data-th="Date(s)">
@@ -204,13 +204,13 @@
 
 </div>
 
-<!-- refund placement mutualisé -->
-<div id="refundMutualInvestment" class="modal h-modal" [ngClass]="openRefundModal">
+<!-- refund assistance -->
+<div id="refundAssistance" class="modal h-modal" [ngClass]="openRefundModal">
     <div class="modal-background h-modal-close"></div>
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Rembourser le placement mutualisé</h3>
+                <h3>Rembourser l'assistance</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseRefundModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -312,23 +312,25 @@
                     </div>
                 </div> -->
                 <div class="inner-content" *ngFor="let collected of amountCollecteds">
-                    <div class="field">
+                    <div class="field adjust-collection">
                         <div> 
                             <label> <b>{{collected.id}}.</b> </label><br>
                             <div class="control">
                                 <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
                             </div>
                             <div class="control">
-                                <a>
-                                    <img src="{{ amountCollectedService.baseUrl+'amount-collected/find-amount-collected-picture?idAmountCollected='+ collected.id }}" width="24" height="24" alt="" (click)="onImageModalBox(collected.id)" > 
-                                </a>
                                 <label> <b>Justificatif:</b>  {{collected.proof}} </label>
                             </div>
                             <div class="control">
                                 <label> <b>Date:</b>  {{collected.date}} </label>
                             </div>
-                            <hr>
+                            
                         </div>
+                        <div>
+                            <a>
+                                <img src="{{ amountCollectedService.baseUrl+'amount-collected/find-amount-collected-picture?idAmountCollected='+ collected.id }}" width="43" height="43" alt="" (click)="onImageModalBox(collected.id)" > 
+                            </a>
+                        </div><hr>
                     </div><br>
                 </div>
             </div>

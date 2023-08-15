@@ -39,8 +39,6 @@ export class AssistanceService {
   }
 
   addSecurityDeposit(idAssistance: number, idUser: number, securityDeposit: SecurityDeposit):Observable<any>{
-    console.log("idUSer:: ", idUser, "Security Amount::", securityDeposit);
-    
     return this.httpClient.post<any>(this.baseUrl + 'assistance/' + idAssistance + '/add-security-deposit/user/' + idUser + "?token=" + this.utilityService.loadToken(), securityDeposit);
   }
 
@@ -66,6 +64,10 @@ export class AssistanceService {
 
   refundOfAmountsCollected(idRefund: number, idPaymentMethod: number, payment: Payment):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + 'assistance/refund/'+ idRefund + '/id-paymentMethod/' + idPaymentMethod + "?token=" + this.utilityService.loadToken(), payment);
+  }
+
+  makeDistribution(idAssistance: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/'+ idAssistance + '/make-the-distribution' + "?token=" + this.utilityService.loadToken(), {});
   }
 
 }

@@ -8,6 +8,10 @@ import { SecurityDeposit } from "./securityDeposit";
 export class Assistance {
     id: number = 0;
     assistanceAmount: number = 0;
+    assistanceStatus: string = "";
+    amountToBeRefunded: number = 0;
+    amountRefunded: number = 0;
+    distributionStatus: string = "";
     profitabilityAmount: number = 0;
     profitabilityRate: number = 0;
     profitabilityType: ProfitabilityType = new ProfitabilityType();
@@ -22,5 +26,4 @@ export class Assistance {
     startDate: any;
     allocationKeys: AllocationKey[] = [];
     securityDeposits: SecurityDeposit[] = [];
-    assistanceStatus: string = "";
 }
