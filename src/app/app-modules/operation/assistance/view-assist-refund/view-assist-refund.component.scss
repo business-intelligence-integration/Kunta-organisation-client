@@ -122,6 +122,14 @@
   margin: -20px 0 20px 0;
 }
 
+.adjust-collection{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  justify-self: center;
+}
+
 .payment-proof{
   height: 100%;
   width: 100%;

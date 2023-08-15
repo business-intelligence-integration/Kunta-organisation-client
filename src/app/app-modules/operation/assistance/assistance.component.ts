@@ -84,6 +84,7 @@ export class AssistanceComponent implements OnInit {
   refund: Refund = new Refund();
   amountToBeRefunded: number = 0;
   totalRefunded: number = 0;
+  openDistributionModal: string = "";
 
   constructor(private assistanceService: AssistanceService,
     private formBuilder: FormBuilder, 
@@ -208,6 +209,7 @@ export class AssistanceComponent implements OnInit {
 
   findAssistanceById(idAssistance: number) {
     this.assistanceService.findAssistanceById(idAssistance).subscribe((res)=>{
+      this.assistance = res.data;
       this.refundType = res.data.refundType.type;
       this.profitabilityRate = res.data.profitabilityRate;
       this.amountToBeRefunded = res.data.amountToBeRefunded;
@@ -540,6 +542,71 @@ export class AssistanceComponent implements OnInit {
     })
   }
 
+  //////////////////////// Deblocage Assistance
+  onUnlock(id: number){
+    this.unlockMessage(id);
+  }
+
+  unlockMessage(id: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, débloquer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.assistanceService.unlockingOperation(id).subscribe(
+            (res) => {
+              if( res == null ) {
+                swalWithBootstrapButtons.fire({
+                  title: 'Annulé',
+                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour l\'assistance',
+                  confirmButtonColor: '#d33',
+                });
+              } else {
+                this.getAllAssistances();
+                swalWithBootstrapButtons.fire({
+                  title: 'Débloqué !',
+                  text: 'L\'assistance a été débloqué avec succès !',
+                  confirmButtonColor: '#198AE3',
+                });
+              }
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'Le deblocage a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
+  }
+
+
   ///////////////// Add Security Deposit
   onOpenAddSecurityDeposit(idAssistance: number){
     this.openDepositModal = "is-active";
@@ -769,5 +836,55 @@ export class AssistanceComponent implements OnInit {
     }
   }
 
+  //////////////////////// Make Distribution
+  onMakeDistribution(idAssistance: number) {
+    this.openDistributionModal = "is-active";
+    this.findAssistanceById(idAssistance);
+  }
+
+  closeDistributionModal(){
+    this.openDistributionModal = "";
+  }
+
+  onSubmitDistribution(idAssistance: number){
+    this.assistanceService.makeDistribution(idAssistance).subscribe((res)=>{
+      if(res) {
+        console.log("Result Distribution:: ", res);
+        
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeDistributionModal();
+          this.getAllAssistances();
+          this.utilityService.showMessage(
+            'success',
+            'La distribution a été effectué avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    },(error)=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
 
 }

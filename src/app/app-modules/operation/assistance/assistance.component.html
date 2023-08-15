@@ -38,6 +38,7 @@
                 <span>Montant minimal</span>
                 <span>Taux rentabilité (%)</span>
                 <span>Caution(s)</span>
+                <span>Debloquer</span>
                 <span>Date de Debut</span>
                 <span>Date de Fin</span>
                 <span>Rembourser</span>
@@ -62,6 +63,13 @@
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-security-deposit']"
                         [queryParams]="{id: assistance.id}" tooltip=" Voir détails caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
+                    <div class="flex-table-cell" data-th="Débloquer">
+                        <span *ngIf="assistance.assistanceStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable is-success" tooltip=" Débloqué " theme='light' data-filter-match="">D </span>
+                        <span *ngIf="assistance.assistanceStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B </span>
+                        <!-- <a _ngcontent-nct-c62="" *ngIf="assistance.assistanceStatus === 'UNLOCKED' || subscriptionStatus != 'RELEASED'" tooltip=" Assistance debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a> -->
+                        <!-- <a _ngcontent-nct-c62="" *ngIf="assistance.assistanceStatus === 'BLOCKED'" (click)="onUnlock(assistance.id)" tooltip=" Debloquer le assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a> -->
+                        <a _ngcontent-nct-c62="" (click)="onUnlock(assistance.id)" tooltip=" Débloquer l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
+                    </div>
                     <div class="flex-table-cell" data-th="Date de Debut">
                         <span class="light-text" data-filter-match="">{{ assistance.startDate}}</span>
                     </div>
@@ -76,13 +84,14 @@
                         <span *ngIf="assistance.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
                         <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refunds.length >= 1 }" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
                         <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type == 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refundDateStatus === 'COMPLETE'}" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">+</a>
-                        <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || !assistance.refunds }" (click)="onRefund(assistance.id)" tooltip=" Rembourser le placement " theme='light' class="pagination-previous has-chevron">$</a> -->
+                        <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || !assistance.refunds }" (click)="onRefund(assistance.id)" tooltip=" Rembourser le assistance " theme='light' class="pagination-previous has-chevron">$</a> -->
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-refund']"
                         [queryParams]="{id: assistance.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier le assistance " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                            <a _ngcontent-nct-c62="" [ngClass]="{'disabled is-hidden': assistance.distributionStatus == 'DISTRIBUTED'}" *ngIf="assistance.refundStatus === 'PAID' " (click)="onMakeDistribution(assistance.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-assistance']"
                             [queryParams]="{id: assistance.id}" tooltip=" Voir l'assistance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                             <a _ngcontent-nct-c62="" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
@@ -174,7 +183,7 @@
                             </div>
                             <div *ngIf="isDecisionSelected" >
                                 <div class="field" *ngIf="isAware">
-                                    <label>Liste des mutualistes *</label>
+                                    <label>Choix du mutualiste *</label>
                                     <select2
                                         class="w-100 color-border"
                                         [data]="clubUserOfSelect"
@@ -188,7 +197,7 @@
                                     </div>
                                 </div> <br>
                                 <div class="field" *ngIf="!isAware">
-                                    <label>Liste des mutualistes avec tontine *</label>
+                                    <label>Choix du mutualiste avec tontine *</label>
                                     <select2
                                         class="w-100 color-border"
                                         [data]="clubUserTontine"
@@ -422,7 +431,7 @@
                             </select2>
                             <div class="text-danger"
                             *ngIf="clubUserOfSelect?.length == 0">
-                            <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la caution.</small>
+                            <small class="text-police">Aucun utlisateur dans le club de l'assistance. Utilisateur indispensable pour la caution.</small>
                             </div><br>
                         </div>
                        
@@ -456,7 +465,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Générer date(s) de remboursement du placement mutualisé</h3>
+                <h3>Générer date(s) de remboursement de l'assistance</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseGenerateModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -517,6 +526,91 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="onCloseGenerateModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Make Distribution -->
+<div id="demo-large-form-modal" class="modal h-modal is-large" [ngClass]="openDistributionModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Distribution</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeDistributionModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <div class="modal-form">
+                        <div class="columns is-multiline">
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label>ID: </label>
+                                    <label> <b>{{assistance.id}}</b> </label>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de début: </label>
+                                    <label> <b>{{assistance.startDate}}</b> </label>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Date de fin: </label>
+                                    <label> <b>{{assistance.endDate}}</b> </label>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Type de rentabilité: </label>
+                                    <label> <b>{{assistance.profitabilityType.label}}</b> </label>
+                                </div>
+                            </div>
+
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Taux de rentabilité (%): </label>
+                                    <label> <b>{{assistance.profitabilityRate}} %</b> </label>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Montant de l'assistance (CFA): </label>
+                                    <label> <b>{{assistance.assistanceAmount}} CFA</b> </label>
+                                </div>
+                            </div>
+                            <!-- <div class="column is-6">
+                                <div class="field">
+                                    <label>Montant collecté (CFA): </label>
+                                    <label> <b>{{assistance.collectedAmount}} CFA</b> </label>
+                                </div>
+                            </div>
+                            <div class="column is-6">
+                                <div class="field">
+                                    <label>Montant profitable (CFA): </label>
+                                    <label> <b>{{assistance.collectedAmount * assistance.profitabilityRate / 100 }} CFA</b> </label>
+                                </div>
+                            </div> -->
+                            <div class="column is-6" *ngFor="let key of assistance.allocationKeys">
+                                <div class="field">
+                                    <label>{{key.receivingParty.label}}: <b>{{key.percentage}} %</b></label> <br>
+                                    <label>Montant à recevoir: <b>{{key.receivingAmount}} CFA </b> </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeDistributionModal()">Annuler</a>
+                <a class="button h-button is-primary is-raised is-rounded" (click)="onSubmitDistribution(assistance.id)">Distribuer</a>
             </div>
         </div>
     </div>
