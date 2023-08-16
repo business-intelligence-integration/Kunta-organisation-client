@@ -233,7 +233,7 @@ export class ViewAssistSecurityDepositComponent implements OnInit {
   //     })
   //     .then((result) => {
   //       if (result.isConfirmed) {
-  //         this.mutualInvestmentService.deleteSecurityDeposit(this.idInvestment, idDeposit).subscribe(
+  //         this.assistanceService.deleteSecurityDeposit(this.idAssistance, idDeposit).subscribe(
   //           () => {
   //             this.getMutualSecurityDeposit();
   //             swalWithBootstrapButtons.fire({
@@ -276,7 +276,7 @@ export class ViewAssistSecurityDepositComponent implements OnInit {
     this.payment.paid = formValue.paid;
     this.payment.proof = formValue.proof;
     this.payment.date = formValue.date;
-    this.securityDepositService.refundAmountSecutityDeposit(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
+    this.securityDepositService.refundAmountSecutityDepositForAssistance(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {

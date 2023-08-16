@@ -275,7 +275,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
     this.payment.paid = formValue.paid;
     this.payment.proof = formValue.proof;
     this.payment.date = formValue.date;
-    this.securityDepositService.refundAmountSecutityDeposit(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
+    this.securityDepositService.refundAmountSecutityDepositForMutualInvestment(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {

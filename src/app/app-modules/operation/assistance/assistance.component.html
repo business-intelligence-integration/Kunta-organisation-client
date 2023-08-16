@@ -39,8 +39,8 @@
                 <span>Taux rentabilité (%)</span>
                 <span>Caution(s)</span>
                 <span>Debloquer</span>
-                <span>Date de Debut</span>
-                <span>Date de Fin</span>
+                <!-- <span>Date de Debut</span>
+                <span>Date de Fin</span> -->
                 <span>Rembourser</span>
                 <span class="cell-end">Actions</span>
             </div>
@@ -66,23 +66,21 @@
                     <div class="flex-table-cell" data-th="Débloquer">
                         <span *ngIf="assistance.assistanceStatus === 'UNLOCKED' " class="tag is-rounded is-cliquable is-success" tooltip=" Débloqué " theme='light' data-filter-match="">D </span>
                         <span *ngIf="assistance.assistanceStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B </span>
-                        <!-- <a _ngcontent-nct-c62="" *ngIf="assistance.assistanceStatus === 'UNLOCKED' || subscriptionStatus != 'RELEASED'" tooltip=" Assistance debloqué " theme='light' class="pagination-previous has-chevron disabled"><i class="lnil lnil-lock-alt-1"></i></a> -->
-                        <!-- <a _ngcontent-nct-c62="" *ngIf="assistance.assistanceStatus === 'BLOCKED'" (click)="onUnlock(assistance.id)" tooltip=" Debloquer le assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a> -->
-                        <a _ngcontent-nct-c62="" (click)="onUnlock(assistance.id)" tooltip=" Débloquer l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
+                        <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' || assistance.securityDeposits.length <= 0 }" (click)="onUnlock(assistance.id)" tooltip=" Débloquer l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-lock-alt-2"></i></a>
                     </div>
-                    <div class="flex-table-cell" data-th="Date de Debut">
+                    <!-- <div class="flex-table-cell" data-th="Date de Debut">
                         <span class="light-text" data-filter-match="">{{ assistance.startDate}}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Date de Fin">
                         <span class="light-text" data-filter-match="">{{ assistance.endDate}}</span>
-                    </div>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Rembourser">
                         <span *ngIf="assistance.refundStatus === 'BLOCKED' " class="tag is-rounded is-cliquable is-danger" tooltip=" Bloqué " theme='light' data-filter-match="">B</span>
                         <span *ngIf="assistance.refundStatus === 'RELAUNCHED' " class="tag is-rounded is-cliquable" tooltip=" Relancé " theme='light' data-filter-match="">Re</span>
                         <span *ngIf="assistance.refundStatus === 'EXPIRED' " class="tag is-rounded is-cliquable is-warning" tooltip=" Expiré " theme='light' data-filter-match="">Exp</span>
                         <span *ngIf="assistance.refundStatus === 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-remboursé " theme='light' data-filter-match="">N-R</span>
                         <span *ngIf="assistance.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" tooltip=" Remboursé " theme='light' data-filter-match="">R</span>
-                        <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refunds.length >= 1 }" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a>
+                        <!-- <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type != 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refunds.length >= 1 }" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">G</a> -->
                         <a _ngcontent-nct-c62="" *ngIf="assistance.refundType.type == 'AVEC DIFFÉRÉ'" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || assistance.refundDateStatus === 'COMPLETE'}" (click)="onGenerate(assistance.id)" tooltip=" Genérer dates à rembourser " theme='light' class="pagination-previous has-chevron">+</a>
                         <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.refundStatus === 'PAID' || assistance.assistanceStatus === 'BLOCKED' || !assistance.refunds }" (click)="onRefund(assistance.id)" tooltip=" Rembourser le assistance " theme='light' class="pagination-previous has-chevron">$</a> -->
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-refund']"
@@ -90,11 +88,14 @@
                     </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
-                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier le assistance " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
+                            <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé </span>    
+                            <a _ngcontent-nct-c62="" *ngIf="assistance.distributionStatus == 'DISTRIBUTED' " [ngClass]="{'disabled is-hidden': assistance.status == 'CLOSE'}" (click)="onCloseAssistance(assistance.id)" tooltip=" Fermer Assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-power-switch"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="assistance.refundStatus === 'EXPIRED' " (click)="onClosingDate(assistance.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
+                            <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a> -->
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled is-hidden': assistance.distributionStatus == 'DISTRIBUTED'}" *ngIf="assistance.refundStatus === 'PAID' " (click)="onMakeDistribution(assistance.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-assistance']"
                             [queryParams]="{id: assistance.id}" tooltip=" Voir l'assistance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                            <a _ngcontent-nct-c62="" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="assistance.profitabilityType.label == 'CERTAIN' && assistance.securityDeposits.length == 0" [ngClass]="{'disabled': assistance.securityDeposits.length > 0}" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onDeleteAssistance(assistance.id)" tooltip=" Retirer l'assistance" theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
@@ -275,7 +276,7 @@
                                     <small class="text-police">veuillez entrer la durée de l'échec en mois</small>
                                 </div>
                             </div>
-                            <div class="columns is-multiline">
+                            <div class="columns is-multiline" *ngIf="!isPeriod">
                                 <div class="column is-6">
                                     <div class="field">
                                         <label>Date de début *</label><br>
@@ -479,7 +480,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="generateForm" (ngSubmit)="onSubmitGenerate()">
                         <div class="field" *ngIf="refundType == 'PÉRIODIQUEMENT' ">
-                            <label>1ere date de remboursement: </label><br>
+                            <label>1ère date de remboursement: </label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input formControlName="firstRefundDate" class="champ" type="date" min="{{ dateNow }}" id="DOB" (input)="onSelectDate($event.timeStamp)">
@@ -487,7 +488,7 @@
                            </div>
                             <div class="text-danger"
                                 *ngIf="generateForm.get('firstRefundDate')?.errors?.['required'] && generateForm.get('firstRefundDate')?.touched">
-                                <small class="text-police" translate>Entrer la 1ere date du remboursement</small>
+                                <small class="text-police" translate>Entrer la 1ère date du remboursement</small>
                             </div>
                         </div><br>
                         <div *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
@@ -611,6 +612,51 @@
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeDistributionModal()">Annuler</a>
                 <a class="button h-button is-primary is-raised is-rounded" (click)="onSubmitDistribution(assistance.id)">Distribuer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Closing Date -->
+<div id="closingDate" class="modal h-modal" [ngClass]="openClosingDateModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Créer la date de fermeture</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="onCloseClosingDate()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="closingDateForm" (ngSubmit)="onSubmitClosingDate()">
+                        <div class="field">
+                            <label>Date de fermeture *</label><br>
+                            <div class="card-header-widget datepicker-style">
+                                <div class="input-daterange input-group align-items-center">
+                                    <input class="champ2" formControlName="closingDate" min="{{ dateNow }}" type="date" id="DOB1" name="DOB">
+                                </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="closingDateForm.get('closingDate')?.errors?.['required'] && closingDateForm.get('closingDate')?.touched">
+                                <small class="text-police">veuillez entrer une date de fermeture</small>
+                            </div>
+                        </div><br><br>
+                        <div class="control login">
+                            <button [disabled]="closingDateForm.invalid || isSaving"
+                                class="button h-button is-primary is-bold is-fullwidth is-raised">Créer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="onCloseClosingDate()">Annuler</a>
             </div>
         </div>
     </div>

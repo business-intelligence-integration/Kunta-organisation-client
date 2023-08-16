@@ -21,6 +21,7 @@ import { DistributionPercentage } from 'src/app/core/classes/distributionPercent
 import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
+import { ClosingDate } from 'src/app/core/classes/closingDate';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class AssistanceComponent implements OnInit {
   addPercentageForm!: FormGroup;
   addSecurityDepositForm!: FormGroup;
   generateForm!: FormGroup;
+  closingDateForm!: FormGroup;
   isCertain: boolean = false;
   isPeriod: boolean = false;
   endDate: any;
@@ -85,6 +87,8 @@ export class AssistanceComponent implements OnInit {
   amountToBeRefunded: number = 0;
   totalRefunded: number = 0;
   openDistributionModal: string = "";
+  closingDate: ClosingDate = new ClosingDate();
+  openClosingDateModal: string = "";
 
   constructor(private assistanceService: AssistanceService,
     private formBuilder: FormBuilder, 
@@ -119,8 +123,8 @@ export class AssistanceComponent implements OnInit {
       profitabilityRate: new FormControl(null),
       echeanceDurationInMonths: new FormControl(null),
       isAware: new FormControl(null),
-      startDate: new FormControl(null, Validators.required),
-      endDate: new FormControl(null, Validators.required),
+      startDate: new FormControl(null),
+      endDate: new FormControl(null),
     })
     
     this.addPercentageForm = this.formBuilder.group({
@@ -139,6 +143,10 @@ export class AssistanceComponent implements OnInit {
       firstRefundDate: new FormControl(null),
       amountToBeRefunded: new FormControl(null),
       refundDate: new FormControl(null),
+    })
+
+    this.closingDateForm = this.formBuilder.group({
+      closingDate: new FormControl(null, Validators.required),
     })
   }
 
@@ -684,96 +692,96 @@ export class AssistanceComponent implements OnInit {
   onSubmitGenerate(){
     this.isSaving = true;
     const formValue = this.generateForm.value;
-    if ( this.refundType == "PÉRIODIQUEMENT" ) {
-      // this.firstRefundDate = formValue.firstRefundDate;
-      let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
-      this.firstRefundDate.date = firstRefundDate
-      if(!firstRefundDate){
-        this.utilityService.showMessage(
-          'warning',
-          'Entrer la 1ère date de remboursement',
-          '#e62965',
-          'white'
-        );
-      } else {
-        this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
-          this.isSaving = false;
-          if(res) {
-            console.log("Res Periodiquement:: ", res);
+    // if ( this.refundType == "PÉRIODIQUEMENT" ) {
+    //   let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
+    //   this.firstRefundDate.date = firstRefundDate
+    //   if(!firstRefundDate){
+    //     this.utilityService.showMessage(
+    //       'warning',
+    //       'Entrer la 1ère date de remboursement',
+    //       '#e62965',
+    //       'white'
+    //     );
+    //   } else {
+    //     this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
+    //       this.isSaving = false;
+    //       if(res) {
+    //         console.log("Res Periodiquement:: ", res);
             
-            if (res.data == null ) {
-              this.utilityService.showMessage(
-                'warning',
-                res.message,
-                '#e62965',
-                'white'
-              );
-            } else {
-              this.getAllAssistances();
-              this.generateForm.reset();
-              this.onCloseGenerateModal();
-              this.utilityService.showMessage(
-                'success',
-                'Date(s) generée(s) avec succès',
-                '#06d6a0',
-                'white'
-              );
-            }
-          } else {
-            this.utilityService.showMessage(
-              'warning',
-              'Une erreur s\'est produite, vérifier votre saisie',
-              '#e62965',
-              'white'
-            );
-          }
-        },()=>{
-          this.isSaving = false;
-          this.utilityService.showMessage(
-            'warning',
-            'Une erreur s\'est produite',
-            '#e62965',
-            'white'
-          );
-        })
-      }
+    //         if (res.data == null ) {
+    //           this.utilityService.showMessage(
+    //             'warning',
+    //             res.message,
+    //             '#e62965',
+    //             'white'
+    //           );
+    //         } else {
+    //           this.getAllAssistances();
+    //           this.generateForm.reset();
+    //           this.onCloseGenerateModal();
+    //           this.utilityService.showMessage(
+    //             'success',
+    //             'Date(s) generée(s) avec succès',
+    //             '#06d6a0',
+    //             'white'
+    //           );
+    //         }
+    //       } else {
+    //         this.utilityService.showMessage(
+    //           'warning',
+    //           'Une erreur s\'est produite, vérifier votre saisie',
+    //           '#e62965',
+    //           'white'
+    //         );
+    //       }
+    //     },()=>{
+    //       this.isSaving = false;
+    //       this.utilityService.showMessage(
+    //         'warning',
+    //         'Une erreur s\'est produite',
+    //         '#e62965',
+    //         'white'
+    //       );
+    //     })
+    //   }
       
-    } else if ( this.refundType == 'A L\'ÉCHÉANCE' ) {
-      let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
-      this.firstRefundDate.date = firstRefundDate
-      this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
-        this.isSaving = false;
-        if(res) {
-          console.log("Res Echeance:: ", res);
+    // } else if ( this.refundType == 'A L\'ÉCHÉANCE' ) {
+    //   let firstRefundDate : any = new DatePipe('en-US').transform(new Date(formValue.firstRefundDate),'yyyy-MM-dd');
+    //   this.firstRefundDate.date = firstRefundDate
+    //   this.assistanceService.generateRefundDates(this.idAssistance, this.firstRefundDate).subscribe((res)=>{
+    //     this.isSaving = false;
+    //     if(res) {
+    //       console.log("Res Echeance:: ", res);
           
-          if (res.data == null ) {
-            this.utilityService.showMessage(
-              'warning',
-              res.message,
-              '#e62965',
-              'white'
-            );
-          } else {
-            this.getAllAssistances();
-            this.generateForm.reset();
-            this.onCloseGenerateModal();
-            this.utilityService.showMessage(
-              'success',
-              'Date(s) générée(s) avec succès',
-              '#06d6a0',
-              'white'
-            );
-          }
-        } else {
-          this.utilityService.showMessage(
-            'warning',
-            'Une erreur s\'est produite, vérifier votre saisie',
-            '#e62965',
-            'white'
-          );
-        }
-      })
-    } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
+    //       if (res.data == null ) {
+    //         this.utilityService.showMessage(
+    //           'warning',
+    //           res.message,
+    //           '#e62965',
+    //           'white'
+    //         );
+    //       } else {
+    //         this.getAllAssistances();
+    //         this.generateForm.reset();
+    //         this.onCloseGenerateModal();
+    //         this.utilityService.showMessage(
+    //           'success',
+    //           'Date(s) générée(s) avec succès',
+    //           '#06d6a0',
+    //           'white'
+    //         );
+    //       }
+    //     } else {
+    //       this.utilityService.showMessage(
+    //         'warning',
+    //         'Une erreur s\'est produite, vérifier votre saisie',
+    //         '#e62965',
+    //         'white'
+    //       );
+    //     }
+    //   })
+    // } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
+    if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
       this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
       this.refund.refundDate = formValue.refundDate;
       if(!formValue.amountToBeRefunded) {
@@ -885,6 +893,124 @@ export class AssistanceComponent implements OnInit {
         'white'
       );
     })
+  }
+
+  ////////////////////////////////////////Create Closing Date
+  onClosingDate(idAssistance: number) {
+    this.idAssistance = idAssistance;
+    this.openClosingDateModal = "is-active";
+  }
+
+  onCloseClosingDate() {
+    this.openClosingDateModal = "";
+  }
+
+  onSubmitClosingDate(){
+    this.isSaving = true;
+    const formValue = this.closingDateForm.value;
+    this.closingDate.date = formValue.closingDate;
+    this.assistanceService.createAClosingDate(this.idAssistance, this.closingDate).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllAssistances();
+          this.closingDateForm.reset();
+          this.onCloseClosingDate();
+          this.utilityService.showMessage(
+            'success',
+            'Date de fermeture créée avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    },(error)=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  /////////////////////////////////////// Close Assistance
+  onCloseAssistance(idAssistance: number){
+    this.closeAssistanceMessage(idAssistance);
+  }
+
+  closeAssistanceMessage(idAssistance: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Êtes-vous sûre ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, fermer!',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.assistanceService.closeAssistance(idAssistance).subscribe(
+            (res) => {
+              if( res == null ) {
+                swalWithBootstrapButtons.fire({
+                  title: 'Annulé',
+                  text: 'Une erreur s\'est produite, veuillez vérifier que l\'assistance est prête pour la fermeture',
+                  confirmButtonColor: '#d33',
+                });
+              } else {
+                this.getAllAssistances();
+                swalWithBootstrapButtons.fire({
+                  title: 'Fermé !',
+                  text: 'La fermeture a été effectué avec succès !.',
+                  confirmButtonColor: '#198AE3',
+                });
+              }
+            },
+            () => {
+              swalWithBootstrapButtons.fire({
+                title: 'Annulé',
+                text: 'Une erreur s\'est produite',
+                confirmButtonColor: '#d33',
+              });
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'La fermeture a été annulé',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 
 }

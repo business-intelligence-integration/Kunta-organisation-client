@@ -40,9 +40,6 @@ export class MutualInvestmentService {
   }
 
   updateMutualInvestment(mutualInvestment: MutualInvestment, idInvestment: number):Observable<any>{
-    console.log("idInvestment:: ", idInvestment);
-    console.log("mutualInvestment:: ", mutualInvestment);
-    
     return this.httpClient.put<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, mutualInvestment, httpOptions);
   }
 

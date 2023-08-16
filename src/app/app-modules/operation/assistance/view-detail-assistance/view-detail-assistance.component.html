@@ -13,15 +13,15 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ assistance.assistanceAmount }} FCFA</span>
-                                        <p>Montant Assistance</p>
+                                        <span>{{ clubBalance }} FCFA</span>
+                                        <p>Balance du Club</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ assistance.profitabilityRate }} %</span>
-                                        <p>Taux de rentabilité</p>
+                                        <span>{{ assistance.assistanceAmount }} FCFA</span>
+                                        <p>Montant Assistance</p>
                                     </div>
                                 </div>
                             </div>
@@ -30,16 +30,16 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ assistance.profitabilityAmount }} FCFA</span>
-                                        <p>Montant rentable </p>
+                                        <span>{{ assistance.profitabilityRate }} %</span>
+                                        <p>Taux de rentabilité</p>
                                     </div>
                                 </div>
 
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ assistance.securityDeposits.length }}</span>
-                                        <p>Nombre de caution</p>
+                                        <span>{{ assistance.profitabilityAmount }} FCFA</span>
+                                        <p>Montant rentable</p>
                                     </div>
                                 </div>
                             </div>
@@ -57,6 +57,16 @@
                                         <i class="lnil lnil-target-alt-1"></i>
                                         <span>{{ assistance.amountToBeRefunded }} FCFA</span>
                                         <p>Montant à rembourser</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="all-projects-header">
+                                <div class="header-item">
+                                    <div class="item-inner">
+                                        <i class="lnil lnil-analytics-alt-1"></i>
+                                        <span>{{ assistance.securityDeposits.length }}</span>
+                                        <p>Nombre de caution</p>
                                     </div>
                                 </div>
                             </div>
@@ -80,8 +90,8 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Statut de l'assistance:</span><br>
-                                <!-- <span *ngIf="assistance.status === 'OPEN' " class="tag is-rounded is-cliquable is-success" tooltip=" Ouvert " theme='light' data-filter-match=""> Ouvert</span>
-                                <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé</span> -->
+                                <span *ngIf="assistance.status === 'OPEN' " class="tag is-rounded is-cliquable is-success" tooltip=" Ouvert " theme='light' data-filter-match=""> Ouvert</span>
+                                <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé</span>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -138,17 +148,17 @@
                                 <p>{{ assistance?.refundFrequency }}</p>
                             </div>
                         </div>
-                        <div class="media-flex">
+                        <div class="media-flex" *ngIf="assistance.assistanceStatus">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Statut déblocage:</span><br>
-                                <!-- <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.assistanceStatus === 'BLOCKED'">Bloqué</span>
-                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.assistanceStatus === 'UNLOCKED'">Debloqué</span> -->
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.assistanceStatus === 'BLOCKED'">Bloqué</span>
+                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.assistanceStatus === 'UNLOCKED'">Debloqué</span>
                             </div>
                         </div>
-                        <div class="media-flex">
+                        <div class="media-flex" *ngIf="assistance.refundStatus">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -159,14 +169,14 @@
                                 <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.refundStatus === 'EXPIRED'">Expiré</span>
                             </div>
                         </div>
-                        <div class="media-flex">
+                        <div class="media-flex" *ngIf="assistance.distributionStatus">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <div class="flex-meta">
                                 <span>Statut de distribution:</span><br>
-                                <!-- <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.distributionStatus === 'DISTRIBUTED'">Distribué</span>
-                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span> -->
+                                <span class="tag is-rounded is-cliquable is-success" data-filter-match="" *ngIf="assistance.distributionStatus === 'DISTRIBUTED'">Distribué</span>
+                                <span class="tag is-rounded is-cliquable is-danger" data-filter-match="" *ngIf="assistance.distributionStatus === 'NOTDISTRIBUTED'">Non-distribué</span>
                             </div>
                         </div>
                         <div *ngFor="let key of assistance.allocationKeys">
