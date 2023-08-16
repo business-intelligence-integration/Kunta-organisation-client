@@ -29,10 +29,12 @@ export class SecurityDepositService {
     return this.httpClient.get<any>(this.baseUrl + 'security-deposits/' + idDeposit, httpOptions);
   }
 
-  refundAmountSecutityDeposit(idDeposit: number, idPaymentMethod: number, payment: Payment):Observable<any>{
-    console.log("idDeposit: ", idDeposit, "idPaymentMethod: ", idPaymentMethod, "payment:: ", payment);
-    
-    return this.httpClient.patch<any>(this.baseUrl + 'security-deposits/refund-amount/' + idDeposit + '/idPaymentMethod/' + idPaymentMethod + '?token=' + this.utilityService.loadToken(), payment);
+  refundAmountSecutityDepositForMutualInvestment(idDeposit: number, idPaymentMethod: number, payment: Payment):Observable<any>{    
+    return this.httpClient.patch<any>(this.baseUrl + 'security-deposits/refund-amount-security-for-mutual/' + idDeposit + '/idPaymentMethod/' + idPaymentMethod + '?token=' + this.utilityService.loadToken(), payment);
+  }
+
+  refundAmountSecutityDepositForAssistance(idDeposit: number, idPaymentMethod: number, payment: Payment):Observable<any>{    
+    return this.httpClient.patch<any>(this.baseUrl + 'security-deposits/refund-amount-security-for-assistance/' + idDeposit + '/idPaymentMethod/' + idPaymentMethod + '?token=' + this.utilityService.loadToken(), payment);
   }
 
 }

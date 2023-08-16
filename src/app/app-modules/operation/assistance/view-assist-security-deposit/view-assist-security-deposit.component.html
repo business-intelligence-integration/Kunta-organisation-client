@@ -187,7 +187,7 @@
                                 <span class="light-text" data-filter-match="">{{securityDeposit.refundAmounts.length}}</span>
                                 <a _ngcontent-nct-c62="" [ngClass]="{'disabled': securityDeposit.refundStatus === 'PAID' }" (click)="onRefundDeposit(securityDeposit.id)" tooltip=" Payer " theme='light' class="pagination-previous has-chevron">$</a>
                                 <a _ngcontent-nct-c62="" (click)="onViewPayments(securityDeposit.id)" tooltip=" Voir les montants " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                                <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus === 'UNLOCKED'}" (click)="onDeleteSecurityDeposit(securityDeposit.id)" tooltip=" Retirer la caution " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
+                                <!-- <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus === 'UNLOCKED'}" (click)="onDeleteSecurityDeposit(securityDeposit.id)" tooltip=" Retirer la caution " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a> -->
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                             </select2>
                             <div class="text-danger"
                             *ngIf="clubUserOfSelect?.length == 0">
-                            <small class="text-police">Aucun utlisateur dans le centre de ce placement. Utilisateur indispensable pour la caution.</small>
+                            <small class="text-police">Aucun utlisateur dans le centre de cette assistance. Utilisateur indispensable pour la caution.</small>
                             </div><br>
                         </div>
                        

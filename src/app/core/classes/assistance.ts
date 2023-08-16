@@ -24,6 +24,7 @@ export class Assistance {
     assistanceClub: Club = new Club();
     endDate: any;
     startDate: any;
+    status: string = "";
     allocationKeys: AllocationKey[] = [];
     securityDeposits: SecurityDeposit[] = [];
 }

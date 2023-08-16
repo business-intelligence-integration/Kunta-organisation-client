@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { Account } from "./account";
 
 export class Club{
     id: number = 0;
@@ -11,4 +11,6 @@ export class Club{
     observation: string = "";
     reference: string = "";
     clubs: Club[] = [];
+    accounts: Account[] = [];
+    status: string = "";
 }

@@ -9,6 +9,7 @@ import { SecurityDeposit } from '../../classes/securityDeposit';
 import { Refund } from '../../classes/refund';
 import { FirstRefundDate } from '../../classes/firstRefundDate';
 import { Payment } from '../../classes/payment';
+import { ClosingDate } from '../../classes/closingDate';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -68,6 +69,14 @@ export class AssistanceService {
 
   makeDistribution(idAssistance: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + 'assistance/'+ idAssistance + '/make-the-distribution' + "?token=" + this.utilityService.loadToken(), {});
+  }
+
+  closeAssistance(idAssistance: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/'+ idAssistance, httpOptions);
+  }
+
+  createAClosingDate(idAssistance: number, closingDate: ClosingDate):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + 'assistance/create-closing-date/'+ idAssistance, closingDate, httpOptions);
   }
 
 }
