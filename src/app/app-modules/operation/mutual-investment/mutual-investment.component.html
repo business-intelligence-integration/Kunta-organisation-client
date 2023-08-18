@@ -776,7 +776,7 @@
     <div class="modal-content">
         <div class="modal-card">
             <header class="modal-card-head">
-                <h3>Créer les pourcentages du placement mutualisé relatif aux taux de rentabilité ({{profitabilityRate}}%)</h3>
+                <h3>Créer les pourcentages du placement mutualisé relativement au taux de rentabilité ({{profitabilityRate}}%)</h3>
                 <button class="h-modal-close ml-auto" aria-label="close" (click)="onClosePercentage()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -792,7 +792,7 @@
                         <div class="field">
                             <label>Pourcentage de la mutuelle (%) *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="pourcentage de mutuelle" formControlName="percentageMutual" [(ngModel)]="percentageMutual" (ngModelChange)="onPercentageMutualSelected($event)">
+                                <input type="number" class="input" placeholder="pourcentage de la mutuelle" formControlName="percentageMutual" [(ngModel)]="percentageMutual" (ngModelChange)="onPercentageMutualSelected($event)">
                             </div>
                             <div class="text-danger"
                                 *ngIf="addPercentageForm.get('percentageMutual')?.errors?.['required'] && addPercentageForm.get('percentageMutual')?.touched">

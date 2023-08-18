@@ -89,6 +89,7 @@ export class AssistanceComponent implements OnInit {
   openDistributionModal: string = "";
   closingDate: ClosingDate = new ClosingDate();
   openClosingDateModal: string = "";
+  openUpdateModal: string = "";
 
   constructor(private assistanceService: AssistanceService,
     private formBuilder: FormBuilder, 
@@ -125,6 +126,11 @@ export class AssistanceComponent implements OnInit {
       isAware: new FormControl(null),
       startDate: new FormControl(null),
       endDate: new FormControl(null),
+    })
+
+    this.updateAssistanceForm = this.formBuilder.group({
+      assistanceAmount: new FormControl(null, Validators.required),
+      profitabilityRate: new FormControl(null),
     })
     
     this.addPercentageForm = this.formBuilder.group({
@@ -393,6 +399,64 @@ export class AssistanceComponent implements OnInit {
 
   onCreate(){
     this.onSubmitAssistance();
+  }
+
+  ////////////////// Update Assistance
+  onUpdateAssistance(id: number) {
+    this.assistanceService.findAssistanceById(id).subscribe((res) => {
+      this.openUpdateModal = "is-active";
+      this.assistance = res.data;
+    }, (error)=>{
+      console.log(error);
+    })
+  }
+
+  onCloseUpdateModal() {
+    this.openUpdateModal = ""
+  }
+
+  onSubmitUpdateAssistance(id: number) {
+    this.isSaving = true;
+    const formValue = this.updateAssistanceForm.value;
+    this.assistance.assistanceAmount = formValue.assistanceAmount;
+    this.assistance.profitabilityRate = formValue.profitabilityRate;
+    this.assistanceService.updateAssistance(this.assistance, id).subscribe((res) => {
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.getAllAssistances();
+          this.onCloseUpdateModal();
+          this.utilityService.showMessage(
+            'success',
+            'Assistance mis à jour avec succès',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite, vérifiez votre saisie',
+          '#e62965',
+          'white'
+        );
+      }
+    },()=>{
+      this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite',
+        '#e62965',
+        'white'
+      );
+    })
   }
 
   ////////////////// Delete Assistance
