@@ -57,7 +57,7 @@
                     </div>
                     <div class="flex-table-cell" data-th="Caution(s)">
                         <span class="light-text" data-filter-match="">{{ assistance.securityDeposits.length }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' || assistance.allocationKeys.length == 0 && assistance.profitabilityType.label == 'INCERTAIN' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(assistance.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' || assistance.allocationKeys.length == 0 && assistance.profitabilityType.label == 'CERTAIN' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(assistance.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-security-deposit']"
                         [queryParams]="{id: assistance.id}" tooltip=" Voir détails caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
