@@ -911,6 +911,8 @@ export class AssistanceComponent implements OnInit {
     this.closingDate.date = formValue.closingDate;
     this.assistanceService.createAClosingDate(this.idAssistance, this.closingDate).subscribe((res)=>{
       this.isSaving = false;
+      console.log("Res Fermeture:: ", res);
+      
       if(res) {
         if (res.data == null ) {
           this.utilityService.showMessage(

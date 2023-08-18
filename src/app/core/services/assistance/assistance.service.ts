@@ -76,6 +76,8 @@ export class AssistanceService {
   }
 
   createAClosingDate(idAssistance: number, closingDate: ClosingDate):Observable<any>{
+    console.log("idAssistance:: ", idAssistance, "closingDate:: ", closingDate);
+    
     return this.httpClient.patch<any>(this.baseUrl + 'assistance/create-closing-date/'+ idAssistance, closingDate, httpOptions);
   }
 

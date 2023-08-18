@@ -382,23 +382,24 @@
             </header>
             <div class="modal-card-body">
                 <div class="inner-content" *ngFor="let collected of amountCollecteds">
-                    <div class="field">
+                    <div class="field adjust-collection">
                         <div> 
                             <label> <b>{{collected.id}}.</b> </label><br>
                             <div class="control">
                                 <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
                             </div>
                             <div class="control">
-                                <a>
-                                    <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refund-amount-picture?idRefundAmount='+ collected.id }}" width="24" height="24" alt="" (click)="onImageModalBox(collected.id)" >
-                                </a>
-                                <label> <b>Justificatif:</b>  {{collected.proof}} </label>
+]                                <label> <b>Justificatif:</b>  {{collected.proof}} </label>
                             </div>
                             <div class="control">
                                 <label> <b>Date:</b>  {{collected.date}} </label>
                             </div>
-                            <hr>
                         </div>
+                        <div>
+                            <a>
+                                <img src="{{ refundAmountService.baseUrl+'refund-amount/find-refund-amount-picture?idRefundAmount='+ collected.id }}" width="24" height="24" alt="" (click)="onImageModalBox(collected.id)" >
+                            </a>
+                        </div><hr>
                     </div><br>
                 </div>
             </div>
