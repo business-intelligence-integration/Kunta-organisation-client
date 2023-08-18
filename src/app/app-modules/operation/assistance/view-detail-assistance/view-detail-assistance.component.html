@@ -48,15 +48,15 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ assistance.amountRefunded }} FCFA</span>
-                                        <p>Montant remboursé</p>
+                                        <span>{{ assistance.amountToBeRefunded }} FCFA</span>
+                                        <p>Montant à rembourser</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ assistance.amountToBeRefunded }} FCFA</span>
-                                        <p>Montant à rembourser</p>
+                                        <span>{{ assistance.amountRefunded }} FCFA</span>
+                                        <p>Montant remboursé</p>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                 <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé</span>
                             </div>
                         </div>
-                        <div class="media-flex">
+                        <div class="media-flex" *ngIf="assistance?.refundType?.type != 'PÉRIODIQUEMENT' ">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -103,7 +103,7 @@
                                 <p>{{ assistance.startDate }}</p>
                             </div>
                         </div>
-                        <div class="media-flex">
+                        <div class="media-flex" *ngIf="assistance?.refundType?.type != 'PÉRIODIQUEMENT' ">
                             <div class="icon-wrap is-dark-primary is-dark-bg-3 is-dark-card-bordered">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Fréquence de remboursement:</span><br>
-                                <p>{{ assistance?.refundFrequency }}</p>
+                                <p>{{ assistance?.refundFrequency?.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="assistance.assistanceStatus">

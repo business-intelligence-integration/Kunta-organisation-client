@@ -2,6 +2,7 @@ import { AllocationKey } from "./allocationKey";
 import { Club } from "./club";
 import { ProfitabilityType } from "./profitabilityType";
 import { Refund } from "./refund";
+import { RefundFrequency } from "./refundFrequency";
 import { RefundType } from "./refundType";
 import { SecurityDeposit } from "./securityDeposit";
 
@@ -16,7 +17,7 @@ export class Assistance {
     profitabilityRate: number = 0;
     profitabilityType: ProfitabilityType = new ProfitabilityType();
     refundType: RefundType = new RefundType();
-    refundFrequency: string = "";
+    refundFrequency: RefundFrequency = new RefundFrequency();
     refundStatus: string = "";
     refundDateStatus: string = "";
     refunds: Refund[] = [];

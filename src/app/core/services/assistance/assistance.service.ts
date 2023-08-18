@@ -35,6 +35,10 @@ export class AssistanceService {
     return this.httpClient.get<any>(this.baseUrl + 'assistance/' + idAssistance, httpOptions);
   }
 
+  updateAssistance(assistance: Assistance,idAssistance: number):Observable<any>{
+    return this.httpClient.put<any>(this.baseUrl + 'assistance/' + idAssistance, assistance, httpOptions);
+  }
+
   deleteAssistance(idAssistance: number):Observable<any>{
     return this.httpClient.delete<any>(this.baseUrl + 'assistance/' + idAssistance, httpOptions);
   }
