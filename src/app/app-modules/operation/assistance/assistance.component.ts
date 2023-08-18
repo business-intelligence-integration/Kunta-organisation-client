@@ -163,7 +163,6 @@ export class AssistanceComponent implements OnInit {
         this.loaderService.hideLoader();
       } else {
         this.assistances = res.data;
-        console.log("Detail Assit:: ", res.data)
         if( this.assistances.length <= 0 ) {
           this.show = true;
           this.loaderService.hideLoader();
@@ -296,8 +295,6 @@ export class AssistanceComponent implements OnInit {
     let clubUserTontine:User[] = [];
     this.clubService.getclubById(idClub).subscribe((res)=>{
       this.clubUserOfSelect = res.data.users.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
-      console.log("clubUser:: ", res.data.users);
-      console.log("tontineUser:: ", this.tontineUsers);
       res.data.users.forEach((clubUser: User)=>{
         this.tontineUsers.forEach((tontineUser: User)=>{
           if(clubUser.id == tontineUser.id){
@@ -307,7 +304,7 @@ export class AssistanceComponent implements OnInit {
       })
 
       this.clubUserTontine = clubUserTontine.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
-      console.log("clubUserTontine ", this.clubUserTontine);
+
     })
   }
 
@@ -366,8 +363,7 @@ export class AssistanceComponent implements OnInit {
             'white'
           );
         } else {
-          console.log("respoonse:: ", res);
-          
+
           this.getAllAssistances();
           this.createAssistanceForm.reset();
           this.cancelCreatingAssistance();
@@ -866,8 +862,7 @@ export class AssistanceComponent implements OnInit {
         this.assistanceService.setRefundDatesManually(this.refund, this.idAssistance).subscribe((res)=>{
           this.isSaving = false;
           if(res) {
-            console.log("Res differe:: ", res);
-            
+
             if (res.data == null ) {
               this.utilityService.showMessage(
                 'warning',
@@ -921,8 +916,7 @@ export class AssistanceComponent implements OnInit {
   onSubmitDistribution(idAssistance: number){
     this.assistanceService.makeDistribution(idAssistance).subscribe((res)=>{
       if(res) {
-        console.log("Result Distribution:: ", res);
-        
+ 
         if (res.data == null ) {
           this.utilityService.showMessage(
             'warning',
@@ -975,8 +969,7 @@ export class AssistanceComponent implements OnInit {
     this.closingDate.date = formValue.closingDate;
     this.assistanceService.createAClosingDate(this.idAssistance, this.closingDate).subscribe((res)=>{
       this.isSaving = false;
-      console.log("Res Fermeture:: ", res);
-      
+
       if(res) {
         if (res.data == null ) {
           this.utilityService.showMessage(
