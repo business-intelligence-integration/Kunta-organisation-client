@@ -57,7 +57,7 @@
                     </div>
                     <div class="flex-table-cell" data-th="Caution(s)">
                         <span class="light-text" data-filter-match="">{{ assistance.securityDeposits.length }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' || assistance.allocationKeys.length == 0 && assistance.profitabilityType.label == 'INCERTAIN' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(assistance.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' || assistance.allocationKeys.length == 0 && assistance.profitabilityType.label == 'CERTAIN' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(assistance.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-security-deposit']"
                         [queryParams]="{id: assistance.id}" tooltip=" Voir détails caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
@@ -83,7 +83,7 @@
                             <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé </span>    
                             <a _ngcontent-nct-c62="" *ngIf="assistance.distributionStatus == 'DISTRIBUTED' " [ngClass]="{'disabled is-hidden': assistance.status == 'CLOSE'}" (click)="onCloseAssistance(assistance.id)" tooltip=" Fermer Assistance " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-power-switch"></i></a>
                             <a _ngcontent-nct-c62="" *ngIf="assistance.refundStatus === 'EXPIRED' " (click)="onClosingDate(assistance.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
-                            <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
+                            <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.securityDeposits.length > 0 }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled is-hidden': assistance.distributionStatus == 'DISTRIBUTED'}" *ngIf="assistance.refundStatus === 'PAID' " (click)="onMakeDistribution(assistance.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-assistance']"
                             [queryParams]="{id: assistance.id}" tooltip=" Voir l'assistance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>

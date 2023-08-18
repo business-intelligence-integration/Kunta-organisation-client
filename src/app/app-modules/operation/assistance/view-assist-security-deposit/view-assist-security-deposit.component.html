@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <div class="buttons" (click)="onOpenAddSecurityDeposit()" [ngClass]="{'disabled': assistance.assistanceStatus === 'UNLOCKED' || assistance.allocationKeys.length === 0 && assistance.profitabilityType.label === 'INCERTAIN' }">
+    <div class="buttons" (click)="onOpenAddSecurityDeposit()" [ngClass]="{'disabled': assistance.assistanceStatus === 'UNLOCKED' || assistance.allocationKeys.length === 0 && assistance.profitabilityType.label === 'CERTAIN' }">
         <button class="button h-button is-primary is-elevated">
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
