@@ -36,7 +36,7 @@ export class AppContentComponent implements OnInit {
   activeListTontine: string = "";
   activeOganisation: string = "";
   activeMutualInvestment: string = "";
-  dynamicTitle: string = "Poste Mobile";
+  dynamicTitle: any;
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
   wrapdwonDetailMutualInvestment: string  = "display-block";
@@ -65,6 +65,7 @@ export class AppContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getConnectedUser();
+    this.setTitle();
   }
 
   onCloseAllMobileMenu() {
@@ -88,6 +89,15 @@ export class AppContentComponent implements OnInit {
     }
   }
 
+  setTitle() {
+    if(!localStorage.getItem('titleKey') || localStorage.getItem('titleKey') == null){
+      this.dynamicTitle = "Utilisateurs";
+      this.utilityService.saveTitle(this.dynamicTitle);
+    } else {
+      this.dynamicTitle = localStorage.getItem('titleKey');
+    }
+  }
+
   onActive() {
     if (this.activeProfil == "") {
       this.activeProfil = "is-active";
@@ -106,16 +116,16 @@ export class AppContentComponent implements OnInit {
       this.user = res.data;
     })
   }
-  onDisplayMainOffice(){
-    if(this.activateMainOfficeDetails == ""){
-      this.activateMainOfficeDetails = "active" 
-      this.activeListCenter =""
-      this.wrapdwonDetaiilsMainOffice ="block"
-    }else{
-      this.activateMainOfficeDetails =""
-      this.wrapdwonDetaiilsMainOffice ="none"
-    }
-  }
+  // onDisplayMainOffice(){
+  //   if(this.activateMainOfficeDetails == ""){
+  //     this.activateMainOfficeDetails = "active" 
+  //     this.activeListCenter =""
+  //     this.wrapdwonDetaiilsMainOffice ="block"
+  //   }else{
+  //     this.activateMainOfficeDetails =""
+  //     this.wrapdwonDetaiilsMainOffice ="none"
+  //   }
+  // }
 
   onShowDashboardSubBar() {
     this.activeSubSidebarOfOrganism = "";
@@ -129,6 +139,10 @@ export class AppContentComponent implements OnInit {
   }
 
   onShowOrganismSubBar(){
+    this.dynamicTitle = "Utilisateurs";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    //location.reload(); 
+    //or location.replace('/organization/users/')
     if(this.activeSubSidebarOfOrganism == ""){
       this.activeSubSidebarOfOrganism = "is-active";
       this.activeSubSidebarOfOperation = "";
@@ -144,6 +158,8 @@ export class AppContentComponent implements OnInit {
   }
 
   onShowOperationSubBar(){
+    this.dynamicTitle = "Tontines";
+    this.utilityService.saveTitle(this.dynamicTitle);
     if(this.activeSubSidebarOfOperation == ""){
       this.activeSubSidebarOfOperation = "is-active";
       this.activeSubSidebarOfOrganism = "";
@@ -159,6 +175,8 @@ export class AppContentComponent implements OnInit {
   }
 
   onShowParameterSubBar(){
+    this.dynamicTitle = "Postes";
+    this.utilityService.saveTitle(this.dynamicTitle);
     if(this.activeSubSidebarOfParameter == ""){
       this.activeSubSidebarOfParameter = "is-active";
       this.activeSubSidebarOfOrganism = "";
@@ -174,6 +192,7 @@ export class AppContentComponent implements OnInit {
   }
 
   ////////////////////////////////////////////////////// Parameters Functions
+  
   onDisplayTontineDetail(){
     if(this.activeListTontine == ""){
       this.activeListTontine = "active" 
@@ -204,68 +223,149 @@ export class AppContentComponent implements OnInit {
     }
   }
 
+  onUser(){
+    this.dynamicTitle = "Utilisateurs";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onClub(){
+    this.dynamicTitle = "Clubs";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onArea(){
+    this.dynamicTitle = "Zones";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onCenter(){
+    this.dynamicTitle = "Centres";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onOffice(){
+    this.dynamicTitle = "Bureau principal";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onTontine(){
+    this.dynamicTitle = "Tontines";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onMutualInvestment(){
+    this.dynamicTitle = "Placements Mutualisés";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
+  onAssistance(){
+    this.dynamicTitle = "Assistances";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
+  }
+
   onPoste(){
-    this.dynamicTitle = "Postes"
+    this.dynamicTitle = "Postes";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onPieceType(){
-    this.dynamicTitle = "Types de pièces"
+    this.dynamicTitle = "Types de pièces";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onCivility(){
-    this.dynamicTitle = "Civilités"
+    this.dynamicTitle = "Civilités";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onFrequency(){
-    this.dynamicTitle = "Frequences"
+    this.dynamicTitle = "Fréquences";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onTransversality(){
-    this.dynamicTitle = "Niveaux de transversalité"
+    this.dynamicTitle = "Niveaux de transversalité";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
   onGain(){
-    this.dynamicTitle = "Gains"
+    this.dynamicTitle = "Gains";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onCycle(){
-    this.dynamicTitle = "Cycles"
+    this.dynamicTitle = "Cycles";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onSession(){
-    this.dynamicTitle = "Séances"
+    this.dynamicTitle = "Séances";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onStatus(){
-    this.dynamicTitle = "Statuts"
+    this.dynamicTitle = "Statuts";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onPenalyType(){
-    this.dynamicTitle = "Types Penalité"
+    this.dynamicTitle = "Types Penalité";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onPenaly(){
-    this.dynamicTitle = "Penalités"
+    this.dynamicTitle = "Penalités";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onPaymentStatus(){
-    this.dynamicTitle = "Statuts Paiement"
+    this.dynamicTitle = "Statuts Paiement";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
   
   onDraweeForm(){
-    this.dynamicTitle = "Formulaires de tirage"
+    this.dynamicTitle = "Formulaires de tirage";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onProfitabilityType(){
-    this.dynamicTitle = "Types de rentabilité"
+    this.dynamicTitle = "Types de rentabilité";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onRefundType(){
-    this.dynamicTitle = "Types de remboursement"
+    this.dynamicTitle = "Types de remboursement";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
 
   onFamilySituation(){
-    this.dynamicTitle = "Situation familiale"
+    this.dynamicTitle = "Situation familiale";
+    this.utilityService.saveTitle(this.dynamicTitle);
+    this.onCloseAllMobileMenu();
   }
+
   /////////////////////////////////////////////////////////////////// END Parameters Functions
 
 }

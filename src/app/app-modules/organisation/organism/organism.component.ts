@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-organism',
@@ -25,7 +26,7 @@ export class OrganismComponent implements OnInit {
   isMainOffice: boolean = false;
   isMainCenters: boolean = false;
   isAccount: boolean = false; 
-  dynamicTitle: string = "Organisation";
+  dynamicTitle: any;
 
   isExecutiveBoard: boolean = false;
   isGeneralAssembly: boolean = false;
@@ -39,10 +40,10 @@ export class OrganismComponent implements OnInit {
   isOperator: boolean = false;
   isMutulist: boolean = false;
 
-  constructor() { }
+  constructor(private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    //this.areNotUsers();
+    this.setTitle();
   }
 
   activeHomeSider() {
@@ -54,6 +55,15 @@ export class OrganismComponent implements OnInit {
       this.activeToggle = "";
       this.homeSider = "";
       this.isPushed = "";
+    }
+  }
+
+  setTitle() {
+    if(!localStorage.getItem('titleKey') || localStorage.getItem('titleKey') == null){
+      this.dynamicTitle = "Utilisateurs";
+      this.utilityService.saveTitle(this.dynamicTitle);
+    } else {
+      this.dynamicTitle = localStorage.getItem('titleKey');
     }
   }
 
@@ -90,41 +100,51 @@ export class OrganismComponent implements OnInit {
     //   this.wrapdwonDetaiilsMainOffice ="none"
     // }
     this.dynamicTitle = "Bureau principale";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowClub(){
     this.dynamicTitle = "Clubs";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowUsers(){
     this.dynamicTitle = "Utilisateurs";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowZone(){
     this.dynamicTitle = "Zones";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowCentre(){
     this.dynamicTitle = "Centres";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowExecutifBoard(){
     this.dynamicTitle = "Comité exécutif";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowGeneralAssembly(){
     this.dynamicTitle = "Assemblée générale";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowGovernanceCompensation(){
     this.dynamicTitle = "Comité de gouvernance et de rémunération";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowProductionMonitoringCommittee(){
     this.dynamicTitle = "Comité de production et de surveillance";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowStrategicDevelopmentCommittee(){
     this.dynamicTitle = "Comité de développement stratégique";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 }

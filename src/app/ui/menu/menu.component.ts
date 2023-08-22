@@ -60,6 +60,7 @@ export class MenuComponent implements OnInit {
       this.activeParameter = "";
       this.naverStyle = "margin-top: 214px;";
       this.naver = "naver";
+      this.utilityService.saveTitle('Utilisateurs');
     }
   }
   
@@ -71,6 +72,7 @@ export class MenuComponent implements OnInit {
       this.activeParameter = "";
       this.naverStyle = "margin-top: 278px;";
       this.naver = "naver";
+      this.utilityService.saveTitle('Tontines');
     }
   }
 
@@ -82,6 +84,7 @@ export class MenuComponent implements OnInit {
       this.activeParameter = "is-selected is-active";
       this.naverStyle = "margin-bottom: 128px;";
       this.naver = "naver from-bottom";
+      this.utilityService.saveTitle('Postes');
     }
   }
 

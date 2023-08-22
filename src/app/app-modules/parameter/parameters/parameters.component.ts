@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UtilityService } from 'src/app/core/services/utility/utility.service';
 
 @Component({
   selector: 'app-parameters',
@@ -13,7 +14,7 @@ export class ParametersComponent implements OnInit {
   activeListTontine: string = "";
   activeOganisation: string = "";
   activeMutualInvestment: string = "";
-  dynamicTitle: string = "Postes"
+  dynamicTitle: any;
   isFrequency: boolean = true;
   isGain: boolean = false;
   isSession: boolean = false;
@@ -34,9 +35,11 @@ export class ParametersComponent implements OnInit {
   wrapdwonDetailTontine: string ="display-block";
   wrapdwonDetailOganisation: string ="display-block";
   wrapdwonDetailMutualInvestment: string  = "display-block";
-  constructor() { }
+
+  constructor(private utilityService: UtilityService) { }
 
   ngOnInit(): void {
+    this.setTitle();
   }
 
   activeHomeSider() {
@@ -48,6 +51,15 @@ export class ParametersComponent implements OnInit {
       this.activeToggle = "";
       this.homeSider = "";
       this.isPushed = "";
+    }
+  }
+
+  setTitle() {
+    if(!localStorage.getItem('titleKey') || localStorage.getItem('titleKey') == null){
+      this.dynamicTitle = "Postes";
+      this.utilityService.saveTitle(this.dynamicTitle);
+    } else {
+      this.dynamicTitle = localStorage.getItem('titleKey');
     }
   }
 
@@ -82,86 +94,107 @@ export class ParametersComponent implements OnInit {
   }
 
   onPoste(){
-    this.dynamicTitle = "Postes"
+    this.dynamicTitle = "Postes";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onPieceType(){
-    this.dynamicTitle = "Types de pièces"
+    this.dynamicTitle = "Types de pièces";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onCivility(){
-    this.dynamicTitle = "Civilités"
+    this.dynamicTitle = "Civilités";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onUserType(){
-    this.dynamicTitle = "Type d'utilisateur"
+    this.dynamicTitle = "Type d'utilisateur";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onUserCategory(){
-    this.dynamicTitle = "Catégorie d'utilisateur"
+    this.dynamicTitle = "Catégorie d'utilisateur";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onFrequency(){
-    this.dynamicTitle = "Frequences"
+    this.dynamicTitle = "Frequences";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onTransversality(){
-    this.dynamicTitle = "Niveaux de transversalité"
+    this.dynamicTitle = "Niveaux de transversalité";
+    this.utilityService.saveTitle(this.dynamicTitle);
 
   }
   onGain(){
-    this.dynamicTitle = "Gains"
+    this.dynamicTitle = "Gains";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onCycle(){
-    this.dynamicTitle = "Cycles"
+    this.dynamicTitle = "Cycles";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onSession(){
-    this.dynamicTitle = "Séances"
+    this.dynamicTitle = "Séances";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onStatus(){
-    this.dynamicTitle = "Statuts"
+    this.dynamicTitle = "Statuts";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onPenalyType(){
-    this.dynamicTitle = "Types Penalité"
+    this.dynamicTitle = "Types Penalité";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onPenaly(){
-    this.dynamicTitle = "Penalités"
+    this.dynamicTitle = "Penalités";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onPaymentStatus(){
-    this.dynamicTitle = "Statuts Paiement"
+    this.dynamicTitle = "Statuts Paiement";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
   
   onDraweeForm(){
-    this.dynamicTitle = "Formulaires de tirage"
+    this.dynamicTitle = "Formulaires de tirage";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onProfitabilityType(){
-    this.dynamicTitle = "Types de rentabilité"
+    this.dynamicTitle = "Types de rentabilité";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onRefundType(){
-    this.dynamicTitle = "Types de remboursement"
+    this.dynamicTitle = "Types de remboursement";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onRiskProfile(){
-    this.dynamicTitle = "Profil des risques"
+    this.dynamicTitle = "Profil des risques";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onSecurityDeposit(){
-    this.dynamicTitle = "Cautions"
+    this.dynamicTitle = "Cautions";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onSubscriptionOffer(){
-    this.dynamicTitle = "Offres de souscription"
+    this.dynamicTitle = "Offres de souscription";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onFamilySituation(){
-    this.dynamicTitle = "Situation familiale"
+    this.dynamicTitle = "Situation familiale";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 }

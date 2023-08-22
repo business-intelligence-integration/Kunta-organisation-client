@@ -37,8 +37,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-
-
   viewpass(){
     this.visible = !this.visible;
     this.changetype = !this.changetype;
