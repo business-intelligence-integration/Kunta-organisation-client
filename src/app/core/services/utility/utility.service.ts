@@ -10,7 +10,7 @@ export class UtilityService {
   constructor() { }
 
   saveTitle(dynamicTitle: any){
-    localStorage.setItem('titleKey', dynamicTitle);
+    sessionStorage.setItem('titleKey', dynamicTitle);
   }
 
   loadToken(){

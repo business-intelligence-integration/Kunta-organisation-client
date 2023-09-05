@@ -65,6 +65,7 @@ export class AppContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getConnectedUser();
+    // sessionStorage.clear();
     this.setTitle();
   }
 
@@ -90,11 +91,11 @@ export class AppContentComponent implements OnInit {
   }
 
   setTitle() {
-    if(!localStorage.getItem('titleKey') || localStorage.getItem('titleKey') == null){
+    if(!sessionStorage.getItem('titleKey') || sessionStorage.getItem('titleKey') == null){
       this.dynamicTitle = "Utilisateurs";
       this.utilityService.saveTitle(this.dynamicTitle);
     } else {
-      this.dynamicTitle = localStorage.getItem('titleKey');
+      this.dynamicTitle = sessionStorage.getItem('titleKey');
     }
   }
 

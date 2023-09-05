@@ -43,6 +43,7 @@ export class OrganismComponent implements OnInit {
   constructor(private utilityService: UtilityService) { }
 
   ngOnInit(): void {
+    // sessionStorage.clear();
     this.setTitle();
   }
 
@@ -59,12 +60,13 @@ export class OrganismComponent implements OnInit {
   }
 
   setTitle() {
-    if(!localStorage.getItem('titleKey') || localStorage.getItem('titleKey') == null){
-      this.dynamicTitle = "Utilisateurs";
-      this.utilityService.saveTitle(this.dynamicTitle);
-    } else {
-      this.dynamicTitle = localStorage.getItem('titleKey');
-    }
+    // if(!sessionStorage.getItem('titleKey') || sessionStorage.getItem('titleKey') == null){
+    //   this.dynamicTitle = "Utilisateurs";
+    //   this.utilityService.saveTitle(this.dynamicTitle);
+    // } else {
+    //   this.dynamicTitle = sessionStorage.getItem('titleKey');
+    // }
+    this.dynamicTitle = sessionStorage.getItem('titleKey');
   }
 
   onDisplayUserList(){
@@ -99,51 +101,61 @@ export class OrganismComponent implements OnInit {
     //   this.activateMainOfficeDetails =""
     //   this.wrapdwonDetaiilsMainOffice ="none"
     // }
+    sessionStorage.clear();
     this.dynamicTitle = "Bureau principale";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowClub(){
+    sessionStorage.clear();
     this.dynamicTitle = "Clubs";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowUsers(){
+    sessionStorage.clear();
     this.dynamicTitle = "Utilisateurs";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowZone(){
+    sessionStorage.clear();
     this.dynamicTitle = "Zones";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowCentre(){
+    sessionStorage.clear();
     this.dynamicTitle = "Centres";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowExecutifBoard(){
+    sessionStorage.clear();
     this.dynamicTitle = "Comité exécutif";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowGeneralAssembly(){
+    sessionStorage.clear();
     this.dynamicTitle = "Assemblée générale";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowGovernanceCompensation(){
+    sessionStorage.clear();
     this.dynamicTitle = "Comité de gouvernance et de rémunération";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowProductionMonitoringCommittee(){
+    sessionStorage.clear();
     this.dynamicTitle = "Comité de production et de surveillance";
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   onShowStrategicDevelopmentCommittee(){
+    sessionStorage.clear();
     this.dynamicTitle = "Comité de développement stratégique";
     this.utilityService.saveTitle(this.dynamicTitle);
   }

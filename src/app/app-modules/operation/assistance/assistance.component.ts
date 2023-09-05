@@ -645,18 +645,26 @@ export class AssistanceComponent implements OnInit {
         if (result.isConfirmed) {
           this.assistanceService.unlockingOperation(id).subscribe(
             (res) => {
-              if( res == null ) {
+              if (res) {
+                if( res.data == null ) {
+                  swalWithBootstrapButtons.fire({
+                    title: 'Annulé',
+                    text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour l\'assistance',
+                    confirmButtonColor: '#d33',
+                  });
+                } else {
+                  this.getAllAssistances();
+                  swalWithBootstrapButtons.fire({
+                    title: 'Débloqué !',
+                    text: 'L\'assistance a été débloqué avec succès !',
+                    confirmButtonColor: '#198AE3',
+                  });
+                }
+              } else {
                 swalWithBootstrapButtons.fire({
                   title: 'Annulé',
-                  text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour l\'assistance',
+                  text: 'Une erreur s\'est produite',
                   confirmButtonColor: '#d33',
-                });
-              } else {
-                this.getAllAssistances();
-                swalWithBootstrapButtons.fire({
-                  title: 'Débloqué !',
-                  text: 'L\'assistance a été débloqué avec succès !',
-                  confirmButtonColor: '#198AE3',
                 });
               }
             },
@@ -976,7 +984,6 @@ export class AssistanceComponent implements OnInit {
     this.assistanceService.createAClosingDate(this.idAssistance, this.closingDate).subscribe((res)=>{
       this.isSaving = false;
       console.log("Res Fermeture:: ", res);
-      
       if(res) {
         if (res.data == null ) {
           this.utilityService.showMessage(

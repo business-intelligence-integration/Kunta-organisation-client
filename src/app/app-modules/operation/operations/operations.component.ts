@@ -18,6 +18,7 @@ export class OperationsComponent implements OnInit {
   constructor(private utilityService: UtilityService) { }
 
   ngOnInit(): void {
+    // sessionStorage.clear();
     this.setTitle();
   }
 
@@ -34,12 +35,13 @@ export class OperationsComponent implements OnInit {
   }
 
   setTitle() {
-    if(!localStorage.getItem('titleKey') || localStorage.getItem('titleKey') == null){
-      this.dynamicTitle = "Tontines";
-      this.utilityService.saveTitle(this.dynamicTitle);
-    } else {
-      this.dynamicTitle = localStorage.getItem('titleKey');
-    }
+    // if(!sessionStorage.getItem('titleKey') || sessionStorage.getItem('titleKey') == null){
+    //   this.dynamicTitle = "Tontines";
+    //   this.utilityService.saveTitle(this.dynamicTitle);
+    // } else {
+    //   this.dynamicTitle = sessionStorage.getItem('titleKey');
+    // }
+    this.dynamicTitle = sessionStorage.getItem('titleKey');
   }
 
   // onDisplayTontineDetail(){
