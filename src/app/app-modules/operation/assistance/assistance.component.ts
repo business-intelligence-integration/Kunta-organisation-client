@@ -649,7 +649,8 @@ export class AssistanceComponent implements OnInit {
                 if( res.data == null ) {
                   swalWithBootstrapButtons.fire({
                     title: 'Annulé',
-                    text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour l\'assistance',
+                    text: res.message,
+                    // text: 'Une erreur s\'est produite. Rassurez-vous que les cautions aient été crées et que la somme des montants des cautions soit équivalent au montant à rembourser pour l\'assistance',
                     confirmButtonColor: '#d33',
                   });
                 } else {
