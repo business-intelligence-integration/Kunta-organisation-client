@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   login: Login;
   isNotLogin: boolean = false;
   isProgressing: boolean = false;
+  dynamicTitle: any;
 
   visible:boolean = true;
   changetype:boolean =true;
@@ -50,6 +51,8 @@ export class LoginComponent implements OnInit {
     this.authentificationSerice.signin(this.login).subscribe((result: any)=>{
       if(result.status == "OK"){
         this.utilityService.saveToken(result.data);
+        this.dynamicTitle = "Utilisateurs";
+        this.utilityService.saveTitle(this.dynamicTitle);
         this.router.navigateByUrl('organization');
         this.isNotLogin = false;
         this.isProgressing = false
