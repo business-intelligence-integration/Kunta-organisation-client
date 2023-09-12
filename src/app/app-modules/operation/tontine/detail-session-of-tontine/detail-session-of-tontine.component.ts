@@ -158,6 +158,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
         this.sessions = res.data;
+        console.log("sessions:: ", res);
+        
       });
     })
   }
@@ -427,6 +429,94 @@ export class DetailSessionOfTontineComponent implements OnInit {
 
   onGenerateWinner(idSession: number){
     this.generate(idSession);
+  }
+
+  onTransferContributionsToTheSolidarityFund(idSession: number){
+    this.transferContributionsToTheSolidarityFund(idSession);
+  }
+
+  transferContributionsToTheSolidarityFund(idSession: number){
+    // let penalityIsNoOkay: boolean = false;
+    let paymentIsNoOkay: boolean = false;
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+        title: 'Êtes-vous sûre de vouloir transférer les cotisations dans les fonds de solidarité ?',
+        text: "Cette action est irreversible!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, transférer !',
+        cancelButtonText: 'Non, annuler!',
+        confirmButtonColor: '#198AE3',
+        cancelButtonColor: '#d33',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.sessionService.findSessionById(idSession).subscribe((res)=>{
+            
+            if(this.session.contributionsIsTransferToTheSolidarityFund == true){
+              this.utilityService.showMessage(
+                'warning',
+                'Désolé les cotisation ont déjà été transféré dans les fonds de solidarité !',
+                '#e62965',
+                'white'
+              );
+            }else{
+              // res.data.penalties.map((penalty:any)=>{
+              //   if(penalty.paid == false){
+              //     penalityIsNoOkay = true;
+              //   }
+              // })
+              if(res.data.totalToBePaid != res.data.totalPaid){
+                paymentIsNoOkay = true
+              }
+        
+              if(paymentIsNoOkay){
+                this.utilityService.showMessage(
+                  'warning',
+                  'Désolé vous ne pouvez pas encore transférer les cotisations dans les fonds de solidarité car tous les paiements n\'ont pas encore été effectué !',
+                  '#e62965',
+                  'white'
+                );
+              }else{
+                this.sessionService.transferContributionsToTheSolidarityFund(idSession).subscribe(
+                  () => {
+                    this.getAllSessionsOfCycle();
+                    swalWithBootstrapButtons.fire({
+                      title: 'Transféré !',
+                      text: 'le tranfert a été effectué avec succès.',
+                      confirmButtonColor: '#198AE3',
+                    });
+                  },
+                  () => {
+                    swalWithBootstrapButtons.fire({
+                      title: 'Annulé !',
+                      text: 'Une erreur s\'est produite',
+                      confirmButtonColor: '#d33',
+                    });
+                  }
+                );
+              }
+            }
+
+          })
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annulé',
+            text: 'Vous avez annulé le transfert des cotisations dans le fonds de solidarité',
+            confirmButtonColor: '#d33',
+          });
+        }
+      });
   }
 
 

@@ -607,10 +607,10 @@ export class TontineComponent implements OnInit {
             );
           
         }else{
-            if(this.sessionsNumber > this.numberOfMembers){
+            if((this.sessionsNumber - 1) > this.numberOfMembers){
               this.utilityService.showMessage(
                 'warning',
-                'Cette tontine ne peut être fermée car le nombre de bras des participants ne conrrespond pas encore au nombre de séance généré, il en reste encore ' + (this.sessionsNumber - this.numberOfMembers) + ' bras',
+                'Cette tontine ne peut être fermée car le nombre de bras des participants ne conrrespond pas encore au nombre de séance généré, il en reste encore ' + ((this.sessionsNumber -1) - this.numberOfMembers) + ' bras',
                 '#e62965',
                 'white'
               );

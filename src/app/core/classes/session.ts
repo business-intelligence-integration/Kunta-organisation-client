@@ -10,6 +10,8 @@ export class Session{
     totalPaid :number = 0
     totalPenalties: number = 0
     totalToBePaid: number = 0
+    firstSession: boolean = false;
+    contributionsIsTransferToTheSolidarityFund: boolean = false;
     hour: string = "";
     payments: Payment[] = [];
     penalties: Penality[] = [];
@@ -17,4 +19,5 @@ export class Session{
     userPenaltyStates: User[] = [];
     status: Status = new Status();
     winner: User = new User();
+
 }
