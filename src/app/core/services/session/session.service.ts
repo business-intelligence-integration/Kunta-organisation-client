@@ -78,4 +78,8 @@ export class SessionService {
   generateWinnerOfASession(idSession: number):Observable<any>{
     return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/generate-winner` + '?token=' + this.utilityService.loadToken(), {});
   }
+
+  transferContributionsToTheSolidarityFund(idSession: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `sessions/${idSession}/transfer-contributions-to-solidarity-fund` + '?token=' + this.utilityService.loadToken(), {});
+  }
 }
