@@ -449,7 +449,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
         hideClass: {
           popup: 'animate__animated animate__fadeOutUp',
         },
-        title: 'Êtes-vous sûre de vouloir transférer les cotisation dans les fonds de solidarité ?',
+        title: 'Êtes-vous sûre de vouloir transférer les cotisations dans les fonds de solidarité ?',
         text: "Cette action est irreversible!",
         icon: 'warning',
         showCancelButton: true,
@@ -462,9 +462,6 @@ export class DetailSessionOfTontineComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.sessionService.findSessionById(idSession).subscribe((res)=>{
-            // this.session = res.data
-            console.log("res:: ",res);
-            // console.log("this.session:: ", this.session);
             
             if(this.session.contributionsIsTransferToTheSolidarityFund == true){
               this.utilityService.showMessage(
