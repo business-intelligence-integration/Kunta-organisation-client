@@ -7,5 +7,6 @@ export class Post{
     description: string = "";
     organisationLevelEnum: string = "";
     operators: User[] = [];
+    canBeDelete: boolean = false;
 
 }
