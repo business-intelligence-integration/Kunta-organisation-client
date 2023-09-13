@@ -123,7 +123,7 @@
                 <div class="inner-content">
                     <form class="modal-form" [formGroup]="addAreaForm" (ngSubmit)="onSubmitArea()">
                         <div class="field">
-                            <label>Appelation*</label><br>
+                            <label>Appelation *</label><br>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Appelation" formControlName="name">
                             </div>
@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label>Référence*</label><br>
+                            <label>Référence *</label><br>
                             <div class="control">
                                 <input type="text" class="input" placeholder="Référence" formControlName="reference">
                             </div>
@@ -143,7 +143,7 @@
                             </div>
                         </div> 
                         <div class="field">
-                            <label>Date de création*</label><br>
+                            <label>Date de création *</label><br>
                             <div class="card-header-widget datepicker-style">
                                 <div class="input-daterange input-group align-items-center">
                                     <input class="champ" formControlName="creationDate" max="{{ CreationAreaDate }}" type="date" id="DOB" name="DOB"  [(ngModel)]="createDate" (input)="onSelectCreateDate($event.timeStamp)">
@@ -155,7 +155,7 @@
                         </div>
 
                         <div class="field">
-                            <label>Observation*</label>
+                            <label>Observation *</label>
                             <div class="control">
                                 <textarea class="textarea" rows="4"
                                     formControlName="observation" placeholder="Observation..."></textarea>
