@@ -18,6 +18,7 @@ export class NavbarMobileComponent implements OnInit {
   user: User;
   activeProfil: string = "";
   isActive: string = "";
+  dynamicTitle: any;
 
   constructor( private utilityService: UtilityService,
     private router: Router,
@@ -58,6 +59,11 @@ export class NavbarMobileComponent implements OnInit {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
     })
+  }
+
+  onClickProfil() {
+    this.dynamicTitle = "Mon profil";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
 }

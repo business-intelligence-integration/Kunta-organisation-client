@@ -1,0 +1,197 @@
+
+<div class="account-box is-form is-footerless">
+    <div class="form-head stuck-header">
+        <div class="form-head-inner">
+            <div class="left">
+                <h3>Paramètre</h3>
+                <p>Modifier vos paramètres</p>
+            </div>
+            <div class="right">
+                <div class="buttons">
+                    <a (click)="comeBack()" class="button h-button is-light is-dark-outlined">
+                        <span class="icon">
+                            <i class="lnir lnir-arrow-left rem-100"></i>
+                        </span>
+                        <span>Retour</span>
+                    </a>
+                    <button [disabled]="isSaving" (click)="onSubmitUpdatePassword()" id="save-button" class="button h-button is-primary is-raised">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="form-body" [formGroup]="updatePasswordForm" (ngSubmit)="onSubmitUpdatePassword()">
+        <!--Fieldset-->
+        <div class="fieldset">
+            <div class="fieldset-heading">
+                <h4>Changer de mot de passe</h4>
+                <p>Pour améliorer votre sécurité</p>
+            </div>
+            
+            <div class="columns is-multiline">
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <input type="password" class="input" placeholder="Ancien mot de passe" formControlName="oldPassword">
+                            <div class="form-icon">
+                                <i class="lnil lnil-lock-alt-1"></i>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updatePasswordForm.get('oldPassword')?.errors?.['required'] && updatePasswordForm.get('oldPassword')?.touched">
+                                <small class="text-police">veuillez entrer l'ancien mot de passe</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <input type="password" class="input" placeholder="Nouveau mot de passe" formControlName="newPassword" [(ngModel)]="newPass" (ngModelChange)="onNewPassSelected($event)">
+                            <div class="form-icon">
+                                <i class="lnil lnil-lock-alt-2"></i>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="updatePasswordForm.get('newPassword')?.errors?.['required'] && updatePasswordForm.get('newPassword')?.touched">
+                                <small class="text-police">veuillez entrer le nouveau mot de passe</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <input type="password" class="input" placeholder="Confirmer nouveau mot de passe" formControlName="confirmPassword" [(ngModel)]="confirmPass" (ngModelChange)="onConfirmPassSelected($event)">
+                            <div class="form-icon">
+                                <i class="lnil lnil-lock-alt-2"></i>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="!isConfirmed">
+                                <small class="text-police">le mot de passe saisi n'est pas identique au nouveau mot de passe</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Fieldset-->
+        <!-- <div class="fieldset">
+            <div class="fieldset-heading">
+                <h4>2 Factor Auth</h4>
+                <p>Enable or disable 2 factor auth</p>
+            </div>
+            
+            <div class="columns is-multiline">
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <div class="switch-block no-padding-all">
+                                <label class="form-switch is-primary">
+                                    <input type="checkbox" class="is-switch" checked>
+                                    <i></i>
+                                </label>
+                                <div class="text">
+                                    <span>Enable / disable 2 factor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <input type="text" class="input" placeholder="Phone Number">
+                            <div class="form-icon">
+                                <i data-feather="smartphone"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!--Fieldset-->
+        <!-- <div class="fieldset">
+            <div class="fieldset-heading">
+                <h4>Notifications</h4>
+                <p>Configure how you receive notifications</p>
+            </div>
+            
+            <div class="columns is-multiline">
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <div class="switch-block no-padding-all">
+                                <label class="form-switch is-primary">
+                                    <input type="checkbox" class="is-switch">
+                                    <i></i>
+                                </label>
+                                <div class="text">
+                                    <span>Disable all notifications</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control has-icon">
+                            <div class="switch-block no-padding-all">
+                                <label class="form-switch is-primary">
+                                    <input type="checkbox" class="is-switch">
+                                    <i></i>
+                                </label>
+                                <div class="text">
+                                    <span>Disable low priority notifications</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!--Fieldset-->
+        <!-- <div class="fieldset">
+            <div class="fieldset-heading">
+                <h4>Marketing</h4>
+                <p>Configure how you receive promotions</p>
+            </div>
+            
+            <div class="columns is-multiline">
+                
+                <div class="column is-12">
+                    <div class="field">
+                        <div class="control has-icon">
+                            <div class="switch-block no-padding-all">
+                                <label class="form-switch is-primary">
+                                    <input type="checkbox" class="is-switch">
+                                    <i></i>
+                                </label>
+                                <div class="text">
+                                    <span>Enable marketing emails</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control has-icon">
+                            <div class="switch-block no-padding-all">
+                                <label class="form-switch is-primary">
+                                    <input type="checkbox" class="is-switch">
+                                    <i></i>
+                                </label>
+                                <div class="text">
+                                    <span>Enable partner emails</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </form>
+</div>

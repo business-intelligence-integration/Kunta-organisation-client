@@ -39,7 +39,6 @@ export class ParametersComponent implements OnInit {
   constructor(private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    // sessionStorage.clear();
     this.setTitle();
   }
 
@@ -56,12 +55,6 @@ export class ParametersComponent implements OnInit {
   }
 
   setTitle() {
-    // if(!sessionStorage.getItem('titleKey') || sessionStorage.getItem('titleKey') == null){
-    //   this.dynamicTitle = "Postes";
-    //   this.utilityService.saveTitle(this.dynamicTitle);
-    // } else {
-    //   this.dynamicTitle = sessionStorage.getItem('titleKey');
-    // }
     this.dynamicTitle = sessionStorage.getItem('titleKey');
   }
 

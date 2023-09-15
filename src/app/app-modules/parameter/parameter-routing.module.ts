@@ -51,7 +51,7 @@ const routes: Routes = [
     {path:"subscription-offer", component: SubscriptionOfferComponent, canActivate: [EntityGuard]},
 
   ]
-}
+  }
 ];
 
 

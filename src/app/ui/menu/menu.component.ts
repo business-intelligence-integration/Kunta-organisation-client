@@ -20,11 +20,13 @@ export class MenuComponent implements OnInit {
   activeParameter: string = "";
   imageUrl: string = "https://res.cloudinary.com/b2i-group/image/upload/v1673430409/kunta-organisation/images/t%C3%A9l%C3%A9chargement_vojsxd.png";
   user: User;
+  dynamicTitle: any;
+
   constructor( private utilityService: UtilityService,
     private router: Router,
     private userService: UserService) {
       this.user = new User();
-     }
+    }
 
   ngOnInit(): void {
     this.getConnectedUser();
@@ -97,6 +99,11 @@ export class MenuComponent implements OnInit {
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
     })
+  }
+
+  onClickProfil() {
+    this.dynamicTitle = "Mon profil";
+    this.utilityService.saveTitle(this.dynamicTitle);
   }
 
   // getRole(){

@@ -117,6 +117,12 @@ export class AppContentComponent implements OnInit {
       this.user = res.data;
     })
   }
+
+  onClickProfil() {
+    this.dynamicTitle = "Mon profil";
+    this.utilityService.saveTitle(this.dynamicTitle);
+  }
+
   // onDisplayMainOffice(){
   //   if(this.activateMainOfficeDetails == ""){
   //     this.activateMainOfficeDetails = "active" 

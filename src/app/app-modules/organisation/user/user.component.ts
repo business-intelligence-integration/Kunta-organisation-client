@@ -38,7 +38,6 @@ export class UserComponent implements OnInit {
   ngSelect: any = "1";
   ngSelectRoleUser = 0
   ngSelectUser = 0;
-  ngSelect2 = 0;
   ngSelectCivility = 0;
   ngSelectFamilySituation = 0;
   ngSelectTypePiece1 = 0;
@@ -85,7 +84,7 @@ export class UserComponent implements OnInit {
   dateOfIssue: any;
   beneficiary: Beneficiary = new Beneficiary();
   cyvilities: Civility[] = [];
-  familySitautions: FamilySituation[] = [];
+  familySituations: FamilySituation[] = [];
   status: Status[] = [];
   userOfSelect: any;
   countries: any;
@@ -141,6 +140,7 @@ export class UserComponent implements OnInit {
     this.getAllRoles();
     this.initDates();
   }
+
   initDates(){
     this.dateNow = new DatePipe('en-US').transform(new Date(Date.now()),'yyyy-MM-dd');
   }
@@ -839,7 +839,7 @@ export class UserComponent implements OnInit {
 
   getAllFamilySituation(){
     this.familySituationService.findAllFamilySituations().subscribe((res)=>{
-      this.familySitautions = res.data;
+      this.familySituations = res.data;
     })
   }
 

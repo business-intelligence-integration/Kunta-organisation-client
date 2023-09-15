@@ -7,6 +7,7 @@ import { Beneficiary } from '../../classes/beneficiary';
 import { User } from '../../classes/user';
 
 import { UtilityService } from '../utility/utility.service';
+import { UpdatePassword } from '../../classes/updatePassword';
 
 const httpOptions ={
   headers: new HttpHeaders({
@@ -36,6 +37,10 @@ export class UserService {
 
   updateMemberById(member: User, id: number):Observable<any>{
     return this.httpClient.put<any>(this.baseUrl + 'users/'+ id, member, httpOptions);
+  }
+
+  updatePassword(updatePassword: UpdatePassword, idUser: number):Observable<any>{
+    return this.httpClient.put<any>(this.baseUrl + 'users/update-password/'+ idUser, updatePassword, httpOptions);
   }
 
   deleteById(id: number):Observable<any>{

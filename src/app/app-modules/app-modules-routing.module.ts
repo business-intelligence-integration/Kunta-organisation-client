@@ -145,6 +145,10 @@ const routes: Routes = [
         path:"view-assist-refund", component: ViewAssistRefundComponent, canActivate: [EntityGuard]
       },
       {
+        path : 'profile',
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
         path : 'parameters',
         loadChildren: () => import('./parameter/parameter.module').then(m => m.ParameterModule)
       },
