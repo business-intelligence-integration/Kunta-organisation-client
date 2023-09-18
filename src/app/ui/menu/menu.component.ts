@@ -60,7 +60,8 @@ export class MenuComponent implements OnInit {
       this.activeOrganism = "is-selected is-active";
       this.activeOperation = "";
       this.activeParameter = "";
-      this.naverStyle = "margin-top: 214px;";
+      this.naverStyle = "margin-top: 150px;";
+      // this.naverStyle = "margin-top: 214px;";
       this.naver = "naver";
       this.utilityService.saveTitle('Utilisateurs');
     }
@@ -72,7 +73,8 @@ export class MenuComponent implements OnInit {
       this.activeOrganism = "";
       this.activeOperation = "is-selected is-active";
       this.activeParameter = "";
-      this.naverStyle = "margin-top: 278px;";
+      this.naverStyle = "margin-top: 214px;";
+      // this.naverStyle = "margin-top: 278px;";
       this.naver = "naver";
       this.utilityService.saveTitle('Tontines');
     }

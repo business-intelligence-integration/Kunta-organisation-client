@@ -1,7 +1,7 @@
    <!--Sidebar-->
         <div class="main-sidebar">
             <div class="sidebar-brand">
-                <a [routerLink]="['/dashboards/']">
+                <a [routerLink]="['/organization/users/']">
                     <img class="light-image" src="https://res.cloudinary.com/b2i-group/image/upload/v1673430526/kunta-organisation/img/logo_p4a6oz.svg" alt="">
                     <img class="dark-image" src="https://res.cloudinary.com/b2i-group/image/upload/v1673430526/kunta-organisation/img/logo-light_dwxxh6.svg" alt="">
                 </a>
@@ -12,11 +12,11 @@
   
                 <ul class="icon-menu">
                     <!-- Dashboard -->
-                    <li [routerLinkActive]="['active']">
+                    <!-- <li [routerLinkActive]="['active']">
                         <a [routerLink]="['/dashboards/']" (click)="onActiveDashboard()" [ngClass]="activeDashboard" tooltip=" DASHBOARD " theme='light' id="home-sidebar-menu" data-content="Dashboards">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity sidebar-svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                         </a>
-                    </li> 
+                    </li>  -->
                     <!-- Organisation -->
                     <li [routerLinkActive]="['active']">
                         <a [routerLink]="['/organization/users/']" (click)="onActiveOrganism()" [ngClass]="activeOrganism" tooltip=" ORGANISATION " theme='light' id="layouts-sidebar-menu" data-content="Layouts">
@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="meta">
                                             <span>{{user.firstName}} {{user.lastName}}</span>
-                                            <!-- <span>{{user.roles}}</span> -->
+                                            <span class="user-desc" *ngFor="let role of user.roles"> {{role.name}} </span>
                                         </div>
                                     </div>
                                     <hr class="dropdown-divider">
@@ -61,7 +61,7 @@
                                             <span class="icon is-small">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                             </span>
-                                            <span>Gérer votre compte</span>
+                                            <span>Gérer mon compte</span>
                                         </button>
                                     </div>
                                     <div class="dropdown-item is-button">
