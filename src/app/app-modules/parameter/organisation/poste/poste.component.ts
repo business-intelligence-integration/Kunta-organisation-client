@@ -116,7 +116,6 @@ export class PosteComponent implements OnInit {
 
   findAllPosts(){
     this.postService.findAllPosts().subscribe((res)=>{
-      console.log("List Posts:: ", res)
       if ( res == null ) {
         this.show = true;
         this.loaderService.hideLoader();

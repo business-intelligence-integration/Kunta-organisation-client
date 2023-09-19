@@ -75,7 +75,6 @@ export class PaymentStatusComponent implements OnInit {
   }
 
   createPaymentStatus(paymentStatus: PaymentStatus){
-    console.log("paymentStatus", paymentStatus);
     this.paymentStatusService.createPaymentStatus(paymentStatus).subscribe((res)=>{
       if(res) {
         if (res.data == null ) {

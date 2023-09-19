@@ -34,8 +34,6 @@ export class PostService {
   }
 
   createPost(post: Post, idClub: number, idArea: number, idCenter: number, idMainOffice: number):Observable<any>{
-    console.log("Back Post:", post,"Back idClub:", idClub,"Back idArea:", idArea,"Back idCenter:", idCenter,"Back idMainOffice:", idMainOffice);
-    
     return this.httpClient.post<any>(this.baseUrl + 'posts' + '?idClub=' + idClub + '&idArea=' + idArea + '&idCenter=' + idCenter + '&idMainOffice=' + idMainOffice, post, httpOptions);
   } 
 

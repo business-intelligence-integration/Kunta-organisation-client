@@ -224,7 +224,7 @@ export class ViewDetailRefundComponent implements OnInit {
   onSavePicture(idAmountCollected: number){
     const photoFormData = this.prepareFormData(this.picture);
     this.amountCollectedService.uploadAmountCollectedPicture(photoFormData, idAmountCollected).subscribe((res: any)=>{
-      console.log("res:: ", res);
+      // console.log("res:: ", res);
     })
   }
 

@@ -53,7 +53,6 @@ export class PostsOfAreaComponent implements OnInit {
     })
   }
 
-
   // getArea(){
   //   this.activatedRoute.queryParams.subscribe((params) => {
   //     this.areaService.getAreaById(params['id']).subscribe((res)=>{
@@ -62,7 +61,6 @@ export class PostsOfAreaComponent implements OnInit {
   //     });
   //   })
   // }
-
 
   finAllPostByIdArea(){
     this.activatedRoute.queryParams.subscribe((params) => {

@@ -15,7 +15,6 @@ export class LoadingComponent implements OnInit {
   ngOnInit(): void {
     const obs$ = interval(1000);
     obs$.subscribe((t) => {
-      // console.log(t);
       this.timer = t;
     })
   }

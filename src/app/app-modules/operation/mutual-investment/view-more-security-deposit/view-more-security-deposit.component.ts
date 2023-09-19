@@ -359,7 +359,7 @@ export class ViewMoreSecurityDepositComponent implements OnInit {
   onSavePicture(idPayment: number){
     const photoFormData = this.prepareFormData(this.picture);
     this.refundAmountService.uploadRefundAmountPicture(photoFormData, idPayment).subscribe((res: any)=>{
-      console.log("res:: ", res);
+      // console.log("res:: ", res);
     })
   }
 

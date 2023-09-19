@@ -111,8 +111,6 @@ export class GeneralComponent implements OnInit {
   updateUser(user: User, id: number){
     this.userService.updateMemberById(user, id).subscribe((res)=>{
       this.isSaving = false;
-      console.log("Updating User:: ", res);
-      
       if(res) {
         if (res.data == null ) {
           this.utilityService.showMessage(

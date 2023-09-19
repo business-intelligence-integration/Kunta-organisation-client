@@ -35,8 +35,6 @@ export class SubscriptionService {
   }
 
   releaseSubscription(idSubscription: number):Observable<any>{
-    console.log("id to release:: ", idSubscription);
-    
     return this.httpClient.get<any>(this.baseUrl + 'subscriptions/release/' + idSubscription + '?token=' + this.utilityService.loadToken(), httpOptions);
   }
 

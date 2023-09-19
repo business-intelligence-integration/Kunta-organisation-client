@@ -158,16 +158,12 @@ export class DetailSessionOfTontineComponent implements OnInit {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
         this.sessions = res.data;
-        console.log("sessions:: ", res);
-        
       });
     })
   }
 
   getSessionById(id: number){
     this.sessionService.findSessionById(id).subscribe((res)=>{
-      // this.idSession = id;
-      console.log("Response from idSession:: ", res.data);
       this.session = res.data;
     })
   }
@@ -646,7 +642,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   onSavePicture(idPayment: number){
     const photoFormData = this.prepareFormData(this.picture);
     this.paymentService.uploadPicture(photoFormData, idPayment).subscribe((res: any)=>{
-      console.log("res:: ", res);
+      // console.log("res:: ", res);
     })
   }
 

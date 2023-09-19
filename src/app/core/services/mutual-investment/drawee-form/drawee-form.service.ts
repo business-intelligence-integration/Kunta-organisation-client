@@ -34,8 +34,6 @@ export class DraweeFormService {
   }
 
   updateDraweeForm(droweeForm: DroweeForm, id: number):Observable<any>{
-    console.log("droweeForm::2", droweeForm);
-    
     return this.httpClient.put<any>(this.baseUrl + 'drawee-forms/'+ id, droweeForm, httpOptions);
   }
 
