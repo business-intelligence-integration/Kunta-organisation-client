@@ -11,14 +11,11 @@ export class OperationsComponent implements OnInit {
   activeToggle: string = "";
   homeSider: string = "";
   isPushed: string = "";
-  // activeListTontine: string = "";
   dynamicTitle: any;
-  // wrapdwonDetailTontine: string ="display-block";
 
   constructor(private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    // sessionStorage.clear();
     this.setTitle();
   }
 

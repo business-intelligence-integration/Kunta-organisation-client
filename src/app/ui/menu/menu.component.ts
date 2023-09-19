@@ -108,11 +108,4 @@ export class MenuComponent implements OnInit {
     this.utilityService.saveTitle(this.dynamicTitle);
   }
 
-  // getRole(){
-  //   this.utilityService.getUserRole(this.utilityService.loadToken()).forEach((role :any)=>{
-  //     console.log("Role::", role);
-      
-  // })
-  // }
-
 }

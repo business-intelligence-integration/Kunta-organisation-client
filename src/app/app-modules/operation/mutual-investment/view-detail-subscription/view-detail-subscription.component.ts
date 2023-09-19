@@ -499,7 +499,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   onSavePicture(idSubscriptionPayment: number){
     const photoFormData = this.prepareFormData(this.picture);
     this.subscriptionPaymentService.uploadSubscriptionPaymentPicture(photoFormData, idSubscriptionPayment).subscribe((res: any)=>{
-      console.log("res:: ", res);
+      // console.log("res:: ", res);
     })
   }
 

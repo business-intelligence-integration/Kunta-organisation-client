@@ -254,8 +254,6 @@ export class ViewMoreAreClubComponent implements OnInit {
     this.isListPosts = false;
     this.isListClubs = true;
     this.dynamicTitle = "Liste des clubs";
-    console.log("isListPosts::", this.isListPosts);
-    console.log("isListClubs::", this.isListClubs);
   }
 
   // onShowAgentCommunicationList(){
@@ -276,9 +274,7 @@ export class ViewMoreAreClubComponent implements OnInit {
   onShowAllPosts(){
     this.isListClubs = false;
     this.isListPosts = true;
-    this.dynamicTitle = "Listes des poste"
-    console.log("isListPosts::", this.isListPosts);
-    console.log("isListClubs::", this.isListClubs);
+    this.dynamicTitle = "Listes des poste";
   }
 
   // finAllPostByIdArea(){
@@ -311,8 +307,6 @@ export class ViewMoreAreClubComponent implements OnInit {
   const formValue = this.changeAreaForm.value;
   this.isSaving = true;
   this.clubService.transferClubToAnotherArea(formValue.idArea, this.idClub).subscribe((res)=>{
-    console.log("ResponseT:: ", res);
-
     this.isSaving = false;
     if(res) {
       if (res.data == null ) {

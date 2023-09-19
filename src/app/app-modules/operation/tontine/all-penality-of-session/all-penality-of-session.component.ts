@@ -208,7 +208,7 @@ export class AllPenalityOfSessionComponent implements OnInit {
   onSavePicture(idPayment: number){
     const photoFormData = this.prepareFormData(this.picture);
     this.paymentService.uploadPicture(photoFormData, idPayment).subscribe((res: any)=>{
-      console.log("res:: ", res);
+      // console.log("res:: ", res);
     })
   }
 
