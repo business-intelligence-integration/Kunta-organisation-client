@@ -14,6 +14,7 @@ export const environment = {
   //nouveau server (sur le quel on effectue le dev)
   baseUrlApi: 'http://185.98.137.195:8080/kt-organisation/organisation/',
   baseUrlApiActivity: 'http://185.98.137.195:8080/kt-activities/activities/'
+  
 
   //nouveau server (sur le quel on effectue le dev)
   // baseUrlApi: 'http://localhost:9000/organisation/',
