@@ -1,5 +1,6 @@
 import { Payment } from "./payment";
 import { RiskProfile } from "./riskProfile";
+import { User } from "./user";
 
 export class Subscription {
     id: number = 0;
@@ -14,4 +15,5 @@ export class Subscription {
     amountOfProfitability: number = 0;
     totalAmountReceivable: number = 0;
     totalAmountReceived: number = 0;
+    subscriber: User = new User();
 }

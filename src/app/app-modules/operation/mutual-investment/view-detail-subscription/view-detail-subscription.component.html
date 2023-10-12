@@ -126,7 +126,7 @@
 
                         <!--Table header-->
                         <div class="flex-table-header" data-filter-hide="">
-                            <span class="is-grow">Id</span>
+                            <span class="is-grow">Souscripteur</span>
                             <span>Niveau de rique</span>
                             <span>Montant à payé</span>
                             <span>Total payé</span>
@@ -144,7 +144,7 @@
                             <div class="flex-table-item" *ngFor="let subscription of subscriptions">
                                 <div class="flex-table-cell is-media is-grow">
                                     <div>
-                                        <span class="item-name dark-inverted" data-filter-match="">{{subscription.id}}</span>
+                                        <span class="item-name dark-inverted" data-filter-match="">{{subscription.subscriber.firstName}}</span>
                                     </div>
                                 </div>
                                 <div class="flex-table-cell" data-th="Niveau de risque">

@@ -2,6 +2,7 @@ import { Account } from "./account";
 import { AllocationKey } from "./allocationKey";
 import { Center } from "./center";
 import { MutOrganism } from "./mutOrganism";
+import { MutualAccount } from "./mutualAccount";
 import { ProfitabilityType } from "./profitabilityType";
 import { Refund } from "./refund";
 import { RefundType } from "./refundType";
@@ -30,7 +31,7 @@ export class MutualInvestment{
     securityDeposits: SecurityDeposit[] = [];
     offers: SubscriptionOffer[] = [];
     mutualCenter: Center = new Center();
-    mutualInvestmentAccount: Account = new Account();
+    mutualAccount: MutualAccount = new MutualAccount();
     collectedAmount: number = 0;
     amountRefunded: number = 0;
     amountToBeRefunded: number = 0;

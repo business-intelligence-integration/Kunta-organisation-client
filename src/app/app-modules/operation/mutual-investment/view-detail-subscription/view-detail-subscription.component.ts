@@ -117,6 +117,8 @@ export class ViewDetailSubscriptionComponent implements OnInit {
           this.idSubscriptionOffer = params['id'];
           this.riskLevel = res.data.riskProfile.riskLevel;
           this.subscriptions = res.data.subscriptions;
+          console.log("subscriptions::", res.data.subscriptions);
+          
           // this.subscriptions.forEach((element)=>{
           //   element.payments.forEach((el)=>{
           //     totalPaid = totalPaid + el.paid;
