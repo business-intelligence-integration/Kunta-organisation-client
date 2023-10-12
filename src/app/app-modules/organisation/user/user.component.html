@@ -545,7 +545,7 @@
                                                     <small class="text-police" translate>veuillez entrer le nombre d'enfant</small>
                                                 </div>
                                                 <div class="text-danger" *ngIf="numberOfChildrenIsNegatif">
-                                                    <small class="text-police" translate>ne nombre d'enfant ne peux pas être négatif</small>
+                                                    <small class="text-police" translate>le nombre d'enfant ne peux pas être négatif</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -635,26 +635,26 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Password*</label>
+                                                <label>Mot de passe*</label>
                                                 <div class="control">
-                                                    <input type="password" class="input" placeholder="Password" formControlName="password">
+                                                    <input type="password" class="input" placeholder="Mot de passe" formControlName="password">
                                                 </div>
                                                 <div class="text-danger"
                                                     *ngIf="addUserForm.get('password')?.errors?.['required'] && addUserForm.get('password')?.touched">
-                                                    <small class="text-police" translate>enter the user's password</small>
+                                                    <small class="text-police" translate>Entrer le mot de passe</small>
                                                 </div>
                                             </div>
                                         </div>
             
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Confirm Password*</label>
+                                                <label>Confirmer mot de passe*</label>
                                                 <div class="control">
-                                                    <input type="password" class="input" placeholder="Confirm Password" formControlName="confPassword">
+                                                    <input type="password" class="input" placeholder="Confirm mot de passe" formControlName="confPassword">
                                                 </div>
                                                 <div class="text-danger"
                                                     *ngIf="addUserForm.get('confPassword')?.errors?.['required'] && addUserForm.get('confPassword')?.touched">
-                                                    <small class="text-police" translate>entrer le mot de password confirmé de l'utilisateur </small>
+                                                    <small class="text-police" translate>Confirmer le mot de password de l'utilisateur </small>
                                                 </div>
                                             </div>            
                                         </div>
