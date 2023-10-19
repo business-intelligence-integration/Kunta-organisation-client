@@ -100,7 +100,7 @@ export class UserComponent implements OnInit {
   isMutualist: boolean = false;
   email: string = "";
   userAccounts: Account[] = [];
-  numberOfChildrenIsNegatif: boolean = false;;
+  numberOfChildrenIsNegatif: boolean = false;
 
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
@@ -166,7 +166,7 @@ export class UserComponent implements OnInit {
       numberOfChildren: new FormControl(null, Validators.required),
       pieceId: new FormControl(null, Validators.required),
       placeOfIssue: new FormControl(null, Validators.required),
-      postalBox: new FormControl(null, Validators.required),
+      postalBox: new FormControl(null),
       secondPhoneNumber: new FormControl(null),
       secondaryAddress: new FormControl(null),
       secondaryEmail: new FormControl(null, [Validators.pattern(GlobalConstants.emailRegex)]),
@@ -194,7 +194,7 @@ export class UserComponent implements OnInit {
       numberOfChildren: new FormControl(null, Validators.required),
       pieceId: new FormControl(null, Validators.required),
       placeOfIssue: new FormControl(null, Validators.required),
-      postalBox: new FormControl(null, Validators.required),
+      postalBox: new FormControl(null),
       secondPhoneNumber: new FormControl(null),
       secondaryAddress: new FormControl(null),
       secondaryEmail: new FormControl(null),
@@ -332,6 +332,7 @@ export class UserComponent implements OnInit {
       next: (res)=> res.data.map((user: any)=>{
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
+        console.log("users:: ", this.userOfSelect)
         if ( res == null ) {
           this.show = true;
           this.loaderService.hideLoader();

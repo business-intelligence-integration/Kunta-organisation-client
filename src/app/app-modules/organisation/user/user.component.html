@@ -592,15 +592,15 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Boite postale*</label>
+                                                <label>Boite postale</label>
                                                 <div class="control">
                                                     <input type="text" class="input" placeholder="boite postale"
                                                         formControlName="postalBox">
                                                 </div>
-                                                <div class="text-danger"
+                                                <!-- <div class="text-danger"
                                                     *ngIf="addUserForm.get('postalBox')?.errors?.['required'] && addUserForm.get('postalBox')?.touched">
                                                     <small class="text-police" translate>veuiller entrer la boite postale</small>
-                                                </div>
+                                                </div> -->
                                             </div>            
                                         </div>
                                         <div class="column is-6">
@@ -929,15 +929,15 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Boite postale*</label>
+                                    <label>Boite postale</label>
                                     <div class="control">
                                         <input type="text" class="input" [(ngModel)]="user.postalBox" placeholder="boite postale"
                                             formControlName="postalBox">
                                     </div>
-                                    <div class="text-danger"
+                                    <!-- <div class="text-danger"
                                         *ngIf="updateUserForm.get('postalBox')?.errors?.['required'] && updateUserForm.get('postalBox')?.touched">
                                         <small class="text-police" translate>veuiller entrer la boite postale</small>
-                                    </div>
+                                    </div> -->
                                 </div>            
                             </div>
                             <div class="column is-6">
