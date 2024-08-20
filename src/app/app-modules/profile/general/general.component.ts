@@ -49,22 +49,23 @@ export class GeneralComponent implements OnInit {
     this.updateUserForm = this.formBuilder.group({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
+      // phoneNumber: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
+      location: new FormControl(null, Validators.required),
       id: new FormControl(null, Validators.required),
-      dateOfIssue: new FormControl(null, Validators.required),
-      dateOfValidity: new FormControl(null, Validators.required),
-      mainAddress: new FormControl(null, Validators.required),
+      // dateOfIssue: new FormControl(null, Validators.required),
+      // dateOfValidity: new FormControl(null, Validators.required),
+      // mainAddress: new FormControl(null, Validators.required),
       nationalIDNumber: new FormControl(null, Validators.required),
       nationality: new FormControl(null, Validators.required),
-      numberOfChildren: new FormControl(null, Validators.required),
+      // numberOfChildren: new FormControl(null, Validators.required),
       pieceId: new FormControl(null, Validators.required),
       placeOfIssue: new FormControl(null, Validators.required),
-      postalBox: new FormControl(null, Validators.required),
+      // postalBox: new FormControl(null, Validators.required),
       secondPhoneNumber: new FormControl(null),
-      secondaryAddress: new FormControl(null),
-      secondaryEmail: new FormControl(null),
+      // secondaryAddress: new FormControl(null),
+      // secondaryEmail: new FormControl(null),
       whatsappPhoneNumber:new FormControl(null, Validators.required),
     })
   }
@@ -88,21 +89,22 @@ export class GeneralComponent implements OnInit {
     this.user.firstName = formValue.firstName;
     this.user.lastName = formValue.lastName;
     this.user.email = formValue.userName;
-    this.user.phoneNumber = formValue.phoneNumber;
+    // this.user.phoneNumber = formValue.phoneNumber;
     this.user.userName = formValue.userName
     this.user.city = formValue.city;
-    this.user.dateOfIssue = formValue.dateOfIssue;
-    this.user.dateOfValidity = formValue.dateOfValidity;
-    this.user.mainAddress = formValue.mainAddress;
+    this.user.location = formValue.location;
+    // this.user.dateOfIssue = formValue.dateOfIssue;
+    // this.user.dateOfValidity = formValue.dateOfValidity;
+    // this.user.mainAddress = formValue.mainAddress;
     this.user.nationalIDNumber = formValue.nationalIDNumber;
     this.user.nationality = formValue.nationality;
-    this.user.numberOfChildren = formValue.numberOfChildren;
+    // this.user.numberOfChildren = formValue.numberOfChildren;
     this.user.pieceId = formValue.pieceId;
     this.user.placeOfIssue = formValue.placeOfIssue;
-    this.user.postalBox = formValue.postalBox;
+    // this.user.postalBox = formValue.postalBox;
     this.user.secondPhoneNumber = formValue.secondPhoneNumber;
-    this.user.secondaryAddress = formValue.secondaryAddress;
-    this.user.secondaryEmail = formValue.secondaryEmail;
+    // this.user.secondaryAddress = formValue.secondaryAddress;
+    // this.user.secondaryEmail = formValue.secondaryEmail;
     this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
 
     this.updateUser(this.user, this.userId)

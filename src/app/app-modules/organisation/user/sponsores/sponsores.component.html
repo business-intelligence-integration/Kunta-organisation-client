@@ -170,10 +170,10 @@
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
-                                        Numéro Tel.
+                                        Numéro de Tel. WhatsApp
                                     </label>
                                     <div class="control-end">
-                                        <span class="tag is-rounded">{{ user.phoneNumber }}</span>
+                                        <span class="tag is-rounded">{{ user.whatsappPhoneNumber }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -188,17 +188,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox is-circle">
-                                        <span></span>
-                                        Numéro de Tel. WhatsApp
-                                    </label>
-                                    <div class="control-end">
-                                        <span class="tag is-rounded">{{ user.whatsappPhoneNumber }}</span>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
@@ -210,7 +200,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -220,7 +210,7 @@
                                         <span class="tag is-rounded">{{ user.secondaryEmail }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
@@ -265,7 +255,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -275,8 +265,8 @@
                                         <span class="tag is-rounded">{{ user.familySituation.label }}</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="field">
+                            </div> -->
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -286,7 +276,7 @@
                                         <span class="tag is-rounded">{{ user.numberOfChildren }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
  
                             <div class="field">
                                 <div class="control">
@@ -311,7 +301,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -321,8 +311,8 @@
                                         <span class="tag is-rounded">{{ user.mainAddress }}</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="field">
+                            </div> -->
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -332,10 +322,10 @@
                                         <span class="tag is-rounded">{{ user.secondaryAddress }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                           
 
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -345,9 +335,9 @@
                                         <span class="tag is-rounded">{{ user.dateOfIssue }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -357,7 +347,7 @@
                                         <span class="tag is-rounded">{{ user.dateOfValidity }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="field">
                                 <div class="control">
@@ -371,7 +361,7 @@
                                 </div>
                             </div>
 
-                            <div class="field">
+                            <!-- <div class="field">
                                 <div class="control">
                                     <label class="checkbox is-circle">
                                         <span></span>
@@ -381,7 +371,7 @@
                                         <span class="tag is-rounded">{{ user.postalBox }}</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="field">
                                 <div class="control">
@@ -406,7 +396,7 @@
                                 <div class="flex-table-header" data-filter-hide="">
                                     <span>Nom</span>
                                     <span>Prenom</span>
-                                    <span>Age</span>
+                                    <span>Pièce d'identité</span>
                                     <span class="cell-end">Actions</span>
                                 </div>
                     
@@ -419,9 +409,12 @@
                                         <div class="flex-table-cell" data-th="Prenom">
                                             <span class="light-text" data-filter-match="">{{ beneficiary.firstName }}</span>
                                         </div>
-                                        <div class="flex-table-cell" data-th="Age">
-                                            <span class="light-text" data-filter-match=""> {{ calculateAgeAccordingDateOfBirth(beneficiary.birthDate) }} </span>
+                                        <div class="flex-table-cell" data-th="Pièce identité">
+                                            <span class="light-text" data-filter-match="">{{ beneficiary.pieceId }}</span>
                                         </div>
+                                        <!-- <div class="flex-table-cell" data-th="Age">
+                                            <span class="light-text" data-filter-match=""> {{ calculateAgeAccordingDateOfBirth(beneficiary.birthDate) }} </span>
+                                        </div> -->
                                         <div class="flex-table-cell cell-end" data-th="Actions">
                                             <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                                             <a _ngcontent-nct-c62=""  (click)="onDeleteUser(user.id)" tooltip=" Supprimer l\'ayant droit " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
@@ -477,7 +470,7 @@
                                         <span class="light-text" data-filter-match="">{{ user.firstName }}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Numéro Tel">
-                                        <span class="light-text" data-filter-match="">{{ user.phoneNumber }}</span>
+                                        <span class="light-text" data-filter-match="">{{ user.whatsappPhoneNumber }}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Email">
                                         <span class="light-text" data-filter-match="">{{ user.email }}</span>

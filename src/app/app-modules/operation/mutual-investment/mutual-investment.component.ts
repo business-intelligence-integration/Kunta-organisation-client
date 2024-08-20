@@ -402,7 +402,7 @@ export class MutualInvestmentComponent implements OnInit {
       this.physicalPerson.firstName = formValue.firstName;
       this.physicalPerson.lastName = formValue.lastName;
       this.physicalPerson.userName = formValue.userName;
-      this.physicalPerson.phoneNumber = formValue.phoneNumber;
+      this.physicalPerson.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
       this.mutualInvestment.physicalPerson = this.physicalPerson;
     }
 

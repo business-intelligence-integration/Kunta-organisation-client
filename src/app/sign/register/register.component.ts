@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     this.user.firstName = formValue.firstName;
     this.user.lastName = formValue.lastName;
     this.user.email = formValue.userName;
-    this.user.phoneNumber = formValue.phoneNumber;
+    // this.user.phoneNumber = formValue.phoneNumber;
     this.user.password = formValue.password;
     this.user.userName = formValue.userName;
     if(formValue.password != formValue.confPassword){

@@ -44,6 +44,7 @@ export class UserComponent implements OnInit {
   ngSelectTypePiece2 = 0;
   ngSelectUserType = 0;
   ngSelectUserCategory = 0;
+  ngSelectUserCategoryForm =0;
   ngSelectStatus = 0;
   ngSelectRole = 0;
   openBeneficiaryModal: string = "";
@@ -150,54 +151,56 @@ export class UserComponent implements OnInit {
     this.addUserForm = this.formBuilder.group({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
+      whatsappPhoneNumber: new FormControl(null, Validators.required),
       userName: new FormControl(null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]),
       city: new FormControl(null, Validators.required),
+      location: new FormControl(null, Validators.required),
       userRole: new FormControl(null, Validators.required),
       // userType: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
-      confPassword: new FormControl(null, Validators.required),
+      password: new FormControl(null),
+      confPassword: new FormControl(null),
       idSponsor: new FormControl(null, Validators.required),
-      dateOfIssue: new FormControl(null, Validators.required),
-      dateOfValidity: new FormControl(null, Validators.required),
-      mainAddress: new FormControl(null, Validators.required),
+      // dateOfIssue: new FormControl(null, Validators.required),
+      // dateOfValidity: new FormControl(null, Validators.required),
+      // mainAddress: new FormControl(null, Validators.required),
       nationalIDNumber: new FormControl(null, Validators.required),
       nationality: new FormControl(null, Validators.required),
-      numberOfChildren: new FormControl(null, Validators.required),
+      // numberOfChildren: new FormControl(null, Validators.required),
       pieceId: new FormControl(null, Validators.required),
       placeOfIssue: new FormControl(null, Validators.required),
-      postalBox: new FormControl(null),
+      // postalBox: new FormControl(null),
       secondPhoneNumber: new FormControl(null),
-      secondaryAddress: new FormControl(null),
-      secondaryEmail: new FormControl(null, [Validators.pattern(GlobalConstants.emailRegex)]),
-      whatsappPhoneNumber:new FormControl(null, Validators.required),
+      // secondaryAddress: new FormControl(null),
+      // secondaryEmail: new FormControl(null, [Validators.pattern(GlobalConstants.emailRegex)]),
+      // whatsappPhoneNumber:new FormControl(null, Validators.required),
       idCivility: new FormControl(null, Validators.required),
-      idFamilySituation: new FormControl(null, Validators.required),
+      // idFamilySituation: new FormControl(null, Validators.required),
       idPieceType: new FormControl(null, Validators.required),
       idCountry: new FormControl(null, Validators.required),
-      idType: new FormControl(null),
-      idCategory: new FormControl(null),
+      // idType: new FormControl(null),
+      idCategory: new FormControl(null, Validators.required),
     })
 
     this.updateUserForm = this.formBuilder.group({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
+      // phoneNumber: new FormControl(null, Validators.required),
       userName: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
+      location: new FormControl(null, Validators.required),
       id: new FormControl(null, Validators.required),
-      dateOfIssue: new FormControl(null, Validators.required),
-      dateOfValidity: new FormControl(null, Validators.required),
-      mainAddress: new FormControl(null, Validators.required),
+      // dateOfIssue: new FormControl(null, Validators.required),
+      // dateOfValidity: new FormControl(null, Validators.required),
+      // mainAddress: new FormControl(null, Validators.required),
       nationalIDNumber: new FormControl(null, Validators.required),
       nationality: new FormControl(null, Validators.required),
-      numberOfChildren: new FormControl(null, Validators.required),
+      // numberOfChildren: new FormControl(null, Validators.required),
       pieceId: new FormControl(null, Validators.required),
       placeOfIssue: new FormControl(null, Validators.required),
-      postalBox: new FormControl(null),
+      // postalBox: new FormControl(null),
       secondPhoneNumber: new FormControl(null),
-      secondaryAddress: new FormControl(null),
-      secondaryEmail: new FormControl(null),
+      // secondaryAddress: new FormControl(null),
+      // secondaryEmail: new FormControl(null),
       whatsappPhoneNumber:new FormControl(null, Validators.required),
     })
 
@@ -220,16 +223,22 @@ export class UserComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       firstName: new FormControl(null),
       lastName: new FormControl(null),
-      phoneNumber: new FormControl(null),
+      // phoneNumber: new FormControl(null),
     })
 
     this.beneficiaryForm = this.formBuilder.group({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
+      nationality: new FormControl(null, Validators.required),
+      placeOfIssue: new FormControl(null, Validators.required),
+      location: new FormControl(null, Validators.required),
+      idCountry: new FormControl(null, Validators.required),
+      city: new FormControl(null, Validators.required),
       phoneNumber: new FormControl(null),
       email: new FormControl(null),
+      nationalIDNumber: new FormControl(null),
       pieceId: new FormControl(null, Validators.required),
-      birthDate: new FormControl(null, Validators.required),
+      // birthDate: new FormControl(null, Validators.required),
       idPieceType: new FormControl(null, Validators.required),
     })
 
@@ -262,23 +271,39 @@ export class UserComponent implements OnInit {
    this.user.firstName = formValue.firstName;
    this.user.lastName = formValue.lastName;
    this.user.password = formValue.password;
-   this.user.phoneNumber = formValue.phoneNumber;
+   this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
    this.user.userName = formValue.userName;
    this.user.city = formValue.city;
-   this.user.dateOfIssue = formValue.dateOfIssue;
-   this.user.dateOfValidity = formValue.dateOfValidity;
-   this.user.mainAddress = formValue.mainAddress;
+   this.user.location = formValue.location;
+  //  this.user.dateOfIssue = formValue.dateOfIssue;
+  //  this.user.dateOfValidity = formValue.dateOfValidity;
+  //  this.user.mainAddress = formValue.mainAddress;
    this.user.nationalIDNumber = formValue.nationalIDNumber;
    this.user.nationality = formValue.nationality;
-   this.user.numberOfChildren = formValue.numberOfChildren;
+  //  this.user.numberOfChildren = formValue.numberOfChildren;
    this.user.pieceId = formValue.pieceId;
    this.user.placeOfIssue = formValue.placeOfIssue;
-   this.user.postalBox = formValue.postalBox;
+  //  this.user.postalBox = formValue.postalBox;
    this.user.secondPhoneNumber = formValue.secondPhoneNumber;
-   this.user.secondaryAddress = formValue.secondaryAddress;
-   this.user.secondaryEmail = formValue.secondaryEmail;
-   this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
-   if(formValue.password != formValue.confPassword){
+  //  this.user.secondaryAddress = formValue.secondaryAddress;
+  //  this.user.secondaryEmail = formValue.secondaryEmail;
+  //  this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
+  let password = "123456";
+  let confPassword = "123456"
+  if((formValue.password != null && formValue.confPassword != null) && (formValue.password != "" && formValue.confPassword != "")){
+    password = formValue.password;
+    confPassword = formValue.confPassword
+  }else{
+    if(this.isAdminAndOperator){
+      this.utilityService.showMessage(
+        'warning',
+        'Désolé, les mots de passe sont obigatoires !',
+        '#e62965',
+        'white'
+      );
+    }
+  }
+   if(password != confPassword){
     this.utilityService.showMessage(
       'warning',
       'Désolé, les mots de passe sont différents !',
@@ -288,14 +313,14 @@ export class UserComponent implements OnInit {
    }else{
     if(formValue.userRole == "USER"){
       if(this.isSelectMember){
-        this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+        this.createMember(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idCountry, formValue.idCategory)
       }else{
-        this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry, formValue.idType, formValue.idCategory)
+        this.createMutualist(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idCountry, formValue.idCategory)
       }
      }if(formValue.userRole == "ADMIN"){
-      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+      this.createAdmin(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idCountry, formValue.idCategory)
     }else if(formValue.userRole == "OPERATOR"){
-      this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idFamilySituation, formValue.idCountry)
+      this.createOperator(this.user, formValue.idSponsor, formValue.idCivility, formValue.idPieceType, formValue.idCountry, formValue.idCategory)
      }
    }
   }
@@ -306,23 +331,25 @@ export class UserComponent implements OnInit {
     this.user.firstName = formValue.firstName;
     this.user.lastName = formValue.lastName;
     this.user.email = formValue.userName;
-    this.user.phoneNumber = formValue.phoneNumber;
+    // this.user.phoneNumber = formValue.phoneNumber;
     this.user.userName = formValue.userName
     this.user.city = formValue.city;
-    this.user.dateOfIssue = formValue.dateOfIssue;
-    this.user.dateOfValidity = formValue.dateOfValidity;
-    this.user.mainAddress = formValue.mainAddress;
+    this.user.location = formValue.location;
+    // this.user.dateOfIssue = formValue.dateOfIssue;
+    // this.user.dateOfValidity = formValue.dateOfValidity;
+    // this.user.mainAddress = formValue.mainAddress;
     this.user.nationalIDNumber = formValue.nationalIDNumber;
     this.user.nationality = formValue.nationality;
-    this.user.numberOfChildren = formValue.numberOfChildren;
+    // this.user.numberOfChildren = formValue.numberOfChildren;
     this.user.pieceId = formValue.pieceId;
     this.user.placeOfIssue = formValue.placeOfIssue;
-    this.user.postalBox = formValue.postalBox;
+    // this.user.postalBox = formValue.postalBox;
     this.user.secondPhoneNumber = formValue.secondPhoneNumber;
-    this.user.secondaryAddress = formValue.secondaryAddress;
-    this.user.secondaryEmail = formValue.secondaryEmail;
+    // this.user.secondaryAddress = formValue.secondaryAddress;
+    // this.user.secondaryEmail = formValue.secondaryEmail;
     this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
 
+    // console.log("user:: ", this.user)
     this.updateUser(this.user, formValue.id)
   }
 
@@ -332,7 +359,6 @@ export class UserComponent implements OnInit {
       next: (res)=> res.data.map((user: any)=>{
         this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
         let isSimpleUser = false;
-        console.log("users:: ", this.userOfSelect)
         if ( res == null ) {
           this.show = true;
           this.loaderService.hideLoader();
@@ -470,9 +496,9 @@ export class UserComponent implements OnInit {
   //   })
   // }
 
-  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -511,9 +537,9 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -553,9 +579,9 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number, idType: number, idCategory: number){
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry, idType, idCategory).subscribe((res)=>{
+    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -594,9 +620,9 @@ export class UserComponent implements OnInit {
     })
   }
 
-  createOperator(operator: User, idSponsor: number, idCivility: number, idPieceType: number, idFamilySituation: number, idCountry: number){
+  createOperator(operator: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idFamilySituation, idCountry).subscribe((res)=>{
+    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -750,26 +776,29 @@ export class UserComponent implements OnInit {
       this.userCategories = res.data
     })
   }
-
+ 
   onAddFiciary(){
     const formValue = this.beneficiaryForm.value;
     this.beneficiary.firstName = formValue.firstName
     this.beneficiary.lastName = formValue.lastName
     this.beneficiary.phoneNumber = formValue.phoneNumber
+    this.beneficiary.placeOfIssue = formValue.placeOfIssue
+    this.beneficiary.location = formValue.location
+    this.beneficiary.nationalIDNumber = formValue.nationalIDNumber
     // this.beneficiary.whatsAppNumber = formValue.whatsAppNumber
     this.beneficiary.email = formValue.email
-    // this.beneficiary.city = formValue.city
+    this.beneficiary.city = formValue.city
     // this.beneficiary.country = formValue.country
     this.beneficiary.pieceId = formValue.pieceId
     // this.beneficiary.postalBox = formValue.postalBox
-    this.beneficiary.birthDate = formValue.birthDate
-    this.createBeneficiary(this.idUser, formValue.idPieceType, this.beneficiary)
+    this.beneficiary.nationality = formValue.nationality
+    this.createBeneficiary(this.idUser, formValue.idPieceType, formValue.idCountry, this.beneficiary)
     this.beneficiaryForm.reset();
   }
 
-  createBeneficiary(idUser: number, idPieceType: number, beneficiary: Beneficiary){
+  createBeneficiary(idUser: number, idPieceType: number , idCountry: number, beneficiary: Beneficiary){
     this.isSaving = true;
-    this.userService.addBeneficiary(idUser, idPieceType, beneficiary).subscribe((res)=>{
+    this.userService.addBeneficiary(idUser, idPieceType, idCountry, beneficiary).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
