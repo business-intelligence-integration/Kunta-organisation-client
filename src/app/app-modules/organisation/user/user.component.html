@@ -41,7 +41,7 @@
             </select>
         </form>
     </div>
-    <div class="select is-hidden-mobile">
+    <!-- <div class="select is-hidden-mobile">
         <form class="modal-form" [formGroup]="selectTypeForm">
             <select formControlName="idType" (ngModelChange)="onSelectUserType($event)" [(ngModel)]="ngSelectUserType">
                 <option value="0" disabled>Type</option>
@@ -49,7 +49,7 @@
                 <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
             </select>
         </form>
-    </div>
+    </div> -->
     
     <div class="buttons">
         <button *ngIf="adminIsConnected || operatorIsConnected" class="button h-button is-primary is-elevated">
@@ -83,7 +83,7 @@
             </select>
         </form>
     </div>
-    <div class="select">
+    <!-- <div class="select">
         <form class="modal-form" [formGroup]="selectTypeForm">
             <select formControlName="idType" (ngModelChange)="onSelectUserType($event)" [(ngModel)]="ngSelectUserType">
                 <option value="0" disabled>Type</option>
@@ -91,7 +91,7 @@
                 <option *ngFor="let type of userTypes" [value]="type.id" >{{ type.label }}</option>
             </select>
         </form>
-    </div>
+    </div> -->
 </div>
 
 <div *ngIf="isList" class="page-content-inner">
@@ -1100,7 +1100,7 @@
                                     <div class="control">
                                         <input type="text" class="input" placeholder="Nationalité" formControlName="nationality">
                                         <div class="text-danger"
-                                        *ngIf="addUserForm.get('nationality')?.errors?.['required'] && addUserForm.get('nationality')?.touched">
+                                        *ngIf="beneficiaryForm.get('nationality')?.errors?.['required'] && beneficiaryForm.get('nationality')?.touched">
                                         <small class="text-police" translate>Veuillez entrer la nationalité</small>
                                      </div>
                                     </div>
@@ -1112,7 +1112,7 @@
                                     <div class="control">
                                         <input type="text" class="input" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
                                         <!-- <div class="text-danger"
-                                        *ngIf="addUserForm.get('nationalIDNumber')?.errors?.['required'] && addUserForm.get('nationalIDNumber')?.touched">
+                                        *ngIf="beneficiaryForm.get('nationalIDNumber')?.errors?.['required'] && beneficiaryForm.get('nationalIDNumber')?.touched">
                                         <small class="text-police" translate>Veuillez entrer le numéro de l'identifiant nationale</small>
                                      </div> -->
                                     </div>
@@ -1154,7 +1154,7 @@
                                         <input type="text" class="input" placeholder="Lieu de délivrance" formControlName="placeOfIssue">
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="addUserForm.get('placeOfIssue')?.errors?.['required'] && addUserForm.get('placeOfIssue')?.touched">
+                                        *ngIf="beneficiaryForm.get('placeOfIssue')?.errors?.['required'] && beneficiaryForm.get('placeOfIssue')?.touched">
                                         <small class="text-police" translate>veuillez entrer le lieu de résidence</small>
                                     </div>
                                 </div>
@@ -1167,7 +1167,7 @@
                                         <div class="form-icon">
                                         </div>
                                         <div class="text-danger"
-                                            *ngIf="addUserForm.get('location')?.errors?.['required'] && addUserForm.get('location')?.touched">
+                                            *ngIf="beneficiaryForm.get('location')?.errors?.['required'] && beneficiaryForm.get('location')?.touched">
                                             <small class="text-police" translate>Veuillez entrer votre localisation </small>
                                         </div>
                                     </div>
@@ -1185,7 +1185,7 @@
                                                 placeholder="--selectionner le pays de résidence--">
                                         </select2>
                                         <div class="text-danger"
-                                        *ngIf="addUserForm.get('idCountry')?.errors?.['required'] && addUserForm.get('idCountry')?.touched">
+                                        *ngIf="beneficiaryForm.get('idCountry')?.errors?.['required'] && beneficiaryForm.get('idCountry')?.touched">
                                         <small class="text-police" translate>veuillez selectionner le pays de résidence</small>
                                         </div>
                                     </div>
@@ -1197,7 +1197,7 @@
                                     <div class="control">
                                         <input type="text" class="input" placeholder="Ville" formControlName="city">
                                         <div class="text-danger"
-                                        *ngIf="addUserForm.get('city')?.errors?.['required'] && addUserForm.get('city')?.touched">
+                                        *ngIf="beneficiaryForm.get('city')?.errors?.['required'] && beneficiaryForm.get('city')?.touched">
                                         <small class="text-police" translate>veuiller entrer la ville</small>
                                      </div>
                                     </div>
