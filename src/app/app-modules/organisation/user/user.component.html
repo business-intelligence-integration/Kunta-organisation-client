@@ -520,9 +520,9 @@
                                         </div>
                                         <div class="column is-6">
                                             <div class="field">
-                                                <label>Numéro identifiant nationale*</label>
+                                                <label>Numéro identifiant unique*</label>
                                                 <div class="control">
-                                                    <input type="text" class="input" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
+                                                    <input type="text" class="input" placeholder="Numéro identifiant unique" formControlName="nationalIDNumber">
                                                     <div class="text-danger"
                                                     *ngIf="addUserForm.get('nationalIDNumber')?.errors?.['required'] && addUserForm.get('nationalIDNumber')?.touched">
                                                     <small class="text-police" translate>Veuillez entrer le numéro de l'identifiant nationale</small>
@@ -898,9 +898,9 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Numéro identifiant nationale*</label>
+                                    <label>Numéro identifiant unique*</label>
                                     <div class="control">
-                                        <input type="text" class="input" [(ngModel)]="user.nationalIDNumber" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
+                                        <input type="text" class="input" [(ngModel)]="user.nationalIDNumber" placeholder="Numéro identifiant unique" formControlName="nationalIDNumber">
                                         <div class="text-danger"
                                         *ngIf="updateUserForm.get('nationalIDNumber')?.errors?.['required'] && updateUserForm.get('nationalIDNumber')?.touched">
                                         <small class="text-police" translate>Veuillez entrer le numéro de l'identifiant nationale</small>
@@ -1108,9 +1108,9 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Numéro identifiant nationale</label>
+                                    <label>Numéro identifiant unique</label>
                                     <div class="control">
-                                        <input type="text" class="input" placeholder="Numéro identifiant nationale" formControlName="nationalIDNumber">
+                                        <input type="text" class="input" placeholder="Numéro identifiant unique" formControlName="nationalIDNumber">
                                         <!-- <div class="text-danger"
                                         *ngIf="beneficiaryForm.get('nationalIDNumber')?.errors?.['required'] && beneficiaryForm.get('nationalIDNumber')?.touched">
                                         <small class="text-police" translate>Veuillez entrer le numéro de l'identifiant nationale</small>
