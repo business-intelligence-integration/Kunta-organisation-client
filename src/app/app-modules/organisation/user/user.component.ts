@@ -157,8 +157,8 @@ export class UserComponent implements OnInit {
       location: new FormControl(null, Validators.required),
       userRole: new FormControl(null, Validators.required),
       // userType: new FormControl(null, Validators.required),
-      password: new FormControl(null),
-      confPassword: new FormControl(null),
+      password: new FormControl(null, Validators.required),
+      confPassword: new FormControl(null, Validators.required),
       idSponsor: new FormControl(null, Validators.required),
       // dateOfIssue: new FormControl(null, Validators.required),
       // dateOfValidity: new FormControl(null, Validators.required),
@@ -288,22 +288,20 @@ export class UserComponent implements OnInit {
   //  this.user.secondaryAddress = formValue.secondaryAddress;
   //  this.user.secondaryEmail = formValue.secondaryEmail;
   //  this.user.whatsappPhoneNumber = formValue.whatsappPhoneNumber;
-  let password = "123456";
-  let confPassword = "123456"
-  if((formValue.password != null && formValue.confPassword != null) && (formValue.password != "" && formValue.confPassword != "")){
-    password = formValue.password;
-    confPassword = formValue.confPassword
-  }else{
-    if(this.isAdminAndOperator){
-      this.utilityService.showMessage(
-        'warning',
-        'Désolé, les mots de passe sont obigatoires !',
-        '#e62965',
-        'white'
-      );
-    }
-  }
-   if(password != confPassword){
+  // if((formValue.password != null && formValue.confPassword != null) && (formValue.password != "" && formValue.confPassword != "")){
+  //   password = formValue.password;
+  //   confPassword = formValue.confPassword
+  // }else{
+  //   if(this.isAdminAndOperator){
+  //     this.utilityService.showMessage(
+  //       'warning',
+  //       'Désolé, les mots de passe sont obigatoires !',
+  //       '#e62965',
+  //       'white'
+  //     );
+  //   }
+  // }
+  if(formValue.password != formValue.confPassword){
     this.utilityService.showMessage(
       'warning',
       'Désolé, les mots de passe sont différents !',
