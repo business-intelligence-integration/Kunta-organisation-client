@@ -31,8 +31,7 @@
               "src/styles.scss",
               "src/assets/css/main.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -48,6 +47,11 @@
                   "maximumError": "5mb"
                 }
               ],
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
