@@ -56,7 +56,7 @@
             <span class="icon">
               <i aria-hidden="true" class="fas fa-plus"></i>
             </span>
-            <span (click) = "onOpenAddUser()">Créer utilisateur</span>
+            <span (click)="onOpenAddUser()">Créer utilisateur</span>
         </button>
     </div>
 </div>
@@ -135,7 +135,7 @@
                     </div>
                     <div  class="flex-table-cell" data-th="Ayants droit">
                         <span class="light-text" data-filter-match="">{{ user.beneficiaries.length }}</span>
-                        <a *ngIf="adminIsConnected || operatorIsConnected" (click)="onOpenBeneficiaryModal(user.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a *ngIf="adminIsConnected && idConnectedUser!=user.id" (click)="onOpenBeneficiaryModal(user.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
 
                     <div  class="flex-table-cell" data-th="Rôles">
@@ -146,8 +146,8 @@
                     </div>
 
                     <div  class="flex-table-cell" data-th="Statut">
-                        <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': user?.status?.label === 'SUSPENDU', 'is-success': user?.status?.label === 'NORMAL'}">{{ user?.status?.label }}</span>
-                        <a *ngIf="adminIsConnected || operatorIsConnected" _ngcontent-nct-c62=""  (click)="onUpdateUserStatus(user.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
+                        <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': user?.status?.label === 'SUSPENDU', 'is-success': user?.status?.label === 'APPROUVÉ'}">{{ user?.status?.label }}</span>
+                        <a *ngIf="adminIsConnected && idConnectedUser!=user.id" _ngcontent-nct-c62=""  (click)="onUpdateUserStatus(user.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
                     </div>
                     
                     <div  class="flex-table-cell cell-end" data-th="Actions">
@@ -156,7 +156,7 @@
                             <a _ngcontent-nct-c62="" *ngIf="adminIsConnected || operatorIsConnected" (click)="onUpdateUser(user.id)" tooltip=" Modifier utilisateur " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                             <a _ngcontent-nct-c62=""  [routerLink]="['/view-more-sponsores']"
                             [queryParams]="{id: user.id}" tooltip=" Voir détails utilisateur " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                            <a _ngcontent-nct-c62="" *ngIf="adminIsConnected || operatorIsConnected" (click)="onDeleteUser(user.id)" tooltip=" Supprimer utilisateur " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="(adminIsConnected || operatorIsConnected) && idConnectedUser!=user.id" (click)="onDeleteUser(user.id)" tooltip=" Supprimer utilisateur " theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
                    </div>

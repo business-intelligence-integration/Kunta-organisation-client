@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
@@ -16,6 +17,8 @@ import Swal from 'sweetalert2';
 })
 export class ClubComponent implements OnInit {
   show: boolean = false;
+  operatorIsConnected: boolean = false;
+  adminIsConnected: boolean = false;
   ngSelect = 0;
   ngSelect5 = 0;
   Clubs: string = "Clubs";
@@ -28,6 +31,7 @@ export class ClubComponent implements OnInit {
   searchForm!: FormGroup;
   members: any;
   clubs: Organism[] = [];
+  user: User = new User();
   areas: any;
   createDate: string = "";
   club: Organism;
@@ -51,6 +55,7 @@ export class ClubComponent implements OnInit {
     this.getAllMembers();
     this.getAllAreas();
     this.getMaxCreationClubDate();
+    this.getConnectedUser();
   }
 
   formInit() {
@@ -335,6 +340,21 @@ export class ClubComponent implements OnInit {
     this.clubService.findClubsByName(name).subscribe((res)=>{
       this.clubs = [];
       this.clubs = res?.data;
+    })
+  }
+
+  getConnectedUser() {
+    // this.getAllUsers();
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+          
+        }
+      })
     })
   }
 }

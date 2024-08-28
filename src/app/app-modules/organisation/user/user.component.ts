@@ -37,6 +37,7 @@ export class UserComponent implements OnInit {
   disabledUserAction: string="disabled";
   ngSelect: any = "1";
   ngSelectRoleUser = 0
+  idConnectedUser = 0;
   ngSelectUser = 0;
   ngSelectCivility = 0;
   ngSelectFamilySituation = 0;
@@ -87,7 +88,7 @@ export class UserComponent implements OnInit {
   cyvilities: Civility[] = [];
   familySituations: FamilySituation[] = [];
   status: Status[] = [];
-  userOfSelect: any;
+  userOfSelect: any[] = [];
   countries: any;
   openStatusModal: string = "";
   maxAge: any;
@@ -254,6 +255,7 @@ export class UserComponent implements OnInit {
   comeBack(){this.location.back()}
 
   onOpenAddUser(){
+    this.getAllUsers();
     if(this.adminIsConnected == true || this.operatorIsConnected == true){
       this.creatUser = true;
       this.isList = false;
@@ -350,58 +352,95 @@ export class UserComponent implements OnInit {
     // console.log("user:: ", this.user)
     this.updateUser(this.user, formValue.id)
   }
-
-  getAllUsers(){
+  getAllUsers() {
     let users: User[] = [];
-    this.userService.getAllUsers().subscribe({
-      next: (res)=> res.data.map((user: any)=>{
-        this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
-        let isSimpleUser = false;
-        if ( res == null ) {
-          this.show = true;
-          this.loaderService.hideLoader();
-        }
-        if(this.adminIsConnected){
-          users.push(user)
-        }else if(this.operatorIsConnected){
-          user.roles.map((role:Role)=>{
-            if(role.name != "ADMIN" && role.name != "OPERATOR"){
-              isSimpleUser = true;
-            }
-          })
-          if(isSimpleUser){
-            users.push(user)
+    this.userService.getAllUsers(true).subscribe({
+      next: (res) => {
+        res.data.forEach((user: User)=>{
+          let isSimpleUser = false;
+          if (res == null) {
+            this.show = true;
+            this.loaderService.hideLoader();
           }
-        }
-      })
-    })
- 
-    this.users = users;
-
-    this.userService.getAllUsers().subscribe((res)=>{
-      if (res == null) {
-        this.show = true;
-        this.loaderService.hideLoader();
-      } else {
-        if(res.data.length >0){
-          this.userOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
-          this.loaderService.hideLoader();
-        }else{
-          this.show = true;  
-          this.loaderService.hideLoader();
-        }
+    
+          if (this.adminIsConnected) {
+            users.push(user);
+          } else if (this.operatorIsConnected) {
+            user.roles.map((role: Role) => {
+              if (role.name != "ADMIN" && role.name != "OPERATOR") {
+                isSimpleUser = true;
+              }
+            });
+            if (isSimpleUser) {
+              users.push(user);
+            }
+          }
+    
+          this.users = users;
+        })
+        this.userOfSelect = res.data
+        .filter((user: any) => user.status.label === 'APPROUVÉ')
+        .map((user: any) => {
+          return { value: user.id, label: user.firstName + " " + user.lastName };
+        });
+        console.log("this.userOfSelect:: ", this.userOfSelect);
+  
       }
-    })
-
+    });
   }
+  // getAllUsers(){
+  //   let users: User[] = [];
+  //   this.userService.getAllUsers(true).subscribe({
+  //     next: (res)=> res.data.map((user: any)=>{
+  //       this.userOfSelect = {value: user.id, label: user.firstName + " " + user.lastName}
+  //       console.log("this.userOfSelect:: ", this.userOfSelect)
+  //       let isSimpleUser = false;
+  //       if ( res == null ) {
+  //         this.show = true;
+  //         this.loaderService.hideLoader();
+  //       }
+  //       if(this.adminIsConnected){
+  //         users.push(user)
+  //       }else if(this.operatorIsConnected){
+  //         user.roles.map((role:Role)=>{
+  //           if(role.name != "ADMIN" && role.name != "OPERATOR"){
+  //             isSimpleUser = true;
+  //           }
+  //         })
+  //         if(isSimpleUser){
+  //           users.push(user)
+  //         }
+  //       }
+  //     })
+  //   })
+ 
+  //   this.users = users;
+
+  //   // this.userService.getAllUsers(true).subscribe((res)=>{
+  //   //   if (res == null) {
+  //   //     this.show = true;
+  //   //     this.loaderService.hideLoader();
+  //   //   } else {
+  //   //     if(res.data.length >0){
+  //   //       this.userOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
+  //   //       this.loaderService.hideLoader();
+  //   //     }else{
+  //   //       this.show = true;  
+  //   //       this.loaderService.hideLoader();
+  //   //     }
+  //   //   }
+  //   // })
+
+  // }
 
   getConnectedUser() {
-    this.getAllUsers();
+    // this.getAllUsers();
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
-      if(this.users.length <= 0){
-        this.userOfSelect = [{value: this.user.id, label: this.user.firstName + " " + this.user.lastName}]
-      }
+      this.idConnectedUser = this.user.id
+      // if(this.users.length <= 0){
+      //   this.userOfSelect = [{value: this.user.id, label: this.user.firstName + " " + this.user.lastName}]
+      // }
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
           this.adminIsConnected = true;
@@ -484,19 +523,11 @@ export class UserComponent implements OnInit {
     this.openBeneficiaryModal = ""
   }
 
-  // getAllUsers(){
-  //   this.userService.getAllUsers().subscribe((result)=>{
-  //     this.users = result.data
-  //     if(this.users.length >0){
-  //       this.userOfSelect = result.data.map((user:any)=>({value: user.id, label: user.firstName}))
-  //     }
-      
-  //   })
-  // }
+
 
   createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
+    this.userService.createAdmin(admin, idSponsor, idCivility, idPieceType, idCountry, idCategory, this.idConnectedUser).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -537,7 +568,7 @@ export class UserComponent implements OnInit {
 
   createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
+    this.userService.createMember(member, idSponsor, idCivility, idPieceType, idCountry, idCategory, this.idConnectedUser).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -579,7 +610,7 @@ export class UserComponent implements OnInit {
 
   createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
+    this.userService.createMutualist(mutualist, idSponsor, idCivility, idPieceType, idCountry, idCategory, this.idConnectedUser).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {
@@ -620,7 +651,7 @@ export class UserComponent implements OnInit {
 
   createOperator(operator: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number){
     this.isSaving = true;
-    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idCountry, idCategory).subscribe((res)=>{
+    this.userService.createOperator(operator, idSponsor, idCivility, idPieceType, idCountry, idCategory, this.idConnectedUser).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
         if (res.data == null ) {

@@ -27,8 +27,8 @@ export class UserService {
   }
     
 
-  getAllUsers():Observable<any>{
-    return this.httpClient.get<any>(this.baseUrl + 'users', httpOptions);
+  getAllUsers(withSuspendedUsers: boolean=false):Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'users?withSuspendedUsers=' + withSuspendedUsers, httpOptions);
   }
 
   getMemberById(id: number):Observable<any>{
@@ -47,20 +47,20 @@ export class UserService {
     return this.httpClient.delete<any>(this.baseUrl + 'users/'+ id, httpOptions);
   }
 
-  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/admin/sponsor/' + idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/country/' + idCountry + '/category/' + idCategory, admin, httpOptions);
+  createAdmin(admin: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number, idConnectedUser: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/admin/sponsor/' + idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/country/' + idCountry + '/category/' + idCategory + '/create-by/' + idConnectedUser, admin, httpOptions);
   }
 
-  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/member/sponsor/' + idSponsor + '/civility/' +idCivility + '/pieceType/'+ idPieceType + '/country/' + idCountry + '/category/' + idCategory, member, httpOptions);
+  createMember(member: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number, idConnectedUser: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/member/sponsor/' + idSponsor + '/civility/' +idCivility + '/pieceType/'+ idPieceType + '/country/' + idCountry + '/category/' + idCategory + '/create-by/' + idConnectedUser, member, httpOptions);
   }
 
-  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/country/' + idCountry + '/category/' + idCategory, mutualist, httpOptions);
+  createMutualist(mutualist: User, idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number, idConnectedUser: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/mutualist/sponsor/' +idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/country/' + idCountry + '/category/' + idCategory + '?idCreatedBy=' + idConnectedUser, mutualist, httpOptions);
   }
 
-  createOperator(operator: User,  idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number):Observable<any>{
-    return this.httpClient.post<any>(this.baseUrl + 'users/operator/sponsor/' + idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/country/' + idCountry + '/category/' + idCategory, operator, httpOptions);
+  createOperator(operator: User,  idSponsor: number, idCivility: number, idPieceType: number, idCountry: number, idCategory: number, idConnectedUser: number):Observable<any>{
+    return this.httpClient.post<any>(this.baseUrl + 'users/operator/sponsor/' + idSponsor + '/civility/' + idCivility + '/pieceType/' + idPieceType + '/country/' + idCountry + '/category/' + idCategory+ '/create-by/' + idConnectedUser, operator, httpOptions);
   }
   countAllUsers(): Observable<any[]>{
     return this.httpClient.get<any[]>(this.baseUrl + 'users/all', httpOptions);

@@ -17,7 +17,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./posts-of-club.component.scss']
 })
 export class PostsOfClubComponent implements OnInit {
-
+  adminIsConnected: boolean = false;
+  operatorIsConnected: boolean = false;
   show: boolean = false;
   ngSelectFunction = 0;
   posts: Post[] = [];
@@ -43,6 +44,7 @@ export class PostsOfClubComponent implements OnInit {
     this.formInit();
     this.getAllFunctions();
     this.getAllOperators();
+    this.getConnectedUser();
   }
 
   formInit() {
@@ -202,5 +204,16 @@ export class PostsOfClubComponent implements OnInit {
         }
       });
   }
-
+  getConnectedUser() {
+    // this.getAllUsers();
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+        }
+      })
+    })
+  }
 }

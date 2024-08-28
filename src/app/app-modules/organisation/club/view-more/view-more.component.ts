@@ -31,8 +31,8 @@ export class ViewMoreComponent implements OnInit {
   clubName: string = "";
   pilot: User;
 
-  adminIsConnected: boolean = true;
-  operatorIsConnected: boolean = true;
+  adminIsConnected: boolean = false;
+  operatorIsConnected: boolean = false;
 
   openMemberModal: string = "";
   openPilotModal: string = "";
@@ -81,6 +81,7 @@ export class ViewMoreComponent implements OnInit {
     this.getAllMembers();
     this.getAllStatus();
     this.getAllClubs();
+    this.getConnectedUser();
   }
 
   
@@ -476,5 +477,16 @@ export class ViewMoreComponent implements OnInit {
     );
   })
  }
-
+ getConnectedUser() {
+  // this.getAllUsers();
+  this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+    res.data.roles.forEach((role: any)=>{
+      if(role.name == "ADMIN"){
+        this.adminIsConnected = true;
+      }else if(role.name == "OPERATOR"){
+        this.operatorIsConnected = true;
+      }
+    })
+  })
+}
 }
