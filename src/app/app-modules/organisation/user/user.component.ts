@@ -104,6 +104,10 @@ export class UserComponent implements OnInit {
   userAccounts: Account[] = [];
   numberOfChildrenIsNegatif: boolean = false;
 
+  currentPage: number = 1;
+  usersPerPage: number = 10;
+  totalUsers: number = 0;
+
    @Input() isAdmin!: boolean
    @Input() isMember!: boolean;
    @Input() isOperator!: boolean;
@@ -375,7 +379,7 @@ export class UserComponent implements OnInit {
               users.push(user);
             }
           }
-    
+          this.totalUsers = users.length;
           this.users = users;
         })
         this.userOfSelect = res.data
@@ -1226,6 +1230,31 @@ export class UserComponent implements OnInit {
   }else{
     this.numberOfChildrenIsNegatif = false;
   }
-  
  }
+
+  // Méthode pour obtenir les utilisateurs de la page actuelle
+  getPaginatedUsers() {
+    const startIndex = (this.currentPage - 1) * this.usersPerPage;
+    const endIndex = startIndex + this.usersPerPage;
+    return this.users.slice(startIndex, endIndex);
+  }
+
+  // Méthode pour changer de page
+  changePage(page: number) {
+    this.currentPage = page;
+  }
+
+  calculateTotalPages(): number {
+    return Math.ceil(this.totalUsers / this.usersPerPage);
+  }
+
+  // Méthode pour changer directement de page
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  getPages(): number[] {
+    const totalPages = this.calculateTotalPages();
+    return Array.from({length: totalPages}, (_, index) => index + 1);
+  }
 }
