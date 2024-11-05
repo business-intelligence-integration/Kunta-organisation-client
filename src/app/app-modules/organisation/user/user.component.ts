@@ -387,8 +387,6 @@ export class UserComponent implements OnInit {
         .map((user: any) => {
           return { value: user.id, label: user.firstName + " " + user.lastName };
         });
-        console.log("this.userOfSelect:: ", this.userOfSelect);
-  
       }
     });
   }
@@ -1080,6 +1078,7 @@ export class UserComponent implements OnInit {
         if (res.data.length > 0) {
           this.users = [];
           this.users = res.data;
+          this.totalUsers =  this.users.length;
         } else {
           this.show == true;
         }
@@ -1111,6 +1110,7 @@ export class UserComponent implements OnInit {
         if (res.data.length > 0) {
           this.users = [];
           this.users = res.data;
+          this.totalUsers =  this.users.length;
         } else {
           this.show == true;
         }
@@ -1255,6 +1255,7 @@ export class UserComponent implements OnInit {
 
   getPages(): number[] {
     const totalPages = this.calculateTotalPages();
+    console.log("totalPages:: ", totalPages)
     return Array.from({length: totalPages}, (_, index) => index + 1);
   }
 }

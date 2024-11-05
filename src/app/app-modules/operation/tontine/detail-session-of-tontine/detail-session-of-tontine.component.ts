@@ -157,6 +157,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.idCycle = params['id'];
       this.cycleService.findAllSessionsOfCycle(params['id']).subscribe((res)=>{
+        console.log("sessions:: ", res.data)
         this.sessions = res.data;
       });
     })
@@ -399,7 +400,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
     })
     }else if(status == "FERMÉ"){
       this.sessionService.findSessionById(id).subscribe((res)=>{
-        if(res.data.winner != null){
+        console.log("res1:: ", res)
+        if(res.data.winners.length > 0){
           this.utilityService.showMessage(
             'warning',
             'Désolé vous ne pouvez plus ouvrir cette séance car tous les paiments ont été effectué et le gagnant a été généré !',
@@ -543,7 +545,8 @@ export class DetailSessionOfTontineComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.sessionService.findSessionById(idSession).subscribe((res)=>{
-            if(res.data.winner != null){
+          console.log("res2:: ", res)
+            if(res.data.winners.length > 0){
               this.utilityService.showMessage(
                 'warning',
                 'Désolé le gagant de cette tontine a déjà été généré, vous ne pouvez plus en générer un autre !',
@@ -569,8 +572,9 @@ export class DetailSessionOfTontineComponent implements OnInit {
                 );
               }else{
                 this.sessionService.generateWinnerOfASession(idSession).subscribe(
-                  () => {
+                  (resultGenerate) => {
                     this.getAllSessionsOfCycle();
+                    console.log("resultGenerate:: ", resultGenerate)
                     swalWithBootstrapButtons.fire({
                       title: 'Généré !',
                       text: 'le gagant a bien été généré.',
