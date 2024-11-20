@@ -5,6 +5,7 @@ import { Refund } from "./refund";
 import { RefundFrequency } from "./refundFrequency";
 import { RefundType } from "./refundType";
 import { SecurityDeposit } from "./securityDeposit";
+import { Status } from "./status";
 
 export class Assistance {
     id: number = 0;
@@ -23,6 +24,7 @@ export class Assistance {
     refunds: Refund[] = [];
     echeanceDurationInMonths: number = 0;
     assistanceClub: Club = new Club();
+    operationStatus: Status = new Status();
     endDate: any;
     startDate: any;
     status: string = "";

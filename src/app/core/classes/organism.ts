@@ -1,3 +1,4 @@
+import { Status } from "./status";
 import { User } from "./user";
 
 export class Organism{
@@ -21,4 +22,5 @@ export class Organism{
     lastNameRepre: string = "";
     phoneNumberRepre: string = "";
     userNameRepre: string = "";
+    status: Status = new Status();
 }

@@ -76,4 +76,8 @@ export class TontineService {
   findTontineByName(name: string):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'tontines/search?name='+ name, httpOptions);
   }
+
+  changeTontineStatus(idTontine: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `tontines/${idTontine}/operation-status/${idStatus}`, {}, httpOptions);
+  }
 }

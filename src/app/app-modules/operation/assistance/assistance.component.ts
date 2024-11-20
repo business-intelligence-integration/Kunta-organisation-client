@@ -22,6 +22,9 @@ import { SecurityDeposit } from 'src/app/core/classes/securityDeposit';
 import { FirstRefundDate } from 'src/app/core/classes/firstRefundDate';
 import { Refund } from 'src/app/core/classes/refund';
 import { ClosingDate } from 'src/app/core/classes/closingDate';
+import { UserService } from 'src/app/core/services/users/user.service';
+import { StatusService } from 'src/app/core/services/operation/status/status.service';
+import { Status } from 'src/app/core/classes/status';
 
 
 @Component({
@@ -38,6 +41,7 @@ export class AssistanceComponent implements OnInit {
   ngSelectProfitability = 0;
   ngSelectRefund = 0;
   ngSelectFrequency = 0;
+  ngSelectStatus = 0;
   createAssistanceForm!: FormGroup;
   updateAssistanceForm!: FormGroup;
   addPercentageForm!: FormGroup;
@@ -46,6 +50,8 @@ export class AssistanceComponent implements OnInit {
   closingDateForm!: FormGroup;
   isCertain: boolean = false;
   isPeriod: boolean = false;
+  adminIsConnected: boolean = false;
+  operatorIsConnected: boolean = false;
   endDate: any;
   startDate: any;
   minEndDate: any;
@@ -56,16 +62,19 @@ export class AssistanceComponent implements OnInit {
   assistance: Assistance = new Assistance();
   assistances: Assistance[] = [];
   clubs: Club[] = [];
+  filteredClubs: Club[] = [];
   profitabilityTypes: ProfitabilityType[] = [];
   refundTypes: RefundType[] = [];
   frequencies: Frequency[] = [];
   tontines: Tontine[] = [];
   clubUsers: User[] = [];
   tontineUsers: User[] = [];
+  operationStatus: Status[] = [];
   clubUserOfSelect: any;
   clubUserTontine: any;
   idClub: number = 0;
   idAssistance: number = 0;
+  openStatusModal: string = "";
   tontineMembers: any;
   isAware: boolean = false;
   isClubSelected: boolean = false;
@@ -76,6 +85,7 @@ export class AssistanceComponent implements OnInit {
   percentageOfFunders: number = 0;
   percentageOfGuarantees: number = 0;
   percentageOfPassiveIncomeFund: number = 0;
+  idConnectedUser = 0;
   percentageCompleted: boolean = false;
   profitabilityRate: number = 0;
   openDepositModal: string = "";
@@ -88,8 +98,10 @@ export class AssistanceComponent implements OnInit {
   totalRefunded: number = 0;
   openDistributionModal: string = "";
   closingDate: ClosingDate = new ClosingDate();
+  changeStatusForm!: FormGroup;
   openClosingDateModal: string = "";
   openUpdateModal: string = "";
+  user: User = new User();
 
   constructor(private assistanceService: AssistanceService,
     private formBuilder: FormBuilder, 
@@ -99,10 +111,13 @@ export class AssistanceComponent implements OnInit {
     private refundTypeService: RefundTypeService,
     private frequencyService: FrequencyService,
     private tontineService: TontineService,
-    private loaderService: LoaderService) { }
+    private userService: UserService,
+    private loaderService: LoaderService,
+    private statusService: StatusService,) { }
 
   ngOnInit(): void {
     this.loaderService.showLoader();
+    this.getConnectedUser();
     this.getAllAssistances();
     this.getAllClubs();
     this.getAllProfitabilityTypes();
@@ -111,6 +126,7 @@ export class AssistanceComponent implements OnInit {
     this.getAllTontines();
     this.initDates();
     this.formInit();
+    this.getAllStatus();
   }
 
   formInit() {
@@ -154,6 +170,10 @@ export class AssistanceComponent implements OnInit {
     this.closingDateForm = this.formBuilder.group({
       closingDate: new FormControl(null, Validators.required),
     })
+
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
+    })
   }
 
   getAllAssistances(){
@@ -174,9 +194,24 @@ export class AssistanceComponent implements OnInit {
     })
   }
 
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      this.idConnectedUser = this.user.id
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+        }
+      })
+    })
+  }
+
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((res)=>{
       this.clubs = res.data;
+      this.filteredClubs = this.clubs.filter(club => club.status.label !== 'SUSPENDU');
     })
   }
 
@@ -211,6 +246,57 @@ export class AssistanceComponent implements OnInit {
       })
     })
   }
+  getAllStatus(){
+    this.statusService.findAllOperationStatus().subscribe((res)=>{
+      this.operationStatus = res.data
+    })
+  }
+
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusAssistance(this.idAssistance, formValue.idStatus)
+  }
+
+  updateStatusAssistance(idAssistance: number, idStatus: number){
+    this.isSaving = true;
+    this.assistanceService.changeAssistanceStatus(idAssistance, idStatus).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllAssistances();
+          this.utilityService.showMessage(
+            'success',
+            'Le status de l\'opération a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+       this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
 
   onSelectDate(event: any){
 
@@ -231,6 +317,14 @@ export class AssistanceComponent implements OnInit {
       })
       this.getAllUsersByIdClub(res.data.assistanceClub.id);
     })
+  }
+  onUpdateAssistanceOperationStatus(idAssistance: number){
+    this.openStatusModal = "is-active";
+    this.idAssistance = idAssistance;
+  }
+
+   closeStatusModal(){
+    this.openStatusModal = "";
   }
 
   //////////////////////////////// Create Assistance
@@ -294,7 +388,9 @@ export class AssistanceComponent implements OnInit {
   getAllUsersByIdClub(idClub: number){
     let clubUserTontine:User[] = [];
     this.clubService.getclubById(idClub).subscribe((res)=>{
-      this.clubUserOfSelect = res.data.users.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
+      this.clubUserOfSelect = res.data.users
+      .filter((user: any) => user.status.label !== "SUSPENDU")
+      .map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
       res.data.users.forEach((clubUser: User)=>{
         this.tontineUsers.forEach((tontineUser: User)=>{
           if(clubUser.id == tontineUser.id){

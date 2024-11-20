@@ -40,6 +40,7 @@
                 <span>Caution(s)</span>
                 <span>Debloquer</span>
                 <span>Rembourser</span>
+                <span>Statut Opération</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -78,6 +79,10 @@
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-assist-refund']"
                         [queryParams]="{id: assistance.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
+                    <div  class="flex-table-cell" data-th="Statut">
+                        <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': assistance?.operationStatus?.label === 'SUSPENDU', 'is-success': assistance?.operationStatus?.label === 'APPROUVÉ'}">{{ assistance?.operationStatus?.label }}</span>
+                        <a *ngIf="adminIsConnected" _ngcontent-nct-c62=""  (click)="onUpdateAssistanceOperationStatus(assistance.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
+                    </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                             <span *ngIf="assistance.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé </span>    
@@ -87,7 +92,7 @@
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.securityDeposits.length > 0 }" (click)="onUpdateAssistance(assistance.id)" tooltip=" Modifier l'assistance " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-assistance']"
                             [queryParams]="{id: assistance.id}" tooltip=" Voir l'assistance " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
-                            <a _ngcontent-nct-c62="" *ngIf="assistance.profitabilityType.label == 'CERTAIN' && assistance.securityDeposits.length == 0" [ngClass]="{'disabled': assistance.securityDeposits.length > 0}" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="assistance.profitabilityType.label == 'CERTAIN' && assistance.securityDeposits.length == 0" [ngClass]="{'disabled': assistance.securityDeposits.length > 0 || assistance?.operationStatus?.label === 'SUSPENDU'}" (click)="onOpenPercentage(assistance.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled': assistance.assistanceStatus == 'UNLOCKED' }" (click)="onDeleteAssistance(assistance.id)" tooltip=" Retirer l'assistance" theme='light' class="pagination-previous has-chevron" style="color: brown"><i class="lnil lnil-trash-can-alt"></i></a>
                         </div>
                     </div>
@@ -141,7 +146,7 @@
                                 <label>Liste des clubs *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idClub" [(ngModel)]="ngSelectClub" (ngModelChange)="onClubSelected($event)">
                                     <option value="0" disabled>--Sélectionner un club--</option>
-                                    <option *ngFor="let club of clubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
+                                    <option *ngFor="let club of filteredClubs" [value]="club.id"> <span> {{ club.name }} </span> </option>
                                 </select>
                                 <div class="text-danger"
                                     *ngIf="createAssistanceForm.get('idClub')?.errors?.['required'] && createAssistanceForm.get('idClub')?.touched">
@@ -690,6 +695,51 @@
             </div>
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="onCloseClosingDate()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="changerStatus" class="modal h-modal" [ngClass]="openStatusModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modification du statut de l'opération</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeStatusModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="changeStatusForm" (ngSubmit)="onSubmitUpdateStatus()">
+                       <div class="field">
+                            <div> 
+                                <label>Statut *</label><br>
+                                <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
+                                    <option value="0" disabled>--sélectionner un statut--</option>
+                                    <option *ngFor="let st of operationStatus" [value]="st.id" >{{ st.label }}</option>
+                                </select>
+                                <div class="text-danger"
+                                *ngIf="changeStatusForm.get('idStatus')?.errors?.['required'] && changeStatusForm.get('idStatus')?.touched">
+                                <small class="text-police" translate>sélectionner un statut</small>
+                                </div>
+                            </div>
+                        </div><br>
+                       
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeStatusModal()">Annuler</a>
             </div>
         </div>
     </div>

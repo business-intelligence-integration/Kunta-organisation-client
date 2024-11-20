@@ -117,5 +117,9 @@ export class CenterService {
   findMutualistsByIdCenter(idCenter: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + `centers/mutualists/${idCenter}`, httpOptions);
   }
+
+  changeCenterStatus(idCenter: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `centers/${idCenter}/status/${idStatus}`, {}, httpOptions);
+  }
 }
 

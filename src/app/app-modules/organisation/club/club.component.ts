@@ -2,10 +2,12 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
+import { Status } from 'src/app/core/classes/status';
 import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { StatusService } from 'src/app/core/services/organisation/status/status.service';
 import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
@@ -21,22 +23,27 @@ export class ClubComponent implements OnInit {
   adminIsConnected: boolean = false;
   ngSelect = 0;
   ngSelect5 = 0;
+  ngSelectStatus = 0;
   Clubs: string = "Clubs";
   openAddClub: string = "";
   openUpdateClub: string = "";
+  openStatusModal: string = "";
   openMemberModal: string = "";
   addClubForm!: FormGroup;
   addMemberForm! : FormGroup;
   updateClubForm!: FormGroup;
+  changeStatusForm!: FormGroup;
   searchForm!: FormGroup;
   members: any;
   clubs: Organism[] = [];
+  status: Status[] = [];
   user: User = new User();
   areas: any;
   createDate: string = "";
   club: Organism;
   idMember: number = 0;
   idClub: number = 0 ;
+  idConnectedUser = 0;
   maxCreationClubDate: any;
   isSaving: boolean = false;
   constructor(private formBuilder: FormBuilder, 
@@ -44,6 +51,7 @@ export class ClubComponent implements OnInit {
     private userService: UserService,
     private utilityService: UtilityService,
     private loaderService: LoaderService,
+    private statusService: StatusService,
     private areaService: AreaService) {
       this.club = new Organism();
      }
@@ -56,6 +64,7 @@ export class ClubComponent implements OnInit {
     this.getAllAreas();
     this.getMaxCreationClubDate();
     this.getConnectedUser();
+    this.getAllStatus();
   }
 
   formInit() {
@@ -79,6 +88,10 @@ export class ClubComponent implements OnInit {
 
     this.searchForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required),
+    })
+
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
     })
   }
 
@@ -142,6 +155,7 @@ export class ClubComponent implements OnInit {
 
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((res)=>{
+      
       if ( res == null ) {
         this.show = true;
         this.loaderService.hideLoader();
@@ -309,7 +323,9 @@ export class ClubComponent implements OnInit {
 
   getAllMembers(){
     this.userService.getAllUsers().subscribe((res)=>{
-      this.members = res.data.map((member:any)=>({value:member.id, label:member.firstName + "  " + member.lastName}))
+      this.members = res.data
+      .filter((member: any) => member.status.label !== "SUSPENDU")
+      .map((member:any)=>({value:member.id, label:member.firstName + "  " + member.lastName}))
     })
   }
 
@@ -344,9 +360,9 @@ export class ClubComponent implements OnInit {
   }
 
   getConnectedUser() {
-    // this.getAllUsers();
     this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
       this.user = res.data;
+      this.idConnectedUser =  res.data.id
       res.data.roles.forEach((role: any)=>{
         if(role.name == "ADMIN"){
           this.adminIsConnected = true;
@@ -357,4 +373,66 @@ export class ClubComponent implements OnInit {
       })
     })
   }
+
+  onUpdateClubStatus(idClub: number){
+    this.openStatusModal = "is-active";
+    this.idClub = idClub;
+   }
+
+   closeStatusModal(){
+    this.openStatusModal = "";
+  }
+
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusUser(this.idClub, formValue.idStatus)
+  }
+
+  updateStatusUser(idClub: number, idStatus: number){
+    this.isSaving = true;
+    this.clubService.changeClubStatus(idClub, idStatus).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllClubs();
+          this.utilityService.showMessage(
+            'success',
+            'Le status du club a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+       this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  getAllStatus(){
+    this.statusService.findAllStatus().subscribe((res)=>{
+      this.status = res.data
+    })
+  }
+  
 }

@@ -36,11 +36,12 @@
             <div class="flex-table-header" data-filter-hide="">
                 <span>Nom</span>
                 <span>Montant minimal</span>
-                <span>Taux rentabilité (%)</span>
+                <!-- <span>Taux rentabilité (%)</span> -->
                 <span>Offres</span>
                 <span>Caution</span>
                 <span>Débloquer</span>
                 <span>Rembourser</span>
+                <span>Statut Opération</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -53,18 +54,18 @@
                     <div class="flex-table-cell" data-th="Montant minimal">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
                     </div>
-                    <div class="flex-table-cell" data-th="Taux rentabilité(%)">
+                    <!-- <div class="flex-table-cell" data-th="Taux rentabilité(%)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }} %</span>
-                    </div>
+                    </div> -->
                     <div class="flex-table-cell" data-th="Offre(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.offers.length }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' ||  mutualInvestment?.operationStatus?.label === 'SUSPENDU' }" tooltip=" Ajouter une offre " theme='light' (click)="onOpenAddSubscriptionOffer(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-subscription-offer']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir détails offre " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
                     <div class="flex-table-cell" data-th="Caution(s)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.securityDeposits.length }}</span>
-                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' ||  mutualInvestment?.operationStatus?.label === 'SUSPENDU'}" tooltip=" Ajouter une caution " theme='light' (click)="onOpenAddSecurityDeposit(mutualInvestment.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-security-deposit']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir détails caution " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
@@ -87,13 +88,17 @@
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-refund']"
                         [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir les remboursements " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
+                    <div  class="flex-table-cell" data-th="Statut">
+                        <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': mutualInvestment?.operationStatus?.label === 'SUSPENDU', 'is-success': mutualInvestment?.operationStatus?.label === 'APPROUVÉ'}">{{ mutualInvestment?.operationStatus?.label }}</span>
+                        <a *ngIf="adminIsConnected" _ngcontent-nct-c62=""  (click)="onUpdateMutualInvestmentOperationStatus(mutualInvestment.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
+                    </div>
                     <div class="flex-table-cell cell-end" data-th="Actions">
                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
                             <span *ngIf="mutualInvestment.status === 'CLOSE' " class="tag is-rounded is-cliquable is-danger" tooltip=" Fermé " theme='light' data-filter-match=""> Fermé </span>    
                             <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.distributionStatus == 'DISTRIBUTED' " [ngClass]="{'disabled is-hidden': mutualInvestment.status == 'CLOSE'}" (click)="onCloseInvestment(mutualInvestment.id)" tooltip=" Fermer Placement " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-power-switch"></i></a>
                             <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.refundStatus === 'EXPIRED' " (click)="onClosingDate(mutualInvestment.id)" tooltip=" Créer Date Fermeture " theme='light' class="pagination-previous has-chevron"><i class="lnil lnil-fence"></i></a>
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled is-hidden': mutualInvestment.distributionStatus == 'DISTRIBUTED'}" *ngIf="mutualInvestment.refundStatus === 'PAID' " (click)="onMakeDistribution(mutualInvestment.id)" tooltip=" Distribuer " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-share"></i></a>
-                            <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.offers.length > 0}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
+                            <a _ngcontent-nct-c62="" *ngIf="mutualInvestment.profitabilityType.label == 'CERTAIN' && mutualInvestment.offers.length == 0" [ngClass]="{'disabled': mutualInvestment.offers.length > 0 || mutualInvestment?.operationStatus?.label === 'SUSPENDU'}" (click)="onOpenPercentage(mutualInvestment.id)" tooltip=" Créer Pourcentages Distribution " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-invest-monitor"></i></a>
                             <a _ngcontent-nct-c62="" [ngClass]="{'disabled': mutualInvestment.mutualInvesmentStatus == 'UNLOCKED' }" (click)="onUpdateMutualInvestment(mutualInvestment.id)" tooltip=" Modifier le placement " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-pencil"></i></a>
                             <a _ngcontent-nct-c62="" [routerLink]="['/view-detail-mutual-investment']"
                             [queryParams]="{id: mutualInvestment.id}" tooltip=" Voir le placement " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
@@ -249,7 +254,7 @@
                                 <label>Liste des centres *</label>
                                 <select class="input_comp color-border" aria-label="Default select example" formControlName="idCenter" [(ngModel)]="ngSelect9">
                                     <option value="0" disabled>--Sélectionner un centre--</option>
-                                    <option *ngFor="let center of centers" [value]="center.id"> <span> {{ center.name }} </span> </option>
+                                    <option *ngFor="let center of filteredCenters" [value]="center.id"> <span> {{ center.name }} </span> </option>
                                 </select>
                                 <div class="text-danger"
                                     *ngIf="createMutualInvestmentForm.get('idCenter')?.errors?.['required'] && createMutualInvestmentForm.get('idCenter')?.touched">
@@ -1006,6 +1011,51 @@
             <div class="modal-card-foot is-end">
                 <a class="button h-button is-rounded h-modal-close" (click)="closeDistributionModal()">Annuler</a>
                 <a class="button h-button is-primary is-raised is-rounded" (click)="onSubmitDistribution(mutualInvestment.id)">Distribuer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="changerStatus" class="modal h-modal" [ngClass]="openStatusModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modification du statut de l'opération</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeStatusModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="changeStatusForm" (ngSubmit)="onSubmitUpdateStatus()">
+                       <div class="field">
+                            <div> 
+                                <label>Statut *</label><br>
+                                <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
+                                    <option value="0" disabled>--sélectionner un statut--</option>
+                                    <option *ngFor="let st of operationStatus" [value]="st.id" >{{ st.label }}</option>
+                                </select>
+                                <div class="text-danger"
+                                *ngIf="changeStatusForm.get('idStatus')?.errors?.['required'] && changeStatusForm.get('idStatus')?.touched">
+                                <small class="text-police" translate>sélectionner un statut</small>
+                                </div>
+                            </div>
+                        </div><br>
+                       
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeStatusModal()">Annuler</a>
             </div>
         </div>
     </div>

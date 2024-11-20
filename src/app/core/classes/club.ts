@@ -1,4 +1,5 @@
 import { Account } from "./account";
+import { Status } from "./status";
 
 export class Club{
     id: number = 0;
@@ -12,5 +13,6 @@ export class Club{
     reference: string = "";
     clubs: Club[] = [];
     accounts: Account[] = [];
-    status: string = "";
+    // status: string = "";
+    status: Status = new Status();
 }

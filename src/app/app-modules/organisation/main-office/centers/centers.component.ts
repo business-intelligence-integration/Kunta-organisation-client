@@ -3,11 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Organism } from 'src/app/core/classes/organism';
 import { Post } from 'src/app/core/classes/post';
+import { Status } from 'src/app/core/classes/status';
 import { User } from 'src/app/core/classes/user';
 import { AreaService } from 'src/app/core/services/areas/area.service';
 import { CenterService } from 'src/app/core/services/centers/center.service';
 import { FonctionService } from 'src/app/core/services/fonction/fonction.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { StatusService } from 'src/app/core/services/organisation/status/status.service';
+import { UserService } from 'src/app/core/services/users/user.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 
@@ -20,6 +23,7 @@ export class CentersComponent implements OnInit {
   show: boolean = false;
   ngSelect = 0;
   ngSelectArea = 0;
+  ngSelectStatus = 0;
   openUpdateCenter: string = "";
   openAddCenter: string = "";
   createDate: string = "";
@@ -27,22 +31,32 @@ export class CentersComponent implements OnInit {
   addCenterForm!: FormGroup
   updateCenterForm!: FormGroup;
   addAreaForm!: FormGroup;
+  changeStatusForm!: FormGroup;
   searchForm!: FormGroup;
   centers: Organism[] = [];
   newListcenters: Organism[] = [];
   countCenter: number = 0;
+  user: User = new User();
   openAreaModal: string = "";
+  openStatusModal: string = "";
   areas: Organism[] = [];
+  filteredAreas: Organism[] = [];
   clubs: Organism[] = [];
   members: User[] = [];
+  status: Status[] = [];
   area: Organism;
   idCenter: number = 0;
   isSaving:boolean = false;
+  idConnectedUser = 0;
   maxCreationAreaDate: any;
+  operatorIsConnected: boolean = false;
+  adminIsConnected: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private centerService: CenterService,
     private areaService: AreaService,
     private loaderService: LoaderService,
+    private userService: UserService,
+    private statusService: StatusService,
     private utilityService: UtilityService) { 
       this.center = new Organism();
       this.area = new Organism();
@@ -50,10 +64,12 @@ export class CentersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loaderService.showLoader();
+    this.getConnectedUser();
     this.getAllCenters();
     this.formInit();
     this.getAllArea();
     this.getMaxCreationaDate();
+    this.getAllStatus();
    
   }
 
@@ -78,6 +94,10 @@ export class CentersComponent implements OnInit {
 
     this.searchForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required)
+    })
+
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
     })
   }  
 
@@ -131,6 +151,7 @@ export class CentersComponent implements OnInit {
   getAllArea(){
     this.areaService.findAllAreas().subscribe((res)=>{
       this.areas = res.data
+      this.filteredAreas = this.areas.filter(area => area.status.label !== 'SUSPENDU');
     })
   }
   onUpdateCenter(idCenter: number){
@@ -373,4 +394,81 @@ export class CentersComponent implements OnInit {
       this.newListcenters = res?.data;
     })
   }
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      this.idConnectedUser =  res.data.id
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+          
+        }
+      })
+    })
+  }
+
+  onUpdateCenterStatus(idCenter: number){
+    this.openStatusModal = "is-active";
+    this.idCenter = idCenter;
+   }
+
+   closeStatusModal(){
+    this.openStatusModal = "";
+  }
+
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusCenter(this.idCenter, formValue.idStatus)
+  }
+
+  updateStatusCenter(idCenter: number, idStatus: number){
+    this.isSaving = true;
+    this.centerService.changeCenterStatus(idCenter, idStatus).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllCenters();
+          this.utilityService.showMessage(
+            'success',
+            'Le status du centre a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+       this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  getAllStatus(){
+    this.statusService.findAllStatus().subscribe((res)=>{
+      this.status = res.data
+    })
+  }
+  
+
 }

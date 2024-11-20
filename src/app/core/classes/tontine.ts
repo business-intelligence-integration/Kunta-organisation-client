@@ -22,6 +22,7 @@ export class Tontine{
   observation: string = "";
   sessionsNumber: number = 0;
   status: Status = new Status();
+  operationStatus: Status = new Status();
   level: Level = new Level();
   contributionFrequency: Frequency = new Frequency();
   tontineSessionFrequency: Frequency = new Frequency();

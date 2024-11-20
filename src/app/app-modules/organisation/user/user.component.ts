@@ -1255,7 +1255,6 @@ export class UserComponent implements OnInit {
 
   getPages(): number[] {
     const totalPages = this.calculateTotalPages();
-    console.log("totalPages:: ", totalPages)
     return Array.from({length: totalPages}, (_, index) => index + 1);
   }
 }

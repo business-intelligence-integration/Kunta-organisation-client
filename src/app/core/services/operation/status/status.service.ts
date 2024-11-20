@@ -36,4 +36,9 @@ export class StatusService {
     return this.httpClient.delete<any>(this.baseUrl + 'status/'+ idStatus, httpOptions);
   }
 
+  findAllOperationStatus():Observable<any>{
+    return this.httpClient.get<any>(this.baseUrl + 'operation-status', httpOptions);
+  }
+
+
 }

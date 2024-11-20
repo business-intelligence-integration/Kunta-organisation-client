@@ -8,6 +8,7 @@ import { Refund } from "./refund";
 import { RefundType } from "./refundType";
 import { RiskProfile } from "./riskProfile";
 import { SecurityDeposit } from "./securityDeposit";
+import { Status } from "./status";
 import { SubscriptionOffer } from "./subscriptionOffer";
 import { User } from "./user";
 
@@ -51,4 +52,5 @@ export class MutualInvestment{
     distributionStatus: string = "";
     refundDateStatus: string = "";
     refundFrequency: string = "";
+    operationStatus: Status = new Status();
   }
