@@ -13,14 +13,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ clubBalance }} FCFA</span>
+                                        <span>{{ clubBalance | numberFormat }} FCFA</span>
                                         <p>Fond de solidarité</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ assistance.assistanceAmount }} FCFA</span>
+                                        <span>{{ assistance.assistanceAmount | numberFormat }} FCFA</span>
                                         <p>Montant Assistance</p>
                                     </div>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ assistance.profitabilityAmount }} FCFA</span>
+                                        <span>{{ assistance.profitabilityAmount | numberFormat }} FCFA</span>
                                         <p>Montant rentable</p>
                                     </div>
                                 </div>
@@ -48,14 +48,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ assistance.amountToBeRefunded }} FCFA</span>
+                                        <span>{{ assistance.amountToBeRefunded | numberFormat }} FCFA</span>
                                         <p>Montant à rembourser</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ assistance.amountRefunded }} FCFA</span>
+                                        <span>{{ assistance.amountRefunded | numberFormat }} FCFA</span>
                                         <p>Montant remboursé</p>
                                     </div>
                                 </div>

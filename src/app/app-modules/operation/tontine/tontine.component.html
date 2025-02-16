@@ -61,7 +61,7 @@
                         <span class="light-text" data-filter-match="">{{ tontine.name }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Plan d’épargne de base">
-                        <span class="light-text" data-filter-match="">{{ tontine.peb }}</span>
+                        <span class="light-text" data-filter-match="">{{ tontine.peb | numberFormat}}</span>
                     </div>
 
                     <div class="flex-table-cell" data-th="Membres inscrits">
@@ -303,16 +303,38 @@
                                     <small class="text-police">veuillez entrer le nom de la tontine</small>
                                  </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <label>Plan d’épargne de base(FCFA)*</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="Plan d’épargne de base" formControlName="peb">
+                                    <input type="text" class="input" placeholder="Plan d’épargne de base" formControlName="peb">
                                 </div>
                                 <div class="text-danger"
                                     *ngIf="createTontineForm.get('peb')?.errors?.['required'] && createTontineForm.get('peb')?.touched">
                                     <small class="text-police">veuillez entrer le plan d’épargne de base</small>
                                  </div>
-                            </div>
+                            </div> -->
+
+                            <div class="field">
+                                <label>Plan d’épargne de base(FCFA)*</label><br>
+                                <div class="control">
+                                  <input 
+                                    type="text" 
+                                    class="input"
+                                    placeholder="Ex: 10 000 000" 
+                                    formControlName="peb"
+                                    thousandSeparator 
+                                    (blur)="createTontineForm.get('peb')?.updateValueAndValidity()"
+                                  >
+                                </div>
+                                <div class="text-danger" *ngIf="createTontineForm.get('peb')?.invalid">
+                                  <small class="text-police" *ngIf="createTontineForm.get('peb')?.errors?.['required']">
+                                    Champ obligatoire
+                                  </small>
+                                  <small class="text-police" *ngIf="createTontineForm.get('peb')?.errors?.['pattern']">
+                                    Seuls les chiffres sont autorisés
+                                  </small>
+                                </div>
+                              </div>
     
                             <div class="field">
                                 <label>Durée des cycles en mois*</label><br>

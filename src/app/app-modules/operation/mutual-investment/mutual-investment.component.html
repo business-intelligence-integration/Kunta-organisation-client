@@ -52,7 +52,7 @@
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.name }}  </span><br>
                     </div>
                     <div class="flex-table-cell" data-th="Montant minimal">
-                        <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount }}</span>
+                        <span class="light-text" data-filter-match="">{{ mutualInvestment.minimumAmount | numberFormat }}</span>
                     </div>
                     <!-- <div class="flex-table-cell" data-th="Taux rentabilité(%)">
                         <span class="light-text" data-filter-match="">{{ mutualInvestment.profitabilityRate }} %</span>
@@ -264,12 +264,23 @@
                             <div class="field">
                                 <label>Montant minimal *</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="montant minimal" formControlName="minimumAmount">
+                                    <input type="text" class="input" placeholder="montant minimal" 
+                                    formControlName="minimumAmount" 
+                                    thousandSeparator 
+                                    (blur)="createMutualInvestmentForm.get('minimumAmount')?.updateValueAndValidity()">
                                 </div>
-                                <div class="text-danger"              
+                                <!-- <div class="text-danger"              
                                     *ngIf="createMutualInvestmentForm.get('minimumAmount')?.errors?.['required'] && createMutualInvestmentForm.get('minimumAmount')?.touched">
                                     <small class="text-police">veuillez entrer le montant minimal</small>
-                                </div>
+                                </div> -->
+                                <div class="text-danger" *ngIf="createMutualInvestmentForm.get('minimumAmount')?.invalid">
+                                    <small class="text-police" *ngIf="createMutualInvestmentForm.get('minimumAmount')?.errors?.['required']">
+                                      Champ obligatoire
+                                    </small>
+                                    <small class="text-police" *ngIf="createMutualInvestmentForm.get('minimumAmount')?.errors?.['pattern']">
+                                      Seuls les chiffres sont autorisés
+                                    </small>
+                                  </div>
                             </div>
                             <div class="field">
                                 <label>Types de rentabilités *</label>
@@ -491,12 +502,22 @@
                         <div class="field">
                             <label>Montant de la caution *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant de la caution" formControlName="amount">
+                                <input type="text" class="input" placeholder="Montant de la caution" formControlName="amount"
+                                thousandSeparator 
+                                (blur)="addSecurityDepositForm.get('amount')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required'] && addSecurityDepositForm.get('amount')?.touched">
                                 <small class="text-police">veuillez entrer le montant de la caution</small>
-                             </div>
+                             </div> -->
+                             <div class="text-danger" *ngIf="addSecurityDepositForm.get('amount')?.invalid">
+                                <small class="text-police" *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="addSecurityDepositForm.get('amount')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSecurityDepositForm.invalid || isSaving" >Enregistrer</button>
@@ -735,19 +756,30 @@
                             </div>
                         </div><br>
                         <div *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
-                            <label>Montant total à rembourser: <b>{{amountToBeRefunded}} FCFA</b> </label><br>
-                            <label>Montant total enregistré: <b>{{totalRefunded}} FCFA</b> </label><br><br>
-                            <label class="red">Montant restant à enregistrer: <b>{{amountToBeRefunded - totalRefunded}} FCFA</b> </label><br>
+                            <label>Montant total à rembourser: <b>{{amountToBeRefunded | numberFormat}} FCFA</b> </label><br>
+                            <label>Montant total enregistré: <b>{{totalRefunded | numberFormat}} FCFA</b> </label><br><br>
+                            <label class="red">Montant restant à enregistrer: <b>{{amountToBeRefunded - totalRefunded | numberFormat}} FCFA</b> </label><br>
                         </div><br>
                         <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
                             <label>Montant à rembourser: </label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant à rembourser" formControlName="amountToBeRefunded">
+                                <input type="text" class="input" placeholder="Montant à rembourser" 
+                                formControlName="amountToBeRefunded"
+                                thousandSeparator 
+                                (blur)="generateForm.get('amountToBeRefunded')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required'] && generateForm.get('amountToBeRefunded')?.touched">
                                 <small class="text-police" translate>Entrer le montant du remboursement</small>
-                            </div>
+                            </div> -->
+                            <div class="text-danger" *ngIf="generateForm.get('amountToBeRefunded')?.invalid">
+                                <small class="text-police" *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div><br>
                         <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
                             <label>Date de remboursement: </label><br>
@@ -964,26 +996,26 @@
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Montant initial (CFA): </label>
-                                    <label> <b>{{mutualInvestment.minimumAmount}} CFA</b> </label>
+                                    <label>Montant initial (FCFA): </label>
+                                    <label> <b>{{mutualInvestment.minimumAmount | numberFormat}} FCFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Montant collecté (CFA): </label>
-                                    <label> <b>{{mutualInvestment.collectedAmount}} CFA</b> </label>
+                                    <label>Montant collecté (FCFA): </label>
+                                    <label> <b>{{mutualInvestment.collectedAmount | numberFormat}} FCFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6">
                                 <div class="field">
-                                    <label>Montant profitable (CFA): </label>
-                                    <label> <b>{{mutualInvestment.collectedAmount * mutualInvestment.profitabilityRate / 100 }} CFA</b> </label>
+                                    <label>Montant profitable (FCFA): </label>
+                                    <label> <b>{{mutualInvestment.collectedAmount * mutualInvestment.profitabilityRate / 100  | numberFormat}} FCFA</b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngFor="let key of mutualInvestment.allocationKeys">
                                 <div class="field">
                                     <label>{{key.receivingParty.label}}: <b>{{key.percentage}} %</b></label> <br>
-                                    <label>Montant à recevoir: <b>{{key.receivingAmount}} CFA </b> </label>
+                                    <label>Montant à recevoir: <b>{{key.receivingAmount | numberFormat}} FCFA </b> </label>
                                 </div>
                             </div>
                             <div class="column is-6" *ngIf="mutualInvestment.mutOrganism != null">

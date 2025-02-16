@@ -25,6 +25,9 @@ import { AssistanceComponent } from './assistance/assistance.component';
 import { ViewDetailAssistanceComponent } from './assistance/view-detail-assistance/view-detail-assistance.component';
 import { ViewAssistSecurityDepositComponent } from './assistance/view-assist-security-deposit/view-assist-security-deposit.component';
 import { ViewAssistRefundComponent } from './assistance/view-assist-refund/view-assist-refund.component';
+import { ThousandSeparatorDirective } from 'src/app/core/directives/thousand.separator.directive';
+import { NumberFormatPipe } from 'src/app/core/pipes/NumberFormatPipe.code';
+import { CurrencyFormatPipe } from 'src/app/core/pipes/CurrencyFormatPipe.code';
 
 
 
@@ -50,6 +53,9 @@ import { ViewAssistRefundComponent } from './assistance/view-assist-refund/view-
     ViewDetailAssistanceComponent,
     ViewAssistSecurityDepositComponent,
     ViewAssistRefundComponent,
+    ThousandSeparatorDirective,
+    NumberFormatPipe,
+    CurrencyFormatPipe
   ],
   imports: [
     CommonModule,

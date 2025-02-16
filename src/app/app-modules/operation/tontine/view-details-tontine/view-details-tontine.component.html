@@ -13,14 +13,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ totalExpectedContribution }} FCFA</span>
+                                        <span>{{ totalExpectedContribution | numberFormat }} FCFA</span>
                                         <p>Cotisation attentue</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ totalContributionReceived }} FCFA</span>
+                                        <span>{{ totalContributionReceived | numberFormat }} FCFA</span>
                                         <p>Cotisation reçue</p>
                                     </div>
                                 </div>
@@ -30,14 +30,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ penaltyAfflicted }} FCFA</span>
+                                        <span>{{ penaltyAfflicted | numberFormat }} FCFA</span>
                                         <p>Pénalité affligée </p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ penaltyPaid }} FCFA</span>
+                                        <span>{{ penaltyPaid | numberFormat}} FCFA</span>
                                         <p>Pénalité payée</p>
                                     </div>
                                 </div>
@@ -47,14 +47,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ totalExpectedGain }} FCFA</span>
+                                        <span>{{ totalExpectedGain | numberFormat}} FCFA</span>
                                         <p>Totale gain à effectuer</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ totalGainMade }} FCFA</span>
+                                        <span>{{ totalGainMade | numberFormat}} FCFA</span>
                                         <p>Totale gain effectué</p>
                                     </div>
                                 </div>
@@ -64,14 +64,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
-                                        <span>{{ totalExpectedContribution - totalExpectedGain }} FCFA</span>
+                                        <span>{{ totalExpectedContribution - totalExpectedGain | numberFormat}} FCFA</span>
                                         <p>Totale marge attendue</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-leaf"></i>
-                                        <span>{{ totalContributionReceived - totalGainMade }} FCFA</span>
+                                        <span>{{ totalContributionReceived - totalGainMade | numberFormat}} FCFA</span>
                                         <p>Totale marge actuelle</p>
                                     </div>
                                 </div>

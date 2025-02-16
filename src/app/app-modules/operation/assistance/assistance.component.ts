@@ -131,7 +131,7 @@ export class AssistanceComponent implements OnInit {
 
   formInit() {
     this.createAssistanceForm = this.formBuilder.group({
-      assistanceAmount: new FormControl(null, Validators.required),
+      assistanceAmount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       idClub: new FormControl(null, Validators.required),
       idApplicant: new FormControl(null, Validators.required),
       idFrequency: new FormControl(null),
@@ -145,7 +145,7 @@ export class AssistanceComponent implements OnInit {
     })
 
     this.updateAssistanceForm = this.formBuilder.group({
-      assistanceAmount: new FormControl(null, Validators.required),
+      assistanceAmount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       profitabilityRate: new FormControl(null),
     })
     
@@ -158,12 +158,12 @@ export class AssistanceComponent implements OnInit {
     
     this.addSecurityDepositForm = this.formBuilder.group({
       idUser: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     })
     
     this.generateForm = this.formBuilder.group({
       firstRefundDate: new FormControl(null),
-      amountToBeRefunded: new FormControl(null),
+      amountToBeRefunded: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       refundDate: new FormControl(null),
     })
 
@@ -175,7 +175,18 @@ export class AssistanceComponent implements OnInit {
       idStatus: new FormControl(null, Validators.required),
     })
   }
-
+  get numericAmountSecurityValue(): number {
+    return parseInt(this.addSecurityDepositForm.get('amount')?.value || '0', 10);
+  }
+  get numericAmountToBeRefundedValue(): number {
+    return parseInt(this.generateForm.get('amountToBeRefunded')?.value || '0', 10);
+  }
+  get numericAssistanceAmountValue(): number {
+    return parseInt(this.createAssistanceForm.get('assistanceAmount')?.value || '0', 10);
+  }
+  get numericAssistanceAmounUpdatetValue(): number {
+    return parseInt(this.updateAssistanceForm.get('assistanceAmount')?.value || '0', 10);
+  }
   getAllAssistances(){
     this.assistanceService.findAllAssistances().subscribe((res)=>{
       if ( res == null ) {
@@ -408,7 +419,7 @@ export class AssistanceComponent implements OnInit {
     let idFrequency: number = 0;
     this.isSaving = true;
     const formValue = this.createAssistanceForm.value;
-    this.assistance.assistanceAmount = formValue.assistanceAmount;
+    this.assistance.assistanceAmount = this.numericAssistanceAmountValue;
     this.assistance.profitabilityRate = formValue.profitabilityRate;
     this.assistance.echeanceDurationInMonths = formValue.echeanceDurationInMonths;
     this.assistance.endDate = formValue.endDate;
@@ -510,7 +521,7 @@ export class AssistanceComponent implements OnInit {
   onSubmitUpdateAssistance(id: number) {
     this.isSaving = true;
     const formValue = this.updateAssistanceForm.value;
-    this.assistance.assistanceAmount = formValue.assistanceAmount;
+    this.assistance.assistanceAmount = this.numericAssistanceAmounUpdatetValue;
     this.assistance.profitabilityRate = formValue.profitabilityRate;
     this.assistanceService.updateAssistance(this.assistance, id).subscribe((res) => {
       this.isSaving = false;
@@ -793,7 +804,7 @@ export class AssistanceComponent implements OnInit {
 
   onAddSecurtiyDeposit() {
     const formValue = this.addSecurityDepositForm.value;
-    this.securityDeposit.amount = formValue.amount;
+    this.securityDeposit.amount = this.numericAmountSecurityValue;
     this.addSecurityDeposit(this.idAssistance, formValue.idUser, this.securityDeposit)
   }
 
@@ -947,9 +958,9 @@ export class AssistanceComponent implements OnInit {
     //   })
     // } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
     if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
-      this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
+      this.refund.amountToBeRefunded = this.numericAmountToBeRefundedValue;
       this.refund.refundDate = formValue.refundDate;
-      if(!formValue.amountToBeRefunded) {
+      if(!this.numericAmountToBeRefundedValue) {
         this.utilityService.showMessage(
           'warning',
           'Entrer le montant à rembourser',

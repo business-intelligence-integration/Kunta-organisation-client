@@ -120,7 +120,8 @@ export class TontineComponent implements OnInit {
 
   formInit() {
     this.createTontineForm = this.formBuilder.group({
-      peb: new FormControl(null, Validators.required),
+      // peb: new FormControl(null, Validators.required),
+      peb: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       idClub: new FormControl(null, Validators.required),
       idFrequenceCot: new FormControl(null, Validators.required),
       idFrequenceSea: new FormControl(null, Validators.required),
@@ -155,7 +156,10 @@ export class TontineComponent implements OnInit {
       idStatus: new FormControl(null, Validators.required),
     })
   }
-
+  // Pour accéder à la valeur numérique
+  get numericPebValue(): number {
+    return parseInt(this.createTontineForm.get('peb')?.value || '0', 10);
+  }
   onSubmitUpdateStatus(){
     const formValue = this.changeStatusForm.value;
     this.updateStatusTontine(this.idTontine, formValue.idStatus)
@@ -277,7 +281,8 @@ export class TontineComponent implements OnInit {
   onSubmitCreateTontine(){
     this.isSaving = true;
     const formValue = this.createTontineForm.value;
-    this.tontine.peb = formValue.peb;
+    // this.tontine.peb = formValue.peb;
+    this.tontine.peb = this.numericPebValue
     this.tontine.name = formValue.name;
     this.tontine.durationInMonths = formValue.durationInMonths;
     this.tontine.observation = formValue.observation;

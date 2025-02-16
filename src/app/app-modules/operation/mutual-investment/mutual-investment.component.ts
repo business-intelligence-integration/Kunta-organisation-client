@@ -171,7 +171,7 @@ export class MutualInvestmentComponent implements OnInit {
       city: new FormControl(null),
       email: new FormControl(null),
       phoneNumber: new FormControl(null),
-      minimumAmount: new FormControl(null, Validators.required),
+      minimumAmount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       idCenter: new FormControl(null, Validators.required),
       idDraweeForm: new FormControl(null, Validators.required),
       idMutualist: new FormControl(null),
@@ -199,7 +199,7 @@ export class MutualInvestmentComponent implements OnInit {
 
     this.addSecurityDepositForm = this.formBuilder.group({
       idUser: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     })
 
     this.refundForm = this.formBuilder.group({
@@ -211,7 +211,7 @@ export class MutualInvestmentComponent implements OnInit {
 
     this.generateForm = this.formBuilder.group({
       firstRefundDate: new FormControl(null),
-      amountToBeRefunded: new FormControl(null),
+      amountToBeRefunded: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       refundDate: new FormControl(null),
     })
 
@@ -231,6 +231,15 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
+  get numericMinimumAmountValue(): number {
+    return parseInt(this.createMutualInvestmentForm.get('minimumAmount')?.value || '0', 10);
+  }
+  get numericAmountSecurityValue(): number {
+    return parseInt(this.addSecurityDepositForm.get('amount')?.value || '0', 10);
+  }
+  get numericAmountToBeRefundedValue(): number {
+    return parseInt(this.generateForm.get('amountToBeRefunded')?.value || '0', 10);
+  }
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
       if ( res == null ) {
@@ -473,7 +482,7 @@ export class MutualInvestmentComponent implements OnInit {
     this.isSaving = true;
     const formValue = this.createMutualInvestmentForm.value;
     this.mutualInvestment.echeanceDurationInMonths = formValue.echeanceDurationInMonths;
-    this.mutualInvestment.minimumAmount = formValue.minimumAmount;
+    this.mutualInvestment.minimumAmount = this.numericMinimumAmountValue;
     this.mutualInvestment.name = formValue.name;
     this.mutualInvestment.endDate = formValue.endDate;
     this.mutualInvestment.startDate = formValue.startDate;
@@ -719,7 +728,7 @@ export class MutualInvestmentComponent implements OnInit {
 
   onAddSecurtiyDeposit() {
     const formValue = this.addSecurityDepositForm.value;
-    this.securityDeposit.amount = formValue.amount;
+    this.securityDeposit.amount = this.numericAmountSecurityValue;
     this.addSecurityDeposit(this.idInvestment, formValue.idUser, this.securityDeposit)
   }
 
@@ -1125,9 +1134,9 @@ export class MutualInvestmentComponent implements OnInit {
         }
       })
     } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
-      this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
+      this.refund.amountToBeRefunded = this.numericAmountToBeRefundedValue;
       this.refund.refundDate = formValue.refundDate;
-      if(!formValue.amountToBeRefunded) {
+      if(!this.numericAmountToBeRefundedValue) {
         this.utilityService.showMessage(
           'warning',
           'Entrer le montant à rembourser',

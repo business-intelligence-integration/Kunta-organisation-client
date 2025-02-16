@@ -256,12 +256,23 @@
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="montant" formControlName="paid">
+                                <input type="text" class="input" placeholder="montant" 
+                                formControlName="paid"
+                                thousandSeparator 
+                                (blur)="refundForm.get('paid')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <div class="text-danger" *ngIf="refundForm.get('paid')?.invalid">
+                                <small class="text-police" *ngIf="refundForm.get('paid')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="refundForm.get('paid')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
+                            <!-- <div class="text-danger"
                                 *ngIf="refundForm.get('paid')?.errors?.['required'] && refundForm.get('paid')?.touched">
                                 <small class="text-police" translate>Entrer le montant</small>
-                            </div>
+                            </div> -->
                         </div><br>
                         <div class="field">
                             <label>Date *</label><br>

@@ -51,7 +51,7 @@
                         <span class="light-text" data-filter-match="">{{ assistance.id }}  </span><br>
                     </div>
                     <div class="flex-table-cell" data-th="Montant">
-                        <span class="light-text" data-filter-match="">{{ assistance.assistanceAmount }}</span>
+                        <span class="light-text" data-filter-match="">{{ assistance.assistanceAmount | numberFormat}}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Taux rentabilité(%)">
                         <span class="light-text" data-filter-match="">{{ assistance.profitabilityRate }} %</span>
@@ -213,12 +213,23 @@
                             <div class="field">
                                 <label>Montant *</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="montant" formControlName="assistanceAmount">
+                                    <input type="text" class="input" placeholder="montant" 
+                                    formControlName="assistanceAmount"
+                                    thousandSeparator 
+                                    (blur)="createAssistanceForm.get('assistanceAmount')?.updateValueAndValidity()">
                                 </div>
-                                <div class="text-danger"              
+                                <div class="text-danger" *ngIf="createAssistanceForm.get('assistanceAmount')?.invalid">
+                                    <small class="text-police" *ngIf="createAssistanceForm.get('assistanceAmount')?.errors?.['required']">
+                                      Champ obligatoire
+                                    </small>
+                                    <small class="text-police" *ngIf="createAssistanceForm.get('assistanceAmount')?.errors?.['pattern']">
+                                      Seuls les chiffres sont autorisés
+                                    </small>
+                                  </div>
+                                <!-- <div class="text-danger"              
                                     *ngIf="createAssistanceForm.get('assistanceAmount')?.errors?.['required'] && createAssistanceForm.get('assistanceAmount')?.touched">
                                     <small class="text-police">veuillez entrer le montant</small>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="field">
                                 <label>Types de rentabilités *</label>
@@ -344,12 +355,23 @@
                         <div class="field">
                             <label>Montant de l'assistance *</label><br>
                             <div class="control">
-                                <textarea type="number" class="input" [(ngModel)]="assistance.assistanceAmount" placeholder="Montant" formControlName="assistanceAmount"></textarea>
+                                <textarea type="text" class="input" [(ngModel)]="assistance.assistanceAmount" placeholder="Montant" 
+                                formControlName="assistanceAmount"
+                                thousandSeparator 
+                                (blur)="updateAssistanceForm.get('assistanceAmount')?.updateValueAndValidity()"></textarea>
                             </div>
-                            <div class="text-danger"
+                            <div class="text-danger" *ngIf="updateAssistanceForm.get('assistanceAmount')?.invalid">
+                                <small class="text-police" *ngIf="updateAssistanceForm.get('assistanceAmount')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="updateAssistanceForm.get('assistanceAmount')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
+                            <!-- <div class="text-danger"
                                 *ngIf="updateAssistanceForm.get('assistanceAmount')?.errors?.['required'] && updateAssistanceForm.get('assistanceAmount')?.touched">
                                 <small class="text-police" translate>Entrer le montant de l'assistance</small>
-                            </div>
+                            </div> -->
                         </div><br>
                         <div class="field" *ngIf="assistance.profitabilityRate">
                             <label>Taux de rentabilité (%) </label><br>
@@ -489,12 +511,23 @@
                         <div class="field">
                             <label>Montant de la caution *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant de la caution" formControlName="amount">
+                                <input type="text" class="input" placeholder="Montant de la caution" 
+                                formControlName="amount"
+                                thousandSeparator 
+                                (blur)="addSecurityDepositForm.get('amount')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required'] && addSecurityDepositForm.get('amount')?.touched">
                                 <small class="text-police">veuillez entrer le montant de la caution</small>
-                             </div>
+                             </div> -->
+                             <div class="text-danger" *ngIf="addSecurityDepositForm.get('amount')?.invalid">
+                                <small class="text-police" *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="addSecurityDepositForm.get('amount')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSecurityDepositForm.invalid || isSaving" >Enregistrer</button>
@@ -542,19 +575,30 @@
                             </div>
                         </div><br>
                         <div *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
-                            <label>Montant total à rembourser: <b>{{amountToBeRefunded}} FCFA</b> </label><br>
-                            <label>Montant total enregistré: <b>{{totalRefunded}} FCFA</b> </label><br><br>
-                            <label class="red">Montant restant à enregistrer: <b>{{amountToBeRefunded - totalRefunded}} FCFA</b> </label><br>
+                            <label>Montant total à rembourser: <b>{{amountToBeRefunded | numberFormat}} FCFA</b> </label><br>
+                            <label>Montant total enregistré: <b>{{totalRefunded | numberFormat}} FCFA</b> </label><br><br>
+                            <label class="red">Montant restant à enregistrer: <b>{{amountToBeRefunded - totalRefunded | numberFormat}} FCFA</b> </label><br>
                         </div><br>
                         <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
                             <label>Montant à rembourser: </label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant à rembourser" formControlName="amountToBeRefunded">
+                                <input type="text" class="input" placeholder="Montant à rembourser" 
+                                formControlName="amountToBeRefunded"
+                                thousandSeparator 
+                                (blur)="generateForm.get('amountToBeRefunded')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <div class="text-danger" *ngIf="generateForm.get('amountToBeRefunded')?.invalid">
+                                <small class="text-police" *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
+                            <!-- <div class="text-danger"
                                 *ngIf="generateForm.get('amountToBeRefunded')?.errors?.['required'] && generateForm.get('amountToBeRefunded')?.touched">
                                 <small class="text-police" translate>Entrer le montant du remboursement</small>
-                            </div>
+                            </div> -->
                         </div><br>
                         <div class="field" *ngIf="refundType == 'AVEC DIFFÉRÉ' ">
                             <label>Date de remboursement: </label><br>

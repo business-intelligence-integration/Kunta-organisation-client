@@ -347,11 +347,21 @@
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount" >
-                                <div class="text-danger"
+                                <input type="text" class="input" placeholder="Montant" formControlName="amount" 
+                                thousandSeparator 
+                                (blur)="addSubscriptionForm.get('amount')?.updateValueAndValidity()">
+                                <!-- <div class="text-danger"
                                 *ngIf="addSubscriptionForm.get('amount')?.errors?.['required'] && addSubscriptionForm.get('amount')?.touched">
                                 <small class="text-police">veuillez entrer le montant a souscrire</small>
-                                </div>
+                                </div> -->
+                                <div class="text-danger" *ngIf="addSubscriptionForm.get('amount')?.invalid">
+                                    <small class="text-police" *ngIf="addSubscriptionForm.get('amount')?.errors?.['required']">
+                                      Champ obligatoire
+                                    </small>
+                                    <small class="text-police" *ngIf="addSubscriptionForm.get('amount')?.errors?.['pattern']">
+                                      Seuls les chiffres sont autorisés
+                                    </small>
+                                  </div>
                             </div>
                         </div><br>
                        

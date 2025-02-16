@@ -91,7 +91,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
 
   formInit() {
     this.paymentForm = this.formBuilder.group({
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       date: new FormControl(null, Validators.required),
       proof: new FormControl(null, Validators.required),
       idMember: new FormControl(null, Validators.required),
@@ -109,6 +109,10 @@ export class DetailSessionOfTontineComponent implements OnInit {
       contributionDeadline: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
     })
+  }
+
+  get numericAmountValue(): number {
+    return parseInt(this.paymentForm.get('amount')?.value || '0', 10);
   }
   
   backBack(){this.location.back()}
@@ -247,7 +251,7 @@ export class DetailSessionOfTontineComponent implements OnInit {
   onSubmitPayment(){
     this.isSaving = true
     const formValue = this.paymentForm.value;
-    this.payment.paid = formValue.amount;
+    this.payment.paid = this.numericAmountValue;
     this.payment.proof = formValue.proof;
     let date = new Date(formValue.date);
     let dateFormated = new DatePipe('en-US').transform(date,'yyyy-MM-dd');

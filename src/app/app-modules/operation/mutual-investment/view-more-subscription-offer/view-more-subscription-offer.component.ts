@@ -82,7 +82,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
 
     this.addSubscriptionForm = this.formBuilder.group({
       idSubscriber: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
 
     this.addSubscriptionOfferForm = this.formBuilder.group({
@@ -90,6 +90,10 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
       idProfitabilityType: new FormControl(null, Validators.required),
       profitabilityRate: new FormControl(null),
     })
+  }
+
+  get numericAmountSubscriptionValue(): number {
+    return parseInt(this.addSubscriptionForm.get('amount')?.value || '0', 10);
   }
 
   backBack(){this.location.back()}
@@ -293,7 +297,7 @@ export class ViewMoreSubscriptionOfferComponent implements OnInit {
 
   onAddSubscription(){
     const formValue = this.addSubscriptionForm.value;
-    this.subscription.amount = formValue.amount;
+    this.subscription.amount = this.numericAmountSubscriptionValue;
     this.addSubscription(this.subscription, this.idOffer, formValue.idSubscriber);
   }
 

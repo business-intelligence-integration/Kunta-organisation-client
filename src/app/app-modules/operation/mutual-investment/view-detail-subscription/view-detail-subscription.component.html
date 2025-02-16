@@ -151,20 +151,20 @@
                                     <span class="light-text" data-filter-match="">{{riskLevel}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant à payé">
-                                    <span class="light-text" data-filter-match="">{{subscription.amount}}</span>
+                                    <span class="light-text" data-filter-match="">{{subscription.amount | numberFormat }}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Total payé">
-                                    <span *ngIf="subscription.amountPaid != null"class="light-text" data-filter-match="">{{subscription.amountPaid}}</span>
+                                    <span *ngIf="subscription.amountPaid != null"class="light-text" data-filter-match="">{{subscription.amountPaid | numberFormat }}</span>
                                     <span *ngIf="subscription.amountPaid == null" class="light-text" data-filter-match="">0</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant rentable">
-                                    <span class="light-text" data-filter-match="">{{subscription.amountOfProfitability}}</span>
+                                    <span class="light-text" data-filter-match="">{{subscription.amountOfProfitability | numberFormat }}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant à recevoir">
-                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceivable}}</span>
+                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceivable | numberFormat }}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant reçu">
-                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceived}}</span>
+                                    <span class="light-text" data-filter-match="">{{subscription.totalAmountReceived | numberFormat }}</span>
                                 </div>
                                 <!-- <div class="flex-table-cell" data-th="Total Payé">
                                     <span class="light-text" data-filter-match="">{{totalPaid}}</span>
@@ -259,12 +259,23 @@
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount" >
+                                <input type="text" class="input" placeholder="Montant" 
+                                formControlName="amount" 
+                                thousandSeparator 
+                                (blur)="addSubscriptionForm.get('amount')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="addSubscriptionForm.get('amount')?.errors?.['required'] && addSubscriptionForm.get('amount')?.touched">
                                 <small class="text-police">Veuiller entrer le montant à souscrire</small>
-                            </div>
+                            </div> -->
+                            <div class="text-danger" *ngIf="addSubscriptionForm.get('amount')?.invalid">
+                                <small class="text-police" *ngIf="addSubscriptionForm.get('amount')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="addSubscriptionForm.get('amount')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div><br>
                        
                         <div class="control login">
@@ -303,12 +314,22 @@
                         <div class="field">
                             <label>Montant * </label><br>
                             <div class="control">
-                                <input type="number" [ngModel]="subscription.amount" class="input" placeholder="Montant" formControlName="amount" >
+                                <input type="text" [ngModel]="subscription.amount" class="input" placeholder="Montant" formControlName="amount" 
+                                thousandSeparator 
+                                (blur)="updateSubscriptionForm.get('amount')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                     *ngIf="updateSubscriptionForm.get('amount')?.errors?.['required'] && updateSubscriptionForm.get('amount')?.touched">
                                     <small class="text-police">veuiller entrer le montant</small>
-                                 </div>
+                                 </div> -->
+                                 <div class="text-danger" *ngIf="updateSubscriptionForm.get('amount')?.invalid">
+                                    <small class="text-police" *ngIf="updateSubscriptionForm.get('amount')?.errors?.['required']">
+                                      Champ obligatoire
+                                    </small>
+                                    <small class="text-police" *ngIf="updateSubscriptionForm.get('amount')?.errors?.['pattern']">
+                                      Seuls les chiffres sont autorisés
+                                    </small>
+                                  </div>
                         </div><br>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="updateSubscriptionForm.invalid || isSaving">Modifer</button>
@@ -369,8 +390,18 @@
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Payé" formControlName="paid">
+                                <input type="text" class="input" placeholder="Payé" formControlName="paid"
+                                thousandSeparator 
+                                (blur)="addPaymentForm.get('paid')?.updateValueAndValidity()">
                             </div>
+                            <div class="text-danger" *ngIf="addPaymentForm.get('paid')?.invalid">
+                                <small class="text-police" *ngIf="addPaymentForm.get('paid')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="addPaymentForm.get('paid')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                             <!-- <div class="text-danger"
                                 *ngIf="addPaymentForm.get('paid')?.errors?.['required'] && addPaymentForm.get('paid')?.touched">
                                 <small class="text-police">veuillez entrer la preuve de la cotisation</small>
