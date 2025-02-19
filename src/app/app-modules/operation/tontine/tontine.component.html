@@ -43,7 +43,8 @@
                 <span>Plan d’épargne de base</span>
                 <span>Membres inscrits</span>
                 <span>Cycle</span>
-                <span>Statut</span>
+                <span>Statut Opération</span>
+                <span>Statut Tontine</span>
                 <span class="cell-end">Actions</span>
             </div>
 
@@ -60,12 +61,12 @@
                         <span class="light-text" data-filter-match="">{{ tontine.name }}</span>
                     </div>
                     <div class="flex-table-cell" data-th="Plan d’épargne de base">
-                        <span class="light-text" data-filter-match="">{{ tontine.peb }}</span>
+                        <span class="light-text" data-filter-match="">{{ tontine.peb | numberFormat}}</span>
                     </div>
 
                     <div class="flex-table-cell" data-th="Membres inscrits">
                         <span class="light-text" data-filter-match="">{{ tontine.registeredMembers }}</span>
-                        <a class="pagination-previous has-chevron" tooltip=" Inscrir membre " theme='light' [ngClass]="{'disabled': tontine.status.label === 'FERMÉ'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label, tontine.id, tontine.sessionsNumber, tontine.tontineMembers)"><i class="lnir lnir-plus"></i></a>
+                        <a class="pagination-previous has-chevron" tooltip=" Inscrir membre " theme='light' [ngClass]="{'disabled': tontine.status.label === 'FERMÉ' || tontine?.operationStatus?.label === 'SUSPENDU'}" (click)="onOpenAddMember(tontine.clubOwner.id, tontine.level.label, tontine.id, tontine.sessionsNumber, tontine.tontineMembers)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62="" [routerLink]="['/view-more-participant']"
                         [queryParams]="{id: tontine.id}" tooltip=" Voir details membres " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>
@@ -75,6 +76,11 @@
                         <a  class="pagination-previous has-chevron" tooltip=" Ajouter un cycle " theme='light' [ngClass]="{'disabled': tontine.status.label === 'OUVERT'}"  (click)="onOpenCreateCycle(tontine.id)"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""[routerLink]="['/detail-cycle']"
                         [queryParams]="{id: tontine.id}" tooltip=" Voir liste cycle " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
+                    </div>
+
+                    <div  class="flex-table-cell" data-th="Statut">
+                        <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': tontine?.operationStatus?.label === 'SUSPENDU', 'is-success': tontine?.operationStatus?.label === 'APPROUVÉ'}">{{ tontine?.operationStatus?.label }}</span>
+                        <a *ngIf="adminIsConnected" _ngcontent-nct-c62=""  (click)="onUpdateTontineOperationStatus(tontine.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
                     </div>
 
                     <div class="flex-table-cell" data-th="Status">
@@ -297,16 +303,38 @@
                                     <small class="text-police">veuillez entrer le nom de la tontine</small>
                                  </div>
                             </div>
-                            <div class="field">
+                            <!-- <div class="field">
                                 <label>Plan d’épargne de base(FCFA)*</label><br>
                                 <div class="control">
-                                    <input type="number" class="input" placeholder="Plan d’épargne de base" formControlName="peb">
+                                    <input type="text" class="input" placeholder="Plan d’épargne de base" formControlName="peb">
                                 </div>
                                 <div class="text-danger"
                                     *ngIf="createTontineForm.get('peb')?.errors?.['required'] && createTontineForm.get('peb')?.touched">
                                     <small class="text-police">veuillez entrer le plan d’épargne de base</small>
                                  </div>
-                            </div>
+                            </div> -->
+
+                            <div class="field">
+                                <label>Plan d’épargne de base(FCFA)*</label><br>
+                                <div class="control">
+                                  <input 
+                                    type="text" 
+                                    class="input"
+                                    placeholder="Ex: 10 000 000" 
+                                    formControlName="peb"
+                                    thousandSeparator 
+                                    (blur)="createTontineForm.get('peb')?.updateValueAndValidity()"
+                                  >
+                                </div>
+                                <div class="text-danger" *ngIf="createTontineForm.get('peb')?.invalid">
+                                  <small class="text-police" *ngIf="createTontineForm.get('peb')?.errors?.['required']">
+                                    Champ obligatoire
+                                  </small>
+                                  <small class="text-police" *ngIf="createTontineForm.get('peb')?.errors?.['pattern']">
+                                    Seuls les chiffres sont autorisés
+                                  </small>
+                                </div>
+                              </div>
     
                             <div class="field">
                                 <label>Durée des cycles en mois*</label><br>
@@ -408,5 +436,53 @@
         </div>
     </div>
 
+    
+
 </div>
 
+
+<!-- Change status -->
+<div id="changerStatus" class="modal h-modal" [ngClass]="openStatusModal">
+    <div class="modal-background h-modal-close"></div>
+    <div class="modal-content">
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h3>Modification du statut de la zone</h3>
+                <button class="h-modal-close ml-auto" aria-label="close" (click)="closeStatusModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </header>
+            <div class="modal-card-body">
+                <div class="inner-content">
+                    <form class="modal-form" [formGroup]="changeStatusForm" (ngSubmit)="onSubmitUpdateStatus()">
+                       <div class="field">
+                            <div> 
+                                <label>Statut *</label><br>
+                                <select class="input_comp" formControlName="idStatus" aria-label="Default select example"  [(ngModel)]="ngSelectStatus">
+                                    <option value="0" disabled>--sélectionner un statut--</option>
+                                    <option *ngFor="let st of operationStatus" [value]="st.id" >{{ st.label }}</option>
+                                </select>
+                                <div class="text-danger"
+                                *ngIf="changeStatusForm.get('idStatus')?.errors?.['required'] && changeStatusForm.get('idStatus')?.touched">
+                                <small class="text-police" translate>sélectionner un statut</small>
+                                </div>
+                            </div>
+                        </div><br>
+                       
+                        <div class="control login">
+                            <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled] ="changeStatusForm.invalid || isSaving" >Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-card-foot is-end">
+                <a class="button h-button is-rounded h-modal-close" (click)="closeStatusModal()">Annuler</a>
+            </div>
+        </div>
+    </div>
+</div>

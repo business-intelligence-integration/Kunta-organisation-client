@@ -171,16 +171,16 @@
                                 <span *ngIf="securityDeposit.refundStatus == 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-Payé " theme='light' data-filter-match="">Non-Payé </span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amount}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amount | numberFormat}}</span>
                             </div>
                             <div *ngIf="mutualInvestment.refundStatus == 'BLOCKED'" class="flex-table-cell" data-th="Montant à payer">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amountToPay}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountToPay | numberFormat}}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant payé">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid | numberFormat}}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant reçu">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amountReceived}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountReceived | numberFormat}}</span>
                             </div>
                             <div *ngIf="mutualInvestment.refundStatus == 'BLOCKED'" class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">

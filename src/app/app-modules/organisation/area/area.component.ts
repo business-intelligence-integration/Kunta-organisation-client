@@ -9,6 +9,9 @@ import { ClubService } from 'src/app/core/services/clubs/club.service';
 import { UtilityService } from 'src/app/core/services/utility/utility.service';
 import Swal from 'sweetalert2';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { UserService } from 'src/app/core/services/users/user.service';
+import { StatusService } from 'src/app/core/services/organisation/status/status.service';
+import { Status } from 'src/app/core/classes/status';
 
 @Component({
   selector: 'app-area',
@@ -20,6 +23,7 @@ export class AreaComponent implements OnInit {
   ngSelect = 0;
   ngSelectCenter = 0;
   ngSelectClub = 0;
+  ngSelectStatus = 0;
   Zones: string = "Zones";
   openAddArea: string = "";
   openUpdateArea: string = "";
@@ -27,33 +31,45 @@ export class AreaComponent implements OnInit {
   updateAreaForm!: FormGroup;
   addClubForm!: FormGroup;
   searchForm!: FormGroup;
+  changeStatusForm!: FormGroup;
   areas: Organism[] = [];
   clubs: Organism[] = [];
+  filteredClubs: Organism[] = [];
+  status: Status[] = [];
+  user: User = new User();
   area: Organism;
   idArea:number = 0;
   club: Organism;
   openClubModal: string = "";
   createDate: string = "";
+  openStatusModal: string = "";
   centers: any;
   CreationAreaDate: any;
+  idConnectedUser = 0;
   isSaving: boolean = false;
+  operatorIsConnected: boolean = false;
+  adminIsConnected: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private areaService: AreaService,
     private utilityService: UtilityService,
     private clubService: ClubService,
     private loaderService: LoaderService,
-    private centerService: CenterService,) { 
+    private centerService: CenterService,
+    private statusService: StatusService,
+    private userService: UserService,) { 
       this.area = new Organism();
       this.club = new Organism();
     }
 
   ngOnInit(): void {
     this.loaderService.showLoader();
+    this.getConnectedUser();
     this.formInit();
     this.getAllAreas();
     this.getAllClubs();
     this.getAllCenters();
     this.getMaxCreationAreaDate();
+    this.getAllStatus();
   }
 
   formInit() {
@@ -77,6 +93,10 @@ export class AreaComponent implements OnInit {
 
     this.searchForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required)
+    })
+
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
     })
   }
 
@@ -138,6 +158,7 @@ getAllCenters(){
     let tabArea: Organism[]= [];
     this.areaService.findAllAreas().subscribe({
       next:res => res.data.map((area: any)=>{
+        console.log("areas:: ", res)
         let newclubs: Organism[] = area.clubs
         let members: User[] = [];
         let clubs:Organism[] = []
@@ -299,6 +320,7 @@ getAllCenters(){
   getAllClubs(){
     this.clubService.findAllClubs().subscribe((res)=>{
       this.clubs = res.data
+      this.filteredClubs = this.clubs.filter(club => club.status.label !== 'SUSPENDU');
     })
   }
 
@@ -356,6 +378,84 @@ getAllCenters(){
     this.areaService.findAreasByName(name).subscribe((res)=>{
       this.areas = [];
       this.areas = res?.data;
+    })
+  }
+
+  getConnectedUser() {
+    // this.getAllUsers();
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      this.idConnectedUser = this.user.id
+
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+          
+        }
+      })
+    })
+  }
+
+  onUpdateAreaStatus(idArea: number){
+    this.openStatusModal = "is-active";
+    this.idArea = idArea;
+   }
+
+   closeStatusModal(){
+    this.openStatusModal = "";
+  }
+
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusUser(this.idArea, formValue.idStatus)
+  }
+
+  updateStatusUser(idArea: number, idStatus: number){
+    this.isSaving = true;
+    this.areaService.changeAreaStatus(idArea, idStatus).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllAreas();
+          this.utilityService.showMessage(
+            'success',
+            'Le status de la zone a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+       this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  getAllStatus(){
+    this.statusService.findAllStatus().subscribe((res)=>{
+      this.status = res.data
     })
   }
 }

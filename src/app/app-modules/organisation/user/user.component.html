@@ -135,12 +135,12 @@
                     </div>
                     <div  class="flex-table-cell" data-th="Ayants droit">
                         <span class="light-text" data-filter-match="">{{ user.beneficiaries.length }}</span>
-                        <a *ngIf="adminIsConnected && idConnectedUser!=user.id" (click)="onOpenBeneficiaryModal(user.id)" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a *ngIf="adminIsConnected && idConnectedUser!=user.id" (click)="onOpenBeneficiaryModal(user.id)" [ngClass]="{'disabled':  user?.status?.label === 'SUSPENDU'}" tooltip=" Ajouter un ayant droit " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                     </div>
 
                     <div  class="flex-table-cell" data-th="Rôles">
                         <span class="light-text" data-filter-match="">{{ user.roles.length }}</span>
-                        <a *ngIf="adminIsConnected" (click)="onAddRoleTOUser(user.id)" tooltip=" Ajouter un rôle " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
+                        <a *ngIf="adminIsConnected" (click)="onAddRoleTOUser(user.id)" [ngClass]="{'disabled':  user?.status?.label === 'SUSPENDU'}" tooltip=" Ajouter un rôle " theme='light' class="pagination-previous has-chevron"><i class="lnir lnir-plus"></i></a>
                         <a _ngcontent-nct-c62=""  [routerLink]="['/user-details-role']"
                         [queryParams]="{id: user.id}" tooltip=" Voir détails rôles " theme='light' class="pagination-previous has-chevron" style="color: blue"> <i class="lnil lnil-eye"></i></a>
                     </div>

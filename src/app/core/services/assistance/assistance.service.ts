@@ -83,4 +83,7 @@ export class AssistanceService {
     return this.httpClient.patch<any>(this.baseUrl + 'assistance/create-closing-date/'+ idAssistance, closingDate, httpOptions);
   }
 
+  changeAssistanceStatus(idAssistance: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `assistance/${idAssistance}/status/${idStatus}`, {}, httpOptions);
+  }
 }

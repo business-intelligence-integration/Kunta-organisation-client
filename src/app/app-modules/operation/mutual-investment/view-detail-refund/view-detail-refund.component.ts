@@ -64,11 +64,15 @@ export class ViewDetailRefundComponent implements OnInit {
 
   formInit() {
     this.refundForm = this.formBuilder.group({
-      paid: new FormControl(null, Validators.required),
+      paid: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       proof: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
       idPaymentMethod: new FormControl(null, Validators.required),
     })
+  }
+
+  get numericPaidValue(): number {
+    return parseInt(this.refundForm.get('paid')?.value || '0', 10);
   }
 
   backBack(){this.location.back()}
@@ -137,7 +141,7 @@ export class ViewDetailRefundComponent implements OnInit {
     // let idPaymentMethod: number = 0;
     this.isSaving = true;
     const formValue = this.refundForm.value;
-    this.payment.paid = formValue.paid;
+    this.payment.paid = this.numericPaidValue;
     this.payment.proof = formValue.proof;
     this.payment.date = formValue.date;
     this.mutualInvestmentService.refundOfAmountsCollected(this.idRefund, formValue.idPaymentMethod, this.payment).subscribe((res)=>{

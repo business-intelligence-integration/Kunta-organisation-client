@@ -171,16 +171,16 @@
                                 <span *ngIf="securityDeposit.refundStatus == 'UNPAID' " class="tag is-rounded is-cliquable is-danger" tooltip=" Non-Payé " theme='light' data-filter-match="">Non-Payé </span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amount}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amount | numberFormat}}</span>
                             </div>
                             <div *ngIf="assistance.refundStatus == 'BLOCKED'" class="flex-table-cell" data-th="Montant à payer">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amountToPay}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountToPay | numberFormat}}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant payé">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountPaid | numberFormat}}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant reçu">
-                                <span class="light-text" data-filter-match="">{{securityDeposit.amountReceived}}</span>
+                                <span class="light-text" data-filter-match="">{{securityDeposit.amountReceived | numberFormat}}</span>
                             </div>
                             <div *ngIf="assistance.refundStatus == 'BLOCKED'" class="flex-table-cell cell-end" data-th="Actions">
                                 <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -260,12 +260,23 @@
                         <div class="field">
                             <label>Montant de la caution *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant de la caution" formControlName="amount">
+                                <input type="text" class="input" placeholder="Montant de la caution" 
+                                thousandSeparator 
+                                (blur)="addSecurityDepositForm.get('amount')?.updateValueAndValidity()"
+                                formControlName="amount">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required'] && addSecurityDepositForm.get('amount')?.touched">
                                 <small class="text-police">veuillez entrer le montant de la caution</small>
-                             </div>
+                             </div> -->
+                             <div class="text-danger" *ngIf="addSecurityDepositForm.get('amount')?.invalid">
+                                <small class="text-police" *ngIf="addSecurityDepositForm.get('amount')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="addSecurityDepositForm.get('amount')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div>
                         <div class="control login">
                             <button class="button h-button is-primary is-bold is-fullwidth is-raised" [disabled]="addSecurityDepositForm.invalid || isSaving" >Enregistrer</button>
@@ -324,12 +335,23 @@
                         <div class="field">
                             <label>Montant du remboursement *</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant du remboursement" formControlName="paid">
+                                <input type="text" class="input" placeholder="Montant du remboursement" 
+                                formControlName="paid"
+                                thousandSeparator 
+                                (blur)="refundDepositForm.get('paid')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="refundDepositForm.get('paid')?.errors?.['required'] && refundDepositForm.get('paid')?.touched">
                                 <small class="text-police">veuillez entrer le montant du remboursement</small>
-                            </div>
+                            </div> -->
+                            <div class="text-danger" *ngIf="refundDepositForm.get('paid')?.invalid">
+                                <small class="text-police" *ngIf="refundDepositForm.get('paid')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="refundDepositForm.get('paid')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div>
                         <div class="field">
                             <label>Image *</label>

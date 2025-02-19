@@ -30,7 +30,8 @@ import { Refund } from 'src/app/core/classes/refund';
 import { DistributionPercentage } from 'src/app/core/classes/distributionPercentage';
 import { ClosingDate } from 'src/app/core/classes/closingDate';
 import { MutOrganism } from 'src/app/core/classes/mutOrganism';
-
+import { Status } from 'src/app/core/classes/status';
+import { StatusService } from 'src/app/core/services/operation/status/status.service';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class MutualInvestmentComponent implements OnInit {
   ngSelect7 = 0;
   ngSelect8 = 0;
   ngSelect9 = 0;
+  ngSelectStatus = 0;
   ngSelect10 = 0;
   openCreateModal: string = ""
   createMutualInvestmentForm!: FormGroup
@@ -94,14 +96,18 @@ export class MutualInvestmentComponent implements OnInit {
   closingDateForm!: FormGroup;
   securityDeposit: SecurityDeposit = new SecurityDeposit();
   subscriptionOffer: SubscriptionOffer = new SubscriptionOffer();
+  user: User = new User();
   riskProfiles: RiskProfile[] = [];
   disabledInput: boolean = true;
   isOfferCertain: boolean = false;
+  adminIsConnected: boolean = false;
   centers: Center[] = [];
+  filteredCenters: Center[] = [];
   paymentMethods: PaymentMethod[] = [];
   payment: Payment = new Payment();
   dateNow: any;
   amountCollecteds: Payment[] = [];
+  operationStatus: Status[] = [];
   mutOrganism: MutOrganism = new MutOrganism();
   physicalPerson: User = new User();
   refundType: string = "";
@@ -114,10 +120,14 @@ export class MutualInvestmentComponent implements OnInit {
   percentageOfGuarantees: number = 0;
   percentageOfPassiveIncomeFund: number = 0;
   percentageCompleted: boolean = false;
+  operatorIsConnected: boolean = false;
   profitabilityRate: number = 0;
   percentageOkay: boolean = false;
+  changeStatusForm!: FormGroup;
   amountToBeRefunded: number = 0;
   totalRefunded: number = 0;
+  idConnectedUser = 0;
+  openStatusModal: string = "";
   addPercentageForm!: FormGroup;
   distributionPercentage: DistributionPercentage = new DistributionPercentage();
 
@@ -132,10 +142,12 @@ export class MutualInvestmentComponent implements OnInit {
     private paymentMethodService: PaymentMethodService,
     private refundTypeService: RefundTypeService,
     private frequencyService: FrequencyService,
-    private loaderService: LoaderService) { }
+    private loaderService: LoaderService,
+    private statusService: StatusService,) { }
 
   ngOnInit(): void {
     this.loaderService.showLoader();
+    this.getConnectedUser();
     this.getAllMutualInvestments();
     this.getAllMutualists();
     this.getAllCenters();
@@ -147,6 +159,7 @@ export class MutualInvestmentComponent implements OnInit {
     this.getAllFrequencies();
     this.initDates();
     this.formInit();
+    this.getAllStatus();
   }
 
   formInit() {
@@ -158,7 +171,7 @@ export class MutualInvestmentComponent implements OnInit {
       city: new FormControl(null),
       email: new FormControl(null),
       phoneNumber: new FormControl(null),
-      minimumAmount: new FormControl(null, Validators.required),
+      minimumAmount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       idCenter: new FormControl(null, Validators.required),
       idDraweeForm: new FormControl(null, Validators.required),
       idMutualist: new FormControl(null),
@@ -186,7 +199,7 @@ export class MutualInvestmentComponent implements OnInit {
 
     this.addSecurityDepositForm = this.formBuilder.group({
       idUser: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     })
 
     this.refundForm = this.formBuilder.group({
@@ -198,7 +211,7 @@ export class MutualInvestmentComponent implements OnInit {
 
     this.generateForm = this.formBuilder.group({
       firstRefundDate: new FormControl(null),
-      amountToBeRefunded: new FormControl(null),
+      amountToBeRefunded: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       refundDate: new FormControl(null),
     })
 
@@ -212,8 +225,21 @@ export class MutualInvestmentComponent implements OnInit {
     this.closingDateForm = this.formBuilder.group({
       closingDate: new FormControl(null, Validators.required),
     })
+
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
+    })
   }
 
+  get numericMinimumAmountValue(): number {
+    return parseInt(this.createMutualInvestmentForm.get('minimumAmount')?.value || '0', 10);
+  }
+  get numericAmountSecurityValue(): number {
+    return parseInt(this.addSecurityDepositForm.get('amount')?.value || '0', 10);
+  }
+  get numericAmountToBeRefundedValue(): number {
+    return parseInt(this.generateForm.get('amountToBeRefunded')?.value || '0', 10);
+  }
   getAllMutualInvestments(){
     this.mutualInvestmentService.findAllMutualInvestments().subscribe((res)=>{
       if ( res == null ) {
@@ -241,6 +267,20 @@ export class MutualInvestmentComponent implements OnInit {
     })
   }
 
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      this.idConnectedUser = this.user.id
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+        }
+      })
+    })
+  }
+
   getAllMutualists(){
     let users: User[] = [];
     // this.userService.getAllMutualists().subscribe({
@@ -249,13 +289,78 @@ export class MutualInvestmentComponent implements OnInit {
     //   })
     // })
     this.userService.getAllMutualists().subscribe((res)=>{
-      this.mutualistOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
+      this.mutualistOfSelect = res.data
+      .filter((user: any) => user.status.label !== "SUSPENDU")
+      .map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}))
     })
+  }
+
+  
+  getAllStatus(){
+    this.statusService.findAllOperationStatus().subscribe((res)=>{
+      this.operationStatus = res.data
+    })
+  }
+
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusMutualInvestment(this.idInvestment, formValue.idStatus)
+  }
+
+  updateStatusMutualInvestment(idInvestment: number, idStatus: number){
+    this.isSaving = true;
+    this.mutualInvestmentService.changeMutualInvestmentStatus(idInvestment, idStatus).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllMutualInvestments();
+          this.utilityService.showMessage(
+            'success',
+            'Le status de l\'opération a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+       this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
+  }
+
+  onUpdateMutualInvestmentOperationStatus(idInvestment: number){
+    this.openStatusModal = "is-active";
+    this.idInvestment = idInvestment;
+   }
+
+   closeStatusModal(){
+    this.openStatusModal = "";
   }
 
   getAllCenters(){
     this.centerService.findAllCenters().subscribe((res)=>{
       this.centers = res.data;
+      this.filteredCenters = this.centers.filter(center => center.status.label !== 'SUSPENDU');
     })
   }
 
@@ -377,7 +482,7 @@ export class MutualInvestmentComponent implements OnInit {
     this.isSaving = true;
     const formValue = this.createMutualInvestmentForm.value;
     this.mutualInvestment.echeanceDurationInMonths = formValue.echeanceDurationInMonths;
-    this.mutualInvestment.minimumAmount = formValue.minimumAmount;
+    this.mutualInvestment.minimumAmount = this.numericMinimumAmountValue;
     this.mutualInvestment.name = formValue.name;
     this.mutualInvestment.endDate = formValue.endDate;
     this.mutualInvestment.startDate = formValue.startDate;
@@ -611,7 +716,9 @@ export class MutualInvestmentComponent implements OnInit {
   getAllUsersByIdCenter(idMutualCenter: number){
     this.centerService.findMutualistsByIdCenter(idMutualCenter).subscribe((res)=>{
       // this.centerUsers = res.data;
-      this.centerUserOfSelect = res.data.map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
+      this.centerUserOfSelect = res.data
+      .filter((user: any) => user.status.label !== "SUSPENDU")
+      .map((user:any)=>({value: user.id, label: user.firstName + " " + user.lastName}));
     })
   }
 
@@ -621,7 +728,7 @@ export class MutualInvestmentComponent implements OnInit {
 
   onAddSecurtiyDeposit() {
     const formValue = this.addSecurityDepositForm.value;
-    this.securityDeposit.amount = formValue.amount;
+    this.securityDeposit.amount = this.numericAmountSecurityValue;
     this.addSecurityDeposit(this.idInvestment, formValue.idUser, this.securityDeposit)
   }
 
@@ -1027,9 +1134,9 @@ export class MutualInvestmentComponent implements OnInit {
         }
       })
     } else if ( this.refundType == 'AVEC DIFFÉRÉ' ) {
-      this.refund.amountToBeRefunded = formValue.amountToBeRefunded;
+      this.refund.amountToBeRefunded = this.numericAmountToBeRefundedValue;
       this.refund.refundDate = formValue.refundDate;
-      if(!formValue.amountToBeRefunded) {
+      if(!this.numericAmountToBeRefundedValue) {
         this.utilityService.showMessage(
           'warning',
           'Entrer le montant à rembourser',

@@ -95,4 +95,7 @@ export class MutualInvestmentService {
     return this.httpClient.patch<any>(this.baseUrl + 'mutual-investments/'+ idInvestment, httpOptions);
   }
 
+  changeMutualInvestmentStatus(idInvestment: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `mutual-investments/${idInvestment}/status/${idStatus}`, {}, httpOptions);
+  }
 }

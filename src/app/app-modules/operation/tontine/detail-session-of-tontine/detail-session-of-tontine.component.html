@@ -140,7 +140,7 @@
                                         Montant du lot
                                     </label>
                                     <div class="control-end">
-                                        <span class="tag is-rounded">{{ cycle.lotAmount }} FCFA</span>
+                                        <span class="tag is-rounded">{{ cycle.lotAmount | numberFormat }} FCFA</span>
                                     </div>
                                 </div>
                             </div>
@@ -262,13 +262,13 @@
                                         <span class="light-text" data-filter-match="">{{ session.date }}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Total cotisé (FCFA)">
-                                        <span class="light-text" data-filter-match="">{{ session.totalPaid }}</span>
+                                        <span class="light-text" data-filter-match="">{{ session.totalPaid | numberFormat }}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Total à cotiser (FCFA)">
-                                        <span class="light-text" data-filter-match="">{{ session.totalToBePaid }}</span>
+                                        <span class="light-text" data-filter-match="">{{ session.totalToBePaid | numberFormat }}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Total des pénalités (FCFA)">
-                                        <span class="light-text" data-filter-match="">{{ session.totalPenalties }}</span>
+                                        <span class="light-text" data-filter-match="">{{ session.totalPenalties | numberFormat}}</span>
                                     </div>
                                     <div class="flex-table-cell" data-th="Cotiser">
                                         <span class="light-text" data-filter-match="">{{ session.payments.length }}</span>
@@ -290,7 +290,7 @@
                                     <div class="flex-table-cell" data-th="Gagnant">
                                         <!-- <span class="light-text mr-2" data-filter-match="" *ngIf="session.winners.length > 0">{{ session?.winner?.firstName }}-{{ cycle.lotAmount }} FCFA </span> -->
                                         <!-- <span class="light-text mr-2" data-filter-match="" *ngIf="session.winner == null">aucun</span> -->
-                                        <span class="light-text mr-2" data-filter-match="" *ngIf="session.winners.length > 0">{{ session.allocationAmount }} FCFA </span>
+                                        <span class="light-text mr-2" data-filter-match="" *ngIf="session.winners.length > 0">{{ session.allocationAmount | numberFormat}} FCFA </span>
                                     </div>
                                     <div class="flex-table-cell cell-end" data-th="Actions">
                                         <div class="dropdown is-spaced is-dots is-right dropdown-trigger is-pushed-mobile">
@@ -400,12 +400,25 @@
                         <div class="field">
                             <label>Montant côtisé*</label><br>
                             <div class="control">
-                                <input type="number" class="input" placeholder="Montant" formControlName="amount">
+                                <input type="text" class="input" placeholder="Montant" thousandSeparator
+                                (blur)="paymentForm.get('amount')?.updateValueAndValidity()" formControlName="amount">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="paymentForm.get('amount')?.errors?.['required'] && paymentForm.get('amount')?.touched">
                                 <small class="text-police">veuillez entrer le montant côtisé</small>
                              </div>
+
+                            <div class="text-danger" *ngIf="paymentForm.get('amount')?.errors?.['pattern']">
+                             <small class="text-police"> Seuls les chiffres sont autorisés</small>
+                          </div> -->
+                          <div class="text-danger" *ngIf="paymentForm.get('amount')?.invalid">
+                            <small class="text-police" *ngIf="paymentForm.get('amount')?.errors?.['required']">
+                              Champ obligatoire
+                            </small>
+                            <small class="text-police" *ngIf="paymentForm.get('amount')?.errors?.['pattern']">
+                              Seuls les chiffres sont autorisés
+                            </small>
+                          </div>
                         </div>
 
                         <div class="field">

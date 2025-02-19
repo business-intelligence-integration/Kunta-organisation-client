@@ -13,7 +13,7 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ mutualInvestment.minimumAmount }} FCFA</span>
+                                        <span>{{ mutualInvestment.minimumAmount | numberFormat }} FCFA</span>
                                         <p>Montant minimal</p>
                                     </div>
                                 </div>
@@ -30,14 +30,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ mutualInvestment.profitabilityAmount }} FCFA</span>
+                                        <span>{{ mutualInvestment.profitabilityAmount | numberFormat }} FCFA</span>
                                         <p>Montant rentable </p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ mutualInvestment.mutualAccount.account.balance }} FCFA</span>
+                                        <span>{{ mutualInvestment.mutualAccount.account.balance | numberFormat }} FCFA</span>
                                         <p>Balance</p>
                                     </div>
                                 </div>
@@ -47,14 +47,14 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-analytics-alt-1"></i>
-                                        <span>{{ mutualInvestment.collectedAmount }} FCFA</span>
+                                        <span>{{ mutualInvestment.collectedAmount | numberFormat }} FCFA</span>
                                         <p>Montant collecté</p>
                                     </div>
                                 </div>
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-target-alt-1"></i>
-                                        <span>{{ mutualInvestment.amountToBeRefunded }} FCFA</span>
+                                        <span>{{ mutualInvestment.amountToBeRefunded | numberFormat }} FCFA</span>
                                         <p>Montant à rembourser</p>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                 <div class="header-item">
                                     <div class="item-inner">
                                         <i class="lnil lnil-pie-chart-alt"></i>
-                                        <span>{{ mutualInvestment.amountRefunded }} FCFA</span>
+                                        <span>{{ mutualInvestment.amountRefunded | numberFormat }} FCFA</span>
                                         <p>Montant remboursé</p>
                                     </div>
                                 </div>

@@ -151,10 +151,10 @@
                                     </div>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant à rembourser">
-                                    <span class="light-text" data-filter-match="">{{refund.amountToBeRefunded}}</span>
+                                    <span class="light-text" data-filter-match="">{{refund.amountToBeRefunded | numberFormat}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Montant remboursé">
-                                    <span class="light-text" data-filter-match="">{{refund.amountRefunded}}</span>
+                                    <span class="light-text" data-filter-match="">{{refund.amountRefunded | numberFormat}}</span>
                                 </div>
                                 <div class="flex-table-cell" data-th="Statut">
                                     <span *ngIf="refund.refundStatus === 'PAID' " class="tag is-rounded is-cliquable is-success" data-filter-match="">Payé</span>
@@ -256,12 +256,23 @@
                         <div class="field">
                             <label>Montant *</label><br>
                             <div class="control">
-                                <input type="number" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" formControlName="paid">
+                                <input type="text" class="input" [(ngModel)]="mutualInvestment.name" placeholder="montant" 
+                                formControlName="paid"
+                                thousandSeparator 
+                                (blur)="refundForm.get('paid')?.updateValueAndValidity()">
                             </div>
-                            <div class="text-danger"
+                            <!-- <div class="text-danger"
                                 *ngIf="refundForm.get('paid')?.errors?.['required'] && refundForm.get('paid')?.touched">
                                 <small class="text-police" translate>Entrer le montant</small>
-                            </div>
+                            </div> -->
+                            <div class="text-danger" *ngIf="refundForm.get('paid')?.invalid">
+                                <small class="text-police" *ngIf="refundForm.get('paid')?.errors?.['required']">
+                                  Champ obligatoire
+                                </small>
+                                <small class="text-police" *ngIf="refundForm.get('paid')?.errors?.['pattern']">
+                                  Seuls les chiffres sont autorisés
+                                </small>
+                              </div>
                         </div><br>
                         <div class="field">
                             <label>Date *</label><br>
@@ -316,7 +327,7 @@
                         <div> 
                             <label> <b>{{collected.id}}.</b> </label><br>
                             <div class="control">
-                                <label> <b>Montant:</b>  {{collected.paid}} FCFA</label>
+                                <label> <b>Montant:</b>  {{collected.paid | numberFormat}} FCFA</label>
                             </div>
                             <div class="control">
                                 <a>

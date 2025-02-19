@@ -169,7 +169,7 @@
                                 <span class="light-text" data-filter-match=""> {{ payment.id }} </span>
                             </div>
                             <div class="flex-table-cell" data-th="Versé">
-                                <span class="light-text" data-filter-match="">{{ payment.paid }}</span>
+                                <span class="light-text" data-filter-match="">{{ payment.paid | numberFormat}}</span>
                             </div>
 
                             <div class="flex-table-cell" data-th="Preuve">
@@ -284,11 +284,11 @@
                                 <span class="light-text" data-filter-match="">{{ user.userName }}</span>
                             </div>
                             <div class="flex-table-cell" data-th="Montant payé(FCFA)">
-                                <span class="light-text" data-filter-match="">{{ user.toBePaidByUser - user.remainingToPayByUser}}</span>
+                                <span class="light-text" data-filter-match="">{{ user.toBePaidByUser - user.remainingToPayByUser | numberFormat}}</span>
                             </div>
 
                             <div class="flex-table-cell" data-th="Reste à payer(FCFA)">
-                                <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser }}</span>
+                                <span class="light-text" data-filter-match="">{{ user.remainingToPayByUser | numberFormat}}</span>
                             </div>
      
                             <div class="flex-table-cell" data-th="À jour">

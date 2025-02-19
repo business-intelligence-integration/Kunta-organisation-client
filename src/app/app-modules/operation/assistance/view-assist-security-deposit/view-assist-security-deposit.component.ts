@@ -73,15 +73,23 @@ export class ViewAssistSecurityDepositComponent implements OnInit {
   formInit() {
     this.addSecurityDepositForm = this.formBuilder.group({
       idUser: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     })
 
     this.refundDepositForm = this.formBuilder.group({
       idPaymentMethod: new FormControl(null, Validators.required),
       date: new FormControl(null, Validators.required),
-      paid: new FormControl(null, Validators.required),
+      paid: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       proof: new FormControl(null, Validators.required),
     })
+  }
+
+  get numericAmountSecurityValue(): number {
+    return parseInt(this.addSecurityDepositForm.get('amount')?.value || '0', 10);
+  }
+
+  get numericPaidSecurityValue(): number {
+    return parseInt(this.refundDepositForm.get('paid')?.value || '0', 10);
   }
 
   backBack(){this.location.back()}
@@ -154,7 +162,7 @@ export class ViewAssistSecurityDepositComponent implements OnInit {
 
   onAddSecurtiyDeposit() {
     const formValue = this.addSecurityDepositForm.value;
-    this.securityDeposit.amount = formValue.amount;
+    this.securityDeposit.amount = this.numericAmountSecurityValue;
     this.addSecurityDeposit(this.idAssistance, formValue.idUser, this.securityDeposit)
   }
 
@@ -273,7 +281,7 @@ export class ViewAssistSecurityDepositComponent implements OnInit {
   onSubmitRefundDeposit() {
     this.isSaving = true;
     const formValue = this.refundDepositForm.value;
-    this.payment.paid = formValue.paid;
+    this.payment.paid = this.numericPaidSecurityValue;
     this.payment.proof = formValue.proof;
     this.payment.date = formValue.date;
     this.securityDepositService.refundAmountSecutityDepositForAssistance(this.idDeposit, formValue.idPaymentMethod ,this.payment).subscribe((res)=>{

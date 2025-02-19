@@ -90,3 +90,11 @@
   .champ {
     width:410px;
   }
+
+  .disabled{
+    cursor: default;
+    pointer-events: none;        
+    text-decoration: none;
+    opacity: 0.5;
+  }
+  

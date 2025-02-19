@@ -73,7 +73,7 @@ export class ViewDetailPaymentComponent implements OnInit {
     this.addPaymentForm = this.formBuilder.group({
       date: new FormControl(null, Validators.required),
       proof: new FormControl(null, Validators.required),
-      paid: new FormControl(null, Validators.required),
+      paid: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       idPaymentMethod: new FormControl(null, Validators.required),
     });
 
@@ -81,6 +81,9 @@ export class ViewDetailPaymentComponent implements OnInit {
       proof: new FormControl(null, Validators.required),
     });
 
+  }
+  get numericPaidValue(): number {
+    return parseInt(this.addPaymentForm.get('paid')?.value || '0', 10);
   }
 
   backBack(){this.location.back()}
@@ -269,7 +272,7 @@ export class ViewDetailPaymentComponent implements OnInit {
     const formValue = this.addPaymentForm.value;
     this.payment.date = formValue.date;
     this.payment.proof = formValue.proof;
-    this.payment.paid = formValue.paid;
+    this.payment.paid = this.numericPaidValue;
     this.addPayment(this.idSubscription, formValue.idPaymentMethod, this.payment);
   }
 

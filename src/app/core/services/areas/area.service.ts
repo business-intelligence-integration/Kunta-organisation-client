@@ -76,4 +76,8 @@ export class AreaService {
   findAreaByIdClub(idClub: number):Observable<any>{
     return this.httpClient.get<any>(this.baseUrl + 'areas/findBy/' + idClub, httpOptions);
   }
+
+  changeAreaStatus(idArea: number, idStatus: number):Observable<any>{
+    return this.httpClient.patch<any>(this.baseUrl + `areas/${idArea}/status/${idStatus}`, {}, httpOptions);
+  }
 }

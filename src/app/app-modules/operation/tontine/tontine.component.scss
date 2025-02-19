@@ -19,6 +19,13 @@
   .input_comp:focus {
     border-color: var(--secondary-color);
   }
+
+  .disabled{
+    cursor: default;
+    pointer-events: none;        
+    text-decoration: none;
+    opacity: 0.5;
+}
   
   .input_comp:focus-visible {
     outline-offset: 0px;

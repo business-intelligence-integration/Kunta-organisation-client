@@ -217,7 +217,7 @@
                                     <span class="light-text" data-filter-match="">{{ member.email }}</span>
                                 </div>
                                 <div  class="flex-table-cell" data-th="Statut">
-                                    <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': member?.status?.label === 'SUSPENDU', 'is-success': member?.status?.label === 'NORMAL'}">{{ member?.status?.label }}</span>
+                                    <span class="tag is-rounded is-cliquable" data-filter-match="" [ngClass]="{'is-danger': member?.status?.label === 'SUSPENDU', 'is-success': member?.status?.label === 'APPROUVÉ'}">{{ member?.status?.label }}</span>
                                     <a *ngIf="adminIsConnected || operatorIsConnected" _ngcontent-nct-c62=""  (click)="onUpdateUserStatus(member.id)" tooltip=" Modifier statut " theme='light' class="pagination-previous has-chevron" ><i class="lnir lnir-pencil"></i></a>
                                 </div>
                                 

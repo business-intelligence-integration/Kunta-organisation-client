@@ -24,6 +24,8 @@ import { CycleDto } from 'src/app/core/classes/cycleDto';
 import { TontineMembers } from 'src/app/core/classes/tontineMembers';
 import { PostService } from 'src/app/core/services/post/post.service';
 import { LoaderService } from 'src/app/core/services/loader/loader.service';
+import { Status } from 'src/app/core/classes/status';
+import { StatusService } from 'src/app/core/services/operation/status/status.service';
 
 @Component({
   selector: 'app-tontine',
@@ -40,6 +42,7 @@ export class TontineComponent implements OnInit {
   ngSelect = 0;
   tontine: Tontine = new Tontine();
   tontines: Tontine[] = [];
+  operationStatus: Status[] = [];
   operations: Operation[] = [];
   clubs: Organism[] = [];
   clubsArray: any[] = [];
@@ -53,28 +56,36 @@ export class TontineComponent implements OnInit {
   openCycleModal: string = "";
   members: User[] = [];
   users: User[] = [];
+  filteredUsers: User[] = [];
   allUser: User[] = [];
   frequencies: Frequency[] = [];
   levels: Level[] = [];
   areas: Organism []= [];
   idTontine: number = 0;
   operation: Operation = new Operation();
+  user: User = new User();
   openDetailModal: string = "";
   gains: Gain[] = [];
   openUpdateModal:  string = "";
   clubArray: [] = [];
   membersArray: any[] = [];
   startDate: any;
+  ngSelectStatus = 0;
   cycle: Cycle = new Cycle();
   cycleDto: CycleDto = new CycleDto();
   userIsEmpty: any = "disabled";
   startDateMin: any
   isSaving: boolean = false;
   creatTontine:boolean = false;
+  adminIsConnected: boolean = false;
+  operatorIsConnected: boolean = false;
   isList:boolean = true;
   maxDateOfTontineList:any;
   sessionsNumber: number = 0;
   numberOfMembers: number = 0;
+  idConnectedUser = 0;
+  openStatusModal: string = "";
+  changeStatusForm!: FormGroup;
   constructor(private tontineService: TontineService,
     private formBuilder: FormBuilder, 
     private clubServices: ClubService,
@@ -87,10 +98,12 @@ export class TontineComponent implements OnInit {
     private postService: PostService,
     private gainService: GainService,
     private loaderService: LoaderService,
-    private cycleService: CycleService,) { }
+    private cycleService: CycleService,
+    private statusService: StatusService,) { }
 
   ngOnInit(): void {
     this.loaderService.showLoader();
+    this.getConnectedUser();
     this.getAllTontine();
     this.formInit();
     this.getAllClubs();
@@ -102,11 +115,13 @@ export class TontineComponent implements OnInit {
     this.getAllGains();
     this.initDatesPicker();
     this.getMaxDateOfTontineList();
+    this.getAllStatus();
   }
 
   formInit() {
     this.createTontineForm = this.formBuilder.group({
-      peb: new FormControl(null, Validators.required),
+      // peb: new FormControl(null, Validators.required),
+      peb: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       idClub: new FormControl(null, Validators.required),
       idFrequenceCot: new FormControl(null, Validators.required),
       idFrequenceSea: new FormControl(null, Validators.required),
@@ -136,6 +151,59 @@ export class TontineComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       name: new FormControl(null, Validators.required)
     })
+
+    this.changeStatusForm = this.formBuilder.group({
+      idStatus: new FormControl(null, Validators.required),
+    })
+  }
+  // Pour accéder à la valeur numérique
+  get numericPebValue(): number {
+    return parseInt(this.createTontineForm.get('peb')?.value || '0', 10);
+  }
+  onSubmitUpdateStatus(){
+    const formValue = this.changeStatusForm.value;
+    this.updateStatusTontine(this.idTontine, formValue.idStatus)
+  }
+
+  updateStatusTontine(idTontine: number, idStatus: number){
+    this.isSaving = true;
+    this.tontineService.changeTontineStatus(idTontine, idStatus).subscribe((res)=>{
+      this.isSaving = false;
+      if(res) {
+        if (res.data == null ) {
+          this.utilityService.showMessage(
+            'warning',
+            res.message,
+            '#e62965',
+            'white'
+          );
+        } else {
+          this.closeStatusModal();
+          this.getAllTontine();
+          this.utilityService.showMessage(
+            'success',
+            'Le status de l\'opération a été modifié avec succès !',
+            '#06d6a0',
+            'white'
+          );
+        }
+      } else {
+        this.utilityService.showMessage(
+          'warning',
+          'Une erreur s\'est produite',
+          '#e62965',
+          'white'
+        );
+      }
+    }, ()=>{
+       this.isSaving = false;
+      this.utilityService.showMessage(
+        'warning',
+        'Une erreur s\'est produite !',
+        '#e62965',
+        'white'
+      );
+    })
   }
 
   initDatesPicker() {
@@ -145,8 +213,32 @@ export class TontineComponent implements OnInit {
     );
   }
 
+  getConnectedUser() {
+    this.userService.getUserByEmail(this.utilityService.getUserName()).subscribe((res) => {
+      this.user = res.data;
+      this.idConnectedUser = this.user.id
+      res.data.roles.forEach((role: any)=>{
+        if(role.name == "ADMIN"){
+          this.adminIsConnected = true;
+        }else if(role.name == "OPERATOR"){
+          this.operatorIsConnected = true;
+        }
+      })
+    })
+  }
+
+  onUpdateTontineOperationStatus(idTontine: number){
+    this.openStatusModal = "is-active";
+    this.idTontine = idTontine;
+   }
+
+   closeStatusModal(){
+    this.openStatusModal = "";
+  }
+
   getAllTontine(){
     this.tontineService.findAllTontines().subscribe((res)=>{
+      console.log("tontines:: ", res)
       if ( res == null ) {
         this.show = true;
         this.loaderService.hideLoader();
@@ -180,14 +272,17 @@ export class TontineComponent implements OnInit {
 
   getAllClubs(){
     this.clubServices.findAllClubs().subscribe((res)=>{
-      this.clubsArray = res.data.map((club:any)=>({value:club.id, label:club.name}));
+      this.clubsArray = res.data
+      .filter((club: any) => club.status.label !== "SUSPENDU")
+      .map((club:any)=>({value:club.id, label:club.name}));
     })
   }
 
   onSubmitCreateTontine(){
     this.isSaving = true;
     const formValue = this.createTontineForm.value;
-    this.tontine.peb = formValue.peb;
+    // this.tontine.peb = formValue.peb;
+    this.tontine.peb = this.numericPebValue
     this.tontine.name = formValue.name;
     this.tontine.durationInMonths = formValue.durationInMonths;
     this.tontine.observation = formValue.observation;
@@ -327,14 +422,16 @@ export class TontineComponent implements OnInit {
 
   getAllUsers(){
     this.userService.getAllUsers().subscribe((res)=>{
-      this.allUser = res.data;
+      this.filteredUsers = res.data.filter((user: User) => user.status.label !== 'SUSPENDU');
+      this.allUser = this.filteredUsers;
     })
   }
 
   getAllUserOfClub(idClub: number){
     let usersClub: User[] = [];
     this.clubServices.getAllClubUsersId(idClub).subscribe({
-      next:(res) => res.data.map((memberId: any)=>{
+      next:(res) => res.data
+      .map((memberId: any)=>{
         this.allUser.forEach((member)=>{
           if(memberId == member.id){
             usersClub.push(member);
@@ -366,6 +463,7 @@ export class TontineComponent implements OnInit {
       })
     })
     this.users = usersArea;
+    this.filteredUsers = usersArea.filter(user => user.status.label !== 'SUSPENDU');
     this.openMemberModal = "is-active";
     
   }
@@ -393,6 +491,7 @@ export class TontineComponent implements OnInit {
     })
 
     this.users = usersCenter;
+    this.filteredUsers = usersCenter.filter(user => user.status.label !== 'SUSPENDU');
     this.openMemberModal = "is-active";
   }
 
@@ -662,6 +761,12 @@ export class TontineComponent implements OnInit {
         );
       }
       
+    })
+  }
+
+  getAllStatus(){
+    this.statusService.findAllOperationStatus().subscribe((res)=>{
+      this.operationStatus = res.data
     })
   }
 

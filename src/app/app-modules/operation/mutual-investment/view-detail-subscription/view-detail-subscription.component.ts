@@ -88,7 +88,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
 
   formInit() {
     this.updateSubscriptionForm = this.formBuilder.group({
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
 
     this.addPaymentForm = this.formBuilder.group({
@@ -100,8 +100,17 @@ export class ViewDetailSubscriptionComponent implements OnInit {
 
     this.addSubscriptionForm = this.formBuilder.group({
       idSubscriber: new FormControl(null, Validators.required),
-      amount: new FormControl(null, Validators.required),
+      amount: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     })
+  }
+  get numericAmountSubscriptionValue(): number {
+    return parseInt(this.addSubscriptionForm.get('amount')?.value || '0', 10);
+  }
+  get numericAmountUpdateSubscriptionValue(): number {
+    return parseInt(this.updateSubscriptionForm.get('amount')?.value || '0', 10);
+  }
+  get numericPaidSubscriptionValue(): number {
+    return parseInt(this.addPaymentForm.get('paid')?.value || '0', 10);
   }
 
   backBack(){this.location.back()}
@@ -117,8 +126,6 @@ export class ViewDetailSubscriptionComponent implements OnInit {
           this.idSubscriptionOffer = params['id'];
           this.riskLevel = res.data.riskProfile.riskLevel;
           this.subscriptions = res.data.subscriptions;
-          console.log("subscriptions::", res.data.subscriptions);
-          
           // this.subscriptions.forEach((element)=>{
           //   element.payments.forEach((el)=>{
           //     totalPaid = totalPaid + el.paid;
@@ -183,7 +190,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
   onSubmitUpdateSubscriptionForm(id: number){
     this.isSaving = true;
     const formValue = this.updateSubscriptionForm.value;
-    this.subscription.amount =formValue.amount;
+    this.subscription.amount =this.numericAmountUpdateSubscriptionValue;
     this.subscriptionService.updateSubscriptionPayment(id, this.subscription).subscribe((res)=>{
       this.isSaving = false;
       if(res) {
@@ -313,7 +320,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
     const formValue = this.addPaymentForm.value;
     this.payment.date = formValue.date;
     this.payment.proof = formValue.proof;
-    this.payment.paid = formValue.paid;
+    this.payment.paid = this.numericPaidSubscriptionValue;
     this.addPayment(this.idSubscription, formValue.idPaymentMethod, this.payment);
   }
 
@@ -370,7 +377,7 @@ export class ViewDetailSubscriptionComponent implements OnInit {
 
   onAddSubscription() {
     const formValue = this.addSubscriptionForm.value;
-    this.subscription.amount = formValue.amount;
+    this.subscription.amount = this.numericAmountSubscriptionValue;
     this.addSubscription(this.subscription, this.idSubscriptionOffer, formValue.idSubscriber)
   }
 
