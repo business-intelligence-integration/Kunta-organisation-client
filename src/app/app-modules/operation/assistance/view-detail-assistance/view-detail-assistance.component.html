@@ -127,7 +127,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Type de rentabilité:</span><br>
-                                <p>{{ assistance?.profitabilityType?.label }}</p>
+                                <p>{{ assistance.profitabilityType.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex">
@@ -136,7 +136,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Type de remboursement:</span><br>
-                                <p>{{ assistance?.refundType?.type }}</p>
+                                <p>{{ assistance.refundType.type }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="assistance?.refundFrequency != null">
@@ -145,7 +145,7 @@
                             </div>
                             <div class="flex-meta">
                                 <span>Fréquence de remboursement:</span><br>
-                                <p>{{ assistance?.refundFrequency?.label }}</p>
+                                <p>{{ assistance.refundFrequency.label }}</p>
                             </div>
                         </div>
                         <div class="media-flex" *ngIf="assistance.assistanceStatus">
